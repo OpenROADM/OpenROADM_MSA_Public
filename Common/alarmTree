@@ -1,0 +1,31 @@
+module: com-att-alarm
+   +--ro active-alarm-list
+      +--ro activeAlarms* [id]
+         +--ro id               string
+         +--ro resource
+         |  +--ro device?         string
+         |  +--ro resourceId      string
+         |  +--ro resourceType
+         |     +--ro type         resource-type-enum
+         |     +--ro extension?   string
+         +--ro probableCause
+         |  +--ro cause        probable-cause-enum
+         |  +--ro extension?   string
+         +--ro type?            enumeration
+         +--ro raiseTime        yang:date-and-time
+         +--ro severity         com-att-common-types:severity
+notifications:
+   +---n alarm-notification
+      +--ro id               string
+      +--ro resource
+      |  +--ro device?         string
+      |  +--ro resourceId      string
+      |  +--ro resourceType
+      |     +--ro type         resource-type-enum
+      |     +--ro extension?   string
+      +--ro probableCause
+      |  +--ro cause        probable-cause-enum
+      |  +--ro extension?   string
+      +--ro type?            enumeration
+      +--ro raiseTime        yang:date-and-time
+      +--ro severity         com-att-common-types:severity

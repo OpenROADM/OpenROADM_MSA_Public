@@ -1,0 +1,51 @@
+// Contents of "com-att-probable-cause"
+module com-att-probable-cause {
+    namespace "http://com/att/probableCause";
+    prefix "com-att-probable-cause";
+
+    organization
+        "AT&T Labs, Inc.";
+
+    contact
+        "AT&T Labs, Inc.";
+
+    description
+        "YANG definitions for types of probable-cause ";
+
+    revision 2016-03-08 {
+        description
+                "Version 0.1";
+    }
+
+    grouping probable-cause {
+            leaf cause {
+                type probable-cause-enum;
+                mandatory true;
+                config false;
+            }
+            leaf extension {
+                type string;
+                mandatory false;
+                config false;
+            }
+
+    }
+
+    typedef probable-cause-enum {
+        type enumeration {
+            enum vendorExtension {
+                value 1;
+                description "vendorExtension";
+            }
+            enum cause {
+                value 2;
+                description "cause";
+            }
+            enum cause2 {
+                value 3;
+                description "cause 2";
+            }
+        }
+    }
+}
+//<CODE ENDS>

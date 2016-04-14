@@ -1,0 +1,99 @@
+//<CODE BEGINS> file "com-att-de-link-physical.yang"
+module com-att-de-link-physical{
+  namespace "http://com/att/de/link/physical";
+  prefix "com-att-de-link-physical";
+
+   organization
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+   description
+    "YANG definitions for physical links between ROADM cards";
+
+  revision 2016-02-26{
+    description
+      "Version 0.3";
+  }
+
+  grouping physical-link{
+    list physical-link{
+      key "physical-link-name";
+      config false;
+      leaf physical-link-name{
+        type string;
+      }
+      container source{
+        leaf clli{
+          type string;
+          description "Location CLLI where ROADM resides";
+        }
+        leaf node-id{
+          type uint32;
+          description "Identifier of ROADM node in a given
+          office, i.e., 1, 2, ..., N";
+        }
+        leaf degree-id{
+          type uint32;
+        }
+	      leaf srg-id{
+          type uint32;
+        }
+        leaf location{
+          type string;
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf slot{
+          type uint32;
+        }
+        leaf sub-slot{
+          type uint32;
+        }
+        leaf port-name{
+          type string;
+        }
+        leaf logical-connection-point{
+          type string;
+        }
+      }
+      container destination{
+        leaf clli{
+          type string;
+          description "Location CLLI where ROADM resides";
+        }
+        leaf node-id{
+          type uint32;
+          description "Identifier of ROADM node in a given
+          office, i.e., 1, 2, ..., N";
+        }
+        leaf degree-id{
+          type uint32;
+        }
+	      leaf srg-id{
+          type uint32;
+        }
+        leaf location{
+          type string;
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf slot{
+          type uint32;
+        }
+        leaf sub-slot{
+          type uint32;
+        }
+        leaf port-name{
+          type string;
+        }
+        leaf logical-connection-point{
+          type string;
+        }
+      }
+    }
+  }
+}//<CODE ENDS>

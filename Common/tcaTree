@@ -1,0 +1,49 @@
+module: com-att-tca
+   +--rw potential-tca-list
+      +--rw tca* [id]
+         +--rw lowThresholdValue?      uint64
+         +--rw highThresholdValue?     uint64
+         +--rw id                      string
+         +--rw resource
+         |  +--rw device?         string
+         |  +--rw resourceId      string
+         |  +--rw resourceType
+         |     +--rw type         resource-type-enum
+         |     +--rw extension?   string
+         +--rw granularity?            com-att-pm-types:pm-granularity
+         +--ro raiseTime               yang:date-and-time
+         +--rw layerRate
+         |  +--rw type         layer-rate-enum
+         |  +--rw extension?   string
+         +--rw severity                com-att-common-types:severity
+         +--rw thresholdType?          enumeration
+         +--rw thresholdMeasurement
+            +--rw pmParameterName
+            |  +--rw type         pm-names-enum
+            |  +--rw extension?   string
+            +--ro pmParameterValue       uint64
+            +--rw pmParameterUnit?       string
+            +--rw pmParameterLocation?   enumeration
+notifications:
+   +---n tca-notification
+      +--ro id                      string
+      +--ro resource
+      |  +--ro device?         string
+      |  +--ro resourceId      string
+      |  +--ro resourceType
+      |     +--ro type         resource-type-enum
+      |     +--ro extension?   string
+      +--ro granularity?            com-att-pm-types:pm-granularity
+      +--ro raiseTime               yang:date-and-time
+      +--rw layerRate
+      |  +--rw type         layer-rate-enum
+      |  +--rw extension?   string
+      +--ro severity                com-att-common-types:severity
+      +--rw thresholdType?          enumeration
+      +--ro thresholdMeasurement
+         +--ro pmParameterName
+         |  +--ro type         pm-names-enum
+         |  +--ro extension?   string
+         +--ro pmParameterValue       uint64
+         +--ro pmParameterUnit?       string
+         +--ro pmParameterLocation?   enumeration

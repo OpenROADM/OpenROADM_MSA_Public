@@ -1,0 +1,79 @@
+//<CODE BEGINS> file "com-att-openroadm.yang"
+module com-att-openroadm{
+  namespace "http://com/att/openroadm";
+  prefix "com-att-openroadm";
+
+  import com-att-srg{
+    prefix "com-att-srg";
+  }
+  import com-att-degree{
+    prefix "com-att-degree";
+  }
+  import ietf-inet-types{
+    prefix inet;
+  }
+  organization
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+  description
+    "YANG definitions for network view of a ROADM";
+
+  revision 2016-03-11{
+    description
+      "Version 0.16";
+  }
+
+  container open-roadm{
+    list node{
+      key "clli";
+      leaf clli{
+        type string;
+        description "Location of CLLI where ROADM resides";
+      }
+      list id{
+        key "nodeid";
+        leaf nodeid{
+          type uint32;
+          description "Identifier of a ROADM node";
+        }
+        leaf vendor{
+          type string;
+          description "Identifier of the supplier
+          for the ROADM equipment";
+        }
+        leaf model-number{
+          type string;
+	  description "Identifier of the supplier's ROADM equipment";
+        }
+        leaf domain-subnetwork{
+          type string;
+          description "Specific Domain-Subnetwork in which the ROADM node resides";
+        }
+        leaf ip{
+          type inet:ip-address;
+          description "IP address assigned to the ROADM node";
+        }
+        leaf relay-rack{
+          type string;
+          description "Frame Identification Code (FIC)";
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf degree{
+          type uint8;
+          description "No. of degrees supported by the node";
+        }
+        leaf srgs{
+          type uint8;
+          description "No. of SRGs supported by the node";
+        }
+        uses com-att-degree:roadm-degree;
+        uses com-att-srg:shared-risk-group;
+      }
+    }
+  }
+}//<CODE ENDS>

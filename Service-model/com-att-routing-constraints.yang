@@ -1,0 +1,99 @@
+//<CODE BEGINS> file "com-att-routing-constraints.yang
+module com-att-routing-constraints{
+  namespace "http://com/att/routing/constrains";
+  prefix "com-att-routing-constraints";
+ 
+  organization
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+  description
+    "YANG definitions for routing constraints";
+
+  revision 2016-03-11{
+    description
+      "Version 0.5";
+  }
+
+  grouping routing-constraints{
+    container constraints{
+      container diversity{
+        leaf-list fiber-bundle{
+          type string;
+        }
+        leaf-list site{
+          type string;
+        }
+        leaf-list node{
+          type uint32;
+        }
+	leaf-list existing-service{
+          type string;
+          description "Diverse from existing services identified by facility CLFI";
+        }  
+      }
+      container exclude{
+        leaf-list fiber-bundle{
+          type string;
+        }
+        leaf-list site{
+          type string;
+        }
+        leaf-list node{
+          type uint32;
+        }
+        leaf-list oms-section{
+          type string;
+        }
+      }
+      container include{
+        leaf-list fiber-bundle{
+          type string;
+         }
+         leaf-list site{
+           type string;
+         }
+         leaf-list node{
+           type uint32;
+         }
+         leaf-list oms-section{
+           type string;
+         }
+      }
+      container co-routing{
+        leaf-list existing-service{
+          type string;
+          description "Diverse from existing services identified by facility CLFI";
+        }
+        leaf strict-corouting{
+          type enumeration{
+            enum hard{
+              value 1;
+            }
+            enum soft{
+              value 2;
+            }
+          }
+        }		
+      }
+      container latency{
+        leaf max-latency{
+          type uint32;
+          units ms;
+        }
+		leaf strict-latency{
+          type enumeration{
+            enum hard{
+              value 1;
+            }
+            enum soft{
+              value 2;
+            }
+          }
+        }
+      }  
+    }  
+  }
+}

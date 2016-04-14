@@ -1,0 +1,23 @@
+module: com-att-pm
+   +--ro currentPmlist
+      +--ro currentPm* [id]
+         +--ro id               string
+         +--ro resource
+         |  +--ro device?         string
+         |  +--ro resourceId      string
+         |  +--ro resourceType
+         |     +--ro type         resource-type-enum
+         |     +--ro extension?   string
+         +--ro layerRate
+         |  +--ro type         layer-rate-enum
+         |  +--ro extension?   string
+         +--ro measurements*
+         |  +--ro measurement
+         |     +--ro pmParameterName
+         |     |  +--ro type         pm-names-enum
+         |     |  +--ro extension?   string
+         |     +--ro pmParameterValue       uint64
+         |     +--ro pmParameterUnit?       string
+         |     +--ro pmParameterLocation?   enumeration
+         +--ro retrievalTime    yang:date-and-time
+         +--ro granularity?     com-att-pm-types:pm-granularity

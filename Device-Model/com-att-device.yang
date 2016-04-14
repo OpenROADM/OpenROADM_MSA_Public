@@ -1,0 +1,250 @@
+//<CODE BEGINS> file "com-att-device.yang"
+module com-att-device{
+  namespace "http://com/att/device";
+  prefix "com-att-device";
+
+  import com-att-de-link-physical{
+    prefix "com-att-de-link-physical";
+  }
+  import com-att-de-link-internal{
+    prefix "com-att-de-link-internal";
+  }
+
+  import com-att-de-circuitpack{
+    prefix "com-att-de-circuitpack";
+  }
+  
+  import com-att-port-types {
+	    prefix "com-att-port-types";
+	  }
+  
+   organization
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+   description
+    "YANG definitions of ROADM device";
+
+  revision 2016-02-26{
+    description
+      "Version 0.3";
+  }
+
+  rpc get-connection-port-trail{
+    input {
+      leaf connection-id{
+        type uint32;
+        mandatory true;
+      }
+    }
+    output{
+      leaf status{
+        type enumeration{
+          enum Successful{
+            value 1;
+          }
+          enum Failed {
+            value 2;
+          }
+        }
+        mandatory true;
+        description "Successful or Failed";
+      }
+      leaf status-message{
+        type string;
+        description "Gives a more detailed reason for success / failure";
+      }
+
+      list ports{
+        leaf location{
+          type string;
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf slot{
+          type uint32;
+        }
+        leaf sub-slot{
+          type uint32;
+        }
+        leaf port-name{
+          type string;
+        }
+      }
+    }
+  }
+  
+  grouping device-common {
+      leaf clli{
+          type string;
+          description "Location CLLI where device resides";
+          config true;
+        }
+        leaf node-id{
+          type uint32;
+          description "Identifier of devicein a given
+          office, i.e., 1, 2, ..., N";
+          config true;
+        }
+        leaf vendor{
+          type string;
+          config false;
+          description "Vendor of the equipment";
+        }
+        leaf model{
+          type string;
+          description "equipment model identifier";
+          config false;
+        }
+  }
+
+  container open-roadm-device{
+    container info{
+      uses device-common;
+      leaf max-degrees{
+        type uint16;
+        description "Max. number of degrees supported by device";
+        config false;
+      }
+      leaf max-srgs{
+        type uint16;
+        description "Max. number of SRGs in an add/drop group";
+        config false;
+      }
+    }
+
+    list connection-map{
+      description "Provides a map of valid source and destination for
+      srg-id or degree-id. Wildcards (*) are allowed.";
+      key "connection-map-id";
+      config false;
+      leaf connection-map-id{
+        type uint32;
+      }
+      list source{
+        description "one or more allowed source ids";
+        key "source-id";
+        leaf source-id{
+          type string;
+        }
+      }
+      list destination{
+        description "one or more allowed destination ids";
+        key "destination-id";
+        leaf destination-id{
+          type string;
+        }
+      }
+      list failure-destination{
+        description "one or more allowed destination ids in the case of a
+        failure";
+        key "failure-destination-id";
+        leaf failure-destination-id{
+          type string;
+        }
+      }
+    }
+
+    list connections{
+      key "connection-id";
+      config true;
+      leaf connection-id{
+        type uint32;
+      }
+      container source{
+        leaf location{
+          type string;
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf slot{
+          type uint32;
+        }
+        leaf sub-slot{
+          type uint32;
+        }
+        container port{
+          uses com-att-port-types:port;
+        }
+      }
+      container destination{
+        leaf location{
+          type string;
+        }
+        leaf shelf{
+          type uint32;
+        }
+        leaf slot{
+          type uint32;
+        }
+        leaf sub-slot{
+          type uint32;
+        }
+        container port{
+           uses com-att-port-types:port;
+        }
+      }
+    }
+
+    list degree{
+      key "degree-number";
+      config false;
+      leaf degree-number{
+        type uint16;
+        must "not( current() > /open-roadm/info/max-degree) and current() > 0"{
+          error-message "Degree not supported by device ";
+	        description "Validating if the degree is supported by device";
+        }
+      }
+      leaf max-wavelengths{
+        type uint16;
+	      description "maximum number of wavelengths";
+      }
+      uses com-att-de-circuitpack:circuit-pack;
+      description "list for Cards associated with a degree";
+    }
+
+    list shared-risk-group{
+      key "srg-id";
+      config false;
+      leaf max-add-drop-ports{
+        type uint16;
+      }
+      leaf srg-id{
+        type uint16;
+        must "not(current()>/open-roadm/info/max-srgs) and current()>0"{
+          error-message "invalid SRG";
+          description "Validating if the srg is supported by add/drop group";
+        }
+      }
+      uses com-att-de-circuitpack:circuit-pack;
+      description "list for Cards associated
+      with an add/drop group and srg";
+    }
+
+    uses com-att-de-link-physical:physical-link;
+    uses com-att-de-link-internal:internal-link;
+  }
+  
+  container xponder-device{
+    container info{
+    	uses device-common;
+    }
+    list xponders{
+      key "xponder-number";
+      config false;
+      leaf xponder-number{
+        type uint16;
+      }
+      uses com-att-de-circuitpack:circuit-pack;
+      uses com-att-de-link-physical:physical-link;
+      uses com-att-de-link-internal:internal-link;
+      description "list for Cards and Physical links associated with a transponder";
+    }
+  }
+}
+//<CODE ENDS>

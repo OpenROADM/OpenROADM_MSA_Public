@@ -1,0 +1,33 @@
+// Contents of "com-att-common-types"
+module com-att-common-types {
+    namespace "http://com/att/common-types";
+    prefix "com-att-common-types";
+
+    revision 2016-03-09 {
+        description "Initial revision";
+    }
+
+    typedef severity {
+    	description "Severity, based on X.733 perceived severity";
+        type enumeration {
+            enum critical {
+                value 1;
+            }
+            enum major {
+                value 2;
+            }
+            enum minor {
+                value 3;
+            }
+            enum warning {
+                value 4;
+            }
+            enum clear {
+                value 5;
+            }
+            enum indeterminate {
+                value 6;
+            }
+        }
+    }
+}

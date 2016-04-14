@@ -1,0 +1,86 @@
+//<CODE BEGINS> file "com-att-degree.yang"
+module com-att-degree{
+  namespace "http://com/att/direction";
+  prefix "com-att-degree";
+ 
+  organization 
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+  description
+    "YANG definitions for a Degree in Network Model";
+
+  revision 2016-03-11{
+    description
+      "Version 0.16";
+  }  
+
+  grouping roadm-degree{
+    list degree-number{
+      key "number";      
+      leaf number{
+        type uint32;
+        description "Identifier for each direction/degree";     
+      }
+      container external{     
+       leaf far-end-office{    
+          type string;
+          description "Location CLLI where ROADM resides";
+        }    
+        leaf nodeid{
+          type uint32;
+          description "Identifier of a ROADM node";
+        }
+        leaf degree-number{
+          type uint32;
+          description "Identifier for direction/degree in far-end ROADM";     
+        }    
+        leaf oms-clfi{
+          type uint32;
+          description "Unique facility name given to the OMS tails";
+        }
+        leaf max-wavelengths{
+          type uint32;
+          description "Numeric value specifies the maximum # of wavelengths supported by the OMS";
+        }        
+        leaf distance{
+          type uint32;
+          units km;
+        }   
+        leaf spanloss{
+          type decimal64{
+            fraction-digits 3;
+          }
+          units dB;
+        }  
+        container oms-ttp-tx{
+	  leaf-list wavelength-number{
+	    type uint32;
+            description "The wavelength # assigned by PCE to a  service/circuit";
+          }
+        }
+        container oms-ttp-rx{  
+          leaf-list wavelength-number{
+	    type uint32;
+            description "The wavelength # assigned by PCE to a  service/circuit";
+          }
+        }
+      }
+      container ctp-tx{
+        leaf-list wavelength-number{
+          type uint32;
+          description "The wavelength # assigned by PCE to a  service/circuit";
+        }
+      }
+      container ctp-rx{
+        leaf-list wavelength-number{
+          type uint32;
+          description "The wavelength # assigned by PCE to a  service/circuit";
+        }
+      }
+    }
+  } 
+}//<CODE ENDS>  
+

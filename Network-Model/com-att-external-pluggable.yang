@@ -1,0 +1,102 @@
+//<CODE BEGINS> file "com-att-external-pluggable.yang"
+module com-att-external-pluggable{
+  namespace "http://com/att/external/pluggable";
+  prefix "com-att-external-pluggable";
+
+  import com-att-equipment-states-types{
+    prefix "com-att-equipment-states-types";
+  }
+  organization
+    "AT&T Labs, Inc.";
+
+   contact
+    "AT&T Labs, Inc.";
+
+  description
+    "YANG definitions for External Pluggable";
+
+  revision 2016-03-11{
+    description
+      "Version 0.16";
+  }
+
+  typedef optic-types{
+    type enumeration{
+      enum color {
+        value "0";
+      }
+      enum grey{
+        value "1";
+      }
+    }
+  }
+  container external-pluggable{
+    list pluggable{
+      key "clli";
+      leaf clli{
+        type string;
+        description "Location CLLI where pluggable resides";
+      }
+      list ext-pluggable-id{
+        key "id";
+        leaf id{
+          type uint32;
+          description "Identifier of the pluggable in a given
+          office, i.e., 1, 2..N";
+        }
+        leaf vendor{
+          type string;
+          description "Identifier of the supplier for the pluggable";
+        }
+        leaf customer-code{
+          type string;
+          description "Owner of the pluggable";
+        }
+        container external-connection{
+          leaf clli{
+            type string;
+            description "Location of CLLI where ROADM resides";
+          }
+          leaf nodeid{
+            type uint32;
+            description "Identifier of a ROADM node";
+          }
+          leaf srg-number{
+            type uint32;
+          }
+          leaf pp-number{
+            type uint32;
+          }
+          leaf bit-rate{
+            type uint32;
+          }
+          leaf signal-format{
+            type string;
+          }
+          leaf reach{
+            type string;
+          }
+          leaf optic{
+            type optic-types;
+          }
+          leaf state{
+            type com-att-equipment-states-types:states;
+            description "A xponder can be in one of the following
+            states";
+          } 
+        }
+        container tail{
+          leaf client-equipment{
+            type string;
+          }
+          leaf client-equipmentId{
+            type string;
+          }
+          leaf clfi{
+            type string;
+          }
+        }
+      }
+    }
+  }
+}//<CODE ENDS>

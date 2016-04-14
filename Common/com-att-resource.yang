@@ -1,0 +1,36 @@
+// Contents of "com-att-resource"
+module com-att-resource {
+	  namespace "http://com/att/resource";
+	  prefix "com-att-resource";
+
+	  import com-att-resource-types { prefix com-att-resource-types; }
+	   organization
+	    "AT&T Labs, Inc.";
+
+	   contact
+	    "AT&T Labs, Inc.";
+
+	   description
+	    "YANG definitions for types of resource types ";
+
+	  revision 2016-03-08{
+	    description
+	      "Version 0.1";
+	  }
+
+	  grouping resource {
+	        leaf device {
+	            type string;
+	            mandatory false;
+	        }
+	        leaf resourceId {
+	            type string;
+	            mandatory true;
+	        }	        
+	        container resourceType {
+	            uses com-att-resource-types:resource-type;
+	        }
+	  }
+	  
+
+	}//<CODE ENDS>

@@ -1,0 +1,45 @@
+//<CODE BEGINS> file "com-att-srg.yang"
+module com-att-srg{
+  namespace "http://com/att/srg";
+  prefix "com-att-srg";
+
+  organization 
+    "AT&T Labs, Inc.";
+
+  contact
+    "AT&T Labs, Inc.";
+
+  description
+    "YANG definitions for an Add/Drop group in Network Model";
+
+  revision 2016-03-11{
+    description
+      "Version 0.16";
+  }
+
+  grouping shared-risk-group{
+    list srg{
+      key "number";
+      leaf number{  
+        type uint32; 
+        description "Identifier for each SRG";
+      }
+      leaf max-pp{
+        type uint32;
+        description "Maximum number  of add/drop port pairs in an SRG";
+      }
+      container cp-tx{
+        leaf-list pp-number{
+          type uint32;
+          description "The port pair # used for a tail or assigned by PCE to a  service/circuit ";
+        }	
+      }
+      container cp-rx{
+        leaf-list pp-number{
+          type uint32;
+          description "The port pair # used for a tail or assigned by PCE to a  service/circuit ";
+        }
+      }
+    }
+  }    
+}//<CODE ENDS>
