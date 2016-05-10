@@ -49,12 +49,20 @@ module com-att-degree{
           type uint32;
           units km;
         }   
-        leaf spanloss{
+        leaf spanloss-base{
           type decimal64{
             fraction-digits 3;
           }
+          description "Baseline ROADM span loss measured and accepted during degree turn-up."
           units dB;
-        }  
+        }
+        leaf spanloss-current{
+          type decimal64{
+            fraction-digits 3;
+          }
+          description "Current ROADM span loss captured by the controller."
+          units dB;
+        }
         container oms-ttp-tx{
 	  leaf-list wavelength-number{
 	    type uint32;
