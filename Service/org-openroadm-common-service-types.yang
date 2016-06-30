@@ -56,7 +56,7 @@ module org-openroadm-common-service-types {
 
   revision 2016-06-30 {
     description
-      "Initial revision";
+      "Version 1.0";
   }
 
   grouping service-endpoint {
