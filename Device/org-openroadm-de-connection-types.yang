@@ -1,0 +1,115 @@
+module org-openroadm-de-connection-types {
+  namespace "http://org/openroadm/de/connection-types";
+  prefix org-openroadm-de-connection-types;
+
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for connection types
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2016-06-30 {
+    description
+      "Version 1.0";
+  }
+
+  grouping connection {
+    leaf connection-number {
+      type uint32;
+    }
+    leaf wavelength-number {
+      type uint32;
+      description
+        "wavelength-number, can be used to access wavelength-map
+         to get wavelength value in nm.";
+    }
+    leaf administrative-state {
+      type org-openroadm-common-types:state;
+    }
+    leaf operational-state {
+      type org-openroadm-common-types:state;
+      config false;
+    }
+    leaf opticalControlMode {
+      description
+        "Whether connection is currently in power or gain/loss mode";
+      type optical-control-mode;
+      reference "openroadm.org: Open ROADM MSA Specification.";
+    }
+    leaf current-input-power {
+      description
+        "Current input power at connection endpoint";
+      type org-openroadm-common-types:power-dBm;
+    }
+    leaf current-output-power {
+      description
+        "Current output power at connection endpoint";
+      type org-openroadm-common-types:power-dBm;
+    }
+    leaf target-output-power {
+      type org-openroadm-common-types:power-dBm;
+      config true;
+      description
+        "The output target power for this connection. When set, the ROADM will work to ensure that current-output-power reaches this level.";
+    }
+    container source {
+      leaf src-if {
+        type leafref {
+          path "/org-openroadm-device/interface/name";
+        }
+      }
+    }
+    container destination {
+      leaf dst-if {
+        type leafref {
+          path "/org-openroadm-device/interface/name";
+        }
+      }
+    }
+  }
+
+  typedef optical-control-mode {
+    description
+      "Optical Control Mode: identifies specific algorithm related to power management and general optical control.";
+    type enumeration {
+      enum "power" {
+        value 1;
+      }
+      enum "gainLoss" {
+        value 2;
+      }
+    }
+    reference "openroadm.org: Open ROADM MSA Specification.";
+  }
+}
