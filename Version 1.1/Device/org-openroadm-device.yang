@@ -1,0 +1,482 @@
+module org-openroadm-device {
+  namespace "http://org/openroadm/device";
+  prefix org-openroadm-device;
+
+  import ietf-yang-types {
+    prefix ietf-yang-types;
+  }
+  import ietf-inet-types {
+    prefix ietf-inet-types;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+  import org-openroadm-resource {
+    prefix org-openroadm-resource;
+  }
+  import org-openroadm-resource-types {
+    prefix org-openroadm-resource-types;
+  }
+  import org-openroadm-de-link-physical {
+    prefix org-openroadm-de-link-physical;
+  }
+  import org-openroadm-de-link-internal {
+    prefix org-openroadm-de-link-internal;
+  }
+  import org-openroadm-de-link-external {
+    prefix org-openroadm-de-link-external;
+  }
+  import org-openroadm-de-circuitpack {
+    prefix org-openroadm-de-circuitpack;
+  }
+  import org-openroadm-wavelength-map {
+    prefix org-openroadm-wavelength-map;
+  }
+  import org-openroadm-device-resource-types {
+    prefix org-openroadm-device-resource-types;
+  }
+  import org-openroadm-de-shelf-types {
+    prefix org-openroadm-de-shelf-types;
+  }
+  import org-openroadm-physical-types {
+    prefix org-openroadm-physical-types;
+  }
+  import org-openroadm-user-mgmt {
+    prefix org-openroadm-user-mgmt;
+  }
+  import org-openroadm-de-connection-types {
+    prefix org-openroadm-de-connection-types;
+  }
+  import org-openroadm-connection-map-types {
+    prefix org-openroadm-connection-map-types;
+  }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+  }
+  import org-openroadm-de-degree-types {
+    prefix org-openroadm-de-degree-types;
+  }
+  import org-openroadm-de-srg-types {
+    prefix org-openroadm-de-srg-types;
+  }
+  import org-openroadm-interfaces {
+    prefix org-openroadm-interfaces;
+  }
+  import org-openroadm-swdl {
+    prefix org-openroadm-swdl;
+  }
+
+  organization "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of ROADM device
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2016-07-28 {
+    description
+      "Version 1.1";
+  }
+
+  rpc get-connection-port-trail {
+    input {
+      leaf connection-number {
+        type string;
+        mandatory true;
+      }
+    }
+    output {
+      leaf status {
+        type enumeration {
+          enum "Successful" {
+            value 1;
+          }
+          enum "Failed" {
+            value 2;
+          }
+        }
+        mandatory true;
+        description
+          "Successful or Failed";
+      }
+      leaf status-message {
+        type string;
+        description
+          "Gives a more detailed reason for success / failure";
+      }
+      list ports {
+        uses org-openroadm-common-types:physical-location;
+        uses org-openroadm-device-resource-types:port-name;
+      }
+    }
+  }
+  rpc laser-on {
+    input {
+      leaf amp {
+        type leafref {
+          path "/org-openroadm-device/shelves/shelf-name";
+        }
+        mandatory true;
+        description
+          "The shelf where amp is located";
+      }
+      leaf degree-number {
+        type uint16;
+        mandatory true;
+      }
+      leaf support-timer {
+        type uint16 {
+          range "1..500";
+        }
+        default "20";
+      }
+    }
+    output {
+      leaf status {
+        type enumeration {
+          enum "Successful" {
+            value 1;
+          }
+          enum "Failed" {
+            value 2;
+          }
+        }
+        mandatory true;
+        description
+          "Successful or Failed";
+      }
+      leaf status-message {
+        type string;
+        description
+          "Gives a more detailed reason for success / failure";
+      }
+    }
+  }
+
+  grouping device-common {
+    leaf node-id {
+      type string;
+      description
+        "Globally unique identifer for a device.";
+      config true;
+      default "openroadm";
+    }
+    leaf node-number {
+      type uint32;
+      description
+        "Number assigned to a ROADM node at a 
+         given office";
+    }
+    leaf node-type {
+      type org-openroadm-common-types:node-types;
+      description
+        "Identifier for node-type e.g Roadm, xponder";
+      config false;
+      mandatory true;
+    }
+    leaf CLLI {
+      type string;
+      description
+        "Common Language Location Identifier.";
+    }
+    uses org-openroadm-physical-types:node-info;
+    leaf ipAddress {
+      type ietf-inet-types:ip-address;
+      description
+        "IP Address of device";
+    }
+    leaf netmask {
+      type ietf-inet-types:ip-address;
+      description
+        "Netmask of ipAddress";
+    }
+    leaf prefix-length {
+      type uint8 {
+        range "0..128";
+      }
+      description
+        "The length of the subnet prefix";
+    }
+    leaf defaultGateway {
+      type ietf-inet-types:ip-address;
+      description
+        "Default Gateway";
+    }
+    leaf source {
+      type enumeration {
+        enum "static" {
+          value 1;
+        }
+        enum "dhcp" {
+          value 2;
+        }
+      }
+      config false;
+    }
+    leaf current-ipAddress {
+      type ietf-inet-types:ip-address;
+      config false;
+      description
+        "Current IP Address of device";
+    }
+    leaf current-netmask {
+      type ietf-inet-types:ip-address;
+      config false;
+      description
+        "Current Netmask of ipAddress";
+    }
+    leaf current-prefix-length {
+      type uint8 {
+        range "0..128";
+      }
+      config false;
+      description
+        "The current length of the subnet prefix";
+    }
+    leaf current-defaultGateway {
+      type ietf-inet-types:ip-address;
+      config false;
+      description
+        "Current Default Gateway";
+    }
+    leaf macAddress {
+      type ietf-yang-types:mac-address;
+      description
+        "MAC Address of device";
+      config false;
+    }
+    leaf softwareVersion {
+      type string;
+      config false;
+      description
+        "Software version";
+    }
+    container geoLocation {
+      description
+        "GPS location";
+      leaf latitude {
+        type decimal64 {
+          fraction-digits 16;
+          range "-180 .. 180";
+        }
+        description
+          "The latitude of the system expressed in degrees.
+           Positive numbers indicate locations east of the
+           prime meridian.";
+      }
+      leaf longitude {
+        type decimal64 {
+          fraction-digits 16;
+          range "-90 .. 90";
+        }
+        description
+          "The longitude of the system expressed in degrees.
+           Positive numbers indicate locations north of the
+           equator.";
+      }
+    }
+  }
+
+  container org-openroadm-device {
+    container info {
+      uses device-common;
+      leaf max-degrees {
+        type uint16;
+        description
+          "Max. number of degrees supported by device";
+        config false;
+      }
+      leaf max-srgs {
+        type uint16;
+        description
+          "Max. number of SRGs in an add/drop group";
+        config false;
+      }
+    }
+    container users {
+      description
+        "Stores a list of users";
+      uses org-openroadm-user-mgmt:user-profile;
+    }
+    container pending-sw {
+      config false;
+      uses org-openroadm-swdl:sw-bank;
+    }
+    uses org-openroadm-de-shelf-types:shelves;
+    uses org-openroadm-de-circuitpack:circuit-packs;
+    uses org-openroadm-de-link-internal:internal-links;
+    uses org-openroadm-interfaces:interfaces-grp;
+    container protocols {
+      description
+        "Contains the supported protocols";
+    }
+    uses org-openroadm-de-link-physical:physical-links;
+    uses org-openroadm-de-link-external:external-links;
+    container wavelength-map {
+      description
+        "The wavelength-number and center frequency, wavelength mapping";
+      config false;
+      uses org-openroadm-wavelength-map:wavelength-map-g;
+    }
+    list degree {
+      when "/org-openroadm-device/info/node-type='rdm'";
+      key "degree-number";
+      uses org-openroadm-de-degree-types:degree;
+    }
+    list roadm-connections {
+      when "/org-openroadm-device/info/node-type='rdm'";
+      key "connection-number";
+      config true;
+      uses org-openroadm-de-connection-types:connection;
+    }
+    list shared-risk-group {
+      when "/org-openroadm-device/info/node-type='rdm'";
+      key "srg-number";
+      uses org-openroadm-de-srg-types:srg;
+    }
+    list connection-map {
+      key "connection-map-number";
+      config false;
+      leaf connection-map-number {
+        description
+          "Unique identifier for this connection-map entry";
+        type uint32;
+      }
+      container source {
+        leaf circuit-pack-name {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+          }
+          mandatory true;
+        }
+        leaf port-name {
+          description
+            "Port identifier. Unique within the context of a circuit-pack.";
+          type leafref {
+            path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name";
+          }
+          mandatory true;
+        }
+      }
+      list destination {
+        key "circuit-pack-name port-name";
+        min-elements 1;
+        leaf circuit-pack-name {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+          }
+        }
+        leaf port-name {
+          description
+            "Port identifier. Unique within the context of a circuit-pack.";
+          type leafref {
+            path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name";
+          }
+        }
+        leaf operational-state {
+          type org-openroadm-common-types:state;
+          config false;
+        }
+      }
+    }
+  }
+  notification inventory-notification {
+    description
+      "This Notification that a resource has been added, modified or removed.
+       A resourceCreation notification shall contain the resource in its entirety.
+       A resourceMofified notification shall contain just the modified field, plus the resource identifier. 
+       These are triggered by changes in config, state and status. They are not triggered by changes in PM data or volatile readings like power levels 
+       and temperature.
+       A resourceDeleted notification shall just contain the resource identifier";
+    leaf notificationType {
+      type org-openroadm-resource-types:resource-notification-type;
+      description
+        "Whether this notification indicates a service creation, service modification or service deletion.";
+    }
+    leaf resource-type {
+      type org-openroadm-resource-types:resource-type-enum;
+    }
+    choice resource {
+      case shelf {
+        container shelf {
+          uses org-openroadm-de-shelf-types:shelf;
+        }
+      }
+      case circuit-pack {
+        container circuit-pack {
+          uses org-openroadm-de-circuitpack:circuit-pack;
+        }
+      }
+      case internal-link {
+        container internal-link {
+          uses org-openroadm-de-link-internal:internal-link;
+        }
+      }
+      case physical-link {
+        container physical-link {
+          uses org-openroadm-de-link-physical:physical-link;
+        }
+      }
+      case external-link {
+        container external-link {
+          uses org-openroadm-de-link-external:external-link;
+        }
+      }
+      case connection {
+        container connection {
+          uses org-openroadm-de-connection-types:connection;
+        }
+      }
+      case connection-map {
+        container connection-map {
+          uses org-openroadm-connection-map-types:roadm-connection-map;
+        }
+      }
+      case port {
+        container port {
+          uses org-openroadm-port-types:port;
+        }
+      }
+      case degree {
+        container degree {
+          uses org-openroadm-de-degree-types:degree;
+        }
+      }
+      case srg {
+        container srg {
+          uses org-openroadm-de-srg-types:srg;
+        }
+      }
+      case other {
+        container other {
+          uses org-openroadm-resource:resource;
+        }
+      }
+    }
+  }
+}

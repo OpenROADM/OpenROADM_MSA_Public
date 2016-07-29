@@ -1,0 +1,171 @@
+module org-openroadm-de-circuitpack {
+  namespace "http://org/openroadm/de/circuitpack";
+  prefix org-openroadm-de-circuitpack;
+
+  import org-openroadm-device-resource-types {
+    prefix org-openroadm-device-resource-types;
+  }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+  }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+  }
+  import org-openroadm-physical-types {
+    prefix org-openroadm-physical-types;
+  }
+
+  organization "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of a ROADM circuit-pack
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2016-07-28 {
+    description
+      "Version 1.1";
+  }
+
+  grouping circuit-packs {
+    list circuit-packs {
+      description
+        "List of circuit packs. This includes common equipment, like fans, power supplies, etc.";
+      key "circuit-pack-name";
+      leaf circuit-pack-type {
+        description
+          "Type of circuit-pack";
+        type string;
+        mandatory true;
+      }
+      uses circuit-pack;
+    }
+  }
+
+  grouping circuit-pack {
+    leaf circuit-pack-name {
+      description
+        "Unique identifier for this circuit-pack within a device";
+      type string;
+    }
+    leaf administrative-state {
+      description
+        "Administrative state of circuit-pack";
+      type org-openroadm-equipment-states-types:admin-states;
+    }
+    uses org-openroadm-physical-types:common-info;
+    container circuit-pack-category {
+      description
+        "General type of circuit-pack";
+      uses equipment-type;
+      config false;
+    }
+    leaf equipment-state {
+      description
+        "Equipment state, which complements operational state.";
+      type org-openroadm-equipment-states-types:states;
+      config false;
+    }
+    leaf circuit-pack-mode {
+      description
+        "Circuit-pack mode allowed. e.g. NORMAL or REGEN";
+      type string;
+      default "NORMAL";
+    }
+    leaf shelf {
+      type leafref {
+        path "/org-openroadm-device/shelves/shelf-name";
+      }
+      mandatory true;
+    }
+    leaf slot {
+      type string;
+      mandatory true;
+    }
+    leaf subSlot {
+      type string;
+      mandatory false;
+    }
+    container parent-circuit-pack {
+      description
+        "In the case of circuit packs that contain other equipment (modules or pluggables), this captures the hierarchy of that equipment.  It is a vendor specific design decision if the ports for single-port pluggables are modeled as children of the parent circuit-pack, or as children of the pluggable circuit-pack contained in the parent circuit-pack.  For modules with multiple ports, it is recommended that ports be children of the module and not the carrier, to help in fault correlation and isolation in the case of a module failure.";
+      uses org-openroadm-device-resource-types:circuit-pack-name;
+    }
+    list ports {
+      key "port-name";
+      description
+        "List of ports on this circuit-pack.  For single port pluggables, the port may be modeled against the pluggable itself, or against the parent-circuit-pack.  For mulit-port pluggables, it is recommended that ports be modeled against the module itself.  Modeling ports as close to the equipment hierarchy as possible will help in fault correlation and isolation since common failures associated with supporting equipment can be used to help identify symptomatic failures on the contained ports.";
+      uses org-openroadm-port-types:port;
+      container roadm-port {
+        when "../port-qual='roadm-external'";
+        uses org-openroadm-port-types:roadm-port;
+      }
+    }
+  }
+
+  grouping equipment-type {
+    leaf type {
+      type equipment-type-enum;
+      mandatory true;
+      config false;
+    }
+    leaf extension {
+      description
+        "Populated with equipment type when enum value is set to vendorExtension";
+      type string;
+      mandatory false;
+      config false;
+    }
+  }
+
+  typedef equipment-type-enum {
+    type enumeration {
+      enum "other" {
+        value 1;
+      }
+      enum "powerSupply" {
+        value 2;
+      }
+      enum "shelfProcessor" {
+        value 3;
+      }
+      enum "crossConnect" {
+        value 4;
+      }
+      enum "fan" {
+        value 5;
+      }
+      enum "accessPanel" {
+        value 6;
+      }
+      enum "circuitPack" {
+        value 7;
+      }
+    }
+  }
+}
