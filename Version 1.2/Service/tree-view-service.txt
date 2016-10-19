@@ -1,0 +1,2033 @@
+module: org-openroadm-service
+   +--rw service-list
+   |  +--rw services* [service-name]
+   |     +--rw service-name               string
+   |     +--rw common-id?                 string
+   |     +--rw sdnc-request-header
+   |     |  +--rw request-id?          string
+   |     |  +--rw rpc-action?          rpc-actions
+   |     |  +--rw notification-url?    string
+   |     |  +--rw request-system-id?   string
+   |     +--rw connection-type            connection-type
+   |     +--rw lifecycle-state?           org-openroadm-common-types:lifecycle-state
+   |     +--rw administrative-state?      org-openroadm-common-types:state
+   |     +--ro operational-state?         org-openroadm-common-types:state
+   |     +--rw condition?                 service-condition
+   |     +--rw service-a-end
+   |     |  +--rw service-format    service-format
+   |     |  +--rw service-rate      uint32
+   |     |  +--rw clli              string
+   |     |  +--rw node-id?          string
+   |     |  +--rw site
+   |     |  +--rw tx-direction
+   |     |  |  +--rw port
+   |     |  |  |  +--rw port-device-name?   string
+   |     |  |  |  +--rw port-type?          string
+   |     |  |  |  +--rw port-name?          string
+   |     |  |  |  +--rw port-rack?          string
+   |     |  |  |  +--rw port-shelf?         string
+   |     |  |  |  +--rw port-slot?          string
+   |     |  |  |  +--rw port-sub-slot?      string
+   |     |  |  +--rw lgx
+   |     |  |  |  +--rw lgx-device-name?   string
+   |     |  |  |  +--rw lgx-port-name?     string
+   |     |  |  |  +--rw lgx-port-rack?     string
+   |     |  |  |  +--rw lgx-port-shelf?    string
+   |     |  |  +--rw tail
+   |     |  |     +--rw tail-roadm
+   |     |  |     |  +--rw node-id?   string
+   |     |  |     +--rw xponder-port
+   |     |  |     |  +--rw circuit-pack-name?   string
+   |     |  |     |  +--rw port-name?           string
+   |     |  |     +--rw tail-roadm-port-aid?             string
+   |     |  |     +--rw tail-roadm-port-rack-location?   string
+   |     |  +--rw rx-direction
+   |     |  |  +--rw port
+   |     |  |  |  +--rw port-device-name?   string
+   |     |  |  |  +--rw port-type?          string
+   |     |  |  |  +--rw port-name?          string
+   |     |  |  |  +--rw port-rack?          string
+   |     |  |  |  +--rw port-shelf?         string
+   |     |  |  |  +--rw port-slot?          string
+   |     |  |  |  +--rw port-sub-slot?      string
+   |     |  |  +--rw lgx
+   |     |  |  |  +--rw lgx-device-name?   string
+   |     |  |  |  +--rw lgx-port-name?     string
+   |     |  |  |  +--rw lgx-port-rack?     string
+   |     |  |  |  +--rw lgx-port-shelf?    string
+   |     |  |  +--rw tail
+   |     |  |     +--rw tail-roadm
+   |     |  |     |  +--rw node-id?   string
+   |     |  |     +--rw xponder-port
+   |     |  |     |  +--rw circuit-pack-name?   string
+   |     |  |     |  +--rw port-name?           string
+   |     |  |     +--rw tail-roadm-port-aid?             string
+   |     |  |     +--rw tail-roadm-port-rack-location?   string
+   |     |  +--rw optic-type?       org-openroadm-common-types:optic-types
+   |     |  +--rw router
+   |     |  |  +--rw node-id?      string
+   |     |  |  +--rw ip-address?   inet:ip-address
+   |     |  |  +--rw url?          string
+   |     |  +--rw user-label?       string
+   |     +--rw service-z-end
+   |     |  +--rw service-format    service-format
+   |     |  +--rw service-rate      uint32
+   |     |  +--rw clli              string
+   |     |  +--rw node-id?          string
+   |     |  +--rw site
+   |     |  +--rw tx-direction
+   |     |  |  +--rw port
+   |     |  |  |  +--rw port-device-name?   string
+   |     |  |  |  +--rw port-type?          string
+   |     |  |  |  +--rw port-name?          string
+   |     |  |  |  +--rw port-rack?          string
+   |     |  |  |  +--rw port-shelf?         string
+   |     |  |  |  +--rw port-slot?          string
+   |     |  |  |  +--rw port-sub-slot?      string
+   |     |  |  +--rw lgx
+   |     |  |  |  +--rw lgx-device-name?   string
+   |     |  |  |  +--rw lgx-port-name?     string
+   |     |  |  |  +--rw lgx-port-rack?     string
+   |     |  |  |  +--rw lgx-port-shelf?    string
+   |     |  |  +--rw tail
+   |     |  |     +--rw tail-roadm
+   |     |  |     |  +--rw node-id?   string
+   |     |  |     +--rw xponder-port
+   |     |  |     |  +--rw circuit-pack-name?   string
+   |     |  |     |  +--rw port-name?           string
+   |     |  |     +--rw tail-roadm-port-aid?             string
+   |     |  |     +--rw tail-roadm-port-rack-location?   string
+   |     |  +--rw rx-direction
+   |     |  |  +--rw port
+   |     |  |  |  +--rw port-device-name?   string
+   |     |  |  |  +--rw port-type?          string
+   |     |  |  |  +--rw port-name?          string
+   |     |  |  |  +--rw port-rack?          string
+   |     |  |  |  +--rw port-shelf?         string
+   |     |  |  |  +--rw port-slot?          string
+   |     |  |  |  +--rw port-sub-slot?      string
+   |     |  |  +--rw lgx
+   |     |  |  |  +--rw lgx-device-name?   string
+   |     |  |  |  +--rw lgx-port-name?     string
+   |     |  |  |  +--rw lgx-port-rack?     string
+   |     |  |  |  +--rw lgx-port-shelf?    string
+   |     |  |  +--rw tail
+   |     |  |     +--rw tail-roadm
+   |     |  |     |  +--rw node-id?   string
+   |     |  |     +--rw xponder-port
+   |     |  |     |  +--rw circuit-pack-name?   string
+   |     |  |     |  +--rw port-name?           string
+   |     |  |     +--rw tail-roadm-port-aid?             string
+   |     |  |     +--rw tail-roadm-port-rack-location?   string
+   |     |  +--rw optic-type?       org-openroadm-common-types:optic-types
+   |     |  +--rw router
+   |     |  |  +--rw node-id?      string
+   |     |  |  +--rw ip-address?   inet:ip-address
+   |     |  |  +--rw url?          string
+   |     |  +--rw user-label?       string
+   |     +--rw hard-constraints
+   |     |  +--rw customer-code*   string
+   |     |  +--rw (co-routing-or-general)?
+   |     |     +--:(general)
+   |     |     |  +--rw diversity
+   |     |     |  |  +--rw existing-service*                 string
+   |     |     |  |  +--rw existing-service-applicability
+   |     |     |  |     +--rw site?   boolean
+   |     |     |  |     +--rw node?   boolean
+   |     |     |  |     +--rw srlg?   boolean
+   |     |     |  +--rw exclude
+   |     |     |  |  +--rw fiber-bundle*              string
+   |     |     |  |  +--rw site*                      string
+   |     |     |  |  +--rw node-id*                   string
+   |     |     |  |  +--rw supporting-service-name*   string
+   |     |     |  +--rw include
+   |     |     |  |  +--rw fiber-bundle*              string
+   |     |     |  |  +--rw site*                      string
+   |     |     |  |  +--rw node-id*                   string
+   |     |     |  |  +--rw supporting-service-name*   string
+   |     |     |  +--rw latency
+   |     |     |     +--rw max-latency?   uint32
+   |     |     +--:(co-routing)
+   |     |        +--rw co-routing
+   |     |           +--rw existing-service*   string
+   |     +--rw soft-constraints
+   |     |  +--rw customer-code*   string
+   |     |  +--rw (co-routing-or-general)?
+   |     |     +--:(general)
+   |     |     |  +--rw diversity
+   |     |     |  |  +--rw existing-service*                 string
+   |     |     |  |  +--rw existing-service-applicability
+   |     |     |  |     +--rw site?   boolean
+   |     |     |  |     +--rw node?   boolean
+   |     |     |  |     +--rw srlg?   boolean
+   |     |     |  +--rw exclude
+   |     |     |  |  +--rw fiber-bundle*              string
+   |     |     |  |  +--rw site*                      string
+   |     |     |  |  +--rw node-id*                   string
+   |     |     |  |  +--rw supporting-service-name*   string
+   |     |     |  +--rw include
+   |     |     |  |  +--rw fiber-bundle*              string
+   |     |     |  |  +--rw site*                      string
+   |     |     |  |  +--rw node-id*                   string
+   |     |     |  |  +--rw supporting-service-name*   string
+   |     |     |  +--rw latency
+   |     |     |     +--rw max-latency?   uint32
+   |     |     +--:(co-routing)
+   |     |        +--rw co-routing
+   |     |           +--rw existing-service*   string
+   |     +--rw due-date?                  yang:date-and-time
+   |     +--rw end-date?                  yang:date-and-time
+   |     +--rw nc-code?                   string
+   |     +--rw nci-code?                  string
+   |     +--rw secondary-nci-code?        string
+   |     +--rw customer?                  string
+   |     +--rw customer-contact?          string
+   |     +--rw operator-contact?          string
+   |     +--rw latency?                   uint32
+   |     +--rw fiber-span-srlgs*          string
+   |     +--rw equipment-srgs* [srg-number]
+   |     |  +--rw srg-number    uint16
+   |     +--rw supporting-service-name*   string
+   |     +--rw topology
+   |        +--rw aToZ* [id]
+   |        |  +--rw id              string
+   |        |  +--rw hop-type?       enumeration
+   |        |  +--rw device
+   |        |  |  +--rw node-id?   string
+   |        |  +--rw resource
+   |        |  |  +--rw (resource)?
+   |        |  |     +--:(circuit-pack)
+   |        |  |     |  +--rw circuit-pack-name     string
+   |        |  |     +--:(port)
+   |        |  |     |  +--rw port
+   |        |  |     |     +--rw circuit-pack-name    string
+   |        |  |     |     +--rw port-name?           string
+   |        |  |     +--:(connection)
+   |        |  |     |  +--rw connection-number     string
+   |        |  |     +--:(physical-link)
+   |        |  |     |  +--rw physical-link-name    string
+   |        |  |     +--:(internal-link)
+   |        |  |     |  +--rw internal-link-name    string
+   |        |  |     +--:(shelf)
+   |        |  |     |  +--rw shelf-name            string
+   |        |  |     +--:(srg)
+   |        |  |     |  +--rw srg-number            uint16
+   |        |  |     +--:(degree)
+   |        |  |     |  +--rw degree-number         uint16
+   |        |  |     +--:(service)
+   |        |  |     |  +--rw service-name          string
+   |        |  |     +--:(interface)
+   |        |  |        +--rw interface-name        string
+   |        |  +--rw resourceType
+   |        |     +--rw type         resource-type-enum
+   |        |     +--rw extension?   string
+   |        +--rw zToA* [id]
+   |           +--rw id              string
+   |           +--rw hop-type?       enumeration
+   |           +--rw device
+   |           |  +--rw node-id?   string
+   |           +--rw resource
+   |           |  +--rw (resource)?
+   |           |     +--:(circuit-pack)
+   |           |     |  +--rw circuit-pack-name     string
+   |           |     +--:(port)
+   |           |     |  +--rw port
+   |           |     |     +--rw circuit-pack-name    string
+   |           |     |     +--rw port-name?           string
+   |           |     +--:(connection)
+   |           |     |  +--rw connection-number     string
+   |           |     +--:(physical-link)
+   |           |     |  +--rw physical-link-name    string
+   |           |     +--:(internal-link)
+   |           |     |  +--rw internal-link-name    string
+   |           |     +--:(shelf)
+   |           |     |  +--rw shelf-name            string
+   |           |     +--:(srg)
+   |           |     |  +--rw srg-number            uint16
+   |           |     +--:(degree)
+   |           |     |  +--rw degree-number         uint16
+   |           |     +--:(service)
+   |           |     |  +--rw service-name          string
+   |           |     +--:(interface)
+   |           |        +--rw interface-name        string
+   |           +--rw resourceType
+   |              +--rw type         resource-type-enum
+   |              +--rw extension?   string
+   +--rw temp-service-list
+      +--rw services* [common-id]
+         +--rw service-name?              string
+         +--rw common-id                  string
+         +--rw sdnc-request-header
+         |  +--rw request-id?          string
+         |  +--rw rpc-action?          rpc-actions
+         |  +--rw notification-url?    string
+         |  +--rw request-system-id?   string
+         +--rw connection-type            connection-type
+         +--rw lifecycle-state?           org-openroadm-common-types:lifecycle-state
+         +--rw administrative-state?      org-openroadm-common-types:state
+         +--ro operational-state?         org-openroadm-common-types:state
+         +--rw condition?                 service-condition
+         +--rw service-a-end
+         |  +--rw service-format    service-format
+         |  +--rw service-rate      uint32
+         |  +--rw clli              string
+         |  +--rw node-id?          string
+         |  +--rw site
+         |  +--rw tx-direction
+         |  |  +--rw port
+         |  |  |  +--rw port-device-name?   string
+         |  |  |  +--rw port-type?          string
+         |  |  |  +--rw port-name?          string
+         |  |  |  +--rw port-rack?          string
+         |  |  |  +--rw port-shelf?         string
+         |  |  |  +--rw port-slot?          string
+         |  |  |  +--rw port-sub-slot?      string
+         |  |  +--rw lgx
+         |  |  |  +--rw lgx-device-name?   string
+         |  |  |  +--rw lgx-port-name?     string
+         |  |  |  +--rw lgx-port-rack?     string
+         |  |  |  +--rw lgx-port-shelf?    string
+         |  |  +--rw tail
+         |  |     +--rw tail-roadm
+         |  |     |  +--rw node-id?   string
+         |  |     +--rw xponder-port
+         |  |     |  +--rw circuit-pack-name?   string
+         |  |     |  +--rw port-name?           string
+         |  |     +--rw tail-roadm-port-aid?             string
+         |  |     +--rw tail-roadm-port-rack-location?   string
+         |  +--rw rx-direction
+         |  |  +--rw port
+         |  |  |  +--rw port-device-name?   string
+         |  |  |  +--rw port-type?          string
+         |  |  |  +--rw port-name?          string
+         |  |  |  +--rw port-rack?          string
+         |  |  |  +--rw port-shelf?         string
+         |  |  |  +--rw port-slot?          string
+         |  |  |  +--rw port-sub-slot?      string
+         |  |  +--rw lgx
+         |  |  |  +--rw lgx-device-name?   string
+         |  |  |  +--rw lgx-port-name?     string
+         |  |  |  +--rw lgx-port-rack?     string
+         |  |  |  +--rw lgx-port-shelf?    string
+         |  |  +--rw tail
+         |  |     +--rw tail-roadm
+         |  |     |  +--rw node-id?   string
+         |  |     +--rw xponder-port
+         |  |     |  +--rw circuit-pack-name?   string
+         |  |     |  +--rw port-name?           string
+         |  |     +--rw tail-roadm-port-aid?             string
+         |  |     +--rw tail-roadm-port-rack-location?   string
+         |  +--rw optic-type?       org-openroadm-common-types:optic-types
+         |  +--rw router
+         |  |  +--rw node-id?      string
+         |  |  +--rw ip-address?   inet:ip-address
+         |  |  +--rw url?          string
+         |  +--rw user-label?       string
+         +--rw service-z-end
+         |  +--rw service-format    service-format
+         |  +--rw service-rate      uint32
+         |  +--rw clli              string
+         |  +--rw node-id?          string
+         |  +--rw site
+         |  +--rw tx-direction
+         |  |  +--rw port
+         |  |  |  +--rw port-device-name?   string
+         |  |  |  +--rw port-type?          string
+         |  |  |  +--rw port-name?          string
+         |  |  |  +--rw port-rack?          string
+         |  |  |  +--rw port-shelf?         string
+         |  |  |  +--rw port-slot?          string
+         |  |  |  +--rw port-sub-slot?      string
+         |  |  +--rw lgx
+         |  |  |  +--rw lgx-device-name?   string
+         |  |  |  +--rw lgx-port-name?     string
+         |  |  |  +--rw lgx-port-rack?     string
+         |  |  |  +--rw lgx-port-shelf?    string
+         |  |  +--rw tail
+         |  |     +--rw tail-roadm
+         |  |     |  +--rw node-id?   string
+         |  |     +--rw xponder-port
+         |  |     |  +--rw circuit-pack-name?   string
+         |  |     |  +--rw port-name?           string
+         |  |     +--rw tail-roadm-port-aid?             string
+         |  |     +--rw tail-roadm-port-rack-location?   string
+         |  +--rw rx-direction
+         |  |  +--rw port
+         |  |  |  +--rw port-device-name?   string
+         |  |  |  +--rw port-type?          string
+         |  |  |  +--rw port-name?          string
+         |  |  |  +--rw port-rack?          string
+         |  |  |  +--rw port-shelf?         string
+         |  |  |  +--rw port-slot?          string
+         |  |  |  +--rw port-sub-slot?      string
+         |  |  +--rw lgx
+         |  |  |  +--rw lgx-device-name?   string
+         |  |  |  +--rw lgx-port-name?     string
+         |  |  |  +--rw lgx-port-rack?     string
+         |  |  |  +--rw lgx-port-shelf?    string
+         |  |  +--rw tail
+         |  |     +--rw tail-roadm
+         |  |     |  +--rw node-id?   string
+         |  |     +--rw xponder-port
+         |  |     |  +--rw circuit-pack-name?   string
+         |  |     |  +--rw port-name?           string
+         |  |     +--rw tail-roadm-port-aid?             string
+         |  |     +--rw tail-roadm-port-rack-location?   string
+         |  +--rw optic-type?       org-openroadm-common-types:optic-types
+         |  +--rw router
+         |  |  +--rw node-id?      string
+         |  |  +--rw ip-address?   inet:ip-address
+         |  |  +--rw url?          string
+         |  +--rw user-label?       string
+         +--rw hard-constraints
+         |  +--rw customer-code*   string
+         |  +--rw (co-routing-or-general)?
+         |     +--:(general)
+         |     |  +--rw diversity
+         |     |  |  +--rw existing-service*                 string
+         |     |  |  +--rw existing-service-applicability
+         |     |  |     +--rw site?   boolean
+         |     |  |     +--rw node?   boolean
+         |     |  |     +--rw srlg?   boolean
+         |     |  +--rw exclude
+         |     |  |  +--rw fiber-bundle*              string
+         |     |  |  +--rw site*                      string
+         |     |  |  +--rw node-id*                   string
+         |     |  |  +--rw supporting-service-name*   string
+         |     |  +--rw include
+         |     |  |  +--rw fiber-bundle*              string
+         |     |  |  +--rw site*                      string
+         |     |  |  +--rw node-id*                   string
+         |     |  |  +--rw supporting-service-name*   string
+         |     |  +--rw latency
+         |     |     +--rw max-latency?   uint32
+         |     +--:(co-routing)
+         |        +--rw co-routing
+         |           +--rw existing-service*   string
+         +--rw soft-constraints
+         |  +--rw customer-code*   string
+         |  +--rw (co-routing-or-general)?
+         |     +--:(general)
+         |     |  +--rw diversity
+         |     |  |  +--rw existing-service*                 string
+         |     |  |  +--rw existing-service-applicability
+         |     |  |     +--rw site?   boolean
+         |     |  |     +--rw node?   boolean
+         |     |  |     +--rw srlg?   boolean
+         |     |  +--rw exclude
+         |     |  |  +--rw fiber-bundle*              string
+         |     |  |  +--rw site*                      string
+         |     |  |  +--rw node-id*                   string
+         |     |  |  +--rw supporting-service-name*   string
+         |     |  +--rw include
+         |     |  |  +--rw fiber-bundle*              string
+         |     |  |  +--rw site*                      string
+         |     |  |  +--rw node-id*                   string
+         |     |  |  +--rw supporting-service-name*   string
+         |     |  +--rw latency
+         |     |     +--rw max-latency?   uint32
+         |     +--:(co-routing)
+         |        +--rw co-routing
+         |           +--rw existing-service*   string
+         +--rw due-date?                  yang:date-and-time
+         +--rw end-date?                  yang:date-and-time
+         +--rw nc-code?                   string
+         +--rw nci-code?                  string
+         +--rw secondary-nci-code?        string
+         +--rw customer?                  string
+         +--rw customer-contact?          string
+         +--rw operator-contact?          string
+         +--rw latency?                   uint32
+         +--rw fiber-span-srlgs*          string
+         +--rw equipment-srgs* [srg-number]
+         |  +--rw srg-number    uint16
+         +--rw supporting-service-name*   string
+         +--rw topology
+            +--rw aToZ* [id]
+            |  +--rw id              string
+            |  +--rw hop-type?       enumeration
+            |  +--rw device
+            |  |  +--rw node-id?   string
+            |  +--rw resource
+            |  |  +--rw (resource)?
+            |  |     +--:(circuit-pack)
+            |  |     |  +--rw circuit-pack-name     string
+            |  |     +--:(port)
+            |  |     |  +--rw port
+            |  |     |     +--rw circuit-pack-name    string
+            |  |     |     +--rw port-name?           string
+            |  |     +--:(connection)
+            |  |     |  +--rw connection-number     string
+            |  |     +--:(physical-link)
+            |  |     |  +--rw physical-link-name    string
+            |  |     +--:(internal-link)
+            |  |     |  +--rw internal-link-name    string
+            |  |     +--:(shelf)
+            |  |     |  +--rw shelf-name            string
+            |  |     +--:(srg)
+            |  |     |  +--rw srg-number            uint16
+            |  |     +--:(degree)
+            |  |     |  +--rw degree-number         uint16
+            |  |     +--:(service)
+            |  |     |  +--rw service-name          string
+            |  |     +--:(interface)
+            |  |        +--rw interface-name        string
+            |  +--rw resourceType
+            |     +--rw type         resource-type-enum
+            |     +--rw extension?   string
+            +--rw zToA* [id]
+               +--rw id              string
+               +--rw hop-type?       enumeration
+               +--rw device
+               |  +--rw node-id?   string
+               +--rw resource
+               |  +--rw (resource)?
+               |     +--:(circuit-pack)
+               |     |  +--rw circuit-pack-name     string
+               |     +--:(port)
+               |     |  +--rw port
+               |     |     +--rw circuit-pack-name    string
+               |     |     +--rw port-name?           string
+               |     +--:(connection)
+               |     |  +--rw connection-number     string
+               |     +--:(physical-link)
+               |     |  +--rw physical-link-name    string
+               |     +--:(internal-link)
+               |     |  +--rw internal-link-name    string
+               |     +--:(shelf)
+               |     |  +--rw shelf-name            string
+               |     +--:(srg)
+               |     |  +--rw srg-number            uint16
+               |     +--:(degree)
+               |     |  +--rw degree-number         uint16
+               |     +--:(service)
+               |     |  +--rw service-name          string
+               |     +--:(interface)
+               |        +--rw interface-name        string
+               +--rw resourceType
+                  +--rw type         resource-type-enum
+                  +--rw extension?   string
+rpcs:
+   +---x service-create
+   |  +---w input
+   |  |  +---w service-name           string
+   |  |  +---w common-id?             string
+   |  |  +---w sdnc-request-header
+   |  |  |  +---w request-id?          string
+   |  |  |  +---w rpc-action?          rpc-actions
+   |  |  |  +---w notification-url?    string
+   |  |  |  +---w request-system-id?   string
+   |  |  +---w connection-type        org-openroadm-common-service-types:connection-type
+   |  |  +---w service-a-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w service-z-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w hard-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w soft-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w due-date?              yang:date-and-time
+   |  |  +---w end-date?              yang:date-and-time
+   |  |  +---w nc-code?               string
+   |  |  +---w nci-code?              string
+   |  |  +---w secondary-nci-code?    string
+   |  |  +---w customer?              string
+   |  |  +---w customer-contact?      string
+   |  |  +---w operator-contact?      string
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |     |  +--ro request-id             string
+   |     |  +--ro response-code          string
+   |     |  +--ro response-message?      string
+   |     |  +--ro ack-final-indicator    string
+   |     +--ro response-parameters
+   |        +--ro hard-constraints
+   |        |  +--ro customer-code*   string
+   |        |  +--ro (co-routing-or-general)?
+   |        |     +--:(general)
+   |        |     |  +--ro diversity
+   |        |     |  |  +--ro existing-service*                 string
+   |        |     |  |  +--ro existing-service-applicability
+   |        |     |  |     +--ro site?   boolean
+   |        |     |  |     +--ro node?   boolean
+   |        |     |  |     +--ro srlg?   boolean
+   |        |     |  +--ro exclude
+   |        |     |  |  +--ro fiber-bundle*              string
+   |        |     |  |  +--ro site*                      string
+   |        |     |  |  +--ro node-id*                   string
+   |        |     |  |  +--ro supporting-service-name*   string
+   |        |     |  +--ro include
+   |        |     |  |  +--ro fiber-bundle*              string
+   |        |     |  |  +--ro site*                      string
+   |        |     |  |  +--ro node-id*                   string
+   |        |     |  |  +--ro supporting-service-name*   string
+   |        |     |  +--ro latency
+   |        |     |     +--ro max-latency?   uint32
+   |        |     +--:(co-routing)
+   |        |        +--ro co-routing
+   |        |           +--ro existing-service*   string
+   |        +--ro soft-constraints
+   |           +--ro customer-code*   string
+   |           +--ro (co-routing-or-general)?
+   |              +--:(general)
+   |              |  +--ro diversity
+   |              |  |  +--ro existing-service*                 string
+   |              |  |  +--ro existing-service-applicability
+   |              |  |     +--ro site?   boolean
+   |              |  |     +--ro node?   boolean
+   |              |  |     +--ro srlg?   boolean
+   |              |  +--ro exclude
+   |              |  |  +--ro fiber-bundle*              string
+   |              |  |  +--ro site*                      string
+   |              |  |  +--ro node-id*                   string
+   |              |  |  +--ro supporting-service-name*   string
+   |              |  +--ro include
+   |              |  |  +--ro fiber-bundle*              string
+   |              |  |  +--ro site*                      string
+   |              |  |  +--ro node-id*                   string
+   |              |  |  +--ro supporting-service-name*   string
+   |              |  +--ro latency
+   |              |     +--ro max-latency?   uint32
+   |              +--:(co-routing)
+   |                 +--ro co-routing
+   |                    +--ro existing-service*   string
+   +---x service-feasibility-check
+   |  +---w input
+   |  |  +---w common-id              string
+   |  |  +---w sdnc-request-header
+   |  |  |  +---w request-id?          string
+   |  |  |  +---w rpc-action?          rpc-actions
+   |  |  |  +---w notification-url?    string
+   |  |  |  +---w request-system-id?   string
+   |  |  +---w connection-type?       org-openroadm-common-service-types:connection-type
+   |  |  +---w service-a-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w service-z-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w hard-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w soft-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w due-date?              yang:date-and-time
+   |  |  +---w end-date?              yang:date-and-time
+   |  |  +---w nc-code?               string
+   |  |  +---w nci-code?              string
+   |  |  +---w secondary-nci-code?    string
+   |  |  +---w customer?              string
+   |  |  +---w customer-contact?      string
+   |  |  +---w operator-contact?      string
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |     |  +--ro request-id             string
+   |     |  +--ro response-code          string
+   |     |  +--ro response-message?      string
+   |     |  +--ro ack-final-indicator    string
+   |     +--ro response-parameters
+   |     |  +--ro hard-constraints
+   |     |  |  +--ro customer-code*   string
+   |     |  |  +--ro (co-routing-or-general)?
+   |     |  |     +--:(general)
+   |     |  |     |  +--ro diversity
+   |     |  |     |  |  +--ro existing-service*                 string
+   |     |  |     |  |  +--ro existing-service-applicability
+   |     |  |     |  |     +--ro site?   boolean
+   |     |  |     |  |     +--ro node?   boolean
+   |     |  |     |  |     +--ro srlg?   boolean
+   |     |  |     |  +--ro exclude
+   |     |  |     |  |  +--ro fiber-bundle*              string
+   |     |  |     |  |  +--ro site*                      string
+   |     |  |     |  |  +--ro node-id*                   string
+   |     |  |     |  |  +--ro supporting-service-name*   string
+   |     |  |     |  +--ro include
+   |     |  |     |  |  +--ro fiber-bundle*              string
+   |     |  |     |  |  +--ro site*                      string
+   |     |  |     |  |  +--ro node-id*                   string
+   |     |  |     |  |  +--ro supporting-service-name*   string
+   |     |  |     |  +--ro latency
+   |     |  |     |     +--ro max-latency?   uint32
+   |     |  |     +--:(co-routing)
+   |     |  |        +--ro co-routing
+   |     |  |           +--ro existing-service*   string
+   |     |  +--ro soft-constraints
+   |     |     +--ro customer-code*   string
+   |     |     +--ro (co-routing-or-general)?
+   |     |        +--:(general)
+   |     |        |  +--ro diversity
+   |     |        |  |  +--ro existing-service*                 string
+   |     |        |  |  +--ro existing-service-applicability
+   |     |        |  |     +--ro site?   boolean
+   |     |        |  |     +--ro node?   boolean
+   |     |        |  |     +--ro srlg?   boolean
+   |     |        |  +--ro exclude
+   |     |        |  |  +--ro fiber-bundle*              string
+   |     |        |  |  +--ro site*                      string
+   |     |        |  |  +--ro node-id*                   string
+   |     |        |  |  +--ro supporting-service-name*   string
+   |     |        |  +--ro include
+   |     |        |  |  +--ro fiber-bundle*              string
+   |     |        |  |  +--ro site*                      string
+   |     |        |  |  +--ro node-id*                   string
+   |     |        |  |  +--ro supporting-service-name*   string
+   |     |        |  +--ro latency
+   |     |        |     +--ro max-latency?   uint32
+   |     |        +--:(co-routing)
+   |     |           +--ro co-routing
+   |     |              +--ro existing-service*   string
+   |     +--ro service-a-end
+   |     |  +--ro service-format        service-format
+   |     |  +--ro service-rate          uint32
+   |     |  +--ro clli                  string
+   |     |  +--ro node-id?              string
+   |     |  +--ro site
+   |     |  +--ro tx-direction
+   |     |  |  +--ro port
+   |     |  |  |  +--ro port-device-name?   string
+   |     |  |  |  +--ro port-type?          string
+   |     |  |  |  +--ro port-name?          string
+   |     |  |  |  +--ro port-rack?          string
+   |     |  |  |  +--ro port-shelf?         string
+   |     |  |  |  +--ro port-slot?          string
+   |     |  |  |  +--ro port-sub-slot?      string
+   |     |  |  +--ro lgx
+   |     |  |  |  +--ro lgx-device-name?   string
+   |     |  |  |  +--ro lgx-port-name?     string
+   |     |  |  |  +--ro lgx-port-rack?     string
+   |     |  |  |  +--ro lgx-port-shelf?    string
+   |     |  |  +--ro tail
+   |     |  |     +--ro tail-roadm
+   |     |  |     |  +--ro node-id?   string
+   |     |  |     +--ro xponder-port
+   |     |  |     |  +--ro circuit-pack-name?   string
+   |     |  |     |  +--ro port-name?           string
+   |     |  |     +--ro tail-roadm-port-aid?             string
+   |     |  |     +--ro tail-roadm-port-rack-location?   string
+   |     |  +--ro rx-direction
+   |     |  |  +--ro port
+   |     |  |  |  +--ro port-device-name?   string
+   |     |  |  |  +--ro port-type?          string
+   |     |  |  |  +--ro port-name?          string
+   |     |  |  |  +--ro port-rack?          string
+   |     |  |  |  +--ro port-shelf?         string
+   |     |  |  |  +--ro port-slot?          string
+   |     |  |  |  +--ro port-sub-slot?      string
+   |     |  |  +--ro lgx
+   |     |  |  |  +--ro lgx-device-name?   string
+   |     |  |  |  +--ro lgx-port-name?     string
+   |     |  |  |  +--ro lgx-port-rack?     string
+   |     |  |  |  +--ro lgx-port-shelf?    string
+   |     |  |  +--ro tail
+   |     |  |     +--ro tail-roadm
+   |     |  |     |  +--ro node-id?   string
+   |     |  |     +--ro xponder-port
+   |     |  |     |  +--ro circuit-pack-name?   string
+   |     |  |     |  +--ro port-name?           string
+   |     |  |     +--ro tail-roadm-port-aid?             string
+   |     |  |     +--ro tail-roadm-port-rack-location?   string
+   |     |  +--ro optic-type?           org-openroadm-common-types:optic-types
+   |     |  +--ro router
+   |     |  |  +--ro node-id?      string
+   |     |  |  +--ro ip-address?   inet:ip-address
+   |     |  |  +--ro url?          string
+   |     |  +--ro user-label?           string
+   |     |  +--ro equipment-required* [eqipment-identifier]
+   |     |     +--ro eqipment-identifier    string
+   |     |     +--ro equipment-type?        string
+   |     |     +--ro equipment-quantity?    uint32
+   |     +--ro service-z-end
+   |     |  +--ro service-format        service-format
+   |     |  +--ro service-rate          uint32
+   |     |  +--ro clli                  string
+   |     |  +--ro node-id?              string
+   |     |  +--ro site
+   |     |  +--ro tx-direction
+   |     |  |  +--ro port
+   |     |  |  |  +--ro port-device-name?   string
+   |     |  |  |  +--ro port-type?          string
+   |     |  |  |  +--ro port-name?          string
+   |     |  |  |  +--ro port-rack?          string
+   |     |  |  |  +--ro port-shelf?         string
+   |     |  |  |  +--ro port-slot?          string
+   |     |  |  |  +--ro port-sub-slot?      string
+   |     |  |  +--ro lgx
+   |     |  |  |  +--ro lgx-device-name?   string
+   |     |  |  |  +--ro lgx-port-name?     string
+   |     |  |  |  +--ro lgx-port-rack?     string
+   |     |  |  |  +--ro lgx-port-shelf?    string
+   |     |  |  +--ro tail
+   |     |  |     +--ro tail-roadm
+   |     |  |     |  +--ro node-id?   string
+   |     |  |     +--ro xponder-port
+   |     |  |     |  +--ro circuit-pack-name?   string
+   |     |  |     |  +--ro port-name?           string
+   |     |  |     +--ro tail-roadm-port-aid?             string
+   |     |  |     +--ro tail-roadm-port-rack-location?   string
+   |     |  +--ro rx-direction
+   |     |  |  +--ro port
+   |     |  |  |  +--ro port-device-name?   string
+   |     |  |  |  +--ro port-type?          string
+   |     |  |  |  +--ro port-name?          string
+   |     |  |  |  +--ro port-rack?          string
+   |     |  |  |  +--ro port-shelf?         string
+   |     |  |  |  +--ro port-slot?          string
+   |     |  |  |  +--ro port-sub-slot?      string
+   |     |  |  +--ro lgx
+   |     |  |  |  +--ro lgx-device-name?   string
+   |     |  |  |  +--ro lgx-port-name?     string
+   |     |  |  |  +--ro lgx-port-rack?     string
+   |     |  |  |  +--ro lgx-port-shelf?    string
+   |     |  |  +--ro tail
+   |     |  |     +--ro tail-roadm
+   |     |  |     |  +--ro node-id?   string
+   |     |  |     +--ro xponder-port
+   |     |  |     |  +--ro circuit-pack-name?   string
+   |     |  |     |  +--ro port-name?           string
+   |     |  |     +--ro tail-roadm-port-aid?             string
+   |     |  |     +--ro tail-roadm-port-rack-location?   string
+   |     |  +--ro optic-type?           org-openroadm-common-types:optic-types
+   |     |  +--ro router
+   |     |  |  +--ro node-id?      string
+   |     |  |  +--ro ip-address?   inet:ip-address
+   |     |  |  +--ro url?          string
+   |     |  +--ro user-label?           string
+   |     |  +--ro equipment-required* [eqipment-identifier]
+   |     |     +--ro eqipment-identifier    string
+   |     |     +--ro equipment-type?        string
+   |     |     +--ro equipment-quantity?    uint32
+   |     +--ro intermediate-sites* [clli]
+   |        +--ro service-format        service-format
+   |        +--ro service-rate          uint32
+   |        +--ro clli                  string
+   |        +--ro node-id?              string
+   |        +--ro site
+   |        +--ro tx-direction
+   |        |  +--ro port
+   |        |  |  +--ro port-device-name?   string
+   |        |  |  +--ro port-type?          string
+   |        |  |  +--ro port-name?          string
+   |        |  |  +--ro port-rack?          string
+   |        |  |  +--ro port-shelf?         string
+   |        |  |  +--ro port-slot?          string
+   |        |  |  +--ro port-sub-slot?      string
+   |        |  +--ro lgx
+   |        |  |  +--ro lgx-device-name?   string
+   |        |  |  +--ro lgx-port-name?     string
+   |        |  |  +--ro lgx-port-rack?     string
+   |        |  |  +--ro lgx-port-shelf?    string
+   |        |  +--ro tail
+   |        |     +--ro tail-roadm
+   |        |     |  +--ro node-id?   string
+   |        |     +--ro xponder-port
+   |        |     |  +--ro circuit-pack-name?   string
+   |        |     |  +--ro port-name?           string
+   |        |     +--ro tail-roadm-port-aid?             string
+   |        |     +--ro tail-roadm-port-rack-location?   string
+   |        +--ro rx-direction
+   |        |  +--ro port
+   |        |  |  +--ro port-device-name?   string
+   |        |  |  +--ro port-type?          string
+   |        |  |  +--ro port-name?          string
+   |        |  |  +--ro port-rack?          string
+   |        |  |  +--ro port-shelf?         string
+   |        |  |  +--ro port-slot?          string
+   |        |  |  +--ro port-sub-slot?      string
+   |        |  +--ro lgx
+   |        |  |  +--ro lgx-device-name?   string
+   |        |  |  +--ro lgx-port-name?     string
+   |        |  |  +--ro lgx-port-rack?     string
+   |        |  |  +--ro lgx-port-shelf?    string
+   |        |  +--ro tail
+   |        |     +--ro tail-roadm
+   |        |     |  +--ro node-id?   string
+   |        |     +--ro xponder-port
+   |        |     |  +--ro circuit-pack-name?   string
+   |        |     |  +--ro port-name?           string
+   |        |     +--ro tail-roadm-port-aid?             string
+   |        |     +--ro tail-roadm-port-rack-location?   string
+   |        +--ro optic-type?           org-openroadm-common-types:optic-types
+   |        +--ro router
+   |        |  +--ro node-id?      string
+   |        |  +--ro ip-address?   inet:ip-address
+   |        |  +--ro url?          string
+   |        +--ro user-label?           string
+   |        +--ro equipment-required* [eqipment-identifier]
+   |           +--ro eqipment-identifier    string
+   |           +--ro equipment-type?        string
+   |           +--ro equipment-quantity?    uint32
+   +---x service-delete
+   |  +---w input
+   |  |  +---w sdnc-request-header
+   |  |  |  +---w request-id?          string
+   |  |  |  +---w rpc-action?          rpc-actions
+   |  |  |  +---w notification-url?    string
+   |  |  |  +---w request-system-id?   string
+   |  |  +---w service-delete-req-info
+   |  |     +---w service-name      string
+   |  |     +---w due-date?         yang:date-and-time
+   |  |     +---w tail-retention    enumeration
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |        +--ro request-id             string
+   |        +--ro response-code          string
+   |        +--ro response-message?      string
+   |        +--ro ack-final-indicator    string
+   +---x equipment-notification
+   |  +---w input
+   |  |  +---w sdnc-request-header
+   |  |  |  +---w request-id?          string
+   |  |  |  +---w rpc-action?          rpc-actions
+   |  |  |  +---w notification-url?    string
+   |  |  |  +---w request-system-id?   string
+   |  |  +---w equiptment-id          string
+   |  |  +---w equipment-name?        string
+   |  |  +---w equipemt-type          string
+   |  |  +---w equipment-vendor       string
+   |  |  +---w equipment-customer?    string
+   |  |  +---w equipment-clli         string
+   |  |  +---w equipment-ip?          string
+   |  |  +---w controller-id          string
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |        +--ro request-id             string
+   |        +--ro response-code          string
+   |        +--ro response-message?      string
+   |        +--ro ack-final-indicator    string
+   +---x temp-service-create
+   |  +---w input
+   |  |  +---w common-id              string
+   |  |  +---w sdnc-request-header
+   |  |  |  +---w request-id?          string
+   |  |  |  +---w rpc-action?          rpc-actions
+   |  |  |  +---w notification-url?    string
+   |  |  |  +---w request-system-id?   string
+   |  |  +---w connection-type        org-openroadm-common-service-types:connection-type
+   |  |  +---w service-a-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w service-z-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w hard-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w soft-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w due-date?              yang:date-and-time
+   |  |  +---w end-date?              yang:date-and-time
+   |  |  +---w nc-code?               string
+   |  |  +---w nci-code?              string
+   |  |  +---w secondary-nci-code?    string
+   |  |  +---w customer?              string
+   |  |  +---w customer-contact?      string
+   |  |  +---w operator-contact?      string
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |     |  +--ro request-id             string
+   |     |  +--ro response-code          string
+   |     |  +--ro response-message?      string
+   |     |  +--ro ack-final-indicator    string
+   |     +--ro response-parameters
+   |        +--ro hard-constraints
+   |        |  +--ro customer-code*   string
+   |        |  +--ro (co-routing-or-general)?
+   |        |     +--:(general)
+   |        |     |  +--ro diversity
+   |        |     |  |  +--ro existing-service*                 string
+   |        |     |  |  +--ro existing-service-applicability
+   |        |     |  |     +--ro site?   boolean
+   |        |     |  |     +--ro node?   boolean
+   |        |     |  |     +--ro srlg?   boolean
+   |        |     |  +--ro exclude
+   |        |     |  |  +--ro fiber-bundle*              string
+   |        |     |  |  +--ro site*                      string
+   |        |     |  |  +--ro node-id*                   string
+   |        |     |  |  +--ro supporting-service-name*   string
+   |        |     |  +--ro include
+   |        |     |  |  +--ro fiber-bundle*              string
+   |        |     |  |  +--ro site*                      string
+   |        |     |  |  +--ro node-id*                   string
+   |        |     |  |  +--ro supporting-service-name*   string
+   |        |     |  +--ro latency
+   |        |     |     +--ro max-latency?   uint32
+   |        |     +--:(co-routing)
+   |        |        +--ro co-routing
+   |        |           +--ro existing-service*   string
+   |        +--ro soft-constraints
+   |           +--ro customer-code*   string
+   |           +--ro (co-routing-or-general)?
+   |              +--:(general)
+   |              |  +--ro diversity
+   |              |  |  +--ro existing-service*                 string
+   |              |  |  +--ro existing-service-applicability
+   |              |  |     +--ro site?   boolean
+   |              |  |     +--ro node?   boolean
+   |              |  |     +--ro srlg?   boolean
+   |              |  +--ro exclude
+   |              |  |  +--ro fiber-bundle*              string
+   |              |  |  +--ro site*                      string
+   |              |  |  +--ro node-id*                   string
+   |              |  |  +--ro supporting-service-name*   string
+   |              |  +--ro include
+   |              |  |  +--ro fiber-bundle*              string
+   |              |  |  +--ro site*                      string
+   |              |  |  +--ro node-id*                   string
+   |              |  |  +--ro supporting-service-name*   string
+   |              |  +--ro latency
+   |              |     +--ro max-latency?   uint32
+   |              +--:(co-routing)
+   |                 +--ro co-routing
+   |                    +--ro existing-service*   string
+   +---x temp-service-delete
+   |  +---w input
+   |  |  +---w common-id    string
+   |  +--ro output
+   |     +--ro configuration-response-common
+   |        +--ro request-id             string
+   |        +--ro response-code          string
+   |        +--ro response-message?      string
+   |        +--ro ack-final-indicator    string
+   +---x service-roll
+   |  +---w input
+   |  |  +---w service-name    string
+   |  |  +---w due-date?       yang:date-and-time
+   |  +--ro output
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x service-reconfigure
+   |  +---w input
+   |  |  +---w service-name          string
+   |  |  +---w new-service-name?     string
+   |  |  +---w common-id?            string
+   |  |  +---w connection-type?      org-openroadm-common-service-types:connection-type
+   |  |  +---w service-a-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w service-z-end
+   |  |  |  +---w service-format    service-format
+   |  |  |  +---w service-rate      uint32
+   |  |  |  +---w clli              string
+   |  |  |  +---w node-id?          string
+   |  |  |  +---w site
+   |  |  |  +---w tx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w rx-direction
+   |  |  |  |  +---w port
+   |  |  |  |  |  +---w port-device-name?   string
+   |  |  |  |  |  +---w port-type?          string
+   |  |  |  |  |  +---w port-name?          string
+   |  |  |  |  |  +---w port-rack?          string
+   |  |  |  |  |  +---w port-shelf?         string
+   |  |  |  |  |  +---w port-slot?          string
+   |  |  |  |  |  +---w port-sub-slot?      string
+   |  |  |  |  +---w lgx
+   |  |  |  |  |  +---w lgx-device-name?   string
+   |  |  |  |  |  +---w lgx-port-name?     string
+   |  |  |  |  |  +---w lgx-port-rack?     string
+   |  |  |  |  |  +---w lgx-port-shelf?    string
+   |  |  |  |  +---w tail
+   |  |  |  |     +---w tail-roadm
+   |  |  |  |     |  +---w node-id?   string
+   |  |  |  |     +---w xponder-port
+   |  |  |  |     |  +---w circuit-pack-name?   string
+   |  |  |  |     |  +---w port-name?           string
+   |  |  |  |     +---w tail-roadm-port-aid?             string
+   |  |  |  |     +---w tail-roadm-port-rack-location?   string
+   |  |  |  +---w optic-type?       org-openroadm-common-types:optic-types
+   |  |  |  +---w router
+   |  |  |  |  +---w node-id?      string
+   |  |  |  |  +---w ip-address?   inet:ip-address
+   |  |  |  |  +---w url?          string
+   |  |  |  +---w user-label?       string
+   |  |  +---w hard-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w soft-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w due-date?             yang:date-and-time
+   |  |  +---w end-date?             yang:date-and-time
+   |  |  +---w nc-code?              string
+   |  |  +---w nci-code?             string
+   |  |  +---w secondary-nci-code?   string
+   |  |  +---w customer?             string
+   |  |  +---w customer-contact?     string
+   |  |  +---w operator-contact?     string
+   |  +--ro output
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x service-restoration
+   |  +---w input
+   |  |  +---w service-name    string
+   |  |  +---w option          enumeration
+   |  +--ro output
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x service-reversion
+   |  +---w input
+   |  |  +---w service-name    string
+   |  |  +---w due-date?       yang:date-and-time
+   |  +--ro output
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x service-reroute
+   |  +---w input
+   |  |  +---w service-name    string
+   |  +--ro output
+   |     +--ro status              rpc-status
+   |     +--ro status-message?     string
+   |     +--ro hard-constraints
+   |     |  +--ro customer-code*   string
+   |     |  +--ro (co-routing-or-general)?
+   |     |     +--:(general)
+   |     |     |  +--ro diversity
+   |     |     |  |  +--ro existing-service*                 string
+   |     |     |  |  +--ro existing-service-applicability
+   |     |     |  |     +--ro site?   boolean
+   |     |     |  |     +--ro node?   boolean
+   |     |     |  |     +--ro srlg?   boolean
+   |     |     |  +--ro exclude
+   |     |     |  |  +--ro fiber-bundle*              string
+   |     |     |  |  +--ro site*                      string
+   |     |     |  |  +--ro node-id*                   string
+   |     |     |  |  +--ro supporting-service-name*   string
+   |     |     |  +--ro include
+   |     |     |  |  +--ro fiber-bundle*              string
+   |     |     |  |  +--ro site*                      string
+   |     |     |  |  +--ro node-id*                   string
+   |     |     |  |  +--ro supporting-service-name*   string
+   |     |     |  +--ro latency
+   |     |     |     +--ro max-latency?   uint32
+   |     |     +--:(co-routing)
+   |     |        +--ro co-routing
+   |     |           +--ro existing-service*   string
+   |     +--ro soft-constraints
+   |        +--ro customer-code*   string
+   |        +--ro (co-routing-or-general)?
+   |           +--:(general)
+   |           |  +--ro diversity
+   |           |  |  +--ro existing-service*                 string
+   |           |  |  +--ro existing-service-applicability
+   |           |  |     +--ro site?   boolean
+   |           |  |     +--ro node?   boolean
+   |           |  |     +--ro srlg?   boolean
+   |           |  +--ro exclude
+   |           |  |  +--ro fiber-bundle*              string
+   |           |  |  +--ro site*                      string
+   |           |  |  +--ro node-id*                   string
+   |           |  |  +--ro supporting-service-name*   string
+   |           |  +--ro include
+   |           |  |  +--ro fiber-bundle*              string
+   |           |  |  +--ro site*                      string
+   |           |  |  +--ro node-id*                   string
+   |           |  |  +--ro supporting-service-name*   string
+   |           |  +--ro latency
+   |           |     +--ro max-latency?   uint32
+   |           +--:(co-routing)
+   |              +--ro co-routing
+   |                 +--ro existing-service*   string
+   +---x service-reroute-confirm
+   |  +---w input
+   |  |  +---w service-name        string
+   |  |  +---w hard-constraints
+   |  |  |  +---w customer-code*   string
+   |  |  |  +---w (co-routing-or-general)?
+   |  |  |     +--:(general)
+   |  |  |     |  +---w diversity
+   |  |  |     |  |  +---w existing-service*                 string
+   |  |  |     |  |  +---w existing-service-applicability
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
+   |  |  |     |  +---w exclude
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w include
+   |  |  |     |  |  +---w fiber-bundle*              string
+   |  |  |     |  |  +---w site*                      string
+   |  |  |     |  |  +---w node-id*                   string
+   |  |  |     |  |  +---w supporting-service-name*   string
+   |  |  |     |  +---w latency
+   |  |  |     |     +---w max-latency?   uint32
+   |  |  |     +--:(co-routing)
+   |  |  |        +---w co-routing
+   |  |  |           +---w existing-service*   string
+   |  |  +---w soft-constraints
+   |  |     +---w customer-code*   string
+   |  |     +---w (co-routing-or-general)?
+   |  |        +--:(general)
+   |  |        |  +---w diversity
+   |  |        |  |  +---w existing-service*                 string
+   |  |        |  |  +---w existing-service-applicability
+   |  |        |  |     +---w site?   boolean
+   |  |        |  |     +---w node?   boolean
+   |  |        |  |     +---w srlg?   boolean
+   |  |        |  +---w exclude
+   |  |        |  |  +---w fiber-bundle*              string
+   |  |        |  |  +---w site*                      string
+   |  |        |  |  +---w node-id*                   string
+   |  |        |  |  +---w supporting-service-name*   string
+   |  |        |  +---w include
+   |  |        |  |  +---w fiber-bundle*              string
+   |  |        |  |  +---w site*                      string
+   |  |        |  |  +---w node-id*                   string
+   |  |        |  |  +---w supporting-service-name*   string
+   |  |        |  +---w latency
+   |  |        |     +---w max-latency?   uint32
+   |  |        +--:(co-routing)
+   |  |           +---w co-routing
+   |  |              +---w existing-service*   string
+   |  +--ro output
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x network-re-optimization
+      +---w input
+      |  +---w service-name?    string
+      |  +---w a-end?           string
+      |  +---w z-end?           string
+      |  +---w pass-through?    string
+      |  +---w customer-code?   string
+      +--ro output
+         +--ro status                    rpc-status
+         +--ro status-message?           string
+         +--ro optimization-candidate?   string
+notifications:
+   +---n service-rpc-result
+   |  +--ro notification-type?   org-openroadm-common-service-types:service-notification-types
+   |  +--ro status               rpc-status
+   |  +--ro status-message?      string
+   |  +--ro service-name         string
+   |  +--ro actual-date?         yang:date-and-time
+   +---n service-traffic-flow
+   |  +--ro service-name    string
+   |  +--ro actual-date?    yang:date-and-time
+   +---n service-notification
+      +--ro notificationType?          org-openroadm-resource-types:resource-notification-type
+      +--ro service-name               string
+      +--ro common-id?                 string
+      +--ro sdnc-request-header
+      |  +--ro request-id?          string
+      |  +--ro rpc-action?          rpc-actions
+      |  +--ro notification-url?    string
+      |  +--ro request-system-id?   string
+      +--ro connection-type            connection-type
+      +--ro lifecycle-state?           org-openroadm-common-types:lifecycle-state
+      +--ro administrative-state?      org-openroadm-common-types:state
+      +--ro operational-state?         org-openroadm-common-types:state
+      +--ro condition?                 service-condition
+      +--ro service-a-end
+      |  +--ro service-format    service-format
+      |  +--ro service-rate      uint32
+      |  +--ro clli              string
+      |  +--ro node-id?          string
+      |  +--ro site
+      |  +--ro tx-direction
+      |  |  +--ro port
+      |  |  |  +--ro port-device-name?   string
+      |  |  |  +--ro port-type?          string
+      |  |  |  +--ro port-name?          string
+      |  |  |  +--ro port-rack?          string
+      |  |  |  +--ro port-shelf?         string
+      |  |  |  +--ro port-slot?          string
+      |  |  |  +--ro port-sub-slot?      string
+      |  |  +--ro lgx
+      |  |  |  +--ro lgx-device-name?   string
+      |  |  |  +--ro lgx-port-name?     string
+      |  |  |  +--ro lgx-port-rack?     string
+      |  |  |  +--ro lgx-port-shelf?    string
+      |  |  +--ro tail
+      |  |     +--ro tail-roadm
+      |  |     |  +--ro node-id?   string
+      |  |     +--ro xponder-port
+      |  |     |  +--ro circuit-pack-name?   string
+      |  |     |  +--ro port-name?           string
+      |  |     +--ro tail-roadm-port-aid?             string
+      |  |     +--ro tail-roadm-port-rack-location?   string
+      |  +--ro rx-direction
+      |  |  +--ro port
+      |  |  |  +--ro port-device-name?   string
+      |  |  |  +--ro port-type?          string
+      |  |  |  +--ro port-name?          string
+      |  |  |  +--ro port-rack?          string
+      |  |  |  +--ro port-shelf?         string
+      |  |  |  +--ro port-slot?          string
+      |  |  |  +--ro port-sub-slot?      string
+      |  |  +--ro lgx
+      |  |  |  +--ro lgx-device-name?   string
+      |  |  |  +--ro lgx-port-name?     string
+      |  |  |  +--ro lgx-port-rack?     string
+      |  |  |  +--ro lgx-port-shelf?    string
+      |  |  +--ro tail
+      |  |     +--ro tail-roadm
+      |  |     |  +--ro node-id?   string
+      |  |     +--ro xponder-port
+      |  |     |  +--ro circuit-pack-name?   string
+      |  |     |  +--ro port-name?           string
+      |  |     +--ro tail-roadm-port-aid?             string
+      |  |     +--ro tail-roadm-port-rack-location?   string
+      |  +--ro optic-type?       org-openroadm-common-types:optic-types
+      |  +--ro router
+      |  |  +--ro node-id?      string
+      |  |  +--ro ip-address?   inet:ip-address
+      |  |  +--ro url?          string
+      |  +--ro user-label?       string
+      +--ro service-z-end
+      |  +--ro service-format    service-format
+      |  +--ro service-rate      uint32
+      |  +--ro clli              string
+      |  +--ro node-id?          string
+      |  +--ro site
+      |  +--ro tx-direction
+      |  |  +--ro port
+      |  |  |  +--ro port-device-name?   string
+      |  |  |  +--ro port-type?          string
+      |  |  |  +--ro port-name?          string
+      |  |  |  +--ro port-rack?          string
+      |  |  |  +--ro port-shelf?         string
+      |  |  |  +--ro port-slot?          string
+      |  |  |  +--ro port-sub-slot?      string
+      |  |  +--ro lgx
+      |  |  |  +--ro lgx-device-name?   string
+      |  |  |  +--ro lgx-port-name?     string
+      |  |  |  +--ro lgx-port-rack?     string
+      |  |  |  +--ro lgx-port-shelf?    string
+      |  |  +--ro tail
+      |  |     +--ro tail-roadm
+      |  |     |  +--ro node-id?   string
+      |  |     +--ro xponder-port
+      |  |     |  +--ro circuit-pack-name?   string
+      |  |     |  +--ro port-name?           string
+      |  |     +--ro tail-roadm-port-aid?             string
+      |  |     +--ro tail-roadm-port-rack-location?   string
+      |  +--ro rx-direction
+      |  |  +--ro port
+      |  |  |  +--ro port-device-name?   string
+      |  |  |  +--ro port-type?          string
+      |  |  |  +--ro port-name?          string
+      |  |  |  +--ro port-rack?          string
+      |  |  |  +--ro port-shelf?         string
+      |  |  |  +--ro port-slot?          string
+      |  |  |  +--ro port-sub-slot?      string
+      |  |  +--ro lgx
+      |  |  |  +--ro lgx-device-name?   string
+      |  |  |  +--ro lgx-port-name?     string
+      |  |  |  +--ro lgx-port-rack?     string
+      |  |  |  +--ro lgx-port-shelf?    string
+      |  |  +--ro tail
+      |  |     +--ro tail-roadm
+      |  |     |  +--ro node-id?   string
+      |  |     +--ro xponder-port
+      |  |     |  +--ro circuit-pack-name?   string
+      |  |     |  +--ro port-name?           string
+      |  |     +--ro tail-roadm-port-aid?             string
+      |  |     +--ro tail-roadm-port-rack-location?   string
+      |  +--ro optic-type?       org-openroadm-common-types:optic-types
+      |  +--ro router
+      |  |  +--ro node-id?      string
+      |  |  +--ro ip-address?   inet:ip-address
+      |  |  +--ro url?          string
+      |  +--ro user-label?       string
+      +--ro hard-constraints
+      |  +--ro customer-code*   string
+      |  +--ro (co-routing-or-general)?
+      |     +--:(general)
+      |     |  +--ro diversity
+      |     |  |  +--ro existing-service*                 string
+      |     |  |  +--ro existing-service-applicability
+      |     |  |     +--ro site?   boolean
+      |     |  |     +--ro node?   boolean
+      |     |  |     +--ro srlg?   boolean
+      |     |  +--ro exclude
+      |     |  |  +--ro fiber-bundle*              string
+      |     |  |  +--ro site*                      string
+      |     |  |  +--ro node-id*                   string
+      |     |  |  +--ro supporting-service-name*   string
+      |     |  +--ro include
+      |     |  |  +--ro fiber-bundle*              string
+      |     |  |  +--ro site*                      string
+      |     |  |  +--ro node-id*                   string
+      |     |  |  +--ro supporting-service-name*   string
+      |     |  +--ro latency
+      |     |     +--ro max-latency?   uint32
+      |     +--:(co-routing)
+      |        +--ro co-routing
+      |           +--ro existing-service*   string
+      +--ro soft-constraints
+      |  +--ro customer-code*   string
+      |  +--ro (co-routing-or-general)?
+      |     +--:(general)
+      |     |  +--ro diversity
+      |     |  |  +--ro existing-service*                 string
+      |     |  |  +--ro existing-service-applicability
+      |     |  |     +--ro site?   boolean
+      |     |  |     +--ro node?   boolean
+      |     |  |     +--ro srlg?   boolean
+      |     |  +--ro exclude
+      |     |  |  +--ro fiber-bundle*              string
+      |     |  |  +--ro site*                      string
+      |     |  |  +--ro node-id*                   string
+      |     |  |  +--ro supporting-service-name*   string
+      |     |  +--ro include
+      |     |  |  +--ro fiber-bundle*              string
+      |     |  |  +--ro site*                      string
+      |     |  |  +--ro node-id*                   string
+      |     |  |  +--ro supporting-service-name*   string
+      |     |  +--ro latency
+      |     |     +--ro max-latency?   uint32
+      |     +--:(co-routing)
+      |        +--ro co-routing
+      |           +--ro existing-service*   string
+      +--ro due-date?                  yang:date-and-time
+      +--ro end-date?                  yang:date-and-time
+      +--ro nc-code?                   string
+      +--ro nci-code?                  string
+      +--ro secondary-nci-code?        string
+      +--ro customer?                  string
+      +--ro customer-contact?          string
+      +--ro operator-contact?          string
+      +--ro latency?                   uint32
+      +--ro fiber-span-srlgs*          string
+      +--ro equipment-srgs* [srg-number]
+      |  +--ro srg-number    uint16
+      +--ro supporting-service-name*   string
+      +--ro topology
+         +--ro aToZ* [id]
+         |  +--ro id              string
+         |  +--ro hop-type?       enumeration
+         |  +--ro device
+         |  |  +--ro node-id?   string
+         |  +--ro resource
+         |  |  +--ro (resource)?
+         |  |     +--:(circuit-pack)
+         |  |     |  +--ro circuit-pack-name     string
+         |  |     +--:(port)
+         |  |     |  +--ro port
+         |  |     |     +--ro circuit-pack-name    string
+         |  |     |     +--ro port-name?           string
+         |  |     +--:(connection)
+         |  |     |  +--ro connection-number     string
+         |  |     +--:(physical-link)
+         |  |     |  +--ro physical-link-name    string
+         |  |     +--:(internal-link)
+         |  |     |  +--ro internal-link-name    string
+         |  |     +--:(shelf)
+         |  |     |  +--ro shelf-name            string
+         |  |     +--:(srg)
+         |  |     |  +--ro srg-number            uint16
+         |  |     +--:(degree)
+         |  |     |  +--ro degree-number         uint16
+         |  |     +--:(service)
+         |  |     |  +--ro service-name          string
+         |  |     +--:(interface)
+         |  |        +--ro interface-name        string
+         |  +--ro resourceType
+         |     +--ro type         resource-type-enum
+         |     +--ro extension?   string
+         +--ro zToA* [id]
+            +--ro id              string
+            +--ro hop-type?       enumeration
+            +--ro device
+            |  +--ro node-id?   string
+            +--ro resource
+            |  +--ro (resource)?
+            |     +--:(circuit-pack)
+            |     |  +--ro circuit-pack-name     string
+            |     +--:(port)
+            |     |  +--ro port
+            |     |     +--ro circuit-pack-name    string
+            |     |     +--ro port-name?           string
+            |     +--:(connection)
+            |     |  +--ro connection-number     string
+            |     +--:(physical-link)
+            |     |  +--ro physical-link-name    string
+            |     +--:(internal-link)
+            |     |  +--ro internal-link-name    string
+            |     +--:(shelf)
+            |     |  +--ro shelf-name            string
+            |     +--:(srg)
+            |     |  +--ro srg-number            uint16
+            |     +--:(degree)
+            |     |  +--ro degree-number         uint16
+            |     +--:(service)
+            |     |  +--ro service-name          string
+            |     +--:(interface)
+            |        +--ro interface-name        string
+            +--ro resourceType
+               +--ro type         resource-type-enum
+               +--ro extension?   string
