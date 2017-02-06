@@ -1,0 +1,522 @@
+module org-openroadm-probable-cause {
+  namespace "http://org/openroadm/probableCause";
+  prefix org-openroadm-probable-cause;
+
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
+  organization "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of Probable Causes.
+     
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+      AT&T Intellectual Property.  All other rights reserved.
+      
+      Redistribution and use in source and binary forms, with or without modification, 
+      are permitted provided that the following conditions are met:
+      
+      * Redistributions of source code must retain the above copyright notice, this 
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice, 
+        this list of conditions and the following disclaimer in the documentation and/or 
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+        contributors may be used to endorse or promote products derived from this software 
+        without specific prior written permission.
+      
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2016-10-14 {
+    description
+      "Version 1.2";
+  }
+
+  grouping probable-cause {
+    leaf cause {
+      type probable-cause-enum;
+      mandatory true;
+    }
+    leaf extension {
+      type string;
+      mandatory false;
+    }
+    leaf direction {
+      description
+        "Direction indication of the alarm.";
+      type org-openroadm-common-types:direction;
+    }
+    leaf location {
+      description
+        "location indication of the alarm.";
+      type enumeration {
+        enum "NEND" {
+          value 1;
+          description
+            "Near End location";
+        }
+        enum "FEND" {
+          value 2;
+          description
+            "Far End location";
+        }
+      }
+    }
+  }
+
+  typedef probable-cause-enum {
+    type enumeration {
+      enum "vendorExtension" {
+        value 1;
+        description
+          "vendorExtension";
+      }
+      enum "openConnectionIndication" {
+        value 2;
+        description
+          "Open connection indication (OCI)";
+        reference "G.798";
+      }
+      enum "alarmIndicationSignal" {
+        value 3;
+        description
+          "Alarm indication signal";
+        reference "G.798";
+      }
+      enum "lossOfSignal" {
+        value 4;
+        description
+          "Loss of Signal";
+      }
+      enum "opticalLineFail" {
+        value 5;
+        description
+          "Optical Line Fail";
+      }
+      enum "opticalPowerDegraded" {
+        value 6;
+        description
+          "Optical Line Fail";
+      }
+      enum "automaticLaserShutdown" {
+        value 7;
+        description
+          "Optical Line Fail";
+      }
+      enum "serverSignalFail" {
+        value 8;
+        description
+          "Server Signal Fail (SSF)";
+        reference "G.798";
+      }
+      enum "lossofTandemConnection" {
+        value 9;
+        description
+          "Loss of Tandem Connection (LTC)";
+        reference "G.798";
+      }
+      enum "lockedDefect" {
+        value 10;
+        description
+          "Locked defect (LCK)";
+        reference "G.798";
+      }
+      enum "trailTraceIdentifierMismatch" {
+        value 11;
+        description
+          "Trail trace Identifier Mismatch (TIM)";
+        reference "G.798";
+      }
+      enum "degradedEffect" {
+        value 12;
+        description
+          "Degraded defect (DEG)";
+        reference "G.798";
+      }
+      enum "backwardsDefectIndication" {
+        value 13;
+        description
+          "Backward Defect Indication (BDI)";
+        reference "G.798";
+      }
+      enum "otsSpanlossPowerOutOfSpecificationHigh" {
+        value 14;
+      }
+      enum "automaticShutoffDisabled" {
+        value 15;
+      }
+      enum "postBlockManualLaserShutdown" {
+        value 16;
+      }
+      enum "portLossOfLight" {
+        value 17;
+      }
+      enum "reflectionTooHigh" {
+        value 18;
+      }
+      enum "shutoffThresholdCrossed" {
+        value 19;
+      }
+      enum "preBlockSpanAdjustmentInProgress" {
+        value 20;
+      }
+      enum "postBlockSpanAdjustmentInProgress" {
+        value 21;
+      }
+      enum "payloadMissingIndication" {
+        value 22;
+        description
+          "Will be applicable to ROADM when OSC signaling supported in future (G.709 2016-06 Figure 15-1A, 1B)";
+      }
+      enum "forwardDefectIndication" {
+        value 23;
+        description
+          "Will be applicable to ROADM when OSC signaling supported in future (G.709 2016-06 Figure 15-1A, 1B)";
+      }
+      enum "oscPowerOutOfSpecificationHigh" {
+        value 24;
+      }
+      enum "oscPowerOutOfSpecificationLow" {
+        value 25;
+      }
+      enum "powerOutOfSpecificationHigh" {
+        value 26;
+      }
+      enum "lossOfSynchronization" {
+        value 27;
+      }
+      enum "linkDown" {
+        value 28;
+      }
+      enum "equipmentFault" {
+        value 29;
+      }
+      enum "equipmentRemoved" {
+        value 30;
+      }
+      enum "equipmentMismatch" {
+        value 31;
+      }
+      enum "equipmentWarmup" {
+        value 32;
+      }
+      enum "equipmentLedOn" {
+        value 33;
+      }
+      enum "equipmentInterConnectFailure" {
+        value 34;
+      }
+      enum "equipmentMiscabledConnection" {
+        value 35;
+      }
+      enum "softwareVersionMismatch" {
+        value 36;
+      }
+      enum "softwareStageInProgress" {
+        value 37;
+      }
+      enum "databaseCorruption" {
+        value 38;
+      }
+      enum "databaseLockedSoftwareUpgradeInProgress" {
+        value 39;
+      }
+      enum "databaseLockedDbRestoreInProgress" {
+        value 40;
+      }
+      enum "databaseLockedSysInitInProgress" {
+        value 41;
+      }
+      enum "databaseLockedDbAlarmPresent" {
+        value 42;
+      }
+      enum "databaseLockedIlfViolation" {
+        value 43;
+      }
+      enum "databaseVersionMismatch" {
+        value 44;
+      }
+      enum "databaseLockedShelfProvModePresent" {
+        value 45;
+      }
+      enum "firmwareVersionMismatch" {
+        value 46;
+      }
+      enum "firmwareBackwardCompatibleLimited" {
+        value 47;
+      }
+      enum "firmwareBackwardCompatibleAll" {
+        value 48;
+      }
+      enum "incompatibleFirmware" {
+        value 49;
+      }
+      enum "firmwareDownloadOrActivationFailure" {
+        value 50;
+      }
+      enum "firmwareInitInProgress" {
+        value 51;
+      }
+      enum "softwareReset" {
+        value 52;
+      }
+      enum "fanCoolingFail" {
+        value 53;
+      }
+      enum "administrativeDown" {
+        value 54;
+      }
+      enum "lampTest" {
+        value 55;
+      }
+      enum "powerProblemA" {
+        value 56;
+      }
+      enum "powerProblemB" {
+        value 57;
+      }
+      enum "shelfProvisioningMode" {
+        value 58;
+      }
+      enum "sysNameChanged" {
+        value 59;
+      }
+      enum "sysNtpNotSynchronized" {
+        value 60;
+      }
+      enum "ilfViolationMajor" {
+        value 61;
+      }
+      enum "ilfViolationCritical" {
+        value 62;
+      }
+      enum "lossOfFrame" {
+        value 63;
+      }
+      enum "lossOfMultiframe" {
+        value 64;
+      }
+      enum "backwardIncomingAlignmentError" {
+        value 65;
+      }
+      enum "incomingAlignmentError" {
+        value 66;
+      }
+      enum "payloadMismatch" {
+        value 67;
+      }
+      enum "clientSignalFailDefect" {
+        value 68;
+      }
+      enum "backwardIncomingAlignmentErrorTCM1" {
+        value 69;
+      }
+      enum "backwardIncomingAlignmentErrorTCM2" {
+        value 70;
+      }
+      enum "backwardIncomingAlignmentErrorTCM3" {
+        value 71;
+      }
+      enum "backwardIncomingAlignmentErrorTCM4" {
+        value 72;
+      }
+      enum "backwardIncomingAlignmentErrorTCM5" {
+        value 73;
+      }
+      enum "backwardIncomingAlignmentErrorTCM6" {
+        value 74;
+      }
+      enum "incomingAlignmentErrorTCM1" {
+        value 75;
+      }
+      enum "incomingAlignmentErrorTCM2" {
+        value 76;
+      }
+      enum "incomingAlignmentErrorTCM3" {
+        value 77;
+      }
+      enum "incomingAlignmentErrorTCM4" {
+        value 78;
+      }
+      enum "incomingAlignmentErrorTCM5" {
+        value 79;
+      }
+      enum "incomingAlignmentErrorTCM6" {
+        value 80;
+      }
+      enum "backwardsDefectIndicationTCM1" {
+        value 81;
+      }
+      enum "backwardsDefectIndicationTCM2" {
+        value 82;
+      }
+      enum "backwardsDefectIndicationTCM3" {
+        value 83;
+      }
+      enum "backwardsDefectIndicationTCM4" {
+        value 84;
+      }
+      enum "backwardsDefectIndicationTCM5" {
+        value 85;
+      }
+      enum "backwardsDefectIndicationTCM6" {
+        value 86;
+      }
+      enum "degradedDefectTCM1" {
+        value 87;
+      }
+      enum "degradedDefectTCM2" {
+        value 88;
+      }
+      enum "degradedDefectTCM3" {
+        value 89;
+      }
+      enum "degradedDefectTCM4" {
+        value 90;
+      }
+      enum "degradedDefectTCM5" {
+        value 91;
+      }
+      enum "degradedDefectTCM6" {
+        value 92;
+      }
+      enum "trailTraceIdentifierMisMatchTCM1" {
+        value 93;
+      }
+      enum "trailTraceIdentifierMisMatchTCM2" {
+        value 94;
+      }
+      enum "trailTraceIdentifierMisMatchTCM3" {
+        value 95;
+      }
+      enum "trailTraceIdentifierMisMatchTCM4" {
+        value 96;
+      }
+      enum "trailTraceIdentifierMisMatchTCM5" {
+        value 97;
+      }
+      enum "trailTraceIdentifierMisMatchTCM6" {
+        value 98;
+      }
+      enum "alarmIndicationSignalTCM1" {
+        value 99;
+      }
+      enum "alarmIndicationSignalTCM2" {
+        value 100;
+      }
+      enum "alarmIndicationSignalTCM3" {
+        value 101;
+      }
+      enum "alarmIndicationSignalTCM4" {
+        value 102;
+      }
+      enum "alarmIndicationSignalTCM5" {
+        value 103;
+      }
+      enum "alarmIndicationSignalTCM6" {
+        value 104;
+      }
+      enum "openConnectionIndicationTCM1" {
+        value 105;
+      }
+      enum "openConnectionIndicationTCM2" {
+        value 106;
+      }
+      enum "openConnectionIndicationTCM3" {
+        value 107;
+      }
+      enum "openConnectionIndicationTCM4" {
+        value 108;
+      }
+      enum "openConnectionIndicationTCM5" {
+        value 109;
+      }
+      enum "openConnectionIndicationTCM6" {
+        value 110;
+      }
+      enum "lockedDefectTCM1" {
+        value 111;
+      }
+      enum "lockedDefectTCM2" {
+        value 112;
+      }
+      enum "lockedDefectTCM3" {
+        value 113;
+      }
+      enum "lockedDefectTCM4" {
+        value 114;
+      }
+      enum "lockedDefectTCM5" {
+        value 115;
+      }
+      enum "lockedDefectTCM6" {
+        value 116;
+      }
+      enum "lossofTandemConnectionTCM1" {
+        value 117;
+      }
+      enum "lossofTandemConnectionTCM2" {
+        value 118;
+      }
+      enum "lossofTandemConnectionTCM3" {
+        value 119;
+      }
+      enum "lossofTandemConnectionTCM4" {
+        value 120;
+      }
+      enum "lossofTandemConnectionTCM5" {
+        value 121;
+      }
+      enum "lossofTandemConnectionTCM6" {
+        value 122;
+      }
+      enum "highBER" {
+        value 123;
+      }
+      enum "localFault" {
+        value 124;
+      }
+      enum "remoteFault" {
+        value 125;
+      }
+      enum "lossOfAlignment" {
+        value 126;
+      }
+      enum "lossOfFECAlignment" {
+        value 127;
+      }
+      enum "facilityLoopbackActive" {
+        value 128;
+      }
+      enum "facilityLoopback2Active" {
+        value 129;
+      }
+      enum "terminalLoopbackActive" {
+        value 130;
+      }
+      enum "facilityTestsignalActive" {
+        value 131;
+      }
+      enum "terminalTestsignalActive" {
+        value 132;
+      }
+      enum "automaticLaserShutdownDisabled" {
+        value 133;
+      }
+      enum "certificateNotInstalled" {
+        value 134;
+      }
+    }
+  }
+}
