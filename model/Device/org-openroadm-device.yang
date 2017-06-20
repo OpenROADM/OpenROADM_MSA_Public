@@ -85,6 +85,11 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2017-02-06 {
+    description
+      "Version 1.2.1 - removed pattern for current-datetime in info tree and rpc";
+  }
+
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -182,9 +187,7 @@ module org-openroadm-device {
       "Set the info/current-datetime leaf to the specified value.";
     input {     
      leaf current-datetime {
-        type ietf-yang-types:date-and-time {
-          pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}';
-        }
+        type ietf-yang-types:date-and-time; 
         mandatory true;
         description
           "The current system date and time in UTC. Format: YYYY-MM-DDTHH:MM:SS";
@@ -288,9 +291,7 @@ module org-openroadm-device {
         "Template information used in the deployment.";
     }
     leaf current-datetime {
-      type ietf-yang-types:date-and-time {
-        pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?';
-      }                                                     
+      type ietf-yang-types:date-and-time; 
       config false;
       description
         "The current system date and time in UTC. Format: YYYY-MM-DDTHH:MM:SS.mm+ ";

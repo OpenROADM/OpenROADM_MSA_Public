@@ -1,38 +1,38 @@
 module: org-openroadm-database
 rpcs:
-   +---x db-backup                
-   |  +---w input     
+   +---x db-backup
+   |  +---w input
    |  |  +---w filename?   string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x db-restore               
-   |  +---w input     
+   +---x db-restore
+   |  +---w input
    |  |  +---w filename?      string
    |  |  +---w nodeIDCheck?   boolean
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x db-activate              
-   |  +---w input     
+   +---x db-activate
+   |  +---w input
    |  |  +---w rollBackTimer?   string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x cancel-rollback-timer    
-   |  +---w input     
+   +---x cancel-rollback-timer
+   |  +---w input
    |  |  +---w accept?   boolean
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x database-init            
-      +--ro output    
+   +---x database-init
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-de-operations
 rpcs:
-   +---x restart    
-      +---w input     
+   +---x restart
+      +---w input
       |  +---w device
       |  |  +---w node-id?   string
       |  +---w resource
@@ -63,11 +63,11 @@ rpcs:
       |  |  +---w type         resource-type-enum
       |  |  +---w extension?   string
       |  +---w option?         enumeration
-      +--ro output    
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 notifications:
-   +---n restart-notification    
+   +---n restart-notification
       +--ro device
       |  +--ro node-id?   string
       +--ro resource
@@ -416,10 +416,10 @@ module: org-openroadm-device
             +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
             +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
 rpcs:
-   +---x get-connection-port-trail    
-   |  +---w input     
+   +---x get-connection-port-trail
+   |  +---w input
    |  |  +---w connection-number    string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
    |     +--ro ports*
@@ -429,34 +429,34 @@ rpcs:
    |        +--ro subSlot?             string
    |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
    |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-   +---x disable-automatic-shutoff    
-   |  +---w input     
+   +---x disable-automatic-shutoff
+   |  +---w input
    |  |  +---w amp              -> /org-openroadm-device/shelves/shelf-name
    |  |  +---w degree-number    uint16
    |  |  +---w support-timer?   uint16
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x start-scan                   
-   |  +---w input     
+   +---x start-scan
+   |  +---w input
    |  |  +---w degree-number     uint16
    |  |  +---w port-direction?   org-openroadm-common-types:direction
    |  |  +---w distance?         uint32
    |  |  +---w resolution?       uint32
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x set-current-datetime         
-      +---w input     
+   +---x set-current-datetime
+      +---w input
       |  +---w current-datetime    ietf-yang-types:date-and-time
-      +--ro output    
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 notifications:
-   +---n otdr-scan-result       
+   +---n otdr-scan-result
    |  +--ro status         enumeration
    |  +--ro result-file?   string
-   +---n change-notification    
+   +---n change-notification
       +--ro change-time?   ietf-yang-types:date-and-time
       +--ro changed-by
       |  +--ro (server-or-user)?
@@ -472,37 +472,37 @@ notifications:
          +--ro operation?   ietf-nc:edit-operation-type
 module: org-openroadm-file-transfer
 rpcs:
-   +---x transfer       
-   |  +---w input     
+   +---x transfer
+   |  +---w input
    |  |  +---w action              enumeration
    |  |  +---w local-file-path     string
    |  |  +---w remote-file-path    inet:uri
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x show-file      
-   |  +---w input     
+   +---x show-file
+   |  +---w input
    |  |  +---w filename?   string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            enumeration
    |     +--ro status-message*   string
-   +---x delete-file    
-      +---w input     
+   +---x delete-file
+      +---w input
       |  +---w filename    string
-      +--ro output    
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-fwdl
 rpcs:
-   +---x fw-update    
-      +---w input     
+   +---x fw-update
+      +---w input
       |  +---w circuit-pack-name?   string
-      +--ro output    
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-lldp
 notifications:
-   +---n lldp-nbr-info-change    
+   +---n lldp-nbr-info-change
       +--ro notification-type?   org-openroadm-resource-types:resource-notification-type
       +--ro resource-type?       org-openroadm-resource-types:resource-type-enum
       +--ro resource?            string
@@ -517,23 +517,23 @@ notifications:
       +--ro event-time?          yang:date-and-time
 module: org-openroadm-swdl
 rpcs:
-   +---x sw-stage                   
-   |  +---w input     
+   +---x sw-stage
+   |  +---w input
    |  |  +---w filename?   string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x sw-activate                
-   |  +---w input     
+   +---x sw-activate
+   |  +---w input
    |  |  +---w version?           string
    |  |  +---w validationTimer?   string
-   |  +--ro output    
+   |  +--ro output
    |     +--ro status            rpc-status
    |     +--ro status-message?   string
-   +---x cancel-validation-timer    
-      +---w input     
+   +---x cancel-validation-timer
+      +---w input
       |  +---w accept?   boolean
-      +--ro output    
+      +--ro output
          +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-syslog
