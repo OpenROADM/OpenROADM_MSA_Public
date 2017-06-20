@@ -34,11 +34,12 @@ module org-openroadm-device-resource-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping device-id {
     description
       "Device identifier. Unique within the Controller.";
@@ -51,7 +52,9 @@ module org-openroadm-device-resource-types {
       mandatory true;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping shelf-name {
     leaf shelf-name {
       description
@@ -63,49 +66,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
-  grouping circuit-pack-name {
-    leaf circuit-pack-name {
-      description
-        "Circuit-Pack identifier. Unique within the context of a device.";
-      type leafref {
-        path "/org-openroadm-device/circuit-packs/circuit-pack-name";
-      }
-      mandatory true;
-    }
-  }
-
-  grouping port-name {
-    uses circuit-pack-name;
-    leaf port-name {
-      description
-        "Port identifier. Unique within the context of a circuit-pack.";
-      mandatory true;
-      type leafref {
-        path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name";
-      }
-    }
-  }
-
-  grouping supporting-port-name {
-    leaf supporting-circuit-pack-name {
-      description
-        "Identifier of the supporting circuit-pack.";
-      type leafref {
-        path "/org-openroadm-device/circuit-packs/circuit-pack-name";
-      }
-      mandatory true;
-    }
-    leaf supporting-port {
-      description
-        "Identifier of the supporting port.";
-      mandatory true;
-      type leafref {
-        path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name";
-      }
-    }
-  }
-
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping physical-link-name {
     leaf physical-link-name {
       description
@@ -117,9 +80,11 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping internal-link-name {
-    uses circuit-pack-name;
+    uses org-openroadm-device:circuit-pack-name;
     leaf internal-link-name {
       description
         "Internal Link identifier. Unique within the context of a circuit pack.";
@@ -130,7 +95,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping connection-number {
     leaf connection-number {
       description
@@ -140,56 +107,29 @@ module org-openroadm-device-resource-types {
       }
     }
   }
+*/
 
-  grouping degree-number {
-    leaf degree-number {
-      description
-        "Degree identifier. Unique within the context of a device.";
-      type leafref {
-        path "/org-openroadm-device/degree/degree-number";
-      }
-    }
-  }
-
-  grouping interface-name {
-    leaf interface-name {
-      description
-        "Name of an interface. Unique within the context of a device.";
-      type leafref {
-        path "/org-openroadm-device/interface/name";
-      }
-      config false;
-    }
-  }
-
-  grouping srg-number {
-    leaf srg-number {
-      description
-        "Shared Risk Group identifier. Unique within the context of a device.";
-      type leafref {
-        path "/org-openroadm-device/shared-risk-group/srg-number";
-      }
-    }
-  }
-
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping this-will-test-ids {
     uses device-id;
     container shelf {
       uses shelf-name;
     }
     container circuit-pack {
-      uses circuit-pack-name;
+      uses org-openroadm-device:circuit-pack-name;
     }
     container port {
-      uses port-name;
+      uses org-openroadm-device:port-name;
     }
     uses internal-link-name;
     uses physical-link-name;
     uses connection-number;
-    uses srg-number;
-    uses degree-number;
+    uses org-openroadm-device:srg-number;
+    uses org-openroadm-device:degree-number;
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping xponder-device-id {
     description
       "Xponder identifier. Unique within the Controller.";
@@ -202,7 +142,9 @@ module org-openroadm-device-resource-types {
       mandatory true;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping xponder-number {
     leaf xponder-number {
       description
@@ -213,7 +155,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping xponder-shelf-name {
     uses xponder-number;
     leaf shelf-name {
@@ -226,7 +170,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping xponder-circuit-pack-name {
     uses xponder-number;
     leaf circuit-pack-name {
@@ -238,7 +184,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping xponder-port-name {
     uses xponder-circuit-pack-name;
     leaf port-name {
@@ -250,7 +198,9 @@ module org-openroadm-device-resource-types {
       config false;
     }
   }
+*/
 
+/* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
   grouping this-will-test-xponder-ids {
     uses xponder-device-id;
     container shelf {
@@ -263,4 +213,5 @@ module org-openroadm-device-resource-types {
       uses xponder-port-name;
     }
   }
+*/
 }

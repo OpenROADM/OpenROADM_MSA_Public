@@ -1,5 +1,5 @@
 module org-openroadm-rstp {
-  namespace "http://org/openroadm/att-rstp";
+  namespace "http://org/openroadm/rstp";
   prefix org-openroadm-rstp;
 
   import org-openroadm-device {
@@ -39,9 +39,9 @@ module org-openroadm-rstp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   typedef bridge-id-type {

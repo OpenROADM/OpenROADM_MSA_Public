@@ -63,7 +63,7 @@ module: org-openroadm-service
    |     |  |     |  +--ro port-name?           string
    |     |  |     +--ro tail-roadm-port-aid?             string
    |     |  |     +--ro tail-roadm-port-rack-location?   string
-   |     |  +--ro optic-type        enumeration
+   |     |  +--ro optic-type        org-openroadm-common-types:optic-types
    |     |  +--ro router
    |     |  |  +--ro node-id?      string
    |     |  |  +--ro ip-address?   inet:ip-address
@@ -119,7 +119,7 @@ module: org-openroadm-service
    |     |  |     |  +--ro port-name?           string
    |     |  |     +--ro tail-roadm-port-aid?             string
    |     |  |     +--ro tail-roadm-port-rack-location?   string
-   |     |  +--ro optic-type        enumeration
+   |     |  +--ro optic-type        org-openroadm-common-types:optic-types
    |     |  +--ro router
    |     |  |  +--ro node-id?      string
    |     |  |  +--ro ip-address?   inet:ip-address
@@ -132,12 +132,9 @@ module: org-openroadm-service
    |     |     |  +--ro diversity
    |     |     |  |  +--ro existing-service*                 string
    |     |     |  |  +--ro existing-service-applicability
-   |     |     |  |  |  +--ro site?   boolean
-   |     |     |  |  |  +--ro node?   boolean
-   |     |     |  |  |  +--ro srlg?   boolean
-   |     |     |  |  +--ro fiber-bundle*                     string
-   |     |     |  |  +--ro site*                             string
-   |     |     |  |  +--ro node-id*                          string
+   |     |     |  |     +--ro site?   boolean
+   |     |     |  |     +--ro node?   boolean
+   |     |     |  |     +--ro srlg?   boolean
    |     |     |  +--ro exclude
    |     |     |  |  +--ro fiber-bundle*              string
    |     |     |  |  +--ro site*                      string
@@ -160,12 +157,9 @@ module: org-openroadm-service
    |     |     |  +--ro diversity
    |     |     |  |  +--ro existing-service*                 string
    |     |     |  |  +--ro existing-service-applicability
-   |     |     |  |  |  +--ro site?   boolean
-   |     |     |  |  |  +--ro node?   boolean
-   |     |     |  |  |  +--ro srlg?   boolean
-   |     |     |  |  +--ro fiber-bundle*                     string
-   |     |     |  |  +--ro site*                             string
-   |     |     |  |  +--ro node-id*                          string
+   |     |     |  |     +--ro site?   boolean
+   |     |     |  |     +--ro node?   boolean
+   |     |     |  |     +--ro srlg?   boolean
    |     |     |  +--ro exclude
    |     |     |  |  +--ro fiber-bundle*              string
    |     |     |  |  +--ro site*                      string
@@ -323,7 +317,7 @@ module: org-openroadm-service
          |  |     |  +--ro port-name?           string
          |  |     +--ro tail-roadm-port-aid?             string
          |  |     +--ro tail-roadm-port-rack-location?   string
-         |  +--ro optic-type        enumeration
+         |  +--ro optic-type        org-openroadm-common-types:optic-types
          |  +--ro router
          |  |  +--ro node-id?      string
          |  |  +--ro ip-address?   inet:ip-address
@@ -379,7 +373,7 @@ module: org-openroadm-service
          |  |     |  +--ro port-name?           string
          |  |     +--ro tail-roadm-port-aid?             string
          |  |     +--ro tail-roadm-port-rack-location?   string
-         |  +--ro optic-type        enumeration
+         |  +--ro optic-type        org-openroadm-common-types:optic-types
          |  +--ro router
          |  |  +--ro node-id?      string
          |  |  +--ro ip-address?   inet:ip-address
@@ -392,12 +386,9 @@ module: org-openroadm-service
          |     |  +--ro diversity
          |     |  |  +--ro existing-service*                 string
          |     |  |  +--ro existing-service-applicability
-         |     |  |  |  +--ro site?   boolean
-         |     |  |  |  +--ro node?   boolean
-         |     |  |  |  +--ro srlg?   boolean
-         |     |  |  +--ro fiber-bundle*                     string
-         |     |  |  +--ro site*                             string
-         |     |  |  +--ro node-id*                          string
+         |     |  |     +--ro site?   boolean
+         |     |  |     +--ro node?   boolean
+         |     |  |     +--ro srlg?   boolean
          |     |  +--ro exclude
          |     |  |  +--ro fiber-bundle*              string
          |     |  |  +--ro site*                      string
@@ -420,12 +411,9 @@ module: org-openroadm-service
          |     |  +--ro diversity
          |     |  |  +--ro existing-service*                 string
          |     |  |  +--ro existing-service-applicability
-         |     |  |  |  +--ro site?   boolean
-         |     |  |  |  +--ro node?   boolean
-         |     |  |  |  +--ro srlg?   boolean
-         |     |  |  +--ro fiber-bundle*                     string
-         |     |  |  +--ro site*                             string
-         |     |  |  +--ro node-id*                          string
+         |     |  |     +--ro site?   boolean
+         |     |  |     +--ro node?   boolean
+         |     |  |     +--ro srlg?   boolean
          |     |  +--ro exclude
          |     |  |  +--ro fiber-bundle*              string
          |     |  |  +--ro site*                      string
@@ -580,7 +568,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -636,7 +624,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -649,12 +637,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -677,12 +662,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -720,12 +702,9 @@ rpcs:
    |        |     |  +--ro diversity
    |        |     |  |  +--ro existing-service*                 string
    |        |     |  |  +--ro existing-service-applicability
-   |        |     |  |  |  +--ro site?   boolean
-   |        |     |  |  |  +--ro node?   boolean
-   |        |     |  |  |  +--ro srlg?   boolean
-   |        |     |  |  +--ro fiber-bundle*                     string
-   |        |     |  |  +--ro site*                             string
-   |        |     |  |  +--ro node-id*                          string
+   |        |     |  |     +--ro site?   boolean
+   |        |     |  |     +--ro node?   boolean
+   |        |     |  |     +--ro srlg?   boolean
    |        |     |  +--ro exclude
    |        |     |  |  +--ro fiber-bundle*              string
    |        |     |  |  +--ro site*                      string
@@ -748,12 +727,9 @@ rpcs:
    |              |  +--ro diversity
    |              |  |  +--ro existing-service*                 string
    |              |  |  +--ro existing-service-applicability
-   |              |  |  |  +--ro site?   boolean
-   |              |  |  |  +--ro node?   boolean
-   |              |  |  |  +--ro srlg?   boolean
-   |              |  |  +--ro fiber-bundle*                     string
-   |              |  |  +--ro site*                             string
-   |              |  |  +--ro node-id*                          string
+   |              |  |     +--ro site?   boolean
+   |              |  |     +--ro node?   boolean
+   |              |  |     +--ro srlg?   boolean
    |              |  +--ro exclude
    |              |  |  +--ro fiber-bundle*              string
    |              |  |  +--ro site*                      string
@@ -828,7 +804,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -884,7 +860,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -897,12 +873,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -925,12 +898,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -968,12 +938,9 @@ rpcs:
    |     |  |     |  +--ro diversity
    |     |  |     |  |  +--ro existing-service*                 string
    |     |  |     |  |  +--ro existing-service-applicability
-   |     |  |     |  |  |  +--ro site?   boolean
-   |     |  |     |  |  |  +--ro node?   boolean
-   |     |  |     |  |  |  +--ro srlg?   boolean
-   |     |  |     |  |  +--ro fiber-bundle*                     string
-   |     |  |     |  |  +--ro site*                             string
-   |     |  |     |  |  +--ro node-id*                          string
+   |     |  |     |  |     +--ro site?   boolean
+   |     |  |     |  |     +--ro node?   boolean
+   |     |  |     |  |     +--ro srlg?   boolean
    |     |  |     |  +--ro exclude
    |     |  |     |  |  +--ro fiber-bundle*              string
    |     |  |     |  |  +--ro site*                      string
@@ -996,12 +963,9 @@ rpcs:
    |     |        |  +--ro diversity
    |     |        |  |  +--ro existing-service*                 string
    |     |        |  |  +--ro existing-service-applicability
-   |     |        |  |  |  +--ro site?   boolean
-   |     |        |  |  |  +--ro node?   boolean
-   |     |        |  |  |  +--ro srlg?   boolean
-   |     |        |  |  +--ro fiber-bundle*                     string
-   |     |        |  |  +--ro site*                             string
-   |     |        |  |  +--ro node-id*                          string
+   |     |        |  |     +--ro site?   boolean
+   |     |        |  |     +--ro node?   boolean
+   |     |        |  |     +--ro srlg?   boolean
    |     |        |  +--ro exclude
    |     |        |  |  +--ro fiber-bundle*              string
    |     |        |  |  +--ro site*                      string
@@ -1067,7 +1031,7 @@ rpcs:
    |     |  |     |  +--ro port-name?           string
    |     |  |     +--ro tail-roadm-port-aid?             string
    |     |  |     +--ro tail-roadm-port-rack-location?   string
-   |     |  +--ro optic-type            enumeration
+   |     |  +--ro optic-type            org-openroadm-common-types:optic-types
    |     |  +--ro router
    |     |  |  +--ro node-id?      string
    |     |  |  +--ro ip-address?   inet:ip-address
@@ -1127,7 +1091,7 @@ rpcs:
    |     |  |     |  +--ro port-name?           string
    |     |  |     +--ro tail-roadm-port-aid?             string
    |     |  |     +--ro tail-roadm-port-rack-location?   string
-   |     |  +--ro optic-type            enumeration
+   |     |  +--ro optic-type            org-openroadm-common-types:optic-types
    |     |  +--ro router
    |     |  |  +--ro node-id?      string
    |     |  |  +--ro ip-address?   inet:ip-address
@@ -1187,7 +1151,7 @@ rpcs:
    |        |     |  +--ro port-name?           string
    |        |     +--ro tail-roadm-port-aid?             string
    |        |     +--ro tail-roadm-port-rack-location?   string
-   |        +--ro optic-type            enumeration
+   |        +--ro optic-type            org-openroadm-common-types:optic-types
    |        +--ro router
    |        |  +--ro node-id?      string
    |        |  +--ro ip-address?   inet:ip-address
@@ -1294,7 +1258,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -1350,7 +1314,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -1363,12 +1327,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -1391,12 +1352,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -1434,12 +1392,9 @@ rpcs:
    |        |     |  +--ro diversity
    |        |     |  |  +--ro existing-service*                 string
    |        |     |  |  +--ro existing-service-applicability
-   |        |     |  |  |  +--ro site?   boolean
-   |        |     |  |  |  +--ro node?   boolean
-   |        |     |  |  |  +--ro srlg?   boolean
-   |        |     |  |  +--ro fiber-bundle*                     string
-   |        |     |  |  +--ro site*                             string
-   |        |     |  |  +--ro node-id*                          string
+   |        |     |  |     +--ro site?   boolean
+   |        |     |  |     +--ro node?   boolean
+   |        |     |  |     +--ro srlg?   boolean
    |        |     |  +--ro exclude
    |        |     |  |  +--ro fiber-bundle*              string
    |        |     |  |  +--ro site*                      string
@@ -1462,12 +1417,9 @@ rpcs:
    |              |  +--ro diversity
    |              |  |  +--ro existing-service*                 string
    |              |  |  +--ro existing-service-applicability
-   |              |  |  |  +--ro site?   boolean
-   |              |  |  |  +--ro node?   boolean
-   |              |  |  |  +--ro srlg?   boolean
-   |              |  |  +--ro fiber-bundle*                     string
-   |              |  |  +--ro site*                             string
-   |              |  |  +--ro node-id*                          string
+   |              |  |     +--ro site?   boolean
+   |              |  |     +--ro node?   boolean
+   |              |  |     +--ro srlg?   boolean
    |              |  +--ro exclude
    |              |  |  +--ro fiber-bundle*              string
    |              |  |  +--ro site*                      string
@@ -1555,7 +1507,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -1611,7 +1563,7 @@ rpcs:
    |  |  |  |     |  +---w port-name?           string
    |  |  |  |     +---w tail-roadm-port-aid?             string
    |  |  |  |     +---w tail-roadm-port-rack-location?   string
-   |  |  |  +---w optic-type        enumeration
+   |  |  |  +---w optic-type        org-openroadm-common-types:optic-types
    |  |  |  +---w router
    |  |  |  |  +---w node-id?      string
    |  |  |  |  +---w ip-address?   inet:ip-address
@@ -1624,12 +1576,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -1652,12 +1601,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -1711,12 +1657,9 @@ rpcs:
    |     |     |  +--ro diversity
    |     |     |  |  +--ro existing-service*                 string
    |     |     |  |  +--ro existing-service-applicability
-   |     |     |  |  |  +--ro site?   boolean
-   |     |     |  |  |  +--ro node?   boolean
-   |     |     |  |  |  +--ro srlg?   boolean
-   |     |     |  |  +--ro fiber-bundle*                     string
-   |     |     |  |  +--ro site*                             string
-   |     |     |  |  +--ro node-id*                          string
+   |     |     |  |     +--ro site?   boolean
+   |     |     |  |     +--ro node?   boolean
+   |     |     |  |     +--ro srlg?   boolean
    |     |     |  +--ro exclude
    |     |     |  |  +--ro fiber-bundle*              string
    |     |     |  |  +--ro site*                      string
@@ -1739,12 +1682,9 @@ rpcs:
    |           |  +--ro diversity
    |           |  |  +--ro existing-service*                 string
    |           |  |  +--ro existing-service-applicability
-   |           |  |  |  +--ro site?   boolean
-   |           |  |  |  +--ro node?   boolean
-   |           |  |  |  +--ro srlg?   boolean
-   |           |  |  +--ro fiber-bundle*                     string
-   |           |  |  +--ro site*                             string
-   |           |  |  +--ro node-id*                          string
+   |           |  |     +--ro site?   boolean
+   |           |  |     +--ro node?   boolean
+   |           |  |     +--ro srlg?   boolean
    |           |  +--ro exclude
    |           |  |  +--ro fiber-bundle*              string
    |           |  |  +--ro site*                      string
@@ -1770,12 +1710,9 @@ rpcs:
    |  |  |     |  +---w diversity
    |  |  |     |  |  +---w existing-service*                 string
    |  |  |     |  |  +---w existing-service-applicability
-   |  |  |     |  |  |  +---w site?   boolean
-   |  |  |     |  |  |  +---w node?   boolean
-   |  |  |     |  |  |  +---w srlg?   boolean
-   |  |  |     |  |  +---w fiber-bundle*                     string
-   |  |  |     |  |  +---w site*                             string
-   |  |  |     |  |  +---w node-id*                          string
+   |  |  |     |  |     +---w site?   boolean
+   |  |  |     |  |     +---w node?   boolean
+   |  |  |     |  |     +---w srlg?   boolean
    |  |  |     |  +---w exclude
    |  |  |     |  |  +---w fiber-bundle*              string
    |  |  |     |  |  +---w site*                      string
@@ -1798,12 +1735,9 @@ rpcs:
    |  |        |  +---w diversity
    |  |        |  |  +---w existing-service*                 string
    |  |        |  |  +---w existing-service-applicability
-   |  |        |  |  |  +---w site?   boolean
-   |  |        |  |  |  +---w node?   boolean
-   |  |        |  |  |  +---w srlg?   boolean
-   |  |        |  |  +---w fiber-bundle*                     string
-   |  |        |  |  +---w site*                             string
-   |  |        |  |  +---w node-id*                          string
+   |  |        |  |     +---w site?   boolean
+   |  |        |  |     +---w node?   boolean
+   |  |        |  |     +---w srlg?   boolean
    |  |        |  +---w exclude
    |  |        |  |  +---w fiber-bundle*              string
    |  |        |  |  +---w site*                      string
@@ -1907,7 +1841,7 @@ notifications:
       |  |     |  +--ro port-name?           string
       |  |     +--ro tail-roadm-port-aid?             string
       |  |     +--ro tail-roadm-port-rack-location?   string
-      |  +--ro optic-type        enumeration
+      |  +--ro optic-type        org-openroadm-common-types:optic-types
       |  +--ro router
       |  |  +--ro node-id?      string
       |  |  +--ro ip-address?   inet:ip-address
@@ -1963,7 +1897,7 @@ notifications:
       |  |     |  +--ro port-name?           string
       |  |     +--ro tail-roadm-port-aid?             string
       |  |     +--ro tail-roadm-port-rack-location?   string
-      |  +--ro optic-type        enumeration
+      |  +--ro optic-type        org-openroadm-common-types:optic-types
       |  +--ro router
       |  |  +--ro node-id?      string
       |  |  +--ro ip-address?   inet:ip-address
@@ -1976,12 +1910,9 @@ notifications:
       |     |  +--ro diversity
       |     |  |  +--ro existing-service*                 string
       |     |  |  +--ro existing-service-applicability
-      |     |  |  |  +--ro site?   boolean
-      |     |  |  |  +--ro node?   boolean
-      |     |  |  |  +--ro srlg?   boolean
-      |     |  |  +--ro fiber-bundle*                     string
-      |     |  |  +--ro site*                             string
-      |     |  |  +--ro node-id*                          string
+      |     |  |     +--ro site?   boolean
+      |     |  |     +--ro node?   boolean
+      |     |  |     +--ro srlg?   boolean
       |     |  +--ro exclude
       |     |  |  +--ro fiber-bundle*              string
       |     |  |  +--ro site*                      string
@@ -2004,12 +1935,9 @@ notifications:
       |     |  +--ro diversity
       |     |  |  +--ro existing-service*                 string
       |     |  |  +--ro existing-service-applicability
-      |     |  |  |  +--ro site?   boolean
-      |     |  |  |  +--ro node?   boolean
-      |     |  |  |  +--ro srlg?   boolean
-      |     |  |  +--ro fiber-bundle*                     string
-      |     |  |  +--ro site*                             string
-      |     |  |  +--ro node-id*                          string
+      |     |  |     +--ro site?   boolean
+      |     |  |     +--ro node?   boolean
+      |     |  |     +--ro srlg?   boolean
       |     |  +--ro exclude
       |     |  |  +--ro fiber-bundle*              string
       |     |  |  +--ro site*                      string

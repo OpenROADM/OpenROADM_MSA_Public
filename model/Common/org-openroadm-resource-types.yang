@@ -34,9 +34,9 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping resource-type {
@@ -106,6 +106,16 @@ module org-openroadm-resource-types {
         value 11;
         description
           "interface";
+      }
+      enum "shelf" {
+        value 12;
+        description
+          "shelf";
+      }
+      enum "service" {
+        value 13;
+        description
+          "service";
       }
     }
   }

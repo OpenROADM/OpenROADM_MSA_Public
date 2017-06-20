@@ -34,9 +34,9 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping physical-location {
@@ -81,6 +81,15 @@ module org-openroadm-common-types {
     }
     units "dBm";
   }
+
+  typedef ratio-dB {
+    description
+      "Power ratio in dB.";
+    type decimal64 {
+      fraction-digits 3;
+    }
+    units "dB";
+  } 
 
   typedef severity {
     description
@@ -164,5 +173,73 @@ module org-openroadm-common-types {
         value 3;
       }
     }
+  }
+
+  typedef optic-types {
+    type enumeration {
+      enum "gray" {
+        value 1;
+      }
+      enum "dwdm" {
+        value 2;
+      }
+    }
+  }
+  grouping equipment-type {
+    leaf type {
+      type equipment-type-enum;
+      mandatory true;
+      config false;
+    }
+    leaf extension {
+      description
+        "Populated with equipment type when enum value is set to vendorExtension";
+      type string;
+      mandatory false;
+      config false;
+    }
+  }
+
+  typedef equipment-type-enum {
+    type enumeration {
+      enum "other" {
+        value 1;
+      }
+      enum "powerSupply" {
+        value 2;
+      }
+      enum "shelfProcessor" {
+        value 3;
+      }
+      enum "crossConnect" {
+        value 4;
+      }
+      enum "fan" {
+        value 5;
+      }
+      enum "accessPanel" {
+        value 6;
+      }
+      enum "circuitPack" {
+        value 7;
+      }
+    }
+  }
+
+  typedef optical-control-mode {
+    description
+      "Optical Control Mode: identifies specific algorithm related to power management and general optical control.";
+    type enumeration {
+      enum "power" {
+        value 1;
+      }
+      enum "gainLoss" {
+        value 2;
+      }
+      enum "off" {
+        value 3;
+      }
+    }
+    reference "openroadm.org: Open ROADM MSA Specification.";
   }
 }

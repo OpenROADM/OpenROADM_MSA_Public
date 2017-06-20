@@ -41,9 +41,9 @@ module org-openroadm-de-shelf-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping shelves {
@@ -69,13 +69,11 @@ module org-openroadm-de-shelf-types {
       description
         "Reflect the shelf physical location data including floor, aisle, bay values.";
       type string;
-      mandatory true;
     }
     leaf shelf-position {
       description
         "Reflect the shelf vertical position within an equipment bay.";
       type string;
-      mandatory true;
     }
     leaf administrative-state {
       description

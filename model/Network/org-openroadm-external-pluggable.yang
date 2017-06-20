@@ -43,20 +43,9 @@ module org-openroadm-external-pluggable {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
-  }
-
-  typedef optic-types {
-    type enumeration {
-      enum "color" {
-        value 0;
-      }
-      enum "grey" {
-        value 1;
-      }
-    }
+      "Version 1.1.1";
   }
 
   grouping external-pluggable {
@@ -123,7 +112,7 @@ module org-openroadm-external-pluggable {
             type string;
           }
           leaf optic {
-            type optic-types;
+            type org-openroadm-common-types:optic-types;
           }
           leaf state {
             type org-openroadm-equipment-states-types:states;

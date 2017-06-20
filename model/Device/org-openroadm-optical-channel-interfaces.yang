@@ -8,6 +8,9 @@ module org-openroadm-optical-channel-interfaces {
   import org-openroadm-interfaces {
     prefix openROADM-if;
   }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }   
 
   organization "Open ROADM MSA";
   contact
@@ -55,9 +58,9 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   identity rate-identity {
@@ -158,6 +161,11 @@ module org-openroadm-optical-channel-interfaces {
       description
         "modulation format";
     }
+    leaf transmit-power {
+      type org-openroadm-common-types:power-dBm;
+      description
+        "The target transmit power for this channel. When set, the xponder will work to ensure that port-current-power reaches this level. Applicable only to channel on top of xpdr-network port";
+    }     
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {

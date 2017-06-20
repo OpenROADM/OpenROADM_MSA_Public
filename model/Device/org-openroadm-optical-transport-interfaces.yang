@@ -8,6 +8,9 @@ module org-openroadm-optical-transport-interfaces {
   import org-openroadm-interfaces {
     prefix openROADM-if;
   }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }       
 
   organization "Open ROADM MSA";
   contact
@@ -56,9 +59,9 @@ module org-openroadm-optical-transport-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping ots-attributes {
@@ -112,6 +115,16 @@ module org-openroadm-optical-transport-interfaces {
         "fiber type
          Default    : SMF ";
     }
+    leaf span-loss-receive {
+      description
+        "Span loss on the receiver side. Set by the controller and used by device to set AMP gain.";
+      type org-openroadm-common-types:ratio-dB;
+    }
+    leaf span-loss-transmit {
+      description
+        "Span loss on the transmitter side. Set by the controller and used by device to configure MSA compliant channel launch power";
+      type org-openroadm-common-types:ratio-dB;
+    }                                   
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {

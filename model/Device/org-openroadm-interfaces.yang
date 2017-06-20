@@ -1,16 +1,6 @@
 module org-openroadm-interfaces {
-  namespace "http://org/openroadm/att-interfaces";
+  namespace "http://org/openroadm/interfaces";
   prefix openROADM-if;
-
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-  }
-  import org-openroadm-equipment-states-types {
-    prefix org-openroadm-equipment-states-types;
-  }
-  import org-openroadm-device-resource-types {
-    prefix org-openroadm-device-resource-types;
-  }
 
   organization "Open ROADM MSA";
   contact
@@ -59,9 +49,9 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   identity interface-type {
@@ -114,54 +104,5 @@ module org-openroadm-interfaces {
     base interface-type;
     description
       "Optical Transport Multiplex type for openROADM";
-  }
-
-  grouping interfaces-grp {
-    description
-      "OpenROADM Interface configuration parameters.";
-    list interface {
-      key "name";
-      description
-        "The list of configured interfaces on the device.";
-      leaf name {
-        type string;
-        description
-          "The name of the interface.";
-      }
-      leaf description {
-        type string;
-        description
-          "A textual description of the interface.";
-      }
-      leaf type {
-        type identityref {
-          base interface-type;
-        }
-        mandatory true;
-        description
-          "The type of the interface.";
-      }
-      leaf administrative-state {
-        type org-openroadm-equipment-states-types:admin-states;
-      }
-      leaf operational-state {
-        type org-openroadm-common-types:state;
-        config false;
-      }
-      leaf circuit-id {
-        type string {
-          length "0..45";
-        }
-        description
-          "circuit identifier/user label,
-           can be used in alarm correlation and/or connection management ";
-      }
-      leaf supporting-interface {
-        type leafref {
-          path "/org-openroadm-device/interface/name";
-        }
-      }
-      uses org-openroadm-device-resource-types:supporting-port-name;
-    }
   }
 }

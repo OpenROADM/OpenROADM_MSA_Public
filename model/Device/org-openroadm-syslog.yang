@@ -5,9 +5,6 @@ module org-openroadm-syslog {
   import ietf-inet-types {
     prefix inet;
   }
-  import ietf-syslog-types {
-    prefix syslogtypes;
-  }
 
   organization "Open ROADM MSA";
   contact
@@ -57,9 +54,9 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   feature selector-sevop-config {
@@ -75,28 +72,80 @@ module org-openroadm-syslog {
        on a Posix 1003.2 regular expression pattern match.";
   }
 
+  // copied from draft of ietf-ietf-syslog-types.yang
+  identity syslog-facility {
+    description
+      "The base identity to represent syslog facilities";
+  }
+
+  // copied from draft of ietf-ietf-syslog-types.yang;
+  // extended the enum set to include all and none
+  typedef severity {
+    type enumeration {
+      enum "emergency" {
+        value 0;
+        description
+          "Emergency Level Msg";
+      }
+      enum "alert" {
+        value 1;
+        description
+          "Alert Level Msg";
+      }
+      enum "critical" {
+        value 2;
+        description
+          "Critical Level Msg";
+      }
+      enum "error" {
+        value 3;
+        description
+          "Error Level Msg";
+      }
+      enum "warning" {
+        value 4;
+        description
+          "Warning Level Msg";
+      }
+      enum "notice" {
+        value 5;
+        description
+          "Notification Level Msg";
+      }
+      enum "info" {
+        value 6;
+        description
+          "Informational Level Msg";
+      }
+      enum "debug" {
+        value 7;
+        description
+          "Debugging Level Msg";
+      }
+      enum "all" {
+        value 8;
+        description
+          "This enum describes the case where all severities 
+           are selected.";
+      }
+      enum "none" {
+        value 9;
+        description
+          "This enum describes the case where no severities 
+           are selected.";
+      }
+    }
+    description
+      "The definitions for Syslog message severity as per RFC 5424.
+       Extended the RFC definition with enums for all and none";
+  }
+
   grouping syslog-severity {
     description
       "This grouping defines the Syslog severity which is used to 
        select log messages.";
     leaf severity {
-      type union {
-        type syslogtypes:severity;
-        type enumeration {
-          enum "all" {
-            value -1;
-            description
-              "This enum describes the case where all severities 
-               are selected.";
-          }
-          enum "none" {
-            value -2;
-            description
-              "This enum describes the case where no severities 
-               are selected.";
-          }
-        }
-      }
+      type severity;
       mandatory true;
       description
         "This leaf specifies the Syslog message severity. When 
@@ -184,7 +233,7 @@ module org-openroadm-syslog {
             leaf facility {
               type union {
                 type identityref {
-                  base syslogtypes:syslog-facility;
+                  base syslog-facility;
                 }
                 type enumeration {
                   enum "all" {

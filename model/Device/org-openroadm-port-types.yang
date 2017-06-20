@@ -2,17 +2,8 @@ module org-openroadm-port-types {
   namespace "http://org/openroadm/port/types";
   prefix org-openroadm-port-types;
 
-  import org-openroadm-device-resource-types {
-    prefix org-openroadm-device-resource-types;
-  }
-  import org-openroadm-port-direction {
-    prefix org-openroadm-port-direction;
-  }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-  }
-  import org-openroadm-equipment-states-types {
-    prefix org-openroadm-equipment-states-types;
   }
 
   organization "Open ROADM MSA";
@@ -47,9 +38,9 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   identity supported-if-capability {
@@ -103,90 +94,6 @@ module org-openroadm-port-types {
       "Port types.";
   }
 
-  grouping port {
-    description
-      "Grouping of attributes related to a port object.";
-    leaf port-name {
-      type string;
-      mandatory true;
-      description
-        "Identifier for a port, unique within a circuit pack";
-    }
-    leaf port-type {
-      type string;
-      mandatory true;
-      description
-        "Type of the pluggable or fixed port";
-    }
-    leaf port-qual {
-      type enumeration {
-        enum "roadm-internal" {
-          value 1;
-        }
-        enum "roadm-external" {
-          value 2;
-        }
-      }
-    }
-    leaf port-wavelength-type {
-      type port-wavelength-types;
-      config false;
-      description
-        "Type of port - single, multiple-wavelength, etc.";
-    }
-    leaf port-direction {
-      type org-openroadm-port-direction:direction;
-      config false;
-      mandatory true;
-      description
-        "Whether port is uni (tx/rx) or bi-directional and";
-    }
-    leaf label {
-      type string;
-      config false;
-      description
-        "Faceplate label";
-    }
-    leaf administrative-state {
-      type org-openroadm-equipment-states-types:admin-states;
-      description
-        "Administrative state of port. The value of this field independant of the state of its contained and containing resources.  Setting this a port to administratively down will impact both its operational state, as well the operational state of its contained resources.  If this port is an endpoint to a connection, internal-link, physical-link, etc, then administratevely disabling this port will impact the operational state of those items unless they are using some form of port-protection schema.";
-      default "outOfService";
-    }
-    leaf operational-state {
-      type org-openroadm-common-types:state;
-      config false;
-      mandatory true;
-      description
-        "Operational state of a port";
-    }
-    leaf-list supported-interface-capability {
-      description
-        "Interface types supported on this port";
-      config false;
-      type identityref {
-        base supported-if-capability;
-      }
-    }
-    leaf logical-connection-point {
-      type string;
-      description
-        "delete or replace with list logical-ports or connections?";
-    }
-    container parent-port {
-      config false;
-      description
-        "In the case of port hierarchy, this is the parent port, which is also modeled as port within this circuit-pack. This is used in the case of a port that supports a parallel connector that contains subports.  The parent-port of the subport will be the port that contains this subport.  This can be used to help isolate faults when a single fault on a parallel connector introduces symptomatic failures on the contained subports.";
-      uses org-openroadm-device-resource-types:port-name;
-    }
-    list interfaces {
-      config false;
-      description
-        "List of the interfaces this port supports.  This is a list of names of instances in the flat instance list";
-      uses org-openroadm-device-resource-types:interface-name;
-    }
-  }
-
   grouping roadm-port {
     leaf port-power-capability-min {
       type org-openroadm-common-types:power-dBm;
@@ -207,16 +114,7 @@ module org-openroadm-port-types {
       description
         "The target power for this port. When set, the ROADM will work to ensure that port-current-power reaches this level. Applicable to output ports only.";
     }
-    leaf span-loss-receive {
-      description
-        "span loss on the receiver side";
-      type org-openroadm-common-types:power-dBm;
-    }
-    leaf span-loss-transmit {
-      description
-        "span loss on the transmitter side";
-      type org-openroadm-common-types:power-dBm;
-    }
+
     leaf-list available-wavelengths {
       type uint32;
       config false;

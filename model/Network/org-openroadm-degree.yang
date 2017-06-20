@@ -2,6 +2,9 @@ module org-openroadm-degree {
   namespace "http://org/openroadm/degree";
   prefix org-openroadm-degree;
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }       
   organization
     "Open ROADM MSA";
   contact
@@ -36,9 +39,9 @@ module org-openroadm-degree {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping roadm-degree {
@@ -50,10 +53,16 @@ module org-openroadm-degree {
           "Identifier for each direction/degree";
       }
       container external {
-        leaf far-end-office {
+        leaf clli {
           type string;
           description
             "Location CLLI where ROADM resides";
+        }
+        leaf node-number{
+          type uint32;
+          description
+            "Number assigned to a ROADM node in a 
+             given office";
         }
         leaf node-id {
           type string;
@@ -66,7 +75,7 @@ module org-openroadm-degree {
             "Identifier for direction/degree in far-end ROADM";
         }
         leaf oms-clfi {
-          type uint32;
+          type string;
           description
             "Unique facility name given to the OMS tails";
         }
@@ -94,20 +103,14 @@ module org-openroadm-degree {
           units "km";
         }
         leaf spanloss-base {
-          type decimal64 {
-            fraction-digits 3;
-          }
           description
             "Baseline ROADM span loss measured and accepted during degree turn-up.";
-          units "dB";
+          type org-openroadm-common-types:ratio-dB;
         }
         leaf spanloss-current {
-          type decimal64 {
-            fraction-digits 3;
-          }
           description
             "Current ROADM span loss captured by the controller.";
-          units "dB";
+          type org-openroadm-common-types:ratio-dB;
         }
         container oms-ttp-tx {
           leaf-list wavelength-number {

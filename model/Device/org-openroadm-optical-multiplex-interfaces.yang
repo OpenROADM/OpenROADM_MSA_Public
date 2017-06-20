@@ -53,9 +53,9 @@ module org-openroadm-optical-multiplex-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {

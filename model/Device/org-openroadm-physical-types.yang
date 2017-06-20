@@ -1,5 +1,5 @@
 module org-openroadm-physical-types {
-  namespace "urn:opendaylight:org-openroadm-physical-types";
+  namespace "http://org/openroadm/physical/types";
   prefix org-openroadm-physical-types;
 
   import org-openroadm-common-types {
@@ -41,9 +41,9 @@ module org-openroadm-physical-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-07-28 {
+  revision 2016-09-16 {
     description
-      "Version 1.1";
+      "Version 1.1.1";
   }
 
   grouping node-info {
@@ -76,6 +76,13 @@ module org-openroadm-physical-types {
     description
       "Physical inventory data used by all other entities";
     uses node-info;
+    leaf type {
+      description
+        "The specific type of this physical resource - ie the type of
+         shelf, type of circuit-pack, etc.";
+      type string;
+      config false;
+    }
     leaf product-code {
       description
         "Product Code for this physical resource";
@@ -91,13 +98,6 @@ module org-openroadm-physical-types {
     leaf clei {
       description
         "CLEI for this physical resource";
-      type string;
-      config false;
-    }
-    leaf type {
-      description
-        "The specific type of this physical resource - ie the type of
-         shelf, type of circuit-pack, etc.";
       type string;
       config false;
     }

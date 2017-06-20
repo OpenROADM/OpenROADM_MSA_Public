@@ -32,16 +32,17 @@ module: org-openroadm-network
       |     +--rw degrees* [degree-number]
       |     |  +--rw degree-number    uint16
       |     |  +--rw external
-      |     |  |  +--rw far-end-office?             string
+      |     |  |  +--rw clli?                       string
+      |     |  |  +--rw node-number?                uint32
       |     |  |  +--rw node-id?                    string
       |     |  |  +--rw degree-number?              uint16
-      |     |  |  +--rw oms-clfi?                   uint32
+      |     |  |  +--rw oms-clfi?                   string
       |     |  |  +--rw facility-routing-subpath*   string
       |     |  |  +--rw max-wavelengths?            uint32
       |     |  |  +--rw available-wavelengths*      uint32
       |     |  |  +--rw distance?                   decimal64
-      |     |  |  +--rw spanloss-base?              decimal64
-      |     |  |  +--rw spanloss-current?           decimal64
+      |     |  |  +--rw spanloss-base?              org-openroadm-common-types:ratio-dB
+      |     |  |  +--rw spanloss-current?           org-openroadm-common-types:ratio-dB
       |     |  |  +--rw oms-ttp-tx
       |     |  |  |  +--rw wavelength-number*   uint32
       |     |  |  +--rw oms-ttp-rx
@@ -79,7 +80,7 @@ module: org-openroadm-network
       |     |  +--rw bit-rate?        uint32
       |     |  +--rw signal-format?   string
       |     |  +--rw reach?           string
-      |     |  +--rw optic?           optic-types
+      |     |  +--rw optic?           org-openroadm-common-types:optic-types
       |     |  +--rw state?           org-openroadm-equipment-states-types:states
       |     +--rw tail
       |        +--rw client-equipment?     string
@@ -87,10 +88,10 @@ module: org-openroadm-network
       |        +--rw clfi?                 string
       +--rw xponders* [clli]
          +--rw clli    string
-         +--rw ids* [xponder-number node-type]
-            +--rw xponder-number       uint32
+         +--rw ids* [node-number node-type]
+            +--rw node-number          uint32
             +--rw node-type            org-openroadm-common-types:node-types
-            +--rw xponder-id?          string
+            +--rw node-id?             string
             +--rw vendor?              string
             +--rw customer-code?       string
             +--rw domain-subnetwork?   string
@@ -107,7 +108,7 @@ module: org-openroadm-network
             |     +--rw bit-rate?                  uint32
             |     +--rw signal-format?             string
             |     +--rw reach?                     string
-            |     +--rw optic?                     optic-types
+            |     +--rw optic?                     org-openroadm-common-types:optic-types
             |     +--rw state?                     org-openroadm-equipment-states-types:states
             |     +--rw tail-client-equipment?     string
             |     +--rw tail-client-equipmentId?   string
@@ -118,13 +119,15 @@ module: org-openroadm-network
                +--rw node-id?               string
                +--rw accumulated-bitrate?   uint32
                +--rw port* [port-name]
-                  +--rw port-name        string
-                  +--rw vendor?          string
-                  +--rw srg-number?      uint16
-                  +--rw pp-number?       uint16
-                  +--rw local-lgx?       string
-                  +--rw bit-rate?        uint32
-                  +--rw signal-format?   string
-                  +--rw reach?           string
-                  +--rw optic?           optic-types
-                  +--rw state?           org-openroadm-equipment-states-types:states
+                  +--rw port-name            string
+                  +--rw vendor?              string
+                  +--rw srg-number?          uint16
+                  +--rw pp-number?           uint16
+                  +--rw wavelength-number?   uint32
+                  +--rw local-lgx?           string
+                  +--rw tail-clfi?           string
+                  +--rw bit-rate?            uint32
+                  +--rw signal-format?       string
+                  +--rw reach?               string
+                  +--rw optic?               org-openroadm-common-types:optic-types
+                  +--rw state?               org-openroadm-equipment-states-types:states
