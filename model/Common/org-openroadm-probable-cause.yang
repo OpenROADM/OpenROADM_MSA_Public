@@ -2,6 +2,10 @@ module org-openroadm-probable-cause {
   namespace "http://org/openroadm/probableCause";
   prefix org-openroadm-probable-cause;
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
   organization "Open ROADM MSA";
   contact
     "OpenROADM.org";
@@ -34,9 +38,9 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping probable-cause {
@@ -51,18 +55,7 @@ module org-openroadm-probable-cause {
     leaf direction {
       description
         "Direction indication of the alarm.";
-      type enumeration {
-        enum "tx" {
-          value 1;
-          description
-            "Transmit direction";
-        }
-        enum "rx" {
-          value 2;
-          description
-            "Receive direction";
-        }
-      }
+      type org-openroadm-common-types:direction;
     }
     leaf location {
       description
@@ -517,6 +510,12 @@ module org-openroadm-probable-cause {
       }
       enum "terminalTestsignalActive" {
         value 132;
+      }
+      enum "automaticLaserShutdownDisabled" {
+        value 133;
+      }
+      enum "certificateNotInstalled" {
+        value 134;
       }
     }
   }

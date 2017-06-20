@@ -34,9 +34,9 @@ module org-openroadm-device-resource-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
 /* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.

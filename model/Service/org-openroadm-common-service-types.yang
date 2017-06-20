@@ -54,9 +54,9 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping configuration-response-common {
@@ -86,17 +86,21 @@ module org-openroadm-common-service-types {
   }
 
   grouping service-endpoint {
-    leaf service-rate {
-      type uint32;
-      mandatory true;
-      description
-        "Rate of the requested service in GBps";
-    }
     leaf service-format {
       type service-format;
       mandatory true;
       description
         "Format of the requested service: Ethernet, OTU, etc.";
+    }
+    leaf service-rate {
+      when "../service-format!='OMS'"{
+        description "service rate not applicable when service 
+        format is roadmline";
+      }
+      type uint32;
+      mandatory true;
+      description
+        "Rate of the requested service in GBps";
     }
     leaf clli {
       type string;
@@ -118,7 +122,6 @@ module org-openroadm-common-service-types {
     }
     leaf optic-type {
       type org-openroadm-common-types:optic-types;
-      mandatory true;
     }
     container router {
       description
@@ -147,13 +150,58 @@ module org-openroadm-common-service-types {
     }
   }
 
+  typedef rpc-actions {
+    description "rpc-actions include all the rpc methods";
+    type enumeration {
+      enum service-create {
+        value "1";
+      }
+      enum service-feasibility-check {
+        value "2";
+      }
+      enum service-delete {
+        value "3";
+      }
+      enum equipment-notification {
+        value "4";
+      }
+      enum temp-service-create {
+        value "5";
+      }
+      enum temp-service-delete {
+        value "6";
+      }
+      enum service-roll {
+        value "7";
+      }
+      enum service-reconfigure {
+        value "8";
+      }
+      enum service-restoration {
+        value "9";
+      }
+      enum service-reversion {
+        value "10";
+      }
+      enum service-reroute {
+        value "11";
+      }
+      enum service-reroute-confirm {
+        value "12";
+      }
+      enum network-re-optimization {
+        value "13";
+      }
+    }
+  }
+
   grouping sdnc-request-header {
     container sdnc-request-header {
       leaf request-id {
         type string;
       }
       leaf rpc-action {
-        type string;
+        type rpc-actions;
       }
       leaf notification-url {
         type string;
@@ -306,7 +354,6 @@ module org-openroadm-common-service-types {
     }
     leaf lifecycle-state {
       type org-openroadm-common-types:lifecycle-state;
-      config false;
       description
         "Lifecycle State of service. Whether it is planned, deployed, in maintenance, etc.";
     }
@@ -345,6 +392,7 @@ module org-openroadm-common-service-types {
         "Shared risk link group identifiers";
     }
     list equipment-srgs {
+      key "srg-number";
       uses org-openroadm-resource-types:srg-number;
     }
     leaf-list supporting-service-name {
@@ -391,6 +439,9 @@ module org-openroadm-common-service-types {
       }
       enum "ODU" {
         value 6;
+      }
+      enum "OTM" {
+        value 7;
       }
     }
   }
@@ -449,19 +500,8 @@ module org-openroadm-common-service-types {
       enum "activated-for-further-check" {
         value 4;
       }
-    }
-  }
-
-  typedef direction {
-    type enumeration {
-      enum "tx" {
-        value 1;
-      }
-      enum "rx" {
-        value 2;
-      }
-      enum "bidirectional" {
-        value 3;
+      enum "activated-for-troubleshooting-failure" {
+        value 5;
       }
     }
   }

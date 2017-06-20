@@ -51,9 +51,9 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   rpc service-create {
@@ -493,7 +493,6 @@ module org-openroadm-service {
     list services {
       key "service-name";
       uses org-openroadm-common-service-types:service;
-      config false;
     }
   }
   container temp-service-list {
@@ -506,7 +505,6 @@ module org-openroadm-service {
           mandatory false;
         }
       }
-      config false;
     }
   }
   notification service-rpc-result {

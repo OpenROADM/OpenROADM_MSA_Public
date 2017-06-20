@@ -38,9 +38,9 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   identity supported-if-capability {
@@ -94,27 +94,45 @@ module org-openroadm-port-types {
       "Port types.";
   }
 
-  grouping roadm-port {
-    leaf port-power-capability-min {
+  grouping common-port {
+    leaf port-power-capability-min-rx {
       type org-openroadm-common-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the minimum power in the system spec for this port to
-         provide optimum function.";
+         provide optimum function in rx direction";
     }
-    leaf port-power-capability-max {
+    leaf port-power-capability-min-tx {
+      type org-openroadm-common-types:power-dBm;
+      config false;
+      description
+        "Based on port capabilities, the minimum power in the system spec for this port to
+         provide optimum function in tx direction.";
+    }         
+    leaf port-power-capability-max-rx {
       type org-openroadm-common-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the maximum power in the system spec for this port to
-         provide optimum function.";
+         provide optimum function in rx direction.";
     }
-    leaf port-target-power {
+    leaf port-power-capability-max-tx {
       type org-openroadm-common-types:power-dBm;
+      config false;
       description
-        "The target power for this port. When set, the ROADM will work to ensure that port-current-power reaches this level. Applicable to output ports only.";
+        "Based on port capabilities, the maximum power in the system spec for this port to
+         provide optimum function in tx direction.";
+    }                                             
+    leaf-list capable-wavelengths {
+      type uint32;
+      config false;
+      description
+        "List of wavelengths this port is capable of supporting.
+         can be used to access wavelength-map to get the wavelength value in nm";
     }
-
+  }
+  grouping roadm-port {
+    uses common-port;
     leaf-list available-wavelengths {
       type uint32;
       config false;
@@ -127,13 +145,6 @@ module org-openroadm-port-types {
       config false;
       description
         "List of used available wavelength-numbers on this port.";
-    }
-    leaf-list capable-wavelengths {
-      type uint32;
-      config false;
-      description
-        "List of wavelengths this port is capable of supporting.
-         can be used to access wavelength-map to get the wavelength value in nm";
     }
   }
 }

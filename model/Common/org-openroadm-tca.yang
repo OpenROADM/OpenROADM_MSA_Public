@@ -50,9 +50,9 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping tca {
@@ -73,7 +73,6 @@ module org-openroadm-tca {
     }
     container layerRate {
       uses org-openroadm-layerRate:layer-rate;
-      config true;
     }
     leaf severity {
       mandatory true;
@@ -83,7 +82,6 @@ module org-openroadm-tca {
     }
     leaf thresholdType {
       mandatory false;
-      config true;
       type enumeration {
         enum "high" {
           value 1;
@@ -103,12 +101,10 @@ module org-openroadm-tca {
   grouping potential-tca {
     leaf lowThresholdValue {
       mandatory false;
-      config true;
       type uint64;
     }
     leaf highThresholdValue {
       mandatory false;
-      config true;
       type uint64;
     }
     uses tca;
@@ -118,7 +114,6 @@ module org-openroadm-tca {
     list tca {
       key "id";
       uses potential-tca;
-      config true;
     }
   }
   notification tca-notification {

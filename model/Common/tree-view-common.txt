@@ -14,7 +14,7 @@ module: org-openroadm-alarm
          |  |     |     +--ro circuit-pack-name    string
          |  |     |     +--ro port-name?           string
          |  |     +--:(connection)
-         |  |     |  +--ro connection-number?    string
+         |  |     |  +--ro connection-number     string
          |  |     +--:(physical-link)
          |  |     |  +--ro physical-link-name    string
          |  |     +--:(internal-link)
@@ -22,9 +22,9 @@ module: org-openroadm-alarm
          |  |     +--:(shelf)
          |  |     |  +--ro shelf-name            string
          |  |     +--:(srg)
-         |  |     |  +--ro srg-number?           uint16
+         |  |     |  +--ro srg-number            uint16
          |  |     +--:(degree)
-         |  |     |  +--ro degree-number?        uint16
+         |  |     |  +--ro degree-number         uint16
          |  |     +--:(service)
          |  |     |  +--ro service-name          string
          |  |     +--:(interface)
@@ -35,14 +35,14 @@ module: org-openroadm-alarm
          +--ro probableCause
          |  +--ro cause        probable-cause-enum
          |  +--ro extension?   string
-         |  +--ro direction?   enumeration
+         |  +--ro direction?   org-openroadm-common-types:direction
          |  +--ro location?    enumeration
          +--ro type?            enumeration
          +--ro raiseTime        yang:date-and-time
          +--ro severity         org-openroadm-common-types:severity
          +--ro circuit-id?      string
 notifications:
-   +---n alarm-notification    
+   +---n alarm-notification
       +--ro id               string
       +--ro resource
       |  +--ro device
@@ -56,7 +56,7 @@ notifications:
       |  |     |     +--ro circuit-pack-name    string
       |  |     |     +--ro port-name?           string
       |  |     +--:(connection)
-      |  |     |  +--ro connection-number?    string
+      |  |     |  +--ro connection-number     string
       |  |     +--:(physical-link)
       |  |     |  +--ro physical-link-name    string
       |  |     +--:(internal-link)
@@ -64,9 +64,9 @@ notifications:
       |  |     +--:(shelf)
       |  |     |  +--ro shelf-name            string
       |  |     +--:(srg)
-      |  |     |  +--ro srg-number?           uint16
+      |  |     |  +--ro srg-number            uint16
       |  |     +--:(degree)
-      |  |     |  +--ro degree-number?        uint16
+      |  |     |  +--ro degree-number         uint16
       |  |     +--:(service)
       |  |     |  +--ro service-name          string
       |  |     +--:(interface)
@@ -77,7 +77,7 @@ notifications:
       +--ro probableCause
       |  +--ro cause        probable-cause-enum
       |  +--ro extension?   string
-      |  +--ro direction?   enumeration
+      |  +--ro direction?   org-openroadm-common-types:direction
       |  +--ro location?    enumeration
       +--ro type?            enumeration
       +--ro raiseTime        yang:date-and-time
@@ -99,21 +99,21 @@ module: org-openroadm-maintenance
          |  |     |     +--rw circuit-pack-name    string
          |  |     |     +--rw port-name?           string
          |  |     +--:(connection)
-         |  |     |  +--rw connection-number?    string
+         |  |     |  +--rw connection-number     string
          |  |     +--:(physical-link)
-         |  |     |  +--ro physical-link-name    string
+         |  |     |  +--rw physical-link-name    string
          |  |     +--:(internal-link)
-         |  |     |  +--ro internal-link-name    string
+         |  |     |  +--rw internal-link-name    string
          |  |     +--:(shelf)
-         |  |     |  +--ro shelf-name            string
+         |  |     |  +--rw shelf-name            string
          |  |     +--:(srg)
-         |  |     |  +--ro srg-number?           uint16
+         |  |     |  +--rw srg-number            uint16
          |  |     +--:(degree)
-         |  |     |  +--ro degree-number?        uint16
+         |  |     |  +--rw degree-number         uint16
          |  |     +--:(service)
-         |  |     |  +--ro service-name          string
+         |  |     |  +--rw service-name          string
          |  |     +--:(interface)
-         |  |        +--ro interface-name        string
+         |  |        +--rw interface-name        string
          |  +--rw resourceType
          |     +--rw type         resource-type-enum
          |     +--rw extension?   string
@@ -134,7 +134,7 @@ module: org-openroadm-pm
    |     |  |     |     +--ro circuit-pack-name    string
    |     |  |     |     +--ro port-name?           string
    |     |  |     +--:(connection)
-   |     |  |     |  +--ro connection-number?    string
+   |     |  |     |  +--ro connection-number     string
    |     |  |     +--:(physical-link)
    |     |  |     |  +--ro physical-link-name    string
    |     |  |     +--:(internal-link)
@@ -142,9 +142,9 @@ module: org-openroadm-pm
    |     |  |     +--:(shelf)
    |     |  |     |  +--ro shelf-name            string
    |     |  |     +--:(srg)
-   |     |  |     |  +--ro srg-number?           uint16
+   |     |  |     |  +--ro srg-number            uint16
    |     |  |     +--:(degree)
-   |     |  |     |  +--ro degree-number?        uint16
+   |     |  |     |  +--ro degree-number         uint16
    |     |  |     +--:(service)
    |     |  |     |  +--ro service-name          string
    |     |  |     +--:(interface)
@@ -163,7 +163,7 @@ module: org-openroadm-pm
    |     |     +--ro pmParameterValue    pm-data-type
    |     |     +--ro pmParameterUnit?    string
    |     |     +--ro location?           enumeration
-   |     |     +--ro direction?          enumeration
+   |     |     +--ro direction?          org-openroadm-common-types:pm-direction
    |     |     +--ro validity?           enumeration
    |     +--ro retrievalTime    yang:date-and-time
    |     +--ro granularity?     org-openroadm-pm-types:pm-granularity
@@ -182,7 +182,7 @@ module: org-openroadm-pm
          |  |     |     +--ro circuit-pack-name    string
          |  |     |     +--ro port-name?           string
          |  |     +--:(connection)
-         |  |     |  +--ro connection-number?    string
+         |  |     |  +--ro connection-number     string
          |  |     +--:(physical-link)
          |  |     |  +--ro physical-link-name    string
          |  |     +--:(internal-link)
@@ -190,9 +190,9 @@ module: org-openroadm-pm
          |  |     +--:(shelf)
          |  |     |  +--ro shelf-name            string
          |  |     +--:(srg)
-         |  |     |  +--ro srg-number?           uint16
+         |  |     |  +--ro srg-number            uint16
          |  |     +--:(degree)
-         |  |     |  +--ro degree-number?        uint16
+         |  |     |  +--ro degree-number         uint16
          |  |     +--:(service)
          |  |     |  +--ro service-name          string
          |  |     +--:(interface)
@@ -213,10 +213,47 @@ module: org-openroadm-pm
          |  |     +--ro pmParameterValue    pm-data-type
          |  |     +--ro pmParameterUnit?    string
          |  |     +--ro location?           enumeration
-         |  |     +--ro direction?          enumeration
+         |  |     +--ro direction?          org-openroadm-common-types:pm-direction
          |  |     +--ro validity?           enumeration
          |  +--ro completionTime    yang:date-and-time
          +--ro granularity?   org-openroadm-pm-types:pm-granularity
+rpcs:
+   +---x clear-pm
+      +---w input
+      |  +---w device
+      |  |  +---w node-id?   string
+      |  +---w resource
+      |  |  +---w (resource)?
+      |  |     +--:(circuit-pack)
+      |  |     |  +---w circuit-pack-name     string
+      |  |     +--:(port)
+      |  |     |  +---w port
+      |  |     |     +---w circuit-pack-name    string
+      |  |     |     +---w port-name?           string
+      |  |     +--:(connection)
+      |  |     |  +---w connection-number     string
+      |  |     +--:(physical-link)
+      |  |     |  +---w physical-link-name    string
+      |  |     +--:(internal-link)
+      |  |     |  +---w internal-link-name    string
+      |  |     +--:(shelf)
+      |  |     |  +---w shelf-name            string
+      |  |     +--:(srg)
+      |  |     |  +---w srg-number            uint16
+      |  |     +--:(degree)
+      |  |     |  +---w degree-number         uint16
+      |  |     +--:(service)
+      |  |     |  +---w service-name          string
+      |  |     +--:(interface)
+      |  |        +---w interface-name        string
+      |  +---w resourceType
+      |  |  +---w type         resource-type-enum
+      |  |  +---w extension?   string
+      |  +---w pm-type?        enumeration
+      |  +---w granularity?    org-openroadm-pm-types:pm-granularity
+      +--ro output
+         +--ro status            enumeration
+         +--ro status-message?   string
 module: org-openroadm-tca
    +--rw potential-tca-list
       +--rw tca* [id]
@@ -235,21 +272,21 @@ module: org-openroadm-tca
          |  |     |     +--rw circuit-pack-name    string
          |  |     |     +--rw port-name?           string
          |  |     +--:(connection)
-         |  |     |  +--rw connection-number?    string
+         |  |     |  +--rw connection-number     string
          |  |     +--:(physical-link)
-         |  |     |  +--ro physical-link-name    string
+         |  |     |  +--rw physical-link-name    string
          |  |     +--:(internal-link)
-         |  |     |  +--ro internal-link-name    string
+         |  |     |  +--rw internal-link-name    string
          |  |     +--:(shelf)
-         |  |     |  +--ro shelf-name            string
+         |  |     |  +--rw shelf-name            string
          |  |     +--:(srg)
-         |  |     |  +--ro srg-number?           uint16
+         |  |     |  +--rw srg-number            uint16
          |  |     +--:(degree)
-         |  |     |  +--ro degree-number?        uint16
+         |  |     |  +--rw degree-number         uint16
          |  |     +--:(service)
-         |  |     |  +--ro service-name          string
+         |  |     |  +--rw service-name          string
          |  |     +--:(interface)
-         |  |        +--ro interface-name        string
+         |  |        +--rw interface-name        string
          |  +--rw resourceType
          |     +--rw type         resource-type-enum
          |     +--rw extension?   string
@@ -267,10 +304,10 @@ module: org-openroadm-tca
             +--ro pmParameterValue    pm-data-type
             +--rw pmParameterUnit?    string
             +--rw location?           enumeration
-            +--rw direction?          enumeration
+            +--rw direction?          org-openroadm-common-types:pm-direction
             +--ro validity?           enumeration
 notifications:
-   +---n tca-notification    
+   +---n tca-notification
       +--ro id                      string
       +--ro resource
       |  +--ro device
@@ -284,7 +321,7 @@ notifications:
       |  |     |     +--ro circuit-pack-name    string
       |  |     |     +--ro port-name?           string
       |  |     +--:(connection)
-      |  |     |  +--ro connection-number?    string
+      |  |     |  +--ro connection-number     string
       |  |     +--:(physical-link)
       |  |     |  +--ro physical-link-name    string
       |  |     +--:(internal-link)
@@ -292,9 +329,9 @@ notifications:
       |  |     +--:(shelf)
       |  |     |  +--ro shelf-name            string
       |  |     +--:(srg)
-      |  |     |  +--ro srg-number?           uint16
+      |  |     |  +--ro srg-number            uint16
       |  |     +--:(degree)
-      |  |     |  +--ro degree-number?        uint16
+      |  |     |  +--ro degree-number         uint16
       |  |     +--:(service)
       |  |     |  +--ro service-name          string
       |  |     +--:(interface)
@@ -316,68 +353,15 @@ notifications:
          +--ro pmParameterValue    pm-data-type
          +--ro pmParameterUnit?    string
          +--ro location?           enumeration
-         +--ro direction?          enumeration
+         +--ro direction?          org-openroadm-common-types:pm-direction
          +--ro validity?           enumeration
-module: org-openroadm-tcm
-   +--rw tcm-list
-      +--rw tcmConfig* [id]
-         +--rw id                  string
-         +--rw resource
-         |  +--rw device
-         |  |  +--rw node-id?   string
-         |  +--rw resource
-         |  |  +--rw (resource)?
-         |  |     +--:(circuit-pack)
-         |  |     |  +--rw circuit-pack-name     string
-         |  |     +--:(port)
-         |  |     |  +--rw port
-         |  |     |     +--rw circuit-pack-name    string
-         |  |     |     +--rw port-name?           string
-         |  |     +--:(connection)
-         |  |     |  +--rw connection-number?    string
-         |  |     +--:(physical-link)
-         |  |     |  +--ro physical-link-name    string
-         |  |     +--:(internal-link)
-         |  |     |  +--ro internal-link-name    string
-         |  |     +--:(shelf)
-         |  |     |  +--ro shelf-name            string
-         |  |     +--:(srg)
-         |  |     |  +--ro srg-number?           uint16
-         |  |     +--:(degree)
-         |  |     |  +--ro degree-number?        uint16
-         |  |     +--:(service)
-         |  |     |  +--ro service-name          string
-         |  |     +--:(interface)
-         |  |        +--ro interface-name        string
-         |  +--rw resourceType
-         |     +--rw type         resource-type-enum
-         |     +--rw extension?   string
-         +--rw type                enumeration
-         +--rw layers
-         |  +--rw layer* [id]
-         |     +--rw id           uint32
-         |     +--rw layerRate
-         |     |  +--rw type         layer-rate-enum
-         |     |  +--rw extension?   string
-         |     +--rw tribPort?    uint32
-         +--rw mode                enumeration
-         +--rw level?              enumeration
-         +--rw facilityId?         string
-         +--rw autoInService?      boolean
-         +--rw maintenanceState?   boolean
-         +--ro primaryState?       org-openroadm-common-types:state
-         +--rw delayMeasurement?   boolean
-         +--rw rack?               string
-         +--rw shelf?              string
-         +--rw slot?               string
-         +--rw subSlot?            string
 module: org-openroadm-user-mgmt
 rpcs:
-   +---x chg-password    
-      +---w input     
+   +---x chg-password
+      +---w input
       |  +---w currentPassword       string
       |  +---w newPassword           string
       |  +---w newPasswordConfirm    string
-      +--ro output    
+      +--ro output
          +--ro status            enumeration
          +--ro status-message?   string

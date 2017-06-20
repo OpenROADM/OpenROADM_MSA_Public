@@ -58,9 +58,9 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   identity odu-rate-identity {
@@ -120,7 +120,31 @@ module org-openroadm-otn-odu-interfaces {
     description
       "OPU4 MSI - ODTU4.ts, TS is occupied/allocated";
   }
-
+  
+  identity ODTU4.1 {
+    base odtu-type-identity;
+    description
+      "ODTU4.1 MSI type";
+  }
+  
+  identity ODTU4.2 {
+    base odtu-type-identity;
+    description
+      "ODTU4.2 MSI type";
+  }
+  
+  identity ODTU4.8 {
+    base odtu-type-identity;
+    description
+      "ODTU4.8 MSI type";
+  }
+  
+  identity ODTU4.31 {
+    base odtu-type-identity;
+    description
+      "ODTU4.31 MSI type";
+  }
+  
   identity ODTU01 {
     base odtu-type-identity;
     description
@@ -180,6 +204,11 @@ module org-openroadm-otn-odu-interfaces {
       type uint8;
       description
         "Tributray Port Number (0-based), part of the MSI";
+    }
+    leaf trib-port-payload {
+      type string;
+      description
+        "interface name being mapped to trib-port";
     }
   }
 
@@ -259,6 +288,11 @@ module org-openroadm-otn-odu-interfaces {
         description
           "Expected Payload Type";
       }
+      leaf payload-interface {
+        type string;
+        description
+          "Expected Payload of OPU. It designates client interface name";
+      }
       container msi {
         when "../payload-type = '20' or ../payload-type = '21'";
         list tx-msi {
@@ -329,8 +363,7 @@ module org-openroadm-otn-odu-interfaces {
     }
   }
 
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:otnOdu'";
+  grouping odu-container {
     container odu {
       presence "Attribute Nodes for Optical Data Unit (ODU)";
       description
@@ -345,5 +378,10 @@ module org-openroadm-otn-odu-interfaces {
       }
       uses org-openroadm-maint-testsignal:maint-testsignal;
     }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:otnOdu'";
+    uses odu-container;
   }
 }

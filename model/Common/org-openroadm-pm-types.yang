@@ -2,6 +2,10 @@ module org-openroadm-pm-types {
   namespace "http://org/openroadm/pm-types";
   prefix org-openroadm-pm-types;
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
   organization "Open ROADM MSA";
   contact
     "OpenROADM.org";
@@ -34,9 +38,9 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   typedef pm-granularity {
@@ -106,20 +110,7 @@ module org-openroadm-pm-types {
     leaf direction {
       description
         "Direction PM parameter measurement";
-      type enumeration {
-        enum "notApplicable" {
-          value 1;
-        }
-        enum "Rx" {
-          value 2;
-        }
-        enum "Tx" {
-          value 3;
-        }
-        enum "Bidirection" {
-          value 4;
-        }
-      }
+      type org-openroadm-common-types:pm-direction;
       mandatory false;
     }
     leaf validity {

@@ -59,9 +59,9 @@ module org-openroadm-optical-transport-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping ots-attributes {
@@ -127,8 +127,7 @@ module org-openroadm-optical-transport-interfaces {
     }                                   
   }
 
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:opticalTransport'";
+  grouping ots-container {
     container ots {
       description
         "Optical Transport Section (OTS):
@@ -136,5 +135,10 @@ module org-openroadm-optical-transport-interfaces {
           The network side is represented by the OTS/OMS.";
       uses ots-attributes;
     }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:opticalTransport'";
+    uses ots-container;
   }
 }

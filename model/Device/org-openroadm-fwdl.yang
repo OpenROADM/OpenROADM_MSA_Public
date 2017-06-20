@@ -2,6 +2,9 @@ module org-openroadm-fwdl {
   namespace "http://org/openroadm/fwdl";
   prefix org-openroadm-fwdl;
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }   
   organization "Open ROADM MSA";
   contact
     "OpenROADM.org";
@@ -34,9 +37,9 @@ module org-openroadm-fwdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   rpc fw-update {
@@ -50,24 +53,7 @@ module org-openroadm-fwdl {
       }
     }
     output {
-      leaf status {
-        type enumeration {
-          enum "Successful" {
-            value 1;
-          }
-          enum "Failed" {
-            value 2;
-          }
-        }
-        mandatory true;
-        description
-          "Successful or Failed";
-      }
-      leaf status-message {
-        type string;
-        description
-          "Gives a more detailed reason for success / failure";
-      }
+      uses org-openroadm-common-types:rpc-response-status;
     }
   }
 }

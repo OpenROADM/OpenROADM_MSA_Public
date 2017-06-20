@@ -34,9 +34,9 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping physical-location {
@@ -156,6 +156,12 @@ module org-openroadm-common-types {
       enum "maintenance" {
         value 3;
       }
+      enum "deploying" {
+        value 4;
+      }
+      enum "undeploying" {
+        value 5;
+      }
     }
   }
 
@@ -241,5 +247,36 @@ module org-openroadm-common-types {
       }
     }
     reference "openroadm.org: Open ROADM MSA Specification.";
+  }
+
+  typedef direction {
+    type enumeration {
+      enum "tx" {
+        value 1;
+      }
+      enum "rx" {
+        value 2;
+      }
+      enum "bidirectional" {
+        value 3;
+      }
+    }
+  }
+
+  typedef pm-direction {
+    type enumeration {
+      enum "tx" {
+        value 1;
+      }
+      enum "rx" {
+        value 2;
+      }
+      enum "bidirectional" {
+        value 3;
+      }
+      enum "notApplicable" {
+        value 4;
+      }
+    }
   }
 }

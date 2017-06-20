@@ -55,9 +55,9 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   grouping eth-attributes {
@@ -130,12 +130,16 @@ module org-openroadm-ethernet-interfaces {
     }
   }
 
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:ethernetCsmacd'";
+  grouping ethernet-container {
     container ethernet {
       description
         "Ethernet Interfaces";
       uses eth-attributes;
     }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:ethernetCsmacd'";
+    uses ethernet-container;
   }
 }

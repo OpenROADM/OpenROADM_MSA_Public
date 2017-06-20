@@ -6,6 +6,10 @@ module org-openroadm-de-operations {
     prefix org-openroadm-resource;
   }
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }     
+
   organization "Open ROADM MSA";
   contact
     "OpenROADM.org";
@@ -38,77 +42,36 @@ module org-openroadm-de-operations {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   rpc restart {
     description
-      "Restart a resource. If no resource is provided or only the device name is provded, then the device itself will be restarted.
+      "Restart a resource with warm/cold option. If no resource is provided or only the device name is provded, then the device itself will be restarted.
        Note that resources on the device will not be restartable";
     input {
       uses org-openroadm-resource:resource;
-    }
-    output {
-      leaf status {
-        type enumeration {
-          enum "Successful" {
+      leaf option{
+        type enumeration{
+          enum "warm"{
             value 1;
           }
-          enum "Failed" {
+          enum "cold"{
             value 2;
           }
         }
-        mandatory true;
-        description
-          "Successful or Failed";
       }
-      leaf status-message {
-        type string;
-        description
-          "Gives a more detailed reason for success / failure";
-      }
-    }
-  }
-  rpc reinitialize {
-    description
-      "Reinitialize a resource. If no resource is provided or only the device name is provded, then the device itself will be reinitialized.
-       Note that resources on the device will not be reinitializable";
-    input {
-      uses org-openroadm-resource:resource;
     }
     output {
-      leaf status {
-        type enumeration {
-          enum "Successful" {
-            value 1;
-          }
-          enum "Failed" {
-            value 2;
-          }
-        }
-        mandatory true;
-        description
-          "Successful or Failed";
-      }
-      leaf status-message {
-        type string;
-        description
-          "Gives a more detailed reason for success / failure";
-      }
+      uses org-openroadm-common-types:rpc-response-status;      
     }
   }
   notification restart-notification {
     description
       "This Notification is sent when a resource on a device has completed a restart. This is sent as a result of restarts triggered via the
        restart RPC and other means.  The resource identified is the from the RPC request or the equivalment if the restart was triggered another way.";
-    uses org-openroadm-resource:resource;
-  }
-  notification reinitialization-notification {
-    description
-      "This Notification is sent when a resource on a device has completed a reinitialization. This is sent as a result of reinitialization triggered via the
-       reinitialize RPC and other means, exclusing a restart.  The resource identified is the from the RPC request or the equivalment if the reinitialization was triggered another way.";
     uses org-openroadm-resource:resource;
   }
 }

@@ -54,9 +54,9 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
-  revision 2016-09-16 {
+  revision 2016-10-14 {
     description
-      "Version 1.1.1";
+      "Version 1.2";
   }
 
   feature selector-sevop-config {
@@ -157,8 +157,8 @@ module org-openroadm-syslog {
     }
     leaf severity-operator {
       when
-        "../severity != \"all\" and
-                    ../severity != \"none\"" {
+        "../severity != 'all' and
+                    ../severity != 'none'" {
         description
           "The severity-operator is not applicable for severity 'all' or 
            severity 'none'";

@@ -4,64 +4,34 @@ rpcs:
    |  +---w input     
    |  |  +---w filename?   string
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x db-restore               
    |  +---w input     
    |  |  +---w filename?      string
    |  |  +---w nodeIDCheck?   boolean
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x db-activate              
    |  +---w input     
    |  |  +---w rollBackTimer?   string
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x cancel-rollback-timer    
-      +---w input     
-      |  +---w accept?   boolean
+   |  +---w input     
+   |  |  +---w accept?   boolean
+   |  +--ro output    
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x database-init            
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-de-operations
 rpcs:
-   +---x restart         
-   |  +---w input     
-   |  |  +---w device
-   |  |  |  +---w node-id?   string
-   |  |  +---w resource
-   |  |  |  +---w (resource)?
-   |  |  |     +--:(circuit-pack)
-   |  |  |     |  +---w circuit-pack-name     string
-   |  |  |     +--:(port)
-   |  |  |     |  +---w port
-   |  |  |     |     +---w circuit-pack-name    string
-   |  |  |     |     +---w port-name?           string
-   |  |  |     +--:(connection)
-   |  |  |     |  +---w connection-number?    string
-   |  |  |     +--:(physical-link)
-   |  |  |     |  +---w physical-link-name    string
-   |  |  |     +--:(internal-link)
-   |  |  |     |  +---w internal-link-name    string
-   |  |  |     +--:(shelf)
-   |  |  |     |  +---w shelf-name            string
-   |  |  |     +--:(srg)
-   |  |  |     |  +---w srg-number?           uint16
-   |  |  |     +--:(degree)
-   |  |  |     |  +---w degree-number?        uint16
-   |  |  |     +--:(service)
-   |  |  |     |  +---w service-name          string
-   |  |  |     +--:(interface)
-   |  |  |        +---w interface-name        string
-   |  |  +---w resourceType
-   |  |     +---w type         resource-type-enum
-   |  |     +---w extension?   string
-   |  +--ro output    
-   |     +--ro status            enumeration
-   |     +--ro status-message?   string
-   +---x reinitialize    
+   +---x restart    
       +---w input     
       |  +---w device
       |  |  +---w node-id?   string
@@ -74,7 +44,7 @@ rpcs:
       |  |     |     +---w circuit-pack-name    string
       |  |     |     +---w port-name?           string
       |  |     +--:(connection)
-      |  |     |  +---w connection-number?    string
+      |  |     |  +---w connection-number     string
       |  |     +--:(physical-link)
       |  |     |  +---w physical-link-name    string
       |  |     +--:(internal-link)
@@ -82,51 +52,22 @@ rpcs:
       |  |     +--:(shelf)
       |  |     |  +---w shelf-name            string
       |  |     +--:(srg)
-      |  |     |  +---w srg-number?           uint16
+      |  |     |  +---w srg-number            uint16
       |  |     +--:(degree)
-      |  |     |  +---w degree-number?        uint16
+      |  |     |  +---w degree-number         uint16
       |  |     +--:(service)
       |  |     |  +---w service-name          string
       |  |     +--:(interface)
       |  |        +---w interface-name        string
       |  +---w resourceType
-      |     +---w type         resource-type-enum
-      |     +---w extension?   string
+      |  |  +---w type         resource-type-enum
+      |  |  +---w extension?   string
+      |  +---w option?         enumeration
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 notifications:
-   +---n restart-notification             
-   |  +--ro device
-   |  |  +--ro node-id?   string
-   |  +--ro resource
-   |  |  +--ro (resource)?
-   |  |     +--:(circuit-pack)
-   |  |     |  +--ro circuit-pack-name     string
-   |  |     +--:(port)
-   |  |     |  +--ro port
-   |  |     |     +--ro circuit-pack-name    string
-   |  |     |     +--ro port-name?           string
-   |  |     +--:(connection)
-   |  |     |  +--ro connection-number?    string
-   |  |     +--:(physical-link)
-   |  |     |  +--ro physical-link-name    string
-   |  |     +--:(internal-link)
-   |  |     |  +--ro internal-link-name    string
-   |  |     +--:(shelf)
-   |  |     |  +--ro shelf-name            string
-   |  |     +--:(srg)
-   |  |     |  +--ro srg-number?           uint16
-   |  |     +--:(degree)
-   |  |     |  +--ro degree-number?        uint16
-   |  |     +--:(service)
-   |  |     |  +--ro service-name          string
-   |  |     +--:(interface)
-   |  |        +--ro interface-name        string
-   |  +--ro resourceType
-   |     +--ro type         resource-type-enum
-   |     +--ro extension?   string
-   +---n reinitialization-notification    
+   +---n restart-notification    
       +--ro device
       |  +--ro node-id?   string
       +--ro resource
@@ -138,7 +79,7 @@ notifications:
       |     |     +--ro circuit-pack-name    string
       |     |     +--ro port-name?           string
       |     +--:(connection)
-      |     |  +--ro connection-number?    string
+      |     |  +--ro connection-number     string
       |     +--:(physical-link)
       |     |  +--ro physical-link-name    string
       |     +--:(internal-link)
@@ -146,9 +87,9 @@ notifications:
       |     +--:(shelf)
       |     |  +--ro shelf-name            string
       |     +--:(srg)
-      |     |  +--ro srg-number?           uint16
+      |     |  +--ro srg-number            uint16
       |     +--:(degree)
-      |     |  +--ro degree-number?        uint16
+      |     |  +--ro degree-number         uint16
       |     +--:(service)
       |     |  +--ro service-name          string
       |     +--:(interface)
@@ -162,21 +103,21 @@ module: org-openroadm-device
       |  +--rw node-id?                  string
       |  +--rw node-number?              uint32
       |  +--ro node-type                 org-openroadm-common-types:node-types
-      |  +--rw CLLI?                     string
+      |  +--rw clli?                     string
       |  +--ro vendor                    string
       |  +--ro model                     string
       |  +--ro serial-id                 string
       |  +--rw ipAddress?                ietf-inet-types:ip-address
-      |  +--rw netmask?                  ietf-inet-types:ip-address
       |  +--rw prefix-length?            uint8
       |  +--rw defaultGateway?           ietf-inet-types:ip-address
       |  +--ro source?                   enumeration
       |  +--ro current-ipAddress?        ietf-inet-types:ip-address
-      |  +--ro current-netmask?          ietf-inet-types:ip-address
       |  +--ro current-prefix-length?    uint8
       |  +--ro current-defaultGateway?   ietf-inet-types:ip-address
       |  +--ro macAddress?               ietf-yang-types:mac-address
       |  +--ro softwareVersion?          string
+      |  +--rw template?                 string
+      |  +--ro current-datetime?         ietf-yang-types:date-and-time
       |  +--rw geoLocation
       |  |  +--rw latitude?    decimal64
       |  |  +--rw longitude?   decimal64
@@ -206,6 +147,12 @@ module: org-openroadm-device
       |  +--ro clei?                   string
       |  +--ro hardware-version?       string
       |  +--ro operational-state?      org-openroadm-common-types:state
+      |  +--rw equipment-state?        org-openroadm-equipment-states-types:states
+      |  +--rw due-date?               ietf-yang-types:date-and-time
+      |  +--ro slots* [slot-name]
+      |     +--ro slot-name                   string
+      |     +--ro label?                      string
+      |     +--ro provisioned-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
       +--rw circuit-packs* [circuit-pack-name]
       |  +--rw circuit-pack-type            string
       |  +--rw circuit-pack-product-code?   string
@@ -223,39 +170,56 @@ module: org-openroadm-device
       |  +--ro circuit-pack-category
       |  |  +--ro type         equipment-type-enum
       |  |  +--ro extension?   string
-      |  +--ro equipment-state?             org-openroadm-equipment-states-types:states
+      |  +--rw equipment-state?             org-openroadm-equipment-states-types:states
       |  +--rw circuit-pack-mode?           string
       |  +--rw shelf                        -> /org-openroadm-device/shelves/shelf-name
       |  +--rw slot                         string
       |  +--rw subSlot?                     string
+      |  +--rw due-date?                    ietf-yang-types:date-and-time
       |  +--rw parent-circuit-pack
-      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |  |  +--rw cp-slot-name?        string
+      |  +--ro cp-slots* [slot-name]
+      |  |  +--ro slot-name                   string
+      |  |  +--ro label?                      string
+      |  |  +--ro provisioned-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
       |  +--rw ports* [port-name]
       |     +--rw port-name                         string
       |     +--rw port-type?                        string
       |     +--rw port-qual?                        enumeration
       |     +--ro port-wavelength-type?             org-openroadm-port-types:port-wavelength-types
-      |     +--ro port-direction                    org-openroadm-port-direction:direction
+      |     +--ro port-direction                    org-openroadm-common-types:direction
       |     +--ro label?                            string
+      |     +--rw circuit-id?                       string
       |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
       |     +--ro operational-state                 org-openroadm-common-types:state
       |     +--ro supported-interface-capability*   identityref
       |     +--rw logical-connection-point?         string
       |     +--ro partner-port
-      |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-      |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+      |     |  +--ro circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |     |  +--ro port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
       |     +--ro parent-port
-      |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-      |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+      |     |  +--ro circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |     |  +--ro port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
       |     +--ro interfaces*
       |     |  +--ro interface-name?   -> /org-openroadm-device/interface/name
       |     +--rw roadm-port
-      |        +--ro port-power-capability-min?   org-openroadm-common-types:power-dBm
-      |        +--ro port-power-capability-max?   org-openroadm-common-types:power-dBm
-      |        +--rw port-target-power?           org-openroadm-common-types:power-dBm
-      |        +--ro available-wavelengths*       uint32
-      |        +--ro used-wavelengths*            uint32
-      |        +--ro capable-wavelengths*         uint32
+      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro capable-wavelengths*            uint32
+      |     |  +--ro available-wavelengths*          uint32
+      |     |  +--ro used-wavelengths*               uint32
+      |     +--rw transponder-port
+      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-types:power-dBm
+      |     |  +--ro capable-wavelengths*            uint32
+      |     +--rw otdr-port
+      |        +--rw launch-cable-length?   uint32
+      |        +--rw port-direction?        org-openroadm-common-types:direction
       +--rw interface* [name]
       |  +--rw name                                              string
       |  +--rw description?                                      string
@@ -274,15 +238,6 @@ module: org-openroadm-device
       |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?   enumeration
       |  |  +--ro org-openroadm-eth-interfaces:curr-speed?         string
       |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?        string
-      |  +--rw org-openroadm-ip-interfaces:ipv6
-      |  |  +--rw org-openroadm-ip-interfaces:mtu?        uint32
-      |  |  +--rw org-openroadm-ip-interfaces:address* [ip]
-      |  |  |  +--rw org-openroadm-ip-interfaces:ip                    inet:ipv6-address-no-zone
-      |  |  |  +--rw org-openroadm-ip-interfaces:prefix-length         uint8
-      |  |  |  +--ro org-openroadm-ip-interfaces:curr-prefix-length?   uint8
-      |  |  |  +--ro org-openroadm-ip-interfaces:origin?               ip-address-origin
-      |  |  |  +--ro org-openroadm-ip-interfaces:curr-ip?              inet:ipv6-address-no-zone
-      |  |  +--ro org-openroadm-ip-interfaces:curr-mtu?   uint32
       |  +--rw org-openroadm-optical-channel-interfaces:och
       |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                identityref
       |  |  +--rw org-openroadm-optical-channel-interfaces:wavelength-number?   uint32
@@ -302,22 +257,26 @@ module: org-openroadm-device
       |  |  |  +--rw org-openroadm-otn-odu-interfaces:ltc-act-enabled?                       boolean
       |  |  |  +--rw org-openroadm-otn-odu-interfaces:proactive-delay-measurement-enabled?   boolean
       |  |  +--rw org-openroadm-otn-odu-interfaces:opu
-      |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-type?       string
-      |  |  |  +--ro org-openroadm-otn-odu-interfaces:rx-payload-type?    string
-      |  |  |  +--rw org-openroadm-otn-odu-interfaces:exp-payload-type?   string
+      |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-type?        string
+      |  |  |  +--ro org-openroadm-otn-odu-interfaces:rx-payload-type?     string
+      |  |  |  +--rw org-openroadm-otn-odu-interfaces:exp-payload-type?    string
+      |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-interface?   string
       |  |  |  +--ro org-openroadm-otn-odu-interfaces:msi
       |  |  |     +--ro org-openroadm-otn-odu-interfaces:tx-msi* [trib-slot]
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot    uint16
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?   identityref
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?   uint8
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
       |  |  |     +--ro org-openroadm-otn-odu-interfaces:rx-msi* [trib-slot]
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot    uint16
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?   identityref
-      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?   uint8
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+      |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
       |  |  |     +--ro org-openroadm-otn-odu-interfaces:exp-msi* [trib-slot]
-      |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-slot    uint16
-      |  |  |        +--ro org-openroadm-otn-odu-interfaces:odtu-type?   identityref
-      |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port?   uint8
+      |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
+      |  |  |        +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
+      |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+      |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
       |  |  +--rw org-openroadm-otn-odu-interfaces:maint-testsignal
       |  |     +--rw org-openroadm-otn-odu-interfaces:enabled?               boolean
       |  |     +--rw org-openroadm-otn-odu-interfaces:testPattern?           enumeration
@@ -426,9 +385,12 @@ module: org-openroadm-device
       |  |  +--rw index                uint32
       |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
       |  +--rw connection-ports* [index]
-      |     +--rw index                uint32
-      |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-      |     +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+      |  |  +--rw index                uint32
+      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+      |  +--rw otdr-port
+      |     +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+      |     +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
       +--rw shared-risk-group* [srg-number]
       |  +--ro max-add-drop-ports       uint16
       |  +--rw srg-number               uint16
@@ -458,7 +420,7 @@ rpcs:
    |  +---w input     
    |  |  +---w connection-number    string
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    |     +--ro ports*
    |        +--ro rack?                string
@@ -468,213 +430,46 @@ rpcs:
    |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
    |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
    +---x disable-automatic-shutoff    
+   |  +---w input     
+   |  |  +---w amp              -> /org-openroadm-device/shelves/shelf-name
+   |  |  +---w degree-number    uint16
+   |  |  +---w support-timer?   uint16
+   |  +--ro output    
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x start-scan                   
+   |  +---w input     
+   |  |  +---w degree-number     uint16
+   |  |  +---w port-direction?   org-openroadm-common-types:direction
+   |  |  +---w distance?         uint32
+   |  |  +---w resolution?       uint32
+   |  +--ro output    
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x set-current-datetime         
       +---w input     
-      |  +---w amp              -> /org-openroadm-device/shelves/shelf-name
-      |  +---w degree-number    uint16
-      |  +---w support-timer?   uint16
+      |  +---w current-datetime    ietf-yang-types:date-and-time
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 notifications:
-   +---n inventory-notification    
-      +--ro notificationType?   org-openroadm-resource-types:resource-notification-type
-      +--ro resource-type?      org-openroadm-resource-types:resource-type-enum
-      +--ro (resource)?
-         +--:(shelf)
-         |  +--ro shelf
-         |     +--ro shelf-name?             string
-         |     +--ro shelf-type              string
-         |     +--ro rack?                   string
-         |     +--ro shelf-position?         string
-         |     +--ro administrative-state?   org-openroadm-equipment-states-types:admin-states
-         |     +--ro vendor                  string
-         |     +--ro model                   string
-         |     +--ro serial-id               string
-         |     +--ro type?                   string
-         |     +--ro product-code?           string
-         |     +--ro manufacture-date?       yang:date-and-time
-         |     +--ro clei?                   string
-         |     +--ro hardware-version?       string
-         |     +--ro operational-state?      org-openroadm-common-types:state
-         +--:(circuit-pack)
-         |  +--ro circuit-pack
-         |     +--ro circuit-pack-name?       string
-         |     +--ro administrative-state?    org-openroadm-equipment-states-types:admin-states
-         |     +--ro vendor                   string
-         |     +--ro model                    string
-         |     +--ro serial-id                string
-         |     +--ro type?                    string
-         |     +--ro product-code?            string
-         |     +--ro manufacture-date?        yang:date-and-time
-         |     +--ro clei?                    string
-         |     +--ro hardware-version?        string
-         |     +--ro operational-state?       org-openroadm-common-types:state
-         |     +--ro circuit-pack-category
-         |     |  +--ro type         equipment-type-enum
-         |     |  +--ro extension?   string
-         |     +--ro equipment-state?         org-openroadm-equipment-states-types:states
-         |     +--ro circuit-pack-mode?       string
-         |     +--ro shelf                    -> /org-openroadm-device/shelves/shelf-name
-         |     +--ro slot                     string
-         |     +--ro subSlot?                 string
-         |     +--ro parent-circuit-pack
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     +--ro ports* [port-name]
-         |        +--ro port-name                         string
-         |        +--ro port-type?                        string
-         |        +--ro port-qual?                        enumeration
-         |        +--ro port-wavelength-type?             org-openroadm-port-types:port-wavelength-types
-         |        +--ro port-direction                    org-openroadm-port-direction:direction
-         |        +--ro label?                            string
-         |        +--ro administrative-state?             org-openroadm-equipment-states-types:admin-states
-         |        +--ro operational-state                 org-openroadm-common-types:state
-         |        +--ro supported-interface-capability*   identityref
-         |        +--ro logical-connection-point?         string
-         |        +--ro partner-port
-         |        |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |        |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |        +--ro parent-port
-         |        |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |        |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |        +--ro interfaces*
-         |        |  +--ro interface-name?   -> /org-openroadm-device/interface/name
-         |        +--ro roadm-port
-         |           +--ro port-power-capability-min?   org-openroadm-common-types:power-dBm
-         |           +--ro port-power-capability-max?   org-openroadm-common-types:power-dBm
-         |           +--ro port-target-power?           org-openroadm-common-types:power-dBm
-         |           +--ro available-wavelengths*       uint32
-         |           +--ro used-wavelengths*            uint32
-         |           +--ro capable-wavelengths*         uint32
-         +--:(internal-link)
-         |  +--ro internal-link
-         |     +--ro internal-link-name?   string
-         |     +--ro source
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |     +--ro destination
-         |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         +--:(physical-link)
-         |  +--ro physical-link
-         |     +--ro physical-link-name?   string
-         |     +--ro source
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |     +--ro destination
-         |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         +--:(external-link)
-         |  +--ro external-link
-         |     +--ro external-link-name?   string
-         |     +--ro source
-         |     |  +--ro node-id              string
-         |     |  +--ro circuit-pack-name    string
-         |     |  +--ro port-name            string
-         |     +--ro destination
-         |        +--ro node-id              string
-         |        +--ro circuit-pack-name    string
-         |        +--ro port-name            string
-         +--:(connection)
-         |  +--ro connection
-         |     +--ro connection-number?     string
-         |     +--ro wavelength-number      uint32
-         |     +--ro opticalControlMode?    org-openroadm-common-types:optical-control-mode
-         |     +--ro target-output-power?   org-openroadm-common-types:power-dBm
-         |     +--ro source
-         |     |  +--ro src-if    -> /org-openroadm-device/interface/name
-         |     +--ro destination
-         |        +--ro dst-if    -> /org-openroadm-device/interface/name
-         +--:(connection-map)
-         |  +--ro connection-map
-         |     +--ro connection-map-number?   uint32
-         |     +--ro source
-         |     |  +--ro degree-number?   -> /org-openroadm-device/degree/degree-number
-         |     +--ro destination*
-         |     |  +--ro (destination-type)?
-         |     |     +--:(srg)
-         |     |     |  +--ro srg-number?          -> /org-openroadm-device/shared-risk-group/srg-number
-         |     |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |     |     +--:(degree)
-         |     |        +--ro degree-number?       -> /org-openroadm-device/degree/degree-number
-         |     +--ro failure-destination*
-         |        +--ro (destination-type)?
-         |           +--:(srg)
-         |           |  +--ro srg-number?          -> /org-openroadm-device/shared-risk-group/srg-number
-         |           |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |           |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |           +--:(degree)
-         |              +--ro degree-number?       -> /org-openroadm-device/degree/degree-number
-         +--:(port)
-         |  +--ro port
-         |     +--ro port-name                         string
-         |     +--ro port-type?                        string
-         |     +--ro port-qual?                        enumeration
-         |     +--ro port-wavelength-type?             org-openroadm-port-types:port-wavelength-types
-         |     +--ro port-direction                    org-openroadm-port-direction:direction
-         |     +--ro label?                            string
-         |     +--ro administrative-state?             org-openroadm-equipment-states-types:admin-states
-         |     +--ro operational-state                 org-openroadm-common-types:state
-         |     +--ro supported-interface-capability*   identityref
-         |     +--ro logical-connection-point?         string
-         |     +--ro partner-port
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |     +--ro parent-port
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         |     +--ro interfaces*
-         |        +--ro interface-name?   -> /org-openroadm-device/interface/name
-         +--:(degree)
-         |  +--ro degree
-         |     +--ro degree-number?      uint16
-         |     +--ro max-wavelengths     uint16
-         |     +--ro circuit-packs* [index]
-         |     |  +--ro index                uint32
-         |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |     +--ro connection-ports* [index]
-         |        +--ro index                uint32
-         |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-         +--:(srg)
-         |  +--ro srg
-         |     +--ro max-add-drop-ports       uint16
-         |     +--ro srg-number?              uint16
-         |     +--ro wavelengthDuplication    enumeration
-         |     +--ro circuit-packs* [index]
-         |        +--ro index                uint32
-         |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-         +--:(other)
-            +--ro other
-               +--ro device
-               |  +--ro node-id?   string
-               +--ro resource
-               |  +--ro (resource)?
-               |     +--:(circuit-pack)
-               |     |  +--ro circuit-pack-name     string
-               |     +--:(port)
-               |     |  +--ro port
-               |     |     +--ro circuit-pack-name    string
-               |     |     +--ro port-name?           string
-               |     +--:(connection)
-               |     |  +--ro connection-number?    string
-               |     +--:(physical-link)
-               |     |  +--ro physical-link-name    string
-               |     +--:(internal-link)
-               |     |  +--ro internal-link-name    string
-               |     +--:(shelf)
-               |     |  +--ro shelf-name            string
-               |     +--:(srg)
-               |     |  +--ro srg-number?           uint16
-               |     +--:(degree)
-               |     |  +--ro degree-number?        uint16
-               |     +--:(service)
-               |     |  +--ro service-name          string
-               |     +--:(interface)
-               |        +--ro interface-name        string
-               +--ro resourceType
-                  +--ro type         resource-type-enum
-                  +--ro extension?   string
+   +---n otdr-scan-result       
+   |  +--ro status         enumeration
+   |  +--ro result-file?   string
+   +---n change-notification    
+      +--ro change-time?   ietf-yang-types:date-and-time
+      +--ro changed-by
+      |  +--ro (server-or-user)?
+      |     +--:(server)
+      |     |  +--ro server?        empty
+      |     +--:(by-user)
+      |        +--ro username       string
+      |        +--ro session-id     ietf-nc:session-id-or-zero-type
+      |        +--ro source-host?   ietf-inet-types:ip-address
+      +--ro datastore?     enumeration
+      +--ro edit*
+         +--ro target?      instance-identifier
+         +--ro operation?   ietf-nc:edit-operation-type
 module: org-openroadm-file-transfer
 rpcs:
    +---x transfer       
@@ -683,7 +478,7 @@ rpcs:
    |  |  +---w local-file-path     string
    |  |  +---w remote-file-path    inet:uri
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x show-file      
    |  +---w input     
@@ -695,7 +490,7 @@ rpcs:
       +---w input     
       |  +---w filename    string
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-fwdl
 rpcs:
@@ -703,7 +498,7 @@ rpcs:
       +---w input     
       |  +---w circuit-pack-name?   string
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-lldp
 notifications:
@@ -720,52 +515,26 @@ notifications:
       |  +--ro remoteChassisIdSubType?     enumeration
       |  +--ro remoteChassisId?            string
       +--ro event-time?          yang:date-and-time
-module: org-openroadm-otdr
-   +--rw otdr-packs* [otdr-pack-name]
-      +--rw otdr-pack-name         string
-      +--rw rack?                  string
-      +--rw shelf?                 string
-      +--rw slot?                  string
-      +--rw subSlot?               string
-      +--rw launch-cable-length?   uint32
-      +--ro ports* [port-name]
-         +--ro port-name         string
-         +--ro degree-number?    uint16
-         +--ro port-direction?   org-openroadm-port-direction:direction
-rpcs:
-   +---x start-scan    
-      +---w input     
-      |  +---w degree-number     uint16
-      |  +---w port-direction?   org-openroadm-port-direction:direction
-      |  +---w distance?         uint32
-      |  +---w resolution?       uint32
-      +--ro output    
-         +--ro status            enumeration
-         +--ro status-message?   string
-notifications:
-   +---n result    
-      +--ro status         enumeration
-      +--ro result-file?   string
 module: org-openroadm-swdl
 rpcs:
    +---x sw-stage                   
    |  +---w input     
    |  |  +---w filename?   string
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x sw-activate                
    |  +---w input     
    |  |  +---w version?           string
    |  |  +---w validationTimer?   string
    |  +--ro output    
-   |     +--ro status            enumeration
+   |     +--ro status            rpc-status
    |     +--ro status-message?   string
    +---x cancel-validation-timer    
       +---w input     
       |  +---w accept?   boolean
       +--ro output    
-         +--ro status            enumeration
+         +--ro status            rpc-status
          +--ro status-message?   string
 module: org-openroadm-syslog
    +--rw syslog
