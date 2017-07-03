@@ -39,6 +39,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -49,13 +53,13 @@ module org-openroadm-topology {
       "Topology reports the individual hops along the service in the A to Z direction and Z to A directions.  This includes both ports internal to a device and those
        at its edge that are available for externally connections. It includes both physical and logical ports.
        Physical ports are ordered with the logical ports that run over them as follows:
-       a.\tOn ingress to a node/card, physical then logical
-       b.\tOn egress to a node/card, logical then physical";
+       a.\t On ingress to a node/card, physical then logical
+       b.\t On egress to a node/card, logical then physical";
     list aToZ {
       key "id";
       leaf id {
         description
-          "Unigue identifier for this topology component within this service";
+          "Unique identifier for this topology component within this service";
         type string;
       }
       uses hop;

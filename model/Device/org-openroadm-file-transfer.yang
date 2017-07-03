@@ -5,12 +5,12 @@ module org-openroadm-file-transfer {
   import ietf-inet-types {
     prefix inet;
   }
-
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-  } 
+  }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -42,6 +42,10 @@ module org-openroadm-file-transfer {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -58,13 +62,13 @@ module org-openroadm-file-transfer {
         type enumeration {
           enum "upload" {
             description
-              "Specify the upload action. The server sends
+              "Specify the upload action. The NE (SFTP/FTP client) sends
                the file identified by the local-file-path
                to the remote-file-path.";
           }
           enum "download" {
             description
-              "Specify the download action. The server retrieves
+              "Specify the download action. The NE (SFTP/FTP client) retrieves
                the file identified by the remote-file-path
                to the local-file-path.";
           }
@@ -97,6 +101,7 @@ module org-openroadm-file-transfer {
       "Show one or more files in the specified directory.";
     input {
       leaf filename {
+        default "*";
         type string {
           length "1..255";
         }
@@ -140,6 +145,31 @@ module org-openroadm-file-transfer {
     }
     output {
       uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+  notification transfer-notification {
+    description
+      "notification for transfer operation events.";
+    leaf local-file-path {
+      type string;
+      description
+        "Local file path used in transfer RPC.";
+    }
+    uses org-openroadm-common-types:extended-rpc-response-status;
+    container progress {
+      description
+        "progress status when response is in-progress";
+      when "current()/../status = 'In-progress'";
+      leaf bytes-transferred {
+        type uint64;
+        description
+          "bytes transferred.";
+      }
+      leaf percentage-complete {
+        type uint8;
+        description
+          "percentage completed.";
+      }
     }
   }
 }

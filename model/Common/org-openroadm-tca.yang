@@ -18,7 +18,8 @@ module org-openroadm-tca {
     prefix org-openroadm-layerRate;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -50,6 +51,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -68,8 +73,6 @@ module org-openroadm-tca {
     }
     leaf raiseTime {
       type yang:date-and-time;
-      mandatory true;
-      config false;
     }
     container layerRate {
       uses org-openroadm-layerRate:layer-rate;
@@ -95,17 +98,23 @@ module org-openroadm-tca {
     }
     container thresholdMeasurement {
       uses org-openroadm-pm-types:pm-measurement;
+      leaf location {
+        type org-openroadm-common-types:location;
+      }
+      leaf direction {
+        type org-openroadm-common-types:direction;
+      }
     }
   }
 
   grouping potential-tca {
     leaf lowThresholdValue {
       mandatory false;
-      type uint64;
+      type org-openroadm-pm-types:pm-data-type;
     }
     leaf highThresholdValue {
       mandatory false;
-      type uint64;
+      type org-openroadm-pm-types:pm-data-type;
     }
     uses tca;
   }
@@ -117,6 +126,10 @@ module org-openroadm-tca {
     }
   }
   notification tca-notification {
-    uses tca;
+    uses tca {
+      refine "raiseTime" {
+        mandatory true;
+      }
+    }
   }
 }

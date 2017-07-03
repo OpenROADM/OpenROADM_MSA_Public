@@ -1,0 +1,307 @@
+module org-openroadm-prot-otn-linear-aps {
+  namespace "http://org/openroadm/prot/otn-linear-aps";
+  prefix org-openroadm-prot-otn-linear-aps;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for device facility OTN linear APS protection groups.
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.
+     
+     Also contains code components extracted from IETF Interfaces.  These code components
+     are copyrighted and licensed as follows:
+     
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+     
+     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
+     extracted from this document must include Simplified BSD License text as described in
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
+     described in the Simplified BSD License.";
+
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
+
+  rpc protection-switch {
+    input {
+      leaf protection-group {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-otn-linear-aps:odu-sncp-pg/org-openroadm-prot-otn-linear-aps:name";
+        }
+        mandatory true;
+        description
+          "Target protection group";
+      }
+      leaf pg-interface {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+        }
+        mandatory true;
+        description
+          "Target protection group interface";
+      }
+      leaf switch-command {
+        type enumeration {
+          enum "Lock-Out-Protect" {
+            value 1;
+          }
+          enum "Force-Switch" {
+            value 2;
+          }
+          enum "Manual-Switch" {
+            value 3;
+          }
+          enum "Release" {
+            value 4;
+          }
+        }
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+  identity otn-protection-type {
+    description
+      "OTN base protection identity from which
+         specific protection types are derived.";
+  }
+
+  identity odu-one-plus-one {
+    base otn-protection-type;
+    description
+      "ODU Linear Protection 1+1 permanant bridge";
+  }
+
+  grouping odu-sncp-protection-grps {
+    list odu-sncp-pg {
+      key "name";
+      leaf name {
+        description
+          "The odu-sncp-protection-group name";
+        type string;
+      }
+      leaf level {
+        type enumeration {
+          enum "line" {
+            value 1;
+          }
+          enum "path" {
+            value 2;
+          }
+        }
+        mandatory true;
+        description
+          "Designates protection group as Line or Path";
+      }
+      leaf prot-type {
+        type identityref {
+          base otn-protection-type;
+        }
+        default "odu-one-plus-one";
+        description
+          "The type of the protection group.";
+      }
+      leaf switching-direction {
+        type enumeration {
+          enum "unidirectional-switching" {
+            value 1;
+          }
+          enum "bidirectional-switching" {
+            value 2;
+          }
+        }
+        default "unidirectional-switching";
+        description
+          "Bidirectional refers to APS signaling enabled (G.873.1 Table 7-1 Table 8-1).";
+      }
+      leaf revertive {
+        type boolean;
+        default "false";
+        description
+          "Sets reversion behavior.";
+      }
+      leaf mode {
+        type enumeration {
+          enum "SNC/Ne" {
+            value 1;
+            description
+              "applicable to line or path switching";
+          }
+          enum "SNC/Ns" {
+            value 2;
+            description
+              "applicable to line or path switching";
+          }
+          enum "SNC/S" {
+            value 3;
+            description
+              "applicable to line or path switching";
+          }
+          enum "SNC/I" {
+            value 4;
+            description
+              "applicable to line switching only";
+          }
+          enum "CL-SNCG/I" {
+            value 5;
+            description
+              "applicable to line switching only";
+          }
+        }
+        mandatory true;
+        description
+          "Sets the protection mode";
+      }
+      leaf protection-trigger-level {
+        type enumeration {
+          enum "OTUk/ODUkA-SSF-SSD" {
+            value 1;
+            description
+              "applicable to SNC/I";
+          }
+          enum "ODUkP/ODUjA-SSF-SSD" {
+            value 2;
+            description
+              "applicable to CL-SNCG/I";
+          }
+          enum "ODUP-SSF-SSD" {
+            value 3;
+            description
+              "applicable to SNC/Ne";
+          }
+          enum "ODUT1" {
+            value 4;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+          enum "ODUT2" {
+            value 5;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+          enum "ODUT3" {
+            value 6;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+          enum "ODUT4" {
+            value 7;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+          enum "ODUT5" {
+            value 8;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+          enum "ODUT6" {
+            value 9;
+            description
+              "applicable to SNC/Ns or SNC/S";
+          }
+        }
+        description
+          "Indicates switch trigger.";
+      }
+      leaf wait-to-restore {
+        when "../revertive = 'true'";
+        units "minutes";
+        type uint8 {
+          range "1..12";
+        }
+        default "5";
+        description
+          "Wait to restore time in minutes";
+      }
+      container holdoff-timer {
+        leaf holdoff {
+          units "milliseconds";
+          type uint8 {
+            range "0 | 20 | 100";
+          }
+          default "0";
+          description
+            "switch hold-off time in milliseconds";
+        }
+        leaf holdoff-multiplier {
+          when "../holdoff= 100";
+          type uint8 {
+            range "1 .. 100";
+          }
+          default "1";
+          description
+            "switch holdoff time multiplier x100 milliseconds";
+        }
+      }
+      leaf working-if {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+        }
+        mandatory true;
+        description
+          "Designated work interface";
+      }
+      leaf-list pg-interfaces {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+        }
+        min-elements 1;
+        description
+          "List of interfaces in the PG";
+      }
+      leaf active-if {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+        }
+        config false;
+        description
+          "Active interface in the PG";
+      }
+    }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
+    uses odu-sncp-protection-grps;
+  }
+}

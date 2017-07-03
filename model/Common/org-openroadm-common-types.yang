@@ -2,7 +2,8 @@ module org-openroadm-common-types {
   namespace "http://org/openroadm/common-types";
   prefix org-openroadm-common-types;
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -34,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -66,11 +71,52 @@ module org-openroadm-common-types {
       enum "xpdr" {
         value 2;
       }
+      enum "ila" {
+        value 3;
+      }
+      enum "extplug" {
+        value 4;
+      }
     }
     description
-      "3 digit identifier for node type
+      "Identifier for node type
        1. rdm for ROADM
-       2. xpdr for Transponder, Regen";
+       2. xpdr for Transponder, Regen
+       3. ila for in-line amplifier
+       4. extplug for external plugable";
+  }
+
+  typedef xpdr-node-types {
+    type enumeration {
+      enum "tpdr" {
+        value 1;
+      }
+      enum "mpdr" {
+        value 2;
+      }
+    }
+    description
+      "Identifier for Xponder node type
+       1. Transponder
+       2. Muxponder";
+  }
+
+  typedef frequency-THz {
+    description
+      "Frequency value in THz.";
+    type decimal64 {
+      fraction-digits 8;
+    }
+    units "THz";
+  }
+
+  typedef frequency-GHz {
+    description
+      "Frequency value in GHz.";
+    type decimal64 {
+      fraction-digits 5;
+    }
+    units "GHz";
   }
 
   typedef power-dBm {
@@ -89,7 +135,49 @@ module org-openroadm-common-types {
       fraction-digits 3;
     }
     units "dB";
-  } 
+  }
+
+  typedef fiber-pmd {
+    description
+      "Polarization Mode Dispersion expressed in ps/km(1/2).";
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "ps/(km[1/2])";
+  }
+
+  typedef amplifier-types {
+    type enumeration {
+      enum "std" {
+        value 1;
+      }
+    }
+    description
+      "3 digit identifier for amplifier type
+       1. std for standard amplifier as defined initially
+       To be completed if/when additional amplifier types are required ";
+  }
+
+  typedef amplifier-operational-mode {
+    description
+      "Operational mode for the amplifier: this parameter will 
+       allow modeling different operational modes for switch-gain amplifiers
+       The enum is to be completed/modified when new amplifiers are specified ";
+    type enumeration {
+      enum "Mode1" {
+        value 1;
+      }
+      enum "Mode2" {
+        value 2;
+      }
+      enum "Mode3" {
+        value 3;
+      }
+      enum "Mode4" {
+        value 4;
+      }
+    }
+  }
 
   typedef severity {
     description
@@ -112,6 +200,42 @@ module org-openroadm-common-types {
       }
       enum "indeterminate" {
         value 6;
+      }
+    }
+  }
+
+  typedef activate-notification-type {
+    description
+      "Type of notification on software or database activation events";
+    type enumeration {
+      enum "activate" {
+        value 1;
+        description
+          "software or database activation";
+      }
+      enum "commit" {
+        value 2;
+        description
+          "commit the software or database. 
+           For software activate, this event can happen in the following scenarios:
+             1) immediately when user issue db-activate command without rollBackTimer
+                or if the rollBackTimer is specified as 00-00-00;
+             2) when user issue cancel-rollback-timer before it expires and with accept=true.
+           For database activate, this event can occur in the following scenarios:
+             1) immediately when user issue db-activate command without rollBackTimer
+                or if the rollBackTimer is specified as 00-00-00;
+             2) when user issue cancel-rollback-timer before it expires and with accept=true.";
+      }
+      enum "cancel" {
+        value 3;
+        description
+          "cancel the database or software activation operation.
+           For software activate, this event can happen in the following cases:
+             1) when the rollBackTimer expires;
+             2) when the user issues cancel-rollback-timer with accept=false.  
+           For database activate, this event can happen in the following cases:
+             1) when the rollBackTimer expires;
+             2) when the user issues cancel-rollback-timer with accept=false.";
       }
     }
   }
@@ -139,7 +263,37 @@ module org-openroadm-common-types {
     leaf status-message {
       type string;
       description
-        "Gives a more detailed reason for failure";
+        "Gives a more detailed status";
+    }
+  }
+
+  typedef extended-rpc-status {
+    description
+      "status of RPC ";
+    type enumeration {
+      enum "Successful" {
+        value 1;
+      }
+      enum "Failed" {
+        value 2;
+      }
+      enum "In-progress" {
+        value 3;
+      }
+    }
+  }
+
+  grouping extended-rpc-response-status {
+    leaf status {
+      type extended-rpc-status;
+      mandatory true;
+      description
+        "Successful, Failed or In-progress";
+    }
+    leaf status-message {
+      type string;
+      description
+        "Gives a more detailed status.";
     }
   }
 
@@ -161,6 +315,15 @@ module org-openroadm-common-types {
       }
       enum "undeploying" {
         value 5;
+      }
+      enum "undeployed" {
+        value 6;
+      }
+      enum "proposed" {
+        value 7;
+      }
+      enum "draft" {
+        value 8;
       }
     }
   }
@@ -191,6 +354,7 @@ module org-openroadm-common-types {
       }
     }
   }
+
   grouping equipment-type {
     leaf type {
       type equipment-type-enum;
@@ -260,23 +424,159 @@ module org-openroadm-common-types {
       enum "bidirectional" {
         value 3;
       }
-    }
-  }
-
-  typedef pm-direction {
-    type enumeration {
-      enum "tx" {
-        value 1;
-      }
-      enum "rx" {
-        value 2;
-      }
-      enum "bidirectional" {
-        value 3;
-      }
       enum "notApplicable" {
         value 4;
       }
     }
+  }
+
+  typedef location {
+    type enumeration {
+      enum "notApplicable" {
+        value 1;
+      }
+      enum "nearEnd" {
+        value 2;
+      }
+      enum "farEnd" {
+        value 3;
+      }
+    }
+  }
+
+  typedef wavelength-duplication-type {
+    description
+      "One per srg is applied to C/D add/drop group
+       one per degree is applied to C/D/C add drop group";
+    type enumeration {
+      enum "one-per-srg" {
+        description
+          "The SRG cannot handle wavelength duplication. Attempting to provision a connection on this SRG that uses the same wavelength as an existing service will result in failure.";
+        value 1;
+      }
+      enum "one-per-degree" {
+        description
+          "The SRG can handle wavelength duplication, but only one per degree. Attempting to provision a connection on this SRG that uses the same wavelength as an existing service will succeed, so long as the connections are not using the same degree.";
+        value 2;
+      }
+    }
+  }
+
+  typedef port-qual {
+    type enumeration {
+      enum "roadm-internal" {
+        value 1;
+      }
+      enum "roadm-external" {
+        value 2;
+      }
+      enum "xpdr-network" {
+        value 3;
+      }
+      enum "xpdr-client" {
+        value 4;
+      }
+      enum "otdr" {
+        value 5;
+      }
+      enum "switch-network" {
+        value 6;
+      }
+      enum "switch-client" {
+        value 7;
+      }
+      enum "ila-external" {
+        value 8;
+      }
+      enum "ila-internal" {
+        value 9;
+      }
+    }
+  }
+
+  identity och-rate-identity {
+    description
+      "A unique och rate identification";
+  }
+
+  identity R200G {
+    base och-rate-identity;
+    description
+      "Identity for 200G Rate";
+  }
+
+  identity R100G {
+    base och-rate-identity;
+    description
+      "Identity for 100G Rate";
+  }
+
+  identity R10.7G {
+    base och-rate-identity;
+    description
+      "Identity for 10.7G Rate";
+  }
+
+  identity R11.1G {
+    base och-rate-identity;
+    description
+      "Identity for 11.1G Rate";
+  }
+
+  typedef modulation-format {
+    type enumeration {
+      enum "bpsk" {
+        value 0;
+        description
+          "binary phase-shift keying";
+      }
+      enum "dc-dp-bpsk" {
+        value 1;
+        description
+          "DC dual-polarization binary phase-shift keying";
+      }
+      enum "qpsk" {
+        value 2;
+        description
+          "quadrature phase-shift keying";
+      }
+      enum "dp-qpsk" {
+        value 3;
+        description
+          "dual-polarization binary phase-shift keying";
+      }
+      enum "qam16" {
+        value 4;
+        description
+          "quadrature amplitude modulation 16";
+      }
+      enum "dp-qam16" {
+        value 5;
+        description
+          "dual-polarization quadrature amplitude modulation 16";
+      }
+      enum "dc-dp-qam16" {
+        value 6;
+        description
+          "DC dual-polarization quadrature amplitude modulation 16";
+      }
+      enum "qam8" {
+        value 7;
+        description
+          "quadrature amplitude modulation 8";
+      }
+      enum "dp-qam8" {
+        value 8;
+        description
+          "dual-polarization quadrature amplitude modulation 8";
+      }
+      enum "dc-dp-qam8" {
+        value 9;
+        description
+          "DC dual-polarization quadrature amplitude modulation 8";
+      }
+    }
+    description
+      "Modulation format";
   }
 }

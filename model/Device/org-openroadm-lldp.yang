@@ -10,6 +10,7 @@ module org-openroadm-lldp {
   }
   import iana-afn-safi {
     prefix ianaaf;
+    revision-date 2013-07-04;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -18,7 +19,8 @@ module org-openroadm-lldp {
     prefix yang;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -50,14 +52,18 @@ module org-openroadm-lldp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
-  grouping nbr-info-grp { 
+
+  grouping nbr-info-grp {
     description
       "Display LLDP Neighbour ";
-
     leaf remoteSysName {
       type string;
       description
@@ -169,13 +175,13 @@ module org-openroadm-lldp {
       }
       description
         "Chassis ID Subtype Enumeration";
-    }    
+    }
     leaf remoteChassisId {
       type string;
       description
         "remote neighbour Chassis Id";
-    }                                         
-  }           
+    }
+  }
 
   grouping lldp-container {
     container lldp {
@@ -257,9 +263,9 @@ module org-openroadm-lldp {
             type string;
             description
               "Ethernet interface name where LLDP runs";
-          }                               
+          }
           uses nbr-info-grp;
-        }                             
+        }
       }
     }
   }
@@ -268,29 +274,29 @@ module org-openroadm-lldp {
     when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='rdm'";
     uses lldp-container;
   }
-
   notification lldp-nbr-info-change {
-    description "LLDP: Neighbor Information Changed
-            remoteSysName
-            remoteSysMgmtAddressSubType
-            remoteSysMgmtAddress
-            remotePortIdSubType
-            remotePortId
-            remoteChassisIdSubType
-            remoteChassisId
-            All of the above attributes are sent in event";
+    description
+      "LLDP: Neighbor Information Changed
+       remoteSysName
+       remoteSysMgmtAddressSubType
+       remoteSysMgmtAddress
+       remotePortIdSubType
+       remotePortId
+       remoteChassisIdSubType
+       remoteChassisId
+       All of the above attributes are sent in event";
     leaf notification-type {
-      type org-openroadm-resource-types:resource-notification-type; 
+      type org-openroadm-resource-types:resource-notification-type;
     }
     leaf resource-type {
       type org-openroadm-resource-types:resource-type-enum;
-      description  
-        "resource-type for this notification is interface";  
+      description
+        "resource-type for this notification is interface";
     }
-    leaf resource {         
+    leaf resource {
       type string;
-      description  
-        "resource interface-name";  
+      description
+        "resource interface-name";
     }
     container nbr-info {
       uses nbr-info-grp;
@@ -298,5 +304,5 @@ module org-openroadm-lldp {
     leaf event-time {
       type yang:date-and-time;
     }
-  }                    
+  }
 }
