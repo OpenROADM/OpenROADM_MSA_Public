@@ -1,9 +1,10 @@
 module org-openroadm-external-pluggable {
-  namespace "http://org/openroadm/external/pluggable";
-  prefix org-openroadm-external-pluggable;
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-external-pluggable";
+  prefix plg;
 
   import org-openroadm-equipment-states-types {
-    prefix org-openroadm-equipment-states-types;
+    prefix est;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
@@ -43,96 +44,58 @@ module org-openroadm-external-pluggable {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
 
-  grouping external-pluggable {
-    list pluggables {
-      key "clli";
-      leaf clli {
+  grouping pluggable-node-attributes {
+    leaf pluggable-id {
+      type string;
+      description
+        "Network-wide unique identifier for a pluggable";
+    }
+    leaf customer-code {
+      type string;
+      description
+        "Owner of the pluggable";
+    }
+    container tail {
+      leaf client-equipment {
         type string;
-        description
-          "Location CLLI where pluggable resides";
       }
-      list ext-pluggables {
-        key "pluggable-number node-type";
-        leaf pluggable-number {
-          type uint32;
-          description
-            "Identifier of the pluggable in a given
-             office, i.e., 1, 2..N";
-        }
-        leaf node-type {
-          type org-openroadm-common-types:node-types;
-        }
-        leaf pluggable-id {
-          type string;
-          description
-            "Network-wide unique identifier for a pluggable";
-        }
-        leaf vendor {
-          type string;
-          description
-            "Identifier of the supplier for the pluggable";
-        }
-        leaf customer-code {
-          type string;
-          description
-            "Owner of the pluggable";
-        }
-        container external-connection {
-          leaf clli {
-            type string;
-            description
-              "Location of CLLI where ROADM resides";
-          }
-          leaf node-number{
-            type uint32;
-          }
-          leaf node-id {
-            type string;
-            description
-              "Identifier of a ROADM node";
-          }
-          leaf srg-number {
-            type uint16;
-          }
-          leaf pp-number {
-            type uint16;
-          }
-          leaf bit-rate {
-            type uint32;
-          }
-          leaf signal-format {
-            type string;
-          }
-          leaf reach {
-            type string;
-          }
-          leaf optic {
-            type org-openroadm-common-types:optic-types;
-          }
-          leaf state {
-            type org-openroadm-equipment-states-types:states;
-            description
-              "A xponder can be in one of the following
+      leaf client-equipmentId {
+        type string;
+      }
+      leaf clfi {
+        type string;
+      }
+    }
+  }
+
+  grouping pluggable-tp-attributes {
+    leaf rate {
+      type identityref {
+        base org-openroadm-common-types:och-rate-identity;
+      }
+      description
+        "rate";
+    }
+    leaf modulation-format {
+      type org-openroadm-common-types:modulation-format;
+    }
+    leaf optic {
+      type org-openroadm-common-types:optic-types;
+    }
+    leaf state {
+      type est:states;
+      description
+        "A xponder can be in one of the following
                states";
-          }
-        }
-        container tail {
-          leaf client-equipment {
-            type string;
-          }
-          leaf client-equipmentId {
-            type string;
-          }
-          leaf clfi {
-            type string;
-          }
-        }
-      }
     }
   }
 }

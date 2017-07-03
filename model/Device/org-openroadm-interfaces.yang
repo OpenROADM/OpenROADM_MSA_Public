@@ -2,7 +2,8 @@ module org-openroadm-interfaces {
   namespace "http://org/openroadm/interfaces";
   prefix openROADM-if;
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -49,6 +50,10 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -74,6 +79,18 @@ module org-openroadm-interfaces {
     base interface-type;
     description
       "IP (for APPN HPR in IP networks).";
+  }
+
+  identity mediaChannelTrailTerminationPoint {
+    base interface-type;
+    description
+      "Media Channel Trail Termination Point";
+  }
+
+  identity networkMediaChannelConnectionTerminationPoint {
+    base interface-type;
+    description
+      "Network Media Channel Connection Termination Point";
   }
 
   identity opticalChannel {

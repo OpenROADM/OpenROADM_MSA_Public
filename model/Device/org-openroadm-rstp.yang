@@ -6,7 +6,8 @@ module org-openroadm-rstp {
     prefix org-openroadm-device;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -39,6 +40,10 @@ module org-openroadm-rstp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -76,9 +81,9 @@ module org-openroadm-rstp {
     leaf hello-time {
       description
         "The time between the transmission of BPDU's by this node on any
-            port, when role is rooti (in seconds)";
+            port, when role is root (in seconds)";
       type uint32 {
-        range "1..10";
+        range "1..2";
       }
       default "2";
     }
@@ -289,7 +294,7 @@ module org-openroadm-rstp {
             }
             leaf time-since-topo-change {
               description
-                "Time since last topology changes occured (in seconds)";
+                "Time since last topology changes occurred (in seconds)";
               type uint32;
             }
           }

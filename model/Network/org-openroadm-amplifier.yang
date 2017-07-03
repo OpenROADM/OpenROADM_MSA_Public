@@ -1,0 +1,123 @@
+module org-openroadm-amplifier {
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-amplifier";
+  prefix amp;
+
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org.";
+  description
+    "YANG definitions for an amplifier in Network Model
+     
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2017-06-17 {
+    description
+      "Version 2.0";
+  }
+
+  grouping amplifier-node-attributes {
+    description
+      "Defines the group of amplifier attributes";
+    leaf amp-type {
+      description
+        "Amplifier type";
+      type org-openroadm-common-types:amplifier-types;
+      config true;
+      mandatory true;
+    }
+    leaf amp-operational-mode {
+      description
+        "Amplifier operational mode (for switched gain amplifiers)";
+      type org-openroadm-common-types:amplifier-operational-mode;
+      config true;
+    }
+    leaf ingress-span-loss-aging-margin {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Span-loss margin used to set optical amplifier gain and output-voa
+         extracted from corresponding device OTS interface container, optional 
+         since it concerns only line facing amp";
+      config true;
+    }
+    leaf gain {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Overall Amplifier Signal gain, excluding ASE, including VOA attenuation
+         retrieved from operational value (PM)";
+      config true;
+      mandatory true;
+    }
+    leaf initially-planned-gain {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Overall Amplifier Signal gain, excluding ASE, including VOA attenuation:
+         value coming from planning tool initial design";
+      config true;
+    }
+    leaf tilt {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Tilt of smart EDFA retrieved from operational value (PM)";
+      config true;
+    }
+    leaf initially-planned-tilt {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Tilt of smart EDFA:
+         value coming from planning tool initial design";
+      config true;
+    }
+    leaf out-voa-att {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "output VOA attenuation";
+      config true;
+    }
+    leaf initially-planned-out-voa-att {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "output VOA attenuation: value coming from planning tool initial design.
+         As in R2.0, output VOA can not be configured by controller, this parameter may be used by the controller
+         to check that value set by amplifiers is in the range of calculated value and take relevant decision if not";
+      config true;
+    }
+    leaf eol-max-load-pIn {
+      type org-openroadm-common-types:power-dBm;
+      description
+        "End Of Life Total input power at maximum load used for amplifier and VOA setting
+         extracted from corresponding device OTS interface container";
+      config true;
+    }
+  }
+}

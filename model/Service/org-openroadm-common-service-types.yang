@@ -54,6 +54,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -82,6 +86,8 @@ module org-openroadm-common-service-types {
   grouping response-parameters {
     container response-parameters {
       uses org-openroadm-routing-constraints:routing-constraints;
+      description
+        "Violated soft constraints";
     }
   }
 
@@ -93,23 +99,50 @@ module org-openroadm-common-service-types {
         "Format of the requested service: Ethernet, OTU, etc.";
     }
     leaf service-rate {
-      when "../service-format!='OMS'"{
-        description "service rate not applicable when service 
-        format is roadmline";
+      when "../service-format!='OMS'" {
+        description
+          "service rate not applicable when service 
+           format is roadmline";
       }
       type uint32;
       mandatory true;
       description
         "Rate of the requested service in GBps";
     }
+    leaf ethernet-encoding {
+      when
+        "(../service-format='Ethernet')
+         and
+         (../service-rate=10)" {
+        description
+          "Applicable only to Ethernet";
+      }
+      type ethernet-encoding-type;
+      mandatory true;
+      description
+        "Ethernet encoding type";
+    }
+    leaf mapping-mode {
+      when
+        "(../service-format='Ethernet')
+         and
+         (../service-rate=10)" {
+        description
+          "Mapping Mode, currently only defined for Ethernet";
+      }
+      type mapping-mode-type;
+      mandatory true;
+      description
+        "Mapping mode.";
+    }
     leaf clli {
       type string;
       mandatory true;
       description
-        "CLLI";
+        "CLLI. Note this CLLI must match the site associated with the device-id of this
+         endpoint";
     }
     uses org-openroadm-resource-types:device-id;
-    container site;
     container tx-direction {
       uses service-port;
       uses service-lgx;
@@ -151,46 +184,50 @@ module org-openroadm-common-service-types {
   }
 
   typedef rpc-actions {
-    description "rpc-actions include all the rpc methods";
+    description
+      "rpc-actions include all the rpc methods";
     type enumeration {
-      enum service-create {
-        value "1";
+      enum "service-create" {
+        value 1;
       }
-      enum service-feasibility-check {
-        value "2";
+      enum "service-feasibility-check" {
+        value 2;
       }
-      enum service-delete {
-        value "3";
+      enum "service-delete" {
+        value 3;
       }
-      enum equipment-notification {
-        value "4";
+      enum "equipment-notification" {
+        value 4;
       }
-      enum temp-service-create {
-        value "5";
+      enum "temp-service-create" {
+        value 5;
       }
-      enum temp-service-delete {
-        value "6";
+      enum "temp-service-delete" {
+        value 6;
       }
-      enum service-roll {
-        value "7";
+      enum "service-roll" {
+        value 7;
       }
-      enum service-reconfigure {
-        value "8";
+      enum "service-reconfigure" {
+        value 8;
       }
-      enum service-restoration {
-        value "9";
+      enum "service-restoration" {
+        value 9;
       }
-      enum service-reversion {
-        value "10";
+      enum "service-reversion" {
+        value 10;
       }
-      enum service-reroute {
-        value "11";
+      enum "service-reroute" {
+        value 11;
       }
-      enum service-reroute-confirm {
-        value "12";
+      enum "service-reroute-confirm" {
+        value 12;
       }
-      enum network-re-optimization {
-        value "13";
+      enum "network-re-optimization" {
+        value 13;
+      }
+      enum "service-feasibility-check-bulk" {
+        value 14;
       }
     }
   }
@@ -206,7 +243,7 @@ module org-openroadm-common-service-types {
       leaf notification-url {
         type string;
       }
-      leaf request-system-id{
+      leaf request-system-id {
         type string;
       }
     }
@@ -291,7 +328,7 @@ module org-openroadm-common-service-types {
     leaf due-date {
       type yang:date-and-time;
       description
-        "Date and time service to be turn up. If time is not specified for a given date, default to  midnight. Service turned up immediately if no due date is specified";
+        "Date and time service to be turn up. If time is not specified for a given date, default to midnight. Service turned up immediately if no due date is specified";
     }
     leaf end-date {
       type yang:date-and-time;
@@ -299,30 +336,31 @@ module org-openroadm-common-service-types {
         "Date and time service to be removed";
       mandatory false;
     }
+    uses eventHorizon;
     leaf nc-code {
       type string;
       description
-        "NC code applied to wavelength service only.This is reported against the service, but may not get reflected in the service in the network.";
+        "NC code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
     }
     leaf nci-code {
       type string;
       description
-        "NCI code applied to wavelength service only.This is reported against the service, but may not get reflected in the service in the network.";
+        "NCI code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
     }
     leaf secondary-nci-code {
       type string;
       description
-        "NC code applied to wavelength service only.This is reported against the service, but may not get reflected in the service in the network.";
+        "NC code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
     }
     leaf customer {
       type string;
       description
-        "To be included in ticket information.This is reported against the service, but may not get reflected in the service in the network.";
+        "To be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
     }
     leaf customer-contact {
       type string;
       description
-        "Customer contact information To be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
+        "Customer contact information to be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
     }
     leaf operator-contact {
       type string;
@@ -443,6 +481,70 @@ module org-openroadm-common-service-types {
       enum "OTM" {
         value 7;
       }
+    }
+  }
+
+  typedef ethernet-encoding-type {
+    type enumeration {
+      enum "not-applicable" {
+        value 1;
+      }
+      enum "10GBASE-W" {
+        value 2;
+      }
+      enum "10GBASE-R" {
+        value 3;
+      }
+    }
+  }
+
+  typedef mapping-mode-type {
+    type enumeration {
+      enum "not-applicable" {
+        value 1;
+      }
+      enum "GFP-F" {
+        value 2;
+        reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
+      }
+      enum "GFP-E" {
+        value 3;
+        reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
+      }
+      enum "PCS-Transparent" {
+        value 4;
+        reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
+      }
+    }
+  }
+
+  grouping equipment-info {
+    leaf equipment-identifier {
+      type string;
+    }
+    leaf equipment-type {
+      type string;
+    }
+    leaf equipment-quantity {
+      type uint32;
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-types:lifecycle-state;
+    }
+  }
+
+  grouping eventHorizon {
+    leaf eventHorizonStart {
+      type yang:date-and-time;
+      description
+        "Start time to ensure that the service is routable and viable. Required resources shall 
+         be considered reserved from this time. If not provided, defaults to due-date.";
+    }
+    leaf eventHorizonEnd {
+      type yang:date-and-time;
+      description
+        "End time to ensure that the service is routable and viable. Required resources shall 
+         be considered reserved until this time. If not provided, defaults to end-date.";
     }
   }
 

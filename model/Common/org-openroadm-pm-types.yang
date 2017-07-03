@@ -2,11 +2,8 @@ module org-openroadm-pm-types {
   namespace "http://org/openroadm/pm-types";
   prefix org-openroadm-pm-types;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-  }
-
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -38,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -65,6 +66,7 @@ module org-openroadm-pm-types {
   typedef pm-data-type {
     type union {
       type uint64;
+      type int64;
       type decimal64 {
         fraction-digits 2;
       }
@@ -77,9 +79,6 @@ module org-openroadm-pm-types {
   grouping pm-measurement {
     description
       "Set of parameters related to a PM Measurement";
-    container pmParameterName {
-      uses pm-names;
-    }
     leaf pmParameterValue {
       type pm-data-type;
       mandatory true;
@@ -91,44 +90,25 @@ module org-openroadm-pm-types {
       type string;
       mandatory false;
     }
-    leaf location {
-      description
-        "Location PM parameter measurement";
-      type enumeration {
-        enum "notApplicable" {
-          value 1;
-        }
-        enum "nearEnd" {
-          value 2;
-        }
-        enum "farEnd" {
-          value 3;
-        }
-      }
-      mandatory false;
-    }
-    leaf direction {
-      description
-        "Direction PM parameter measurement";
-      type org-openroadm-common-types:pm-direction;
-      mandatory false;
-    }
     leaf validity {
-      description
-        "Validity of data";
-      type enumeration {
-        enum "complete" {
-          value 1;
-        }
-        enum "partial" {
-          value 2;
-        }
-        enum "suspect" {
-          value 3;
-        }
-      }
+      type validity;
       mandatory false;
-      config false;
+    }
+  }
+
+  typedef validity {
+    description
+      "Validity of data";
+    type enumeration {
+      enum "complete" {
+        value 1;
+      }
+      enum "partial" {
+        value 2;
+      }
+      enum "suspect" {
+        value 3;
+      }
     }
   }
 
@@ -145,7 +125,6 @@ module org-openroadm-pm-types {
         "name of parameter, when enum value set to vendorExtension because
          name not found in pm-names-enum";
       type string;
-      mandatory false;
     }
   }
 
@@ -164,7 +143,7 @@ module org-openroadm-pm-types {
       enum "opticalPowerOutput" {
         value 3;
         description
-          "Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+          "Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
       }
       enum "opticalReturnLoss" {
         value 4;
@@ -174,17 +153,7 @@ module org-openroadm-pm-types {
       enum "opticalPowerInput" {
         value 5;
         description
-          "Optical Power Input (OPIN-OTS). Total optical power";
-      }
-      enum "opticalPower" {
-        value 6;
-        description
-          "Optical Power Receive (OPR-OTS); Optical Power Transmit (OPT-OSC)";
-      }
-      enum "opticalChannelPowerTransmit" {
-        value 7;
-        description
-          "Optical Channel Power Transmit (OPT-OCH). Individual channel power includes Variable Optical Attenuator (VOA) attenuation";
+          "Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH). Total optical power";
       }
       enum "codeViolations" {
         value 8;
@@ -198,10 +167,10 @@ module org-openroadm-pm-types {
           "Errored Seconds Section (ES-PCS)";
         reference "IEEE 802.3ah, Section 45.2.1.46";
       }
-      enum "severlyErrorSeconds" {
+      enum "severelyErroredSeconds" {
         value 10;
         description
-          "Severely Errored Seconds (SES-PCS)";
+          "severely Errored Seconds (SES-PCS)";
         reference "IEEE 802.3ah, Section 45.2.1.48";
       }
       enum "unavailableSecondsPCS" {
@@ -272,6 +241,176 @@ module org-openroadm-pm-types {
         description
           "Incoming Alignment Error (IAE)";
         reference "Ref: G.798: 14.5.1.1.2";
+      }
+      enum "opticalPowerOutputMin" {
+        value 23;
+        description
+          "Minimum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+      }
+      enum "opticalPowerOutputMax" {
+        value 24;
+        description
+          "Maximum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+      }
+      enum "opticalPowerOutputAvg" {
+        value 25;
+        description
+          "Average Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+      }
+      enum "opticalPowerInputMin" {
+        value 26;
+        description
+          "Minimum Optical Power Input (OPIN-OTS). Total optical power";
+      }
+      enum "opticalPowerInputMax" {
+        value 27;
+        description
+          "Maximum Optical Power Input (OPIN-OTS). Total optical power";
+      }
+      enum "opticalPowerInputAvg" {
+        value 28;
+        description
+          "Average Optical Power Input (OPIN-OTS). Total optical power";
+      }
+      enum "opticalPowerOutputOSC" {
+        value 29;
+        description
+          "OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+      }
+      enum "opticalPowerOutputOSCMin" {
+        value 30;
+        description
+          "Minimum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+      }
+      enum "opticalPowerOutputOSCMax" {
+        value 31;
+        description
+          "Maximum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+      }
+      enum "opticalPowerOutputOSCAvg" {
+        value 32;
+        description
+          "Average OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+      }
+      enum "opticalPowerInputOSC" {
+        value 33;
+        description
+          "OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+      }
+      enum "opticalPowerInputOSCMin" {
+        value 34;
+        description
+          "Minimum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+      }
+      enum "opticalPowerInputOSCMax" {
+        value 35;
+        description
+          "Maximum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+      }
+      enum "opticalPowerInputOSCAvg" {
+        value 36;
+        description
+          "Average OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+      }
+      enum "preFECCorrectedErrors" {
+        value 37;
+        description
+          "pFEC corrected Errors";
+      }
+      enum "totalOpticalPowerInput" {
+        value 38;
+        description
+          "Total Optical Power Input.";
+      }
+      enum "totalOpticalPowerInputMin" {
+        value 39;
+        description
+          "Minumun Total Optical Power Input.";
+      }
+      enum "totalOpticalPowerInputMax" {
+        value 40;
+        description
+          "Maximum Total Optical Power Input.";
+      }
+      enum "totalOpticalPowerInputAvg" {
+        value 41;
+        description
+          "Average Total Optical Power Input.";
+      }
+      enum "FECCorrectableBlocks" {
+        value 42;
+        description
+          "FEC Correctable Blocks.";
+      }
+      enum "FECUncorrectableBlocks" {
+        value 43;
+        description
+          "FEC Uncorrectable Blocks.";
+      }
+      enum "erroredBlockCountTCM1" {
+        value 44;
+        description
+          "errored Blocks Count on TCM1.";
+      }
+      enum "erroredBlockCountTCM2" {
+        value 45;
+        description
+          "errored Blocks Count on TCM2.";
+      }
+      enum "erroredBlockCountTCM3" {
+        value 46;
+        description
+          "errored Blocks Count on TCM3.";
+      }
+      enum "erroredBlockCountTCM4" {
+        value 47;
+        description
+          "errored Blocks Count on TCM4.";
+      }
+      enum "erroredBlockCountTCM5" {
+        value 48;
+        description
+          "errored Blocks Count on TCM5.";
+      }
+      enum "erroredBlockCountTCM6" {
+        value 49;
+        description
+          "errored Blocks Count on TCM6.";
+      }
+      enum "delayTCM1" {
+        value 50;
+        description
+          "Delay on TCM1.";
+      }
+      enum "delayTCM2" {
+        value 51;
+        description
+          "Delay on TCM2.";
+      }
+      enum "delayTCM3" {
+        value 52;
+        description
+          "Delay on TCM3.";
+      }
+      enum "delayTCM4" {
+        value 53;
+        description
+          "Delay on TCM5.";
+      }
+      enum "delayTCM5" {
+        value 54;
+        description
+          "Delay on TCM5.";
+      }
+      enum "delayTCM6" {
+        value 55;
+        description
+          "Delay on TCM6.";
+      }
+      enum "BIPErrorCounter" {
+        value 56;
+        description
+          "BIP Error Counter";
       }
     }
   }

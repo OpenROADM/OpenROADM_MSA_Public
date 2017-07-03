@@ -1,6 +1,14 @@
 module org-openroadm-srg {
-  namespace "http://org/openroadm/srg";
-  prefix org-openroadm-srg;
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-srg";
+  prefix srg;
+
+  import org-openroadm-network-types {
+    prefix org-openroadm-network-types;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -35,68 +43,35 @@ module org-openroadm-srg {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
 
-  grouping shared-risk-group {
-    list srgs {
-      key "srg-number";
-      leaf srg-number {
-        type uint16;
-        description
-          "Identifier for each SRG";
-      }
-      leaf max-pp {
-        type uint32;
-        description
-          "Maximum number  of add/drop port pairs in an SRG";
-      }
-      leaf-list available-wavelengths {
-        type uint32;
-        description
-          "List of available wavelengths that are supported
-           by the srg";
-      }
-      leaf wavelength-duplication {
-        type enumeration {
-          enum "one-per-srg" {
-            value 1;
-          }
-          enum "one-per-degree" {
-            value 2;
-          }
-        }
-        description
-          "One per srg is applied to C/D add/drop group
-           one per degree is applied to C/D/C add drop group";
-      }
-      container cp-tx {
-        leaf-list pp-number {
-          type uint32;
-          description
-            "The port pair # used for a tail or assigned by PCE to a  service/circuit ";
-        }
-      }
-      container cp-rx {
-        leaf-list pp-number {
-          type uint32;
-          description
-            "The port pair # used for a tail or assigned by PCE to a  service/circuit ";
-        }
-      }
-      list port-pair {
-        key "pp-number";
-        leaf pp-number {
-          type uint16;
-          description
-            "The port pair # used for tail or assigned by PCE to a service/circuit";
-        }
-        leaf wavelength-number {
-          type uint32;
-        }
-      }
+  grouping srg-node-attributes {
+    leaf srg-number {
+      type uint16;
+    }
+    leaf max-pp {
+      type uint32;
+      description
+        "Maximum number of add/drop port pairs in an SRG";
+    }
+    leaf current-provisioned-pp {
+      type uint32;
+      description
+        "current provisioned number of port pair in a given SRG";
+    }
+    list available-wavelengths {
+      key "index";
+      uses org-openroadm-network-types:wavelengths;
+    }
+    leaf wavelength-duplication {
+      type org-openroadm-common-types:wavelength-duplication-type;
     }
   }
 }

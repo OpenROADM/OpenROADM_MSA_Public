@@ -1,15 +1,26 @@
 module org-openroadm-network {
-  namespace "http://org/openroadm/network";
-  prefix org-openroadm-network;
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-network";
+  prefix net;
 
+  import ietf-network {
+    prefix nd;
+    revision-date 2015-06-08;
+  }
+  import org-openroadm-network-types {
+    prefix nt;
+  }
   import org-openroadm-roadm {
-    prefix org-openroadm-roadm;
+    prefix roadm;
   }
   import org-openroadm-external-pluggable {
-    prefix org-openroadm-external-pluggable;
+    prefix plg;
   }
   import org-openroadm-xponder {
-    prefix org-openroadm-xponder;
+    prefix xpdr;
+  }
+  import ietf-inet-types {
+    prefix inet;
   }
 
   organization
@@ -43,14 +54,85 @@ module org-openroadm-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
 
-  container network {
-    uses org-openroadm-roadm:open-roadm;
-    uses org-openroadm-external-pluggable:external-pluggable;
-    uses org-openroadm-xponder:xponder;
+  augment "/nd:network/nd:network-types" {
+    description
+      "Introduce new network type for the Open ROADM optical network";
+    container openroadm-network {
+      presence "indicates optical network of Open ROADMs";
+      description
+        "The presence of the container node indicates Open ROADM
+         network";
+    }
+  }
+  augment "/nd:network/nd:node" {
+    description
+      "Augment the generic network node with Open ROADM attributes.";
+    leaf node-type {
+      type nt:openroadm-node-type;
+      description
+        "A component of the network topology. Valid node types are XPONDER, EXT-PLUGGABLE
+         and ROADM";
+    }
+    leaf software-version {
+      type string;
+      description
+        "Vendor software version";
+    }
+    leaf openroadm-version {
+      type string;
+      description
+        "OpenROADM software version";
+    }
+    leaf vendor {
+      type string;
+      description
+        "Identifier of the supplier";
+    }
+    leaf model {
+      type string;
+      description
+        "Identifier of the supplier's equipment";
+    }
+    leaf domain-subnetwork {
+      type string;
+      description
+        "Specific Domain-Subnetwork in which the node resides";
+    }
+    leaf ip {
+      type inet:ip-address;
+      description
+        "IP address assigned to the node";
+    }
+    leaf relay-rack {
+      type string;
+      description
+        "Frame Identification Code (FIC)";
+    }
+    leaf shelf {
+      type string;
+    }
+    container roadm-attributes {
+      when "../node-type = 'ROADM'";
+      description
+        "Attributes for the ROADM Node.";
+      uses roadm:roadm-node-attributes;
+    }
+    container xpdr-attributes {
+      when "../node-type = 'XPONDER'";
+      uses xpdr:xpdr-node-attributes;
+    }
+    container pluggable-attributes {
+      when "../node-type = 'EXT-PLUGGABLE'";
+      uses plg:pluggable-node-attributes;
+    }
   }
 }

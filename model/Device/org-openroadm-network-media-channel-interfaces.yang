@@ -1,6 +1,6 @@
-module org-openroadm-optical-channel-interfaces {
-  namespace "http://org/openroadm/optical-channel-interfaces";
-  prefix org-openroadm-optical-channel-interfaces;
+module org-openroadm-network-media-channel-interfaces {
+  namespace "http://org/openroadm/network-media-channel-interfaces";
+  prefix org-openroadm-network-media-channel-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
@@ -63,54 +63,34 @@ module org-openroadm-optical-channel-interfaces {
     description
       "Version 2.0";
   }
-  revision 2016-10-14 {
-    description
-      "Version 1.2";
-  }
 
-  grouping och-attributes {
+  grouping nmc-ctp-attributes {
     description
-      "Optical Channel attributes";
-    leaf rate {
-      type identityref {
-        base org-openroadm-common-types:och-rate-identity;
-      }
-      description
-        "rate";
-    }
+      "Network Media Channel attributes";
     leaf frequency {
       type org-openroadm-common-types:frequency-THz;
       description
-        "Center Frequency in THz.";
+        "Center Frequency in THz.  This is not constrained by mc-capabilities.  It must fit (when combined with width) inside any containing media channel.";
       config true;
     }
     leaf width {
       type org-openroadm-common-types:frequency-GHz;
       description
-        "Frequency width in GHz.";
-      config false;
-    }
-    leaf modulation-format {
-      type org-openroadm-common-types:modulation-format;
-    }
-    leaf transmit-power {
-      type org-openroadm-common-types:power-dBm;
-      description
-        "The target transmit power for this channel. When set, the xponder will work to ensure that port-current-power reaches this level. Applicable only to channel on top of xpdr-network port";
+        "Frequency width in GHz.  This is not constrained by mc-capabilities.  It must fit (when combined with frequency) inside any containing media channel.";
+      config true;
     }
   }
 
-  grouping och-container {
-    container och {
+  grouping nmc-ctp-container {
+    container nmc-ctp {
       description
-        "Optical Channel (OCh):
-         Models the optical channel interfaces for an Optical White Box.";
-      uses och-attributes;
+        "Network Media Channel Connection Termination Point (NMC-CTP)";
+      uses nmc-ctp-attributes;
     }
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:opticalChannel'";
-    uses och-container;
+    when "org-openroadm-device:type = 'openROADM-if:networkMediaChannelConnectionTerminationPoint'";
+    uses nmc-ctp-container;
   }
 }

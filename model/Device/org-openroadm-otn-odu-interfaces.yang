@@ -11,8 +11,12 @@ module org-openroadm-otn-odu-interfaces {
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
   }
+  import org-openroadm-otn-common {
+    prefix org-openroadm-otn-common;
+  }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -58,6 +62,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -65,7 +73,7 @@ module org-openroadm-otn-odu-interfaces {
 
   identity odu-rate-identity {
     description
-      "A unique rate identification of the ODUk.";
+      "A unique rate identification of the ODU.";
   }
 
   identity ODU4 {
@@ -118,33 +126,10 @@ module org-openroadm-otn-odu-interfaces {
   identity ODTU4.ts-Allocated {
     base odtu-type-identity;
     description
-      "OPU4 MSI - ODTU4.ts, TS is occupied/allocated";
+      "OPU4 MSI - ODTU4.ts, OPU4 MSI TS is occupied/allocated.
+       Applies to all ODTU4.x mappings";
   }
-  
-  identity ODTU4.1 {
-    base odtu-type-identity;
-    description
-      "ODTU4.1 MSI type";
-  }
-  
-  identity ODTU4.2 {
-    base odtu-type-identity;
-    description
-      "ODTU4.2 MSI type";
-  }
-  
-  identity ODTU4.8 {
-    base odtu-type-identity;
-    description
-      "ODTU4.8 MSI type";
-  }
-  
-  identity ODTU4.31 {
-    base odtu-type-identity;
-    description
-      "ODTU4.31 MSI type";
-  }
-  
+
   identity ODTU01 {
     base odtu-type-identity;
     description
@@ -187,6 +172,29 @@ module org-openroadm-otn-odu-interfaces {
       "Unallocated MSI type";
   }
 
+  identity odu-function-identity {
+    description
+      "A unique identification of the ODUk interface function.";
+  }
+
+  identity ODU-TTP {
+    base odu-function-identity;
+    description
+      "ODU TTP facility facing trail termination";
+  }
+
+  identity ODU-CTP {
+    base odu-function-identity;
+    description
+      "ODU CTP connection termination";
+  }
+
+  identity ODU-TTP-CTP {
+    base odu-function-identity;
+    description
+      "ODU CTP mapper level connection termination with trail termination and client adaptation";
+  }
+
   grouping msi-entry {
     leaf trib-slot {
       type uint16;
@@ -203,7 +211,7 @@ module org-openroadm-otn-odu-interfaces {
     leaf trib-port {
       type uint8;
       description
-        "Tributray Port Number (0-based), part of the MSI";
+        "Tributary Port Number (0-based), part of the MSI";
     }
     leaf trib-port-payload {
       type string;
@@ -222,6 +230,13 @@ module org-openroadm-otn-odu-interfaces {
       description
         "rate identity of the ODU. 'identityref' is used
          to allow to extend for future higher rates";
+    }
+    leaf odu-function {
+      type identityref {
+        base odu-function-identity;
+      }
+      description
+        "function of the ODU interface";
     }
     leaf monitoring-mode {
       type enumeration {
@@ -249,14 +264,41 @@ module org-openroadm-otn-odu-interfaces {
       description
         "enable/disable proactive Delay Measurement";
     }
+    uses parent-odu-allocation;
+    uses org-openroadm-otn-common:trail-trace;
+    uses org-openroadm-otn-common:deg-threshold;
     list tcm {
-      key "layer";
+      key "layer tcm-direction";
       uses tcm-attributes;
       max-elements "6";
       description
         "Tandem Connection Management";
     }
     uses opu;
+  }
+
+  grouping parent-odu-allocation {
+    container parent-odu-allocation {
+      presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
+      when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
+      leaf trib-port-number {
+        type uint8 {
+          range "1 .. 80";
+        }
+        mandatory true;
+        description
+          "Tributary port number in parent OPU";
+      }
+      leaf-list trib-slots {
+        max-elements "80";
+        min-elements 1;
+        type uint16 {
+          range "1 .. 80";
+        }
+        description
+          "Trib slots occupied in parent OPU MSI";
+      }
+    }
   }
 
   grouping opu {
@@ -359,8 +401,24 @@ module org-openroadm-otn-odu-interfaces {
     leaf proactive-delay-measurement-enabled {
       type boolean;
       description
-        "enable/disable proactive Delay Measurement";
+        "enable/disable proactive Delay Measurement for TCM";
     }
+    leaf tcm-direction {
+      type enumeration {
+        enum "up-tcm" {
+          description
+            "TCM termination direction faces the switch fabric.";
+        }
+        enum "down-tcm" {
+          description
+            "TCM termination direction faces the facility";
+        }
+      }
+      description
+        "Direction of TCM.";
+    }
+    uses org-openroadm-otn-common:trail-trace;
+    uses org-openroadm-otn-common:deg-threshold;
   }
 
   grouping odu-container {

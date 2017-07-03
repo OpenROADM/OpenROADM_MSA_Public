@@ -5,17 +5,21 @@ module org-openroadm-pm {
   import ietf-yang-types {
     prefix yang;
   }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
   }
-  import org-openroadm-layerRate {
-    prefix org-openroadm-layerRate;
+  import org-openroadm-resource-types {
+    prefix org-openroadm-resource-types;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -47,106 +51,142 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
 
-  grouping current-pm {
+  grouping current-pm-group {
     description
-      "PM Data with current values - both realtime (granularity=notApplicable) and binned (granularity=15 minute, 24h))";
-    leaf id {
-      type string;
+      "PM Data with current values - both realtime (granularity=notApplicable)
+       and binned (granularity=15 minute, 24h))";
+    leaf pm-resource-instance {
+      description
+        "Retrieves all PM associate with the resource instance";
+      type instance-identifier;
       mandatory true;
       config false;
     }
-    container resource {
-      uses org-openroadm-resource:resource;
+    leaf pm-resource-type {
+      description
+        "The supported pm-resource-type associated with the given resource instance.";
+      type org-openroadm-resource-types:resource-type-enum;
+      mandatory true;
+      config false;
     }
-    container layerRate {
-      uses org-openroadm-layerRate:layer-rate;
-    }
-    list measurements {
-      container measurement {
-        uses org-openroadm-pm-types:pm-measurement;
-      }
-    }
-    leaf retrievalTime {
+    leaf retrieval-time {
+      description
+        "Represents the time when the data is being read, not the bin start or end time.";
       type yang:date-and-time;
       mandatory true;
       config false;
     }
-    leaf granularity {
-      type org-openroadm-pm-types:pm-granularity;
+    list current-pm {
+      key "type extension location direction";
+      uses current-pm-val-group;
+      config false;
     }
   }
 
-  container currentPmlist {
+  grouping current-pm-val-group {
+    uses org-openroadm-pm-types:pm-names;
+    leaf location {
+      type org-openroadm-common-types:location;
+    }
+    leaf direction {
+      type org-openroadm-common-types:direction;
+    }
+    list measurement {
+      key "granularity";
+      leaf granularity {
+        type org-openroadm-pm-types:pm-granularity;
+      }
+      uses org-openroadm-pm-types:pm-measurement;
+    }
+  }
+
+  container current-pm-list {
     description
       "List of current PMs.";
-    list currentPm {
-      key "id";
-      uses current-pm;
+    list current-pm-entry {
+      key "pm-resource-type pm-resource-instance";
+      uses current-pm-group;
     }
     config false;
   }
 
-  grouping historical-pm {
+  grouping historical-pm-group {
     description
       "PM Data with historical values - binned (granularity=15 minute, 24h))";
-    leaf id {
-      type string;
+    leaf pm-resource-instance {
+      description
+        "Retrieves all PM associate with the resource instance";
+      type instance-identifier;
       mandatory true;
       config false;
     }
-    container resource {
-      uses org-openroadm-resource:resource;
+    leaf pm-resource-type {
+      type org-openroadm-resource-types:resource-type-enum;
+      mandatory true;
+      config false;
     }
-    container layerRate {
-      uses org-openroadm-layerRate:layer-rate;
-    }
-    list binned-pm {
-      key "bin-number";
-      uses bin-pm;
-    }
-    leaf granularity {
-      type org-openroadm-pm-types:pm-granularity;
+    list historical-pm {
+      key "type extension location direction";
+      uses historical-pm-val-group;
     }
   }
 
-  grouping bin-pm {
+  grouping historical-pm-val-group {
     description
       "PM Data with historical values";
-    leaf bin-number {
-      type uint16 {
-        range "1..max";
-      }
-      mandatory true;
-      config false;
+    uses org-openroadm-pm-types:pm-names;
+    leaf location {
+      type org-openroadm-common-types:location;
     }
-    list measurements {
-      container measurement {
-        uses org-openroadm-pm-types:pm-measurement;
-      }
+    leaf direction {
+      type org-openroadm-common-types:direction;
     }
-    leaf completionTime {
-      type yang:date-and-time;
-      mandatory true;
-      config false;
+    list measurement {
+      key "granularity bin-number";
+      leaf granularity {
+        type org-openroadm-pm-types:pm-granularity;
+        mandatory true;
+      }
+      leaf bin-number {
+        type uint16 {
+          range "1..max";
+        }
+        mandatory true;
+        config false;
+      }
+      uses org-openroadm-pm-types:pm-measurement;
+      leaf completion-time {
+        description
+          "The time at the end of the period; For example if bin starts at 
+           01:15:00 and ends at 01:29:59, the completion-time is 01:29:59";
+        type yang:date-and-time;
+        mandatory true;
+        config false;
+      }
     }
   }
 
-  container historicalPmlist {
+  container historical-pm-list {
     description
       "List of historical PM";
-    list historicalPm {
-      key "id";
-      uses historical-pm;
+    list historical-pm-entry {
+      key "pm-resource-type pm-resource-instance";
+      uses historical-pm-group;
     }
     config false;
   }
   rpc clear-pm {
-    description "Command to initialize PM data";
+    description
+      "Command to initialize PM data";
     input {
       uses org-openroadm-resource:resource;
       leaf pm-type {
@@ -166,24 +206,63 @@ module org-openroadm-pm {
       }
     }
     output {
-      leaf status {
-        type enumeration {
-          enum "Successful" {
-            value 1;
-          }
-          enum "Failed" {
-            value 2;
-          }
-        }
-        mandatory true;
-        description
-          "Successful or Failed";
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+  grouping collect-history-pm-group {
+    leaf pm-filename {
+      type string {
+        length "10..255";
       }
-      leaf status-message {
-        type string;
+      description
+        "The file name to write the historical PM data to.
+         The controller should be able to use this name to retrieve the file via ftp/sftp";
+    }
+    uses org-openroadm-common-types:rpc-response-status;
+  }
+
+  rpc collect-historical-pm-file {
+    description
+      "Command to query historical PM data";
+    input {
+      leaf from-bin-number {
+        type uint16 {
+          range "1..max";
+        }
+        default "1";
         description
-          "Gives a more detailed reason for success / failure";
+          "The start bin-number of the range";
+      }
+      leaf to-bin-number {
+        type uint16 {
+          range "1..max";
+        }
+        default "1";
+        description
+          "The end bin-number of the range";
+      }
+      leaf granularity {
+        type org-openroadm-pm-types:pm-granularity;
+        description
+          "The granularity of the retrieve.  
+           If not specified, collect for both 15min and 24hour granularity";
       }
     }
+    output {
+      leaf collect-historical-pm-notification-timeout {
+        description
+          "The timeout value the controller will wait for the historical-pm-collect-result";
+        type uint32;
+        units "second";
+        default "600";
+      }
+      uses collect-history-pm-group;
+    }
+  }
+  notification historical-pm-collect-result {
+    description
+      "This Notification is sent when the pm collection is succesful or failed.";
+    uses collect-history-pm-group;
   }
 }

@@ -6,7 +6,8 @@ module org-openroadm-probable-cause {
     prefix org-openroadm-common-types;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -38,6 +39,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -56,22 +61,18 @@ module org-openroadm-probable-cause {
       description
         "Direction indication of the alarm.";
       type org-openroadm-common-types:direction;
+      mandatory true;
     }
     leaf location {
       description
         "location indication of the alarm.";
-      type enumeration {
-        enum "NEND" {
-          value 1;
-          description
-            "Near End location";
-        }
-        enum "FEND" {
-          value 2;
-          description
-            "Far End location";
-        }
-      }
+      type org-openroadm-common-types:location;
+      mandatory true;
+    }
+    leaf additional-detail {
+      description
+        "Provide additional descriptive text about the probable cause.";
+      type string;
     }
   }
 
@@ -120,12 +121,6 @@ module org-openroadm-probable-cause {
           "Server Signal Fail (SSF)";
         reference "G.798";
       }
-      enum "lossofTandemConnection" {
-        value 9;
-        description
-          "Loss of Tandem Connection (LTC)";
-        reference "G.798";
-      }
       enum "lockedDefect" {
         value 10;
         description
@@ -138,7 +133,7 @@ module org-openroadm-probable-cause {
           "Trail trace Identifier Mismatch (TIM)";
         reference "G.798";
       }
-      enum "degradedEffect" {
+      enum "degradedDefect" {
         value 12;
         description
           "Degraded defect (DEG)";
@@ -156,23 +151,11 @@ module org-openroadm-probable-cause {
       enum "automaticShutoffDisabled" {
         value 15;
       }
-      enum "postBlockManualLaserShutdown" {
-        value 16;
-      }
       enum "portLossOfLight" {
         value 17;
       }
       enum "reflectionTooHigh" {
         value 18;
-      }
-      enum "shutoffThresholdCrossed" {
-        value 19;
-      }
-      enum "preBlockSpanAdjustmentInProgress" {
-        value 20;
-      }
-      enum "postBlockSpanAdjustmentInProgress" {
-        value 21;
       }
       enum "payloadMissingIndication" {
         value 22;
@@ -235,14 +218,8 @@ module org-openroadm-probable-cause {
       enum "databaseLockedDbRestoreInProgress" {
         value 40;
       }
-      enum "databaseLockedSysInitInProgress" {
-        value 41;
-      }
       enum "databaseLockedDbAlarmPresent" {
         value 42;
-      }
-      enum "databaseLockedIlfViolation" {
-        value 43;
       }
       enum "databaseVersionMismatch" {
         value 44;
@@ -294,12 +271,6 @@ module org-openroadm-probable-cause {
       }
       enum "sysNtpNotSynchronized" {
         value 60;
-      }
-      enum "ilfViolationMajor" {
-        value 61;
-      }
-      enum "ilfViolationCritical" {
-        value 62;
       }
       enum "lossOfFrame" {
         value 63;
@@ -511,11 +482,56 @@ module org-openroadm-probable-cause {
       enum "terminalTestsignalActive" {
         value 132;
       }
-      enum "automaticLaserShutdownDisabled" {
-        value 133;
-      }
       enum "certificateNotInstalled" {
         value 134;
+      }
+      enum "lockoutOfProtection" {
+        value 135;
+      }
+      enum "forcedSwitchAwayFromWorking" {
+        value 136;
+      }
+      enum "forcedSwitchAwayFromProtect" {
+        value 137;
+      }
+      enum "automaticSwitchAwayFromWorkingDueToSF" {
+        value 138;
+      }
+      enum "automaticSwitchAwayFromProtectDueToSF" {
+        value 139;
+      }
+      enum "automaticSwitchDueToWTR" {
+        value 140;
+      }
+      enum "manualSwitchAwayFromWork" {
+        value 141;
+      }
+      enum "manualSwitchAwayFromProtect" {
+        value 142;
+      }
+      enum "automaticPowerReduction" {
+        value 143;
+      }
+      enum "lossOfSignalOSC" {
+        value 144;
+      }
+      enum "softwareValidateInProgress" {
+        value 145;
+      }
+      enum "databaseRollbackTimerInProgress" {
+        value 146;
+      }
+      enum "otdrScanInProgress" {
+        value 147;
+      }
+      enum "lldpFail" {
+        value 148;
+      }
+      enum "omsPowerOutOfSpecificationHigh" {
+        value 149;
+      }
+      enum "omsPowerOutOfSpecificationLow" {
+        value 150;
       }
     }
   }

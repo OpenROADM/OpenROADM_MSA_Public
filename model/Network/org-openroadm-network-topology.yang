@@ -1,0 +1,247 @@
+module org-openroadm-network-topology {
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-network-topology";
+  prefix topo;
+
+  import ietf-network {
+    prefix nd;
+    revision-date 2015-06-08;
+  }
+  import ietf-network-topology {
+    prefix nwt;
+  }
+  import org-openroadm-network-types {
+    prefix org-openroadm-network-types;
+  }
+  import org-openroadm-srg {
+    prefix srg;
+  }
+  import org-openroadm-degree {
+    prefix dgr;
+  }
+  import org-openroadm-xponder {
+    prefix xpdr;
+  }
+  import org-openroadm-external-pluggable {
+    prefix plg;
+  }
+  import org-openroadm-link {
+    prefix link;
+  }
+  import org-openroadm-common-types {
+    prefix ct;
+  }
+
+  organization
+    "OPEN ROADM MSA";
+  contact
+    "OpenROADM.org.";
+  description
+    "YANG definitions for network view of a ROADM
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     AT&T Intellectual Property.  All other rights reserved.
+         
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+         
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+         
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
+
+  augment "/nd:network/nd:network-types" {
+    description
+      "Introduce new network type for the Open ROADM optical
+       `     network topology";
+    container openroadm-topology {
+      presence "indicates optical network topology for Open ROADMs";
+    }
+  }
+  augment "/nd:network/nd:node" {
+    when "../nd:network-types/openroadm-topology";
+    description
+      "This augmentations adds the ROADM Node type to the generic node
+       definition and defines node-sepcific attributes for each node type
+       in the ROADM Topology.";
+    leaf node-type {
+      type org-openroadm-network-types:openroadm-node-type;
+      description
+        "The type of a node in the ROADM topology. Valid node types are 'SRG', 'DEGREE',
+         'TPDR', 'EXT-PLUGGABLE' and 'MUXPDR'";
+    }
+    container srg-attributes {
+      when "../node-type = 'SRG'";
+      uses srg:srg-node-attributes;
+      description
+        "Topology-related attributes for SRG nodes";
+    }
+    container degree-attributes {
+      when "../node-type = 'DEGREE'";
+      uses dgr:degree-node-attributes;
+      description
+        "Topology-related attributes for degree nodes";
+    }
+  }
+  augment "/nd:network/nd:node/nwt:termination-point" {
+    when "../../nd:network-types/openroadm-topology";
+    description
+      "Defines the type of a termination point in the ROADM topology and
+       TP-specific attributes for each termination point type.";
+    leaf tp-type {
+      type org-openroadm-network-types:openroadm-tp-type;
+      must "../../topo:node-type != 'DEGREE' or ../topo:tp-type = 'DEGREE-TX-TTP' or ../topo:tp-type = 'DEGREE-RX-TTP' or ../topo:tp-type = 'DEGREE-TX-CTP' or ../topo:tp-type = 'DEGREE-TXRX-TTP' or ../topo:tp-type = 'DEGREE-RX-CTP'" {
+        error-message "Invalid TP for node type 'DEGREE'";
+      }
+      must "../../topo:node-type != 'SRG' or ../topo:tp-type = 'SRG-TX-CP' or ../topo:tp-type = 'SRG-RX-CP' or ../topo:tp-type = 'SRG-RX-PP' or ../topo:tp-type = 'SRG-TX-PP' or ../topo:tp-type = 'SRG-TXRX-PP'" {
+        error-message "Invalid TP for node type 'SRG'";
+      }
+      must "../../topo:node-type != 'XPONDER' or ../topo:tp-type = 'XPONDER-NETWORK' or ../topo:tp-type = 'XPONDER-CLIENT'" {
+        error-message "Invalid TP for node type 'XPONDER'";
+      }
+      must "../../topo:node-type != 'EXT-PLUGGABLE' or ../topo:tp-type = 'EXT-PLUGGABLE-TP'" {
+        error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
+      }
+      description
+        "The TP type; also defines which TP types can be instantiated
+         on which Node types";
+    }
+    container tx-ttp-attributes {
+      when "../tp-type = 'DEGREE-TX-TTP' or ../tp-type = 'DEGREE-TXRX-TTP'";
+      description
+        "There must be only one TP of type DEGREE-TX-TTP in any given
+         degree node";
+      uses dgr:degree-txttp-attributes;
+    }
+    container rx-ttp-attributes {
+      when "../tp-type = 'DEGREE-RX-TTP'";
+      description
+        "There must be only one TP of type DEGREE-RX-TTP in any given
+         degree node";
+      list used-wavelengths {
+        key "index";
+        uses org-openroadm-network-types:wavelengths;
+      }
+    }
+    container ctp-attributes {
+      when "../tp-type = 'DEGREE-TX-CTP' or ../tp-type = 'DEGREE-RX-CTP'";
+      list used-wavelengths {
+        key "index";
+        uses org-openroadm-network-types:wavelengths;
+      }
+    }
+    container cp-attributes {
+      when "../tp-type = 'SRG-TX-CP' or ../tp-type = 'SRG-RX-CP'";
+      list used-wavelengths {
+        key "index";
+        uses org-openroadm-network-types:wavelengths;
+      }
+    }
+    container pp-attributes {
+      when "../tp-type = 'SRG-TXRX-PP' or ../tp-type = 'SRG-TX-PP' or ../tp-type = 'SRG-RX-PP' ";
+      list used-wavelength {
+        key "index";
+        uses org-openroadm-network-types:wavelengths;
+      }
+    }
+    container xpdr-client-attributes {
+      when "../tp-type = 'XPONDER-CLIENT'";
+      uses xpdr:xpdr-connection-attributes;
+      uses xpdr:xpdr-client-connection-attributes;
+    }
+    container xpdr-network-attributes {
+      when "../tp-type = 'XPONDER-NETWORK'";
+      uses xpdr:xpdr-connection-attributes;
+      uses xpdr:xpdr-network-connection-attributes;
+    }
+    container ext-pluggable-attributes {
+      when "../tp-type = 'EXT-PLUGGABLE-TP'";
+      uses plg:pluggable-tp-attributes;
+    }
+  }
+  augment "/nd:network/nwt:link" {
+    when "../nd:network-types/openroadm-topology";
+    description
+      "This augmentation defines ROADM link types in the ROADM topology";
+    leaf link-type {
+      type org-openroadm-network-types:logical-link-type;
+    }
+    leaf link-length {
+      type decimal64 {
+        fraction-digits 2;
+      }
+    }
+    leaf administrative-group {
+      type uint32;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf operational-state {
+      type ct:state;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf administrative-state {
+      type ct:state;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf link-latency {
+      type uint32;
+      description
+        "Latency of a link";
+    }
+    leaf amplified {
+      when "../link-type = 'ROADM-TO-ROADM'";
+      type boolean;
+      description
+        "defines whether an ROADM-TO-ROADM Link includes line amplifiers or not";
+    }
+    container OMS-attributes {
+      when "../link-type = 'ROADM-TO-ROADM'";
+      description
+        "";
+      uses link:OMS-attributes;
+      leaf opposite-link {
+        type leafref {
+          path "../../../nwt:link/nwt:link-id";
+        }
+        description
+          "optional - pointer to reverse link in case of bidirectional link";
+      }
+      container span {
+        when "../../amplified = 'false'";
+        description
+          "";
+        uses link:span-attributes;
+      }
+      container amplified-link {
+        when "../../amplified = 'true'";
+        description
+          "when amplified is set to true, rather than a simple OMS section
+           we have an amplified link";
+        uses link:amplified-link-attributes;
+      }
+    }
+  }
+}

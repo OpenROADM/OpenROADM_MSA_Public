@@ -51,6 +51,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -94,87 +98,121 @@ module org-openroadm-service {
   }
   rpc service-feasibility-check {
     input {
-      leaf common-id {
-        type string;
-        mandatory true;
-        description
-          "To be used by the ROADM controller to identify the routing 
-           constraints received from planning application (PED).";
-      }
       uses org-openroadm-common-service-types:sdnc-request-header;
-      leaf connection-type {
-        type org-openroadm-common-service-types:connection-type;
-      }
-      container service-a-end {
-        uses org-openroadm-common-service-types:service-endpoint;
-      }
-      container service-z-end {
-        uses org-openroadm-common-service-types:service-endpoint;
-      }
-      uses org-openroadm-routing-constraints:routing-constraints;
-      uses org-openroadm-common-service-types:service-information;
+      uses service-feasibility-check-inputs;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
-      uses org-openroadm-common-service-types:response-parameters;
-      container service-a-end {
-        uses org-openroadm-common-service-types:service-endpoint;
-        list equipment-required {
-          description
-            "List of required equipment, including equipment type and quantity";
-          key "eqipment-identifier";
-          leaf eqipment-identifier {
-            type string;
-          }
-          leaf equipment-type {
-            type string;
-          }
-          leaf equipment-quantity {
-            type uint32;
-          }
-        }
+      uses service-feasibility-check-outputs;
+    }
+    description
+      "Whether a service was possible to be created, and if so
+       the routing constraints match and the a and z end connection that have
+       to match
+           \t
+       Takes a potential service and determines if it is possible in the network 
+       using equipment that is installed on the network, formally planned or proposed for planning. 
+       No resources are reserved, provisioned or planned as a result of this operation";
+  }
+  rpc service-feasibility-check-bulk {
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      list service-request-list {
+        uses service-feasibility-check-inputs;
       }
-      container service-z-end {
-        uses org-openroadm-common-service-types:service-endpoint;
-        list equipment-required {
-          description
-            "List of required equipment, including equipment type and quantity";
-          key "eqipment-identifier";
-          leaf eqipment-identifier {
-            type string;
-          }
-          leaf equipment-type {
-            type string;
-          }
-          leaf equipment-quantity {
-            type uint32;
-          }
-        }
-      }
-      list intermediate-sites {
-        key "clli";
-        uses org-openroadm-common-service-types:service-endpoint;
-        list equipment-required {
-          description
-            "List of required equipment, including equipment type and quantity";
-          key "eqipment-identifier";
-          leaf eqipment-identifier {
-            type string;
-          }
-          leaf equipment-type {
-            type string;
-          }
-          leaf equipment-quantity {
-            type uint32;
-          }
-        }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      list service-response-list {
+        uses service-feasibility-check-outputs;
       }
     }
     description
       "Whether a service was possible to be created, and if so
        the routing constraints match and the a and z end connection that have
-       to match";
+       to match
+         
+       Takes a list of potential services and determines if they are possible in the network 
+       using equipment that is installed on the network, formally planned or proposed for planning. 
+       All services are treated collectively to ensure that a given resource is not used more than once.
+       No resources are reserved, provisioned or planned as a result of this operation";
   }
+
+  grouping service-feasibility-check-inputs {
+    leaf common-id {
+      type string;
+      mandatory true;
+      description
+        "To be used by the ROADM controller to identify the routing constraints
+         received from planning application (PED).";
+    }
+    leaf connection-type {
+      type org-openroadm-common-service-types:connection-type;
+    }
+    container service-a-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+    }
+    container service-z-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+    }
+    uses org-openroadm-routing-constraints:routing-constraints;
+    leaf propose-equipment {
+      type enumeration {
+        enum "never" {
+          value 1;
+        }
+        enum "ifNeeded" {
+          value 2;
+        }
+        enum "always" {
+          value 3;
+        }
+      }
+      default "ifNeeded";
+      description
+        "Whether or not this request can propose new equipment that could
+         be used to fulfil this request. If never, the request will just
+         use existing deployed and planned equipment. If ifNeeded, routes using existing equipment
+         will be preferred. If always, a route with proposed equipment shall be returned, if possible";
+    }
+    uses org-openroadm-common-service-types:service-information;
+  }
+
+  grouping service-feasibility-check-outputs {
+    uses org-openroadm-common-service-types:response-parameters;
+    container service-a-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+      list equipment-required {
+        description
+          "List of required equipment, including equipment type, state and
+           quantity";
+        key "equipment-identifier";
+        uses org-openroadm-common-service-types:equipment-info;
+      }
+    }
+    container service-z-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+      list equipment-required {
+        description
+          "List of required equipment, including equipment type, state and
+           quantity";
+        key "equipment-identifier";
+        uses org-openroadm-common-service-types:equipment-info;
+      }
+    }
+    list intermediate-sites {
+      key "clli";
+      uses org-openroadm-common-service-types:service-endpoint;
+      list equipment-required {
+        description
+          "List of required equipment, including equipment type, state and
+           quantity over entire route of service";
+        key "equipment-identifier";
+        uses org-openroadm-common-service-types:equipment-info;
+      }
+    }
+  }
+
   rpc service-delete {
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
@@ -218,14 +256,14 @@ module org-openroadm-service {
   rpc equipment-notification {
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
-      leaf equiptment-id {
+      leaf equipment-id {
         type string;
         mandatory true;
       }
       leaf equipment-name {
         type string;
       }
-      leaf equipemt-type {
+      leaf equipment-type {
         type string;
         mandatory true;
       }
@@ -422,7 +460,7 @@ module org-openroadm-service {
       uses org-openroadm-routing-constraints:routing-constraints;
     }
     description
-      "Whether this request was validated and processed correct. If sucessful, it return the proposed new route.
+      "Whether this request was validated and processed correct. If successful, it returns the proposed new route.
        If acceptable, this request should be followed by a service-reroute-confirm to complete the reroute operation.";
   }
   rpc service-reroute-confirm {
@@ -489,9 +527,26 @@ module org-openroadm-service {
   }
   container service-list {
     description
-      "List of service. Can only be created, deleted, modified, etc. using special RPCs.";
+      "List of service. Can only be created, deleted, modified, etc. using special RPCs. Will only contain one service with a given name.
+       Does not contain historical (deleted or rather those passed their end time) or draft services. If two services exist with the same 
+       name (with non-lapping start-end times for example), this table will contain the current one. If only planned services exist for 
+       the name, the one with the earliest start time will be present
+      ";
     list services {
       key "service-name";
+      uses org-openroadm-common-service-types:service;
+    }
+  }
+  container versioned-service-list {
+    description
+      "List of service, regardless of lifecycle state. Can only be created, deleted, modified, etc. using special RPCs. Can report more than one 
+       version of a service, if supported by the implementation. May contain deleted services, multiple versions of the same service, as identified
+       by its name, etc.";
+    list services {
+      key "service-name id";
+      leaf id {
+        type uint64;
+      }
       uses org-openroadm-common-service-types:service;
     }
   }
@@ -509,7 +564,7 @@ module org-openroadm-service {
   }
   notification service-rpc-result {
     description
-      "This Notification indicates result of  service RPC";
+      "This Notification indicates result of service RPC";
     leaf notification-type {
       type org-openroadm-common-service-types:service-notification-types;
     }

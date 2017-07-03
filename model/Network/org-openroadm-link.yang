@@ -1,0 +1,182 @@
+module org-openroadm-link {
+  namespace "urn:ietf:params:xml:ns:yang:org-openroadm-link";
+  yang-version 1.1;
+  prefix link;
+
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+  }
+  import org-openroadm-amplifier {
+    prefix org-openroadm-amplifier;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org.";
+  description
+    "YANG definitions for an amplifier in Network Model
+
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
+     AT&T Intellectual Property.  All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2017-06-17 {
+    description
+      "Version 2.0";
+  }
+
+  grouping OMS-attributes {
+    leaf TE-metric {
+      type uint32;
+    }
+  }
+
+  grouping span-attributes {
+    list link-concatenation {
+      key "SRLG-Id";
+      leaf SRLG-Id {
+        type uint32;
+        description
+          "unique identifier for SRLG";
+      }
+      leaf fiber-type {
+        type enumeration {
+          enum "smf" {
+            value 0;
+            description
+              "Single Mode Fiber";
+          }
+          enum "eleaf" {
+            value 1;
+            description
+              "ELEAF";
+          }
+          enum "oleaf" {
+            value 2;
+            description
+              "OLEAF";
+          }
+          enum "dsf" {
+            value 3;
+            description
+              "DSF";
+          }
+          enum "truewave" {
+            value 4;
+            description
+              "TRUEWAVE Reduced Slope";
+          }
+          enum "truewavec" {
+            value 5;
+            description
+              "TRUEWAVE Classic";
+          }
+          enum "nz-dsf" {
+            value 6;
+            description
+              "NZ-DSF";
+          }
+          enum "ull" {
+            value 7;
+            description
+              "Ultra Low Loss (ULL)";
+          }
+        }
+      }
+      leaf spanloss-base {
+        type org-openroadm-common-types:ratio-dB;
+        description
+          "Baseline ROADM span loss measured and accepted during
+           degree turn-up.";
+      }
+      leaf spanloss-current {
+        type org-openroadm-common-types:ratio-dB;
+        description
+          "Current ROADM span loss measured and accepted during
+           degree turn-up.";
+      }
+      leaf engineered-spanloss {
+        type org-openroadm-common-types:ratio-dB;
+        description
+          "ROADM span loss provided by an external system";
+      }
+      leaf SRLG-length {
+        type uint32;
+        description
+          "fiber length in meters";
+      }
+      leaf pmd {
+        type org-openroadm-common-types:fiber-pmd;
+        description
+          "Total PMD";
+      }
+    }
+  }
+
+  grouping amplified-link-attributes {
+    list amplified-link {
+      description
+        "defines the spans and the amplifier blocks of the amplified lines";
+      key "section-elt-id";
+      leaf section-elt-id {
+        type uint16;
+        description
+          "Id of the section element (whether it's a Span or an Amp)";
+      }
+      container section-element {
+        choice section-element {
+          case ila {
+            container ila {
+              uses org-openroadm-amplifier:amplifier-node-attributes;
+              leaf node-id {
+                type string;
+                mandatory true;
+                description
+                  "Node id corresponding to the amplifier ";
+              }
+              leaf administrative-state {
+                type org-openroadm-common-types:state;
+                description
+                  "according to RFC3630 definition";
+              }
+            }
+          }
+          case span {
+            container span {
+              uses link:span-attributes;
+              leaf administrative-state {
+                type org-openroadm-common-types:state;
+                description
+                  "according to RFC3630 definition";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

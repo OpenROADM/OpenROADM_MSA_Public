@@ -6,7 +6,8 @@ module org-openroadm-port-types {
     prefix org-openroadm-common-types;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -38,6 +39,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -82,12 +87,12 @@ module org-openroadm-port-types {
       enum "wavelength" {
         value 1;
         description
-          "Port on a transponder.";
+          "Port on a transponder or ROADM SRG add drop";
       }
-      enum "multi-wavelegnth" {
+      enum "multi-wavelength" {
         value 2;
         description
-          "Port on a ROADM.";
+          "External port connecting to other roadm.";
       }
     }
     description
@@ -108,7 +113,7 @@ module org-openroadm-port-types {
       description
         "Based on port capabilities, the minimum power in the system spec for this port to
          provide optimum function in tx direction.";
-    }         
+    }
     leaf port-power-capability-max-rx {
       type org-openroadm-common-types:power-dBm;
       config false;
@@ -122,29 +127,10 @@ module org-openroadm-port-types {
       description
         "Based on port capabilities, the maximum power in the system spec for this port to
          provide optimum function in tx direction.";
-    }                                             
-    leaf-list capable-wavelengths {
-      type uint32;
-      config false;
-      description
-        "List of wavelengths this port is capable of supporting.
-         can be used to access wavelength-map to get the wavelength value in nm";
     }
   }
+
   grouping roadm-port {
     uses common-port;
-    leaf-list available-wavelengths {
-      type uint32;
-      config false;
-      description
-        "List of available (capable and unused) wavelengths on this port. 
-         can be used to access wavelength-map to get the wavelength value in nm";
-    }
-    leaf-list used-wavelengths {
-      type uint32;
-      config false;
-      description
-        "List of used available wavelength-numbers on this port.";
-    }
   }
 }

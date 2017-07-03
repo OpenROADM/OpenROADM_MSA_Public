@@ -1,15 +1,16 @@
 module org-openroadm-xponder {
-  namespace "http://org/openroadm/xponder";
-  prefix org-openroadm-xponder;
+  yang-version 1.1;
+  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-xponder";
+  prefix xpndr;
 
   import org-openroadm-equipment-states-types {
-    prefix org-openroadm-equipment-states-types;
+    prefix openroadm-equipment-states-types;
+  }
+  import org-openroadm-network-types {
+    prefix org-openroadm-network-types;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-  }
-  import ietf-inet-types {
-    prefix inet;
   }
 
   organization
@@ -45,177 +46,72 @@ module org-openroadm-xponder {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-06-26 {
+    description
+      "Version 2.0";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
   }
 
-  grouping xponder {
-    list xponders {
-      key "clli";
-      leaf clli {
-        type string;
-        description
-          "Location CLLI where the Xponder resides";
+  grouping xpdr-node-attributes {
+    leaf customer-code {
+      type string;
+      description
+        "Owner of the xponder";
+    }
+  }
+
+  grouping xpdr-connection-attributes {
+    leaf local-lgx {
+      type string;
+    }
+    leaf rate {
+      type identityref {
+        base org-openroadm-common-types:och-rate-identity;
       }
-      list ids {
-        key "node-number node-type";
-        leaf node-number {
-          type uint32;
-          description
-            "Number assigned to an Xponder base unit in a given
-             office, i.e., 1, 2..N";
-        }
-        leaf node-type {
-          type org-openroadm-common-types:node-types;
-        }
-        leaf node-id {
-          type string;
-          description
-            "Network-wide unique identifier for an Xponder";
-        }
-        leaf vendor {
-          type string;
-          description
-            "Identifier of the supplier for the xponder";
-        }
-        leaf customer-code {
-          type string;
-          description
-            "Owner of the xponder";
-        }
-        leaf domain-subnetwork {
-          type string;
-          description
-            "Specific Domain-Subnetwork in which the ROADM node resides";
-        }
-        leaf ip {
-          type inet:ip-address;
-          description
-            "IP address assigned to the ROADM node";
-        }
-        leaf relay-rack {
-          type string;
-          description
-            "Frame Identification Code (FIC)";
-        }
-        leaf shelf {
-          type uint32;
-        }
-        container input-connection {
-          leaf accumulated-bitrate {
-            type uint32;
-          }
-          list port {
-            key "port-name";
-            leaf port-name {
-              type string;
-            }
-            leaf customer-code {
-              type string;
-              description
-                "Owner of the input module";
-            }
-            leaf vendor {
-              type string;
-              description
-                "Supplier of the input module";
-            }
-            leaf local-lgx {
-              type string;
-            }
-            leaf bit-rate {
-              type uint32;
-            }
-            leaf signal-format {
-              type string;
-            }
-            leaf reach {
-              type string;
-            }
-            leaf optic {
-              type org-openroadm-common-types:optic-types;
-            }
-            leaf state {
-              type org-openroadm-equipment-states-types:states;
-              description
-                "A xponder can be in one of the following
+      description
+        "rate";
+    }
+    leaf modulation-format {
+      type org-openroadm-common-types:modulation-format;
+    }
+    leaf optic {
+      type org-openroadm-common-types:optic-types;
+    }
+    leaf state {
+      type openroadm-equipment-states-types:states;
+      description
+        "A xponder can be in one of the following
                  states";
-            }
-            leaf tail-client-equipment {
-              type string;
-            }
-            leaf tail-client-equipmentId {
-              type string;
-            }
-            leaf tail-clfi {
-              type string;
-            }
-          }
-        }
-        container output-connection {
-          leaf clli {
-            type string;
-          }
-          leaf node-number{
-            type uint32;
-          }
-          leaf node-id {
-            type string;
-            description
-              "ROADM node ID";
-          }
-          leaf accumulated-bitrate {
-            type uint32;
-          }
-          list port {
-            key "port-name";
-            leaf port-name {
-              type string;
-            }
-            leaf vendor {
-              type string;
-              description
-                "Supplier of the output module";
-            }
-            leaf srg-number {
-              type uint16;
-              description
-                "Output module is connected to";
-            }
-            leaf pp-number {
-              type uint16;
-            }
-            leaf wavelength-number{
-              type uint32;
-            }
-            leaf local-lgx {
-              type string;
-            }
-            leaf tail-clfi{
-              type string;
-            }
-            leaf bit-rate {
-              type uint32;
-            }
-            leaf signal-format {
-              type string;
-            }
-            leaf reach {
-              type string;
-            }
-            leaf optic {
-              type org-openroadm-common-types:optic-types;
-            }
-            leaf state {
-              type org-openroadm-equipment-states-types:states;
-              description
-                "A xponder can be in one of the following
-                 states";
-            }
-          }
-        }
-      }
+    }
+  }
+
+  grouping xpdr-client-connection-attributes {
+    leaf tail-client-equipment {
+      type string;
+    }
+    leaf tail-client-equipmentId {
+      type string;
+    }
+    leaf tail-client-clfi {
+      type string;
+    }
+  }
+
+  grouping xpdr-network-connection-attributes {
+    container wavelength {
+      uses org-openroadm-network-types:flex-wave;
+    }
+    leaf tail-network-equipment {
+      type string;
+    }
+    leaf tail-network-equipmentId {
+      type string;
+    }
+    leaf tail-network-clfi {
+      type string;
     }
   }
 }
