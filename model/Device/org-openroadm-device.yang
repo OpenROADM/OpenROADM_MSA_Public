@@ -4,36 +4,47 @@ module org-openroadm-device {
 
   import ietf-yang-types {
     prefix ietf-yang-types;
+    revision-date 2013-07-15;
   }
   import ietf-inet-types {
     prefix ietf-inet-types;
+    revision-date 2013-07-15;
   }
   import ietf-netconf {
     prefix ietf-nc;
+    revision-date 2011-06-01;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
+    revision-date 2017-06-26;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
+    revision-date 2017-06-26;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
+    revision-date 2017-07-28;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
+    revision-date 2017-06-26;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
+    revision-date 2017-07-28;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
+    revision-date 2017-06-26;
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
+    revision-date 2017-07-28;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
+    revision-date 2017-06-26;
   }
 
   organization
@@ -83,6 +94,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2017-07-28 {
+    description
+      "Version 2.0.1 - added revision-date to imports";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";

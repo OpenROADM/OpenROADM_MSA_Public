@@ -4,6 +4,7 @@ module org-openroadm-syslog {
 
   import ietf-inet-types {
     prefix inet;
+    revision-date 2013-07-15;
   }
 
   organization "Open ROADM MSA";
@@ -54,6 +55,10 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
+  revision 2017-07-28 {
+    description
+      "Version 2.0.1 - added revision-date to imports";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";

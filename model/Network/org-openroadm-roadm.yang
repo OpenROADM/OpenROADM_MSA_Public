@@ -1,6 +1,5 @@
 module org-openroadm-roadm {
-  yang-version 1.1;
-  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-roadm";
+  namespace "http://org/openroadm/roadm";
   prefix roadm;
 
   organization
