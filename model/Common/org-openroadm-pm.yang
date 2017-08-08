@@ -4,18 +4,23 @@ module org-openroadm-pm {
 
   import ietf-yang-types {
     prefix yang;
+    revision-date 2013-07-15;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
+    revision-date 2017-06-26;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
+    revision-date 2017-07-28;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
+    revision-date 2017-06-26;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
+    revision-date 2017-06-26;
   }
 
   organization
@@ -51,6 +56,10 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-07-28 {
+    description
+      "Version 2.0.1 - added revision-date to imports";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";

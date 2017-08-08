@@ -1,6 +1,5 @@
 module org-openroadm-network-topology {
-  yang-version 1.1;
-  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-network-topology";
+  namespace "http://org/openroadm/network/topology";
   prefix topo;
 
   import ietf-network {
@@ -9,27 +8,35 @@ module org-openroadm-network-topology {
   }
   import ietf-network-topology {
     prefix nwt;
+    revision-date 2015-06-08;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
+    revision-date 2017-07-28;
   }
   import org-openroadm-srg {
     prefix srg;
+    revision-date 2017-07-28;
   }
   import org-openroadm-degree {
     prefix dgr;
+    revision-date 2017-07-28;
   }
   import org-openroadm-xponder {
     prefix xpdr;
+    revision-date 2017-07-28;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
+    revision-date 2017-07-28;
   }
   import org-openroadm-link {
     prefix link;
+    revision-date 2017-07-28;
   }
   import org-openroadm-common-types {
     prefix ct;
+    revision-date 2017-06-26;
   }
 
   organization
@@ -65,6 +72,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-07-28 {
+    description
+      "Version 2.0.1 - added revision-date to imports";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";

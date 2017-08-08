@@ -1,6 +1,5 @@
 module org-openroadm-clli-network {
-  yang-version 1.1;
-  namespace "urn:openroadm:params:xml:ns:yang:org-openroadm-clli-network";
+  namespace "http://org/openroadm/clli/network";
   prefix cn;
 
   import ietf-network {
