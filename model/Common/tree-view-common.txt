@@ -1,340 +1,341 @@
 module: org-openroadm-alarm
-    +--ro active-alarm-list
-       +--ro activeAlarms* [id]
-          +--ro id               string
-          +--ro resource
-          |  +--ro device
-          |  |  +--ro node-id?   string
-          |  +--ro resource
-          |  |  +--ro (resource)?
-          |  |     +--:(circuit-pack)
-          |  |     |  +--ro circuit-pack-name     string
-          |  |     +--:(port)
-          |  |     |  +--ro port
-          |  |     |     +--ro circuit-pack-name    string
-          |  |     |     +--ro port-name?           string
-          |  |     +--:(connection)
-          |  |     |  +--ro connection-number     string
-          |  |     +--:(physical-link)
-          |  |     |  +--ro physical-link-name    string
-          |  |     +--:(internal-link)
-          |  |     |  +--ro internal-link-name    string
-          |  |     +--:(shelf)
-          |  |     |  +--ro shelf-name            string
-          |  |     +--:(srg)
-          |  |     |  +--ro srg-number            uint16
-          |  |     +--:(degree)
-          |  |     |  +--ro degree-number         uint16
-          |  |     +--:(service)
-          |  |     |  +--ro service-name          string
-          |  |     +--:(interface)
-          |  |     |  +--ro interface-name        string
-          |  |     +--:(other)
-          |  |     |  +--ro other-resource-id     string
-          |  |     +--:(device)
-          |  |        +--ro node-id               string
-          |  +--ro resourceType
-          |     +--ro type         resource-type-enum
-          |     +--ro extension?   string
-          +--ro probableCause
-          |  +--ro cause                probable-cause-enum
-          |  +--ro extension?           string
-          |  +--ro direction            org-openroadm-common-types:direction
-          |  +--ro location             org-openroadm-common-types:location
-          |  +--ro additional-detail?   string
-          +--ro type?            enumeration
-          +--ro raiseTime        yang:date-and-time
-          +--ro severity         org-openroadm-common-types:severity
-          +--ro circuit-id?      string
-
-  notifications:
-    +---n alarm-notification
-       +--ro id               string
-       +--ro resource
-       |  +--ro device
-       |  |  +--ro node-id?   string
-       |  +--ro resource
-       |  |  +--ro (resource)?
-       |  |     +--:(circuit-pack)
-       |  |     |  +--ro circuit-pack-name     string
-       |  |     +--:(port)
-       |  |     |  +--ro port
-       |  |     |     +--ro circuit-pack-name    string
-       |  |     |     +--ro port-name?           string
-       |  |     +--:(connection)
-       |  |     |  +--ro connection-number     string
-       |  |     +--:(physical-link)
-       |  |     |  +--ro physical-link-name    string
-       |  |     +--:(internal-link)
-       |  |     |  +--ro internal-link-name    string
-       |  |     +--:(shelf)
-       |  |     |  +--ro shelf-name            string
-       |  |     +--:(srg)
-       |  |     |  +--ro srg-number            uint16
-       |  |     +--:(degree)
-       |  |     |  +--ro degree-number         uint16
-       |  |     +--:(service)
-       |  |     |  +--ro service-name          string
-       |  |     +--:(interface)
-       |  |     |  +--ro interface-name        string
-       |  |     +--:(other)
-       |  |     |  +--ro other-resource-id     string
-       |  |     +--:(device)
-       |  |        +--ro node-id               string
-       |  +--ro resourceType
-       |     +--ro type         resource-type-enum
-       |     +--ro extension?   string
-       +--ro probableCause
-       |  +--ro cause                probable-cause-enum
-       |  +--ro extension?           string
-       |  +--ro direction            org-openroadm-common-types:direction
-       |  +--ro location             org-openroadm-common-types:location
-       |  +--ro additional-detail?   string
-       +--ro type?            enumeration
-       +--ro raiseTime        yang:date-and-time
-       +--ro severity         org-openroadm-common-types:severity
-       +--ro circuit-id?      string
+   +--ro active-alarm-list
+      +--ro activeAlarms* [id]
+         +--ro id               string
+         +--ro resource
+         |  +--ro device
+         |  |  +--ro node-id?   string
+         |  +--ro resource
+         |  |  +--ro (resource)?
+         |  |     +--:(circuit-pack)
+         |  |     |  +--ro circuit-pack-name     string
+         |  |     +--:(port)
+         |  |     |  +--ro port
+         |  |     |     +--ro circuit-pack-name    string
+         |  |     |     +--ro port-name?           string
+         |  |     +--:(connection)
+         |  |     |  +--ro connection-number     string
+         |  |     +--:(physical-link)
+         |  |     |  +--ro physical-link-name    string
+         |  |     +--:(internal-link)
+         |  |     |  +--ro internal-link-name    string
+         |  |     +--:(shelf)
+         |  |     |  +--ro shelf-name            string
+         |  |     +--:(srg)
+         |  |     |  +--ro srg-number            uint16
+         |  |     +--:(degree)
+         |  |     |  +--ro degree-number         uint16
+         |  |     +--:(service)
+         |  |     |  +--ro service-name          string
+         |  |     +--:(interface)
+         |  |     |  +--ro interface-name        string
+         |  |     +--:(other)
+         |  |     |  +--ro other-resource-id     string
+         |  |     +--:(device)
+         |  |        +--ro node-id               string
+         |  +--ro resourceType
+         |     +--ro type         resource-type-enum
+         |     +--ro extension?   string
+         +--ro probableCause
+         |  +--ro cause                probable-cause-enum
+         |  +--ro extension?           string
+         |  +--ro direction            org-openroadm-common-types:direction
+         |  +--ro location             org-openroadm-common-types:location
+         |  +--ro additional-detail?   string
+         +--ro type?            enumeration
+         +--ro raiseTime        yang:date-and-time
+         +--ro severity         org-openroadm-common-types:severity
+         +--ro circuit-id?      string
+notifications:
+   +---n alarm-notification    
+      +--ro id               string
+      +--ro resource
+      |  +--ro device
+      |  |  +--ro node-id?   string
+      |  +--ro resource
+      |  |  +--ro (resource)?
+      |  |     +--:(circuit-pack)
+      |  |     |  +--ro circuit-pack-name     string
+      |  |     +--:(port)
+      |  |     |  +--ro port
+      |  |     |     +--ro circuit-pack-name    string
+      |  |     |     +--ro port-name?           string
+      |  |     +--:(connection)
+      |  |     |  +--ro connection-number     string
+      |  |     +--:(physical-link)
+      |  |     |  +--ro physical-link-name    string
+      |  |     +--:(internal-link)
+      |  |     |  +--ro internal-link-name    string
+      |  |     +--:(shelf)
+      |  |     |  +--ro shelf-name            string
+      |  |     +--:(srg)
+      |  |     |  +--ro srg-number            uint16
+      |  |     +--:(degree)
+      |  |     |  +--ro degree-number         uint16
+      |  |     +--:(service)
+      |  |     |  +--ro service-name          string
+      |  |     +--:(interface)
+      |  |     |  +--ro interface-name        string
+      |  |     +--:(other)
+      |  |     |  +--ro other-resource-id     string
+      |  |     +--:(device)
+      |  |        +--ro node-id               string
+      |  +--ro resourceType
+      |     +--ro type         resource-type-enum
+      |     +--ro extension?   string
+      +--ro probableCause
+      |  +--ro cause                probable-cause-enum
+      |  +--ro extension?           string
+      |  +--ro direction            org-openroadm-common-types:direction
+      |  +--ro location             org-openroadm-common-types:location
+      |  +--ro additional-detail?   string
+      +--ro type?            enumeration
+      +--ro raiseTime        yang:date-and-time
+      +--ro severity         org-openroadm-common-types:severity
+      +--ro circuit-id?      string
 module: org-openroadm-maintenance
-    +--rw maintenance-list
-       +--rw maintenance* [id]
-          +--rw id           string
-          +--rw resource
-          |  +--rw device
-          |  |  +--rw node-id?   string
-          |  +--rw resource
-          |  |  +--rw (resource)?
-          |  |     +--:(circuit-pack)
-          |  |     |  +--rw circuit-pack-name     string
-          |  |     +--:(port)
-          |  |     |  +--rw port
-          |  |     |     +--rw circuit-pack-name    string
-          |  |     |     +--rw port-name?           string
-          |  |     +--:(connection)
-          |  |     |  +--rw connection-number     string
-          |  |     +--:(physical-link)
-          |  |     |  +--rw physical-link-name    string
-          |  |     +--:(internal-link)
-          |  |     |  +--rw internal-link-name    string
-          |  |     +--:(shelf)
-          |  |     |  +--rw shelf-name            string
-          |  |     +--:(srg)
-          |  |     |  +--rw srg-number            uint16
-          |  |     +--:(degree)
-          |  |     |  +--rw degree-number         uint16
-          |  |     +--:(service)
-          |  |     |  +--rw service-name          string
-          |  |     +--:(interface)
-          |  |     |  +--rw interface-name        string
-          |  |     +--:(other)
-          |  |     |  +--rw other-resource-id     string
-          |  |     +--:(device)
-          |  |        +--rw node-id               string
-          |  +--rw resourceType
-          |     +--rw type         resource-type-enum
-          |     +--rw extension?   string
-          +--rw operation?   maintenance-operation
+   +--rw maintenance-list
+      +--rw maintenance* [id]
+         +--rw id           string
+         +--rw resource
+         |  +--rw device
+         |  |  +--rw node-id?   string
+         |  +--rw resource
+         |  |  +--rw (resource)?
+         |  |     +--:(circuit-pack)
+         |  |     |  +--rw circuit-pack-name     string
+         |  |     +--:(port)
+         |  |     |  +--rw port
+         |  |     |     +--rw circuit-pack-name    string
+         |  |     |     +--rw port-name?           string
+         |  |     +--:(connection)
+         |  |     |  +--rw connection-number     string
+         |  |     +--:(physical-link)
+         |  |     |  +--rw physical-link-name    string
+         |  |     +--:(internal-link)
+         |  |     |  +--rw internal-link-name    string
+         |  |     +--:(shelf)
+         |  |     |  +--rw shelf-name            string
+         |  |     +--:(srg)
+         |  |     |  +--rw srg-number            uint16
+         |  |     +--:(degree)
+         |  |     |  +--rw degree-number         uint16
+         |  |     +--:(service)
+         |  |     |  +--rw service-name          string
+         |  |     +--:(interface)
+         |  |     |  +--rw interface-name        string
+         |  |     +--:(other)
+         |  |     |  +--rw other-resource-id     string
+         |  |     +--:(device)
+         |  |        +--rw node-id               string
+         |  +--rw resourceType
+         |     +--rw type         resource-type-enum
+         |     +--rw extension?   string
+         +--rw operation?   maintenance-operation
 module: org-openroadm-pm
-    +--ro current-pm-list
-    |  +--ro current-pm-entry* [pm-resource-type pm-resource-instance]
-    |     +--ro pm-resource-instance    instance-identifier
-    |     +--ro pm-resource-type        org-openroadm-resource-types:resource-type-enum
-    |     +--ro retrieval-time          yang:date-and-time
-    |     +--ro current-pm* [type extension location direction]
-    |        +--ro type           pm-names-enum
-    |        +--ro extension      string
-    |        +--ro location       org-openroadm-common-types:location
-    |        +--ro direction      org-openroadm-common-types:direction
-    |        +--ro measurement* [granularity]
-    |           +--ro granularity         org-openroadm-pm-types:pm-granularity
-    |           +--ro pmParameterValue    pm-data-type
-    |           +--ro pmParameterUnit?    string
-    |           +--ro validity?           validity
-    +--ro historical-pm-list
-       +--ro historical-pm-entry* [pm-resource-type pm-resource-instance]
-          +--ro pm-resource-instance    instance-identifier
-          +--ro pm-resource-type        org-openroadm-resource-types:resource-type-enum
-          +--ro historical-pm* [type extension location direction]
-             +--ro type           pm-names-enum
-             +--ro extension      string
-             +--ro location       org-openroadm-common-types:location
-             +--ro direction      org-openroadm-common-types:direction
-             +--ro measurement* [granularity bin-number]
-                +--ro granularity         org-openroadm-pm-types:pm-granularity
-                +--ro bin-number          uint16
-                +--ro pmParameterValue    pm-data-type
-                +--ro pmParameterUnit?    string
-                +--ro validity?           validity
-                +--ro completion-time     yang:date-and-time
-
-  rpcs:
-    +---x clear-pm
-    |  +---w input
-    |  |  +---w device
-    |  |  |  +---w node-id?   string
-    |  |  +---w resource
-    |  |  |  +---w (resource)?
-    |  |  |     +--:(circuit-pack)
-    |  |  |     |  +---w circuit-pack-name     string
-    |  |  |     +--:(port)
-    |  |  |     |  +---w port
-    |  |  |     |     +---w circuit-pack-name    string
-    |  |  |     |     +---w port-name?           string
-    |  |  |     +--:(connection)
-    |  |  |     |  +---w connection-number     string
-    |  |  |     +--:(physical-link)
-    |  |  |     |  +---w physical-link-name    string
-    |  |  |     +--:(internal-link)
-    |  |  |     |  +---w internal-link-name    string
-    |  |  |     +--:(shelf)
-    |  |  |     |  +---w shelf-name            string
-    |  |  |     +--:(srg)
-    |  |  |     |  +---w srg-number            uint16
-    |  |  |     +--:(degree)
-    |  |  |     |  +---w degree-number         uint16
-    |  |  |     +--:(service)
-    |  |  |     |  +---w service-name          string
-    |  |  |     +--:(interface)
-    |  |  |     |  +---w interface-name        string
-    |  |  |     +--:(other)
-    |  |  |     |  +---w other-resource-id     string
-    |  |  |     +--:(device)
-    |  |  |        +---w node-id               string
-    |  |  +---w resourceType
-    |  |  |  +---w type         resource-type-enum
-    |  |  |  +---w extension?   string
-    |  |  +---w pm-type?        enumeration
-    |  |  +---w granularity?    org-openroadm-pm-types:pm-granularity
-    |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
-    +---x collect-historical-pm-file
-       +---w input
-       |  +---w from-bin-number?   uint16
-       |  +---w to-bin-number?     uint16
-       |  +---w granularity?       org-openroadm-pm-types:pm-granularity
-       +--ro output
-          +--ro collect-historical-pm-notification-timeout?   uint32
-          +--ro pm-filename?                                  string
-          +--ro status                                        rpc-status
-          +--ro status-message?                               string
-
-  notifications:
-    +---n historical-pm-collect-result
-       +--ro pm-filename?      string
-       +--ro status            rpc-status
-       +--ro status-message?   string
+   +--ro current-pm-list
+   |  +--ro current-pm-entry* [pm-resource-type pm-resource-instance]
+   |     +--ro pm-resource-instance    instance-identifier
+   |     +--ro pm-resource-type        org-openroadm-resource-types:resource-type-enum
+   |     +--ro retrieval-time          yang:date-and-time
+   |     +--ro current-pm* [type extension location direction]
+   |        +--ro type           pm-names-enum
+   |        +--ro extension      string
+   |        +--ro location       org-openroadm-common-types:location
+   |        +--ro direction      org-openroadm-common-types:direction
+   |        +--ro measurement* [granularity]
+   |           +--ro granularity         org-openroadm-pm-types:pm-granularity
+   |           +--ro pmParameterValue    pm-data-type
+   |           +--ro pmParameterUnit?    string
+   |           +--ro validity?           validity
+   +--ro historical-pm-list
+      +--ro historical-pm-entry* [pm-resource-type pm-resource-instance]
+         +--ro pm-resource-instance    instance-identifier
+         +--ro pm-resource-type        org-openroadm-resource-types:resource-type-enum
+         +--ro historical-pm* [type extension location direction]
+            +--ro type           pm-names-enum
+            +--ro extension      string
+            +--ro location       org-openroadm-common-types:location
+            +--ro direction      org-openroadm-common-types:direction
+            +--ro measurement* [granularity bin-number]
+               +--ro granularity         org-openroadm-pm-types:pm-granularity
+               +--ro bin-number          uint16
+               +--ro pmParameterValue    pm-data-type
+               +--ro pmParameterUnit?    string
+               +--ro validity?           validity
+               +--ro completion-time     yang:date-and-time
+rpcs:
+   +---x clear-pm                      
+   |  +---w input     
+   |  |  +---w device
+   |  |  |  +---w node-id?   string
+   |  |  +---w resource
+   |  |  |  +---w (resource)?
+   |  |  |     +--:(circuit-pack)
+   |  |  |     |  +---w circuit-pack-name     string
+   |  |  |     +--:(port)
+   |  |  |     |  +---w port
+   |  |  |     |     +---w circuit-pack-name    string
+   |  |  |     |     +---w port-name?           string
+   |  |  |     +--:(connection)
+   |  |  |     |  +---w connection-number     string
+   |  |  |     +--:(physical-link)
+   |  |  |     |  +---w physical-link-name    string
+   |  |  |     +--:(internal-link)
+   |  |  |     |  +---w internal-link-name    string
+   |  |  |     +--:(shelf)
+   |  |  |     |  +---w shelf-name            string
+   |  |  |     +--:(srg)
+   |  |  |     |  +---w srg-number            uint16
+   |  |  |     +--:(degree)
+   |  |  |     |  +---w degree-number         uint16
+   |  |  |     +--:(service)
+   |  |  |     |  +---w service-name          string
+   |  |  |     +--:(interface)
+   |  |  |     |  +---w interface-name        string
+   |  |  |     +--:(other)
+   |  |  |     |  +---w other-resource-id     string
+   |  |  |     +--:(device)
+   |  |  |        +---w node-id               string
+   |  |  +---w resourceType
+   |  |  |  +---w type         resource-type-enum
+   |  |  |  +---w extension?   string
+   |  |  +---w pm-type?        enumeration
+   |  |  +---w granularity?    org-openroadm-pm-types:pm-granularity
+   |  +--ro output    
+   |     +--ro status            rpc-status
+   |     +--ro status-message?   string
+   +---x collect-historical-pm-file    
+      +---w input     
+      |  +---w from-bin-number?   uint16
+      |  +---w to-bin-number?     uint16
+      |  +---w granularity?       org-openroadm-pm-types:pm-granularity
+      +--ro output    
+         +--ro collect-historical-pm-notification-timeout?   uint32
+         +--ro pm-filename?                                  string
+         +--ro status                                        rpc-status
+         +--ro status-message?                               string
+notifications:
+   +---n historical-pm-collect-result    
+      +--ro pm-filename?      string
+      +--ro status            rpc-status
+      +--ro status-message?   string
 module: org-openroadm-tca
-    +--rw potential-tca-list
-       +--rw tca* [id]
-          +--rw lowThresholdValue?      org-openroadm-pm-types:pm-data-type
-          +--rw highThresholdValue?     org-openroadm-pm-types:pm-data-type
-          +--rw id                      string
-          +--rw resource
-          |  +--rw device
-          |  |  +--rw node-id?   string
-          |  +--rw resource
-          |  |  +--rw (resource)?
-          |  |     +--:(circuit-pack)
-          |  |     |  +--rw circuit-pack-name     string
-          |  |     +--:(port)
-          |  |     |  +--rw port
-          |  |     |     +--rw circuit-pack-name    string
-          |  |     |     +--rw port-name?           string
-          |  |     +--:(connection)
-          |  |     |  +--rw connection-number     string
-          |  |     +--:(physical-link)
-          |  |     |  +--rw physical-link-name    string
-          |  |     +--:(internal-link)
-          |  |     |  +--rw internal-link-name    string
-          |  |     +--:(shelf)
-          |  |     |  +--rw shelf-name            string
-          |  |     +--:(srg)
-          |  |     |  +--rw srg-number            uint16
-          |  |     +--:(degree)
-          |  |     |  +--rw degree-number         uint16
-          |  |     +--:(service)
-          |  |     |  +--rw service-name          string
-          |  |     +--:(interface)
-          |  |     |  +--rw interface-name        string
-          |  |     +--:(other)
-          |  |     |  +--rw other-resource-id     string
-          |  |     +--:(device)
-          |  |        +--rw node-id               string
-          |  +--rw resourceType
-          |     +--rw type         resource-type-enum
-          |     +--rw extension?   string
-          +--rw granularity?            org-openroadm-pm-types:pm-granularity
-          +--rw raiseTime?              yang:date-and-time
-          +--rw layerRate
-          |  +--rw type         layer-rate-enum
-          |  +--rw extension?   string
-          +--rw severity                org-openroadm-common-types:severity
-          +--rw thresholdType?          enumeration
-          +--rw thresholdMeasurement
-             +--ro pmParameterValue    pm-data-type
-             +--rw pmParameterUnit?    string
-             +--rw validity?           validity
-             +--rw location?           org-openroadm-common-types:location
-             +--rw direction?          org-openroadm-common-types:direction
-
-  notifications:
-    +---n tca-notification
-       +--ro id                      string
-       +--ro resource
-       |  +--ro device
-       |  |  +--ro node-id?   string
-       |  +--ro resource
-       |  |  +--ro (resource)?
-       |  |     +--:(circuit-pack)
-       |  |     |  +--ro circuit-pack-name     string
-       |  |     +--:(port)
-       |  |     |  +--ro port
-       |  |     |     +--ro circuit-pack-name    string
-       |  |     |     +--ro port-name?           string
-       |  |     +--:(connection)
-       |  |     |  +--ro connection-number     string
-       |  |     +--:(physical-link)
-       |  |     |  +--ro physical-link-name    string
-       |  |     +--:(internal-link)
-       |  |     |  +--ro internal-link-name    string
-       |  |     +--:(shelf)
-       |  |     |  +--ro shelf-name            string
-       |  |     +--:(srg)
-       |  |     |  +--ro srg-number            uint16
-       |  |     +--:(degree)
-       |  |     |  +--ro degree-number         uint16
-       |  |     +--:(service)
-       |  |     |  +--ro service-name          string
-       |  |     +--:(interface)
-       |  |     |  +--ro interface-name        string
-       |  |     +--:(other)
-       |  |     |  +--ro other-resource-id     string
-       |  |     +--:(device)
-       |  |        +--ro node-id               string
-       |  +--ro resourceType
-       |     +--ro type         resource-type-enum
-       |     +--ro extension?   string
-       +--ro granularity?            org-openroadm-pm-types:pm-granularity
-       +--ro raiseTime               yang:date-and-time
-       +--ro layerRate
-       |  +--ro type         layer-rate-enum
-       |  +--ro extension?   string
-       +--ro severity                org-openroadm-common-types:severity
-       +--ro thresholdType?          enumeration
-       +--ro thresholdMeasurement
-          +--ro pmParameterValue    pm-data-type
-          +--ro pmParameterUnit?    string
-          +--ro validity?           validity
-          +--ro location?           org-openroadm-common-types:location
-          +--ro direction?          org-openroadm-common-types:direction
+   +--rw potential-tca-list
+      +--rw tca* [id]
+         +--rw lowThresholdValue?      org-openroadm-pm-types:pm-data-type
+         +--rw highThresholdValue?     org-openroadm-pm-types:pm-data-type
+         +--rw id                      string
+         +--rw resource
+         |  +--rw device
+         |  |  +--rw node-id?   string
+         |  +--rw resource
+         |  |  +--rw (resource)?
+         |  |     +--:(circuit-pack)
+         |  |     |  +--rw circuit-pack-name     string
+         |  |     +--:(port)
+         |  |     |  +--rw port
+         |  |     |     +--rw circuit-pack-name    string
+         |  |     |     +--rw port-name?           string
+         |  |     +--:(connection)
+         |  |     |  +--rw connection-number     string
+         |  |     +--:(physical-link)
+         |  |     |  +--rw physical-link-name    string
+         |  |     +--:(internal-link)
+         |  |     |  +--rw internal-link-name    string
+         |  |     +--:(shelf)
+         |  |     |  +--rw shelf-name            string
+         |  |     +--:(srg)
+         |  |     |  +--rw srg-number            uint16
+         |  |     +--:(degree)
+         |  |     |  +--rw degree-number         uint16
+         |  |     +--:(service)
+         |  |     |  +--rw service-name          string
+         |  |     +--:(interface)
+         |  |     |  +--rw interface-name        string
+         |  |     +--:(other)
+         |  |     |  +--rw other-resource-id     string
+         |  |     +--:(device)
+         |  |        +--rw node-id               string
+         |  +--rw resourceType
+         |     +--rw type         resource-type-enum
+         |     +--rw extension?   string
+         +--rw granularity?            org-openroadm-pm-types:pm-granularity
+         +--rw raiseTime?              yang:date-and-time
+         +--rw layerRate
+         |  +--rw type         layer-rate-enum
+         |  +--rw extension?   string
+         +--rw severity                org-openroadm-common-types:severity
+         +--rw thresholdType?          enumeration
+         +--rw thresholdMeasurement
+            +--rw pmParameterName
+            |  +--rw type         pm-names-enum
+            |  +--rw extension?   string
+            +--ro pmParameterValue    pm-data-type
+            +--rw pmParameterUnit?    string
+            +--rw validity?           validity
+            +--rw location?           org-openroadm-common-types:location
+            +--rw direction?          org-openroadm-common-types:direction
+notifications:
+   +---n tca-notification    
+      +--ro id                      string
+      +--ro resource
+      |  +--ro device
+      |  |  +--ro node-id?   string
+      |  +--ro resource
+      |  |  +--ro (resource)?
+      |  |     +--:(circuit-pack)
+      |  |     |  +--ro circuit-pack-name     string
+      |  |     +--:(port)
+      |  |     |  +--ro port
+      |  |     |     +--ro circuit-pack-name    string
+      |  |     |     +--ro port-name?           string
+      |  |     +--:(connection)
+      |  |     |  +--ro connection-number     string
+      |  |     +--:(physical-link)
+      |  |     |  +--ro physical-link-name    string
+      |  |     +--:(internal-link)
+      |  |     |  +--ro internal-link-name    string
+      |  |     +--:(shelf)
+      |  |     |  +--ro shelf-name            string
+      |  |     +--:(srg)
+      |  |     |  +--ro srg-number            uint16
+      |  |     +--:(degree)
+      |  |     |  +--ro degree-number         uint16
+      |  |     +--:(service)
+      |  |     |  +--ro service-name          string
+      |  |     +--:(interface)
+      |  |     |  +--ro interface-name        string
+      |  |     +--:(other)
+      |  |     |  +--ro other-resource-id     string
+      |  |     +--:(device)
+      |  |        +--ro node-id               string
+      |  +--ro resourceType
+      |     +--ro type         resource-type-enum
+      |     +--ro extension?   string
+      +--ro granularity?            org-openroadm-pm-types:pm-granularity
+      +--ro raiseTime               yang:date-and-time
+      +--ro layerRate
+      |  +--ro type         layer-rate-enum
+      |  +--ro extension?   string
+      +--ro severity                org-openroadm-common-types:severity
+      +--ro thresholdType?          enumeration
+      +--ro thresholdMeasurement
+         +--ro pmParameterName
+         |  +--ro type         pm-names-enum
+         |  +--ro extension?   string
+         +--ro pmParameterValue    pm-data-type
+         +--ro pmParameterUnit?    string
+         +--ro validity?           validity
+         +--ro location?           org-openroadm-common-types:location
+         +--ro direction?          org-openroadm-common-types:direction
 module: org-openroadm-user-mgmt
-
-  rpcs:
-    +---x chg-password
-       +---w input
-       |  +---w currentPassword       string
-       |  +---w newPassword           string
-       |  +---w newPasswordConfirm    string
-       +--ro output
-          +--ro status            enumeration
-          +--ro status-message?   string
+rpcs:
+   +---x chg-password    
+      +---w input     
+      |  +---w currentPassword       string
+      |  +---w newPassword           string
+      |  +---w newPasswordConfirm    string
+      +--ro output    
+         +--ro status            enumeration
+         +--ro status-message?   string

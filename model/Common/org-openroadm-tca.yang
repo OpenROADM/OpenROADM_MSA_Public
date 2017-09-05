@@ -56,6 +56,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-08-28 {
+    description
+      "Version 2.0.2 - Adding back a missing pmParameterName";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -106,6 +110,9 @@ module org-openroadm-tca {
         "Threshold Crossed";
     }
     container thresholdMeasurement {
+      container pmParameterName {
+        uses org-openroadm-pm-types:pm-names;
+      }              
       uses org-openroadm-pm-types:pm-measurement;
       leaf location {
         type org-openroadm-common-types:location;

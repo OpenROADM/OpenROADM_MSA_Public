@@ -2,8 +2,8 @@ module: ietf-network
     +--rw network* [network-id]
        +--rw network-types
        |  +--rw cn:clli-network!
-       |  +--rw net:openroadm-network!
        |  +--rw topo:openroadm-topology!
+       |  +--rw net:openroadm-network!
        +--rw network-id            network-id
        +--ro server-provided?      boolean
        +--rw supporting-network* [network-ref]
@@ -77,6 +77,20 @@ module: ietf-network
        |  |     +--rw topo:optic?               org-openroadm-common-types:optic-types
        |  |     +--rw topo:state?               est:states
        |  +--rw cn:clli?                    string
+       |  +--rw topo:node-type?             org-openroadm-network-types:openroadm-node-type
+       |  +--rw topo:srg-attributes
+       |  |  +--rw topo:srg-number?               uint16
+       |  |  +--rw topo:max-pp?                   uint32
+       |  |  +--rw topo:current-provisioned-pp?   uint32
+       |  |  +--rw topo:available-wavelengths* [index]
+       |  |  |  +--rw topo:index        uint32
+       |  |  |  +--rw topo:frequency?   org-openroadm-common-types:frequency-THz
+       |  |  |  +--rw topo:width?       org-openroadm-common-types:frequency-GHz
+       |  |  +--rw topo:wavelength-duplication?   org-openroadm-common-types:wavelength-duplication-type
+       |  +--rw topo:degree-attributes
+       |  |  +--rw topo:degree-number?                    uint16
+       |  |  +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-types:ratio-dB
+       |  |  +--rw topo:eol-max-load-pIn?                 org-openroadm-common-types:power-dBm
        |  +--rw net:node-type?              nt:openroadm-node-type
        |  +--rw net:software-version?       string
        |  +--rw net:openroadm-version?      string
@@ -94,26 +108,12 @@ module: ietf-network
        |  +--rw net:xpdr-attributes
        |  |  +--rw net:customer-code?   string
        |  +--rw net:pluggable-attributes
-       |  |  +--rw net:pluggable-id?    string
-       |  |  +--rw net:customer-code?   string
-       |  |  +--rw net:tail
-       |  |     +--rw net:client-equipment?     string
-       |  |     +--rw net:client-equipmentId?   string
-       |  |     +--rw net:clfi?                 string
-       |  +--rw topo:node-type?             org-openroadm-network-types:openroadm-node-type
-       |  +--rw topo:srg-attributes
-       |  |  +--rw topo:srg-number?               uint16
-       |  |  +--rw topo:max-pp?                   uint32
-       |  |  +--rw topo:current-provisioned-pp?   uint32
-       |  |  +--rw topo:available-wavelengths* [index]
-       |  |  |  +--rw topo:index        uint32
-       |  |  |  +--rw topo:frequency?   org-openroadm-common-types:frequency-THz
-       |  |  |  +--rw topo:width?       org-openroadm-common-types:frequency-GHz
-       |  |  +--rw topo:wavelength-duplication?   org-openroadm-common-types:wavelength-duplication-type
-       |  +--rw topo:degree-attributes
-       |     +--rw topo:degree-number?                    uint16
-       |     +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-types:ratio-dB
-       |     +--rw topo:eol-max-load-pIn?                 org-openroadm-common-types:power-dBm
+       |     +--rw net:pluggable-id?    string
+       |     +--rw net:customer-code?   string
+       |     +--rw net:tail
+       |        +--rw net:client-equipment?     string
+       |        +--rw net:client-equipmentId?   string
+       |        +--rw net:clfi?                 string
        +--rw lnk:link* [link-id]
           +--rw lnk:source
           |  +--rw lnk:source-node    -> ../../../nd:node/node-id
