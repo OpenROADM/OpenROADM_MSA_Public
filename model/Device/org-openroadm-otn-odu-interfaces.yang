@@ -4,7 +4,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -17,6 +17,10 @@ module org-openroadm-otn-odu-interfaces {
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
     revision-date 2017-06-26;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -58,7 +62,7 @@ module org-openroadm-otn-odu-interfaces {
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
      
-     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
      describe your rights and restrictions with respect to this document. Code Components
@@ -66,6 +70,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -78,131 +86,7 @@ module org-openroadm-otn-odu-interfaces {
     description
       "Version 1.2";
   }
-
-  identity odu-rate-identity {
-    description
-      "A unique rate identification of the ODU.";
-  }
-
-  identity ODU4 {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU4";
-  }
-
-  identity ODU3 {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU3";
-  }
-
-  identity ODU2 {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU2";
-  }
-
-  identity ODU2e {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU2e";
-  }
-
-  identity ODU1 {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU1";
-  }
-
-  identity ODU0 {
-    base odu-rate-identity;
-    description
-      "Identity for an ODU0";
-  }
-
-  identity ODUflex {
-    base odu-rate-identity;
-    description
-      "Identity for an ODUflex";
-  }
-
-  identity odtu-type-identity {
-    description
-      "A unique identification for the MSI odtu type.";
-  }
-
-  identity ODTU4.ts-Allocated {
-    base odtu-type-identity;
-    description
-      "OPU4 MSI - ODTU4.ts, OPU4 MSI TS is occupied/allocated.
-       Applies to all ODTU4.x mappings";
-  }
-
-  identity ODTU01 {
-    base odtu-type-identity;
-    description
-      "ODTU01 MSI type";
-  }
-
-  identity ODTU12 {
-    base odtu-type-identity;
-    description
-      "ODTU12 MSI type";
-  }
-
-  identity ODTU13 {
-    base odtu-type-identity;
-    description
-      "ODTU13 MSI type";
-  }
-
-  identity ODTU23 {
-    base odtu-type-identity;
-    description
-      "ODTU23 MSI type";
-  }
-
-  identity ODTU2.ts {
-    base odtu-type-identity;
-    description
-      "ODTU2.ts MSI type";
-  }
-
-  identity ODTU3.ts {
-    base odtu-type-identity;
-    description
-      "ODTU3.ts MSI type";
-  }
-
-  identity unallocated {
-    base odtu-type-identity;
-    description
-      "Unallocated MSI type";
-  }
-
-  identity odu-function-identity {
-    description
-      "A unique identification of the ODUk interface function.";
-  }
-
-  identity ODU-TTP {
-    base odu-function-identity;
-    description
-      "ODU TTP facility facing trail termination";
-  }
-
-  identity ODU-CTP {
-    base odu-function-identity;
-    description
-      "ODU CTP connection termination";
-  }
-
-  identity ODU-TTP-CTP {
-    base odu-function-identity;
-    description
-      "ODU CTP mapper level connection termination with trail termination and client adaptation";
-  }
-
+  
   grouping msi-entry {
     leaf trib-slot {
       type uint16;
@@ -211,7 +95,7 @@ module org-openroadm-otn-odu-interfaces {
     }
     leaf odtu-type {
       type identityref {
-        base odtu-type-identity;
+        base org-openroadm-otn-common-types:odtu-type-identity;
       }
       description
         "ODTU type, part of the MSI (Multiplex Structure Identifier)";
@@ -233,7 +117,7 @@ module org-openroadm-otn-odu-interfaces {
       "ODU attributes";
     leaf rate {
       type identityref {
-        base odu-rate-identity;
+        base org-openroadm-otn-common-types:odu-rate-identity;
       }
       description
         "rate identity of the ODU. 'identityref' is used
@@ -241,7 +125,7 @@ module org-openroadm-otn-odu-interfaces {
     }
     leaf odu-function {
       type identityref {
-        base odu-function-identity;
+        base org-openroadm-otn-common-types:odu-function-identity;
       }
       description
         "function of the ODU interface";
@@ -286,25 +170,25 @@ module org-openroadm-otn-odu-interfaces {
   }
 
   grouping parent-odu-allocation {
-    container parent-odu-allocation {
-      presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
-      when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
-      leaf trib-port-number {
-        type uint8 {
-          range "1 .. 80";
-        }
-        mandatory true;
-        description
-          "Tributary port number in parent OPU";
-      }
-      leaf-list trib-slots {
-        max-elements "80";
-        min-elements 1;
-        type uint16 {
-          range "1 .. 80";
-        }
-        description
-          "Trib slots occupied in parent OPU MSI";
+      container parent-odu-allocation {
+        presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
+        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
+        leaf trib-port-number {
+	  type uint16 {
+	    range "1 .. 80";
+	  }
+          mandatory true;
+	  description
+            "Assigned tributary port number in parent OPU";
+	}
+        leaf-list trib-slots {
+          max-elements "80";
+	  min-elements "1";
+	  type uint16 {
+	    range "1 .. 80";   
+	  }   
+          description
+            "Assigned trib slots occupied in parent OPU MSI";                
       }
     }
   }

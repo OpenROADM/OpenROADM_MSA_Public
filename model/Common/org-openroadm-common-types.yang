@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -86,6 +90,21 @@ module org-openroadm-common-types {
        4. extplug for external plugable";
   }
 
+  typedef node-id-type {
+    type string {
+      length "7..63";
+      pattern "([a-zA-Z][a-zA-Z0-9-]{5,18}[a-zA-Z0-9])" {
+        error-message
+          "A node-id must be 7 to 63 characters in length.
+           A node-id can contain letters, numbers, and hyphens.
+           The first character must be a letter.
+           The last character must be a letter or number.";
+       }
+    }
+    description
+      "Globally unique identifer for a device.";
+  }
+
   typedef xpdr-node-types {
     type enumeration {
       enum "tpdr" {
@@ -94,11 +113,23 @@ module org-openroadm-common-types {
       enum "mpdr" {
         value 2;
       }
+      enum "switch" {
+        value 3;
+      }
+      enum "regen" {
+        value 4;
+      }
+      enum "regen-uni" {
+        value 5;
+      }
     }
     description
       "Identifier for Xponder node type
        1. Transponder
-       2. Muxponder";
+       2. Muxponder
+       3. OTN switchponder
+       4. Regenerator
+       5. Regenerator based on unidirectional model";
   }
 
   typedef frequency-THz {
@@ -148,32 +179,48 @@ module org-openroadm-common-types {
 
   typedef amplifier-types {
     type enumeration {
-      enum "std" {
+      enum "standard" {
         value 1;
       }
     }
     description
-      "3 digit identifier for amplifier type
-       1. std for standard amplifier as defined initially
+      "identifier for amplifier type
+       1. standard for amplifier as defined initially in the ROADM MSA specifications
        To be completed if/when additional amplifier types are required ";
   }
 
-  typedef amplifier-operational-mode {
+  typedef line-amplifier-control-mode {
     description
-      "Operational mode for the amplifier: this parameter will 
-       allow modeling different operational modes for switch-gain amplifiers
-       The enum is to be completed/modified when new amplifiers are specified ";
+      "Identifies the line amplifier control mode, either off or gain.";
     type enumeration {
-      enum "Mode1" {
-        value 1;
-      }
-      enum "Mode2" {
+      enum "gainLoss" {
         value 2;
       }
-      enum "Mode3" {
+      enum "off" {
         value 3;
       }
-      enum "Mode4" {
+    }
+  }
+
+  typedef amplifier-gain-range {
+    description
+      "Operational mode for the amplifier:  
+       this parameter allows modeling different operational modes (gain ranges) ,notably for switched-gain amplifiers.
+       It indicates which performance model shall be used by the path feasibility engine. 
+       For standard amplifier, or when performance evaluation is based on incremental noise, use gain-range-1.
+       When performance evaluation is based on advanced parameters, specify used gain-range (1 to 4).
+       Up to release 2.1, only gain-range-1 is to be used (default value) ";
+    type enumeration {
+      enum "gain-range-1" {
+        value 1;
+      }
+      enum "gain-range-2" {
+        value 2;
+      }
+      enum "gain-range-3" {
+        value 3;
+      }
+      enum "gain-range-4" {
         value 4;
       }
     }

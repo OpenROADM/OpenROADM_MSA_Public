@@ -16,23 +16,23 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -40,7 +40,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -94,6 +94,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -119,10 +123,24 @@ module org-openroadm-device {
     input {
       choice equipment-entity {
         case shelf {
-          uses org-openroadm-resource-types:shelf-name;
+          leaf shelf-name {
+            description
+              "shelf-name for the operation";
+            type leafref {
+              path "/org-openroadm-device/shelves/shelf-name";
+            }       
+            mandatory true;
+          }
         }
         case circuit-pack {
-          uses org-openroadm-resource-types:circuit-pack-name;
+          leaf circuit-pack-name {
+            description
+              "circuit-pack-name for the operation";
+            type leafref {
+              path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+            }   
+            mandatory true;
+          }
         }
       }
       leaf enabled {
@@ -179,13 +197,6 @@ module org-openroadm-device {
       }
     }
     output {
-      leaf create-tech-info-notification-timeout {
-        description
-          "The timeout value the controller will wait for the create-tech-info-notification";
-        type uint32;
-        units "second";
-        default "600";
-      }
       uses create-tech-info-group;
       uses org-openroadm-common-types:rpc-response-status;
     }
@@ -198,7 +209,7 @@ module org-openroadm-device {
   }
   rpc get-connection-port-trail {
     input {
-      leaf connection-number {
+      leaf connection-name {
         type string;
         mandatory true;
       }
@@ -247,7 +258,9 @@ module org-openroadm-device {
     input {
       leaf degree-number {
         type uint16;
-        mandatory true;
+      }
+      leaf amp-number {
+        type uint8;
       }
       leaf port-direction {
         type org-openroadm-common-types:direction;
@@ -299,10 +312,7 @@ module org-openroadm-device {
 
   grouping device-common {
     leaf node-id {
-      type string {
-        length "7..20";
-        pattern "([a-zA-Z][a-zA-Z0-9-]{5,18}[a-zA-Z0-9])";
-      }
+      type org-openroadm-common-types:node-id-type;
       description
         "Globally unique identifer for a device.";
       default "openroadm";
@@ -316,7 +326,8 @@ module org-openroadm-device {
     leaf node-type {
       type org-openroadm-common-types:node-types;
       description
-        "Identifier for node-type e.g Roadm, xponder";
+        "Identifier for node-type e.g Roadm, xponder.
+         Once the node-type is configured, it should not be modified.";
       config true;
       mandatory true;
     }
@@ -627,8 +638,9 @@ module org-openroadm-device {
   grouping odu-connection {
     description
       "Grouping used to define odu-connections.";
-    leaf odu-connection-name {
+    leaf connection-name {
       type string;
+      description "roadm-connection and odu-connection share the same resource-type and resource definition (e.g. connection)";
     }
     leaf direction {
       type enumeration {
@@ -664,7 +676,7 @@ module org-openroadm-device {
   grouping connection {
     description
       "Grouping used to define connections.";
-    leaf connection-number {
+    leaf connection-name {
       type string;
     }
     leaf opticalControlMode {
@@ -751,10 +763,12 @@ module org-openroadm-device {
   }
 
   grouping amplifier {
-    leaf amp-id {
+    leaf amp-number {
       description
-        "Unique identifier for the amplifier entry";
-      type uint8;
+        "Unique identifier/number for the amplifier entry which corresponds to a logical amplifier";
+      type uint8 {
+          range "1..128";
+      }
     }
     leaf amp-type {
       description
@@ -763,51 +777,66 @@ module org-openroadm-device {
       config false;
       mandatory true;
     }
-    leaf amp-operational-mode {
+
+    leaf control-mode {
       description
-        "Amplifier operational mode (for switched gain amplifiers)";
-      type org-openroadm-common-types:amplifier-operational-mode;
+        "Whether the line amplifier is currently in off or gainLoss mode. control-mode can only be set to gainLoss when target-gain, target-tilt and egress-average-channel-power are set and the OMS interfaces are provisioned. The amplifer will be turned off when the control-mode is set to off";
+      type org-openroadm-common-types:line-amplifier-control-mode;
+      default "off";
+    }
+
+    leaf amp-gain-range {
+      description
+        "Amplifier gain-range (gain-range 1 to 4 for switched gain amplifiers)
+         gain-range-1 (default value) for standard amplifiers";
+      type org-openroadm-common-types:amplifier-gain-range;
       config false;
+      default "gain-range-1";
     }
     leaf target-gain {
       type org-openroadm-common-types:ratio-dB;
       description
-        "Target overall Amplifier Signal gain, excluding ASE, including VOA attenuation";
+        "Target overall Amplifier Signal gain, excluding ASE, including VOA attenuation.
+	 Defined as optional for ODL support, but shall be considered as mandatory and provided
+         by the controller when the control-mode is set to gainLoss for amplifier setting";
       config true;
-      mandatory true;
     }
     leaf target-tilt {
       type org-openroadm-common-types:ratio-dB;
       description
-        "Target tilt configured in case of smart EDFA
-         Tilt value provided as specified in Open-ROADM-MSA-specifications spreadsheet ";
+        "Target tilt configured in case of smart EDFA.
+         Tilt value provided as specified in Open-ROADM-MSA-specifications spreadsheet
+	 Defined as optional for ODL support, but shall be considered as mandatory and provided
+         by the controller when the control-mode is set to gainLoss for amplifier setting";
       config true;
-      default "0";
+    }
+    leaf egress-average-channel-power {
+      type org-openroadm-common-types:power-dBm;
+      description
+        "Based upon the total max power accross the 4.8 THz passband.
+	 Defined as optional for ODL support, but shall be considered as mandatory and provided
+         by the controller when the control-mode is set to gainLoss for amplifier setting";
+      config true;
     }
     leaf out-voa-att {
       type org-openroadm-common-types:ratio-dB;
       description
         "Used to provide the value output VOA attenuation, optional";
       config false;
-    }
-    leaf egress-average-channel-power {
-      type org-openroadm-common-types:ratio-dB;
-      description
-        "based upon the total max power accross the 4.8 THz passband";
-      config true;
-    }
+    }   
     leaf partner-amp {
       description
-        "amp-id of amp module that is functionally associated to the amplifier  
+        "amp-number of amp module that is functionally associated to the amplifier  
          in the opposite direction";
       type leafref {
-        path "../amp-id";
+        path "../amp-number";
       }
       config false;
     }
     leaf ila-direction-label {
       description
-        "Amplifier direction";
+         "Amplifier direction. Each operators may have its own naming convention
+          Shall be consistent with port-direction label";
       type string;
     }
   }
@@ -951,7 +980,7 @@ module org-openroadm-device {
           "Validating if the srg is supported by add/drop group";
       }
     }
-    leaf wavelengthDuplication {
+    leaf wavelength-duplication {
       description
         "Whether the SRG can handle duplicate wavelengths and if so to what extent.";
       type org-openroadm-common-types:wavelength-duplication-type;
@@ -989,7 +1018,15 @@ module org-openroadm-device {
         "Identifier for xponder-type e.g Transponder, Muxponder";
       mandatory true;
     }
-    list xpdr-ports {
+    
+    leaf recolor {
+      type boolean;
+      config false;
+      description
+        "Indication if recolor is supported";
+    }
+ 
+    list xpdr-port {
       description
         "Network Ports with in a Xponder";
       key "index";
@@ -1004,6 +1041,11 @@ module org-openroadm-device {
           mandatory true;
         }
       }
+      leaf eqpt-srg-id {
+        description
+          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+        type uint32; 
+      } 
     }
   }
 
@@ -1055,12 +1097,10 @@ module org-openroadm-device {
       type leafref {
         path "/org-openroadm-device/circuit-packs/circuit-pack-name";
       }
-      mandatory true;
     }
     leaf supporting-port {
       description
         "Identifier of the supporting port.";
-      mandatory true;
       type leafref {
         path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name";
       }
@@ -1287,13 +1327,13 @@ module org-openroadm-device {
         key "srg-number";
         uses srg;
       }
-      list line-amplifiers {
+      list line-amplifier {
         when "/org-openroadm-device/info/node-type='ila'";
-        key "amp-id";
+        key "amp-number";
         uses amplifier;
         description
           "lists amplifiers in different directions";
-        list circuit-packs {
+        list circuit-pack {
           key "index";
           description
             "list for Cards associated with an amplifier";
@@ -1306,7 +1346,7 @@ module org-openroadm-device {
             }
           }
         }
-        list line-ports {
+        list line-port {
           description
             "Port associated with an amplifier which face the line (ila-external): traffic port.";
           key "port-direction";
@@ -1315,7 +1355,24 @@ module org-openroadm-device {
             config true;
             mandatory true;
             description
-              "allows identifying ports associated with logical amp :TX for egress, RX for ingress";
+              "partly allows identifying ports associated with logical amp :TX for egress, RX for ingress
+               TXRX in case of bidirectional port";
+          }
+          leaf tx-instance-port-direction-label {
+            type string;
+            config true;
+            description
+              "Complements ports identification. Used notably in case of bidirectional ports, 
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+              specified in ila-direction-label. Shall be consistent with ila-direction-label";
+          }
+          leaf rx-instance-port-direction-label {
+            type string;
+            config true;
+            description
+              "Complements ports identification. Used notably in case of bidirectional ports, 
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+              specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -1326,7 +1383,7 @@ module org-openroadm-device {
             }
           }
         }
-        list osc-ports {
+        list osc-port {
           description
             "Ports associated with OSC";
           key "port-direction";
@@ -1336,7 +1393,7 @@ module org-openroadm-device {
             mandatory true;
             description
               "allows identifying ports associated with logical amp : 
-               TX for OSC circuit-pack OUT RX for OSC circuit-pack IN";
+               TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -1347,18 +1404,16 @@ module org-openroadm-device {
             }
           }
         }
-        list otdr-ports {
+        list otdr-port {
           description
             "otdr ports associated with an ILA";
-          key "port-direction";
-          leaf port-direction {
-            type org-openroadm-common-types:direction;
+          key "otdr-direction";
+          leaf otdr-direction {
+            type string;          
             config true;
             description
-              "allows identifying OTDR ports associated with logical amp.
-               direction stated corresponds to associated amp line port 
-               TX : otdr launched in amplifier egress fiber
-               RX : otdr launched in amplifier ingress fiber";
+               "allows identifying associated logical amp port in which OTDR is launched: 
+               corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -1377,12 +1432,12 @@ module org-openroadm-device {
       }
       list roadm-connections {
         when "/org-openroadm-device/info/node-type='rdm'";
-        key "connection-number";
+        key "connection-name";
         uses connection;
       }
-      list odu-connections {
+      list odu-connection {
         when "/org-openroadm-device/info/node-type='xpdr'";
-        key "odu-connection-name";
+        key "connection-name";
         uses odu-connection;
       }
       list connection-map {
@@ -1425,6 +1480,71 @@ module org-openroadm-device {
               path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name";
             }
             mandatory true;
+          }
+        }
+      }
+      list odu-switching-pools {
+        key "switching-pool-number";
+        config false;
+        leaf switching-pool-number {
+          description
+            "Unique identifier for this odu-switching-pool";
+          type uint16;
+	}
+	leaf switching-pool-type {
+          type enumeration {
+            enum "non-blocking" {
+              value 1;
+              description
+                "Single non-blocking element";
+            }
+            enum "blocking" {
+              value 2;
+              description
+                "Multiple connected non-blocking lists";
+	    }
+	  }
+        }
+        list non-blocking-list {
+          description
+            "List of ports in a non-blocking switch element";
+          key "nbl-number";
+          config false;
+          leaf nbl-number {
+            description
+              "Identifier for this non-blocking-list. Unique within odu-switching-pool";
+            type uint16;
+          }
+          leaf interconnect-bandwidth-unit {
+            type uint32;
+            description
+              "Switch fabric interconnect bandwidth unit rate in bits per second. 
+               Represents granularity of switch fabric";
+            config false;
+          }
+          leaf interconnect-bandwidth {
+            type uint32;
+            description
+              "Total interconnect bandwidth for a non-blocking element expressed as 
+               number of inter-connect-bandwidth units";
+            config false;
+          }
+          list port-list {
+            key "circuit-pack-name port-name";  
+            leaf circuit-pack-name {
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+	      }
+              config false;
+	    } 
+            leaf port-name {
+              description
+                "Port name. Unique within device";
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/ports/port-name";
+              }
+              config false;
+            }
           }
         }
       }
@@ -1472,7 +1592,7 @@ module org-openroadm-device {
       "Common session parameters to identify a
        management session.";
     leaf username {
-      type string;
+      type org-openroadm-user-mgmt:username-type;
       mandatory true;
       description
         "Name of the user for the session.";

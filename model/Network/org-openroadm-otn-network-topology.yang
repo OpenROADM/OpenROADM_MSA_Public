@@ -1,0 +1,174 @@
+module org-openroadm-otn-network-topology {
+  namespace "http://org/openroadm/otn/network/topology";
+  prefix otn-topo;
+
+  import ietf-network {
+    prefix nd;
+    revision-date 2015-06-08;
+  }
+  import ietf-network-topology {
+    prefix nwt;
+    revision-date 2015-06-08;
+  }
+  import org-openroadm-network-types {
+    prefix org-openroadm-network-types;
+    revision-date 2017-09-29;
+  }
+  import org-openroadm-xponder {
+    prefix xpdr;
+    revision-date 2017-09-29;
+  }
+  import org-openroadm-common-types {
+    prefix ct;
+    revision-date 2017-09-29;
+  }
+
+  organization
+    "OPEN ROADM MSA";
+  contact
+    "OpenROADM.org.";
+  description
+    "YANG definitions for network view of a ROADM
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     AT&T Intellectual Property.  All other rights reserved.
+         
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+         
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+         
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
+
+  augment "/nd:network/nd:network-types" {
+    description
+      "Introduce new network type for the Open ROADM OTN
+       `     network topology";
+    container otn-topology {
+      presence "indicates OTN topology for Muxponder, Switchponder and OTN-switch";
+    }
+  }
+  augment "/nd:network/nd:node" {
+    when "../nd:network-types/otn-topology";
+    description
+      "This augmentations adds the OTN Node type to the generic node
+       definition and defines node-sepcific attributes for each node type
+       in the OTN Topology.";
+    leaf node-type {
+      type org-openroadm-network-types:openroadm-node-type;
+      description
+        "The type of a node in the OTN topology. Valid node types are 'MUXPDR' and 'SWITCH'";
+    }	   
+	container tp-bandwidth-sharing {
+      when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
+      uses org-openroadm-network-types:xpdr-tp-bandwidth-sharing;
+    } 
+    container switching-pools {
+      when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
+      uses org-openroadm-network-types:xpdr-odu-switching-pools;
+      description
+        "ODU Switching pool";
+    }    
+	container xpdr-attributes {
+      when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
+      uses xpdr:xpdr-topo-node-attributes;
+      description
+        "Topology-related attributes for Xponder nodes";
+    }	
+  }
+  augment "/nd:network/nd:node/nwt:termination-point" {
+    when "../../nd:network-types/otn-topology";
+    description
+      "Defines the type of a termination point in the OTN topology and
+       TP-specific attributes for each termination point type.";
+    leaf tp-type {
+      type org-openroadm-network-types:openroadm-tp-type;
+      must "(../../otn-topo:node-type != 'MUXPDR' and ../../otn-topo:node-type != 'SWITCH') or 
+	  ((../../otn-topo:node-type = 'MUXPDR' or ../../otn-topo:node-type = 'SWITCH') and
+	  (../otn-topo:tp-type = 'XPONDER-NETWORK' or ../otn-topo:tp-type = 'XPONDER-CLIENT' or ../otn-topo:tp-type = 'XPONDER-PORT'))" {
+        error-message "Invalid TP for node type Xponder";
+      }
+      description
+        "The TP type; also defines which TP types can be instantiated
+         on which Node types";
+    }
+    leaf eqpt-srg-id {
+        description
+          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+        type uint32; 
+    }	
+    container tp-supported-interfaces {
+      when "../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-PORT'";
+      uses org-openroadm-network-types:xpdr-tp-supported-interfaces;
+      description
+        "Supported interface capability on the port.";
+    }	
+    container xpdr-tp-port-connection-attributes {
+      when "../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-PORT'";
+      description
+        "Topology-related attributes for Xpdr nodes";
+      uses xpdr:xpdr-otn-tp-attributes;
+      uses xpdr:xpdr-port-connection-attributes;
+      uses xpdr:xpdr-otn-tail-attributes;
+    }    
+  }
+  augment "/nd:network/nwt:link" {
+    when "../nd:network-types/otn-topology";
+    description
+      "This augmentation defines Logical link types in the OTN topology connecting OTN elements";
+    leaf link-type {
+      type org-openroadm-network-types:openroadm-link-type;
+    }
+    leaf administrative-group {
+      type uint32;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf operational-state {
+      type ct:state;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf administrative-state {
+      type ct:state;
+      description
+        "according to RFC 3630 definition";
+    }
+    leaf available-bandwidth {
+      type uint32;
+      description
+        "Availabled bandwidth between OTN elements";
+    }
+    leaf used-bandwidth {
+      type uint32;
+      description
+        "Used bandwidth between OTN elements";
+    }
+    leaf ODU-protected {
+      type boolean;
+      description
+        "ODU protection flag";
+    }     
+   }
+}

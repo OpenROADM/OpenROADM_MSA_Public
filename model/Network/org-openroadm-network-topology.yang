@@ -12,31 +12,31 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-common-types {
     prefix ct;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -72,6 +72,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -99,8 +103,8 @@ module org-openroadm-network-topology {
       type org-openroadm-network-types:openroadm-node-type;
       description
         "The type of a node in the ROADM topology. Valid node types are 'SRG', 'DEGREE',
-         'TPDR', 'EXT-PLUGGABLE' and 'MUXPDR'";
-    }
+         'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
+    }	   
     container srg-attributes {
       when "../node-type = 'SRG'";
       uses srg:srg-node-attributes;
@@ -113,6 +117,13 @@ module org-openroadm-network-topology {
       description
         "Topology-related attributes for degree nodes";
     }
+	container xpdr-attributes {
+      when "../node-type = 'TPDR' or ../node-type = 'MUXPDR' or ../node-type = 'REGEN' or 
+	      ../node-type = 'REGEN-UNI' or ../node-type = 'SWITCH'";
+      uses xpdr:xpdr-topo-node-attributes;
+      description
+        "Topology-related attributes for Xponder nodes";
+    }
   }
   augment "/nd:network/nd:node/nwt:termination-point" {
     when "../../nd:network-types/openroadm-topology";
@@ -121,16 +132,24 @@ module org-openroadm-network-topology {
        TP-specific attributes for each termination point type.";
     leaf tp-type {
       type org-openroadm-network-types:openroadm-tp-type;
-      must "../../topo:node-type != 'DEGREE' or ../topo:tp-type = 'DEGREE-TX-TTP' or ../topo:tp-type = 'DEGREE-RX-TTP' or ../topo:tp-type = 'DEGREE-TX-CTP' or ../topo:tp-type = 'DEGREE-TXRX-TTP' or ../topo:tp-type = 'DEGREE-RX-CTP'" {
+      must "../../topo:node-type != 'DEGREE' or (../../topo:node-type = 'DEGREE'  and 
+      (../topo:tp-type = 'DEGREE-TX-TTP' or ../topo:tp-type = 'DEGREE-RX-TTP' or  ../topo:tp-type = 'DEGREE-TXRX-TTP' or
+       ../topo:tp-type = 'DEGREE-TX-CTP' or ../topo:tp-type = 'DEGREE-RX-CTP' or ../topo:tp-type = 'DEGREE-TXRX-CTP'))" {
         error-message "Invalid TP for node type 'DEGREE'";
       }
-      must "../../topo:node-type != 'SRG' or ../topo:tp-type = 'SRG-TX-CP' or ../topo:tp-type = 'SRG-RX-CP' or ../topo:tp-type = 'SRG-RX-PP' or ../topo:tp-type = 'SRG-TX-PP' or ../topo:tp-type = 'SRG-TXRX-PP'" {
+      must "../../topo:node-type != 'SRG' or (../../topo:node-type = 'SRG' and
+	  (../topo:tp-type = 'SRG-TX-CP' or ../topo:tp-type = 'SRG-RX-CP' or ../topo:tp-type = 'SRG-TXRX-CP' or 
+	   ../topo:tp-type = 'SRG-RX-PP' or ../topo:tp-type = 'SRG-TX-PP' or ../topo:tp-type = 'SRG-TXRX-PP'))" {
         error-message "Invalid TP for node type 'SRG'";
       }
-      must "../../topo:node-type != 'XPONDER' or ../topo:tp-type = 'XPONDER-NETWORK' or ../topo:tp-type = 'XPONDER-CLIENT'" {
+      must " (../../topo:node-type != 'TPDR' and ../../topo:node-type != 'MUXPDR' and ../../topo:node-type != 'REGEN' and 
+	         ../../topo:node-type != 'REGEN-UNI' and ../../topo:node-type != 'SWITCH')
+	  or ((../../topo:node-type = 'TPDR' or ../../topo:node-type = 'MUXPDR' or ../../topo:node-type = 'REGEN' or 
+	      ../../topo:node-type = 'REGEN-UNI' or ../../topo:node-type = 'SWITCH') and 
+	  (../topo:tp-type = 'XPONDER-NETWORK' or ../topo:tp-type = 'XPONDER-CLIENT' or ../topo:tp-type = 'XPONDER-PORT'))" {
         error-message "Invalid TP for node type 'XPONDER'";
       }
-      must "../../topo:node-type != 'EXT-PLUGGABLE' or ../topo:tp-type = 'EXT-PLUGGABLE-TP'" {
+      must "../../topo:node-type != 'EXT-PLUGGABLE' or (../../topo:node-type = 'EXT-PLUGGABLE' and ../topo:tp-type = 'EXT-PLUGGABLE-TP')" {
         error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
       }
       description
@@ -142,31 +161,29 @@ module org-openroadm-network-topology {
       description
         "There must be only one TP of type DEGREE-TX-TTP in any given
          degree node";
-      uses dgr:degree-txttp-attributes;
+      uses dgr:degree-used-wavelengths;
     }
     container rx-ttp-attributes {
       when "../tp-type = 'DEGREE-RX-TTP'";
       description
         "There must be only one TP of type DEGREE-RX-TTP in any given
          degree node";
-      list used-wavelengths {
-        key "index";
-        uses org-openroadm-network-types:wavelengths;
-      }
+      uses dgr:degree-used-wavelengths;
     }
     container ctp-attributes {
-      when "../tp-type = 'DEGREE-TX-CTP' or ../tp-type = 'DEGREE-RX-CTP'";
-      list used-wavelengths {
-        key "index";
-        uses org-openroadm-network-types:wavelengths;
-      }
+      when "../tp-type = 'DEGREE-TX-CTP' or ../tp-type = 'DEGREE-RX-CTP' or ../tp-type = 'DEGREE-TXRX-CTP'";
+       uses dgr:degree-used-wavelengths;
     }
     container cp-attributes {
-      when "../tp-type = 'SRG-TX-CP' or ../tp-type = 'SRG-RX-CP'";
+      when "../tp-type = 'SRG-TX-CP' or ../tp-type = 'SRG-RX-CP' or ../tp-type = 'SRG-TXRX-CP'";
       list used-wavelengths {
         key "index";
         uses org-openroadm-network-types:wavelengths;
       }
+	  description
+        "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid 
+        index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
+	    will hold list of used spectrums";
     }
     container pp-attributes {
       when "../tp-type = 'SRG-TXRX-PP' or ../tp-type = 'SRG-TX-PP' or ../tp-type = 'SRG-RX-PP' ";
@@ -174,17 +191,33 @@ module org-openroadm-network-topology {
         key "index";
         uses org-openroadm-network-types:wavelengths;
       }
+	  description
+        "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid 
+        index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
+	    will hold list of used spectrums";
+    }
+	leaf eqpt-srg-id {
+	    when "../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'EXT-PLUGGABLE-TP' or 
+		      ../tp-type = 'XPONDER-PORT'";
+        description
+          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+        type uint32; 
     }
     container xpdr-client-attributes {
       when "../tp-type = 'XPONDER-CLIENT'";
       uses xpdr:xpdr-connection-attributes;
-      uses xpdr:xpdr-client-connection-attributes;
+      uses xpdr:xpdr-port-connection-attributes;
     }
     container xpdr-network-attributes {
       when "../tp-type = 'XPONDER-NETWORK'";
       uses xpdr:xpdr-connection-attributes;
-      uses xpdr:xpdr-network-connection-attributes;
+      uses xpdr:xpdr-port-connection-attributes;
     }
+    container xpdr-port-attributes {
+      when "../tp-type = 'XPONDER-PORT'";
+      uses xpdr:xpdr-connection-attributes;
+      uses xpdr:xpdr-port-connection-attributes;
+    }	
     container ext-pluggable-attributes {
       when "../tp-type = 'EXT-PLUGGABLE-TP'";
       uses plg:pluggable-tp-attributes;
@@ -195,7 +228,7 @@ module org-openroadm-network-topology {
     description
       "This augmentation defines ROADM link types in the ROADM topology";
     leaf link-type {
-      type org-openroadm-network-types:logical-link-type;
+      type org-openroadm-network-types:openroadm-link-type;
     }
     leaf link-length {
       type decimal64 {

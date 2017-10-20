@@ -2,6 +2,11 @@ module org-openroadm-resource-types {
   namespace "http://org/openroadm/resource/types";
   prefix org-openroadm-resource-types;
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2017-09-29;
+  }
+
   organization
     "Open ROADM MSA";
   contact
@@ -35,6 +40,10 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -80,7 +89,8 @@ module org-openroadm-resource-types {
       enum "connection" {
         value 5;
         description
-          "connection";
+          "connection - this is used by roadm-connection and odu-connection
+           since they are mutually exclusive in the model";
       }
       enum "connection-map" {
         value 6;
@@ -122,6 +132,31 @@ module org-openroadm-resource-types {
         description
           "service";
       }
+      enum "odu-sncp-pg" {
+        value 14;
+        description
+          "odu-sncp-pg";
+      }
+      enum "line-amplifier" {
+        value 15;
+        description
+          "line-amplifier";
+      }
+      enum "xponder" {
+        value 16;
+        description
+          "xponder";
+      }
+      enum "versioned-service" {
+        value 17;
+        description
+          "versioned-service";
+      }
+      enum "temp-service" {
+        value 18;
+        description
+          "temp-service";
+      }
     }
   }
 
@@ -132,7 +167,7 @@ module org-openroadm-resource-types {
       description
         "Node Id is a globally unique identifier for a device. 
          Same as leafref value in model, if applicable.";
-      type string;
+      type org-openroadm-common-types:node-id-type;
     }
   }
 
@@ -176,10 +211,10 @@ module org-openroadm-resource-types {
     }
   }
 
-  grouping connection-number {
-    leaf connection-number {
+  grouping connection-name {
+    leaf connection-name {
       description
-        "Connection identifier. Unique within the context of a device. 
+        "Connection name. Unique within the context of a device. 
          Same as leafref value in model, if applicable.";
       type string;
     }
@@ -223,6 +258,32 @@ module org-openroadm-resource-types {
     }
   }
 
+  grouping versioned-service-name {
+    leaf versioned-service-name {
+      description
+        "Service identifier. Unique within the context of a network.  
+         Same as leafref value in model, if applicable.";
+      type string;
+      mandatory true;
+    }
+    leaf version-number {
+      description
+        "version-number of the service";
+      type uint64;
+      mandatory true;
+    }
+  }
+
+  grouping temp-service-name {
+    leaf common-id {
+      description
+        "Service identifier. Unique within the context of a network.  
+         Same as leafref value in model, if applicable.";
+      type string;
+      mandatory true;
+    }
+  }
+
   grouping interface-name {
     leaf interface-name {
       description
@@ -237,6 +298,33 @@ module org-openroadm-resource-types {
       description
         "resource-id for other.";
       type string;
+      mandatory true;
+    }
+  }
+
+  grouping odu-sncp-pg-name {
+    leaf odu-sncp-pg-name {
+      description
+        "name of the odu-snc-pg";
+      type string;
+      mandatory true;
+    }
+  }
+
+  grouping amp-number {
+    leaf amp-number {
+      description
+        "number of the line-amplifier";
+      type uint8;
+      mandatory true;
+    }
+  }
+
+  grouping xpdr-number {
+    leaf xpdr-number {
+      description
+        "number of the xponder";
+      type uint16;
       mandatory true;
     }
   }

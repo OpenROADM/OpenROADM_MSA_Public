@@ -4,11 +4,11 @@ module org-openroadm-link {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -45,6 +45,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -61,6 +65,32 @@ module org-openroadm-link {
   }
 
   grouping span-attributes {
+    leaf clfi  {
+      type string;
+    }  
+    leaf auto-spanloss {
+      type boolean;
+      default "true"; 
+      description
+        "Flag to enable/disable automatic spanloss measurement";
+    }	
+    leaf spanloss-base {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Baseline ROADM span loss measured and accepted during
+         degree turn-up.";
+    }
+    leaf spanloss-current {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "Current ROADM span loss measured and accepted during
+         degree turn-up.";
+    }
+    leaf engineered-spanloss {
+      type org-openroadm-common-types:ratio-dB;
+      description
+        "ROADM span loss provided by an external system";
+    }	
     list link-concatenation {
       key "SRLG-Id";
       leaf SRLG-Id {
@@ -112,23 +142,6 @@ module org-openroadm-link {
           }
         }
       }
-      leaf spanloss-base {
-        type org-openroadm-common-types:ratio-dB;
-        description
-          "Baseline ROADM span loss measured and accepted during
-           degree turn-up.";
-      }
-      leaf spanloss-current {
-        type org-openroadm-common-types:ratio-dB;
-        description
-          "Current ROADM span loss measured and accepted during
-           degree turn-up.";
-      }
-      leaf engineered-spanloss {
-        type org-openroadm-common-types:ratio-dB;
-        description
-          "ROADM span loss provided by an external system";
-      }
       leaf SRLG-length {
         type uint32;
         description
@@ -146,8 +159,8 @@ module org-openroadm-link {
     list amplified-link {
       description
         "defines the spans and the amplifier blocks of the amplified lines";
-      key "section-elt-id";
-      leaf section-elt-id {
+      key "section-elt-number";
+      leaf section-elt-number {
         type uint16;
         description
           "Id of the section element (whether it's a Span or an Amp)";
@@ -158,7 +171,7 @@ module org-openroadm-link {
             container ila {
               uses org-openroadm-amplifier:amplifier-node-attributes;
               leaf node-id {
-                type string;
+                type org-openroadm-common-types:node-id-type;
                 mandatory true;
                 description
                   "Node id corresponding to the amplifier ";

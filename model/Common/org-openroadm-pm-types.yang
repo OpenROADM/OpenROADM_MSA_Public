@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -347,71 +351,143 @@ module org-openroadm-pm-types {
         description
           "FEC Uncorrectable Blocks.";
       }
-      enum "erroredBlockCountTCM1" {
-        value 44;
-        description
-          "errored Blocks Count on TCM1.";
-      }
-      enum "erroredBlockCountTCM2" {
-        value 45;
-        description
-          "errored Blocks Count on TCM2.";
-      }
-      enum "erroredBlockCountTCM3" {
-        value 46;
-        description
-          "errored Blocks Count on TCM3.";
-      }
-      enum "erroredBlockCountTCM4" {
-        value 47;
-        description
-          "errored Blocks Count on TCM4.";
-      }
-      enum "erroredBlockCountTCM5" {
-        value 48;
-        description
-          "errored Blocks Count on TCM5.";
-      }
-      enum "erroredBlockCountTCM6" {
-        value 49;
-        description
-          "errored Blocks Count on TCM6.";
-      }
-      enum "delayTCM1" {
-        value 50;
-        description
-          "Delay on TCM1.";
-      }
-      enum "delayTCM2" {
-        value 51;
-        description
-          "Delay on TCM2.";
-      }
-      enum "delayTCM3" {
-        value 52;
-        description
-          "Delay on TCM3.";
-      }
-      enum "delayTCM4" {
-        value 53;
-        description
-          "Delay on TCM5.";
-      }
-      enum "delayTCM5" {
-        value 54;
-        description
-          "Delay on TCM5.";
-      }
-      enum "delayTCM6" {
-        value 55;
-        description
-          "Delay on TCM6.";
-      }
       enum "BIPErrorCounter" {
         value 56;
         description
           "BIP Error Counter";
       }
+      enum "protectionSwitchingCount" {
+        value 57;
+        description
+          "Protection Switching Count (PSC)";
+        reference "";
+      }
+      enum "protectionSwitchingDuration" {
+        value 58;
+        description
+          "Protection Switching Duration in seconds (PSD)";
+        reference "";
+      }
+      enum "erroredBlockCountTCM1-up" {
+        value 59;
+        description
+          "errored Blocks Count on TCM1 up direction.";
+      }
+      enum "erroredBlockCountTCM2-up" {
+        value 60;
+        description
+          "errored Blocks Count on TCM2 up direction.";
+      }
+      enum "erroredBlockCountTCM3-up" {
+        value 61;
+        description
+          "errored Blocks Count on TCM3 up direction.";
+      }
+      enum "erroredBlockCountTCM4-up" {
+        value 62;
+        description
+          "errored Blocks Count on TCM4 up direction.";
+      }
+      enum "erroredBlockCountTCM5-up" {
+        value 63;
+        description
+          "errored Blocks Count on TCM5 up direction.";
+      }
+      enum "erroredBlockCountTCM6-up" {
+        value 64;
+        description
+          "errored Blocks Count on TCM6 up direction.";
+      }
+      enum "delayTCM1-up" {
+        value 65;
+        description
+          "Delay on TCM1 up direction.";
+      }
+      enum "delayTCM2-up" {
+        value 66;
+        description
+          "Delay on TCM2 up direction.";
+      }
+      enum "delayTCM3-up" {
+        value 67;
+        description
+          "Delay on TCM3 up direction.";
+      }
+      enum "delayTCM4-up" {
+        value 68;
+        description
+          "Delay on TCM4 up direction.";
+      }
+      enum "delayTCM5-up" {
+        value 69;
+        description
+          "Delay on TCM5 up direction.";
+      }
+      enum "delayTCM6-up" {
+        value 70;
+        description
+          "Delay on TCM6 up direction.";
+      }                                        
+      enum "erroredBlockCountTCM1-down" {
+        value 71;
+        description
+          "errored Blocks Count on TCM1 down direction.";
+      }
+      enum "erroredBlockCountTCM2-down" {
+        value 72;
+        description
+          "errored Blocks Count on TCM2 down direction.";
+      }
+      enum "erroredBlockCountTCM3-down" {
+        value 73;
+        description
+          "errored Blocks Count on TCM3 down direction.";
+      }
+      enum "erroredBlockCountTCM4-down" {
+        value 74;
+        description
+          "errored Blocks Count on TCM4 down direction.";
+      }
+      enum "erroredBlockCountTCM5-down" {
+        value 75;
+        description
+          "errored Blocks Count on TCM5 down direction.";
+      }
+      enum "erroredBlockCountTCM6-down" {
+        value 76;
+        description
+          "errored Blocks Count on TCM6 down direction.";
+      }
+      enum "delayTCM1-down" {
+        value 77;
+        description
+          "Delay on TCM1 down direction.";
+      }
+      enum "delayTCM2-down" {
+        value 78;
+        description
+          "Delay on TCM2 down direction.";
+      }
+      enum "delayTCM3-down" {
+        value 79;
+        description
+          "Delay on TCM3 down direction.";
+      }
+      enum "delayTCM4-down" {
+        value 80;
+        description               
+          "Delay on TCM4 down direction.";
+      }
+      enum "delayTCM5-down" {
+        value 81;
+        description
+          "Delay on TCM5 down direction.";
+      }
+      enum "delayTCM6-down" {
+        value 82;
+        description
+          "Delay on TCM6 down direction.";
+      }                            
     }
   }
 }

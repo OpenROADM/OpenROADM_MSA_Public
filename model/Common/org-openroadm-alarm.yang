@@ -8,15 +8,15 @@ module org-openroadm-alarm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
 
   organization "Open ROADM MSA";
@@ -51,6 +51,11 @@ module org-openroadm-alarm {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
+
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -78,28 +83,6 @@ module org-openroadm-alarm {
         "Probable cause of alarm";
       uses org-openroadm-probable-cause:probable-cause;
     }
-    leaf type {
-      description
-        "Type of alarm. Based on X.733 event Type.";
-      mandatory false;
-      type enumeration {
-        enum "communication" {
-          value 1;
-        }
-        enum "qualityOfService" {
-          value 2;
-        }
-        enum "processingError" {
-          value 3;
-        }
-        enum "equipment" {
-          value 4;
-        }
-        enum "environmental" {
-          value 5;
-        }
-      }
-    }
     leaf raiseTime {
       description
         "Time alarm was raised";
@@ -117,6 +100,16 @@ module org-openroadm-alarm {
         "Circuit-id for alarm correlation.";
       type string;
     }
+    leaf additional-detail {
+      description
+        "Provide additional descriptive text about the probable cause.";
+      type string;
+    }         
+    leaf corrective-action {
+      description
+        "Provide recommended corrective actions for this probable cause, i.e. replace or restart a circuit pack, check wiring for the reported source, or secondary failure to be correlated ";
+      type string;
+    }  
   }
 
   container active-alarm-list {

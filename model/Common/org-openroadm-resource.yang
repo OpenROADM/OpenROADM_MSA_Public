@@ -4,7 +4,7 @@ module org-openroadm-resource {
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -40,11 +40,14 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
   }
-
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -76,8 +79,8 @@ module org-openroadm-resource {
           }
         }
         case connection {
-          uses org-openroadm-resource-types:connection-number {
-            refine "connection-number" {
+          uses org-openroadm-resource-types:connection-name {
+            refine "connection-name" {
               mandatory true;
             }
           }
@@ -111,6 +114,9 @@ module org-openroadm-resource {
         case interface {
           uses org-openroadm-resource-types:interface-name;
         }
+        case odu-sncp-pg {
+          uses org-openroadm-resource-types:odu-sncp-pg-name;
+        }
         case other {
           uses org-openroadm-resource-types:other-resource-id;
         }
@@ -120,6 +126,18 @@ module org-openroadm-resource {
               mandatory true;
             }
           }
+        }
+        case line-amplifier {
+          uses org-openroadm-resource-types:amp-number;
+        }
+        case xponder {
+          uses org-openroadm-resource-types:xpdr-number;
+        }
+        case versioned-service {
+          uses org-openroadm-resource-types:versioned-service-name;
+        }
+        case temp-service {
+          uses org-openroadm-resource-types:temp-service-name;
         }
       }
     }
