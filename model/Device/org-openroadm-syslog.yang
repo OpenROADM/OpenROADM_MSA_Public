@@ -12,7 +12,7 @@ module org-openroadm-syslog {
     "OpenROADM.org";
   description
     "This module contains a collection of YANG definitions 
-     for Syslog configuration.
+     for Syslog configuration.                                               
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
      AT&T Intellectual Property.  All other rights reserved.
@@ -55,6 +55,10 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }                   
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -262,6 +266,14 @@ module org-openroadm-syslog {
     description
       "This container describes the configuration parameters for 
        Syslog.";
+    leaf local-syslog-filename {
+      description
+        "The syslog file name. It should be a fully qualified name 
+         so that the user can get the file using transfer RPC.";
+      type string;
+      config false;
+      mandatory true;
+    }
     container log-actions {
       description
         "This container describes the log-action parameters 

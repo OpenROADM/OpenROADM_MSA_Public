@@ -55,7 +55,7 @@ module org-openroadm-roadm {
       description
         "Max no. of SRGs supported by the node";
     }
-    leaf current-degree {
+    leaf current-degrees {
       type uint16;
       description
         "Current no. of degrees supported by the node";

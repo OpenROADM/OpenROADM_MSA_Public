@@ -4,7 +4,7 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -17,6 +17,10 @@ module org-openroadm-otn-otu-interfaces {
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
     revision-date 2017-06-26;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -66,6 +70,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -79,59 +87,13 @@ module org-openroadm-otn-otu-interfaces {
       "Version 1.2";
   }
 
-  identity otu-rate-identity {
-    description
-      "A unique rate identification of the OTU.";
-  }
-
-  identity OTU4 {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU4";
-  }
-
-  identity OTU3 {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU3";
-  }
-
-  identity OTU2 {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU2";
-  }
-
-  identity OTU2e {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU2e";
-  }
-
-  identity OTU1 {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU1";
-  }
-
-  identity OTU0 {
-    base otu-rate-identity;
-    description
-      "Identity for an OTU0";
-  }
-
-  identity OTUflex {
-    base otu-rate-identity;
-    description
-      "Identity for an OTUflex";
-  }
 
   grouping otu-attributes {
     description
       "OTU attributes";
     leaf rate {
       type identityref {
-        base otu-rate-identity;
+        base org-openroadm-otn-common-types:otu-rate-identity;
       }
       description
         "rate identity of the OTU. 'identityref' is used

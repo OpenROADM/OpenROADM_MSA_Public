@@ -4,7 +4,7 @@ module org-openroadm-probable-cause {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -75,11 +79,28 @@ module org-openroadm-probable-cause {
       type org-openroadm-common-types:location;
       mandatory true;
     }
-    leaf additional-detail {
+    leaf type {
       description
-        "Provide additional descriptive text about the probable cause.";
-      type string;
-    }
+        "Type of alarm. Based on X.733 event Type.";
+      mandatory false;
+      type enumeration {
+        enum "communication" {
+          value 1;
+        }
+        enum "qualityOfService" {
+          value 2;
+        }
+        enum "processingError" {
+          value 3;
+        }
+        enum "equipment" {
+          value 4;
+        }
+        enum "environmental" {
+          value 5;
+        }
+      }
+    }         
   }
 
   typedef probable-cause-enum {
@@ -296,168 +317,6 @@ module org-openroadm-probable-cause {
       enum "clientSignalFailDefect" {
         value 68;
       }
-      enum "backwardIncomingAlignmentErrorTCM1" {
-        value 69;
-      }
-      enum "backwardIncomingAlignmentErrorTCM2" {
-        value 70;
-      }
-      enum "backwardIncomingAlignmentErrorTCM3" {
-        value 71;
-      }
-      enum "backwardIncomingAlignmentErrorTCM4" {
-        value 72;
-      }
-      enum "backwardIncomingAlignmentErrorTCM5" {
-        value 73;
-      }
-      enum "backwardIncomingAlignmentErrorTCM6" {
-        value 74;
-      }
-      enum "incomingAlignmentErrorTCM1" {
-        value 75;
-      }
-      enum "incomingAlignmentErrorTCM2" {
-        value 76;
-      }
-      enum "incomingAlignmentErrorTCM3" {
-        value 77;
-      }
-      enum "incomingAlignmentErrorTCM4" {
-        value 78;
-      }
-      enum "incomingAlignmentErrorTCM5" {
-        value 79;
-      }
-      enum "incomingAlignmentErrorTCM6" {
-        value 80;
-      }
-      enum "backwardsDefectIndicationTCM1" {
-        value 81;
-      }
-      enum "backwardsDefectIndicationTCM2" {
-        value 82;
-      }
-      enum "backwardsDefectIndicationTCM3" {
-        value 83;
-      }
-      enum "backwardsDefectIndicationTCM4" {
-        value 84;
-      }
-      enum "backwardsDefectIndicationTCM5" {
-        value 85;
-      }
-      enum "backwardsDefectIndicationTCM6" {
-        value 86;
-      }
-      enum "degradedDefectTCM1" {
-        value 87;
-      }
-      enum "degradedDefectTCM2" {
-        value 88;
-      }
-      enum "degradedDefectTCM3" {
-        value 89;
-      }
-      enum "degradedDefectTCM4" {
-        value 90;
-      }
-      enum "degradedDefectTCM5" {
-        value 91;
-      }
-      enum "degradedDefectTCM6" {
-        value 92;
-      }
-      enum "trailTraceIdentifierMisMatchTCM1" {
-        value 93;
-      }
-      enum "trailTraceIdentifierMisMatchTCM2" {
-        value 94;
-      }
-      enum "trailTraceIdentifierMisMatchTCM3" {
-        value 95;
-      }
-      enum "trailTraceIdentifierMisMatchTCM4" {
-        value 96;
-      }
-      enum "trailTraceIdentifierMisMatchTCM5" {
-        value 97;
-      }
-      enum "trailTraceIdentifierMisMatchTCM6" {
-        value 98;
-      }
-      enum "alarmIndicationSignalTCM1" {
-        value 99;
-      }
-      enum "alarmIndicationSignalTCM2" {
-        value 100;
-      }
-      enum "alarmIndicationSignalTCM3" {
-        value 101;
-      }
-      enum "alarmIndicationSignalTCM4" {
-        value 102;
-      }
-      enum "alarmIndicationSignalTCM5" {
-        value 103;
-      }
-      enum "alarmIndicationSignalTCM6" {
-        value 104;
-      }
-      enum "openConnectionIndicationTCM1" {
-        value 105;
-      }
-      enum "openConnectionIndicationTCM2" {
-        value 106;
-      }
-      enum "openConnectionIndicationTCM3" {
-        value 107;
-      }
-      enum "openConnectionIndicationTCM4" {
-        value 108;
-      }
-      enum "openConnectionIndicationTCM5" {
-        value 109;
-      }
-      enum "openConnectionIndicationTCM6" {
-        value 110;
-      }
-      enum "lockedDefectTCM1" {
-        value 111;
-      }
-      enum "lockedDefectTCM2" {
-        value 112;
-      }
-      enum "lockedDefectTCM3" {
-        value 113;
-      }
-      enum "lockedDefectTCM4" {
-        value 114;
-      }
-      enum "lockedDefectTCM5" {
-        value 115;
-      }
-      enum "lockedDefectTCM6" {
-        value 116;
-      }
-      enum "lossofTandemConnectionTCM1" {
-        value 117;
-      }
-      enum "lossofTandemConnectionTCM2" {
-        value 118;
-      }
-      enum "lossofTandemConnectionTCM3" {
-        value 119;
-      }
-      enum "lossofTandemConnectionTCM4" {
-        value 120;
-      }
-      enum "lossofTandemConnectionTCM5" {
-        value 121;
-      }
-      enum "lossofTandemConnectionTCM6" {
-        value 122;
-      }
       enum "highBER" {
         value 123;
       }
@@ -539,6 +398,336 @@ module org-openroadm-probable-cause {
       enum "omsPowerOutOfSpecificationLow" {
         value 150;
       }
+      enum "automaticSwitchAwayFromWorkingDueToSD" {
+        value 151;
+      }
+      enum "automaticSwitchAwayFromProtectDueToSD" {
+        value 152;
+      }
+      enum "backwardIncomingAlignmentErrorTCM1-up" {
+        value 153;
+      }
+      enum "backwardIncomingAlignmentErrorTCM2-up" {
+        value 154;
+      }
+      enum "backwardIncomingAlignmentErrorTCM3-up" {
+        value 155;
+      }
+      enum "backwardIncomingAlignmentErrorTCM4-up" {
+        value 156;
+      }
+      enum "backwardIncomingAlignmentErrorTCM5-up" {
+        value 157;
+      }
+      enum "backwardIncomingAlignmentErrorTCM6-up" {
+        value 158;
+      }
+      enum "incomingAlignmentErrorTCM1-up" {
+        value 159;
+      }
+      enum "incomingAlignmentErrorTCM2-up" {
+        value 160;
+      }
+      enum "incomingAlignmentErrorTCM3-up" {
+        value 161;
+      }
+      enum "incomingAlignmentErrorTCM4-up" {
+        value 162;
+      }
+      enum "incomingAlignmentErrorTCM5-up" {
+        value 163;
+      }
+      enum "incomingAlignmentErrorTCM6-up" {
+        value 164;
+      }
+      enum "backwardsDefectIndicationTCM1-up" {
+        value 165;
+      }
+      enum "backwardsDefectIndicationTCM2-up" {
+        value 166;
+      }
+      enum "backwardsDefectIndicationTCM3-up" {
+        value 167;
+      }
+      enum "backwardsDefectIndicationTCM4-up" {
+        value 168;
+      }
+      enum "backwardsDefectIndicationTCM5-up" {
+        value 169;
+      }
+      enum "backwardsDefectIndicationTCM6-up" {
+        value 170;
+      }
+      enum "degradedDefectTCM1-up" {
+        value 171;
+      }
+      enum "degradedDefectTCM2-up" {
+        value 172;
+      }
+      enum "degradedDefectTCM3-up" {
+        value 173;
+      }
+      enum "degradedDefectTCM4-up" {
+        value 174;
+      }
+      enum "degradedDefectTCM5-up" {
+        value 175;
+      }
+      enum "degradedDefectTCM6-up" {
+        value 176;
+      }
+      enum "trailTraceIdentifierMisMatchTCM1-up" {
+        value 177;
+      }
+      enum "trailTraceIdentifierMisMatchTCM2-up" {
+        value 178;
+      }
+      enum "trailTraceIdentifierMisMatchTCM3-up" {
+        value 179;
+      }
+      enum "trailTraceIdentifierMisMatchTCM4-up" {
+        value 180;
+      }
+      enum "trailTraceIdentifierMisMatchTCM5-up" {
+        value 181;
+      }
+      enum "trailTraceIdentifierMisMatchTCM6-up" {
+        value 182;
+      }
+      enum "alarmIndicationSignalTCM1-up" {
+        value 183;
+      }
+      enum "alarmIndicationSignalTCM2-up" {
+        value 184;
+      }
+      enum "alarmIndicationSignalTCM3-up" {
+        value 185;
+      }
+      enum "alarmIndicationSignalTCM4-up" {
+        value 186;
+      }
+      enum "alarmIndicationSignalTCM5-up" {
+        value 187;
+      }
+      enum "alarmIndicationSignalTCM6-up" {
+        value 188;
+      }
+      enum "openConnectionIndicationTCM1-up" {
+        value 189;
+      }
+      enum "openConnectionIndicationTCM2-up" {
+        value 190;
+      }
+      enum "openConnectionIndicationTCM3-up" {
+        value 191;
+      }
+      enum "openConnectionIndicationTCM4-up" {
+        value 192;
+      }
+      enum "openConnectionIndicationTCM5-up" {
+        value 193;
+      }
+      enum "openConnectionIndicationTCM6-up" {
+        value 194;
+      }
+      enum "lockedDefectTCM1-up" {
+        value 195;
+      }
+      enum "lockedDefectTCM2-up" {
+        value 196;
+      }
+      enum "lockedDefectTCM3-up" {
+        value 197;
+      }
+      enum "lockedDefectTCM4-up" {
+        value 198;
+      }
+      enum "lockedDefectTCM5-up" {            
+        value 199;
+      }
+      enum "lockedDefectTCM6-up" {
+        value 200;
+      }
+      enum "lossofTandemConnectionTCM1-up" {
+        value 201;
+      }
+      enum "lossofTandemConnectionTCM2-up" {
+        value 202;
+      }
+      enum "lossofTandemConnectionTCM3-up" {
+        value 203;
+      }
+      enum "lossofTandemConnectionTCM4-up" {
+        value 204;
+      }
+      enum "lossofTandemConnectionTCM5-up" {
+        value 205;
+      }
+      enum "lossofTandemConnectionTCM6-up" {
+        value 206;
+      }                                         
+      enum "backwardIncomingAlignmentErrorTCM1-down" {
+        value 207;
+      }
+      enum "backwardIncomingAlignmentErrorTCM2-down" {
+        value 208;
+      }
+      enum "backwardIncomingAlignmentErrorTCM3-down" {
+        value 209;
+      }
+      enum "backwardIncomingAlignmentErrorTCM4-down" {
+        value 210;
+      }
+      enum "backwardIncomingAlignmentErrorTCM5-down" {
+        value 211;
+      }
+      enum "backwardIncomingAlignmentErrorTCM6-down" {
+        value 212;
+      }
+      enum "incomingAlignmentErrorTCM1-down" {
+        value 213;
+      }
+      enum "incomingAlignmentErrorTCM2-down" {
+        value 214;
+      }
+      enum "incomingAlignmentErrorTCM3-down" {
+        value 215;
+      }
+      enum "incomingAlignmentErrorTCM4-down" {
+        value 216;
+      }
+      enum "incomingAlignmentErrorTCM5-down" {
+        value 217;
+      }
+      enum "incomingAlignmentErrorTCM6-down" {
+        value 218;
+      }
+      enum "backwardsDefectIndicationTCM1-down" {
+        value 219;
+      }
+      enum "backwardsDefectIndicationTCM2-down" {
+        value 220;
+      }
+      enum "backwardsDefectIndicationTCM3-down" {
+        value 221;
+      }
+      enum "backwardsDefectIndicationTCM4-down" {
+        value 222;
+      }
+      enum "backwardsDefectIndicationTCM5-down" {
+        value 223;
+      }
+      enum "backwardsDefectIndicationTCM6-down" {
+        value 224;
+      }
+      enum "degradedDefectTCM1-down" {
+        value 225;
+      }
+      enum "degradedDefectTCM2-down" {
+        value 226;
+      }
+      enum "degradedDefectTCM3-down" {
+        value 227;
+      }
+      enum "degradedDefectTCM4-down" {
+        value 228;
+      }
+      enum "degradedDefectTCM5-down" {
+        value 229;
+      }
+      enum "degradedDefectTCM6-down" {
+        value 230;
+      }
+      enum "trailTraceIdentifierMisMatchTCM1-down" {
+        value 231;
+      }
+      enum "trailTraceIdentifierMisMatchTCM2-down" {
+        value 232;
+      }
+      enum "trailTraceIdentifierMisMatchTCM3-down" {
+        value 233;
+      }
+      enum "trailTraceIdentifierMisMatchTCM4-down" {
+        value 234;
+      }
+      enum "trailTraceIdentifierMisMatchTCM5-down" {
+        value 235;
+      }
+      enum "trailTraceIdentifierMisMatchTCM6-down" {
+        value 236;
+      }
+      enum "alarmIndicationSignalTCM1-down" {
+        value 237;
+      }
+      enum "alarmIndicationSignalTCM2-down" {
+        value 238;
+      }
+      enum "alarmIndicationSignalTCM3-down" {
+        value 239;
+      }
+      enum "alarmIndicationSignalTCM4-down" {
+        value 240;
+      }
+      enum "alarmIndicationSignalTCM5-down" {
+        value 241;
+      }
+      enum "alarmIndicationSignalTCM6-down" {
+        value 242;
+      }
+      enum "openConnectionIndicationTCM1-down" {
+        value 243;
+      }
+      enum "openConnectionIndicationTCM2-down" {
+        value 244;
+      }
+      enum "openConnectionIndicationTCM3-down" {
+        value 245;
+      }
+      enum "openConnectionIndicationTCM4-down" {
+        value 246;
+      }
+      enum "openConnectionIndicationTCM5-down" {
+        value 247;
+      }
+      enum "openConnectionIndicationTCM6-down" {
+        value 248;
+      }
+      enum "lockedDefectTCM1-down" {
+        value 249;
+      }
+      enum "lockedDefectTCM2-down" {
+        value 250;
+      }
+      enum "lockedDefectTCM3-down" {
+        value 251;
+      }
+      enum "lockedDefectTCM4-down" {
+        value 252;
+      }
+      enum "lockedDefectTCM5-down" {
+        value 253;
+      }
+      enum "lockedDefectTCM6-down" {
+        value 254;
+      }
+      enum "lossofTandemConnectionTCM1-down" {
+        value 255;
+      }
+      enum "lossofTandemConnectionTCM2-down" {
+        value 256;
+      }
+      enum "lossofTandemConnectionTCM3-down" {
+        value 257;
+      }
+      enum "lossofTandemConnectionTCM4-down" {
+        value 258;
+      }
+      enum "lossofTandemConnectionTCM5-down" {
+        value 259;
+      }
+      enum "lossofTandemConnectionTCM6-down" {
+        value 260;
+      }                                           
     }
   }
 }

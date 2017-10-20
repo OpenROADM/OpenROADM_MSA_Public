@@ -12,19 +12,23 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -60,6 +64,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -109,15 +117,37 @@ module org-openroadm-common-service-types {
         "Format of the requested service: Ethernet, OTU, etc.";
     }
     leaf service-rate {
-      when "../service-format!='OMS'" {
+      when "../service-format != 'OMS' and ../service-format != 'ODU'" {
         description
           "service rate not applicable when service 
-           format is roadmline";
+           format is roadmline or ODU; valid for OTU since service-rate has
+           already been supported for wdm layer OTU services (100 for OTU4)";
       }
       type uint32;
-      mandatory true;
       description
         "Rate of the requested service in GBps";
+    }
+    leaf otu-service-rate {
+      when "../service-format = 'OTU'" {
+        description
+          "only applicable for OTU services";
+      }
+      type identityref {
+        base org-openroadm-otn-common-types:otu-rate-identity;
+      }
+      description
+        "OTU Rate of the requested service";
+    }
+    leaf odu-service-rate {
+      when "../service-format = 'ODU'" {
+        description
+          "only applicable for ODU services";
+      }
+      type identityref {
+        base org-openroadm-otn-common-types:odu-rate-identity;
+      }
+      description
+        "ODU Rate of the requested service";
     }
     leaf ethernet-encoding {
       when
@@ -125,10 +155,9 @@ module org-openroadm-common-service-types {
          and
          (../service-rate=10)" {
         description
-          "Applicable only to Ethernet";
+          "Applicable only to Ethernet 10G services";
       }
       type ethernet-encoding-type;
-      mandatory true;
       description
         "Ethernet encoding type";
     }
@@ -138,10 +167,9 @@ module org-openroadm-common-service-types {
          and
          (../service-rate=10)" {
         description
-          "Mapping Mode, currently only defined for Ethernet";
+          "Mapping Mode, currently only defined for Ethernet 10G services";
       }
       type mapping-mode-type;
-      mandatory true;
       description
         "Mapping mode.";
     }
@@ -170,7 +198,7 @@ module org-openroadm-common-service-types {
       description
         "Needed for communication with DWDM pluggable";
       leaf node-id {
-        type string;
+        type org-openroadm-common-types:node-id-type;
         description
           "Node id. This is reported against the service, but may not get reflected in the service in the network.";
       }
@@ -262,6 +290,9 @@ module org-openroadm-common-service-types {
   grouping service-port {
     container port {
       leaf port-device-name {
+        type string;
+      }
+      leaf port-circuit-pack-name {
         type string;
       }
       leaf port-type {
@@ -377,6 +408,12 @@ module org-openroadm-common-service-types {
       description
         "Operator contact information to be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
     }
+    leaf service-layer {
+      type service-layer-type;
+      default "wdm";
+      description
+        "Layer associated with service (e.g. wdm or otn)";
+    }
   }
 
   grouping service {
@@ -452,6 +489,15 @@ module org-openroadm-common-service-types {
     container topology {
       uses org-openroadm-topology:topology;
     }
+    leaf is-bandwidth-locked {
+      type boolean;
+      default false;
+      description
+        "Bandwidth lock (true, false) indicates whether the service is administratively
+         prohibited from taking on more capacity - ie whether it can be used as a supporting
+         service in any new service creations. Unlike administrative status, this does not       
+         impact any previous planned or deployed services.";
+    }
   }
 
   grouping service-notification-result {
@@ -496,34 +542,39 @@ module org-openroadm-common-service-types {
 
   typedef ethernet-encoding-type {
     type enumeration {
-      enum "not-applicable" {
+      enum "10GBASE-W" {
         value 1;
       }
-      enum "10GBASE-W" {
-        value 2;
-      }
       enum "10GBASE-R" {
-        value 3;
+        value 2;
       }
     }
   }
 
   typedef mapping-mode-type {
     type enumeration {
-      enum "not-applicable" {
-        value 1;
-      }
       enum "GFP-F" {
-        value 2;
+        value 1;
         reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
       }
       enum "GFP-E" {
-        value 3;
+        value 2;
         reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
       }
       enum "PCS-Transparent" {
-        value 4;
+        value 3;
         reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
+      }
+    }
+  }
+
+  typedef service-layer-type {
+    type enumeration {
+      enum "wdm" {
+        value 1;
+      }
+      enum "otn" {
+        value 2;
       }
     }
   }

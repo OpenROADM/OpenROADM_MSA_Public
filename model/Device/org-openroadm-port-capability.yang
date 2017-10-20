@@ -1,0 +1,316 @@
+module org-openroadm-port-capability {
+  namespace "http://org/openroadm/port-capability";
+  prefix org-openroadm-port-capability;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2017-09-29;     
+  }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+    revision-date 2017-09-29;     
+  }
+  import org-openroadm-prot-otn-linear-aps {
+    prefix org-openroadm-prot-otn-linear-aps;
+    revision-date 2017-09-29;     
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2017-09-29;
+  }
+
+  organization "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for device facility OTN linear APS protection groups.
+     
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+     AT&T Intellectual Property.  All other rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without modification, 
+     are permitted provided that the following conditions are met:
+     
+     * Redistributions of source code must retain the above copyright notice, this 
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or 
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+       contributors may be used to endorse or promote products derived from this software 
+       without specific prior written permission.
+     
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+     POSSIBILITY OF SUCH DAMAGE.
+     
+     Also contains code components extracted from IETF Interfaces.  These code components
+     are copyrighted and licensed as follows:
+     
+     Copyright (c) 2017 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+     
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
+     extracted from this document must include Simplified BSD License text as described in
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
+     described in the Simplified BSD License.";
+
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
+
+  typedef tcm-direction-capability-type {
+    type enumeration {
+      enum "up-tcm" {
+        description
+          "Port supports up TCM termination, e.g., direction facing the switch fabric";
+      }
+      enum "down-tcm" {
+        description
+          "Port supports down TCM termination, e.g., direction facing out of the equipment ";
+      }
+      enum "up-down-tcm" {
+        description
+          "Port supports both up and down TCM terminations";
+      }
+    }
+    description
+      "TCM direction capability for the port";
+  }
+
+  grouping port-id-grp {
+    leaf circuit-pack-name {
+      description
+        "Circuit-Pack identifier. Unique within the context of a device.";
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
+      }
+    }
+    leaf port-name {
+      description
+        "Port index identifier. Unique within the context of a circuit-pack.";
+      type string;
+    }
+  }
+
+  grouping port-capability-grp {
+    description
+      "OpenROADM port capability parameters.";
+    container port-capabilities {
+      config false;
+      list supported-interface-capability {
+        key "if-cap-type";
+        description
+          "Supported interface capability on the port.";
+        leaf if-cap-type {
+          description
+            "Interface type/hierarchy/rate supported on this port";
+          type identityref {
+            base org-openroadm-port-types:supported-if-capability;
+          }
+        }
+        container otn-capability {
+          leaf-list if-protection-capability {
+            description
+              "supported protection types if protection is supported on this port";
+            type identityref {
+              base org-openroadm-prot-otn-linear-aps:otn-protection-type;
+            }
+          }
+          leaf proactive-DMp {
+            type boolean;
+            description
+              "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+          }
+          leaf no-oam-function {
+            type boolean;
+            description
+              "No OAM functionality exists for this ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions";
+          }
+          leaf tcm-capable {
+            type boolean;
+            description
+              "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
+          }
+          leaf proactive-DMt {
+            when "../tcm-capable= 'true'";  
+            type boolean;
+            description
+              "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+          }
+          leaf tcm-direction-capability {
+            when "../tcm-capable= 'true'";  
+            description
+              "Supported tcm direction capability on the ODUk associated with the port.";
+            type tcm-direction-capability-type;
+          }
+          leaf-list client-mapping-odu-type {
+            description
+              "Mapping ODU type for non-OTN client interface type on the port";
+            type identityref {
+              base org-openroadm-otn-common-types:odu-rate-identity;
+            }
+          }
+          leaf client-explicit-odu {
+            type boolean;
+            description
+              "NE device to publich if this is the client ODU";
+          }
+          container mpdr-client-restriction {
+            when "../../../../port-qual='xpdr-client'";
+            description
+              "Restriction rules for how LO ODUs are multiplexed into HO ODU
+               and the relation with mapped client ports.";
+            leaf network-ho-odu-circuit-pack-name {
+              description
+                "Circuit-Pack identifier. Unique within the context of a device.";
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
+              }
+              mandatory true;
+            }
+            leaf network-ho-odu-port-name {
+              description
+                "port identifier.";
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name"; 
+              }
+              mandatory true;
+            }
+            leaf odtu-type {
+              type identityref {
+                base org-openroadm-otn-common-types:odtu-type-identity;
+              }
+              description
+                "ODTU type, part of the MSI (Multiplex Structure Identifier)";
+              mandatory true;
+            }
+            leaf network-ho-odu-trib-port-number {
+              type uint16 {
+                range "1 .. 80";
+              }
+              description
+                "Tributary port number";
+              mandatory true;
+            }
+            leaf-list network-ho-odu-trib-slots {
+              max-elements "80";
+              min-elements 1;
+              type uint16 {
+                range "1 .. 80";
+              }
+            }
+          }
+          container odu-mux-hierarchy {
+            presence "HO ODU supported hierarchy.";
+            list mux-capability {
+              key "stage-number ho-odu-type ho-odu-payload-type";
+              leaf stage-number {
+                type uint8 {
+                  range "1 .. 2";
+                }
+              }
+              leaf ho-odu-type {
+                type identityref {
+                  base org-openroadm-otn-common-types:odu-rate-identity;
+                }
+              }
+              leaf ho-odu-payload-type {
+                type identityref {
+                  base org-openroadm-otn-common-types:odu-payload-type-identity;
+                }
+              }
+              leaf-list supported-lo-odu-type {
+                type identityref {
+                  base org-openroadm-otn-common-types:odu-rate-identity;
+                }
+              }
+              leaf lo-odu-proactive-DMp {
+                type boolean;
+                description
+                  "lo order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+              }
+
+              leaf lo-odu-no-oam-function {
+                type boolean;
+                description
+                  "No OAM functionality exists for this low order ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions";
+              }
+
+              leaf lo-odu-tcm-capable {
+                type boolean;
+                description
+                  "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
+              }
+              leaf lo-odu-proactive-DMt {
+                when "../lo-odu-tcm-capable= 'true'";  
+                type boolean;
+                description
+                  "lo order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+              }
+              leaf lo-odu-tcm-direction-capability {
+                when "../lo-odu-tcm-capable= 'true'";  
+                type tcm-direction-capability-type;
+                description
+                  "Supported tcm direction capability for low order ODU associated with the port.";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping port-group-restriction-grp {
+    container port-group-restriction {
+      config false;
+      list port-bandwidth-sharing {
+        key "port-sharing-id";
+        leaf port-sharing-id {
+          type uint16;
+        }
+        list port-list {
+          key "circuit-pack-name port-name";
+          uses port-id-grp;
+        }
+        leaf shared-bandwidth {
+          type uint16;
+          units "Gbps";
+        }
+        list possible-port-config {
+          key "config-id";
+          leaf config-id {
+            type uint16;
+          }
+          list port-if-type-config {
+            key "circuit-pack-name port-name";
+            uses port-id-grp;
+            leaf-list port-if-type {
+              type identityref {
+                base org-openroadm-port-types:supported-if-capability;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports" {
+    uses port-capability-grp;
+  }
+  augment "/org-openroadm-device:org-openroadm-device" {
+    uses port-group-restriction-grp;
+  }
+}

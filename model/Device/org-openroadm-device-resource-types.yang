@@ -98,12 +98,12 @@ module org-openroadm-device-resource-types {
 */
 
 /* Currently not used; if used later, needs to move to org-openroadm-device.yang so leafref can be resolved.
-  grouping connection-number {
-    leaf connection-number {
+  grouping connection-name {
+    leaf connection-name {
       description
         "Connection identifier. Unique within the context of a device.";
       type leafref {
-        path "/org-openroadm-device/connections/connection-number";
+        path "/org-openroadm-device/connections/connection-name";
       }
     }
   }
@@ -123,7 +123,7 @@ module org-openroadm-device-resource-types {
     }
     uses internal-link-name;
     uses physical-link-name;
-    uses connection-number;
+    uses connection-name;
     uses org-openroadm-device:srg-number;
     uses org-openroadm-device:degree-number;
   }

@@ -8,7 +8,7 @@ module org-openroadm-network {
   }
   import org-openroadm-network-types {
     prefix nt;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-roadm {
     prefix roadm;
@@ -16,11 +16,11 @@ module org-openroadm-network {
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2017-07-28;
+    revision-date 2017-09-29;
   }
   import ietf-inet-types {
     prefix inet;
@@ -58,6 +58,10 @@ module org-openroadm-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -82,13 +86,15 @@ module org-openroadm-network {
     }
   }
   augment "/nd:network/nd:node" {
+    when "../nd:network-types/openroadm-network";
     description
       "Augment the generic network node with Open ROADM attributes.";
     leaf node-type {
       type nt:openroadm-node-type;
       description
-        "A component of the network topology. Valid node types are XPONDER, EXT-PLUGGABLE
-         and ROADM";
+        "A component of the network topology.
+         Valid node types are XPONDER, EXT-PLUGGABLE and ROADM.
+         Once the node-type is configured, it should not be modified.";
     }
     leaf software-version {
       type string;
@@ -128,6 +134,9 @@ module org-openroadm-network {
     leaf shelf {
       type string;
     }
+    leaf node-status {
+      type nt:openroadm-node-status;
+    }    
     container roadm-attributes {
       when "../node-type = 'ROADM'";
       description
@@ -142,5 +151,11 @@ module org-openroadm-network {
       when "../node-type = 'EXT-PLUGGABLE'";
       uses plg:pluggable-node-attributes;
     }
+    container plan-due-dates {
+      uses nt:node-due-date-list;    
+    }
+    container node-maintenance-schedule {
+       uses nt:node-due-date-list;    
+    } 
   }
 }

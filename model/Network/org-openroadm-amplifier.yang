@@ -4,7 +4,7 @@ module org-openroadm-amplifier {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
 
   organization
@@ -41,6 +41,10 @@ module org-openroadm-amplifier {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-09-29 {
+    description
+      "Version 2.1";
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -60,10 +64,11 @@ module org-openroadm-amplifier {
       config true;
       mandatory true;
     }
-    leaf amp-operational-mode {
+    leaf amp-gain-range {
       description
-        "Amplifier operational mode (for switched gain amplifiers)";
-      type org-openroadm-common-types:amplifier-operational-mode;
+        "Amplifier gain-range (gain-range 1 to 4 for switched gain amplifiers)
+         gain-range-1 for standard amplifiers";
+      type org-openroadm-common-types:amplifier-gain-range;
       config true;
     }
     leaf ingress-span-loss-aging-margin {
