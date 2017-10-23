@@ -12,7 +12,7 @@ module org-openroadm-network {
   }
   import org-openroadm-roadm {
     prefix roadm;
-    revision-date 2017-06-26;
+    revision-date 2017-09-29;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
