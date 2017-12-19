@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -99,29 +103,6 @@ module org-openroadm-otn-common-types {
     base otu-rate-identity;
     description
       "Identity for an OTUflex";
-  }
-
-  identity odu-payload-type-identity {
-    description
-      "A unique payload type identification of the ODU.";
-  }
-
-  identity PT20 {
-    base odu-payload-type-identity;
-    description
-      "Identity for an ODU Payload 20";
-  }
-
-  identity PT21 {
-    base odu-payload-type-identity;
-    description
-      "Identity for an ODU Payload 21";
-  }
-
-  identity PT22 {
-    base odu-payload-type-identity;
-    description
-      "Identity for an ODU Payload 22";
   }
 
   identity odu-rate-identity {
@@ -254,4 +235,12 @@ module org-openroadm-otn-common-types {
       "ODU CTP mapper level connection termination with trail termination and client adaptation";
   }
 
+  typedef payload-type-def {
+    type string {
+      length "2";
+      pattern "[0-9a-fA-F]*";
+    }
+    description
+      "Common type definition for odu payload-type";
+  }
 }

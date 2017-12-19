@@ -1,25 +1,18 @@
-module org-openroadm-maintenance {
-  namespace "http://org/openroadm/maintenance";
-  prefix org-openroadm-mainteance;
-
-  import org-openroadm-resource {
-    prefix org-openroadm-resource;
-    revision-date 2017-12-15;
-  }
+module org-openroadm-switching-pool-types {
+  namespace "http://org/openroadm/switching-pool-types";
+  prefix org-openroadm-switching-pool-types;
 
   organization
     "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
-    "YANG definitions of maintenace operations.
+    "YANG definitions of common types.
        
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
       AT&T Intellectual Property.  All other rights reserved.
       
       Redistribution and use in source and binary forms, with or without modification, 
-      are permitted provided that the following conditions are met:
-      
       * Redistributions of source code must retain the above copyright notice, this 
         list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright notice, 
@@ -44,58 +37,19 @@ module org-openroadm-maintenance {
     description
       "Version 2.2";
   }
-  revision 2017-09-29 {
-    description
-      "Version 2.1";
-  }
-  revision 2017-07-28 {
-    description
-      "Version 2.0.1 - added revision-date to imports";
-  }
-  revision 2016-10-14 {
-    description
-      "Version 1.2";
-  }
 
-  typedef maintenance-operation {
+  typedef switching-pool-types {
     type enumeration {
-      enum "terminalLoopback" {
+      enum "non-blocking" {
         value 1;
+        description
+          "Single non-blocking element";
       }
-      enum "facilityLoopback" {
+      enum "blocking" {
         value 2;
+        description
+          "Multiple connected non-blocking lists";
       }
-      enum "testSignal" {
-        value 3;
-      }
-    }
-    description
-      "Maintenance Operation.";
-  }
-
-  grouping maintenance {
-    leaf id {
-      type string;
-      mandatory true;
-      description
-        "Uniquely identify maintenance activity";
-    }
-    container resource {
-      description
-        "Resource under maintenance";
-      uses org-openroadm-resource:resource;
-    }
-    leaf operation {
-      type maintenance-operation;
-    }
-  }
-
-  container maintenance-list {
-    description
-      "A list of active maintenance operations. Adding an entry to this list creates an active maintenance operation.  Removing an entry from this terminates a maintenance activity";
-    list maintenance {
-      key "id";
-      uses maintenance;
     }
   }
 }

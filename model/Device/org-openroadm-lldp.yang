@@ -8,7 +8,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import iana-afn-safi {
     prefix ianaaf;
@@ -16,7 +16,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import ietf-yang-types {
     prefix yang;
@@ -56,6 +56,10 @@ module org-openroadm-lldp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -215,31 +219,31 @@ module org-openroadm-lldp {
                 "Enable the LLDP feature per NE";
             }
           }
+          default "enable";
           description
             "LLDP feature Enable/Disable per NE";
-          default "enable";
         }
         leaf msgTxInterval {
           type uint16 {
             range "5..32768";
           }
+          default "30";
           description
             "LLDP frame Retransmit Interval in seconds";
-          default "30";
         }
         leaf msgTxHoldMultiplier {
           type uint8 {
             range "2..10";
           }
+          default "4";
           description
             "TTL value for the TLVs transmitter over wire in seconds";
-          default "4";
         }
       }
       list port-config {
+        key "ifName";
         description
           "LLDP port configurations";
-        key "ifName";
         leaf ifName {
           type leafref {
             path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
@@ -260,15 +264,15 @@ module org-openroadm-lldp {
                 "Enable Transmit and Receive LLDP frames on specific interface";
             }
           }
+          default "txandrx";
           description
             "LLDP enable per port basis";
-          default "txandrx";
         }
       }
       container nbr-list {
+        config false;
         description
           "LLDP Oper data - Neighbour List information";
-        config false;
         list if-name {
           key "ifName";
           leaf ifName {
@@ -282,10 +286,6 @@ module org-openroadm-lldp {
     }
   }
 
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
-    when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='rdm' or /org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='ila'";
-    uses lldp-container;
-  }
   notification lldp-nbr-info-change {
     description
       "LLDP: Neighbor Information Changed
@@ -316,5 +316,9 @@ module org-openroadm-lldp {
     leaf event-time {
       type yang:date-and-time;
     }
+  }
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
+    when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='rdm' or /org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='ila'";
+    uses lldp-container;
   }
 }

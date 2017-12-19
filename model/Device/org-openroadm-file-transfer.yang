@@ -8,7 +8,7 @@ module org-openroadm-file-transfer {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-file-transfer {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -66,9 +70,6 @@ module org-openroadm-file-transfer {
       "File transfer using FTP/SFTP";
     input {
       leaf action {
-        mandatory true;
-        description
-          "Type of action - download/upload.";
         type enumeration {
           enum "upload" {
             description
@@ -83,6 +84,9 @@ module org-openroadm-file-transfer {
                to the local-file-path.";
           }
         }
+        mandatory true;
+        description
+          "Type of action - download/upload.";
       }
       leaf local-file-path {
         type string;
@@ -111,10 +115,10 @@ module org-openroadm-file-transfer {
       "Show one or more files in the specified directory.";
     input {
       leaf filename {
-        default "*";
         type string {
           length "1..255";
         }
+        default "*";
         description
           "Specify file(s) to be listed (* is allowed as wild-card). ";
       }
@@ -167,9 +171,9 @@ module org-openroadm-file-transfer {
     }
     uses org-openroadm-common-types:extended-rpc-response-status;
     container progress {
+      when "current()/../status = 'In-progress'";
       description
         "progress status when response is in-progress";
-      when "current()/../status = 'In-progress'";
       leaf bytes-transferred {
         type uint64;
         description

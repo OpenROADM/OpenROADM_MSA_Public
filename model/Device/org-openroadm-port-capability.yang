@@ -4,22 +4,23 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;     
+    revision-date 2017-12-15;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2017-09-29;     
+    revision-date 2017-12-15;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2017-09-29;     
+    revision-date 2017-12-15;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -65,6 +66,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -91,16 +96,35 @@ module org-openroadm-port-capability {
 
   grouping port-id-grp {
     leaf circuit-pack-name {
-      description
-        "Circuit-Pack identifier. Unique within the context of a device.";
       type leafref {
         path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
       }
+      description
+        "Circuit-Pack identifier. Unique within the context of a device.";
     }
     leaf port-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
+      }
       description
         "Port index identifier. Unique within the context of a circuit-pack.";
-      type string;
+    }
+  }
+
+  grouping slot-id-grp {
+    leaf circuit-pack-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
+      }
+      description
+        "Circuit-Pack identifier. Unique within the context of a device.";
+    }
+    leaf slot-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:cp-slots/org-openroadm-device:slot-name";
+      }
+      description
+        "cp-slot name. Unique within the context of a circuit-pack.";
     }
   }
 
@@ -114,29 +138,24 @@ module org-openroadm-port-capability {
         description
           "Supported interface capability on the port.";
         leaf if-cap-type {
-          description
-            "Interface type/hierarchy/rate supported on this port";
           type identityref {
             base org-openroadm-port-types:supported-if-capability;
           }
+          description
+            "Interface type/hierarchy/rate supported on this port";
         }
         container otn-capability {
           leaf-list if-protection-capability {
-            description
-              "supported protection types if protection is supported on this port";
             type identityref {
               base org-openroadm-prot-otn-linear-aps:otn-protection-type;
             }
+            description
+              "supported protection types if protection is supported on this port";
           }
           leaf proactive-DMp {
             type boolean;
             description
               "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
-          }
-          leaf no-oam-function {
-            type boolean;
-            description
-              "No OAM functionality exists for this ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions";
           }
           leaf tcm-capable {
             type boolean;
@@ -144,72 +163,64 @@ module org-openroadm-port-capability {
               "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
           }
           leaf proactive-DMt {
-            when "../tcm-capable= 'true'";  
+            when "../tcm-capable= 'true'";
             type boolean;
             description
               "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
           }
           leaf tcm-direction-capability {
-            when "../tcm-capable= 'true'";  
+            when "../tcm-capable= 'true'";
+            type tcm-direction-capability-type;
             description
               "Supported tcm direction capability on the ODUk associated with the port.";
-            type tcm-direction-capability-type;
           }
-          leaf-list client-mapping-odu-type {
+          leaf-list opu-payload-type-mapping {
+            type org-openroadm-otn-common-types:payload-type-def;
             description
-              "Mapping ODU type for non-OTN client interface type on the port";
-            type identityref {
-              base org-openroadm-otn-common-types:odu-rate-identity;
-            }
-          }
-          leaf client-explicit-odu {
-            type boolean;
-            description
-              "NE device to publich if this is the client ODU";
+              "OPU payload-type mapping OPU.";
           }
           container mpdr-client-restriction {
-            when "../../../../port-qual='xpdr-client'";
             description
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
                and the relation with mapped client ports.";
             leaf network-ho-odu-circuit-pack-name {
-              description
-                "Circuit-Pack identifier. Unique within the context of a device.";
               type leafref {
                 path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
               }
               mandatory true;
+              description
+                "Circuit-Pack identifier. Unique within the context of a device.";
             }
             leaf network-ho-odu-port-name {
-              description
-                "port identifier.";
               type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name"; 
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name";
               }
               mandatory true;
+              description
+                "port identifier.";
             }
             leaf odtu-type {
               type identityref {
                 base org-openroadm-otn-common-types:odtu-type-identity;
               }
+              mandatory true;
               description
                 "ODTU type, part of the MSI (Multiplex Structure Identifier)";
-              mandatory true;
             }
             leaf network-ho-odu-trib-port-number {
               type uint16 {
                 range "1 .. 80";
               }
+              mandatory true;
               description
                 "Tributary port number";
-              mandatory true;
             }
             leaf-list network-ho-odu-trib-slots {
-              max-elements "80";
-              min-elements 1;
               type uint16 {
                 range "1 .. 80";
               }
+              min-elements 1;
+              max-elements "80";
             }
           }
           container odu-mux-hierarchy {
@@ -227,9 +238,9 @@ module org-openroadm-port-capability {
                 }
               }
               leaf ho-odu-payload-type {
-                type identityref {
-                  base org-openroadm-otn-common-types:odu-payload-type-identity;
-                }
+                type org-openroadm-otn-common-types:payload-type-def;
+                description
+                  "high order ODU payload type";
               }
               leaf-list supported-lo-odu-type {
                 type identityref {
@@ -241,26 +252,19 @@ module org-openroadm-port-capability {
                 description
                   "lo order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
               }
-
-              leaf lo-odu-no-oam-function {
-                type boolean;
-                description
-                  "No OAM functionality exists for this low order ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions";
-              }
-
               leaf lo-odu-tcm-capable {
                 type boolean;
                 description
                   "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
               }
               leaf lo-odu-proactive-DMt {
-                when "../lo-odu-tcm-capable= 'true'";  
+                when "../lo-odu-tcm-capable= 'true'";
                 type boolean;
                 description
                   "lo order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
               }
               leaf lo-odu-tcm-direction-capability {
-                when "../lo-odu-tcm-capable= 'true'";  
+                when "../lo-odu-tcm-capable= 'true'";
                 type tcm-direction-capability-type;
                 description
                   "Supported tcm direction capability for low order ODU associated with the port.";
@@ -284,6 +288,10 @@ module org-openroadm-port-capability {
           key "circuit-pack-name port-name";
           uses port-id-grp;
         }
+        list pluggable-optics-holder-list {
+          key "circuit-pack-name slot-name";
+          uses slot-id-grp;
+        }
         leaf shared-bandwidth {
           type uint16;
           units "Gbps";
@@ -296,6 +304,20 @@ module org-openroadm-port-capability {
           list port-if-type-config {
             key "circuit-pack-name port-name";
             uses port-id-grp;
+            leaf-list port-if-type {
+              type identityref {
+                base org-openroadm-port-types:supported-if-capability;
+              }
+            }
+          }
+          list slot-if-type-config {
+            key "circuit-pack-name slot-name port-name";
+            uses slot-id-grp;
+            leaf port-name {
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
+              }
+            }
             leaf-list port-if-type {
               type identityref {
                 base org-openroadm-port-types:supported-if-capability;

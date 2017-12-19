@@ -201,6 +201,7 @@ module: org-openroadm-device
        |     +--ro slot-name                   string
        |     +--ro label?                      string
        |     +--ro provisioned-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+       |     +--ro slot-status?                enumeration
        +--rw circuit-packs* [circuit-pack-name]
        |  +--rw circuit-pack-type            string
        |  +--rw circuit-pack-product-code?   string
@@ -223,14 +224,58 @@ module: org-openroadm-device
        |  +--rw shelf                        -> /org-openroadm-device/shelves/shelf-name
        |  +--rw slot                         string
        |  +--rw subSlot?                     string
+       |  +--rw is-pluggable-optics?         boolean
        |  +--rw due-date?                    ietf-yang-types:date-and-time
        |  +--rw parent-circuit-pack
        |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
        |  |  +--rw cp-slot-name?        string
        |  +--ro cp-slots* [slot-name]
-       |  |  +--ro slot-name                   string
-       |  |  +--ro label?                      string
-       |  |  +--ro provisioned-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+       |  |  +--ro slot-name                                                                              string
+       |  |  +--ro label?                                                                                 string
+       |  |  +--ro provisioned-circuit-pack?                                                              -> /org-openroadm-device/circuit-packs/circuit-pack-name
+       |  |  +--ro slot-status?                                                                           enumeration
+       |  |  +--ro slot-type?                                                                             enumeration
+       |  |  +--ro org-openroadm-pluggable-optics-holder-capability:pluggable-optics-holder-capability
+       |  |     +--ro org-openroadm-pluggable-optics-holder-capability:supported-circuit-pack-types* [supported-circuit-pack-type]
+       |  |        +--ro org-openroadm-pluggable-optics-holder-capability:supported-circuit-pack-type    string
+       |  |        +--ro org-openroadm-pluggable-optics-holder-capability:ports* [port-name]
+       |  |           +--ro org-openroadm-pluggable-optics-holder-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
+       |  |           +--ro org-openroadm-pluggable-optics-holder-capability:port-capabilities
+       |  |              +--ro org-openroadm-pluggable-optics-holder-capability:supported-interface-capability* [if-cap-type]
+       |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:if-cap-type       identityref
+       |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:otn-capability
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:if-protection-capability*   identityref
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:proactive-DMp?              boolean
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:tcm-capable?                boolean
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:proactive-DMt?              boolean
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:tcm-direction-capability?   tcm-direction-capability-type
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:opu-payload-type-mapping*   org-openroadm-otn-common-types:payload-type-def
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:mpdr-client-restriction
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/ports/port-name
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:odtu-type                           identityref
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-trib-port-number     uint16
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-trib-slots*          uint16
+       |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:odu-mux-hierarchy!
+       |  |                       +--ro org-openroadm-pluggable-optics-holder-capability:mux-capability* [stage-number ho-odu-type ho-odu-payload-type]
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:stage-number                       uint8
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:ho-odu-type                        identityref
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:ho-odu-payload-type                org-openroadm-otn-common-types:payload-type-def
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:supported-lo-odu-type*             identityref
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:lo-odu-proactive-DMp?              boolean
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:lo-odu-tcm-capable?                boolean
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:lo-odu-proactive-DMt?              boolean
+       |  |                          +--ro org-openroadm-pluggable-optics-holder-capability:lo-odu-tcm-direction-capability?   tcm-direction-capability-type
+       |  +--ro software-load-version?       string
+       |  +--ro circuit-pack-features*
+       |  |  +--ro feature
+       |  |     +--ro description?   string
+       |  |     +--ro activated?     boolean
+       |  +--ro circuit-pack-components*
+       |  |  +--ro component
+       |  |     +--ro name?               string
+       |  |     +--ro current-version?    string
+       |  |     +--ro version-to-apply?   string
        |  +--rw ports* [port-name]
        |     +--rw port-name                                          string
        |     +--rw port-type?                                         string
@@ -275,12 +320,10 @@ module: org-openroadm-device
        |           +--ro org-openroadm-port-capability:otn-capability
        |              +--ro org-openroadm-port-capability:if-protection-capability*   identityref
        |              +--ro org-openroadm-port-capability:proactive-DMp?              boolean
-       |              +--ro org-openroadm-port-capability:no-oam-function?            boolean
        |              +--ro org-openroadm-port-capability:tcm-capable?                boolean
        |              +--ro org-openroadm-port-capability:proactive-DMt?              boolean
        |              +--ro org-openroadm-port-capability:tcm-direction-capability?   tcm-direction-capability-type
-       |              +--ro org-openroadm-port-capability:client-mapping-odu-type*    identityref
-       |              +--ro org-openroadm-port-capability:client-explicit-odu?        boolean
+       |              +--ro org-openroadm-port-capability:opu-payload-type-mapping*   org-openroadm-otn-common-types:payload-type-def
        |              +--ro org-openroadm-port-capability:mpdr-client-restriction
        |              |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
        |              |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/ports/port-name
@@ -291,10 +334,9 @@ module: org-openroadm-device
        |                 +--ro org-openroadm-port-capability:mux-capability* [stage-number ho-odu-type ho-odu-payload-type]
        |                    +--ro org-openroadm-port-capability:stage-number                       uint8
        |                    +--ro org-openroadm-port-capability:ho-odu-type                        identityref
-       |                    +--ro org-openroadm-port-capability:ho-odu-payload-type                identityref
+       |                    +--ro org-openroadm-port-capability:ho-odu-payload-type                org-openroadm-otn-common-types:payload-type-def
        |                    +--ro org-openroadm-port-capability:supported-lo-odu-type*             identityref
        |                    +--ro org-openroadm-port-capability:lo-odu-proactive-DMp?              boolean
-       |                    +--ro org-openroadm-port-capability:lo-odu-no-oam-function?            boolean
        |                    +--ro org-openroadm-port-capability:lo-odu-tcm-capable?                boolean
        |                    +--ro org-openroadm-port-capability:lo-odu-proactive-DMt?              boolean
        |                    +--ro org-openroadm-port-capability:lo-odu-tcm-direction-capability?   tcm-direction-capability-type
@@ -340,6 +382,7 @@ module: org-openroadm-device
        |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
        |  |  +--rw org-openroadm-otn-odu-interfaces:odu-function?                          identityref
        |  |  +--rw org-openroadm-otn-odu-interfaces:monitoring-mode?                       enumeration
+       |  |  +--ro org-openroadm-otn-odu-interfaces:no-oam-function?                       empty
        |  |  +--rw org-openroadm-otn-odu-interfaces:proactive-delay-measurement-enabled?   boolean
        |  |  +--rw org-openroadm-otn-odu-interfaces:parent-odu-allocation!
        |  |  |  +--rw org-openroadm-otn-odu-interfaces:trib-port-number    uint16
@@ -375,25 +418,25 @@ module: org-openroadm-device
        |  |  |  +--rw org-openroadm-otn-odu-interfaces:degm-intervals?                        uint8
        |  |  |  +--rw org-openroadm-otn-odu-interfaces:degthr-percentage?                     uint16
        |  |  +--rw org-openroadm-otn-odu-interfaces:opu
-       |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-type?        string
-       |  |  |  +--ro org-openroadm-otn-odu-interfaces:rx-payload-type?     string
-       |  |  |  +--rw org-openroadm-otn-odu-interfaces:exp-payload-type?    string
+       |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-type?        org-openroadm-otn-common-types:payload-type-def
+       |  |  |  +--ro org-openroadm-otn-odu-interfaces:rx-payload-type?     org-openroadm-otn-common-types:payload-type-def
+       |  |  |  +--rw org-openroadm-otn-odu-interfaces:exp-payload-type?    org-openroadm-otn-common-types:payload-type-def
        |  |  |  +--rw org-openroadm-otn-odu-interfaces:payload-interface?   string
        |  |  |  +--ro org-openroadm-otn-odu-interfaces:msi
        |  |  |     +--ro org-openroadm-otn-odu-interfaces:tx-msi* [trib-slot]
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
-       |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+       |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint16
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
        |  |  |     +--ro org-openroadm-otn-odu-interfaces:rx-msi* [trib-slot]
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
-       |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+       |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint16
        |  |  |     |  +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
        |  |  |     +--ro org-openroadm-otn-odu-interfaces:exp-msi* [trib-slot]
        |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-slot            uint16
        |  |  |        +--ro org-openroadm-otn-odu-interfaces:odtu-type?           identityref
-       |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint8
+       |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port?           uint16
        |  |  |        +--ro org-openroadm-otn-odu-interfaces:trib-port-payload?   string
        |  |  +--rw org-openroadm-otn-odu-interfaces:maint-testsignal
        |  |     +--rw org-openroadm-otn-odu-interfaces:enabled?               boolean
@@ -612,32 +655,43 @@ module: org-openroadm-device
        |     +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
        +--ro odu-switching-pools* [switching-pool-number]
        |  +--ro switching-pool-number    uint16
-       |  +--ro switching-pool-type?     enumeration
+       |  +--ro switching-pool-type?     org-openroadm-switching-pool-types:switching-pool-types
        |  +--ro non-blocking-list* [nbl-number]
-       |     +--ro nbl-number                     uint16
-       |     +--ro interconnect-bandwidth-unit?   uint32
-       |     +--ro interconnect-bandwidth?        uint32
+       |     +--ro nbl-number                      uint16
+       |     +--ro interconnect-bandwidth-unit?    uint32
+       |     +--ro interconnect-bandwidth?         uint32
        |     +--ro port-list* [circuit-pack-name port-name]
+       |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+       |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs/ports/port-name
+       |     +--ro pluggable-optics-holder-list* [circuit-pack-name slot-name]
        |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-       |        +--ro port-name            -> /org-openroadm-device/circuit-packs/ports/port-name
+       |        +--ro slot-name            -> /org-openroadm-device/circuit-packs/cp-slots/slot-name
        +--ro org-openroadm-port-capability:port-group-restriction
           +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
-             +--ro org-openroadm-port-capability:port-sharing-id         uint16
+             +--ro org-openroadm-port-capability:port-sharing-id                 uint16
              +--ro org-openroadm-port-capability:port-list* [circuit-pack-name port-name]
              |  +--ro org-openroadm-port-capability:circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
-             |  +--ro org-openroadm-port-capability:port-name            string
-             +--ro org-openroadm-port-capability:shared-bandwidth?       uint16
+             |  +--ro org-openroadm-port-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
+             +--ro org-openroadm-port-capability:pluggable-optics-holder-list* [circuit-pack-name slot-name]
+             |  +--ro org-openroadm-port-capability:circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
+             |  +--ro org-openroadm-port-capability:slot-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/cp-slots/slot-name
+             +--ro org-openroadm-port-capability:shared-bandwidth?               uint16
              +--ro org-openroadm-port-capability:possible-port-config* [config-id]
                 +--ro org-openroadm-port-capability:config-id              uint16
                 +--ro org-openroadm-port-capability:port-if-type-config* [circuit-pack-name port-name]
+                |  +--ro org-openroadm-port-capability:circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
+                |  +--ro org-openroadm-port-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
+                |  +--ro org-openroadm-port-capability:port-if-type*        identityref
+                +--ro org-openroadm-port-capability:slot-if-type-config* [circuit-pack-name slot-name port-name]
                    +--ro org-openroadm-port-capability:circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
-                   +--ro org-openroadm-port-capability:port-name            string
+                   +--ro org-openroadm-port-capability:slot-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/cp-slots/slot-name
+                   +--ro org-openroadm-port-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
                    +--ro org-openroadm-port-capability:port-if-type*        identityref
 
   rpcs:
     +---x led-control
     |  +---w input
-    |  |  +---w (equipment-entity)?
+    |  |  +---w (equipment-entity)
     |  |  |  +--:(shelf)
     |  |  |  |  +---w shelf-name           -> /org-openroadm-device/shelves/shelf-name
     |  |  |  +--:(circuit-pack)
@@ -670,16 +724,22 @@ module: org-openroadm-device
     |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
     +---x disable-automatic-shutoff
     |  +---w input
-    |  |  +---w amp              -> /org-openroadm-device/shelves/shelf-name
-    |  |  +---w degree-number    uint16
+    |  |  +---w (degree-or-amp)
+    |  |  |  +--:(degree)
+    |  |  |  |  +---w degree-number    -> /org-openroadm-device/degree/degree-number
+    |  |  |  +--:(amp)
+    |  |  |     +---w amp-number       -> /org-openroadm-device/line-amplifier/amp-number
     |  |  +---w support-timer?   uint16
     |  +--ro output
     |     +--ro status            rpc-status
     |     +--ro status-message?   string
     +---x start-scan
     |  +---w input
-    |  |  +---w degree-number?    uint16
-    |  |  +---w amp-number?       uint8
+    |  |  +---w (degree-or-amp)
+    |  |  |  +--:(degree)
+    |  |  |  |  +---w degree-number     -> /org-openroadm-device/degree/degree-number
+    |  |  |  +--:(amp)
+    |  |  |     +---w amp-number        -> /org-openroadm-device/line-amplifier/amp-number
     |  |  +---w port-direction?   org-openroadm-common-types:direction
     |  |  +---w distance?         uint32
     |  |  +---w resolution?       uint32
@@ -789,6 +849,13 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
+module: org-openroadm-rstp
+
+  notifications:
+    +---n rstp-topology-change
+    |  +--ro node-id?   org-openroadm-common-types:node-id-type
+    +---n rstp-new-root
+       +--ro node-id?   org-openroadm-common-types:node-id-type
 module: org-openroadm-swdl
 
   rpcs:
@@ -845,14 +912,3 @@ module: org-openroadm-syslog
                             +--rw facility             union
                             +--rw severity             severity
                             +--rw severity-operator?   enumeration {selector-sevop-config}?
-module: org-openroadm-user-mgmt
-
-  rpcs:
-    +---x chg-password
-       +---w input
-       |  +---w currentPassword       password-type
-       |  +---w newPassword           password-type
-       |  +---w newPasswordConfirm    password-type
-       +--ro output
-          +--ro status            enumeration
-          +--ro status-message?   string

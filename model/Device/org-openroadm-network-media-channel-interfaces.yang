@@ -4,7 +4,7 @@ module org-openroadm-network-media-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-network-media-channel-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -62,6 +62,10 @@ module org-openroadm-network-media-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -80,15 +84,15 @@ module org-openroadm-network-media-channel-interfaces {
       "Network Media Channel attributes";
     leaf frequency {
       type org-openroadm-common-types:frequency-THz;
+      config true;
       description
         "Center Frequency in THz.  This is not constrained by mc-capabilities.  It must fit (when combined with width) inside any containing media channel.";
-      config true;
     }
     leaf width {
       type org-openroadm-common-types:frequency-GHz;
+      config true;
       description
         "Frequency width in GHz.  This is not constrained by mc-capabilities.  It must fit (when combined with frequency) inside any containing media channel.";
-      config true;
     }
   }
 

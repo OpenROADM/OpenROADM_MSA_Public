@@ -4,7 +4,7 @@ module org-openroadm-probable-cause {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -48,7 +52,6 @@ module org-openroadm-probable-cause {
     description
       "Version 2.0.1 - added revision-date to imports";
   }
-
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -56,51 +59,6 @@ module org-openroadm-probable-cause {
   revision 2016-10-14 {
     description
       "Version 1.2";
-  }
-
-  grouping probable-cause {
-    leaf cause {
-      type probable-cause-enum;
-      mandatory true;
-    }
-    leaf extension {
-      type string;
-      mandatory false;
-    }
-    leaf direction {
-      description
-        "Direction indication of the alarm.";
-      type org-openroadm-common-types:direction;
-      mandatory true;
-    }
-    leaf location {
-      description
-        "location indication of the alarm.";
-      type org-openroadm-common-types:location;
-      mandatory true;
-    }
-    leaf type {
-      description
-        "Type of alarm. Based on X.733 event Type.";
-      mandatory false;
-      type enumeration {
-        enum "communication" {
-          value 1;
-        }
-        enum "qualityOfService" {
-          value 2;
-        }
-        enum "processingError" {
-          value 3;
-        }
-        enum "equipment" {
-          value 4;
-        }
-        enum "environmental" {
-          value 5;
-        }
-      }
-    }         
   }
 
   typedef probable-cause-enum {
@@ -239,29 +197,11 @@ module org-openroadm-probable-cause {
       enum "databaseCorruption" {
         value 38;
       }
-      enum "databaseLockedSoftwareUpgradeInProgress" {
-        value 39;
-      }
-      enum "databaseLockedDbRestoreInProgress" {
-        value 40;
-      }
-      enum "databaseLockedDbAlarmPresent" {
-        value 42;
-      }
       enum "databaseVersionMismatch" {
         value 44;
       }
-      enum "databaseLockedShelfProvModePresent" {
-        value 45;
-      }
       enum "firmwareVersionMismatch" {
         value 46;
-      }
-      enum "firmwareBackwardCompatibleLimited" {
-        value 47;
-      }
-      enum "firmwareBackwardCompatibleAll" {
-        value 48;
       }
       enum "incompatibleFirmware" {
         value 49;
@@ -542,7 +482,7 @@ module org-openroadm-probable-cause {
       enum "lockedDefectTCM4-up" {
         value 198;
       }
-      enum "lockedDefectTCM5-up" {            
+      enum "lockedDefectTCM5-up" {
         value 199;
       }
       enum "lockedDefectTCM6-up" {
@@ -565,7 +505,7 @@ module org-openroadm-probable-cause {
       }
       enum "lossofTandemConnectionTCM6-up" {
         value 206;
-      }                                         
+      }
       enum "backwardIncomingAlignmentErrorTCM1-down" {
         value 207;
       }
@@ -727,7 +667,97 @@ module org-openroadm-probable-cause {
       }
       enum "lossofTandemConnectionTCM6-down" {
         value 260;
-      }                                           
+      }
+      enum "multiplexStructureIdentifierMismatch" {
+        value 261;
+        description
+          "G798 : 6.2.9 (dMSIM)";
+      }
+      enum "lossOfOmfIndication" {
+        value 262;
+        description
+          "G798 : 14.3.10.2 Figure 14-73 (dLOOMFI)";
+      }
+      enum "lossOfFrameAndLossOfMultiframe" {
+        value 263;
+        description
+          "G798 : 6.2.5.3 (dLOFLOM)";
+      }
+      enum "lossOfDatabaseRedundancy" {
+        value 264;
+        description
+          "loss of database redundancy";
+      }
+      enum "databaseLocked" {
+        value 265;
+        description
+          "Database locked";
+      }
+      enum "createTechInfoInProgress" {
+        value 266;
+        description
+          "create-tech-info in progress";
+      }
+      enum "circuitPackActivateFailed" {
+        value 267;
+        description
+          "circuit-pack activation failed";
+      }
+      enum "softwareSubsystemFailed" {
+        value 268;
+        description
+          "Software subsystem failed";
+      }
+      enum "diskFull" {
+        value 269;
+        description
+          "Disk full";
+      }
+    }
+  }
+
+  grouping probable-cause {
+    leaf cause {
+      type probable-cause-enum;
+      mandatory true;
+    }
+    leaf extension {
+      type string;
+      mandatory false;
+    }
+    leaf direction {
+      type org-openroadm-common-types:direction;
+      mandatory true;
+      description
+        "Direction indication of the alarm.";
+    }
+    leaf location {
+      type org-openroadm-common-types:location;
+      mandatory true;
+      description
+        "location indication of the alarm.";
+    }
+    leaf type {
+      type enumeration {
+        enum "communication" {
+          value 1;
+        }
+        enum "qualityOfService" {
+          value 2;
+        }
+        enum "processingError" {
+          value 3;
+        }
+        enum "equipment" {
+          value 4;
+        }
+        enum "environmental" {
+          value 5;
+        }
+      }
+      mandatory false;
+      description
+        "Type of alarm. Based on X.733 event Type.";
     }
   }
 }

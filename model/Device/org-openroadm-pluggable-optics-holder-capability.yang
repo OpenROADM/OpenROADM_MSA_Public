@@ -1,17 +1,13 @@
-module org-openroadm-media-channel-interfaces {
-  namespace "http://org/openroadm/media-channel-interfaces";
-  prefix org-openroadm-media-channel-interfaces;
+module org-openroadm-pluggable-optics-holder-capability {
+  namespace "http://org/openroadm/pluggable-optics-holder-capability";
+  prefix org-openroadm-pluggable-optics-holder-capability;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
     revision-date 2017-12-15;
   }
-  import org-openroadm-interfaces {
-    prefix openROADM-if;
-    revision-date 2017-06-26;
-  }
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
+  import org-openroadm-port-capability {
+    prefix org-openroadm-port-capability;
     revision-date 2017-12-15;
   }
 
@@ -20,7 +16,7 @@ module org-openroadm-media-channel-interfaces {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for device facility och interfaces.
+    "YANG definitions for pluggable optics holder capability.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
      AT&T Intellectual Property.  All other rights reserved.
@@ -51,10 +47,10 @@ module org-openroadm-media-channel-interfaces {
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
      
-     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     Copyright (c) 2017 IETF Trust and the persons identified as the document authors.
      All rights reserved.
      
-     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
      describe your rights and restrictions with respect to this document. Code Components
@@ -66,58 +62,39 @@ module org-openroadm-media-channel-interfaces {
     description
       "Version 2.2";
   }
-  revision 2017-09-29 {
-    description
-      "Version 2.1";
-  }
-  revision 2017-07-28 {
-    description
-      "Version 2.0.1 - added revision-date to imports";
-  }
-  revision 2017-06-26 {
-    description
-      "Version 2.0";
-  }
 
-  grouping mc-ttp-attributes {
+  grouping pluggable-optics-holder-capability {
     description
-      "Media channel termination point. Models bandwidth allocation in physical media. Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
-    leaf min-freq {
-      type org-openroadm-common-types:frequency-THz;
-      config true;
-      description
-        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
-    }
-    leaf max-freq {
-      type org-openroadm-common-types:frequency-THz;
-      config true;
-      description
-        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
-    }
-    leaf center-freq {
-      type org-openroadm-common-types:frequency-THz;
+      "Pluggable optics holder capability parameters.";
+    container pluggable-optics-holder-capability {
       config false;
-      description
-        "Center Frequency in THz. Granularity is hardware dependent, based on center-freq-granularity.";
-    }
-    leaf slot-width {
-      type org-openroadm-common-types:frequency-GHz;
-      config false;
-      description
-        "Width of the slot.  Granularity is hardware dependent, based on slot-width-granularity";
+      list supported-circuit-pack-types {
+        key "supported-circuit-pack-type";
+        leaf supported-circuit-pack-type {
+          type string;
+          mandatory true;
+          description
+            "Type of pluggable circuit-pack supported";
+        }
+        list ports {
+          key "port-name";
+          description
+            "Port reference on supported pluggable circuit-pack";
+          leaf port-name {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
+            }
+            description
+              "Port name";
+          }
+          uses org-openroadm-port-capability:port-capability-grp;
+        }
+      }
     }
   }
 
-  grouping mc-ttp-container {
-    container mc-ttp {
-      description
-        "Media Channel Trail Termination Point (MC-TTP)";
-      uses mc-ttp-attributes;
-    }
-  }
-
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:mediaChannelTrailTerminationPoint'";
-    uses mc-ttp-container;
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:cp-slots" {
+    when "org-openroadm-device:slot-type='pluggable-optics-holder'";
+    uses pluggable-optics-holder-capability;
   }
 }

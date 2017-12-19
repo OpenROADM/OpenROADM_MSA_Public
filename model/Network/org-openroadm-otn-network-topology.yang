@@ -12,15 +12,19 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
+  }
+  import org-openroadm-network-topology-types {
+    prefix org-openroadm-network-topology-types;
+    revision-date 2017-12-15;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-common-types {
     prefix ct;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -56,6 +60,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -77,25 +85,28 @@ module org-openroadm-otn-network-topology {
        in the OTN Topology.";
     leaf node-type {
       type org-openroadm-network-types:openroadm-node-type;
+      must "(../node-type = 'SWITCH' or ../node-type = 'MUXPDR')" {
+        error-message "Invalid node type for otn-topology";
+      }
       description
         "The type of a node in the OTN topology. Valid node types are 'MUXPDR' and 'SWITCH'";
-    }	   
-	container tp-bandwidth-sharing {
+    }
+    container tp-bandwidth-sharing {
       when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
-      uses org-openroadm-network-types:xpdr-tp-bandwidth-sharing;
-    } 
+      uses org-openroadm-network-topology-types:xpdr-tp-bandwidth-sharing;
+    }
     container switching-pools {
       when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
-      uses org-openroadm-network-types:xpdr-odu-switching-pools;
       description
         "ODU Switching pool";
-    }    
-	container xpdr-attributes {
+      uses org-openroadm-network-topology-types:xpdr-odu-switching-pools;
+    }
+    container xpdr-attributes {
       when "../node-type = 'MUXPDR' or ../node-type = 'SWITCH'";
-      uses xpdr:xpdr-topo-node-attributes;
       description
         "Topology-related attributes for Xponder nodes";
-    }	
+      uses xpdr:xpdr-topo-node-attributes;
+    }
   }
   augment "/nd:network/nd:node/nwt:termination-point" {
     when "../../nd:network-types/otn-topology";
@@ -104,9 +115,10 @@ module org-openroadm-otn-network-topology {
        TP-specific attributes for each termination point type.";
     leaf tp-type {
       type org-openroadm-network-types:openroadm-tp-type;
-      must "(../../otn-topo:node-type != 'MUXPDR' and ../../otn-topo:node-type != 'SWITCH') or 
-	  ((../../otn-topo:node-type = 'MUXPDR' or ../../otn-topo:node-type = 'SWITCH') and
-	  (../otn-topo:tp-type = 'XPONDER-NETWORK' or ../otn-topo:tp-type = 'XPONDER-CLIENT' or ../otn-topo:tp-type = 'XPONDER-PORT'))" {
+      must
+        "(../../otn-topo:node-type != 'MUXPDR' and ../../otn-topo:node-type != 'SWITCH') or 
+         ((../../otn-topo:node-type = 'MUXPDR' or ../../otn-topo:node-type = 'SWITCH') and
+         (../otn-topo:tp-type = 'XPONDER-NETWORK' or ../otn-topo:tp-type = 'XPONDER-CLIENT' or ../otn-topo:tp-type = 'XPONDER-PORT'))" {
         error-message "Invalid TP for node type Xponder";
       }
       description
@@ -114,24 +126,24 @@ module org-openroadm-otn-network-topology {
          on which Node types";
     }
     leaf eqpt-srg-id {
-        description
-          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
-        type uint32; 
-    }	
+      type uint32;
+      description
+        "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+    }
     container tp-supported-interfaces {
       when "../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-PORT'";
-      uses org-openroadm-network-types:xpdr-tp-supported-interfaces;
       description
         "Supported interface capability on the port.";
-    }	
+      uses org-openroadm-network-types:xpdr-tp-supported-interfaces;
+    }
     container xpdr-tp-port-connection-attributes {
       when "../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-PORT'";
       description
         "Topology-related attributes for Xpdr nodes";
       uses xpdr:xpdr-otn-tp-attributes;
       uses xpdr:xpdr-port-connection-attributes;
-      uses xpdr:xpdr-otn-tail-attributes;
-    }    
+      uses org-openroadm-network-topology-types:xpdr-otn-tail-attributes;
+    }
   }
   augment "/nd:network/nwt:link" {
     when "../nd:network-types/otn-topology";
@@ -139,6 +151,9 @@ module org-openroadm-otn-network-topology {
       "This augmentation defines Logical link types in the OTN topology connecting OTN elements";
     leaf link-type {
       type org-openroadm-network-types:openroadm-link-type;
+      must "(../link-type = 'OTN-LINK')" {
+        error-message "Invalid link type for otn-topology";
+      }
     }
     leaf administrative-group {
       type uint32;
@@ -147,13 +162,9 @@ module org-openroadm-otn-network-topology {
     }
     leaf operational-state {
       type ct:state;
-      description
-        "according to RFC 3630 definition";
     }
     leaf administrative-state {
       type ct:state;
-      description
-        "according to RFC 3630 definition";
     }
     leaf available-bandwidth {
       type uint32;
@@ -169,6 +180,6 @@ module org-openroadm-otn-network-topology {
       type boolean;
       description
         "ODU protection flag";
-    }     
-   }
+    }
+  }
 }

@@ -2,22 +2,18 @@ module org-openroadm-network-types {
   namespace "http://org/openroadm/network/types";
   prefix nt;
 
-  import ietf-network-topology {
-    prefix nwt;
-    revision-date 2015-06-08;
-  } 
   import ietf-yang-types {
     prefix yang;
     revision-date 2013-07-15;
-  }    
+  }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2017-09-29;  
-  } 
+    revision-date 2017-12-15;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -50,6 +46,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -85,16 +85,16 @@ module org-openroadm-network-types {
       }
       enum "MUXPDR" {
         value 14;
-      } 
+      }
       enum "REGEN" {
         value 15;
       }
       enum "REGEN-UNI" {
         value 16;
-      } 
+      }
       enum "SWITCH" {
         value 17;
-      }	  
+      }
     }
   }
 
@@ -173,10 +173,10 @@ module org-openroadm-network-types {
       }
       enum "OTN-LINK" {
         value 7;
-      }      
+      }
     }
   }
-  
+
   typedef openroadm-node-status {
     type enumeration {
       enum "PLANNED" {
@@ -189,7 +189,7 @@ module org-openroadm-network-types {
         value 3;
       }
     }
-  }  
+  }
 
   grouping wavelengths {
     leaf index {
@@ -201,15 +201,15 @@ module org-openroadm-network-types {
   grouping flex-wave {
     leaf frequency {
       type org-openroadm-common-types:frequency-THz;
+      config true;
       description
         "Center Frequency in THz";
-      config true;
     }
     leaf width {
       type org-openroadm-common-types:frequency-GHz;
+      config true;
       description
         "Frequency width in GHz.";
-      config true;
     }
   }
 
@@ -219,89 +219,15 @@ module org-openroadm-network-types {
       description
         "Supported interface capability on the port.";
       leaf if-cap-type {
-      description
-        "Interface type/hierarchy/rate supported on this port";
         type identityref {
-           base org-openroadm-port-types:supported-if-capability;
+          base org-openroadm-port-types:supported-if-capability;
         }
-      }  
-    }
-  }
-  
-  grouping xpdr-tp-bandwidth-sharing {
-    list tp-bandwidth-sharing {
-      key "tp-sharing-id";
-      leaf tp-sharing-id {
-        type uint16;
-      }
-      leaf-list tp-list {
-        type nwt:tp-id;
-      }
-      leaf shared-bandwidth {
-        type uint16;
-        units "Gbps";
+        description
+          "Interface type/hierarchy/rate supported on this port";
       }
     }
   }
-    
-  grouping xpdr-odu-switching-pools {
-    list odu-switching-pools {
-      key "switching-pool-number";
-      leaf switching-pool-number {
-      description
-        "Unique identifier for this odu-switching-pool";      
-        type uint16;
-      }
-      leaf switching-pool-type {
-         type enumeration {
-           enum "non-blocking" {
-            value 1;
-            description
-              "Single non-blocking element";
-           }
-           enum "blocking" {
-            value 2;
-            description
-              "Multiple connected non-blocking lists";
-	       }
-	     }
-      }
-      list non-blocking-list {
-        description
-          "List of ports in a non-blocking switch element";      
-        key "nbl-number";
-        leaf nbl-number {
-        description
-          "Identifier for this non-blocking-list. Unique within odu-switching-pool";
-          type uint16;
-        }
-        leaf interconnect-bandwidth-unit {
-        description
-          "Switch fabric interconnect bandwidth unit rate in bits per second. 
-          Represents granularity of switch fabric";
-          type uint32;
-        }
-        leaf capable-interconnect-bandwidth {
-        description
-          "Total interconnect bandwidth for a non-blocking element expressed as 
-          number of inter-connect-bandwidth units";        
-          type uint32;
-        }
-        leaf available-interconnect-bandwidth {
-        description
-          "Total interconnect bandwidth available for a non-blocking element can use as 
-          number of inter-connect-bandwidth units";          
-          type uint32;
-        }          
-        leaf-list tp-list { 
-            description
-                "Termination point. Unique within device";
-            type nwt:tp-id;
-        }
-      }
-    }
-  }
-  
+
   grouping node-due-date-list {
     list due-dates {
       key "id";

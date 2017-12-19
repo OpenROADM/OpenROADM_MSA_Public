@@ -4,7 +4,7 @@ module org-openroadm-resource-types {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -51,17 +55,6 @@ module org-openroadm-resource-types {
   revision 2016-10-14 {
     description
       "Version 1.2";
-  }
-
-  grouping resource-type {
-    leaf type {
-      type resource-type-enum;
-      mandatory true;
-    }
-    leaf extension {
-      type string;
-      mandatory false;
-    }
   }
 
   typedef resource-type-enum {
@@ -160,178 +153,7 @@ module org-openroadm-resource-types {
     }
   }
 
-  grouping device-id {
-    description
-      "Device identifier. Unique within the Controller.";
-    leaf node-id {
-      description
-        "Node Id is a globally unique identifier for a device. 
-         Same as leafref value in model, if applicable.";
-      type org-openroadm-common-types:node-id-type;
-    }
-  }
-
-  grouping circuit-pack-name {
-    leaf circuit-pack-name {
-      description
-        "Circuit-Pack identifier. Unique within the context of a device.
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping port-name {
-    uses circuit-pack-name;
-    leaf port-name {
-      description
-        "Port identifier. Unique within the context of a circuit-pack. 
-         Same as leafref value in model, if applicable.";
-      type string;
-    }
-  }
-
-  grouping physical-link-name {
-    leaf physical-link-name {
-      description
-        "Physical Link identifier. Unique within the context of a device. 
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping internal-link-name {
-    leaf internal-link-name {
-      description
-        "Internal Link identifier. Unique within the context of a device. 
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping connection-name {
-    leaf connection-name {
-      description
-        "Connection name. Unique within the context of a device. 
-         Same as leafref value in model, if applicable.";
-      type string;
-    }
-  }
-
-  grouping degree-number {
-    leaf degree-number {
-      description
-        "Degree identifier. Unique within the context of a device. 
-         Same as leafref value in model, if applicable.";
-      type uint16;
-    }
-  }
-
-  grouping srg-number {
-    leaf srg-number {
-      description
-        "Shared Risk Group identifier. Unique within the context of a device. 
-         Same as leafref value in model, if applicable.";
-      type uint16;
-    }
-  }
-
-  grouping shelf-name {
-    leaf shelf-name {
-      description
-        "Shelf-id identifier. Unique within the context of a device.  
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping service-name {
-    leaf service-name {
-      description
-        "Service identifier. Unique within the context of a network.  
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping versioned-service-name {
-    leaf versioned-service-name {
-      description
-        "Service identifier. Unique within the context of a network.  
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-    leaf version-number {
-      description
-        "version-number of the service";
-      type uint64;
-      mandatory true;
-    }
-  }
-
-  grouping temp-service-name {
-    leaf common-id {
-      description
-        "Service identifier. Unique within the context of a network.  
-         Same as leafref value in model, if applicable.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping interface-name {
-    leaf interface-name {
-      description
-        "Interface identifier.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping other-resource-id {
-    leaf other-resource-id {
-      description
-        "resource-id for other.";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping odu-sncp-pg-name {
-    leaf odu-sncp-pg-name {
-      description
-        "name of the odu-snc-pg";
-      type string;
-      mandatory true;
-    }
-  }
-
-  grouping amp-number {
-    leaf amp-number {
-      description
-        "number of the line-amplifier";
-      type uint8;
-      mandatory true;
-    }
-  }
-
-  grouping xpdr-number {
-    leaf xpdr-number {
-      description
-        "number of the xponder";
-      type uint16;
-      mandatory true;
-    }
-  }
-
   typedef resource-notification-type {
-    description
-      "Type of notification about a resource";
     type enumeration {
       enum "resourceCreation" {
         value 1;
@@ -349,6 +171,188 @@ module org-openroadm-resource-types {
         description
           "An exhisting instance of a resource has been removed.";
       }
+    }
+    description
+      "Type of notification about a resource";
+  }
+
+  grouping resource-type {
+    leaf type {
+      type resource-type-enum;
+      mandatory true;
+    }
+    leaf extension {
+      type string;
+      mandatory false;
+    }
+  }
+
+  grouping device-id {
+    description
+      "Device identifier. Unique within the Controller.";
+    leaf node-id {
+      type org-openroadm-common-types:node-id-type;
+      description
+        "Node Id is a globally unique identifier for a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping circuit-pack-name {
+    leaf circuit-pack-name {
+      type string;
+      mandatory true;
+      description
+        "Circuit-Pack identifier. Unique within the context of a device.
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping port-name {
+    uses circuit-pack-name;
+    leaf port-name {
+      type string;
+      description
+        "Port identifier. Unique within the context of a circuit-pack. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping physical-link-name {
+    leaf physical-link-name {
+      type string;
+      mandatory true;
+      description
+        "Physical Link identifier. Unique within the context of a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping internal-link-name {
+    leaf internal-link-name {
+      type string;
+      mandatory true;
+      description
+        "Internal Link identifier. Unique within the context of a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping connection-name {
+    leaf connection-name {
+      type string;
+      description
+        "Connection name. Unique within the context of a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping degree-number {
+    leaf degree-number {
+      type uint16;
+      description
+        "Degree identifier. Unique within the context of a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping srg-number {
+    leaf srg-number {
+      type uint16;
+      description
+        "Shared Risk Group identifier. Unique within the context of a device. 
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping shelf-name {
+    leaf shelf-name {
+      type string;
+      mandatory true;
+      description
+        "Shelf-id identifier. Unique within the context of a device.  
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping service-name {
+    leaf service-name {
+      type string;
+      mandatory true;
+      description
+        "Service identifier. Unique within the context of a network.  
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping versioned-service-name {
+    leaf versioned-service-name {
+      type string;
+      mandatory true;
+      description
+        "Service identifier. Unique within the context of a network.  
+         Same as leafref value in model, if applicable.";
+    }
+    leaf version-number {
+      type uint64;
+      mandatory true;
+      description
+        "version-number of the service";
+    }
+  }
+
+  grouping temp-service-name {
+    leaf common-id {
+      type string;
+      mandatory true;
+      description
+        "Service identifier. Unique within the context of a network.  
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping interface-name {
+    leaf interface-name {
+      type string;
+      mandatory true;
+      description
+        "Interface identifier.";
+    }
+  }
+
+  grouping other-resource-id {
+    leaf other-resource-id {
+      type string;
+      mandatory true;
+      description
+        "resource-id for other.";
+    }
+  }
+
+  grouping odu-sncp-pg-name {
+    leaf odu-sncp-pg-name {
+      type string;
+      mandatory true;
+      description
+        "name of the odu-snc-pg";
+    }
+  }
+
+  grouping amp-number {
+    leaf amp-number {
+      type uint8;
+      mandatory true;
+      description
+        "number of the line-amplifier";
+    }
+  }
+
+  grouping xpdr-number {
+    leaf xpdr-number {
+      type uint16;
+      mandatory true;
+      description
+        "number of the xponder";
     }
   }
 }

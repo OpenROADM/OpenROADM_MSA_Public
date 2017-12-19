@@ -4,7 +4,7 @@ module org-openroadm-port-types {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -77,7 +81,7 @@ module org-openroadm-port-types {
   identity if-OCH {
     base supported-if-capability;
   }
-  
+
   identity if-1GE {
     base supported-if-capability;
   }
@@ -111,6 +115,42 @@ module org-openroadm-port-types {
   }
 
   identity if-OTU4-ODU4 {
+    base supported-if-capability;
+  }
+
+  identity if-OTU1-ODU1 {
+    base supported-if-capability;
+  }
+
+  identity if-OTU2-ODU2 {
+    base supported-if-capability;
+  }
+
+  identity if-OTU2e-ODU2e {
+    base supported-if-capability;
+  }
+
+  identity if-OTU3-ODU3 {
+    base supported-if-capability;
+  }
+
+  identity if-1GE-ODU0 {
+    base supported-if-capability;
+  }
+
+  identity if-10GE-ODU2 {
+    base supported-if-capability;
+  }
+
+  identity if-10GE-ODU2e {
+    base supported-if-capability;
+  }
+
+  identity if-40GE-ODU3 {
+    base supported-if-capability;
+  }
+
+  identity if-100GE-ODU4 {
     base supported-if-capability;
   }
 

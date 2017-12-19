@@ -8,19 +8,19 @@ module org-openroadm-pm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -56,6 +56,10 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -78,36 +82,36 @@ module org-openroadm-pm {
       "PM Data with current values - both realtime (granularity=notApplicable)
        and binned (granularity=15 minute, 24h))";
     leaf pm-resource-instance {
+      type instance-identifier;
+      config false;
+      mandatory true;
       description
         "Retrieves all PM associate with the resource instance";
-      type instance-identifier;
-      mandatory true;
-      config false;
     }
     leaf pm-resource-type {
+      type org-openroadm-resource-types:resource-type-enum;
+      config false;
+      mandatory true;
       description
         "The supported pm-resource-type associated with the given resource instance.";
-      type org-openroadm-resource-types:resource-type-enum;
-      mandatory true;
-      config false;
     }
     leaf pm-resource-type-extension {
-      description
-        "The resource type extension when the type is not defined in the resource-type-enum.";
       type string;
       config false;
+      description
+        "The resource type extension when the type is not defined in the resource-type-enum.";
     }
     leaf retrieval-time {
+      type yang:date-and-time;
+      config false;
+      mandatory true;
       description
         "Represents the time when the data is being read, not the bin start or end time.";
-      type yang:date-and-time;
-      mandatory true;
-      config false;
     }
     list current-pm {
       key "type extension location direction";
-      uses current-pm-val-group;
       config false;
+      uses current-pm-val-group;
     }
   }
 
@@ -128,36 +132,26 @@ module org-openroadm-pm {
     }
   }
 
-  container current-pm-list {
-    description
-      "List of current PMs.";
-    list current-pm-entry {
-      key "pm-resource-type pm-resource-type-extension pm-resource-instance";
-      uses current-pm-group;
-    }
-    config false;
-  }
-
   grouping historical-pm-group {
     description
       "PM Data with historical values - binned (granularity=15 minute, 24h))";
     leaf pm-resource-instance {
+      type instance-identifier;
+      config false;
+      mandatory true;
       description
         "Retrieves all PM associate with the resource instance";
-      type instance-identifier;
-      mandatory true;
-      config false;
     }
     leaf pm-resource-type {
       type org-openroadm-resource-types:resource-type-enum;
-      mandatory true;
       config false;
+      mandatory true;
     }
     leaf pm-resource-type-extension {
-      description
-        "The resource type extension when the type is not defined in the resource-type-enum.";
       type string;
       config false;
+      description
+        "The resource type extension when the type is not defined in the resource-type-enum.";
     }
     list historical-pm {
       key "type extension location direction";
@@ -185,53 +179,18 @@ module org-openroadm-pm {
         type uint16 {
           range "1..max";
         }
-        mandatory true;
         config false;
+        mandatory true;
       }
       uses org-openroadm-pm-types:pm-measurement;
       leaf completion-time {
+        type yang:date-and-time;
+        config false;
+        mandatory true;
         description
           "The time at the end of the period; For example if bin starts at 
            01:15:00 and ends at 01:29:59, the completion-time is 01:29:59";
-        type yang:date-and-time;
-        mandatory true;
-        config false;
       }
-    }
-  }
-
-  container historical-pm-list {
-    description
-      "List of historical PM";
-    list historical-pm-entry {
-      key "pm-resource-type pm-resource-type-extension pm-resource-instance";
-      uses historical-pm-group;
-    }
-    config false;
-  }
-  rpc clear-pm {
-    description
-      "Command to initialize PM data";
-    input {
-      uses org-openroadm-resource:resource;
-      leaf pm-type {
-        default "current";
-        type enumeration {
-          enum "current" {
-            value 1;
-          }
-          enum "all" {
-            value 2;
-          }
-        }
-      }
-      leaf granularity {
-        default "15min";
-        type org-openroadm-pm-types:pm-granularity;
-      }
-    }
-    output {
-      uses org-openroadm-common-types:rpc-response-status;
     }
   }
 
@@ -245,13 +204,38 @@ module org-openroadm-pm {
          The controller should be able to use this name to retrieve the file via ftp/sftp.
          The file name should be unique for each RPC request since a new RPC request 
          could be initiated while the file transfer of the previous file is still in progress.
-
+         
          The file content should be written in xml format based on the historical-pm-list 
          yang definition and the file should be gzip compressed.";
     }
     uses org-openroadm-common-types:rpc-response-status;
   }
 
+  rpc clear-pm {
+    description
+      "Command to initialize PM data";
+    input {
+      uses org-openroadm-resource:resource;
+      leaf pm-type {
+        type enumeration {
+          enum "current" {
+            value 1;
+          }
+          enum "all" {
+            value 2;
+          }
+        }
+        default "current";
+      }
+      leaf granularity {
+        type org-openroadm-pm-types:pm-granularity;
+        default "15min";
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
   rpc collect-historical-pm-file {
     description
       "Command to query historical PM data.
@@ -276,9 +260,9 @@ module org-openroadm-pm {
       }
       leaf granularity {
         type org-openroadm-pm-types:pm-granularity;
-        description
-          "The granularity of the retrieve, default to 15 minitues PM";  
         default "15min";
+        description
+          "The granularity of the retrieve, default to 15 minitues PM";
       }
     }
     output {
@@ -289,5 +273,23 @@ module org-openroadm-pm {
     description
       "This Notification is sent when the pm collection is succesful or failed.";
     uses collect-history-pm-group;
+  }
+  container current-pm-list {
+    config false;
+    description
+      "List of current PMs.";
+    list current-pm-entry {
+      key "pm-resource-type pm-resource-type-extension pm-resource-instance";
+      uses current-pm-group;
+    }
+  }
+  container historical-pm-list {
+    config false;
+    description
+      "List of historical PM";
+    list historical-pm-entry {
+      key "pm-resource-type pm-resource-type-extension pm-resource-instance";
+      uses historical-pm-group;
+    }
   }
 }

@@ -4,7 +4,7 @@ module org-openroadm-topology {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -67,18 +71,18 @@ module org-openroadm-topology {
     list aToZ {
       key "id";
       leaf id {
+        type string;
         description
           "Unique identifier for this topology component within this service";
-        type string;
       }
       uses hop;
     }
     list zToA {
       key "id";
       leaf id {
+        type string;
         description
           "Unigue identifier for this topology component within this service";
-        type string;
       }
       uses hop;
     }
@@ -88,14 +92,14 @@ module org-openroadm-topology {
     leaf hop-type {
       type enumeration {
         enum "node-external" {
+          value 1;
           description
             "The given resource is on the edge of the node, and used in relationships to resources outside of the node.";
-          value 1;
         }
         enum "node-internal" {
+          value 2;
           description
             "The given resource is internally to the node";
-          value 2;
         }
       }
     }

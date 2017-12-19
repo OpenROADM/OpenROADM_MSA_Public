@@ -4,9 +4,11 @@ module org-openroadm-fwdl {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
-  }   
-  organization "Open ROADM MSA";
+    revision-date 2017-12-15;
+  }
+
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -38,6 +40,10 @@ module org-openroadm-fwdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";

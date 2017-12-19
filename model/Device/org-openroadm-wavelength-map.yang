@@ -2,7 +2,8 @@ module org-openroadm-wavelength-map {
   namespace "http://org/openroadm/wavelength-map";
   prefix org-openroadm-wavelength-map;
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -34,6 +35,10 @@ module org-openroadm-wavelength-map {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
@@ -42,10 +47,10 @@ module org-openroadm-wavelength-map {
   grouping wavelength-map-g {
     list wavelengths {
       key "wavelength-number";
+      config false;
       leaf wavelength-number {
         type uint32;
       }
-      config false;
       leaf center-frequency {
         type decimal64 {
           fraction-digits 3;

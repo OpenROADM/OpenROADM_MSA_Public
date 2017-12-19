@@ -1,0 +1,139 @@
+module org-openroadm-network-topology-types {
+  namespace "http://org/openroadm/network/topology/types";
+  prefix org-openroadm-network-topology-types;
+
+  import ietf-network {
+    prefix nd;
+    revision-date 2015-06-08;
+  }
+  import ietf-network-topology {
+    prefix nwt;
+    revision-date 2015-06-08;
+  }
+  import org-openroadm-switching-pool-types {
+    prefix org-openroadm-switching-pool-types;
+    revision-date 2017-12-15;
+  }
+
+  organization
+    "OPEN ROADM MSA";
+  contact
+    "www.OpenROADM.org.";
+  description
+    "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     AT&T Intellectual Property.  All other rights reserved.
+       
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+       
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, 
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+       
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
+
+  grouping xpdr-tp-bandwidth-sharing {
+    list tp-bandwidth-sharing {
+      key "tp-sharing-id";
+      leaf tp-sharing-id {
+        type uint16;
+      }
+      leaf-list tp-list {
+        type nwt:tp-id;
+      }
+      leaf shared-bandwidth {
+        type uint16;
+        units "Gbps";
+      }
+    }
+  }
+
+  grouping xpdr-odu-switching-pools {
+    list odu-switching-pools {
+      key "switching-pool-number";
+      leaf switching-pool-number {
+        type uint16;
+        description
+          "Unique identifier for this odu-switching-pool";
+      }
+      leaf switching-pool-type {
+        type org-openroadm-switching-pool-types:switching-pool-types;
+      }
+      list non-blocking-list {
+        key "nbl-number";
+        description
+          "List of ports in a non-blocking switch element";
+        leaf nbl-number {
+          type uint16;
+          description
+            "Identifier for this non-blocking-list. Unique within odu-switching-pool";
+        }
+        leaf interconnect-bandwidth-unit {
+          type uint32;
+          description
+            "Switch fabric interconnect bandwidth unit rate in bits per second. 
+             Represents granularity of switch fabric";
+        }
+        leaf capable-interconnect-bandwidth {
+          type uint32;
+          description
+            "Total interconnect bandwidth for a non-blocking element expressed as 
+             number of inter-connect-bandwidth units";
+        }
+        leaf available-interconnect-bandwidth {
+          type uint32;
+          description
+            "Total interconnect bandwidth available for a non-blocking element can use as 
+             number of inter-connect-bandwidth units";
+        }
+        leaf-list tp-list {
+          type nwt:tp-id;
+          description
+            "Termination point. Unique within device";
+        }
+      }
+    }
+  }
+
+  grouping xpdr-otn-tail-attributes {
+    leaf tp-id {
+      type nwt:tp-id;
+    }
+    leaf network-ref {
+      type leafref {
+        path "/nd:network/nd:network-id";
+      }
+      description
+        "Used to reference a network, for example an underlay
+         network.";
+    }
+    leaf node-ref {
+      type leafref {
+        path "/nd:network[nd:network-id=current()/../network-ref]/nd:node/nd:node-id";
+      }
+      description
+        "Used to reference a node.  
+         Nodes are identified relative to the network they are
+         contained in.";
+    }
+  }
+}

@@ -4,7 +4,7 @@ module org-openroadm-resource {
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";

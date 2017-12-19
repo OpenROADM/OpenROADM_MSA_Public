@@ -7,7 +7,8 @@ module org-openroadm-syslog {
     revision-date 2013-07-15;
   }
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -55,10 +56,14 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
-  }                   
+  }
   revision 2017-07-28 {
     description
       "Version 2.0.1 - added revision-date to imports";
@@ -81,14 +86,11 @@ module org-openroadm-syslog {
        on a Posix 1003.2 regular expression pattern match.";
   }
 
-  // copied from draft of ietf-ietf-syslog-types.yang
   identity syslog-facility {
     description
       "The base identity to represent syslog facilities";
   }
 
-  // copied from draft of ietf-ietf-syslog-types.yang;
-  // extended the enum set to include all and none
   typedef severity {
     type enumeration {
       enum "emergency" {
@@ -172,7 +174,7 @@ module org-openroadm-syslog {
           "The severity-operator is not applicable for severity 'all' or 
            severity 'none'";
       }
-      if-feature selector-sevop-config;
+      if-feature "selector-sevop-config";
       type enumeration {
         enum "equals-or-higher" {
           description
@@ -267,12 +269,12 @@ module org-openroadm-syslog {
       "This container describes the configuration parameters for 
        Syslog.";
     leaf local-syslog-filename {
-      description
-        "The syslog file name. It should be a fully qualified name 
-         so that the user can get the file using transfer RPC.";
       type string;
       config false;
       mandatory true;
+      description
+        "The syslog file name. It should be a fully qualified name 
+         so that the user can get the file using transfer RPC.";
     }
     container log-actions {
       description

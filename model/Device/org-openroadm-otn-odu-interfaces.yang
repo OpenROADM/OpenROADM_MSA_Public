@@ -4,7 +4,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2016-10-14;
+    revision-date 2017-12-15;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -20,7 +20,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -86,7 +90,7 @@ module org-openroadm-otn-odu-interfaces {
     description
       "Version 1.2";
   }
-  
+
   grouping msi-entry {
     leaf trib-slot {
       type uint16;
@@ -101,7 +105,7 @@ module org-openroadm-otn-odu-interfaces {
         "ODTU type, part of the MSI (Multiplex Structure Identifier)";
     }
     leaf trib-port {
-      type uint8;
+      type uint16;
       description
         "Tributary Port Number (0-based), part of the MSI";
     }
@@ -151,6 +155,11 @@ module org-openroadm-otn-odu-interfaces {
       description
         "Monitoring mode of the ODU Overhead";
     }
+    leaf no-oam-function {
+      type empty;
+      description
+        "No OAM functionality exists for this ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions. This is an optional parameter, only needs to be present when no-oam-function supported for this interface.";
+    }
     leaf proactive-delay-measurement-enabled {
       type boolean;
       description
@@ -161,34 +170,34 @@ module org-openroadm-otn-odu-interfaces {
     uses org-openroadm-otn-common:deg-threshold;
     list tcm {
       key "layer tcm-direction";
-      uses tcm-attributes;
       max-elements "6";
       description
         "Tandem Connection Management";
+      uses tcm-attributes;
     }
     uses opu;
   }
 
   grouping parent-odu-allocation {
-      container parent-odu-allocation {
-        presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
-        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
-        leaf trib-port-number {
-	  type uint16 {
-	    range "1 .. 80";
-	  }
-          mandatory true;
-	  description
-            "Assigned tributary port number in parent OPU";
-	}
-        leaf-list trib-slots {
-          max-elements "80";
-	  min-elements "1";
-	  type uint16 {
-	    range "1 .. 80";   
-	  }   
-          description
-            "Assigned trib slots occupied in parent OPU MSI";                
+    container parent-odu-allocation {
+      when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name = current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
+      presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
+      leaf trib-port-number {
+        type uint16 {
+          range "1 .. 80";
+        }
+        mandatory true;
+        description
+          "Assigned tributary port number in parent OPU";
+      }
+      leaf-list trib-slots {
+        type uint16 {
+          range "1 .. 80";
+        }
+        min-elements 1;
+        max-elements "80";
+        description
+          "Assigned trib slots occupied in parent OPU MSI";
       }
     }
   }
@@ -199,26 +208,17 @@ module org-openroadm-otn-odu-interfaces {
       description
         "Optical Channel Payload Unit (OPU)";
       leaf payload-type {
-        type string {
-          length "2";
-          pattern "[0-9a-fA-F]*";
-        }
+        type org-openroadm-otn-common-types:payload-type-def;
         description
           "Payload Type";
       }
       leaf rx-payload-type {
-        type string {
-          length "2";
-          pattern "[0-9a-fA-F]*";
-        }
+        type org-openroadm-otn-common-types:payload-type-def;
         description
           "Received Payload Type";
       }
       leaf exp-payload-type {
-        type string {
-          length "2";
-          pattern "[0-9a-fA-F]*";
-        }
+        type org-openroadm-otn-common-types:payload-type-def;
         description
           "Expected Payload Type";
       }
@@ -231,21 +231,21 @@ module org-openroadm-otn-odu-interfaces {
         when "../payload-type = '20' or ../payload-type = '21'";
         list tx-msi {
           key "trib-slot";
-          uses msi-entry;
           description
             "Transmit MSI";
+          uses msi-entry;
         }
         list rx-msi {
           key "trib-slot";
-          uses msi-entry;
           description
             "Receive MSI";
+          uses msi-entry;
         }
         list exp-msi {
           key "trib-slot";
-          uses msi-entry;
           description
             "Expected MSI";
+          uses msi-entry;
         }
       }
     }
@@ -323,6 +323,9 @@ module org-openroadm-otn-odu-interfaces {
           config false;
         }
         refine "opu/msi" {
+          config false;
+        }
+        refine "no-oam-function" {
           config false;
         }
       }

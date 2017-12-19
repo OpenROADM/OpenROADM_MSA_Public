@@ -8,15 +8,15 @@ module org-openroadm-tca {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -52,6 +52,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -81,20 +85,40 @@ module org-openroadm-tca {
     container resource {
       uses org-openroadm-resource:resource;
     }
+    container pmParameterName {
+      uses org-openroadm-pm-types:pm-names;
+    }
     leaf granularity {
       type org-openroadm-pm-types:pm-granularity;
-    }
-    leaf raiseTime {
-      type yang:date-and-time;
-    }
-    leaf severity {
       mandatory true;
-      type org-openroadm-common-types:severity;
-      description
-        "Severity of alarm. Based on X.733 perceived severity.";
+    }
+    leaf location {
+      type org-openroadm-common-types:location;
+      mandatory true;
+    }
+    leaf direction {
+      type org-openroadm-common-types:direction;
+      mandatory true;
+    }
+  }
+
+  grouping potential-tca {
+    uses tca;
+    leaf lowThresholdValue {
+      type org-openroadm-pm-types:pm-data-type;
+    }
+    leaf highThresholdValue {
+      type org-openroadm-pm-types:pm-data-type;
+    }
+  }
+
+  notification tca-notification {
+    uses tca;
+    leaf thresholdValue {
+      type org-openroadm-pm-types:pm-data-type;
+      mandatory true;
     }
     leaf thresholdType {
-      mandatory false;
       type enumeration {
         enum "high" {
           value 1;
@@ -103,46 +127,26 @@ module org-openroadm-tca {
           value 2;
         }
       }
+      mandatory true;
       description
         "Threshold Crossed";
     }
-    container thresholdMeasurement {
-      container pmParameterName {
-        uses org-openroadm-pm-types:pm-names;
-      }                    
-      uses org-openroadm-pm-types:pm-measurement;
-      leaf location {
-        type org-openroadm-common-types:location;
-      }
-      leaf direction {
-        type org-openroadm-common-types:direction;
-      }
+    leaf pmParameterValue {
+      type org-openroadm-pm-types:pm-data-type;
+      mandatory true;
+    }
+    leaf raiseTime {
+      type yang:date-and-time;
+      mandatory true;
     }
   }
-
-  grouping potential-tca {
-    leaf lowThresholdValue {
-      mandatory false;
-      type org-openroadm-pm-types:pm-data-type;
-    }
-    leaf highThresholdValue {
-      mandatory false;
-      type org-openroadm-pm-types:pm-data-type;
-    }
-    uses tca;
-  }
-
   container potential-tca-list {
+    description
+      "This is the set of threshold crossing alerts monitored on the device. Alerts are
+       enabled/disabled by adding/deleting the high/low threshold values from the list.";
     list tca {
       key "id";
       uses potential-tca;
-    }
-  }
-  notification tca-notification {
-    uses tca {
-      refine "raiseTime" {
-        mandatory true;
-      }
     }
   }
 }
