@@ -2,7 +2,8 @@ module org-openroadm-manifest-file {
   namespace "http://org/openroadm/manifest-file";
   prefix org-openroadm-manifest-file;
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -33,7 +34,7 @@ module org-openroadm-manifest-file {
      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.
-
+     
      Also contains code components extracted from IETF netconf.  These code components 
      are copyrighted and licensed as follows:
      
@@ -48,6 +49,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -55,306 +60,767 @@ module org-openroadm-manifest-file {
   }
 
   identity manifest-commands {
-    description "base identity for defining manifest-commands.";
+    description
+      "base identity for defining manifest-commands.";
   }
 
   identity download-file {
     base manifest-commands;
-    description "download-file (transfer from OWB-C to Device)";
+    description
+      "download-file (transfer from OWB-C to Device)";
   }
 
   identity upload-file {
     base manifest-commands;
-    description "upload-file (transfer from Device to OWB-C)";
+    description
+      "upload-file (transfer from Device to OWB-C)";
   }
 
   identity delete-file {
     base manifest-commands;
-    description "delete-file from device";
+    description
+      "delete-file from device";
   }
 
   identity sw-manifest-commands {
-    base  manifest-commands;
-    description "base identity for defining manifest-commands specific to sw-manifest.";
+    base manifest-commands;
+    description
+      "base identity for defining manifest-commands specific to sw-manifest.";
   }
 
   identity sw-stage {
     base sw-manifest-commands;
-    description "sw-stage sw-manifest-command";
+    description
+      "sw-stage sw-manifest-command";
   }
 
   identity sw-activate {
     base sw-manifest-commands;
-    description "sw-activate sw-manifest-command";
+    description
+      "sw-activate sw-manifest-command";
   }
 
   identity db-backup-manifest-commands {
-    base  manifest-commands;
-    description "base identity for defining manifest-commands specific to db-backup-manifest.";
+    base manifest-commands;
+    description
+      "base identity for defining manifest-commands specific to db-backup-manifest.";
   }
 
   identity db-backup {
     base db-backup-manifest-commands;
-    description "db-backup db-backup-manifest-command";
+    description
+      "db-backup db-backup-manifest-command";
   }
 
   identity db-restore-manifest-commands {
-    base  manifest-commands;
-    description "base identity for defining manifest-commands specific to db-restore-manifest.";
+    base manifest-commands;
+    description
+      "base identity for defining manifest-commands specific to db-restore-manifest.";
   }
 
   identity db-restore {
     base db-restore-manifest-commands;
-    description "db-restore db-restore-manifest-command";
+    description
+      "db-restore db-restore-manifest-command";
   }
 
   identity db-activate {
     base db-restore-manifest-commands;
-    description "db-activate db-restore-manifest-command";
+    description
+      "db-activate db-restore-manifest-command";
   }
 
   grouping base-manifest {
-    description "base set of variables in all manifest files";
+    description
+      "base set of variables in all manifest files";
     leaf vendor {
       type string;
       mandatory true;
-      description "This field should match the /org-openroadm-device/info/vendor.
-                   It is assumed that the vendor value does not change during the
-                   processing of the manifest file.
-
-                   The controller agent would use the vendor and model to find the
-                   manifest for an Open ROADM NE. The controller agent would also
-                   use the vendor and model to validate that this is a valid manifest
-                   for the Open ROADM NE.
-                  ";
+      description
+        "This field should match the /org-openroadm-device/info/vendor.
+         It is assumed that the vendor value does not change during the
+         processing of the manifest file.
+         
+         The controller agent would use the vendor and model to find the
+         manifest for an Open ROADM NE. The controller agent would also
+         use the vendor and model to validate that this is a valid manifest
+         for the Open ROADM NE.
+        ";
     }
     leaf model {
       type string;
       mandatory true;
-      description "This field should match the /org-openroadm-device/info/model.
-                   It is assumed that the model value does not change during the
-                   processing of the manifest file.
-
-                   The controller agent would use the vendor and model to find the
-                   manifest for an Open ROADM NE. The controller agent would also
-                   use the vendor and model to validate that this is a valid manifest
-                   for the Open ROADM NE.
-                  ";
+      description
+        "This field should match the /org-openroadm-device/info/model.
+         It is assumed that the model value does not change during the
+         processing of the manifest file.
+         
+         The controller agent would use the vendor and model to find the
+         manifest for an Open ROADM NE. The controller agent would also
+         use the vendor and model to validate that this is a valid manifest
+         for the Open ROADM NE.
+        ";
     }
     leaf sw-version {
       type string;
-      description "This field should match the
-                       /org-openroadm-device/info/softwareVersion.
-                   This is the value in the info tree AFTER an upgrade.
-                  ";
+      description
+        "This field should match the
+             /org-openroadm-device/info/softwareVersion.
+         This is the value in the info tree AFTER an upgrade.
+        ";
     }
     leaf global-async-timeout {
       type uint16;
-      default 900; // 15 minutes
-      description "global-async-timeout - time in seconds to wait for command processing to
-                   complete.
-
-                   Upon timeout, the controller may either:
-                     - assume success;
-                     - assume failure;
-                     - poll the device to determine success/failure of the operation
-
-                   This global-async-timeout applies to any asynchronous command.
-                  ";
+      default "900";
+      description
+        "global-async-timeout - time in seconds to wait for command processing to
+         complete.
+         
+         Upon timeout, the controller may either:
+           - assume success;
+           - assume failure;
+           - poll the device to determine success/failure of the operation
+         
+         This global-async-timeout applies to any asynchronous command.
+        ";
     }
     leaf global-sync-timeout {
       type uint16;
-      description "global-sync-timeout - time in seconds to wait for the rpc response for
-                   synchronous commands.
+      description
+        "global-sync-timeout - time in seconds to wait for the rpc response for
+         synchronous commands.
+         
+         This global-sync-timeout applies to any synchronous command.
+         
+         Upon timeout, the controller may either:
+           - assume success;
+           - assume failure;
+           - poll the device to determine success/failure of the operation
+         
+         No default is modeled; if not provided, defaults to the global 
+         timeout supported by the controller for rpc responses.
+        ";
+    }
+  }
 
-                   This global-sync-timeout applies to any synchronous command.
+  grouping timeout-command {
+    description
+      "timeout-command is to be used by any manifest command supporting a timeout";
+    leaf timeout {
+      type uint16;
+      description
+        "See command for additional details.
+         if command is async,
+           - overrides the global-async-timeout;
+           - defaults to the global-async-timeout if not provided.
+         if command is sync,
+           - overrides the global-sync-timeout;
+           - defaults to the global-sync-timeout if not provided.
+        ";
+    }
+  }
 
-                   Upon timeout, the controller may either:
-                     - assume success;
-                     - assume failure;
-                     - poll the device to determine success/failure of the operation
+  grouping is-async-command {
+    description
+      "is-async-command is to be supported by all manifest commands even if only
+       supported as sync or async. In such cases, a must statement should be 
+       included to limit support to either sync or async.";
+    leaf is-async {
+      type boolean;
+      default "true";
+      description
+        "command can be supported as either an async or sync command by a vendor.
+         When supported as a sync command, the OWB-C will determine the success/failure
+         of the command based on the RPC response instead of waiting for transient
+         notifications from the device.";
+    }
+  }
 
-                   No default is modeled; if not provided, defaults to the global 
-                   timeout supported by the controller for rpc responses.
-                  ";
+  grouping transfer-command {
+    description
+      "transfer-command defines the common set of variables used by download-file
+       and upload-file";
+    leaf remote-filename {
+      type string;
+      mandatory true;
+      description
+        "See command for detailed description.";
+    }
+    leaf local-file-path {
+      type string;
+      mandatory true;
+      description
+        "See command for detailed description.";
+    }
+    uses timeout-command;
+    uses is-async-command;
+  }
+
+  grouping file-command {
+    description
+      "file-command is used by all manifest files needing a filename";
+    leaf filename {
+      type string;
+      description
+        "filename is mandatory for delete-file; optional otherwise.
+         See command for detailed description.";
+    }
+  }
+
+  grouping command-reboot {
+    description
+      "command-reboot is used by manifest commands which result in a 
+       device restart.";
+    leaf auto-reboot {
+      type uint16;
+      mandatory true;
+      description
+        "See command for detailed description.";
+    }
+  }
+
+  grouping download-file-command {
+    description
+      "down-file-command";
+    container download-file {
+      when "../command = 'download-file'";
+      description
+        "Transfer a file from the SFTP server to the device.
+         format: download-file remote-filename local-file-path [timeout]
+         where
+           remote-filename is the filename of the file to transfer on the SFTP
+           server. The filename can include a relative path that represents the
+           subdirectory structure of the vendor's software directory. This file
+           (and optional path) must exist in the software release directory on
+           the SFTP server.
+           
+           local-file-path is the local path and filename to transfer the file on
+           the device.
+           
+           timeout - see timeout-command grouping for basic details;
+                     if command is async,
+                       - Receipt of an in-progress (version 2)
+                         transfer-notification resets the timeout.
+           
+         Maps to the transfer rpc with
+            action = download
+            local-file-path = local-file-path
+            remote-file-path =
+               sftp://user:password@host[:port]/path/remote-filename
+           
+            The remote-file-path attribute on the transfer command would be
+            constructed by the software download agent by appending the sftp URL
+            (which includes username, password, host, port, and path to the
+            software release directory) with the remote_filename.
+           
+         In the context of the transfer, remote is the SFTP server (e.g., located
+         on the software download agent) and local is on the Open ROADM device.
+           
+         Expected notifications: transfer-notification
+        ";
+      uses transfer-command;
+    }
+  }
+
+  grouping upload-file-command {
+    description
+      "upload-file-command";
+    container upload-file {
+      when "../command = 'upload-file'";
+      description
+        "Transfer a file from the device to the SFTP server.
+         format: upload-file remote-filename local-file-path [timeout]
+         where
+           remote-filename is the filename of the file to receive the upload
+           on the SFTP server. The filename can include a relative path that
+           represents the subdirectory structure of the vendor's software
+           directory.
+           
+           local-file-path is the local path and filename of the file on
+           the device to be uploaded to the SFTP server. This file must exist on
+           the device.
+           
+           timeout - see timeout-command grouping for basic details;
+                     if command is async,
+                       - Receipt of an in-progress (version 2)
+                         transfer-notification resets the timeout.
+           
+         Maps to the transfer rpc with
+            action = upload
+            local-file-path = local-file-path
+            remote-file-path =
+               sftp://user:password@host[:port]/path/remote-filename
+           
+            The remote-file-path attribute on the transfer command would be
+            constructed by the software download agent by appending the sftp URL
+            (which includes username, password, host, port, and path to the
+            software release directory) with the remote_filename.
+           
+         In the context of the transfer, remote is the SFTP server (e.g., located
+         on the software download agent) and local is on the Open ROADM device.
+           
+         Expected notifications: transfer-notification
+        ";
+      uses transfer-command;
+    }
+  }
+
+  grouping delete-file-command {
+    description
+      "delete-file-command";
+    container delete-file {
+      when "../command = 'delete-file'";
+      must "is-async != 'false'" {
+        error-message "delete-file is only supported as sync command";
+      }
+      description
+        "Delete a file from the device's file system.
+         format: delete-file filename [timeout]
+         where
+           filename is the filename to be deleted from the device. The filename
+           may include path information.
+           
+           timeout - overrides the global-sync-timeout; defaults to the
+                     global-sync-timeout if not provided.
+           
+         Maps to the delete-file rpc:
+            delete-file filename
+        ";
+      uses file-command {
+        refine "filename" {
+          mandatory true;
+        }
+      }
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
+  grouping sw-stage-command {
+    description
+      "sw-stage-command";
+    container sw-stage {
+      when "../command = 'sw-stage'";
+      description
+        "Stage a file in the device.  The details of what a device does during
+         the staging operation is vendor specific.  However, the vendor may
+         initiate additional file transfers from the SFTP server during the
+         staging operation.  It is expected that the files will only be
+         transferred from the software release directory.
+           
+         format: sw-stage [filename] [timeout]
+         where
+           filename is the filename of the file to stage. If filename is not
+           provided, the software download application will send the sw-stage
+           command without a filename.
+           
+           timeout - overrides the global-async-timeout; defaults to the
+                     global-async-timeout if not provided.
+           
+           
+         Maps to the sw-stage rpc:
+            sw-stage [filename]
+           
+         Expected notifications: sw-stage-notification
+        ";
+      uses file-command;
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
+  grouping sw-activate-command {
+    description
+      "sw-activate-command";
+    container sw-activate {
+      when "../command = 'sw-activate'";
+      must "is-async != 'true'" {
+        error-message "sw-activate is only supported as async command";
+      }
+      description
+        "Activate a software load in a device.  The details of what a device does
+         during the activation phase is vendor specific.  The device initiates
+         an automatic reboot as part of the activation.
+           
+         format:  sw-activate version [validation-timer] [timeout] auto-reboot
+         where:
+           version: The version of software that is being activated. (The current
+           YANG model indicates that version is optional; however, version should
+           be a mandatory attribute of the sw-activate command in the manifest
+           file).
+           
+           validation-timer: Validation timer setting for the software activation.
+           Format is expected to be in the form HH-MM-SS per the YANG model. The
+           software download application expects this format in order to treat
+           00-00-00 and no validation timer as the same use case.
+           
+           timeout - overrides the global-async-timeout; defaults to the
+           global-async-timeout if not provided. This timer begins as soon as the
+           sw-activate processing begins. timeout must be greater than the
+           auto-reboot time.
+           
+           auto-reboot: time (in seconds) to wait to for the device to reboot.
+           This is the device restart time (e.g. the length of time from device
+           comm loss until the device is ready for login). This timer begins when
+           the controller detects the comm-loss from the device. If login is not
+           successful when this timer expires, the sw-activate is failed.
+           
+           NOTE: if controller swdl application is not doing the login directly,
+           the controller may need to augment the auto-reboot timer to account for
+           the login time.
+           
+         Maps to the sw-activate rpc:
+           sw-activate version [validationTimer]
+           
+         Expected notifications: sw-activate-notification
+           When no validation timer (or validation-timer = 00-00-00), two
+           notifications will be expected: one for activate, the other for 
+           commit. Otherwise, only the activate notification is expected.
+           
+           NOTE: the sw-activate-notifications (for activate) may be received
+           before or after the reboot; it is assumed the sw-activate-notification
+           (for commit) always occurs after the reboot. Any polling due to missed
+           sw-activate-notifications (activate and/or commit) should not be done
+           until after the reboot login; processing of sw-activate does not
+           complete until after receipt of the notifications and the reboot login.
+        ";
+      leaf version {
+        type string;
+        mandatory true;
+        description
+          "Although version is optional in the sw-activate rpc, it is 
+           mandatory in the manifest file command.";
+      }
+      leaf validation-timer {
+        type string;
+        description
+          "hh-mm-ss";
+      }
+      uses timeout-command;
+      uses command-reboot;
+      uses is-async-command;
+    }
+  }
+
+  grouping db-backup-command {
+    description
+      "db-backup-command";
+    container db-backup {
+      when "../command = 'db-backup'";
+      description
+        "Perform a database backup on the device.
+           
+         format: db-backup [filename] [timeout]
+         where
+           filename is the filename of the backup file to be generated on the
+           device. If filename is not provided, the database backup application
+           will send the db-backup command without a filename. It's possible the
+           filename will not be statically provided in the manifest file, but
+           provided by the database backup application.
+           
+           timeout - see timeout-command grouping for basic details;
+           
+         Maps to the db-backup rpc:
+           db-backup [filename]
+           
+         Expected notifications: db-backup-notification
+        ";
+      uses file-command;
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
+  grouping db-restore-command {
+    description
+      "db-restore-command";
+    container db-restore {
+      when "../command = 'db-restore'";
+      description
+        "Perform a database restore on the device.
+         
+         format: db-restore [filename] [node-id-check] [timeout]
+         where
+           filename is the filename of the file to be restored on the
+           device. If filename is not provided, the database restore application
+           will send the db-restore command without a filename. It's possible the
+           filename will not be statically provided in the manifest file, but
+           provided by the database restore application.
+           
+           node-id-check is a boolean indicating whether sysNameCheck is required.
+           
+           timeout - see timeout-command grouping for basic details;
+           
+         Maps to the db-restore rpc:
+           db-restore [filename] [nodeIDCheck]
+           
+         Expected notifications: db-restore-notification
+        ";
+      uses file-command;
+      leaf node-id-check {
+        type string;
+        default "true";
+        description
+          "Defined as an string here so that manifest file can parameterize
+           the value for user input. __NODE-ID-CHECK is used for that purpose. Other valid
+           values are true or false. Maps to a boolean value in the rpc invocation.";
+      }
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
+  grouping db-activate-command {
+    description
+      "db-activate-command";
+    container db-activate {
+      when "../command = 'db-activate'";
+      must "is-async != 'true'" {
+        error-message "db-activate is only supported as async command";
+      }
+      description
+        "Activate a database on a device.  The details of what a device does
+         during the activation phase is vendor specific.  The device initiates
+         an automatic reboot as part of the activation.
+           
+         format:  db-activate [rollback-timer] [timeout] auto-reboot 
+         where:
+           rollback-timer: Rollback timer setting for the database activation.
+           Format is expected to be in the form HH-MM-SS per the YANG model. The
+           database activation application expects this format in order to treat
+           00-00-00 and no validation timer as the same use case.
+           
+           timeout - overrides the global-async-timeout; defaults to the
+           global-async-timeout if not provided. This timer begins as soon as the
+           db-activate processing begins. timeout must be greater than the
+           auto-reboot time.
+           
+           auto-reboot: time (in seconds) to wait to for the device to reboot.
+           This is the device restart time (e.g. the length of time from device
+           comm loss until the device is ready for login). This timer begins when
+           the controller detects the comm-loss from the device. If login is not
+           successful when this timer expires, the db-activate is failed.
+           
+           NOTE: if controller database application is not doing the login
+           directly, the controller may need to augment the auto-reboot timer to
+           account for the login time.
+           
+         Maps to the db-activate rpc:
+           db-activate [rollBackTimer]
+           
+         Expected notifications: db-activate-notification
+           When no rollback timer (or rollback-timer = 00-00-00), two
+           notifications will be expected: one for activate, the other for 
+           commit. Otherwise, only the activate notification is expected.
+           
+           NOTE: the db-activate-notifications (for activate) may be received
+           before or after the reboot; it is assumed the db-activate-notification
+           (for commit) always occurs after the reboot. Any polling due to missed
+           db-activate-notifications (activate and/or commit) should not be done
+           until after the reboot login; processing of db-activate does not
+           complete until after receipt of the notifications and the reboot login.
+        ";
+      leaf rollback-timer {
+        type string;
+        description
+          "hh-mm-ss";
+      }
+      uses timeout-command;
+      uses command-reboot;
+      uses is-async-command;
     }
   }
 
   container sw-manifest {
     presence "The sw-manifest instructions for swdl operations have been defined.";
-    description "The manifest file provides instructions to a software download
-                 application to download and install a new software load into a vendor’s
-                 equipment.
-
-                 Software download files
-                     All vendor files for a software release should be stored in a
-                 separate directory. A unique directory would be used for each vendor,
-                 model and software release combination. This directory and all files in
-                 that directory will be accessible by the SFTP server.
-                     The software directory can be flat or hierarchical with
-                 subdirectories. The manifest file should be in the root directory of the
-                 software directory.
-                     A software directory must contain files for one and only one
-                 software release. 
-
-                 Manifest file name
-                     Each software release directory shall contain a manifest file for
-                 that release. The filename for the manifest file shall be sw-manifest.json.
-                ";
+    description
+      "The manifest file provides instructions to a software download
+       application to download and install a new software load into a vendor’s
+       equipment.
+       
+       Software download files
+           All vendor files for a software release should be stored in a
+       separate directory. A unique directory would be used for each vendor,
+       model and software release combination. This directory and all files in
+       that directory will be accessible by the SFTP server.
+           The software directory can be flat or hierarchical with
+       subdirectories. The manifest file should be in the root directory of the
+       software directory.
+           A software directory must contain files for one and only one
+       software release. 
+       
+       Manifest file name
+           Each software release directory shall contain a manifest file for
+       that release. The filename for the manifest file shall be sw-manifest.json.
+      ";
     uses base-manifest {
-      refine sw-version {
+      refine "sw-version" {
         mandatory true;
       }
     }
     list instruction-set {
       key "index";
+      description
+        "The instruction set for a list of sw-versions that can be upgraded to 
+         the sw-version specified at the top of the manifest file.";
       leaf index {
         type uint8;
-        description "The index for this instruction set.";
+        description
+          "The index for this instruction set.";
       }
-      description "The instruction set for a list of sw-versions that can be upgraded to 
-                   the sw-version specified at the top of the manifest file.";
       leaf-list from-sw-version {
         type string;
-        description "The optional list of sw-versions that can be upgraded to the
-                     sw-version specified at the top of the sw-manifest file.
-
-                     If not specified, this instruction set is used to upgrade from
-                     any sw-version to the sw-version specified at the top of the
-                     sw-manifest file.
-                    
-                     If multiple instruction sets are provided, from-sw-version
-                     should always be defined.";
+        description
+          "The optional list of sw-versions that can be upgraded to the
+           sw-version specified at the top of the sw-manifest file.
+           
+           If not specified, this instruction set is used to upgrade from
+           any sw-version to the sw-version specified at the top of the
+           sw-manifest file.
+                               
+           If multiple instruction sets are provided, from-sw-version
+           should always be defined.";
       }
       leaf is-commit-sw-activate-async {
-	type boolean;
-	default "true";
-	description "Is cancel-validation-timer (accept = true) supported as an
-	  async or sync command on the device? If supported as sync, the rpc response
-	  is used to determine success/failure instead of waiting for transient notifications
-	  of the result.
-	  NOTE: cancel-validation-timer (accept = false) requires a reboot so is
-	  always considered async";
+        type boolean;
+        default "true";
+        description
+          "Is cancel-validation-timer (accept = true) supported as an
+           async or sync command on the device? If supported as sync, the rpc response
+           is used to determine success/failure instead of waiting for transient notifications
+           of the result.
+           NOTE: cancel-validation-timer (accept = false) requires a reboot so is
+           always considered async";
       }
       leaf cancel-validation-timer-async-timeout {
-	type uint16;
-	description "timeout value to use for cancel-validation-timer when supported as
-	  an async command. If not specified, the global-async-timeout is used.";
+        type uint16;
+        description
+          "timeout value to use for cancel-validation-timer when supported as
+           an async command. If not specified, the global-async-timeout is used.";
       }
       leaf cancel-validation-timer-sync-timeout {
-	type uint16;
-	description "timeout value to use for cancel-validation-timer (accept = true) when
-		     supported as a sync command. If not specified, the global-sync-timeout
-		     is used.";
+        type uint16;
+        description
+          "timeout value to use for cancel-validation-timer (accept = true) when
+           supported as a sync command. If not specified, the global-sync-timeout
+           is used.";
       }
       container sw-manifest-commands {
-	description "The ordered list of commands to be processed. Since some yang
-		     implementations do not support ordered-by user, the list is also
-		     indexed by command-order. The commands should be processed
-		     in the order of command-order.
-
-		     Processing moves to the next command when:
-			1. command is synchronous and rpc returns a successful result.
-			2. command is asynchronous, the rpc returns a successful result,
-			   and
-			   2.1 expected successful notification(s) have been received; or
-			   2.2 timeout occurs.
-		    
-		     Processing of the manifest file is aborted when:
-			1. command is synchronous and rpc returns a failed result.
-			2. command is asynchronous, and:
-			   2.1 the rpc returns a failed result; or
-			   2.2 a failed notification is received; or
-			   2.3 timeout occurs.
-		     
-		     NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
-		     controller implementation per command. It may be considered either:
-			 - as a successful result
-			 - as a failed result
-			 - as a success or failure based on polling the device
-		    ";
-	list sw-manifest-command {
-	  key "command-order";
-	  ordered-by user;
-	  description "The list of commands to be processed.";
-	  leaf command-order {
-	    type uint8;
-	    description "The order in which commands should be processed.";
-	  }
-	  leaf command {
-	    type identityref {
-	      base sw-manifest-commands;
-	    }
-	    mandatory true;
-	    description "The command to be processed.";
-	  }
-	  uses download-file-command;
-	  uses delete-file-command;
-	  uses sw-stage-command;
-	  uses sw-activate-command;
-	}
+        description
+          "The ordered list of commands to be processed. Since some yang
+           implementations do not support ordered-by user, the list is also
+           indexed by command-order. The commands should be processed
+           in the order of command-order.
+           
+           Processing moves to the next command when:
+           1. command is synchronous and rpc returns a successful result.
+           2. command is asynchronous, the rpc returns a successful result,
+           and
+           2.1 expected successful notification(s) have been received; or
+           2.2 timeout occurs.
+           \t\t    
+           Processing of the manifest file is aborted when:
+           1. command is synchronous and rpc returns a failed result.
+           2. command is asynchronous, and:
+           2.1 the rpc returns a failed result; or
+           2.2 a failed notification is received; or
+           2.3 timeout occurs.
+           \t\t     
+           NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
+           controller implementation per command. It may be considered either:
+           - as a successful result
+           - as a failed result
+           - as a success or failure based on polling the device
+          ";
+        list sw-manifest-command {
+          key "command-order";
+          ordered-by user;
+          description
+            "The list of commands to be processed.";
+          leaf command-order {
+            type uint8;
+            description
+              "The order in which commands should be processed.";
+          }
+          leaf command {
+            type identityref {
+              base sw-manifest-commands;
+            }
+            mandatory true;
+            description
+              "The command to be processed.";
+          }
+          uses download-file-command;
+          uses delete-file-command;
+          uses sw-stage-command;
+          uses sw-activate-command;
+        }
       }
     }
   }
-  
   container db-backup-manifest {
     presence "The db-backup-manifest template for db-backup operations has been defined.";
-    description "The manifest file provides instructions to a database operations
-                 application to backup the database on a device.
-
-                 Since the files used for these operations are likely user selected,
-                 these manifest files are more likely used by the controller as a
-                 template to control the overall flow of a backup operation and provide
-                 a means of providing customized timeout values.
-
-                 The following strings will be recognized as parameters to be replaced
-                 by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME.
-
-                 Manifest file name
-                     Each vendor/model combination can have a separate manifest file
-                 defined for backup. These shall be named db-backup-manifest.json.
-                ";
+    description
+      "The manifest file provides instructions to a database operations
+       application to backup the database on a device.
+       
+       Since the files used for these operations are likely user selected,
+       these manifest files are more likely used by the controller as a
+       template to control the overall flow of a backup operation and provide
+       a means of providing customized timeout values.
+       
+       The following strings will be recognized as parameters to be replaced
+       by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME.
+       
+       Manifest file name
+           Each vendor/model combination can have a separate manifest file
+       defined for backup. These shall be named db-backup-manifest.json.
+      ";
     uses base-manifest;
     container db-backup-manifest-commands {
-      description "The ordered list of commands to be processed. Since some yang
-                   implementations do not support ordered-by user, the list is also
-                   indexed by command-order. The commands should be processed
-                   in the order of command-order.
-
-                   Processing moves to the next command when:
-                      1. command is synchronous and rpc returns a successful result.
-                      2. command is asynchronous, the rpc returns a successful result,
-                         and
-                         2.1 expected successful notification(s) have been received; or
-                         2.2 timeout occurs.
-                  
-                   Processing of the manifest file is aborted when:
-                      1. command is synchronous and rpc returns a failed result.
-                      2. command is asynchronous, and:
-                         2.1 the rpc returns a failed result; or
-                         2.2 a failed notification is received; or
-                         2.3 timeout occurs.
-
-                   NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
-                   controller implementation per command. It may be considered either:
-                       - as a successful result
-                       - as a failed result
-                       - as a success or failure based on polling the device
-                  ";
+      description
+        "The ordered list of commands to be processed. Since some yang
+         implementations do not support ordered-by user, the list is also
+         indexed by command-order. The commands should be processed
+         in the order of command-order.
+         
+         Processing moves to the next command when:
+            1. command is synchronous and rpc returns a successful result.
+            2. command is asynchronous, the rpc returns a successful result,
+               and
+               2.1 expected successful notification(s) have been received; or
+               2.2 timeout occurs.
+                           
+         Processing of the manifest file is aborted when:
+            1. command is synchronous and rpc returns a failed result.
+            2. command is asynchronous, and:
+               2.1 the rpc returns a failed result; or
+               2.2 a failed notification is received; or
+               2.3 timeout occurs.
+         
+         NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
+         controller implementation per command. It may be considered either:
+             - as a successful result
+             - as a failed result
+             - as a success or failure based on polling the device
+        ";
       list db-backup-manifest-command {
         key "command-order";
         ordered-by user;
-        description "The list of commands to be processed.";
+        description
+          "The list of commands to be processed.";
         leaf command-order {
           type uint8;
-          description "The order in which commands should be processed.";
+          description
+            "The order in which commands should be processed.";
         }
         leaf command {
           type identityref {
             base db-backup-manifest-commands;
           }
           mandatory true;
-          description "The command to be processed.";
+          description
+            "The command to be processed.";
         }
         uses upload-file-command;
         uses delete-file-command;
@@ -362,495 +828,106 @@ module org-openroadm-manifest-file {
       }
     }
   }
-
   container db-restore-manifest {
     presence "The db-restore-manifest template for db-restore operations has been defined.";
-    description "The manifest file provides instructions to a database operations
-                 application to restore the database on a device.
-
-                 Since the files used for these operations are likely user selected,
-                 these manifest files are more likely used by the controller as a
-                 template to control the overall flow of a restore operation and provide
-                 a means of providing customized timeout and auto-reboot values.
-
-                 The following strings will be recognized as parameters to be replaced
-                 by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME,
-                 __NODE-ID-CHECK.
-
-                 Manifest file name
-                     Each vendor/model combination can have a separate manifest file
-                 defined for restore. These shall be named db-restore-manifest.json.
-                ";
+    description
+      "The manifest file provides instructions to a database operations
+       application to restore the database on a device.
+       
+       Since the files used for these operations are likely user selected,
+       these manifest files are more likely used by the controller as a
+       template to control the overall flow of a restore operation and provide
+       a means of providing customized timeout and auto-reboot values.
+       
+       The following strings will be recognized as parameters to be replaced
+       by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME,
+       __NODE-ID-CHECK.
+       
+       Manifest file name
+           Each vendor/model combination can have a separate manifest file
+       defined for restore. These shall be named db-restore-manifest.json.
+      ";
     uses base-manifest;
     leaf is-commit-db-activate-async {
       type boolean;
       default "true";
-      description "Is cancel-rollback-timer (accept = true) supported as an
-        async or sync command on the device? If supported as sync, the rpc response
-        is used to determine success/failure instead of waiting for transient notifications
-        of the result.
-        NOTE: cancel-rollback-timer (accept = false) requires a reboot so is
-        always considered async";
+      description
+        "Is cancel-rollback-timer (accept = true) supported as an
+         async or sync command on the device? If supported as sync, the rpc response
+         is used to determine success/failure instead of waiting for transient notifications
+         of the result.
+         NOTE: cancel-rollback-timer (accept = false) requires a reboot so is
+         always considered async";
     }
     leaf cancel-rollback-timer-async-timeout {
       type uint16;
-      description "timeout value to use for cancel-rollback-timer when supported as
-        an async command. If not specified, the global-async-timeout is used.";
+      description
+        "timeout value to use for cancel-rollback-timer when supported as
+         an async command. If not specified, the global-async-timeout is used.";
     }
     leaf cancel-rollback-timer-sync-timeout {
       type uint16;
-      description "timeout value to use for cancel-rollback-timer (accept = true) when
-                   supported as a sync command. If not specified, the global-sync-timeout
-                   is used.";
+      description
+        "timeout value to use for cancel-rollback-timer (accept = true) when
+         supported as a sync command. If not specified, the global-sync-timeout
+         is used.";
     }
     leaf database-init-sync-timeout {
       type uint16;
-      description "timeout value to use for database-init command. If not specified,
-                   the global-sync-timeout is used.";
+      description
+        "timeout value to use for database-init command. If not specified,
+         the global-sync-timeout is used.";
     }
     container db-restore-manifest-commands {
-      description "The ordered list of commands to be processed. Since some yang
-                   implementations do not support ordered-by user, the list is also
-                   indexed by command-order. The commands should be processed
-                   in the order of command-order.
-
-                   Processing moves to the next command when:
-                      1. command is synchronous and rpc returns a successful result.
-                      2. command is asynchronous, the rpc returns a successful result,
-                         and
-                         2.1 expected successful notification(s) have been received; or
-                         2.2 timeout occurs.
-                  
-                   Processing of the manifest file is aborted when:
-                      1. command is synchronous and rpc returns a failed result.
-                      2. command is asynchronous, and:
-                         2.1 the rpc returns a failed result; or
-                         2.2 a failed notification is received; or
-                         2.3 timeout occurs.
-
-                   NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
-                   controller implementation per command. It may be considered either:
-                       - as a successful result
-                       - as a failed result
-                       - as a success or failure based on polling the device
-                  ";
+      description
+        "The ordered list of commands to be processed. Since some yang
+         implementations do not support ordered-by user, the list is also
+         indexed by command-order. The commands should be processed
+         in the order of command-order.
+         
+         Processing moves to the next command when:
+            1. command is synchronous and rpc returns a successful result.
+            2. command is asynchronous, the rpc returns a successful result,
+               and
+               2.1 expected successful notification(s) have been received; or
+               2.2 timeout occurs.
+                           
+         Processing of the manifest file is aborted when:
+            1. command is synchronous and rpc returns a failed result.
+            2. command is asynchronous, and:
+               2.1 the rpc returns a failed result; or
+               2.2 a failed notification is received; or
+               2.3 timeout occurs.
+         
+         NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
+         controller implementation per command. It may be considered either:
+             - as a successful result
+             - as a failed result
+             - as a success or failure based on polling the device
+        ";
       list db-restore-manifest-command {
         key "command-order";
         ordered-by user;
-        description "The list of commands to be processed.";
+        description
+          "The list of commands to be processed.";
         leaf command-order {
           type uint8;
-          description "The order in which commands should be processed.";
+          description
+            "The order in which commands should be processed.";
         }
         leaf command {
           type identityref {
             base db-restore-manifest-commands;
           }
           mandatory true;
-          description "The command to be processed.";
+          description
+            "The command to be processed.";
         }
         uses download-file-command;
         uses delete-file-command;
         uses db-restore-command;
         uses db-activate-command;
       }
-    }
-  }
-
-  grouping timeout-command {
-    description "timeout-command is to be used by any manifest command supporting a timeout";
-    leaf timeout {
-      type uint16;
-      description "See command for additional details.
-                   if command is async,
-                     - overrides the global-async-timeout;
-                     - defaults to the global-async-timeout if not provided.
-                   if command is sync,
-                     - overrides the global-sync-timeout;
-                     - defaults to the global-sync-timeout if not provided.
-                   ";
-    }
-  }
-
-  grouping is-async-command {
-    description "is-async-command is to be supported by all manifest commands even if only
-                 supported as sync or async. In such cases, a must statement should be 
-                 included to limit support to either sync or async.";
-    leaf is-async {
-      type boolean;
-      default "true";
-      description "command can be supported as either an async or sync command by a vendor.
-        When supported as a sync command, the OWB-C will determine the success/failure
-        of the command based on the RPC response instead of waiting for transient
-        notifications from the device.";
-    }
-  }
-
-  grouping transfer-command {
-    description "transfer-command defines the common set of variables used by download-file
-                 and upload-file";
-    leaf remote-filename {
-      type string;
-      mandatory true;
-      description "See command for detailed description.";
-    }
-    leaf local-file-path {
-      type string;
-      mandatory true;
-      description "See command for detailed description.";
-    }
-    uses timeout-command;
-    uses is-async-command;
-  }
-
-  grouping file-command {
-    description "file-command is used by all manifest files needing a filename";
-    leaf filename {
-      type string;
-      description "filename is mandatory for delete-file; optional otherwise.
-                   See command for detailed description.";
-    }
-  }
-
-  grouping command-reboot {
-    description "command-reboot is used by manifest commands which result in a 
-                 device restart.";
-    leaf auto-reboot {
-      type uint16;
-      mandatory true;
-      description "See command for detailed description.";
-    }
-  }
-
-  grouping download-file-command {
-    description "down-file-command";
-    container download-file {
-      when "../command = 'download-file'";
-      uses transfer-command;
-      description "Transfer a file from the SFTP server to the device.
-                   format: download-file remote-filename local-file-path [timeout]
-                   where
-                     remote-filename is the filename of the file to transfer on the SFTP
-                     server. The filename can include a relative path that represents the
-                     subdirectory structure of the vendor's software directory. This file
-                     (and optional path) must exist in the software release directory on
-                     the SFTP server.
-  
-                     local-file-path is the local path and filename to transfer the file on
-                     the device.
-  
-                     timeout - see timeout-command grouping for basic details;
-                               if command is async,
-                                 - Receipt of an in-progress (version 2)
-                                   transfer-notification resets the timeout.
-  
-                   Maps to the transfer rpc with
-                      action = download
-                      local-file-path = local-file-path
-                      remote-file-path =
-                         sftp://user:password@host[:port]/path/remote-filename
-  
-                      The remote-file-path attribute on the transfer command would be
-                      constructed by the software download agent by appending the sftp URL
-                      (which includes username, password, host, port, and path to the
-                      software release directory) with the remote_filename.
-  
-                   In the context of the transfer, remote is the SFTP server (e.g., located
-                   on the software download agent) and local is on the Open ROADM device.
-  
-                   Expected notifications: transfer-notification
-                  ";
-    }
-  }
-
-  grouping upload-file-command {
-    description "upload-file-command";
-    container upload-file {
-      when "../command = 'upload-file'";
-      uses transfer-command;
-      description "Transfer a file from the device to the SFTP server.
-                   format: upload-file remote-filename local-file-path [timeout]
-                   where
-                     remote-filename is the filename of the file to receive the upload
-                     on the SFTP server. The filename can include a relative path that
-                     represents the subdirectory structure of the vendor's software
-                     directory.
-  
-                     local-file-path is the local path and filename of the file on
-                     the device to be uploaded to the SFTP server. This file must exist on
-                     the device.
-  
-                     timeout - see timeout-command grouping for basic details;
-                               if command is async,
-                                 - Receipt of an in-progress (version 2)
-                                   transfer-notification resets the timeout.
-  
-                   Maps to the transfer rpc with
-                      action = upload
-                      local-file-path = local-file-path
-                      remote-file-path =
-                         sftp://user:password@host[:port]/path/remote-filename
-  
-                      The remote-file-path attribute on the transfer command would be
-                      constructed by the software download agent by appending the sftp URL
-                      (which includes username, password, host, port, and path to the
-                      software release directory) with the remote_filename.
-  
-                   In the context of the transfer, remote is the SFTP server (e.g., located
-                   on the software download agent) and local is on the Open ROADM device.
-  
-                   Expected notifications: transfer-notification
-                  ";
-    }
-  }
-
-  grouping delete-file-command {
-    description "delete-file-command";
-    container delete-file {
-      when "../command = 'delete-file'";
-      uses file-command {
-        refine filename {
-          mandatory true;
-        }
-      }
-      uses timeout-command;
-      uses is-async-command;
-      must "is-async != 'false'" {
-        error-message "delete-file is only supported as sync command";
-      }
-      description "Delete a file from the device's file system.
-                   format: delete-file filename [timeout]
-                   where
-                     filename is the filename to be deleted from the device. The filename
-                     may include path information.
-  
-                     timeout - overrides the global-sync-timeout; defaults to the
-                               global-sync-timeout if not provided.
-  
-                   Maps to the delete-file rpc:
-                      delete-file filename
-                  ";
-    }
-  }
-
-  grouping sw-stage-command {
-    description "sw-stage-command";
-    container sw-stage {
-      when "../command = 'sw-stage'";
-      uses file-command;
-      uses timeout-command;
-      uses is-async-command;
-      description "Stage a file in the device.  The details of what a device does during
-                   the staging operation is vendor specific.  However, the vendor may
-                   initiate additional file transfers from the SFTP server during the
-                   staging operation.  It is expected that the files will only be
-                   transferred from the software release directory.
-  
-                   format: sw-stage [filename] [timeout]
-                   where
-                     filename is the filename of the file to stage. If filename is not
-                     provided, the software download application will send the sw-stage
-                     command without a filename.
-  
-                     timeout - overrides the global-async-timeout; defaults to the
-                               global-async-timeout if not provided.
-  
-  
-                   Maps to the sw-stage rpc:
-                      sw-stage [filename]
-  
-                   Expected notifications: sw-stage-notification
-                  ";
-    }
-  }
-
-  grouping sw-activate-command {
-    description "sw-activate-command";
-    container sw-activate {
-      when "../command = 'sw-activate'";
-      leaf version {
-        type string;
-        mandatory true;
-        description "Although version is optional in the sw-activate rpc, it is 
-                     mandatory in the manifest file command.";
-      }
-      leaf validation-timer {
-        type string;
-        description "hh-mm-ss";
-      }
-      uses timeout-command;
-      uses command-reboot;
-      uses is-async-command;
-      must "is-async != 'true'" {
-        error-message "sw-activate is only supported as async command";
-      }
-      description "Activate a software load in a device.  The details of what a device does
-                   during the activation phase is vendor specific.  The device initiates
-                   an automatic reboot as part of the activation.
-  
-                   format:  sw-activate version [validation-timer] [timeout] auto-reboot
-                   where:
-                     version: The version of software that is being activated. (The current
-                     YANG model indicates that version is optional; however, version should
-                     be a mandatory attribute of the sw-activate command in the manifest
-                     file).
-  
-                     validation-timer: Validation timer setting for the software activation.
-                     Format is expected to be in the form HH-MM-SS per the YANG model. The
-                     software download application expects this format in order to treat
-                     00-00-00 and no validation timer as the same use case.
-  
-                     timeout - overrides the global-async-timeout; defaults to the
-                     global-async-timeout if not provided. This timer begins as soon as the
-                     sw-activate processing begins. timeout must be greater than the
-                     auto-reboot time.
-  
-                     auto-reboot: time (in seconds) to wait to for the device to reboot.
-                     This is the device restart time (e.g. the length of time from device
-                     comm loss until the device is ready for login). This timer begins when
-                     the controller detects the comm-loss from the device. If login is not
-                     successful when this timer expires, the sw-activate is failed.
-  
-                     NOTE: if controller swdl application is not doing the login directly,
-                     the controller may need to augment the auto-reboot timer to account for
-                     the login time.
-  
-                   Maps to the sw-activate rpc:
-                     sw-activate version [validationTimer]
-  
-                   Expected notifications: sw-activate-notification
-                     When no validation timer (or validation-timer = 00-00-00), two
-                     notifications will be expected: one for activate, the other for 
-                     commit. Otherwise, only the activate notification is expected.
-  
-                     NOTE: the sw-activate-notifications (for activate) may be received
-                     before or after the reboot; it is assumed the sw-activate-notification
-                     (for commit) always occurs after the reboot. Any polling due to missed
-                     sw-activate-notifications (activate and/or commit) should not be done
-                     until after the reboot login; processing of sw-activate does not
-                     complete until after receipt of the notifications and the reboot login.
-                  ";
-    }
-  }
-
-  grouping db-backup-command {
-    description "db-backup-command";
-    container db-backup {
-      when "../command = 'db-backup'";
-      uses file-command;
-      uses timeout-command;
-      uses is-async-command;
-      description "Perform a database backup on the device.
-  
-                   format: db-backup [filename] [timeout]
-                   where
-                     filename is the filename of the backup file to be generated on the
-                     device. If filename is not provided, the database backup application
-                     will send the db-backup command without a filename. It's possible the
-                     filename will not be statically provided in the manifest file, but
-                     provided by the database backup application.
-  
-                     timeout - see timeout-command grouping for basic details;
-  
-                   Maps to the db-backup rpc:
-                     db-backup [filename]
-  
-                   Expected notifications: db-backup-notification
-                  ";
-    }
-  }
-
-  grouping db-restore-command {
-    description "db-restore-command";
-    container db-restore {
-      when "../command = 'db-restore'";
-      uses file-command;
-      leaf node-id-check {
-        type string;
-        default "true";
-        description "Defined as an string here so that manifest file can parameterize
-          the value for user input. __NODE-ID-CHECK is used for that purpose. Other valid
-          values are true or false. Maps to a boolean value in the rpc invocation.";
-      }
-      uses timeout-command;
-      uses is-async-command;
-      description "Perform a database restore on the device.
-
-                   format: db-restore [filename] [node-id-check] [timeout]
-                   where
-                     filename is the filename of the file to be restored on the
-                     device. If filename is not provided, the database restore application
-                     will send the db-restore command without a filename. It's possible the
-                     filename will not be statically provided in the manifest file, but
-                     provided by the database restore application.
-  
-                     node-id-check is a boolean indicating whether sysNameCheck is required.
-  
-                     timeout - see timeout-command grouping for basic details;
-  
-                   Maps to the db-restore rpc:
-                     db-restore [filename] [nodeIDCheck]
-  
-                   Expected notifications: db-restore-notification
-                  ";
-    }
-  }
-
-  grouping db-activate-command {
-    description "db-activate-command";
-    container db-activate {
-      when "../command = 'db-activate'";
-      leaf rollback-timer {
-        type string;
-        description "hh-mm-ss";
-      }
-      uses timeout-command;
-      uses command-reboot;
-      uses is-async-command;
-      must "is-async != 'true'" {
-        error-message "db-activate is only supported as async command";
-      }
-      description "Activate a database on a device.  The details of what a device does
-                   during the activation phase is vendor specific.  The device initiates
-                   an automatic reboot as part of the activation.
-  
-                   format:  db-activate [rollback-timer] [timeout] auto-reboot 
-                   where:
-                     rollback-timer: Rollback timer setting for the database activation.
-                     Format is expected to be in the form HH-MM-SS per the YANG model. The
-                     database activation application expects this format in order to treat
-                     00-00-00 and no validation timer as the same use case.
-  
-                     timeout - overrides the global-async-timeout; defaults to the
-                     global-async-timeout if not provided. This timer begins as soon as the
-                     db-activate processing begins. timeout must be greater than the
-                     auto-reboot time.
-  
-                     auto-reboot: time (in seconds) to wait to for the device to reboot.
-                     This is the device restart time (e.g. the length of time from device
-                     comm loss until the device is ready for login). This timer begins when
-                     the controller detects the comm-loss from the device. If login is not
-                     successful when this timer expires, the db-activate is failed.
-  
-                     NOTE: if controller database application is not doing the login
-                     directly, the controller may need to augment the auto-reboot timer to
-                     account for the login time.
-  
-                   Maps to the db-activate rpc:
-                     db-activate [rollBackTimer]
-  
-                   Expected notifications: db-activate-notification
-                     When no rollback timer (or rollback-timer = 00-00-00), two
-                     notifications will be expected: one for activate, the other for 
-                     commit. Otherwise, only the activate notification is expected.
-  
-                     NOTE: the db-activate-notifications (for activate) may be received
-                     before or after the reboot; it is assumed the db-activate-notification
-                     (for commit) always occurs after the reboot. Any polling due to missed
-                     db-activate-notifications (activate and/or commit) should not be done
-                     until after the reboot login; processing of db-activate does not
-                     complete until after receipt of the notifications and the reboot login.
-                  ";
     }
   }
 }

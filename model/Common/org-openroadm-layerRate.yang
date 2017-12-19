@@ -2,7 +2,8 @@ module org-openroadm-layerRate {
   namespace "http://org/openroadm/layerRate";
   prefix org-openroadm-layerRate;
 
-  organization "Open ROADM MSA";
+  organization
+    "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
@@ -34,22 +35,13 @@ module org-openroadm-layerRate {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2016-10-14 {
     description
       "Version 1.2";
-  }
-
-  grouping layer-rate {
-    description
-      "Set list of layer rates, plus the ability to report layer rates not yet in set list.";
-    leaf type {
-      type layer-rate-enum;
-      mandatory true;
-    }
-    leaf extension {
-      type string;
-      mandatory false;
-    }
   }
 
   typedef layer-rate-enum {
@@ -84,6 +76,19 @@ module org-openroadm-layerRate {
         description
           "6";
       }
+    }
+  }
+
+  grouping layer-rate {
+    description
+      "Set list of layer rates, plus the ability to report layer rates not yet in set list.";
+    leaf type {
+      type layer-rate-enum;
+      mandatory true;
+    }
+    leaf extension {
+      type string;
+      mandatory false;
     }
   }
 }

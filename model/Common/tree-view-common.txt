@@ -365,9 +365,7 @@ module: org-openroadm-pm
 module: org-openroadm-tca
     +--rw potential-tca-list
        +--rw tca* [id]
-          +--rw lowThresholdValue?      org-openroadm-pm-types:pm-data-type
-          +--rw highThresholdValue?     org-openroadm-pm-types:pm-data-type
-          +--rw id                      string
+          +--rw id                    string
           +--rw resource
           |  +--rw device
           |  |  +--rw node-id?   org-openroadm-common-types:node-id-type
@@ -413,23 +411,18 @@ module: org-openroadm-tca
           |  +--rw resourceType
           |     +--rw type         resource-type-enum
           |     +--rw extension?   string
-          +--rw granularity?            org-openroadm-pm-types:pm-granularity
-          +--rw raiseTime?              yang:date-and-time
-          +--rw severity                org-openroadm-common-types:severity
-          +--rw thresholdType?          enumeration
-          +--rw thresholdMeasurement
-             +--rw pmParameterName
-             |  +--rw type         pm-names-enum
-             |  +--rw extension?   string
-             +--ro pmParameterValue    pm-data-type
-             +--rw pmParameterUnit?    string
-             +--rw validity?           validity
-             +--rw location?           org-openroadm-common-types:location
-             +--rw direction?          org-openroadm-common-types:direction
+          +--rw pmParameterName
+          |  +--rw type         pm-names-enum
+          |  +--rw extension?   string
+          +--rw granularity           org-openroadm-pm-types:pm-granularity
+          +--rw location              org-openroadm-common-types:location
+          +--rw direction             org-openroadm-common-types:direction
+          +--rw lowThresholdValue?    org-openroadm-pm-types:pm-data-type
+          +--rw highThresholdValue?   org-openroadm-pm-types:pm-data-type
 
   notifications:
     +---n tca-notification
-       +--ro id                      string
+       +--ro id                  string
        +--ro resource
        |  +--ro device
        |  |  +--ro node-id?   org-openroadm-common-types:node-id-type
@@ -475,19 +468,16 @@ module: org-openroadm-tca
        |  +--ro resourceType
        |     +--ro type         resource-type-enum
        |     +--ro extension?   string
-       +--ro granularity?            org-openroadm-pm-types:pm-granularity
-       +--ro raiseTime               yang:date-and-time
-       +--ro severity                org-openroadm-common-types:severity
-       +--ro thresholdType?          enumeration
-       +--ro thresholdMeasurement
-          +--ro pmParameterName
-          |  +--ro type         pm-names-enum
-          |  +--ro extension?   string
-          +--ro pmParameterValue    pm-data-type
-          +--ro pmParameterUnit?    string
-          +--ro validity?           validity
-          +--ro location?           org-openroadm-common-types:location
-          +--ro direction?          org-openroadm-common-types:direction
+       +--ro pmParameterName
+       |  +--ro type         pm-names-enum
+       |  +--ro extension?   string
+       +--ro granularity         org-openroadm-pm-types:pm-granularity
+       +--ro location            org-openroadm-common-types:location
+       +--ro direction           org-openroadm-common-types:direction
+       +--ro thresholdValue      org-openroadm-pm-types:pm-data-type
+       +--ro thresholdType       enumeration
+       +--ro pmParameterValue    org-openroadm-pm-types:pm-data-type
+       +--ro raiseTime           yang:date-and-time
 module: org-openroadm-user-mgmt
 
   rpcs:

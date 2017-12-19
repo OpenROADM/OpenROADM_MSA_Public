@@ -4,11 +4,11 @@ module org-openroadm-degree {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -45,6 +45,10 @@ module org-openroadm-degree {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -66,11 +70,10 @@ module org-openroadm-degree {
     description
       "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid 
        index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
-	   will hold list of used spectrums";
+       will hold list of used spectrums";
     list used-wavelengths {
       key "index";
       uses org-openroadm-network-types:wavelengths;
-	  
     }
   }
 
@@ -87,23 +90,23 @@ module org-openroadm-degree {
     }
     list available-wavelengths {
       key "index";
-      uses org-openroadm-network-types:wavelengths;
-	  description
+      description
         "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid 
-		index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
-		will hold list of available spectrums";
-    }	
+         index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
+         will hold list of available spectrums";
+      uses org-openroadm-network-types:wavelengths;
+    }
     leaf ingress-span-loss-aging-margin {
       type org-openroadm-common-types:ratio-dB;
+      config true;
       description
         "Span-loss margin extracted from corresponding device OTS interface container, optional";
-      config true;
     }
     leaf eol-max-load-pIn {
       type org-openroadm-common-types:power-dBm;
+      config true;
       description
         "End Of Life Total input power at maximum load extracted from corresponding device OTS interface container";
-      config true;
     }
   }
 }

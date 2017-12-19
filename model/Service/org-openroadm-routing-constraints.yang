@@ -4,7 +4,7 @@ module org-openroadm-routing-constraints {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -74,17 +78,17 @@ module org-openroadm-routing-constraints {
         container exclude {
           uses common-constraints;
           leaf-list supporting-service-name {
+            type string;
             description
               "Supporting service(s) to exclude from this route.";
-            type string;
           }
         }
         container include {
           uses common-constraints;
           leaf-list supporting-service-name {
+            type string;
             description
               "Supporting service(s) to include in this route.";
-            type string;
           }
         }
         container latency {

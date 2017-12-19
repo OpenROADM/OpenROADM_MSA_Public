@@ -1,0 +1,20 @@
+module: ietf-network-topology
+  augment /nd:network:
+    +--rw link* [link-id]
+       +--rw source
+       |  +--rw source-node    -> ../../../nd:node/node-id
+       |  +--rw source-tp?     -> ../../../nd:node[nd:node-id=current()/../source-node]/termination-point/tp-id
+       +--rw destination
+       |  +--rw dest-node    -> ../../../nd:node/node-id
+       |  +--rw dest-tp?     -> ../../../nd:node[nd:node-id=current()/../dest-node]/termination-point/tp-id
+       +--rw link-id            link-id
+       +--rw supporting-link* [network-ref link-ref]
+          +--rw network-ref    -> ../../../nd:supporting-network/network-ref
+          +--rw link-ref       -> /nd:network[nd:network-id=current()/../network-ref]/link/link-id
+  augment /nd:network/nd:node:
+    +--rw termination-point* [tp-id]
+       +--rw tp-id                           tp-id
+       +--rw supporting-termination-point* [network-ref node-ref tp-ref]
+          +--rw network-ref    -> ../../../nd:supporting-node/network-ref
+          +--rw node-ref       -> ../../../nd:supporting-node/node-ref
+          +--rw tp-ref         -> /nd:network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/termination-point/tp-id

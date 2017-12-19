@@ -1,0 +1,12 @@
+module: ietf-network
+    +--rw network* [network-id]
+       +--rw network-types
+       +--rw network-id            network-id
+       +--ro server-provided?      boolean
+       +--rw supporting-network* [network-ref]
+       |  +--rw network-ref    -> /network/network-id
+       +--rw node* [node-id]
+          +--rw node-id            node-id
+          +--rw supporting-node* [network-ref node-ref]
+             +--rw network-ref    -> ../../../supporting-network/network-ref
+             +--rw node-ref       -> /network/node/node-id

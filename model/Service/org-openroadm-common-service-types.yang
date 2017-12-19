@@ -12,23 +12,23 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -64,6 +64,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -79,6 +83,180 @@ module org-openroadm-common-service-types {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  typedef rpc-actions {
+    type enumeration {
+      enum "service-create" {
+        value 1;
+      }
+      enum "service-feasibility-check" {
+        value 2;
+      }
+      enum "service-delete" {
+        value 3;
+      }
+      enum "equipment-notification" {
+        value 4;
+      }
+      enum "temp-service-create" {
+        value 5;
+      }
+      enum "temp-service-delete" {
+        value 6;
+      }
+      enum "service-roll" {
+        value 7;
+      }
+      enum "service-reconfigure" {
+        value 8;
+      }
+      enum "service-restoration" {
+        value 9;
+      }
+      enum "service-reversion" {
+        value 10;
+      }
+      enum "service-reroute" {
+        value 11;
+      }
+      enum "service-reroute-confirm" {
+        value 12;
+      }
+      enum "network-re-optimization" {
+        value 13;
+      }
+      enum "service-feasibility-check-bulk" {
+        value 14;
+      }
+    }
+    description
+      "rpc-actions include all the rpc methods";
+  }
+
+  typedef service-format {
+    type enumeration {
+      enum "Ethernet" {
+        value 1;
+      }
+      enum "OTU" {
+        value 2;
+      }
+      enum "OC" {
+        value 3;
+      }
+      enum "STM" {
+        value 4;
+      }
+      enum "OMS" {
+        value 5;
+      }
+      enum "ODU" {
+        value 6;
+      }
+      enum "OTM" {
+        value 7;
+      }
+    }
+  }
+
+  typedef ethernet-encoding-type {
+    type enumeration {
+      enum "10GBASE-W" {
+        value 1;
+      }
+      enum "10GBASE-R" {
+        value 2;
+      }
+    }
+  }
+
+  typedef mapping-mode-type {
+    type enumeration {
+      enum "GFP-F" {
+        value 1;
+        reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
+      }
+      enum "GFP-E" {
+        value 2;
+        reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
+      }
+      enum "PCS-Transparent" {
+        value 3;
+        reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
+      }
+    }
+  }
+
+  typedef service-layer-type {
+    type enumeration {
+      enum "wdm" {
+        value 1;
+      }
+      enum "otn" {
+        value 2;
+      }
+    }
+  }
+
+  typedef service-notification-types {
+    type enumeration {
+      enum "service-create-result" {
+        value 1;
+      }
+      enum "service-reconfigure-result" {
+        value 2;
+      }
+      enum "service-delete-result" {
+        value 3;
+      }
+      enum "service-roll-result" {
+        value 4;
+      }
+      enum "service-revert-result" {
+        value 5;
+      }
+      enum "service-reroute-result" {
+        value 6;
+      }
+      enum "service-restoration-result" {
+        value 7;
+      }
+    }
+  }
+
+  typedef connection-type {
+    type enumeration {
+      enum "service" {
+        value 1;
+      }
+      enum "infrastructure" {
+        value 2;
+      }
+      enum "roadm-line" {
+        value 3;
+      }
+    }
+  }
+
+  typedef service-condition {
+    type enumeration {
+      enum "restored-temporarily" {
+        value 1;
+      }
+      enum "re-routed-temporarily" {
+        value 2;
+      }
+      enum "activated-for-service" {
+        value 3;
+      }
+      enum "activated-for-further-check" {
+        value 4;
+      }
+      enum "activated-for-troubleshooting-failure" {
+        value 5;
+      }
+    }
   }
 
   grouping configuration-response-common {
@@ -103,9 +281,9 @@ module org-openroadm-common-service-types {
 
   grouping response-parameters {
     container response-parameters {
-      uses org-openroadm-routing-constraints:routing-constraints;
       description
         "Violated soft constraints";
+      uses org-openroadm-routing-constraints:routing-constraints;
     }
   }
 
@@ -221,55 +399,6 @@ module org-openroadm-common-service-types {
     }
   }
 
-  typedef rpc-actions {
-    description
-      "rpc-actions include all the rpc methods";
-    type enumeration {
-      enum "service-create" {
-        value 1;
-      }
-      enum "service-feasibility-check" {
-        value 2;
-      }
-      enum "service-delete" {
-        value 3;
-      }
-      enum "equipment-notification" {
-        value 4;
-      }
-      enum "temp-service-create" {
-        value 5;
-      }
-      enum "temp-service-delete" {
-        value 6;
-      }
-      enum "service-roll" {
-        value 7;
-      }
-      enum "service-reconfigure" {
-        value 8;
-      }
-      enum "service-restoration" {
-        value 9;
-      }
-      enum "service-reversion" {
-        value 10;
-      }
-      enum "service-reroute" {
-        value 11;
-      }
-      enum "service-reroute-confirm" {
-        value 12;
-      }
-      enum "network-re-optimization" {
-        value 13;
-      }
-      enum "service-feasibility-check-bulk" {
-        value 14;
-      }
-    }
-  }
-
   grouping sdnc-request-header {
     container sdnc-request-header {
       leaf request-id {
@@ -373,9 +502,9 @@ module org-openroadm-common-service-types {
     }
     leaf end-date {
       type yang:date-and-time;
+      mandatory false;
       description
         "Date and time service to be removed";
-      mandatory false;
     }
     uses eventHorizon;
     leaf nc-code {
@@ -419,10 +548,10 @@ module org-openroadm-common-service-types {
   grouping service {
     leaf service-name {
       type string;
+      mandatory true;
       description
         "Identifier for the service to be created in
          the ROADM network, e.g., CLFI, CLCI, etc.";
-      mandatory true;
     }
     leaf common-id {
       type string;
@@ -481,17 +610,17 @@ module org-openroadm-common-service-types {
       uses org-openroadm-resource-types:srg-number;
     }
     leaf-list supporting-service-name {
+      type string;
       description
         "The service name that this runs over top. If connection-type is service, then this is the related 
          connection-type = infrastructure service, for example.";
-      type string;
     }
     container topology {
       uses org-openroadm-topology:topology;
     }
     leaf is-bandwidth-locked {
       type boolean;
-      default false;
+      default "false";
       description
         "Bandwidth lock (true, false) indicates whether the service is administratively
          prohibited from taking on more capacity - ie whether it can be used as a supporting
@@ -503,79 +632,14 @@ module org-openroadm-common-service-types {
   grouping service-notification-result {
     leaf service-name {
       type string;
+      mandatory true;
       description
         "Identifier for the service e.g., CLFI, CLCI, etc.";
-      mandatory true;
     }
     leaf actual-date {
       type yang:date-and-time;
       description
         "Actual date and time (if successful)";
-    }
-  }
-
-  typedef service-format {
-    type enumeration {
-      enum "Ethernet" {
-        value 1;
-      }
-      enum "OTU" {
-        value 2;
-      }
-      enum "OC" {
-        value 3;
-      }
-      enum "STM" {
-        value 4;
-      }
-      enum "OMS" {
-        value 5;
-      }
-      enum "ODU" {
-        value 6;
-      }
-      enum "OTM" {
-        value 7;
-      }
-    }
-  }
-
-  typedef ethernet-encoding-type {
-    type enumeration {
-      enum "10GBASE-W" {
-        value 1;
-      }
-      enum "10GBASE-R" {
-        value 2;
-      }
-    }
-  }
-
-  typedef mapping-mode-type {
-    type enumeration {
-      enum "GFP-F" {
-        value 1;
-        reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
-      }
-      enum "GFP-E" {
-        value 2;
-        reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
-      }
-      enum "PCS-Transparent" {
-        value 3;
-        reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
-      }
-    }
-  }
-
-  typedef service-layer-type {
-    type enumeration {
-      enum "wdm" {
-        value 1;
-      }
-      enum "otn" {
-        value 2;
-      }
     }
   }
 
@@ -606,66 +670,6 @@ module org-openroadm-common-service-types {
       description
         "End time to ensure that the service is routable and viable. Required resources shall 
          be considered reserved until this time. If not provided, defaults to end-date.";
-    }
-  }
-
-  typedef service-notification-types {
-    type enumeration {
-      enum "service-create-result" {
-        value 1;
-      }
-      enum "service-reconfigure-result" {
-        value 2;
-      }
-      enum "service-delete-result" {
-        value 3;
-      }
-      enum "service-roll-result" {
-        value 4;
-      }
-      enum "service-revert-result" {
-        value 5;
-      }
-      enum "service-reroute-result" {
-        value 6;
-      }
-      enum "service-restoration-result" {
-        value 7;
-      }
-    }
-  }
-
-  typedef connection-type {
-    type enumeration {
-      enum "service" {
-        value 1;
-      }
-      enum "infrastructure" {
-        value 2;
-      }
-      enum "roadm-line" {
-        value 3;
-      }
-    }
-  }
-
-  typedef service-condition {
-    type enumeration {
-      enum "restored-temporarily" {
-        value 1;
-      }
-      enum "re-routed-temporarily" {
-        value 2;
-      }
-      enum "activated-for-service" {
-        value 3;
-      }
-      enum "activated-for-further-check" {
-        value 4;
-      }
-      enum "activated-for-troubleshooting-failure" {
-        value 5;
-      }
     }
   }
 }

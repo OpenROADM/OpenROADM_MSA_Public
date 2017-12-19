@@ -4,7 +4,7 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
-    revision-date 2016-10-14;
+    revision-date 2017-12-15;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -20,7 +20,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -86,7 +90,6 @@ module org-openroadm-otn-otu-interfaces {
     description
       "Version 1.2";
   }
-
 
   grouping otu-attributes {
     description

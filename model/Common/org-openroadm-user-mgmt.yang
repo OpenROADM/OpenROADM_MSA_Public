@@ -35,6 +35,10 @@ module org-openroadm-user-mgmt {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -108,21 +112,21 @@ module org-openroadm-user-mgmt {
     input {
       leaf currentPassword {
         type password-type;
+        mandatory true;
         description
           "provide the current password";
-        mandatory true;
       }
       leaf newPassword {
         type password-type;
+        mandatory true;
         description
           "provide a new password";
-        mandatory true;
       }
       leaf newPasswordConfirm {
         type password-type;
+        mandatory true;
         description
           "re-enter the new password ";
-        mandatory true;
       }
     }
     output {

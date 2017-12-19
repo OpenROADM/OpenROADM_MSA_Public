@@ -4,11 +4,11 @@ module org-openroadm-prot-otn-linear-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -69,48 +73,6 @@ module org-openroadm-prot-otn-linear-aps {
   revision 2017-06-26 {
     description
       "Version 2.0";
-  }
-        
-  rpc odu-sncp-protection-switch {
-    description
-      "ODU SNCP Protection Switch RPC with synchronous implementation";
-    input {
-      leaf protection-group {
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-otn-linear-aps:odu-sncp-pg/org-openroadm-prot-otn-linear-aps:name";
-        }
-        mandatory true;
-        description
-          "Target protection group";
-      }
-      leaf pg-interface {
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
-        }
-        mandatory true;
-        description
-          "Target protection group interface";
-      }
-      leaf switch-command {
-        type enumeration {
-          enum "Lock-Out-Protect" {
-            value 1;
-          }
-          enum "Force-Switch" {
-            value 2;
-          }
-          enum "Manual-Switch" {
-            value 3;
-          }
-          enum "Release" {
-            value 4;
-          }
-        }
-      }
-    }
-    output {
-      uses org-openroadm-common-types:rpc-response-status;
-    }
   }
 
   identity otn-protection-type {
@@ -129,9 +91,9 @@ module org-openroadm-prot-otn-linear-aps {
     list odu-sncp-pg {
       key "name";
       leaf name {
+        type string;
         description
           "The odu-sncp-protection-group name";
-        type string;
       }
       leaf level {
         type enumeration {
@@ -258,20 +220,20 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf wait-to-restore {
         when "../revertive = 'true'";
-        units "minutes";
         type uint8 {
           range "1..12";
         }
+        units "minutes";
         default "5";
         description
           "Wait to restore time in minutes";
       }
       container holdoff-timer {
         leaf holdoff {
-          units "milliseconds";
           type uint8 {
             range "0 | 20 | 100";
           }
+          units "milliseconds";
           default "0";
           description
             "switch hold-off time in milliseconds";
@@ -311,8 +273,49 @@ module org-openroadm-prot-otn-linear-aps {
           "Active interface in the PG";
       }
     }
-  }    
-  
+  }
+
+  rpc odu-sncp-protection-switch {
+    description
+      "ODU SNCP Protection Switch RPC with synchronous implementation";
+    input {
+      leaf protection-group {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-otn-linear-aps:odu-sncp-pg/org-openroadm-prot-otn-linear-aps:name";
+        }
+        mandatory true;
+        description
+          "Target protection group";
+      }
+      leaf pg-interface {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+        }
+        mandatory true;
+        description
+          "Target protection group interface";
+      }
+      leaf switch-command {
+        type enumeration {
+          enum "Lock-Out-Protect" {
+            value 1;
+          }
+          enum "Force-Switch" {
+            value 2;
+          }
+          enum "Manual-Switch" {
+            value 3;
+          }
+          enum "Release" {
+            value 4;
+          }
+        }
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
   notification odu-sncp-pg-switch-event {
     leaf switch-status {
       type enumeration {
@@ -331,8 +334,7 @@ module org-openroadm-prot-otn-linear-aps {
       description
         "The odu-sncp-protection-group name";
     }
-  }            
-
+  }
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
     uses odu-sncp-protection-grps;
   }

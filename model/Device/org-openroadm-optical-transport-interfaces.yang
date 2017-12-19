@@ -4,7 +4,7 @@ module org-openroadm-optical-transport-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-optical-transport-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -63,6 +63,10 @@ module org-openroadm-optical-transport-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -132,33 +136,33 @@ module org-openroadm-optical-transport-interfaces {
          Default    : SMF ";
     }
     leaf span-loss-receive {
+      type org-openroadm-common-types:ratio-dB;
       description
         "Span loss on the receiver side. Set by the controller and used by device to set AMP gain.";
-      type org-openroadm-common-types:ratio-dB;
     }
     leaf span-loss-transmit {
+      type org-openroadm-common-types:ratio-dB;
       description
         "Span loss on the transmitter side. Set by the controller and used by device to configure MSA compliant channel launch power";
-      type org-openroadm-common-types:ratio-dB;
     }
     leaf ingress-span-loss-aging-margin {
       type org-openroadm-common-types:ratio-dB;
+      default "0";
+      config true;
       description
         "Span-loss margin used to set optical amplifier gain and output-voa.
          Day one attenuation of the link, at initial commissioning may increase across wdm link life.
          span-loss-aging-margin defines the maximum additional loss the wdm link may experience in addition
          to initial loss without requiring a new design (new amplifier settings). ";
-      config true;
-      default "0";
     }
     leaf eol-max-load-pIn {
       type org-openroadm-common-types:power-dBm;
+      config true;
       description
         "End Of Life Total input power at maximum load used for amplifier control.
-        Calculated during the design, this value shall be used by the amplifier device
-        for the setting so that the reasonable margin is kept to reach this value
-		at the end of life of the wdm link, considering span-loss aging margins are reached ";
-      config true;
+         Calculated during the design, this value shall be used by the amplifier device
+         for the setting so that the reasonable margin is kept to reach this value
+         at the end of life of the wdm link, considering span-loss aging margins are reached ";
     }
   }
 

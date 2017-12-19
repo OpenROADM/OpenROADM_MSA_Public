@@ -4,11 +4,11 @@ module org-openroadm-link {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2017-09-29;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -17,14 +17,14 @@ module org-openroadm-link {
     "OpenROADM.org.";
   description
     "YANG definitions for an amplifier in Network Model
-
-
+     
+     
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
      AT&T Intellectual Property.  All other rights reserved.
-
+     
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-
+     
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -33,7 +33,7 @@ module org-openroadm-link {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-
+     
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -45,6 +45,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2017-12-15 {
+    description
+      "Version 2.2";
+  }
   revision 2017-09-29 {
     description
       "Version 2.1";
@@ -65,32 +69,32 @@ module org-openroadm-link {
   }
 
   grouping span-attributes {
-    leaf clfi  {
+    leaf clfi {
       type string;
-    }  
+    }
     leaf auto-spanloss {
       type boolean;
-      default "true"; 
+      default "true";
       description
         "Flag to enable/disable automatic spanloss measurement";
-    }	
+    }
     leaf spanloss-base {
       type org-openroadm-common-types:ratio-dB;
       description
         "Baseline ROADM span loss measured and accepted during
-         degree turn-up.";
+         degree turn-up. May be re-set to current value after a fiber repair or change.";
     }
     leaf spanloss-current {
       type org-openroadm-common-types:ratio-dB;
       description
         "Current ROADM span loss measured and accepted during
-         degree turn-up.";
+         degree turn-up. Updated periodically if auto-spanloss is enabled.";
     }
     leaf engineered-spanloss {
       type org-openroadm-common-types:ratio-dB;
       description
         "ROADM span loss provided by an external system";
-    }	
+    }
     list link-concatenation {
       key "SRLG-Id";
       leaf SRLG-Id {
@@ -157,9 +161,9 @@ module org-openroadm-link {
 
   grouping amplified-link-attributes {
     list amplified-link {
+      key "section-elt-number";
       description
         "defines the spans and the amplifier blocks of the amplified lines";
-      key "section-elt-number";
       leaf section-elt-number {
         type uint16;
         description
@@ -178,8 +182,6 @@ module org-openroadm-link {
               }
               leaf administrative-state {
                 type org-openroadm-common-types:state;
-                description
-                  "according to RFC3630 definition";
               }
             }
           }
@@ -188,8 +190,6 @@ module org-openroadm-link {
               uses link:span-attributes;
               leaf administrative-state {
                 type org-openroadm-common-types:state;
-                description
-                  "according to RFC3630 definition";
               }
             }
           }
