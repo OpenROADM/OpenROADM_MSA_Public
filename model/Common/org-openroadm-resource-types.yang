@@ -2,9 +2,9 @@ module org-openroadm-resource-types {
   namespace "http://org/openroadm/resource/types";
   prefix org-openroadm-resource-types;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -163,13 +167,13 @@ module org-openroadm-resource-types {
       enum "resourceModification" {
         value 2;
         description
-          "An exhisting instance of a resource has been modified. This shall be triggered by changes in configuration, state, status etc.
-           It shall not be triggered by changes in performance measurements, power and temperature readings or any other data that is highlyvolatile. ";
+          "An existing instance of a resource has been modified. This shall be triggered by changes in configuration, state, status etc.
+           It shall not be triggered by changes in performance measurements, power and temperature readings or any other data that is highly volatile. ";
       }
       enum "resourceDeletion" {
         value 3;
         description
-          "An exhisting instance of a resource has been removed.";
+          "An existing instance of a resource has been removed.";
       }
     }
     description
@@ -191,7 +195,7 @@ module org-openroadm-resource-types {
     description
       "Device identifier. Unique within the Controller.";
     leaf node-id {
-      type org-openroadm-common-types:node-id-type;
+      type org-openroadm-common-node-types:node-id-type;
       description
         "Node Id is a globally unique identifier for a device. 
          Same as leafref value in model, if applicable.";

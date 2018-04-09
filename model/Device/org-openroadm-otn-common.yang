@@ -7,7 +7,7 @@ module org-openroadm-otn-common {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for common OTN interface atrtributes and types. 
+    "YANG definitions for common OTN interface attributes and types.
          
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
      AT&T Intellectual Property.  All other rights reserved.
@@ -80,21 +80,21 @@ module org-openroadm-otn-common {
       type string;
       config false;
       description
-        "The accepted SAPI recovered from the recieved multi-frame TTI field.
+        "The accepted SAPI recovered from the received multi-frame TTI field.
          Received SAPI contains the receive data, minus the sapi[0] and any 0x00 padding at the end";
     }
     leaf accepted-dapi {
       type string;
       config false;
       description
-        "The accepted DAPI recovered from the recieved multi-frame TTI field
+        "The accepted DAPI recovered from the received multi-frame TTI field
          Received DAPI contains the receive data, minus the dapi[0] and any 0x00 padding at the end";
     }
     leaf accepted-operator {
       type string;
       config false;
       description
-        "The accepted Operator Specific field recovered from the recieved multi-frame TTI field";
+        "The accepted Operator Specific field recovered from the received multi-frame TTI field";
     }
     leaf expected-sapi {
       type string {
@@ -124,15 +124,15 @@ module org-openroadm-otn-common {
         }
         enum "SAPI" {
           description
-            "Expected SAPI is compared to the Accpeted TTI. Other TTI fields are ignored";
+            "Expected SAPI is compared to the Accepted TTI. Other TTI fields are ignored";
         }
         enum "DAPI" {
           description
-            "Expected DAPI is compared to the Accpeted TTI. Other TTI fields are ignored";
+            "Expected DAPI is compared to the Accepted TTI. Other TTI fields are ignored";
         }
         enum "SAPI-and-DAPI" {
           description
-            "Expected SAPI and Expected DAPI are compared to the Accpeted TTI. Operator specific TTI field is ignored";
+            "Expected SAPI and Expected DAPI are compared to the Accepted TTI. Operator specific TTI field is ignored";
         }
       }
       default "Disabled";

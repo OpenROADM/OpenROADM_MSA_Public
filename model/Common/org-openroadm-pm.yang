@@ -8,15 +8,19 @@ module org-openroadm-pm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-alarm-pm-types {
+    prefix org-openroadm-common-alarm-pm-types;
+    revision-date 2018-03-30;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
@@ -56,6 +60,10 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -118,10 +126,10 @@ module org-openroadm-pm {
   grouping current-pm-val-group {
     uses org-openroadm-pm-types:pm-names;
     leaf location {
-      type org-openroadm-common-types:location;
+      type org-openroadm-common-alarm-pm-types:location;
     }
     leaf direction {
-      type org-openroadm-common-types:direction;
+      type org-openroadm-common-alarm-pm-types:direction;
     }
     list measurement {
       key "granularity";
@@ -164,10 +172,10 @@ module org-openroadm-pm {
       "PM Data with historical values";
     uses org-openroadm-pm-types:pm-names;
     leaf location {
-      type org-openroadm-common-types:location;
+      type org-openroadm-common-alarm-pm-types:location;
     }
     leaf direction {
-      type org-openroadm-common-types:direction;
+      type org-openroadm-common-alarm-pm-types:direction;
     }
     list measurement {
       key "granularity bin-number";
@@ -262,7 +270,7 @@ module org-openroadm-pm {
         type org-openroadm-pm-types:pm-granularity;
         default "15min";
         description
-          "The granularity of the retrieve, default to 15 minitues PM";
+          "The granularity of the retrieve, default to 15 minutes PM";
       }
     }
     output {
@@ -271,7 +279,7 @@ module org-openroadm-pm {
   }
   notification historical-pm-collect-result {
     description
-      "This Notification is sent when the pm collection is succesful or failed.";
+      "This Notification is sent when the pm collection is successful or failed.";
     uses collect-history-pm-group;
   }
   container current-pm-list {

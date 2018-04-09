@@ -1,0 +1,167 @@
+module org-openroadm-ber-test {
+  namespace "http://org/openroadm/ber-test";
+  prefix org-openroadm-ber-test;
+
+  import org-openroadm-common-service-types {
+    prefix org-openroadm-common-service-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-ber-test {
+    prefix org-openroadm-common-ber-test;
+    revision-date 2018-03-30;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for ber test
+       
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+      AT&T Intellectual Property.  All other rights reserved.
+      
+      Redistribution and use in source and binary forms, with or without modification, 
+      are permitted provided that the following conditions are met:
+      
+      * Redistributions of source code must retain the above copyright notice, this 
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice, 
+        this list of conditions and the following disclaimer in the documentation and/or 
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+        contributors may be used to endorse or promote products derived from this software 
+        without specific prior written permission.
+      
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
+
+  identity service-rpc-identity {
+    description
+      "Identifies the service rpc associated with this callback";
+  }
+
+  identity ber-test {
+    base service-rpc-identity;
+    description
+      "Identity for the ber-test rpc";
+  }
+
+  grouping service-identifiers-container {
+    container service-identifiers {
+      leaf service-name {
+        type string;
+      }
+      leaf common-id {
+        type string;
+      }
+      leaf version-number {
+        type uint64;
+      }
+    }
+  }
+
+  grouping ber-measurement {
+    leaf ber-passed {
+      type boolean;
+    }
+    leaf target-prefec-ber {
+      type decimal64 {
+        fraction-digits 4;
+      }
+    }
+    leaf measured-prefec-ber {
+      type decimal64 {
+        fraction-digits 4;
+      }
+    }
+  }
+
+  grouping ber-test-result-details-container {
+    container ber-results {
+      uses org-openroadm-common-ber-test:ber-test-options-container;
+      leaf line-rate {
+        type uint64;
+        units "seconds";
+      }
+      container a-end-ber-measurement {
+        uses ber-measurement;
+      }
+      container z-end-ber-measurement {
+        uses ber-measurement;
+      }
+    }
+  }
+
+  rpc ber-test {
+    description
+      "This is the ber-test rpc. It is supported for a service in the service-list.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      leaf service-name {
+        type string;
+        mandatory true;
+      }
+      uses org-openroadm-common-ber-test:ber-test-options-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+  rpc service-rpc-ber-test-async-callback {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses service-identifiers-container;
+      leaf rpc-timestamp {
+        type uint16;
+        units "seconds";
+        description
+          "timestamp of the initial rpc command that invoked the test";
+      }
+      leaf timestamp {
+        type uint16;
+        units "seconds";
+        description
+          "timestamp of the callback/notification.";
+      }
+      uses ber-test-result-details-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+  notification service-notification-ber-test {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    uses org-openroadm-common-service-types:configuration-response-common;
+    uses service-identifiers-container;
+    leaf rpc-timestamp {
+      type uint16;
+      units "seconds";
+      description
+        "timestamp of the initial rpc command that invoked the test";
+    }
+    leaf timestamp {
+      type uint16;
+      units "seconds";
+      description
+        "timestamp of the callback/notification.";
+    }
+    uses ber-test-result-details-container;
+  }
+}

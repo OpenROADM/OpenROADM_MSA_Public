@@ -4,7 +4,11 @@ module org-openroadm-topology {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-network-resource {
+    prefix org-openroadm-network-resource;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +44,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -82,7 +90,7 @@ module org-openroadm-topology {
       leaf id {
         type string;
         description
-          "Unigue identifier for this topology component within this service";
+          "Unique identifier for this topology component within this service";
       }
       uses hop;
     }
@@ -104,5 +112,28 @@ module org-openroadm-topology {
       }
     }
     uses org-openroadm-resource:resource;
+  }
+
+  grouping network-topology {
+    description
+      "network-topology defines the ordered a-to-z and z-to-a topology in terms of network model entities: tp-id and link-id";
+    list a-to-z {
+      key "id";
+      leaf id {
+        type string;
+        description
+          "Unique identifier for this network-topology component within this service";
+      }
+      uses org-openroadm-network-resource:network-resource;
+    }
+    list z-to-a {
+      key "id";
+      leaf id {
+        type string;
+        description
+          "Unigue identifier for this network-topology component within this service";
+      }
+      uses org-openroadm-network-resource:network-resource;
+    }
   }
 }

@@ -3,9 +3,19 @@ module: org-openroadm-clli-network
     +--rw clli-network!
   augment /nd:network/nd:node:
     +--rw clli?   string
-module: org-openroadm-network-topology
+module: org-openroadm-common-network
   augment /nd:network/nd:network-types:
-    +--rw openroadm-topology!
+    +--rw openroadm-common-network!
+       +--rw topo:openroadm-topology!
+       +--rw net:openroadm-network!
+       +--rw otn-topo:otn-topology!
+  augment /nd:network/nd:node:
+    +--rw node-status?   org-openroadm-network-types:openroadm-node-status
+  augment /nd:network/nwt:link:
+    +--rw administrative-group?   uint32
+    +--rw operational-state?      org-openroadm-common-state-types:state
+    +--rw administrative-state?   org-openroadm-common-state-types:state
+module: org-openroadm-network-topology
   augment /nd:network/nd:node:
     +--rw node-type?           org-openroadm-network-types:openroadm-node-type
     +--rw srg-attributes
@@ -14,18 +24,18 @@ module: org-openroadm-network-topology
     |  +--rw current-provisioned-pp?   uint32
     |  +--rw available-wavelengths* [index]
     |  |  +--rw index        uint32
-    |  |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |  |  +--rw width?       org-openroadm-common-types:frequency-GHz
-    |  +--rw wavelength-duplication?   org-openroadm-common-types:wavelength-duplication-type
+    |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw wavelength-duplication?   org-openroadm-common-optical-channel-types:wavelength-duplication-type
     +--rw degree-attributes
     |  +--rw degree-number?                    uint16
     |  +--rw max-wavelengths?                  uint32
     |  +--rw available-wavelengths* [index]
     |  |  +--rw index        uint32
-    |  |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |  |  +--rw width?       org-openroadm-common-types:frequency-GHz
-    |  +--rw ingress-span-loss-aging-margin?   org-openroadm-common-types:ratio-dB
-    |  +--rw eol-max-load-pIn?                 org-openroadm-common-types:power-dBm
+    |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+    |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
   augment /nd:network/nd:node/nwt:termination-point:
@@ -33,92 +43,94 @@ module: org-openroadm-network-topology
     +--rw tx-ttp-attributes
     |  +--rw used-wavelengths* [index]
     |     +--rw index        uint32
-    |     +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |     +--rw width?       org-openroadm-common-types:frequency-GHz
+    |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     +--rw rx-ttp-attributes
     |  +--rw used-wavelengths* [index]
     |     +--rw index        uint32
-    |     +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |     +--rw width?       org-openroadm-common-types:frequency-GHz
+    |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     +--rw ctp-attributes
     |  +--rw used-wavelengths* [index]
     |     +--rw index        uint32
-    |     +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |     +--rw width?       org-openroadm-common-types:frequency-GHz
+    |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     +--rw cp-attributes
     |  +--rw used-wavelengths* [index]
     |     +--rw index        uint32
-    |     +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |     +--rw width?       org-openroadm-common-types:frequency-GHz
+    |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     +--rw pp-attributes
     |  +--rw used-wavelength* [index]
     |     +--rw index        uint32
-    |     +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |     +--rw width?       org-openroadm-common-types:frequency-GHz
+    |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     +--rw eqpt-srg-id?                uint32
     +--rw xpdr-client-attributes
     |  +--rw local-lgx?           string
     |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-types:optic-types
-    |  +--rw state?               org-openroadm-common-types:state
+    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?               org-openroadm-common-state-types:state
     |  +--rw wavelength
-    |  |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |  |  +--rw width?       org-openroadm-common-types:frequency-GHz
+    |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--rw tail-equipment?      string
     |  +--rw tail-equipment-id?   string
     |  +--rw tail-clfi?           string
     +--rw xpdr-network-attributes
     |  +--rw local-lgx?           string
     |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-types:optic-types
-    |  +--rw state?               org-openroadm-common-types:state
+    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?               org-openroadm-common-state-types:state
     |  +--rw wavelength
-    |  |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |  |  +--rw width?       org-openroadm-common-types:frequency-GHz
+    |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--rw tail-equipment?      string
     |  +--rw tail-equipment-id?   string
     |  +--rw tail-clfi?           string
     +--rw xpdr-port-attributes
     |  +--rw local-lgx?           string
     |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-types:optic-types
-    |  +--rw state?               org-openroadm-common-types:state
+    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?               org-openroadm-common-state-types:state
     |  +--rw wavelength
-    |  |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-    |  |  +--rw width?       org-openroadm-common-types:frequency-GHz
+    |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--rw tail-equipment?      string
     |  +--rw tail-equipment-id?   string
     |  +--rw tail-clfi?           string
     +--rw ext-pluggable-attributes
        +--rw rate?                identityref
-       +--rw modulation-format?   org-openroadm-common-types:modulation-format
-       +--rw optic?               org-openroadm-common-types:optic-types
-       +--rw state?               org-openroadm-common-types:state
+       +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+       +--rw optic?               org-openroadm-common-equipment-types:optic-types
+       +--rw state?               org-openroadm-common-state-types:state
   augment /nd:network/nwt:link:
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
     +--rw link-length?            decimal64
-    +--rw administrative-group?   uint32
-    +--rw operational-state?      ct:state
-    +--rw administrative-state?   ct:state
+    x--rw administrative-group?   uint32
+    x--rw operational-state?      org-openroadm-common-state-types:state
+    x--rw administrative-state?   org-openroadm-common-state-types:state
     +--rw link-latency?           uint32
     +--rw amplified?              boolean
+    +--rw TE-metric?              uint32
+    +--rw opposite-link?          -> ../../nwt:link/link-id
     +--rw OMS-attributes
-       +--rw TE-metric?        uint32
-       +--rw opposite-link?    -> ../../../nwt:link/link-id
+       x--rw TE-metric?        uint32
+       x--rw opposite-link?    -> ../../../nwt:link/link-id
        +--rw span
        |  +--rw clfi?                  string
        |  +--rw auto-spanloss?         boolean
-       |  +--rw spanloss-base?         org-openroadm-common-types:ratio-dB
-       |  +--rw spanloss-current?      org-openroadm-common-types:ratio-dB
-       |  +--rw engineered-spanloss?   org-openroadm-common-types:ratio-dB
+       |  +--rw spanloss-base?         org-openroadm-common-link-types:ratio-dB
+       |  +--rw spanloss-current?      org-openroadm-common-link-types:ratio-dB
+       |  +--rw engineered-spanloss?   org-openroadm-common-link-types:ratio-dB
        |  +--rw link-concatenation* [SRLG-Id]
        |     +--rw SRLG-Id        uint32
        |     +--rw fiber-type?    enumeration
        |     +--rw SRLG-length?   uint32
-       |     +--rw pmd?           org-openroadm-common-types:fiber-pmd
+       |     +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
        +--rw amplified-link
           +--rw amplified-link* [section-elt-number]
              +--rw section-elt-number    uint16
@@ -126,45 +138,44 @@ module: org-openroadm-network-topology
                 +--rw (section-element)?
                    +--:(ila)
                    |  +--rw ila
-                   |     +--rw amp-type                          org-openroadm-common-types:amplifier-types
-                   |     +--rw amp-gain-range?                   org-openroadm-common-types:amplifier-gain-range
-                   |     +--rw ingress-span-loss-aging-margin?   org-openroadm-common-types:ratio-dB
-                   |     +--rw gain                              org-openroadm-common-types:ratio-dB
-                   |     +--rw initially-planned-gain?           org-openroadm-common-types:ratio-dB
-                   |     +--rw tilt?                             org-openroadm-common-types:ratio-dB
-                   |     +--rw initially-planned-tilt?           org-openroadm-common-types:ratio-dB
-                   |     +--rw out-voa-att?                      org-openroadm-common-types:ratio-dB
-                   |     +--rw initially-planned-out-voa-att?    org-openroadm-common-types:ratio-dB
-                   |     +--rw eol-max-load-pIn?                 org-openroadm-common-types:power-dBm
-                   |     +--rw node-id                           org-openroadm-common-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-common-types:state
+                   |     +--rw amp-type                          org-openroadm-common-amplifier-types:amplifier-types
+                   |     +--rw amp-gain-range?                   org-openroadm-common-amplifier-types:amplifier-gain-range
+                   |     +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+                   |     +--rw gain                              org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-gain?           org-openroadm-common-link-types:ratio-dB
+                   |     +--rw tilt?                             org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-tilt?           org-openroadm-common-link-types:ratio-dB
+                   |     +--rw out-voa-att?                      org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
+                   |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
+                   |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
+                   |     +--rw administrative-state?             org-openroadm-common-state-types:state
                    +--:(span)
                       +--rw span
                          +--rw clfi?                   string
                          +--rw auto-spanloss?          boolean
-                         +--rw spanloss-base?          org-openroadm-common-types:ratio-dB
-                         +--rw spanloss-current?       org-openroadm-common-types:ratio-dB
-                         +--rw engineered-spanloss?    org-openroadm-common-types:ratio-dB
+                         +--rw spanloss-base?          org-openroadm-common-link-types:ratio-dB
+                         +--rw spanloss-current?       org-openroadm-common-link-types:ratio-dB
+                         +--rw engineered-spanloss?    org-openroadm-common-link-types:ratio-dB
                          +--rw link-concatenation* [SRLG-Id]
                          |  +--rw SRLG-Id        uint32
                          |  +--rw fiber-type?    enumeration
                          |  +--rw SRLG-length?   uint32
-                         |  +--rw pmd?           org-openroadm-common-types:fiber-pmd
-                         +--rw administrative-state?   org-openroadm-common-types:state
+                         |  +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
+                         +--rw administrative-state?   org-openroadm-common-state-types:state
 module: org-openroadm-network
-  augment /nd:network/nd:network-types:
-    +--rw openroadm-network!
   augment /nd:network/nd:node:
     +--rw node-type?                   nt:openroadm-node-type
     +--rw software-version?            string
-    +--rw openroadm-version?           string
+    +--rw openroadm-version?           org-openroadm-common-types:openroadm-version-type
     +--rw vendor?                      string
     +--rw model?                       string
     +--rw domain-subnetwork?           string
     +--rw ip?                          inet:ip-address
     +--rw relay-rack?                  string
     +--rw shelf?                       string
-    +--rw node-status?                 nt:openroadm-node-status
+    x--rw node-status?                 nt:openroadm-node-status
+    +--rw node-connection-status?      nt:openroadm-node-connection-status
     +--rw roadm-attributes
     |  +--rw max-degrees?       uint16
     |  +--rw max-srgs?          uint16
@@ -190,8 +201,6 @@ module: org-openroadm-network
           +--rw start-date?   yang:date-and-time
           +--rw end-date?     yang:date-and-time
 module: org-openroadm-otn-network-topology
-  augment /nd:network/nd:network-types:
-    +--rw otn-topology!
   augment /nd:network/nd:node:
     +--rw node-type?              org-openroadm-network-types:openroadm-node-type
     +--rw tp-bandwidth-sharing
@@ -224,8 +233,8 @@ module: org-openroadm-otn-network-topology
        |  +--rw tpn-pool*    uint16
        +--rw ts-pool*             uint16
        +--rw wavelength
-       |  +--rw frequency?   org-openroadm-common-types:frequency-THz
-       |  +--rw width?       org-openroadm-common-types:frequency-GHz
+       |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+       |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
        +--rw tail-equipment?      string
        +--rw tail-equipment-id?   string
        +--rw tail-clfi?           string
@@ -234,9 +243,9 @@ module: org-openroadm-otn-network-topology
        +--rw node-ref?            -> /nd:network[nd:network-id=current()/../network-ref]/node/node-id
   augment /nd:network/nwt:link:
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
-    +--rw administrative-group?   uint32
-    +--rw operational-state?      ct:state
-    +--rw administrative-state?   ct:state
+    x--rw administrative-group?   uint32
+    x--rw operational-state?      org-openroadm-common-state-types:state
+    x--rw administrative-state?   org-openroadm-common-state-types:state
     +--rw available-bandwidth?    uint32
     +--rw used-bandwidth?         uint32
     +--rw ODU-protected?          boolean

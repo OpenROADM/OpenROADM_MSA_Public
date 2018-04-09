@@ -1,0 +1,94 @@
+module org-openroadm-ipv4-unicast-routing {
+  namespace "http://org/openroadm/ipv4-unicast-routing";
+  prefix org-openroadm-ipv4-unicast-routing;
+
+  import org-openroadm-routing {
+    prefix org-openroadm-routing;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines Yang model for IPv4 unicast routing.
+     
+     This model reuses data items defined in the IETF YANG model for
+     interfaces described by RFC 8022.
+     
+     Some attributes which are not required in Open ROADM MSA are removed.
+     Yang file included are changed to fit into Open ROADM MSA yang structure.
+     
+     IETF code is subject to the following copyright and license:
+     Copyright (c) IETF Trust and the persons identified as authors of
+     the code.
+     All rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Simplified BSD License set forth in
+     Section 4.c of the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info).";
+
+  revision 2015-05-25 {
+    description
+      "Initial revision.";
+    reference "RFC XXXX: A YANG Data Model for Routing Management";
+  }
+
+  identity ipv4-unicast {
+    base org-openroadm-routing:ipv4;
+    description
+      "This identity represents the IPv4 unicast address family.";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-routing:static-routes" {
+    description
+      "This augment defines the configuration of the 'static'
+       pseudo-protocol with data specific to IPv4 unicast.";
+    container ipv4 {
+      description
+        "Configuration of a 'static' pseudo-protocol instance
+         consists of a list of routes.";
+      list route {
+        key "destination-prefix";
+        max-elements "32";
+        ordered-by user;
+        description
+          "A user-ordered list of static routes.";
+        leaf destination-prefix {
+          type inet:ipv4-prefix;
+          mandatory true;
+          description
+            "IPv4 destination prefix.";
+        }
+        leaf description {
+          type string;
+          description
+            "Textual description of the route.";
+        }
+        container next-hop {
+          description
+            "Configuration of next-hop.";
+          uses org-openroadm-routing:next-hop-content {
+            augment "next-hop-options" {
+              description
+                "Add next-hop address case.";
+              leaf next-hop-address {
+                type inet:ipv4-address;
+                description
+                  "IPv4 address of the next-hop.";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,13 +2,21 @@ module org-openroadm-link {
   namespace "http://org/openroadm/link";
   prefix link;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2018-03-30;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -17,14 +25,14 @@ module org-openroadm-link {
     "OpenROADM.org.";
   description
     "YANG definitions for an amplifier in Network Model
-     
-     
+
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
      AT&T Intellectual Property.  All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -33,7 +41,7 @@ module org-openroadm-link {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -45,6 +53,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -65,6 +77,7 @@ module org-openroadm-link {
   grouping OMS-attributes {
     leaf TE-metric {
       type uint32;
+      status deprecated;
     }
   }
 
@@ -79,19 +92,19 @@ module org-openroadm-link {
         "Flag to enable/disable automatic spanloss measurement";
     }
     leaf spanloss-base {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       description
         "Baseline ROADM span loss measured and accepted during
          degree turn-up. May be re-set to current value after a fiber repair or change.";
     }
     leaf spanloss-current {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       description
         "Current ROADM span loss measured and accepted during
          degree turn-up. Updated periodically if auto-spanloss is enabled.";
     }
     leaf engineered-spanloss {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       description
         "ROADM span loss provided by an external system";
     }
@@ -152,7 +165,7 @@ module org-openroadm-link {
           "fiber length in meters";
       }
       leaf pmd {
-        type org-openroadm-common-types:fiber-pmd;
+        type org-openroadm-common-link-types:fiber-pmd;
         description
           "Total PMD";
       }
@@ -175,13 +188,13 @@ module org-openroadm-link {
             container ila {
               uses org-openroadm-amplifier:amplifier-node-attributes;
               leaf node-id {
-                type org-openroadm-common-types:node-id-type;
+                type org-openroadm-common-node-types:node-id-type;
                 mandatory true;
                 description
                   "Node id corresponding to the amplifier ";
               }
               leaf administrative-state {
-                type org-openroadm-common-types:state;
+                type org-openroadm-common-state-types:state;
               }
             }
           }
@@ -189,7 +202,7 @@ module org-openroadm-link {
             container span {
               uses link:span-attributes;
               leaf administrative-state {
-                type org-openroadm-common-types:state;
+                type org-openroadm-common-state-types:state;
               }
             }
           }

@@ -1,10 +1,10 @@
 module org-openroadm-maintenance {
   namespace "http://org/openroadm/maintenance";
-  prefix org-openroadm-mainteance;
+  prefix org-openroadm-maintenance;
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -12,7 +12,7 @@ module org-openroadm-maintenance {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions of maintenace operations.
+    "YANG definitions of maintenance operations.
        
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
       AT&T Intellectual Property.  All other rights reserved.
@@ -40,6 +40,10 @@ module org-openroadm-maintenance {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";

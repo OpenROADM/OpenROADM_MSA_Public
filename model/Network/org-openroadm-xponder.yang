@@ -4,15 +4,23 @@ module org-openroadm-xponder {
 
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-equipment-types {
+    prefix org-openroadm-common-equipment-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2018-03-30;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -48,6 +56,10 @@ module org-openroadm-xponder {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -89,19 +101,19 @@ module org-openroadm-xponder {
     }
     leaf rate {
       type identityref {
-        base org-openroadm-common-types:och-rate-identity;
+        base org-openroadm-common-optical-channel-types:och-rate-identity;
       }
       description
         "rate";
     }
     leaf modulation-format {
-      type org-openroadm-common-types:modulation-format;
+      type org-openroadm-common-optical-channel-types:modulation-format;
     }
     leaf optic {
-      type org-openroadm-common-types:optic-types;
+      type org-openroadm-common-equipment-types:optic-types;
     }
     leaf state {
-      type org-openroadm-common-types:state;
+      type org-openroadm-common-state-types:state;
       description
         "A xponder can be in one of the following
                  states";

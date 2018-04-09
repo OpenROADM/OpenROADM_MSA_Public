@@ -2,9 +2,9 @@ module org-openroadm-probable-cause {
   namespace "http://org/openroadm/probableCause";
   prefix org-openroadm-probable-cause;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-alarm-pm-types {
+    prefix org-openroadm-common-alarm-pm-types;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -93,12 +97,12 @@ module org-openroadm-probable-cause {
       enum "opticalPowerDegraded" {
         value 6;
         description
-          "Optical Line Fail";
+          "Optical Power Degraded";
       }
       enum "automaticLaserShutdown" {
         value 7;
         description
-          "Optical Line Fail";
+          "Automatic Laser Shutdown";
       }
       enum "serverSignalFail" {
         value 8;
@@ -713,7 +717,31 @@ module org-openroadm-probable-cause {
         description
           "Disk full";
       }
+      enum "lossOfSignalPayload" {
+        value 270;
+        description
+          "Loss Of Signal Payload (G.798 6.2.1.2 dLOS-P)";
+      }
+      enum "lossOfLaneAlignment" {
+        value 271;
+        description
+          "Loss Of Lane Alignment (G.798 15.3.1.2 dLOL if the alignment
+           process is in OLA state; or 16.8.2 dLOL based on the FEC alignment
+           state diagram)";
+      }
+      enum "groupIdMismatch" {
+        value 272;
+        description
+          "Group Id Mismatch (G.798 dGIDM in Annex B.1.1.2.1)";
+      }
+      enum "phyMapMismatch" {
+        value 273;
+        description
+          "PHY Map Mismatch (G.798 dPMM in Annex B.1.1.2.2)";
+      }
     }
+    description
+      "probable cause group";
   }
 
   grouping probable-cause {
@@ -726,13 +754,13 @@ module org-openroadm-probable-cause {
       mandatory false;
     }
     leaf direction {
-      type org-openroadm-common-types:direction;
+      type org-openroadm-common-alarm-pm-types:direction;
       mandatory true;
       description
         "Direction indication of the alarm.";
     }
     leaf location {
-      type org-openroadm-common-types:location;
+      type org-openroadm-common-alarm-pm-types:location;
       mandatory true;
       description
         "location indication of the alarm.";

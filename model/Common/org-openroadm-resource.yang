@@ -4,7 +4,7 @@ module org-openroadm-resource {
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -63,7 +67,7 @@ module org-openroadm-resource {
 
   grouping resource {
     description
-      "This resource identifier is intended to provide a generic identifer
+      "This resource identifier is intended to provide a generic identifier
        for any resource that can be used without specific knowledge of
        the resource.";
     container device {
