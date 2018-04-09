@@ -1,0 +1,118 @@
+module org-openroadm-network-resource {
+  namespace "http://org/openroadm/network-resource";
+  prefix org-openroadm-network-resource;
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of resources.
+       
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+      AT&T Intellectual Property.  All other rights reserved.
+      
+      Redistribution and use in source and binary forms, with or without modification, 
+      are permitted provided that the following conditions are met:
+      
+      * Redistributions of source code must retain the above copyright notice, this 
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice, 
+        this list of conditions and the following disclaimer in the documentation and/or 
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+        contributors may be used to endorse or promote products derived from this software 
+        without specific prior written permission.
+      
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
+
+  identity network-resource-types {
+    description
+      "base type for network resources";
+  }
+
+  identity network-resource-tp {
+    base network-resource-types;
+    description
+      "tp-id network resource";
+  }
+
+  identity network-resource-link {
+    base network-resource-types;
+    description
+      "link-id network resource";
+  }
+
+  grouping network-resource {
+    description
+      "This resource identifier is intended to provide a generic identifer
+       for any network resource that can be used without specific knowledge of
+       the resource.";
+    container network-resource {
+      choice network-resource {
+        case network-resource-tp {
+          uses network-tp-name;
+        }
+        case network-resource-link {
+          uses network-link-name;
+        }
+      }
+    }
+    leaf network-resource-type {
+      type identityref {
+        base network-resource-types;
+      }
+      mandatory true;
+    }
+  }
+
+  grouping network-tp-name {
+    leaf tp-network-id {
+      type string;
+      mandatory true;
+      description
+        "network-id from the network model.";
+    }
+    leaf tp-node-id {
+      type string;
+      mandatory true;
+      description
+        "node-id from the network model.";
+    }
+    leaf tp-id {
+      type string;
+      mandatory true;
+      description
+        "tp-id from the network model.";
+    }
+  }
+
+  grouping network-link-name {
+    leaf link-network-id {
+      type string;
+      mandatory true;
+      description
+        "network-id from the network model.";
+    }
+    leaf link-id {
+      type string;
+      mandatory true;
+      description
+        "link-id from the network model.";
+    }
+  }
+}

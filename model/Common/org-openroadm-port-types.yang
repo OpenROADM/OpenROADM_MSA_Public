@@ -2,9 +2,9 @@ module org-openroadm-port-types {
   namespace "http://org/openroadm/port/types";
   prefix org-openroadm-port-types;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -111,6 +115,14 @@ module org-openroadm-port-types {
   }
 
   identity if-OCH-OTU4-ODU4 {
+    base supported-if-capability;
+  }
+
+  identity if-OTUCn-ODUCn {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-flexo-flexogroup {
     base supported-if-capability;
   }
 
@@ -186,28 +198,28 @@ module org-openroadm-port-types {
 
   grouping common-port {
     leaf port-power-capability-min-rx {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the minimum power in the system spec for this port to
          provide optimum function in rx direction";
     }
     leaf port-power-capability-min-tx {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the minimum power in the system spec for this port to
          provide optimum function in tx direction.";
     }
     leaf port-power-capability-max-rx {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the maximum power in the system spec for this port to
          provide optimum function in rx direction.";
     }
     leaf port-power-capability-max-tx {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       config false;
       description
         "Based on port capabilities, the maximum power in the system spec for this port to
@@ -218,4 +230,17 @@ module org-openroadm-port-types {
   grouping roadm-port {
     uses common-port;
   }
+  
+  typedef port-module-types {
+    type enumeration {
+      enum "100GBASE-LR4" {
+        value 1;
+      }
+      enum "CWDM-4" {
+        value 2;
+      }
+    }
+    description
+      "Pluggable modue types.";
+  }  
 }

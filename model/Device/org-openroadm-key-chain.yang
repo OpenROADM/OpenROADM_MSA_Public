@@ -1,0 +1,221 @@
+module org-openroadm-key-chain {
+  namespace "http://org/openroadm/key-chain";
+  prefix org-openroadm-key-chain;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines the Yang model for key chain.
+     
+     This model reuses data items defined in the IETF YANG model for
+     key-chain as described by RFC 8177.
+     
+     Some attributes which are not required in Open ROADM MSA are removed.
+     Yang file included are changed to fit into Open ROADM MSA yang structure.
+     
+     IETF code is subject to the following copyright and license:
+     Copyright (c) IETF Trust and the persons identified as authors of
+     the code.
+     All rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Simplified BSD License set forth in
+     Section 4.c of the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info).";
+
+  revision 2018-03-30 {
+    description
+      "Initial revision.";
+  }
+
+  feature hex-key-string {
+    description
+      "Support hexadecimal key string.";
+  }
+
+  feature independent-send-accept-lifetime {
+    description
+      "Support for independent send and accept key lifetimes.";
+  }
+
+  feature crypto-hmac-sha-1-12 {
+    description
+      "Support for TCP HMAC-SHA-1 12 byte digest hack.";
+  }
+
+  typedef key-chain-ref {
+    type leafref {
+      path "/org-openroadm-key-chain:key-chains/key-chain-list/org-openroadm-key-chain:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured key-chains.";
+  }
+
+  grouping lifetime {
+    description
+      "Key lifetime specification.";
+    choice lifetime {
+      default "always";
+      description
+        "Options for specifying key accept or send lifetimes";
+      case always {
+        leaf always {
+          type empty;
+          description
+            "Indicates key lifetime is always valid.";
+        }
+      }
+      case start-end-time {
+        leaf start-date-time {
+          type yang:date-and-time;
+          description
+            "Start time.";
+        }
+        choice end-time {
+          default "infinite";
+          description
+            "End-time setting.";
+          case infinite {
+            leaf no-end-time {
+              type empty;
+              description
+                "Indicates key lifetime end-time in infinite.";
+            }
+          }
+          case duration {
+            leaf duration {
+              type uint32 {
+                range "1..2147483646";
+              }
+              units "seconds";
+              description
+                "Key lifetime duration, in seconds";
+            }
+          }
+          case end-date-time {
+            leaf end-date-time {
+              type yang:date-and-time;
+              description
+                "End time.";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping crypto-algorithm-types {
+    description
+      "Cryptographic algorithm types.";
+    choice algorithm {
+      description
+        "Options for crytographic algorithm specification.";
+      case md5 {
+        leaf md5 {
+          type empty;
+          description
+            "The MD5 algorithm.";
+        }
+      }
+    }
+  }
+
+  grouping key-chain {
+    description
+      "key-chain specification grouping.";
+    leaf name {
+      type string;
+      description
+        "Name of the key-chain.";
+    }
+    list key-chain-entry {
+      key "key-id";
+      description
+        "One key.";
+      leaf key-id {
+        type uint64 {
+          range "1..255" {
+            error-message "Configured value is out of range";
+          }
+        }
+        description
+          "Key id.";
+      }
+      container key-string {
+        description
+          "The key string.";
+        choice key-string-style {
+          description
+            "Key string styles";
+          case keystring {
+            leaf keystring {
+              type string {
+                length "1..16" {
+                  error-message "Configured string exceeds the maximum length";
+                }
+              }
+              description
+                "Key string in ASCII format.";
+            }
+          }
+          case hexadecimal {
+            if-feature "hex-key-string";
+          }
+        }
+      }
+      container crypto-algorithm {
+        description
+          "Cryptographic algorithm associated with key.";
+        uses crypto-algorithm-types;
+      }
+    }
+  }
+
+  container key-chains {
+    description
+      "All configured key-chains for the device.";
+    list key-chain-list {
+      key "name";
+      description
+        "List of key-chains.";
+      uses key-chain;
+    }
+  }
+  container key-chains-state {
+    config false;
+    description
+      "All configured key-chains state.";
+    list key-chain-list-state {
+      description
+        "One key-chain state.";
+      leaf name-state {
+        type string;
+        description
+          "Configured name of the key-chain.";
+      }
+      list key-chain-entry {
+        key "key-id";
+        description
+          "One key.";
+        leaf key-id {
+          type uint64;
+          description
+            "Configurd key id.";
+        }
+        container crypto-algorithm-state {
+          description
+            "Configured cryptographic algorithm.";
+          uses crypto-algorithm-types;
+        }
+      }
+    }
+  }
+}

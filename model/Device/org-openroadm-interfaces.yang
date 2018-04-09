@@ -50,6 +50,10 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -121,5 +125,15 @@ module org-openroadm-interfaces {
     base interface-type;
     description
       "Optical Transport Multiplex type for openROADM";
+  }
+  identity ppp {
+    base interface-type;
+    description
+      "PPP for IP GNE.";
+  }
+  identity gcc {
+    base interface-type;
+    description
+      "ITU-T G.709 GCC.";
   }
 }

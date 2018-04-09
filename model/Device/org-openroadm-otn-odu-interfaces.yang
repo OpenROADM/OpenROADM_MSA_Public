@@ -4,11 +4,11 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2017-06-26;
+    revision-date 2018-03-30;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
@@ -20,7 +20,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -92,6 +96,8 @@ module org-openroadm-otn-odu-interfaces {
   }
 
   grouping msi-entry {
+    description
+      "OPU Multiplex Structure Identifier (G.709 clause 19.4.1)";
     leaf trib-slot {
       type uint16;
       description
@@ -111,8 +117,34 @@ module org-openroadm-otn-odu-interfaces {
     }
     leaf trib-port-payload {
       type string;
+      status deprecated;
       description
         "interface name being mapped to trib-port";
+    }
+  }
+
+  grouping opucn-msi-entry {
+    description
+      "OPUCn Multiplex Structure Identifier (G.709 clause 20.4.1)";
+    leaf opucn-trib-slot {
+      type org-openroadm-otn-common-types:opucn-trib-slot-def;
+      description
+        "OPUCn tributary slot (TS)";
+    }
+    leaf availability {
+      type boolean;
+      description
+        "available";
+    }
+    leaf occupation {
+      type boolean;
+      description
+        "occupied";
+    }
+    leaf trib-port {
+      type uint16;
+      description
+        "OPUCn Tributary Port Number (0-based), part of the MSI";
     }
   }
 
@@ -126,6 +158,11 @@ module org-openroadm-otn-odu-interfaces {
       description
         "rate identity of the ODU. 'identityref' is used
          to allow to extend for future higher rates";
+    }
+    leaf oducn-n-rate {
+      type uint16;
+      description
+        "ODUCn rate";
     }
     leaf odu-function {
       type identityref {
@@ -179,9 +216,13 @@ module org-openroadm-otn-odu-interfaces {
   }
 
   grouping parent-odu-allocation {
+    description
+      "parent odu allocation group";
     container parent-odu-allocation {
       when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name = current()/../../org-openroadm-device:supporting-interface]/org-openroadm-device:type = 'openROADM-if:otnOdu'";
       presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
+      description
+        "parent odu allocation";
       leaf trib-port-number {
         type uint16 {
           range "1 .. 80";
@@ -190,19 +231,36 @@ module org-openroadm-otn-odu-interfaces {
         description
           "Assigned tributary port number in parent OPU";
       }
-      leaf-list trib-slots {
-        type uint16 {
-          range "1 .. 80";
-        }
-        min-elements 1;
-        max-elements "80";
+      choice trib-slots-choice {
         description
-          "Assigned trib slots occupied in parent OPU MSI";
+          "trib slot selection";
+        case opu {
+          leaf-list trib-slots {
+            type uint16 {
+              range "1 .. 80";
+            }
+            min-elements 1;
+            max-elements "80";
+            description
+              "Assigned trib slots occupied in parent OPU MSI";
+          }
+        }
+        case opucn {
+          leaf-list opucn-trib-slots {
+            type org-openroadm-otn-common-types:opucn-trib-slot-def;
+            description
+              "Specify the list of OPUCn 5G tributary slots in the form of
+               TS #A.B (G.709 Figure 20-9) in the case of provisioning the low
+                order ODUk to the parent server ODUCn";
+          }
+        }
       }
     }
   }
 
   grouping opu {
+    description
+      "OPU group";
     container opu {
       when "../monitoring-mode = 'terminated' or ../monitoring-mode = 'monitored'";
       description
@@ -224,11 +282,14 @@ module org-openroadm-otn-odu-interfaces {
       }
       leaf payload-interface {
         type string;
+        status deprecated;
         description
           "Expected Payload of OPU. It designates client interface name";
       }
       container msi {
         when "../payload-type = '20' or ../payload-type = '21'";
+        description
+          "Multiple Structure Identifier";
         list tx-msi {
           key "trib-slot";
           description
@@ -238,7 +299,7 @@ module org-openroadm-otn-odu-interfaces {
         list rx-msi {
           key "trib-slot";
           description
-            "Receive MSI";
+            "Received MSI";
           uses msi-entry;
         }
         list exp-msi {
@@ -246,6 +307,29 @@ module org-openroadm-otn-odu-interfaces {
           description
             "Expected MSI";
           uses msi-entry;
+        }
+      }
+      container opucn-msi {
+        when "../payload-type = '22'";
+        description
+          "OPUCn Mutiplex Structure Identifier (G.709 clause 20.4.1)";
+        list tx-msi {
+          key "opucn-trib-slot";
+          description
+            "Transmit MSI";
+          uses opucn-msi-entry;
+        }
+        list rx-msi {
+          key "opucn-trib-slot";
+          description
+            "Received MSI";
+          uses opucn-msi-entry;
+        }
+        list exp-msi {
+          key "opucn-trib-slot";
+          description
+            "Expected MSI";
+          uses opucn-msi-entry;
         }
       }
     }
@@ -314,6 +398,8 @@ module org-openroadm-otn-odu-interfaces {
   }
 
   grouping odu-container {
+    description
+      "ODU container group";
     container odu {
       presence "Attribute Nodes for Optical Data Unit (ODU)";
       description
@@ -323,6 +409,9 @@ module org-openroadm-otn-odu-interfaces {
           config false;
         }
         refine "opu/msi" {
+          config false;
+        }
+        refine "opu/opucn-msi" {
           config false;
         }
         refine "no-oam-function" {
@@ -335,6 +424,8 @@ module org-openroadm-otn-odu-interfaces {
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:otnOdu'";
+    description
+      "augment for ODU container";
     uses odu-container;
   }
 }

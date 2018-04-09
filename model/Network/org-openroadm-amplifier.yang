@@ -2,9 +2,13 @@ module org-openroadm-amplifier {
   namespace "http://org/openroadm/amplifier";
   prefix amp;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-amplifier-types {
+    prefix org-openroadm-common-amplifier-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -41,6 +45,10 @@ module org-openroadm-amplifier {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -62,21 +70,21 @@ module org-openroadm-amplifier {
     description
       "Defines the group of amplifier attributes";
     leaf amp-type {
-      type org-openroadm-common-types:amplifier-types;
+      type org-openroadm-common-amplifier-types:amplifier-types;
       config true;
       mandatory true;
       description
         "Amplifier type";
     }
     leaf amp-gain-range {
-      type org-openroadm-common-types:amplifier-gain-range;
+      type org-openroadm-common-amplifier-types:amplifier-gain-range;
       config true;
       description
         "Amplifier gain-range (gain-range 1 to 4 for switched gain amplifiers)
          gain-range-1 for standard amplifiers";
     }
     leaf ingress-span-loss-aging-margin {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "Span-loss margin used to set optical amplifier gain and output-voa
@@ -84,7 +92,7 @@ module org-openroadm-amplifier {
          since it concerns only line facing amp";
     }
     leaf gain {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       mandatory true;
       description
@@ -92,33 +100,33 @@ module org-openroadm-amplifier {
          retrieved from operational value (PM)";
     }
     leaf initially-planned-gain {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "Overall Amplifier Signal gain, excluding ASE, including VOA attenuation:
          value coming from planning tool initial design";
     }
     leaf tilt {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "Tilt of smart EDFA retrieved from operational value (PM)";
     }
     leaf initially-planned-tilt {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "Tilt of smart EDFA:
          value coming from planning tool initial design";
     }
     leaf out-voa-att {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "output VOA attenuation";
     }
     leaf initially-planned-out-voa-att {
-      type org-openroadm-common-types:ratio-dB;
+      type org-openroadm-common-link-types:ratio-dB;
       config true;
       description
         "output VOA attenuation: value coming from planning tool initial design.
@@ -126,7 +134,7 @@ module org-openroadm-amplifier {
          to check that value set by amplifiers is in the range of calculated value and take relevant decision if not";
     }
     leaf eol-max-load-pIn {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       config true;
       description
         "End Of Life Total input power at maximum load used for amplifier and VOA setting

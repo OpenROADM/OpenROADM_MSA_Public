@@ -2,9 +2,13 @@ module org-openroadm-routing-constraints {
   namespace "http://org/openroadm/routing/constrains";
   prefix org-openroadm-routing-constraints;
 
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-network-resource {
+    prefix org-openroadm-network-resource;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -40,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -118,9 +126,21 @@ module org-openroadm-routing-constraints {
     }
     leaf-list site {
       type string;
+      description
+        "site identifies the clli.
+         clli from the device model; clli-network-ref + clli from the network model.";
     }
     leaf-list node-id {
-      type org-openroadm-common-types:node-id-type;
+      type org-openroadm-common-node-types:node-id-type;
+      description
+        "node-id from the device model; openroadm-network-ref + node-id from the network model.";
+    }
+    list link-identifier {
+      key "link-network-id link-id";
+      description
+        "Refers to link-id(s) from the network model.
+         The openroadm-topology-ref + link-id identifies the link in the network model.";
+      uses org-openroadm-network-resource:network-link-name;
     }
   }
 
@@ -138,6 +158,9 @@ module org-openroadm-routing-constraints {
         type boolean;
       }
       leaf srlg {
+        type boolean;
+      }
+      leaf link {
         type boolean;
       }
     }

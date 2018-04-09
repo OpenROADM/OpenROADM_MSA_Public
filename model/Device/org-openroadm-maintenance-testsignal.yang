@@ -58,7 +58,7 @@ module org-openroadm-maintenance-testsignal {
           enum "PRBS" {
             value 0;
             description
-              "Unframed, inverted PN-31 pattern or PRBS31 pattern per IEEE 802.3 clause 50.3.8.2 (inverted PN-31at line rate)";
+              "Unframed, inverted PN-31 pattern or PRBS31 pattern per IEEE 802.3 clause 50.3.8.2 (inverted PN-31 at line rate)";
           }
           enum "PRBS31" {
             value 1;

@@ -4,7 +4,7 @@ module: org-openroadm-alarm
           +--ro id                   string
           +--ro resource
           |  +--ro device
-          |  |  +--ro node-id?   org-openroadm-common-types:node-id-type
+          |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
           |  +--ro resource
           |  |  +--ro (resource)?
           |  |     +--:(circuit-pack)
@@ -34,7 +34,7 @@ module: org-openroadm-alarm
           |  |     +--:(other)
           |  |     |  +--ro other-resource-id         string
           |  |     +--:(device)
-          |  |     |  +--ro node-id                   org-openroadm-common-types:node-id-type
+          |  |     |  +--ro node-id                   org-openroadm-common-node-types:node-id-type
           |  |     +--:(line-amplifier)
           |  |     |  +--ro amp-number                uint8
           |  |     +--:(xponder)
@@ -50,11 +50,11 @@ module: org-openroadm-alarm
           +--ro probableCause
           |  +--ro cause        probable-cause-enum
           |  +--ro extension?   string
-          |  +--ro direction    org-openroadm-common-types:direction
-          |  +--ro location     org-openroadm-common-types:location
+          |  +--ro direction    org-openroadm-common-alarm-pm-types:direction
+          |  +--ro location     org-openroadm-common-alarm-pm-types:location
           |  +--ro type?        enumeration
           +--ro raiseTime            yang:date-and-time
-          +--ro severity             org-openroadm-common-types:severity
+          +--ro severity             severity
           +--ro circuit-id?          string
           +--ro additional-detail?   string
           +--ro corrective-action?   string
@@ -64,7 +64,7 @@ module: org-openroadm-alarm
        +--ro id                   string
        +--ro resource
        |  +--ro device
-       |  |  +--ro node-id?   org-openroadm-common-types:node-id-type
+       |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
        |  +--ro resource
        |  |  +--ro (resource)?
        |  |     +--:(circuit-pack)
@@ -94,7 +94,7 @@ module: org-openroadm-alarm
        |  |     +--:(other)
        |  |     |  +--ro other-resource-id         string
        |  |     +--:(device)
-       |  |     |  +--ro node-id                   org-openroadm-common-types:node-id-type
+       |  |     |  +--ro node-id                   org-openroadm-common-node-types:node-id-type
        |  |     +--:(line-amplifier)
        |  |     |  +--ro amp-number                uint8
        |  |     +--:(xponder)
@@ -110,11 +110,11 @@ module: org-openroadm-alarm
        +--ro probableCause
        |  +--ro cause        probable-cause-enum
        |  +--ro extension?   string
-       |  +--ro direction    org-openroadm-common-types:direction
-       |  +--ro location     org-openroadm-common-types:location
+       |  +--ro direction    org-openroadm-common-alarm-pm-types:direction
+       |  +--ro location     org-openroadm-common-alarm-pm-types:location
        |  +--ro type?        enumeration
        +--ro raiseTime            yang:date-and-time
-       +--ro severity             org-openroadm-common-types:severity
+       +--ro severity             severity
        +--ro circuit-id?          string
        +--ro additional-detail?   string
        +--ro corrective-action?   string
@@ -124,7 +124,7 @@ module: org-openroadm-maintenance
           +--rw id           string
           +--rw resource
           |  +--rw device
-          |  |  +--rw node-id?   org-openroadm-common-types:node-id-type
+          |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
           |  +--rw resource
           |  |  +--rw (resource)?
           |  |     +--:(circuit-pack)
@@ -154,7 +154,7 @@ module: org-openroadm-maintenance
           |  |     +--:(other)
           |  |     |  +--rw other-resource-id         string
           |  |     +--:(device)
-          |  |     |  +--rw node-id                   org-openroadm-common-types:node-id-type
+          |  |     |  +--rw node-id                   org-openroadm-common-node-types:node-id-type
           |  |     +--:(line-amplifier)
           |  |     |  +--rw amp-number                uint8
           |  |     +--:(xponder)
@@ -270,8 +270,8 @@ module: org-openroadm-pm
     |     +--ro current-pm* [type extension location direction]
     |        +--ro type           pm-names-enum
     |        +--ro extension      string
-    |        +--ro location       org-openroadm-common-types:location
-    |        +--ro direction      org-openroadm-common-types:direction
+    |        +--ro location       org-openroadm-common-alarm-pm-types:location
+    |        +--ro direction      org-openroadm-common-alarm-pm-types:direction
     |        +--ro measurement* [granularity]
     |           +--ro granularity         org-openroadm-pm-types:pm-granularity
     |           +--ro pmParameterValue    pm-data-type
@@ -285,8 +285,8 @@ module: org-openroadm-pm
           +--ro historical-pm* [type extension location direction]
              +--ro type           pm-names-enum
              +--ro extension      string
-             +--ro location       org-openroadm-common-types:location
-             +--ro direction      org-openroadm-common-types:direction
+             +--ro location       org-openroadm-common-alarm-pm-types:location
+             +--ro direction      org-openroadm-common-alarm-pm-types:direction
              +--ro measurement* [granularity bin-number]
                 +--ro granularity         org-openroadm-pm-types:pm-granularity
                 +--ro bin-number          uint16
@@ -299,7 +299,7 @@ module: org-openroadm-pm
     +---x clear-pm
     |  +---w input
     |  |  +---w device
-    |  |  |  +---w node-id?   org-openroadm-common-types:node-id-type
+    |  |  |  +---w node-id?   org-openroadm-common-node-types:node-id-type
     |  |  +---w resource
     |  |  |  +---w (resource)?
     |  |  |     +--:(circuit-pack)
@@ -329,7 +329,7 @@ module: org-openroadm-pm
     |  |  |     +--:(other)
     |  |  |     |  +---w other-resource-id         string
     |  |  |     +--:(device)
-    |  |  |     |  +---w node-id                   org-openroadm-common-types:node-id-type
+    |  |  |     |  +---w node-id                   org-openroadm-common-node-types:node-id-type
     |  |  |     +--:(line-amplifier)
     |  |  |     |  +---w amp-number                uint8
     |  |  |     +--:(xponder)
@@ -368,7 +368,7 @@ module: org-openroadm-tca
           +--rw id                    string
           +--rw resource
           |  +--rw device
-          |  |  +--rw node-id?   org-openroadm-common-types:node-id-type
+          |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
           |  +--rw resource
           |  |  +--rw (resource)?
           |  |     +--:(circuit-pack)
@@ -398,7 +398,7 @@ module: org-openroadm-tca
           |  |     +--:(other)
           |  |     |  +--rw other-resource-id         string
           |  |     +--:(device)
-          |  |     |  +--rw node-id                   org-openroadm-common-types:node-id-type
+          |  |     |  +--rw node-id                   org-openroadm-common-node-types:node-id-type
           |  |     +--:(line-amplifier)
           |  |     |  +--rw amp-number                uint8
           |  |     +--:(xponder)
@@ -415,8 +415,8 @@ module: org-openroadm-tca
           |  +--rw type         pm-names-enum
           |  +--rw extension?   string
           +--rw granularity           org-openroadm-pm-types:pm-granularity
-          +--rw location              org-openroadm-common-types:location
-          +--rw direction             org-openroadm-common-types:direction
+          +--rw location              org-openroadm-common-alarm-pm-types:location
+          +--rw direction             org-openroadm-common-alarm-pm-types:direction
           +--rw lowThresholdValue?    org-openroadm-pm-types:pm-data-type
           +--rw highThresholdValue?   org-openroadm-pm-types:pm-data-type
 
@@ -425,7 +425,7 @@ module: org-openroadm-tca
        +--ro id                  string
        +--ro resource
        |  +--ro device
-       |  |  +--ro node-id?   org-openroadm-common-types:node-id-type
+       |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
        |  +--ro resource
        |  |  +--ro (resource)?
        |  |     +--:(circuit-pack)
@@ -455,7 +455,7 @@ module: org-openroadm-tca
        |  |     +--:(other)
        |  |     |  +--ro other-resource-id         string
        |  |     +--:(device)
-       |  |     |  +--ro node-id                   org-openroadm-common-types:node-id-type
+       |  |     |  +--ro node-id                   org-openroadm-common-node-types:node-id-type
        |  |     +--:(line-amplifier)
        |  |     |  +--ro amp-number                uint8
        |  |     +--:(xponder)
@@ -472,8 +472,8 @@ module: org-openroadm-tca
        |  +--ro type         pm-names-enum
        |  +--ro extension?   string
        +--ro granularity         org-openroadm-pm-types:pm-granularity
-       +--ro location            org-openroadm-common-types:location
-       +--ro direction           org-openroadm-common-types:direction
+       +--ro location            org-openroadm-common-alarm-pm-types:location
+       +--ro direction           org-openroadm-common-alarm-pm-types:direction
        +--ro thresholdValue      org-openroadm-pm-types:pm-data-type
        +--ro thresholdType       enumeration
        +--ro pmParameterValue    org-openroadm-pm-types:pm-data-type

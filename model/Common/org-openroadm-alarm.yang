@@ -6,17 +6,13 @@ module org-openroadm-alarm {
     prefix yang;
     revision-date 2013-07-15;
   }
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
-  }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -52,6 +48,10 @@ module org-openroadm-alarm {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -67,6 +67,31 @@ module org-openroadm-alarm {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  typedef severity {
+    type enumeration {
+      enum "critical" {
+        value 1;
+      }
+      enum "major" {
+        value 2;
+      }
+      enum "minor" {
+        value 3;
+      }
+      enum "warning" {
+        value 4;
+      }
+      enum "clear" {
+        value 5;
+      }
+      enum "indeterminate" {
+        value 6;
+      }
+    }
+    description
+      "Severity, based on X.733 perceived severity";
   }
 
   grouping alarm {
@@ -93,7 +118,7 @@ module org-openroadm-alarm {
         "Time alarm was raised";
     }
     leaf severity {
-      type org-openroadm-common-types:severity;
+      type severity;
       mandatory true;
       description
         "Severity of alarm. Based on X.733 perceived severity.";

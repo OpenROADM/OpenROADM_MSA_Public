@@ -1,0 +1,91 @@
+module org-openroadm-common-amplifier-types {
+  namespace "http://org/openroadm/common-amplifier-types";
+  prefix org-openroadm-common-amplifier-types;
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of common types.
+       
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+      AT&T Intellectual Property.  All other rights reserved.
+      
+      Redistribution and use in source and binary forms, with or without modification, 
+      are permitted provided that the following conditions are met:
+      
+      * Redistributions of source code must retain the above copyright notice, this 
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice, 
+        this list of conditions and the following disclaimer in the documentation and/or 
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
+        contributors may be used to endorse or promote products derived from this software 
+        without specific prior written permission.
+      
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
+
+  typedef amplifier-types {
+    type enumeration {
+      enum "standard" {
+        value 1;
+      }
+    }
+    description
+      "identifier for amplifier type
+       1. standard for amplifier as defined initially in the ROADM MSA specifications
+       To be completed if/when additional amplifier types are required ";
+  }
+
+  typedef line-amplifier-control-mode {
+    type enumeration {
+      enum "gainLoss" {
+        value 2;
+      }
+      enum "off" {
+        value 3;
+      }
+    }
+    description
+      "Identifies the line amplifier control mode, either off or gain.";
+  }
+
+  typedef amplifier-gain-range {
+    type enumeration {
+      enum "gain-range-1" {
+        value 1;
+      }
+      enum "gain-range-2" {
+        value 2;
+      }
+      enum "gain-range-3" {
+        value 3;
+      }
+      enum "gain-range-4" {
+        value 4;
+      }
+    }
+    description
+      "Operational mode for the amplifier:  
+       this parameter allows modeling different operational modes (gain ranges) ,notably for switched-gain amplifiers.
+       It indicates which performance model shall be used by the path feasibility engine. 
+       For standard amplifier, or when performance evaluation is based on incremental noise, use gain-range-1.
+       When performance evaluation is based on advanced parameters, specify used gain-range (1 to 4).
+       Up to release 2.1, only gain-range-1 is to be used (default value) ";
+  }
+}

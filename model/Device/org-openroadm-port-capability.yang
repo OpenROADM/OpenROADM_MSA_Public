@@ -4,19 +4,19 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -24,7 +24,7 @@ module org-openroadm-port-capability {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for device facility OTN linear APS protection groups.
+    "YANG definitions for port capabilities.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
      AT&T Intellectual Property.  All other rights reserved.
@@ -66,6 +66,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -128,6 +132,103 @@ module org-openroadm-port-capability {
     }
   }
 
+  grouping otn-capability-grp {
+    leaf-list if-protection-capability {
+      type identityref {
+        base org-openroadm-prot-otn-linear-aps:otn-protection-type;
+      }
+      description
+        "supported protection types if protection is supported on this port";
+    }
+    leaf proactive-DMp {
+      type boolean;
+      description
+        "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+    }
+    leaf tcm-capable {
+      type boolean;
+      description
+        "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
+    }
+    leaf proactive-DMt {
+      when "../tcm-capable= 'true'";
+      type boolean;
+      description
+        "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+    }
+    leaf tcm-direction-capability {
+      when "../tcm-capable= 'true'";
+      type tcm-direction-capability-type;
+      description
+        "Supported tcm direction capability on the ODUk associated with the port.";
+    }
+    leaf-list opu-payload-type-mapping {
+      type org-openroadm-otn-common-types:payload-type-def;
+      description
+        "OPU payload-type mapping OPU.";
+    }
+    description
+      "OTN capability group";
+  }
+
+  grouping odu-mux-hierarchy-grp {
+    list mux-capability {
+      key "stage-number ho-odu-type ho-odu-payload-type";
+      leaf stage-number {
+        type uint8 {
+          range "1 .. 2";
+        }
+        description
+          "stage number";
+      }
+      leaf ho-odu-type {
+        type identityref {
+          base org-openroadm-otn-common-types:odu-rate-identity;
+        }
+        description
+          "High order ODU type";
+      }
+      leaf ho-odu-payload-type {
+        type org-openroadm-otn-common-types:payload-type-def;
+        description
+          "High order ODU payload type";
+      }
+      leaf-list supported-lo-odu-type {
+        type identityref {
+          base org-openroadm-otn-common-types:odu-rate-identity;
+        }
+        description
+          "Supported low order ODU type";
+      }
+      leaf lo-odu-proactive-DMp {
+        type boolean;
+        description
+          "low order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+      }
+      leaf lo-odu-tcm-capable {
+        type boolean;
+        description
+          "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
+      }
+      leaf lo-odu-proactive-DMt {
+        when "../lo-odu-tcm-capable= 'true'";
+        type boolean;
+        description
+          "low order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+      }
+      leaf lo-odu-tcm-direction-capability {
+        when "../lo-odu-tcm-capable= 'true'";
+        type tcm-direction-capability-type;
+        description
+          "Supported tcm direction capability for low order ODU associated with the port.";
+      }
+      description
+        "low order ODU TCM direction capability";
+    }
+    description
+      "ODU mux hierarchy group";
+  }
+
   grouping port-capability-grp {
     description
       "OpenROADM port capability parameters.";
@@ -139,46 +240,16 @@ module org-openroadm-port-capability {
           "Supported interface capability on the port.";
         leaf if-cap-type {
           type identityref {
-            base org-openroadm-port-types:supported-if-capability;
+            base org-openroadm-port-types:if-otsi-flexo-flexogroup;
           }
           description
             "Interface type/hierarchy/rate supported on this port";
         }
+        leaf-list flexogroup-capability-group-id {
+          type uint16;
+        }
         container otn-capability {
-          leaf-list if-protection-capability {
-            type identityref {
-              base org-openroadm-prot-otn-linear-aps:otn-protection-type;
-            }
-            description
-              "supported protection types if protection is supported on this port";
-          }
-          leaf proactive-DMp {
-            type boolean;
-            description
-              "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
-          }
-          leaf tcm-capable {
-            type boolean;
-            description
-              "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
-          }
-          leaf proactive-DMt {
-            when "../tcm-capable= 'true'";
-            type boolean;
-            description
-              "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
-          }
-          leaf tcm-direction-capability {
-            when "../tcm-capable= 'true'";
-            type tcm-direction-capability-type;
-            description
-              "Supported tcm direction capability on the ODUk associated with the port.";
-          }
-          leaf-list opu-payload-type-mapping {
-            type org-openroadm-otn-common-types:payload-type-def;
-            description
-              "OPU payload-type mapping OPU.";
-          }
+          uses otn-capability-grp;
           container mpdr-client-restriction {
             description
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
@@ -221,56 +292,23 @@ module org-openroadm-port-capability {
               }
               min-elements 1;
               max-elements "80";
+              description
+                "Network high order ODU trib slots";
+            }
+            leaf-list network-ho-odu-opucn-trib-slots {
+              type org-openroadm-otn-common-types:opucn-trib-slot-def;
+              description
+                "Network high order ODU OPU tributary slots";
             }
           }
           container odu-mux-hierarchy {
             presence "HO ODU supported hierarchy.";
-            list mux-capability {
-              key "stage-number ho-odu-type ho-odu-payload-type";
-              leaf stage-number {
-                type uint8 {
-                  range "1 .. 2";
-                }
-              }
-              leaf ho-odu-type {
-                type identityref {
-                  base org-openroadm-otn-common-types:odu-rate-identity;
-                }
-              }
-              leaf ho-odu-payload-type {
-                type org-openroadm-otn-common-types:payload-type-def;
-                description
-                  "high order ODU payload type";
-              }
-              leaf-list supported-lo-odu-type {
-                type identityref {
-                  base org-openroadm-otn-common-types:odu-rate-identity;
-                }
-              }
-              leaf lo-odu-proactive-DMp {
-                type boolean;
-                description
-                  "lo order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
-              }
-              leaf lo-odu-tcm-capable {
-                type boolean;
-                description
-                  "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
-              }
-              leaf lo-odu-proactive-DMt {
-                when "../lo-odu-tcm-capable= 'true'";
-                type boolean;
-                description
-                  "lo order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
-              }
-              leaf lo-odu-tcm-direction-capability {
-                when "../lo-odu-tcm-capable= 'true'";
-                type tcm-direction-capability-type;
-                description
-                  "Supported tcm direction capability for low order ODU associated with the port.";
-              }
-            }
+            uses odu-mux-hierarchy-grp;
+            description
+              "ODU mux hierarchy";
           }
+          description
+            "OTN capability";
         }
       }
     }
@@ -323,6 +361,9 @@ module org-openroadm-port-capability {
                 base org-openroadm-port-types:supported-if-capability;
               }
             }
+            leaf-list port-module-type {
+              type org-openroadm-port-types:port-module-types;
+            }			
           }
         }
       }
@@ -331,8 +372,12 @@ module org-openroadm-port-capability {
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports" {
     uses port-capability-grp;
+    description
+      "augment for port capability";
   }
   augment "/org-openroadm-device:org-openroadm-device" {
     uses port-group-restriction-grp;
+    description
+      "augment for port group restriction";
   }
 }

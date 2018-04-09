@@ -4,15 +4,15 @@ module org-openroadm-media-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2017-06-26;
+    revision-date 2018-03-30;
   }
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -62,6 +62,10 @@ module org-openroadm-media-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -83,25 +87,25 @@ module org-openroadm-media-channel-interfaces {
     description
       "Media channel termination point. Models bandwidth allocation in physical media. Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
     leaf min-freq {
-      type org-openroadm-common-types:frequency-THz;
+      type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
         "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
     leaf max-freq {
-      type org-openroadm-common-types:frequency-THz;
+      type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
         "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
     leaf center-freq {
-      type org-openroadm-common-types:frequency-THz;
+      type org-openroadm-common-optical-channel-types:frequency-THz;
       config false;
       description
         "Center Frequency in THz. Granularity is hardware dependent, based on center-freq-granularity.";
     }
     leaf slot-width {
-      type org-openroadm-common-types:frequency-GHz;
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
       config false;
       description
         "Width of the slot.  Granularity is hardware dependent, based on slot-width-granularity";

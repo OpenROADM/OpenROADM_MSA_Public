@@ -170,7 +170,7 @@ module org-openroadm-pm-types {
       enum "severelyErroredSecondsEthernet" {
         value 16;
         description
-          "Severly Errored Seconds, Ethernet (SES-E)";
+          "Severely Errored Seconds, Ethernet (SES-E)";
       }
       enum "unavailableSecondsEthernet" {
         value 17;
@@ -285,7 +285,7 @@ module org-openroadm-pm-types {
       enum "totalOpticalPowerInputMin" {
         value 39;
         description
-          "Minumun Total Optical Power Input.";
+          "Minimum Total Optical Power Input.";
       }
       enum "totalOpticalPowerInputMax" {
         value 40;
@@ -467,7 +467,7 @@ module org-openroadm-pm-types {
 
   grouping pm-names {
     description
-      "Name of PM parameter. Consisists of a set list of parameters,
+      "Name of PM parameter. Consists of a set list of parameters,
        plus an extension field to support addition parameters.";
     leaf type {
       type pm-names-enum;

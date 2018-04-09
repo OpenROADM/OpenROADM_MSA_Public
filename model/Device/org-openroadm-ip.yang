@@ -1,0 +1,311 @@
+module org-openroadm-ip {
+  namespace "http://org/openroadm/ip";
+  prefix org-openroadm-ip;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+  }
+  import org-openroadm-interfaces {
+    prefix openROADM-if;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines Yang model for IP (IPv4 and IPv6) interfaces.
+     
+     This model reuses data items defined in the IETF YANG model for
+     interfaces described by RFC 7277.
+     
+     Some attributes which are not required in Open ROADM MSA are removed.
+     Yang file included are changed to fit into Open ROADM MSA yang structure.
+     
+     IETF code is subject to the following copyright and license:
+     Copyright (c) IETF Trust and the persons identified as authors of
+     the code.
+     All rights reserved.
+     
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Simplified BSD License set forth in
+     Section 4.c of the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info).";
+
+  revision 2014-06-16 {
+    description
+      "Initial revision.";
+    reference "RFC 7277: A YANG Data Model for IP Management";
+  }
+
+  feature ipv4-non-contiguous-netmasks {
+    description
+      "Indicates support for configuring non-contiguous
+       subnet masks.";
+  }
+
+  feature ipv6-privacy-autoconf {
+    description
+      "Indicates support for Privacy Extensions for Stateless Address
+       Autoconfiguration in IPv6.";
+    reference
+      "RFC 4941: Privacy Extensions for Stateless Address
+                 Autoconfiguration in IPv6";
+  }
+
+  typedef ip-address-origin {
+    type enumeration {
+      enum "other" {
+        description
+          "None of the following.";
+      }
+      enum "static" {
+        description
+          "Indicates that the address has been statically
+           configured - for example, using NETCONF or a Command Line
+           Interface.";
+      }
+      enum "dhcp" {
+        description
+          "Indicates an address that has been assigned to this
+           system by a DHCP server.";
+      }
+      enum "link-layer" {
+        description
+          "Indicates an address created by IPv6 stateless
+           autoconfiguration that embeds a link-layer address in its
+           interface identifier.";
+      }
+      enum "random" {
+        description
+          "Indicates an address chosen by the system at
+           
+           random, e.g., an IPv4 address within 169.254/16, an
+           RFC 4941 temporary address, or an RFC 7217 semantically
+           opaque address.";
+        reference
+          "RFC 4941: Privacy Extensions for Stateless Address
+                     Autoconfiguration in IPv6
+           RFC 7217: A Method for Generating Semantically Opaque
+                     Interface Identifiers with IPv6 Stateless
+                     Address Autoconfiguration (SLAAC)";
+      }
+    }
+    description
+      "The origin of an address.";
+  }
+
+  typedef neighbor-origin {
+    type enumeration {
+      enum "other" {
+        description
+          "None of the following.";
+      }
+      enum "static" {
+        description
+          "Indicates that the mapping has been statically
+           configured - for example, using NETCONF or a Command Line
+           Interface.";
+      }
+      enum "dynamic" {
+        description
+          "Indicates that the mapping has been dynamically resolved
+           using, e.g., IPv4 ARP or the IPv6 Neighbor Discovery
+           protocol.";
+      }
+    }
+    description
+      "The origin of a neighbor entry.";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:ip'";
+    description
+      "Parameters for configuring IP on interfaces.
+       
+       If an interface is not capable of running IP, the server
+       must not allow the client to configure these parameters.";
+    container ipv4 {
+      presence
+        "Enables IPv4 unless the 'enabled' leaf
+         (which defaults to 'true') is set to 'false'";
+      description
+        "Parameters for the IPv4 address family.";
+      leaf enabled {
+        type boolean;
+        default "false";
+        description
+          "Controls whether IPv4 is enabled or disabled on this
+           interface.  When IPv4 is enabled, this interface is
+           connected to an IPv4 stack, and the interface can send
+           and receive IPv4 packets.";
+      }
+      leaf forwarding {
+        type boolean;
+        default "false";
+        description
+          "Controls IPv4 packet forwarding of datagrams received by,
+           but not addressed to, this interface.  IPv4 routers
+           forward datagrams.  IPv4 hosts do not (except those
+           source-routed via the host).";
+      }
+      leaf mtu {
+        type uint16 {
+          range "68..1500";
+        }
+        units "octets";
+        default "1500";
+        description
+          "The size, in octets, of the largest IPv4 packet that the
+           interface will send and receive.
+           
+           The server may restrict the allowed values for this leaf,
+           depending on the interface's type.
+           
+           If this leaf is not configured, the operationally used MTU
+           depends on the interface's type.";
+        reference "RFC 791: Internet Protocol";
+      }
+      leaf address-src {
+        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='UNNUMBERED']";
+        type enumeration {
+          enum "NEM" {
+            value 1;
+          }
+        }
+        description
+          "The source of the shared IP address for unnumbered IP interface.";
+      }
+      leaf address-force {
+        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='UNNUMBERED']";
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-ip:ipv4/org-openroadm-ip:address/org-openroadm-ip:ip";
+        }
+        must "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='NEM']/org-openroadm-ip:ipv4/org-openroadm-ip:address[org-openroadm-ip:ip=current()]/org-openroadm-ip:ip = current()" {
+          error-message "IP address shall be sourced from the NEM interface only";
+        }
+        must "not (../address-src)" {
+          error-message "Both address-src & address-force cannot be configured at the same time";
+        }
+        description
+          "The IP address to use for the unnumbered interface";
+      }
+      list address {
+        key "ip";
+        description
+          "The list of configured IPv4 addresses on the interface.";
+        leaf ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "The IPv4 address on the interface.";
+        }
+        leaf preferred {
+          when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='NEM']";
+          type enumeration {
+            enum "true" {
+              value 1;
+            }
+            enum "false" {
+              value 0;
+            }
+          }
+          default "false";
+          description
+            "Mark address availability for unnumbered interface use.";
+        }
+        choice subnet {
+          mandatory true;
+          description
+            "The subnet can be specified as a prefix-length, or,
+             if the server supports non-contiguous netmasks, as
+             a netmask.";
+          leaf prefix-length {
+            type uint8 {
+              range "0..32";
+            }
+            description
+              "The length of the subnet prefix.";
+          }
+          leaf netmask {
+            if-feature "ipv4-non-contiguous-netmasks";
+            type yang:dotted-quad;
+            description
+              "The subnet specified as a netmask.";
+          }
+        }
+      }
+    }
+    container ipv6 {
+      presence
+        "Enables IPv6 unless the 'enabled' leaf
+         (which defaults to 'true') is set to 'false'";
+      description
+        "Parameters for the IPv6 address family.";
+      leaf enabled {
+        type boolean;
+        default "false";
+        description
+          "Controls whether IPv6 is enabled or disabled on this
+           interface.  When IPv6 is enabled, this interface is
+           connected to an IPv6 stack, and the interface can send
+           and receive IPv6 packets.";
+      }
+      leaf forwarding {
+        type boolean;
+        default "false";
+        description
+          "Controls IPv6 packet forwarding of datagrams received by,
+           but not addressed to, this interface.  IPv6 routers
+           forward datagrams.  IPv6 hosts do not (except those
+           source-routed via the host).";
+        reference
+          "RFC 4861: Neighbor Discovery for IP version 6 (IPv6)
+                     Section 6.2.1, IsRouter";
+      }
+      leaf mtu {
+        type uint32 {
+          range "1280..1500";
+        }
+        units "octets";
+        default "1500";
+        description
+          "The size, in octets, of the largest IPv6 packet that the
+           interface will send and receive.
+           
+           The server may restrict the allowed values for this leaf,
+           depending on the interface's type.
+           
+           If this leaf is not configured, the operationally used MTU
+           depends on the interface's type.";
+        reference
+          "RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
+                     Section 5";
+      }
+      list address {
+        key "ip";
+        description
+          "The list of configured IPv6 addresses on the interface.";
+        leaf ip {
+          type inet:ipv6-address-no-zone;
+          description
+            "The IPv6 address on the interface.";
+        }
+        leaf prefix-length {
+          type uint8 {
+            range "0..128";
+          }
+          mandatory true;
+          description
+            "The length of the subnet prefix.";
+        }
+      }
+    }
+  }
+}

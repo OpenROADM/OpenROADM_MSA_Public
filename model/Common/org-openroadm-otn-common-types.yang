@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -242,5 +246,13 @@ module org-openroadm-otn-common-types {
     }
     description
       "Common type definition for odu payload-type";
+  }
+
+  typedef opucn-trib-slot-def {
+    type string;
+    description
+      "OPUCn trib slot in the form of 'A.B' with
+       A = 1..n
+       B = 1..20";
   }
 }

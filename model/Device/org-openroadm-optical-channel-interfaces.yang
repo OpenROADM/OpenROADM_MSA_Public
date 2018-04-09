@@ -4,15 +4,31 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2017-06-26;
+    revision-date 2018-03-30;
   }
-  import org-openroadm-common-types {
-    prefix org-openroadm-common-types;
-    revision-date 2017-12-15;
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-optical-tributary-signal-interfaces {
+    prefix org-openroadm-optical-tributary-signal-interfaces;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-flexo-interfaces {
+    prefix org-openroadm-flexo-interfaces;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-flexogroup-interfaces {
+    prefix org-openroadm-flexogroup-interfaces;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -62,6 +78,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -88,34 +108,37 @@ module org-openroadm-optical-channel-interfaces {
       "Optical Channel attributes";
     leaf rate {
       type identityref {
-        base org-openroadm-common-types:och-rate-identity;
+        base org-openroadm-common-optical-channel-types:och-rate-identity;
       }
       description
         "rate";
     }
     leaf frequency {
-      type org-openroadm-common-types:frequency-THz;
-      config true;
+      type org-openroadm-common-optical-channel-types:frequency-THz;
       description
         "Center Frequency in THz.";
     }
     leaf width {
-      type org-openroadm-common-types:frequency-GHz;
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
       config false;
       description
         "Frequency width in GHz.";
     }
     leaf modulation-format {
-      type org-openroadm-common-types:modulation-format;
+      type org-openroadm-common-optical-channel-types:modulation-format;
+      description
+        "Modulation format";
     }
     leaf transmit-power {
-      type org-openroadm-common-types:power-dBm;
+      type org-openroadm-common-link-types:power-dBm;
       description
         "The target transmit power for this channel. When set, the xponder will work to ensure that port-current-power reaches this level. Applicable only to channel on top of xpdr-network port";
     }
   }
 
   grouping och-container {
+    description
+      "OCH container group";
     container och {
       description
         "Optical Channel (OCh):
@@ -127,5 +150,10 @@ module org-openroadm-optical-channel-interfaces {
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:opticalChannel'";
     uses och-container;
+    uses org-openroadm-optical-tributary-signal-interfaces:otsi-container;
+    uses org-openroadm-flexo-interfaces:flexo-container;
+    uses org-openroadm-flexogroup-interfaces:flexo-group-container;
+    description
+      "augment for optical channel container";
   }
 }

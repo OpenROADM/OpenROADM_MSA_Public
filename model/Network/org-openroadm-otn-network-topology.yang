@@ -12,7 +12,7 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
@@ -20,11 +20,15 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2017-12-15;
+    revision-date 2018-03-30;
   }
-  import org-openroadm-common-types {
-    prefix ct;
-    revision-date 2017-12-15;
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2018-03-30;
+  }
+  import org-openroadm-common-network {
+    prefix cnet;
+    revision-date 2018-03-30;
   }
 
   organization
@@ -60,6 +64,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-03-30 {
+    description
+      "Version 3.0.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -69,19 +77,18 @@ module org-openroadm-otn-network-topology {
       "Version 2.1";
   }
 
-  augment "/nd:network/nd:network-types" {
+  augment "/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
-      "Introduce new network type for the Open ROADM OTN
-       `     network topology";
+      "Introduce new network type for the Open ROADM OTN network topology";
     container otn-topology {
       presence "indicates OTN topology for Muxponder, Switchponder and OTN-switch";
     }
   }
   augment "/nd:network/nd:node" {
-    when "../nd:network-types/otn-topology";
+    when "../nd:network-types/cnet:openroadm-common-network/otn-topology";
     description
       "This augmentations adds the OTN Node type to the generic node
-       definition and defines node-sepcific attributes for each node type
+       definition and defines node-specific attributes for each node type
        in the OTN Topology.";
     leaf node-type {
       type org-openroadm-network-types:openroadm-node-type;
@@ -109,7 +116,7 @@ module org-openroadm-otn-network-topology {
     }
   }
   augment "/nd:network/nd:node/nwt:termination-point" {
-    when "../../nd:network-types/otn-topology";
+    when "../../nd:network-types/cnet:openroadm-common-network/otn-topology";
     description
       "Defines the type of a termination point in the OTN topology and
        TP-specific attributes for each termination point type.";
@@ -146,7 +153,7 @@ module org-openroadm-otn-network-topology {
     }
   }
   augment "/nd:network/nwt:link" {
-    when "../nd:network-types/otn-topology";
+    when "../nd:network-types/cnet:openroadm-common-network/otn-topology";
     description
       "This augmentation defines Logical link types in the OTN topology connecting OTN elements";
     leaf link-type {
@@ -157,19 +164,22 @@ module org-openroadm-otn-network-topology {
     }
     leaf administrative-group {
       type uint32;
+      status deprecated;
       description
         "according to RFC 3630 definition";
     }
     leaf operational-state {
-      type ct:state;
+      type org-openroadm-common-state-types:state;
+      status deprecated;
     }
     leaf administrative-state {
-      type ct:state;
+      type org-openroadm-common-state-types:state;
+      status deprecated;
     }
     leaf available-bandwidth {
       type uint32;
       description
-        "Availabled bandwidth between OTN elements";
+        "Available bandwidth between OTN elements";
     }
     leaf used-bandwidth {
       type uint32;
