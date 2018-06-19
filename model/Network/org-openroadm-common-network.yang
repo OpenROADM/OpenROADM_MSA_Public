@@ -12,7 +12,7 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -50,6 +50,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -68,14 +72,35 @@ module org-openroadm-common-network {
     when "../nd:network-types/openroadm-common-network";
     description
       "Augment the generic network node with Open ROADM common attributes.";
+    leaf node-type {
+      type org-openroadm-network-types:openroadm-node-type;
+      description
+        "A component of the network topology. Once the node-type is configured, it should not be modified.";
+    }
     leaf node-status {
       type org-openroadm-network-types:openroadm-node-status;
+    }
+  }
+  augment "/nd:network/nd:node/nwt:termination-point" {
+    when "../../nd:network-types/openroadm-common-network";
+    leaf tp-type {
+      type org-openroadm-network-types:openroadm-tp-type;
+      description
+        "The type of a termination point in the ROADM topology.";
+    }
+    leaf eqpt-srg-id {
+      type uint32;
+      description
+        "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
     }
   }
   augment "/nd:network/nwt:link" {
     when "../nd:network-types/openroadm-common-network";
     description
       "This augmentation defines common link attributes in the Open ROADM common network";
+    leaf link-type {
+      type org-openroadm-network-types:openroadm-link-type;
+    }
     leaf administrative-group {
       type uint32;
       description

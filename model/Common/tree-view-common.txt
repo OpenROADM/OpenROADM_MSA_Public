@@ -353,13 +353,13 @@ module: org-openroadm-pm
        |  +---w to-bin-number?     uint16
        |  +---w granularity?       org-openroadm-pm-types:pm-granularity
        +--ro output
-          +--ro pm-filename?      string
+          +--ro pm-filename       string
           +--ro status            rpc-status
           +--ro status-message?   string
 
   notifications:
     +---n historical-pm-collect-result
-       +--ro pm-filename?      string
+       +--ro pm-filename       string
        +--ro status            rpc-status
        +--ro status-message?   string
 module: org-openroadm-tca
