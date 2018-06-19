@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -130,6 +130,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";

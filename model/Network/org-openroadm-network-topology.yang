@@ -12,23 +12,23 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-link {
     prefix link;
@@ -40,7 +40,7 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
 
   organization
@@ -49,13 +49,13 @@ module org-openroadm-network-topology {
     "OpenROADM.org.";
   description
     "YANG definitions for network view of a ROADM
-
+     
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      AT&T Intellectual Property.  All other rights reserved.
-
+     
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-
+     
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -64,7 +64,7 @@ module org-openroadm-network-topology {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-
+     
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -76,6 +76,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -97,6 +101,64 @@ module org-openroadm-network-topology {
       "Version 2.0";
   }
 
+  deviation "/nd:network/nd:node/cnet:node-type" {
+    deviate add {
+      must
+        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or 
+         (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
+         (../cnet:node-type = 'DEGREE' or ../cnet:node-type = 'SRG' or ../cnet:node-type = 'TPDR' or ../cnet:node-type = 'SWITCH' or
+          ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'EXT-PLUGGABLE' or
+          ../cnet:node-type = 'MUXPDR'))" {
+        error-message "Invalid node type for openroadm-topology";
+        description
+          "The valid node types in the ROADM topology are 'SRG', 'DEGREE',
+           'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
+      }
+    }
+  }
+  deviation "/nd:network/nd:node/nwt:termination-point/cnet:tp-type" {
+    description
+      "Defines which TP types can be instantiated on which Node types";
+    deviate add {
+      must
+        "/nd:network/nd:node/cnet:node-type != 'DEGREE' or (../../cnet:node-type = 'DEGREE'  and
+         (../cnet:tp-type = 'DEGREE-TX-TTP' or ../cnet:tp-type = 'DEGREE-RX-TTP' or  ../cnet:tp-type = 'DEGREE-TXRX-TTP' or
+         ../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'))" {
+        error-message "Invalid TP for node type 'DEGREE'";
+      }
+      must
+        "/nd:network/nd:node/cnet:node-type != 'SRG' or (../../cnet:node-type = 'SRG' and
+         (../cnet:tp-type = 'SRG-TX-CP' or ../cnet:tp-type = 'SRG-RX-CP' or ../cnet:tp-type = 'SRG-TXRX-CP' or
+         ../cnet:tp-type = 'SRG-RX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-TXRX-PP'))" {
+        error-message "Invalid TP for node type 'SRG'";
+      }
+      must
+        " (/nd:network/nd:node/cnet:node-type != 'TPDR' and ../../cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'REGEN' and
+         ../../cnet:node-type != 'REGEN-UNI' and ../../cnet:node-type != 'SWITCH')
+         or ((../../cnet:node-type = 'TPDR' or ../../cnet:node-type = 'MUXPDR' or ../../cnet:node-type = 'REGEN' or
+         ../../cnet:node-type = 'REGEN-UNI' or ../../cnet:node-type = 'SWITCH') and
+         (../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-PORT'))" {
+        error-message "Invalid TP for node type 'XPONDER'";
+      }
+      must "/nd:network/nd:node/cnet:node-type != 'EXT-PLUGGABLE' or (../../cnet:node-type = 'EXT-PLUGGABLE' and ../cnet:tp-type = 'EXT-PLUGGABLE-TP')" {
+        error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
+      }
+    }
+  }
+  deviation "/nd:network/nwt:link/cnet:link-type" {
+    deviate add {
+      must
+        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or 
+         (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
+         (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
+          ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT'))" {
+        error-message "Invalid link type for openroadm-topology";
+        description
+          "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
+           'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT'";
+      }
+    }
+  }
   augment "/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
       "Introduce new network type for the Open ROADM optical
@@ -119,26 +181,27 @@ module org-openroadm-network-topology {
           ../node-type = 'MUXPDR')" {
         error-message "Invalid node type for openroadm-topology";
       }
+      status deprecated;
       description
         "The type of a node in the ROADM topology. Valid node types are 'SRG', 'DEGREE',
          'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
     }
     container srg-attributes {
-      when "../node-type = 'SRG'";
+      when "../cnet:node-type = 'SRG'";
       description
         "Topology-related attributes for SRG nodes";
       uses srg:srg-node-attributes;
     }
     container degree-attributes {
-      when "../node-type = 'DEGREE'";
+      when "../cnet:node-type = 'DEGREE'";
       description
         "Topology-related attributes for degree nodes";
       uses dgr:degree-node-attributes;
     }
     container xpdr-attributes {
       when
-        "../node-type = 'TPDR' or ../node-type = 'MUXPDR' or ../node-type = 'REGEN' or
-         ../node-type = 'REGEN-UNI' or ../node-type = 'SWITCH'";
+        "../cnet:node-type = 'TPDR' or ../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'REGEN' or
+         ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'SWITCH'";
       description
         "Topology-related attributes for Xponder nodes";
       uses xpdr:xpdr-topo-node-attributes;
@@ -174,30 +237,31 @@ module org-openroadm-network-topology {
       must "../../topo:node-type != 'EXT-PLUGGABLE' or (../../topo:node-type = 'EXT-PLUGGABLE' and ../topo:tp-type = 'EXT-PLUGGABLE-TP')" {
         error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
       }
+      status deprecated;
       description
         "The TP type; also defines which TP types can be instantiated
          on which Node types";
     }
     container tx-ttp-attributes {
-      when "../tp-type = 'DEGREE-TX-TTP' or ../tp-type = 'DEGREE-TXRX-TTP'";
+      when "../cnet:tp-type = 'DEGREE-TX-TTP' or ../cnet:tp-type = 'DEGREE-TXRX-TTP'";
       description
         "There must be only one TP of type DEGREE-TX-TTP in any given
          degree node";
       uses dgr:degree-used-wavelengths;
     }
     container rx-ttp-attributes {
-      when "../tp-type = 'DEGREE-RX-TTP'";
+      when "../cnet:tp-type = 'DEGREE-RX-TTP'";
       description
         "There must be only one TP of type DEGREE-RX-TTP in any given
          degree node";
       uses dgr:degree-used-wavelengths;
     }
     container ctp-attributes {
-      when "../tp-type = 'DEGREE-TX-CTP' or ../tp-type = 'DEGREE-RX-CTP' or ../tp-type = 'DEGREE-TXRX-CTP'";
+      when "../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'";
       uses dgr:degree-used-wavelengths;
     }
     container cp-attributes {
-      when "../tp-type = 'SRG-TX-CP' or ../tp-type = 'SRG-RX-CP' or ../tp-type = 'SRG-TXRX-CP'";
+      when "../cnet:tp-type = 'SRG-TX-CP' or ../cnet:tp-type = 'SRG-RX-CP' or ../cnet:tp-type = 'SRG-TXRX-CP'";
       description
         "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid
          index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this
@@ -208,7 +272,7 @@ module org-openroadm-network-topology {
       }
     }
     container pp-attributes {
-      when "../tp-type = 'SRG-TXRX-PP' or ../tp-type = 'SRG-TX-PP' or ../tp-type = 'SRG-RX-PP' ";
+      when "../cnet:tp-type = 'SRG-TXRX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-RX-PP' ";
       description
         "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid
          index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this
@@ -220,29 +284,30 @@ module org-openroadm-network-topology {
     }
     leaf eqpt-srg-id {
       when
-        "../tp-type = 'XPONDER-CLIENT' or ../tp-type = 'XPONDER-NETWORK' or ../tp-type = 'EXT-PLUGGABLE-TP' or
-         ../tp-type = 'XPONDER-PORT'";
+        "../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'EXT-PLUGGABLE-TP' or
+         ../cnet:tp-type = 'XPONDER-PORT'";
       type uint32;
+      status deprecated;
       description
         "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
     }
     container xpdr-client-attributes {
-      when "../tp-type = 'XPONDER-CLIENT'";
+      when "../cnet:tp-type = 'XPONDER-CLIENT'";
       uses xpdr:xpdr-connection-attributes;
       uses xpdr:xpdr-port-connection-attributes;
     }
     container xpdr-network-attributes {
-      when "../tp-type = 'XPONDER-NETWORK'";
+      when "../cnet:tp-type = 'XPONDER-NETWORK'";
       uses xpdr:xpdr-connection-attributes;
       uses xpdr:xpdr-port-connection-attributes;
     }
     container xpdr-port-attributes {
-      when "../tp-type = 'XPONDER-PORT'";
+      when "../cnet:tp-type = 'XPONDER-PORT'";
       uses xpdr:xpdr-connection-attributes;
       uses xpdr:xpdr-port-connection-attributes;
     }
     container ext-pluggable-attributes {
-      when "../tp-type = 'EXT-PLUGGABLE-TP'";
+      when "../cnet:tp-type = 'EXT-PLUGGABLE-TP'";
       uses plg:pluggable-tp-attributes;
     }
   }
@@ -257,6 +322,7 @@ module org-openroadm-network-topology {
           ../link-type = 'EXPRESS-LINK' or ../link-type = 'XPONDER-INPUT' or ../link-type = 'XPONDER-OUTPUT')" {
         error-message "Invalid link type for openroadm-topology";
       }
+      status deprecated;
     }
     leaf link-length {
       type decimal64 {
@@ -283,27 +349,27 @@ module org-openroadm-network-topology {
         "Latency of a link";
     }
     leaf amplified {
-      when "../link-type = 'ROADM-TO-ROADM'";
+      when "../cnet:link-type = 'ROADM-TO-ROADM'";
       type boolean;
       description
         "defines whether an ROADM-TO-ROADM Link includes line amplifiers or not";
     }
     leaf TE-metric {
-        type uint32;
-        description
-          "defines a Traffic Engineering metric which could be used for any type of link.
-           Supersedes TE-metric originally defined in OMS-attributes grouping";
+      type uint32;
+      description
+        "defines a Traffic Engineering metric which could be used for any type of link.
+         Supersedes TE-metric originally defined in OMS-attributes grouping";
     }
     leaf opposite-link {
-    	type leafref {
-            path "../../nwt:link/nwt:link-id";
-        }
-        description
-          "optional - pointer to reverse link in case of bidirectional link. Supersedes opposite-link
-           originally defined in OMS-attributes container, to apply to any kind of link in the topology";
+      type leafref {
+        path "../../nwt:link/nwt:link-id";
+      }
+      description
+        "optional - pointer to reverse link in case of bidirectional link. Supersedes opposite-link
+         originally defined in OMS-attributes container, to apply to any kind of link in the topology";
     }
     container OMS-attributes {
-      when "../link-type = 'ROADM-TO-ROADM'";
+      when "../cnet:link-type = 'ROADM-TO-ROADM'";
       description
         "";
       uses link:OMS-attributes;
@@ -311,9 +377,9 @@ module org-openroadm-network-topology {
         type leafref {
           path "../../../nwt:link/nwt:link-id";
         }
+        status deprecated;
         description
           "optional - pointer to reverse link in case of bidirectional link";
-        status deprecated;
       }
       container span {
         when "../../amplified = 'false'";

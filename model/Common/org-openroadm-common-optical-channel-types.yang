@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -55,30 +59,90 @@ module org-openroadm-common-optical-channel-types {
       "A unique FEC identification";
   }
 
+  identity sc-fec {
+    base fec-identity;
+    description
+      "Staircase FEC identification";
+  }
+
+  identity rs-fec {
+    base fec-identity;
+    description
+      "Reed Solomon FEC identification";
+  }
+
+  identity o-fec {
+    base fec-identity;
+    description
+      "OpenROADM FEC identification";
+  }
+
   identity foic-identity {
     description
       "A unique FOICx.k identification (G.709.3 FlexO-LR and
        G.709.1 FlexO-SR)";
   }
 
-  identity foic-otsi-rate-identity {
+  identity flexo-otsi-rate-identity {
     description
       "A unique rate identification. Applicable to specify OTSi rate. Also
        applicable to FOIC rate when associated with FlexO processing
-       (G.709.3 FlexO-LR Table 11-2 and G.709.1 FlexO-SR clause 9.2.2,
-        Table 11-1, 12-1, 13-1).";
+       (G.709.3 FlexO-LR Table 11-2, G.709.1 FlexO-SR clause 9.2.2
+        Table 11-1, 12-1, 13-1) and G.Sup58.";
   }
 
-  identity R448G {
-    base foic-otsi-rate-identity;
+  identity foic1.2 {
+    base foic-identity;
     description
-      "Applicable instance for flexo rate identity";
+      "Applicable to the FlexO type defined in G.Sup58";
   }
 
-  identity R224G {
-    base foic-otsi-rate-identity;
+  identity foic1.4 {
+    base foic-identity;
     description
-      "Applicable instance for flexo rate identity";
+      "Applicable to the FlexO type defined in G.709.1 and G.709.3";
+  }
+
+  identity foic2.4 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in G.709.1";
+  }
+
+  identity foic2.8 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in G.Sup58";
+  }
+
+  identity foic3.6 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in future";
+  }
+
+  identity foic4.8 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in G.709.1";
+  }
+
+  identity foic4.16 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in G.Sup58";
+  }
+
+  identity R400G-flexo-otsi {
+    base flexo-otsi-rate-identity;
+    description
+      "Applicable instance for flexo/otsi rate identity";
+  }
+
+  identity R200G-flexo-otsi {
+    base flexo-otsi-rate-identity;
+    description
+      "Applicable instance for flexo/otsi rate identity";
   }
 
   identity R200G {
@@ -87,8 +151,8 @@ module org-openroadm-common-optical-channel-types {
       "Identity for 200G Rate";
   }
 
-  identity R112G {
-    base foic-otsi-rate-identity;
+  identity R100G-flexo-otsi {
+    base flexo-otsi-rate-identity;
     description
       "Applicable instance for otsi/flexo rate identity";
   }
@@ -99,14 +163,14 @@ module org-openroadm-common-optical-channel-types {
       "Identity for 100G Rate";
   }
 
-  identity R56G {
-    base foic-otsi-rate-identity;
+  identity R56G-foic-otsi {
+    base flexo-otsi-rate-identity;
     description
       "Applicable instance for otsi rate identity";
   }
 
-  identity R28G {
-    base foic-otsi-rate-identity;
+  identity R28G-foic-otsi {
+    base flexo-otsi-rate-identity;
     description
       "Applicable instance for otsi rate identity";
   }

@@ -10,14 +10,19 @@ module: org-openroadm-common-network
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
   augment /nd:network/nd:node:
+    +--rw node-type?     org-openroadm-network-types:openroadm-node-type
     +--rw node-status?   org-openroadm-network-types:openroadm-node-status
+  augment /nd:network/nd:node/nwt:termination-point:
+    +--rw tp-type?       org-openroadm-network-types:openroadm-tp-type
+    +--rw eqpt-srg-id?   uint32
   augment /nd:network/nwt:link:
+    +--rw link-type?              org-openroadm-network-types:openroadm-link-type
     +--rw administrative-group?   uint32
     +--rw operational-state?      org-openroadm-common-state-types:state
     +--rw administrative-state?   org-openroadm-common-state-types:state
 module: org-openroadm-network-topology
   augment /nd:network/nd:node:
-    +--rw node-type?           org-openroadm-network-types:openroadm-node-type
+    x--rw node-type?           org-openroadm-network-types:openroadm-node-type
     +--rw srg-attributes
     |  +--rw srg-number?               uint16
     |  +--rw max-pp?                   uint32
@@ -39,7 +44,7 @@ module: org-openroadm-network-topology
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
   augment /nd:network/nd:node/nwt:termination-point:
-    +--rw tp-type?                    org-openroadm-network-types:openroadm-tp-type
+    x--rw tp-type?                    org-openroadm-network-types:openroadm-tp-type
     +--rw tx-ttp-attributes
     |  +--rw used-wavelengths* [index]
     |     +--rw index        uint32
@@ -65,7 +70,7 @@ module: org-openroadm-network-topology
     |     +--rw index        uint32
     |     +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-    +--rw eqpt-srg-id?                uint32
+    x--rw eqpt-srg-id?                uint32
     +--rw xpdr-client-attributes
     |  +--rw local-lgx?           string
     |  +--rw rate?                identityref
@@ -108,7 +113,7 @@ module: org-openroadm-network-topology
        +--rw optic?               org-openroadm-common-equipment-types:optic-types
        +--rw state?               org-openroadm-common-state-types:state
   augment /nd:network/nwt:link:
-    +--rw link-type?              org-openroadm-network-types:openroadm-link-type
+    x--rw link-type?              org-openroadm-network-types:openroadm-link-type
     +--rw link-length?            decimal64
     x--rw administrative-group?   uint32
     x--rw operational-state?      org-openroadm-common-state-types:state
@@ -165,7 +170,7 @@ module: org-openroadm-network-topology
                          +--rw administrative-state?   org-openroadm-common-state-types:state
 module: org-openroadm-network
   augment /nd:network/nd:node:
-    +--rw node-type?                   nt:openroadm-node-type
+    x--rw node-type?                   nt:openroadm-node-type
     +--rw software-version?            string
     +--rw openroadm-version?           org-openroadm-common-types:openroadm-version-type
     +--rw vendor?                      string
@@ -202,7 +207,7 @@ module: org-openroadm-network
           +--rw end-date?     yang:date-and-time
 module: org-openroadm-otn-network-topology
   augment /nd:network/nd:node:
-    +--rw node-type?              org-openroadm-network-types:openroadm-node-type
+    x--rw node-type?              org-openroadm-network-types:openroadm-node-type
     +--rw tp-bandwidth-sharing
     |  +--rw tp-bandwidth-sharing* [tp-sharing-id]
     |     +--rw tp-sharing-id       uint16
@@ -221,8 +226,8 @@ module: org-openroadm-otn-network-topology
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
   augment /nd:network/nd:node/nwt:termination-point:
-    +--rw tp-type?                              org-openroadm-network-types:openroadm-tp-type
-    +--rw eqpt-srg-id?                          uint32
+    x--rw tp-type?                              org-openroadm-network-types:openroadm-tp-type
+    x--rw eqpt-srg-id?                          uint32
     +--rw tp-supported-interfaces
     |  +--rw supported-interface-capability* [if-cap-type]
     |     +--rw if-cap-type    identityref
@@ -242,7 +247,7 @@ module: org-openroadm-otn-network-topology
        +--rw network-ref?         -> /nd:network/network-id
        +--rw node-ref?            -> /nd:network[nd:network-id=current()/../network-ref]/node/node-id
   augment /nd:network/nwt:link:
-    +--rw link-type?              org-openroadm-network-types:openroadm-link-type
+    x--rw link-type?              org-openroadm-network-types:openroadm-link-type
     x--rw administrative-group?   uint32
     x--rw operational-state?      org-openroadm-common-state-types:state
     x--rw administrative-state?   org-openroadm-common-state-types:state

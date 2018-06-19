@@ -411,15 +411,15 @@ module: org-openroadm-device
        |  +--rw org-openroadm-optical-channel-interfaces:otsi
        |  |  +--rw org-openroadm-optical-channel-interfaces:otsi-rate?           identityref
        |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-       |  |  +--rw org-openroadm-optical-channel-interfaces:width?               org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  +--ro org-openroadm-optical-channel-interfaces:width?               org-openroadm-common-optical-channel-types:frequency-GHz
        |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
        |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?      org-openroadm-common-link-types:power-dBm
        |  |  +--rw org-openroadm-optical-channel-interfaces:fec?                 identityref
        |  +--rw org-openroadm-optical-channel-interfaces:flexo
-       |  |  +--rw org-openroadm-optical-channel-interfaces:foic?        identityref
-       |  |  +--ro org-openroadm-optical-channel-interfaces:foic-rate?   identityref
-       |  |  +--rw org-openroadm-optical-channel-interfaces:fec?         identityref
-       |  |  +--rw org-openroadm-optical-channel-interfaces:phy-id?      uint16
+       |  |  +--rw org-openroadm-optical-channel-interfaces:foic?         identityref
+       |  |  +--ro org-openroadm-optical-channel-interfaces:flexo-rate?   identityref
+       |  |  +--rw org-openroadm-optical-channel-interfaces:fec?          identityref
+       |  |  +--rw org-openroadm-optical-channel-interfaces:phy-id?       uint16
        |  +--rw org-openroadm-optical-channel-interfaces:flexo-group
        |  |  +--rw org-openroadm-optical-channel-interfaces:flexo-group-rate?   identityref
        |  |  +--rw org-openroadm-optical-channel-interfaces:group-id?           uint32
@@ -805,6 +805,7 @@ module: org-openroadm-device
        |           +--ro org-openroadm-flexogroup-capability:fec?                      identityref
        |           +--ro org-openroadm-flexogroup-capability:otsi-rate                 identityref
        |           +--ro org-openroadm-flexogroup-capability:otsi-modulation-format?   identityref
+       |           +--ro org-openroadm-flexogroup-capability:otsi-width?               uint16
        +--rw org-openroadm-routing:routing
        |  +--rw org-openroadm-routing:routing-instance* [name]
        |     +--rw org-openroadm-routing:name                 string

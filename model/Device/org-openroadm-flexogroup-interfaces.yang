@@ -4,7 +4,7 @@ module org-openroadm-flexogroup-interfaces {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
 
   organization
@@ -54,6 +54,10 @@ module org-openroadm-flexogroup-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -64,7 +68,7 @@ module org-openroadm-flexogroup-interfaces {
       "FlexO group attributes group";
     leaf flexo-group-rate {
       type identityref {
-        base org-openroadm-common-optical-channel-types:foic-otsi-rate-identity;
+        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
       }
       description
         "FlexO group rate";

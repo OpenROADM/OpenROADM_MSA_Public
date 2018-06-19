@@ -4,7 +4,7 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -16,19 +16,19 @@ module org-openroadm-optical-channel-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-optical-tributary-signal-interfaces {
     prefix org-openroadm-optical-tributary-signal-interfaces;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-flexo-interfaces {
     prefix org-openroadm-flexo-interfaces;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
   import org-openroadm-flexogroup-interfaces {
     prefix org-openroadm-flexogroup-interfaces;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
 
   organization
@@ -78,6 +78,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";

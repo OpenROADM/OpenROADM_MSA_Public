@@ -8,7 +8,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-03-30;
+    revision-date 2018-05-30;
   }
 
   organization
@@ -58,6 +58,11 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
+
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -68,7 +73,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
       "OTSi attributes group";
     leaf otsi-rate {
       type identityref {
-        base org-openroadm-common-optical-channel-types:foic-otsi-rate-identity;
+        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
       }
       description
         "OTSi rate";
@@ -80,6 +85,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
     }
     leaf width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
       description
         "Frequency width in GHz.";
     }

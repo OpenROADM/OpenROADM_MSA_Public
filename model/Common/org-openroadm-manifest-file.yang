@@ -49,6 +49,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-05-30 {
+    description
+      "Version 3.1.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -635,7 +639,7 @@ module org-openroadm-manifest-file {
     presence "The sw-manifest instructions for swdl operations have been defined.";
     description
       "The manifest file provides instructions to a software download
-       application to download and install a new software load into a vendor’s
+       application to download and install a new software load into a vendor's
        equipment.
        
        Software download files
