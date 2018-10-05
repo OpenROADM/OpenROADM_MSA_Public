@@ -1,14 +1,15 @@
 module org-openroadm-network {
+  yang-version 1.1;
   namespace "http://org/openroadm/network";
   prefix net;
 
   import ietf-network {
     prefix nd;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import org-openroadm-network-types {
     prefix nt;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-roadm {
     prefix roadm;
@@ -16,11 +17,11 @@ module org-openroadm-network {
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import ietf-inet-types {
     prefix inet;
@@ -28,11 +29,11 @@ module org-openroadm-network {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -66,6 +67,10 @@ module org-openroadm-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -95,7 +100,7 @@ module org-openroadm-network {
       "Version 1.2";
   }
 
-  deviation "/nd:network/nd:node/cnet:node-type" {
+  deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
       must
         "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network) or 
@@ -107,7 +112,7 @@ module org-openroadm-network {
       }
     }
   }
-  augment "/nd:network/nd:network-types/cnet:openroadm-common-network" {
+  augment "/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
       "Introduce new network type for the Open ROADM optical network";
     container openroadm-network {
@@ -117,7 +122,7 @@ module org-openroadm-network {
          network";
     }
   }
-  augment "/nd:network/nd:node" {
+  augment "/nd:networks/nd:network/nd:node" {
     when "../nd:network-types/cnet:openroadm-common-network/openroadm-network";
     description
       "Augment the generic network node with Open ROADM attributes.";

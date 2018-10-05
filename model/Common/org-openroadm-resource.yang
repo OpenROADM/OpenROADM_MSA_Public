@@ -2,9 +2,21 @@ module org-openroadm-resource {
   namespace "http://org/openroadm/resource";
   prefix org-openroadm-resource;
 
+  import org-openroadm-interfaces {
+    prefix org-openroadm-interfaces;
+    revision-date 2018-09-28;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2018-09-28;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2018-05-30;
+  }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -40,6 +52,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -63,6 +79,172 @@ module org-openroadm-resource {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  grouping eth-attributes {
+    leaf speed {
+      type uint32;
+      description
+        "Set speed of the interface, unit mbps. 
+         This is for ETH facility. ";
+    }
+  }
+
+  grouping mc-ttp-attributes {
+    description
+      "Media channel termination point. Models bandwidth allocation in physical media. Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
+    leaf min-freq {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      config true;
+      description
+        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+    }
+    leaf max-freq {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      config true;
+      description
+        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+    }
+  }
+
+  grouping nmc-ctp-attributes {
+    description
+      "Network Media Channel attributes";
+    leaf frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      config true;
+      description
+        "Center Frequency in THz.  This is not constrained by mc-capabilities.  It must fit (when combined with width) inside any containing media channel.";
+    }
+    leaf width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config true;
+      description
+        "Frequency width in GHz.  This is not constrained by mc-capabilities.  It must fit (when combined with frequency) inside any containing media channel.";
+    }
+  }
+
+  grouping och-attributes {
+    description
+      "Optical Channel attributes";
+    leaf rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:och-rate-identity;
+      }
+      description
+        "rate";
+    }
+    leaf frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Center Frequency in THz.";
+    }
+    leaf width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
+      description
+        "Frequency width in GHz.";
+    }
+    leaf modulation-format {
+      type org-openroadm-common-optical-channel-types:modulation-format;
+      description
+        "Modulation format";
+    }
+  }
+
+  grouping odu-attributes {
+    description
+      "ODU attributes";
+    leaf rate {
+      type identityref {
+        base org-openroadm-otn-common-types:odu-rate-identity;
+      }
+      description
+        "rate identity of the ODU. 'identityref' is used
+         to allow to extend for future higher rates";
+    }
+    container parent-odu-allocation {
+      description
+        "parent odu allocation";
+      leaf trib-port-number {
+        type uint16 {
+          range "1 .. 80";
+        }
+        description
+          "Assigned tributary port number in parent OPU";
+      }
+      leaf-list trib-slots {
+        type uint16 {
+          range "1 .. 80";
+        }
+        min-elements 1;
+        max-elements "80";
+        description
+          "Assigned trib slots occupied in parent OPU MSI";
+      }
+    }
+  }
+
+  grouping otu-attributes {
+    description
+      "OTU attributes";
+    leaf rate {
+      type identityref {
+        base org-openroadm-otn-common-types:otu-rate-identity;
+      }
+      description
+        "rate identity of the OTU. 'identityref' is used
+         to allow to extend for future higher rates";
+    }
+  }
+
+  grouping resource-reporting {
+    leaf type {
+      type identityref {
+        base org-openroadm-interfaces:interface-type;
+      }
+      mandatory true;
+      description
+        "The type of the interface.";
+    }
+    container ethernet {
+      when "type = 'ethernetCsmacd'";
+      description
+        "Ethernet Interfaces";
+      uses eth-attributes;
+    }
+    container mc-ttp {
+      when "type = 'mediaChannelTrailTerminationPoint'";
+      description
+        "Media Channel Trail Termination Point (MC-TTP)";
+      uses mc-ttp-attributes;
+    }
+    container nmc-ctp {
+      when "type = 'networkMediaChannelConnectionTerminationPoint'";
+      description
+        "Network Media Channel Connection Termination Point (NMC-CTP)";
+      uses nmc-ctp-attributes;
+    }
+    container och {
+      when "type = 'opticalChannel'";
+      description
+        "Optical Channel (OCh):
+         Models the optical channel interfaces for an Optical White Box.";
+      uses och-attributes;
+    }
+    container odu {
+      when "type = 'otnOdu'";
+      presence "Attribute Nodes for Optical Data Unit (ODU)";
+      description
+        "Optical Channel Data Unit (ODU)";
+      uses odu-attributes;
+    }
+    container otu {
+      when "type = 'otnOtu'";
+      description
+        "Optical Channel Transport Unit (OTU)";
+      uses otu-attributes;
+    }
   }
 
   grouping resource {

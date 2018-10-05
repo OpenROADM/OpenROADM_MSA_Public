@@ -4,7 +4,7 @@ module org-openroadm-dhcp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import ietf-inet-types {
     prefix ietf-inet-types;
@@ -44,6 +44,10 @@ module org-openroadm-dhcp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";

@@ -1,0 +1,12 @@
+module: ietf-network-state
+  +--ro networks
+     +--ro network* [network-id]
+        +--ro network-types
+        +--ro network-id            nw:network-id
+        +--ro supporting-network* [network-ref]
+        |  +--ro network-ref    -> /networks/network/network-id
+        +--ro node* [node-id]
+           +--ro node-id            nw:node-id
+           +--ro supporting-node* [network-ref node-ref]
+              +--ro network-ref    -> ../../../supporting-network/network-ref
+              +--ro node-ref       -> /networks/network/node/node-id

@@ -1,22 +1,23 @@
 module org-openroadm-common-network {
+  yang-version 1.1;
   namespace "http://org/openroadm/common/network";
   prefix cnet;
 
   import ietf-network {
     prefix nd;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import ietf-network-topology {
     prefix nwt;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -50,6 +51,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -59,7 +64,7 @@ module org-openroadm-common-network {
       "Version 3.0.0";
   }
 
-  augment "/nd:network/nd:network-types" {
+  augment "/nd:networks/nd:network/nd:network-types" {
     description
       "Introduce new network type for the Open ROADM common network";
     container openroadm-common-network {
@@ -68,7 +73,7 @@ module org-openroadm-common-network {
         "The presence of the container node indicates Open ROADM common network";
     }
   }
-  augment "/nd:network/nd:node" {
+  augment "/nd:networks/nd:network/nd:node" {
     when "../nd:network-types/openroadm-common-network";
     description
       "Augment the generic network node with Open ROADM common attributes.";
@@ -79,9 +84,15 @@ module org-openroadm-common-network {
     }
     leaf node-status {
       type org-openroadm-network-types:openroadm-node-status;
+      status deprecated;
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of a node. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
-  augment "/nd:network/nd:node/nwt:termination-point" {
+  augment "/nd:networks/nd:network/nd:node/nwt:termination-point" {
     when "../../nd:network-types/openroadm-common-network";
     leaf tp-type {
       type org-openroadm-network-types:openroadm-tp-type;
@@ -93,13 +104,58 @@ module org-openroadm-common-network {
       description
         "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
     }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of a termination point. Whether it is planned, deployed, in maintenance, etc.";
+    }
   }
-  augment "/nd:network/nwt:link" {
+  augment "/nd:networks/nd:network/nwt:link" {
     when "../nd:network-types/openroadm-common-network";
     description
       "This augmentation defines common link attributes in the Open ROADM common network";
     leaf link-type {
       type org-openroadm-network-types:openroadm-link-type;
+    }
+    leaf clfi {
+      type string;
+    }
+    leaf opposite-link {
+      type leafref {
+        path "../../nwt:link/nwt:link-id";
+      }
+      description
+        "optional - pointer to reverse link in case of bidirectional link. Supersedes opposite-link
+         originally defined in OMS-attributes container, to apply to any kind of link in the topology";
+    }
+    leaf link-length {
+      type decimal64 {
+        fraction-digits 2;
+      }
+    }
+    leaf link-latency {
+      type uint32;
+      description
+        "Latency of a link";
+    }
+    leaf TE-metric {
+      type uint32;
+      description
+        "defines a Traffic Engineering metric which could be used for any type of link.
+         Supersedes TE-metric originally defined in OMS-attributes grouping";
+    }
+    list link-concatenation {
+      key "SRLG-Id";
+      leaf SRLG-Id {
+        type uint32;
+        description
+          "unique identifier for SRLG";
+      }
+      leaf SRLG-length {
+        type uint32;
+        description
+          "fiber length in meters";
+      }
     }
     leaf administrative-group {
       type uint32;
@@ -111,6 +167,11 @@ module org-openroadm-common-network {
     }
     leaf administrative-state {
       type org-openroadm-common-state-types:state;
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of a link. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
 }

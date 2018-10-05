@@ -1,0 +1,21 @@
+
+module: ietf-network-topology-state
+  augment /nw-s:networks/nw-s:network:
+    +--ro link* [link-id]
+       +--ro source
+       |  +--ro source-node?   -> ../../../nw-s:node/node-id
+       |  +--ro source-tp?     -> ../../../nw-s:node[nw-s:node-id=current()/../source-node]/termination-point/tp-id
+       +--ro destination
+       |  +--ro dest-node?   -> ../../../nw-s:node/node-id
+       |  +--ro dest-tp?     -> ../../../nw-s:node[nw-s:node-id=current()/../dest-node]/termination-point/tp-id
+       +--ro link-id            nt:link-id
+       +--ro supporting-link* [network-ref link-ref]
+          +--ro network-ref    -> ../../../nw-s:supporting-network/network-ref
+          +--ro link-ref       -> /nw-s:networks/network[nw-s:network-id=current()/../network-ref]/link/link-id
+  augment /nw-s:networks/nw-s:network/nw-s:node:
+    +--ro termination-point* [tp-id]
+       +--ro tp-id                           nt:tp-id
+       +--ro supporting-termination-point* [network-ref node-ref tp-ref]
+          +--ro network-ref    -> ../../../nw-s:supporting-node/network-ref
+          +--ro node-ref       -> ../../../nw-s:supporting-node/node-ref
+          +--ro tp-ref         -> /nw-s:networks/network[nw-s:network-id=current()/../network-ref]/node[nw-s:node-id=current()/../node-ref]/termination-point/tp-id

@@ -368,6 +368,27 @@ module: org-openroadm-service
     |     |  |  |     |  +--rw service-name              string
     |     |  |  |     +--:(interface)
     |     |  |  |     |  +--rw interface-name            string
+    |     |  |  |     |  +--rw type                      identityref
+    |     |  |  |     |  +--rw ethernet
+    |     |  |  |     |  |  +--rw speed?   uint32
+    |     |  |  |     |  +--rw mc-ttp
+    |     |  |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  +--rw nmc-ctp
+    |     |  |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |  |  |     |  +--rw och
+    |     |  |  |     |  |  +--rw rate?                identityref
+    |     |  |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |  |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |  |  |     |  +--rw odu!
+    |     |  |  |     |  |  +--rw rate?                    identityref
+    |     |  |  |     |  |  +--rw parent-odu-allocation
+    |     |  |  |     |  |     +--rw trib-port-number?   uint16
+    |     |  |  |     |  |     +--rw trib-slots*         uint16
+    |     |  |  |     |  +--rw otu
+    |     |  |  |     |     +--rw rate?   identityref
     |     |  |  |     +--:(odu-sncp-pg)
     |     |  |  |     |  +--rw odu-sncp-pg-name          string
     |     |  |  |     +--:(other)
@@ -415,6 +436,27 @@ module: org-openroadm-service
     |     |     |     |  +--rw service-name              string
     |     |     |     +--:(interface)
     |     |     |     |  +--rw interface-name            string
+    |     |     |     |  +--rw type                      identityref
+    |     |     |     |  +--rw ethernet
+    |     |     |     |  |  +--rw speed?   uint32
+    |     |     |     |  +--rw mc-ttp
+    |     |     |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  +--rw nmc-ctp
+    |     |     |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |     |  +--rw och
+    |     |     |     |  |  +--rw rate?                identityref
+    |     |     |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |     |     |  +--rw odu!
+    |     |     |     |  |  +--rw rate?                    identityref
+    |     |     |     |  |  +--rw parent-odu-allocation
+    |     |     |     |  |     +--rw trib-port-number?   uint16
+    |     |     |     |  |     +--rw trib-slots*         uint16
+    |     |     |     |  +--rw otu
+    |     |     |     |     +--rw rate?   identityref
     |     |     |     +--:(odu-sncp-pg)
     |     |     |     |  +--rw odu-sncp-pg-name          string
     |     |     |     +--:(other)
@@ -466,6 +508,27 @@ module: org-openroadm-service
     |     |     |  |     |  +--rw service-name              string
     |     |     |  |     +--:(interface)
     |     |     |  |     |  +--rw interface-name            string
+    |     |     |  |     |  +--rw type                      identityref
+    |     |     |  |     |  +--rw ethernet
+    |     |     |  |     |  |  +--rw speed?   uint32
+    |     |     |  |     |  +--rw mc-ttp
+    |     |     |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  +--rw nmc-ctp
+    |     |     |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |  |     |  +--rw och
+    |     |     |  |     |  |  +--rw rate?                identityref
+    |     |     |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |     |  |     |  +--rw odu!
+    |     |     |  |     |  |  +--rw rate?                    identityref
+    |     |     |  |     |  |  +--rw parent-odu-allocation
+    |     |     |  |     |  |     +--rw trib-port-number?   uint16
+    |     |     |  |     |  |     +--rw trib-slots*         uint16
+    |     |     |  |     |  +--rw otu
+    |     |     |  |     |     +--rw rate?   identityref
     |     |     |  |     +--:(odu-sncp-pg)
     |     |     |  |     |  +--rw odu-sncp-pg-name          string
     |     |     |  |     +--:(other)
@@ -513,6 +576,27 @@ module: org-openroadm-service
     |     |        |     |  +--rw service-name              string
     |     |        |     +--:(interface)
     |     |        |     |  +--rw interface-name            string
+    |     |        |     |  +--rw type                      identityref
+    |     |        |     |  +--rw ethernet
+    |     |        |     |  |  +--rw speed?   uint32
+    |     |        |     |  +--rw mc-ttp
+    |     |        |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  +--rw nmc-ctp
+    |     |        |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |        |     |  +--rw och
+    |     |        |     |  |  +--rw rate?                identityref
+    |     |        |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |        |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |        |     |  +--rw odu!
+    |     |        |     |  |  +--rw rate?                    identityref
+    |     |        |     |  |  +--rw parent-odu-allocation
+    |     |        |     |  |     +--rw trib-port-number?   uint16
+    |     |        |     |  |     +--rw trib-slots*         uint16
+    |     |        |     |  +--rw otu
+    |     |        |     |     +--rw rate?   identityref
     |     |        |     +--:(odu-sncp-pg)
     |     |        |     |  +--rw odu-sncp-pg-name          string
     |     |        |     +--:(other)
@@ -870,6 +954,27 @@ module: org-openroadm-service
     |     |  |  |     |  +--rw service-name              string
     |     |  |  |     +--:(interface)
     |     |  |  |     |  +--rw interface-name            string
+    |     |  |  |     |  +--rw type                      identityref
+    |     |  |  |     |  +--rw ethernet
+    |     |  |  |     |  |  +--rw speed?   uint32
+    |     |  |  |     |  +--rw mc-ttp
+    |     |  |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  +--rw nmc-ctp
+    |     |  |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |  |  |     |  +--rw och
+    |     |  |  |     |  |  +--rw rate?                identityref
+    |     |  |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |  |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |  |  |     |  +--rw odu!
+    |     |  |  |     |  |  +--rw rate?                    identityref
+    |     |  |  |     |  |  +--rw parent-odu-allocation
+    |     |  |  |     |  |     +--rw trib-port-number?   uint16
+    |     |  |  |     |  |     +--rw trib-slots*         uint16
+    |     |  |  |     |  +--rw otu
+    |     |  |  |     |     +--rw rate?   identityref
     |     |  |  |     +--:(odu-sncp-pg)
     |     |  |  |     |  +--rw odu-sncp-pg-name          string
     |     |  |  |     +--:(other)
@@ -917,6 +1022,27 @@ module: org-openroadm-service
     |     |     |     |  +--rw service-name              string
     |     |     |     +--:(interface)
     |     |     |     |  +--rw interface-name            string
+    |     |     |     |  +--rw type                      identityref
+    |     |     |     |  +--rw ethernet
+    |     |     |     |  |  +--rw speed?   uint32
+    |     |     |     |  +--rw mc-ttp
+    |     |     |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  +--rw nmc-ctp
+    |     |     |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |     |  +--rw och
+    |     |     |     |  |  +--rw rate?                identityref
+    |     |     |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |     |     |  +--rw odu!
+    |     |     |     |  |  +--rw rate?                    identityref
+    |     |     |     |  |  +--rw parent-odu-allocation
+    |     |     |     |  |     +--rw trib-port-number?   uint16
+    |     |     |     |  |     +--rw trib-slots*         uint16
+    |     |     |     |  +--rw otu
+    |     |     |     |     +--rw rate?   identityref
     |     |     |     +--:(odu-sncp-pg)
     |     |     |     |  +--rw odu-sncp-pg-name          string
     |     |     |     +--:(other)
@@ -968,6 +1094,27 @@ module: org-openroadm-service
     |     |     |  |     |  +--rw service-name              string
     |     |     |  |     +--:(interface)
     |     |     |  |     |  +--rw interface-name            string
+    |     |     |  |     |  +--rw type                      identityref
+    |     |     |  |     |  +--rw ethernet
+    |     |     |  |     |  |  +--rw speed?   uint32
+    |     |     |  |     |  +--rw mc-ttp
+    |     |     |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  +--rw nmc-ctp
+    |     |     |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |  |     |  +--rw och
+    |     |     |  |     |  |  +--rw rate?                identityref
+    |     |     |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |     |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |     |  |     |  +--rw odu!
+    |     |     |  |     |  |  +--rw rate?                    identityref
+    |     |     |  |     |  |  +--rw parent-odu-allocation
+    |     |     |  |     |  |     +--rw trib-port-number?   uint16
+    |     |     |  |     |  |     +--rw trib-slots*         uint16
+    |     |     |  |     |  +--rw otu
+    |     |     |  |     |     +--rw rate?   identityref
     |     |     |  |     +--:(odu-sncp-pg)
     |     |     |  |     |  +--rw odu-sncp-pg-name          string
     |     |     |  |     +--:(other)
@@ -1015,6 +1162,27 @@ module: org-openroadm-service
     |     |        |     |  +--rw service-name              string
     |     |        |     +--:(interface)
     |     |        |     |  +--rw interface-name            string
+    |     |        |     |  +--rw type                      identityref
+    |     |        |     |  +--rw ethernet
+    |     |        |     |  |  +--rw speed?   uint32
+    |     |        |     |  +--rw mc-ttp
+    |     |        |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  +--rw nmc-ctp
+    |     |        |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |        |     |  +--rw och
+    |     |        |     |  |  +--rw rate?                identityref
+    |     |        |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |     |        |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |        |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+    |     |        |     |  +--rw odu!
+    |     |        |     |  |  +--rw rate?                    identityref
+    |     |        |     |  |  +--rw parent-odu-allocation
+    |     |        |     |  |     +--rw trib-port-number?   uint16
+    |     |        |     |  |     +--rw trib-slots*         uint16
+    |     |        |     |  +--rw otu
+    |     |        |     |     +--rw rate?   identityref
     |     |        |     +--:(odu-sncp-pg)
     |     |        |     |  +--rw odu-sncp-pg-name          string
     |     |        |     +--:(other)
@@ -1371,6 +1539,27 @@ module: org-openroadm-service
           |  |  |     |  +--rw service-name              string
           |  |  |     +--:(interface)
           |  |  |     |  +--rw interface-name            string
+          |  |  |     |  +--rw type                      identityref
+          |  |  |     |  +--rw ethernet
+          |  |  |     |  |  +--rw speed?   uint32
+          |  |  |     |  +--rw mc-ttp
+          |  |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |  |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |  |  |     |  +--rw nmc-ctp
+          |  |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+          |  |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+          |  |  |     |  +--rw och
+          |  |  |     |  |  +--rw rate?                identityref
+          |  |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+          |  |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+          |  |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+          |  |  |     |  +--rw odu!
+          |  |  |     |  |  +--rw rate?                    identityref
+          |  |  |     |  |  +--rw parent-odu-allocation
+          |  |  |     |  |     +--rw trib-port-number?   uint16
+          |  |  |     |  |     +--rw trib-slots*         uint16
+          |  |  |     |  +--rw otu
+          |  |  |     |     +--rw rate?   identityref
           |  |  |     +--:(odu-sncp-pg)
           |  |  |     |  +--rw odu-sncp-pg-name          string
           |  |  |     +--:(other)
@@ -1418,6 +1607,27 @@ module: org-openroadm-service
           |     |     |  +--rw service-name              string
           |     |     +--:(interface)
           |     |     |  +--rw interface-name            string
+          |     |     |  +--rw type                      identityref
+          |     |     |  +--rw ethernet
+          |     |     |  |  +--rw speed?   uint32
+          |     |     |  +--rw mc-ttp
+          |     |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |     |  +--rw nmc-ctp
+          |     |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+          |     |     |  +--rw och
+          |     |     |  |  +--rw rate?                identityref
+          |     |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+          |     |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+          |     |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+          |     |     |  +--rw odu!
+          |     |     |  |  +--rw rate?                    identityref
+          |     |     |  |  +--rw parent-odu-allocation
+          |     |     |  |     +--rw trib-port-number?   uint16
+          |     |     |  |     +--rw trib-slots*         uint16
+          |     |     |  +--rw otu
+          |     |     |     +--rw rate?   identityref
           |     |     +--:(odu-sncp-pg)
           |     |     |  +--rw odu-sncp-pg-name          string
           |     |     +--:(other)
@@ -1469,6 +1679,27 @@ module: org-openroadm-service
           |     |  |     |  +--rw service-name              string
           |     |  |     +--:(interface)
           |     |  |     |  +--rw interface-name            string
+          |     |  |     |  +--rw type                      identityref
+          |     |  |     |  +--rw ethernet
+          |     |  |     |  |  +--rw speed?   uint32
+          |     |  |     |  +--rw mc-ttp
+          |     |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |  |     |  +--rw nmc-ctp
+          |     |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+          |     |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+          |     |  |     |  +--rw och
+          |     |  |     |  |  +--rw rate?                identityref
+          |     |  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+          |     |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+          |     |  |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+          |     |  |     |  +--rw odu!
+          |     |  |     |  |  +--rw rate?                    identityref
+          |     |  |     |  |  +--rw parent-odu-allocation
+          |     |  |     |  |     +--rw trib-port-number?   uint16
+          |     |  |     |  |     +--rw trib-slots*         uint16
+          |     |  |     |  +--rw otu
+          |     |  |     |     +--rw rate?   identityref
           |     |  |     +--:(odu-sncp-pg)
           |     |  |     |  +--rw odu-sncp-pg-name          string
           |     |  |     +--:(other)
@@ -1516,6 +1747,27 @@ module: org-openroadm-service
           |        |     |  +--rw service-name              string
           |        |     +--:(interface)
           |        |     |  +--rw interface-name            string
+          |        |     |  +--rw type                      identityref
+          |        |     |  +--rw ethernet
+          |        |     |  |  +--rw speed?   uint32
+          |        |     |  +--rw mc-ttp
+          |        |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |        |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+          |        |     |  +--rw nmc-ctp
+          |        |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+          |        |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+          |        |     |  +--rw och
+          |        |     |  |  +--rw rate?                identityref
+          |        |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+          |        |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+          |        |     |  |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+          |        |     |  +--rw odu!
+          |        |     |  |  +--rw rate?                    identityref
+          |        |     |  |  +--rw parent-odu-allocation
+          |        |     |  |     +--rw trib-port-number?   uint16
+          |        |     |  |     +--rw trib-slots*         uint16
+          |        |     |  +--rw otu
+          |        |     |     +--rw rate?   identityref
           |        |     +--:(odu-sncp-pg)
           |        |     |  +--rw odu-sncp-pg-name          string
           |        |     +--:(other)
@@ -4092,6 +4344,27 @@ module: org-openroadm-service
        |  |  |     |  +--ro service-name              string
        |  |  |     +--:(interface)
        |  |  |     |  +--ro interface-name            string
+       |  |  |     |  +--ro type                      identityref
+       |  |  |     |  +--ro ethernet
+       |  |  |     |  |  +--ro speed?   uint32
+       |  |  |     |  +--ro mc-ttp
+       |  |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  |     |  +--ro nmc-ctp
+       |  |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  |     |  +--ro och
+       |  |  |     |  |  +--ro rate?                identityref
+       |  |  |     |  |  +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  |     |  |  +--ro modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+       |  |  |     |  +--ro odu!
+       |  |  |     |  |  +--ro rate?                    identityref
+       |  |  |     |  |  +--ro parent-odu-allocation
+       |  |  |     |  |     +--ro trib-port-number?   uint16
+       |  |  |     |  |     +--ro trib-slots*         uint16
+       |  |  |     |  +--ro otu
+       |  |  |     |     +--ro rate?   identityref
        |  |  |     +--:(odu-sncp-pg)
        |  |  |     |  +--ro odu-sncp-pg-name          string
        |  |  |     +--:(other)
@@ -4139,6 +4412,27 @@ module: org-openroadm-service
        |     |     |  +--ro service-name              string
        |     |     +--:(interface)
        |     |     |  +--ro interface-name            string
+       |     |     |  +--ro type                      identityref
+       |     |     |  +--ro ethernet
+       |     |     |  |  +--ro speed?   uint32
+       |     |     |  +--ro mc-ttp
+       |     |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |     |  +--ro nmc-ctp
+       |     |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+       |     |     |  +--ro och
+       |     |     |  |  +--ro rate?                identityref
+       |     |     |  |  +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+       |     |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+       |     |     |  |  +--ro modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+       |     |     |  +--ro odu!
+       |     |     |  |  +--ro rate?                    identityref
+       |     |     |  |  +--ro parent-odu-allocation
+       |     |     |  |     +--ro trib-port-number?   uint16
+       |     |     |  |     +--ro trib-slots*         uint16
+       |     |     |  +--ro otu
+       |     |     |     +--ro rate?   identityref
        |     |     +--:(odu-sncp-pg)
        |     |     |  +--ro odu-sncp-pg-name          string
        |     |     +--:(other)
@@ -4190,6 +4484,27 @@ module: org-openroadm-service
        |     |  |     |  +--ro service-name              string
        |     |  |     +--:(interface)
        |     |  |     |  +--ro interface-name            string
+       |     |  |     |  +--ro type                      identityref
+       |     |  |     |  +--ro ethernet
+       |     |  |     |  |  +--ro speed?   uint32
+       |     |  |     |  +--ro mc-ttp
+       |     |  |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |  |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |  |     |  +--ro nmc-ctp
+       |     |  |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+       |     |  |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+       |     |  |     |  +--ro och
+       |     |  |     |  |  +--ro rate?                identityref
+       |     |  |     |  |  +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+       |     |  |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+       |     |  |     |  |  +--ro modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+       |     |  |     |  +--ro odu!
+       |     |  |     |  |  +--ro rate?                    identityref
+       |     |  |     |  |  +--ro parent-odu-allocation
+       |     |  |     |  |     +--ro trib-port-number?   uint16
+       |     |  |     |  |     +--ro trib-slots*         uint16
+       |     |  |     |  +--ro otu
+       |     |  |     |     +--ro rate?   identityref
        |     |  |     +--:(odu-sncp-pg)
        |     |  |     |  +--ro odu-sncp-pg-name          string
        |     |  |     +--:(other)
@@ -4237,6 +4552,27 @@ module: org-openroadm-service
        |        |     |  +--ro service-name              string
        |        |     +--:(interface)
        |        |     |  +--ro interface-name            string
+       |        |     |  +--ro type                      identityref
+       |        |     |  +--ro ethernet
+       |        |     |  |  +--ro speed?   uint32
+       |        |     |  +--ro mc-ttp
+       |        |     |  |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |        |     |  |  +--rw max-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+       |        |     |  +--ro nmc-ctp
+       |        |     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+       |        |     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
+       |        |     |  +--ro och
+       |        |     |  |  +--ro rate?                identityref
+       |        |     |  |  +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+       |        |     |  |  +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
+       |        |     |  |  +--ro modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
+       |        |     |  +--ro odu!
+       |        |     |  |  +--ro rate?                    identityref
+       |        |     |  |  +--ro parent-odu-allocation
+       |        |     |  |     +--ro trib-port-number?   uint16
+       |        |     |  |     +--ro trib-slots*         uint16
+       |        |     |  +--ro otu
+       |        |     |     +--ro rate?   identityref
        |        |     +--:(odu-sncp-pg)
        |        |     |  +--ro odu-sncp-pg-name          string
        |        |     +--:(other)

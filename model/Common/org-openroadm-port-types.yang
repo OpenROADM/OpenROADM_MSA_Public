@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -79,6 +83,14 @@ module org-openroadm-port-types {
   }
 
   identity if-OTS {
+    base supported-if-capability;
+  }
+
+  identity if-OTS-OMS-MC-NMC {
+    base supported-if-capability;
+  }
+
+  identity if-NMC {
     base supported-if-capability;
   }
 
@@ -126,6 +138,10 @@ module org-openroadm-port-types {
     base supported-if-capability;
   }
 
+  identity if-otsi-otucn-oducn {
+    base supported-if-capability;
+  }
+
   identity if-OTU4-ODU4 {
     base supported-if-capability;
   }
@@ -158,11 +174,39 @@ module org-openroadm-port-types {
     base supported-if-capability;
   }
 
+  identity if-10GE-oduflexgfp {
+    base supported-if-capability;
+  }
+
+  identity if-25GE-oduflexcbr {
+    base supported-if-capability;
+  }
+
   identity if-40GE-ODU3 {
     base supported-if-capability;
   }
 
+  identity if-40GE-oduflexgfp {
+    base supported-if-capability;
+  }
+
   identity if-100GE-ODU4 {
+    base supported-if-capability;
+  }
+
+  identity if-100GE-oduflexgfp {
+    base supported-if-capability;
+  }
+
+  identity if-200GE-oduflexcbr {
+    base supported-if-capability;
+  }
+
+  identity if-400GE-odufleximp {
+    base supported-if-capability;
+  }
+
+  identity if-400GE-oduflexcbr {
     base supported-if-capability;
   }
 

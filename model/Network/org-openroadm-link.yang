@@ -1,10 +1,11 @@
 module org-openroadm-link {
+  yang-version 1.1;
   namespace "http://org/openroadm/link";
   prefix link;
 
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -12,7 +13,7 @@ module org-openroadm-link {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
@@ -25,14 +26,14 @@ module org-openroadm-link {
     "OpenROADM.org.";
   description
     "YANG definitions for an amplifier in Network Model
-
-
+     
+     
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
      AT&T Intellectual Property.  All other rights reserved.
-
+     
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-
+     
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -41,7 +42,7 @@ module org-openroadm-link {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-
+     
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -53,6 +54,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -84,6 +89,7 @@ module org-openroadm-link {
   grouping span-attributes {
     leaf clfi {
       type string;
+      status deprecated;
     }
     leaf auto-spanloss {
       type boolean;
@@ -102,6 +108,11 @@ module org-openroadm-link {
       description
         "Current ROADM span loss measured and accepted during
          degree turn-up. Updated periodically if auto-spanloss is enabled.";
+    }
+    leaf spanloss-last-measured {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Last measured ROADM span loss, may or may not have been accepted and pushed to the NE.";
     }
     leaf engineered-spanloss {
       type org-openroadm-common-link-types:ratio-dB;

@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -28,7 +28,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
@@ -40,7 +40,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -52,11 +52,11 @@ module org-openroadm-device {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
@@ -64,15 +64,15 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -130,6 +130,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -274,6 +278,12 @@ module org-openroadm-device {
       description
         "Software version";
     }
+    leaf software-build {
+      type string;
+      config false;
+      description
+        "Software build version";
+    }
     leaf openroadm-version {
       type org-openroadm-common-types:openroadm-version-type;
       config false;
@@ -290,6 +300,11 @@ module org-openroadm-device {
       config false;
       description
         "The current system date and time in UTC. Format: YYYY-MM-DDTHH:MM:SS.mm+ ";
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of the device node. Whether it is planned, deployed, in maintenance, etc.";
     }
     container geoLocation {
       description
@@ -381,6 +396,16 @@ module org-openroadm-device {
     }
   }
 
+  grouping user-description-grp {
+    leaf user-description {
+      type string;
+      description
+        "user provided description";
+    }
+    description
+      "user description group";
+  }
+
   grouping shelf {
     leaf shelf-name {
       type string;
@@ -403,8 +428,14 @@ module org-openroadm-device {
       description
         "Reflect the shelf vertical position within an equipment bay.";
     }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of shelf. Whether it is planned, deployed, in maintenance, etc.";
+    }
     leaf administrative-state {
       type org-openroadm-equipment-states-types:admin-states;
+      mandatory true;
       description
         "Admin State of the shelf";
     }
@@ -414,6 +445,29 @@ module org-openroadm-device {
       description
         "equipment state for the shelf, used to track the lifecycle state.";
     }
+    leaf is-physical {
+      type boolean;
+      config false;
+      mandatory true;
+      description
+        "is the entity physical or logical";
+    }
+    leaf is-passive {
+      type boolean;
+      config false;
+      mandatory true;
+      description
+        "is the entity passive and not actively managed by the device;
+         e.g., no physical inventory or plug-in notification supported";
+    }
+    leaf faceplate-label {
+      type string;
+      config false;
+      mandatory true;
+      description
+        "label on the faceplace silk screening";
+    }
+    uses user-description-grp;
     leaf due-date {
       type ietf-yang-types:date-and-time;
       description
@@ -502,8 +556,14 @@ module org-openroadm-device {
       description
         "Unique identifier for this circuit-pack within a device";
     }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of circuit-pack. Whether it is planned, deployed, in maintenance, etc.";
+    }
     leaf administrative-state {
       type org-openroadm-equipment-states-types:admin-states;
+      mandatory true;
       description
         "Administrative state of circuit-pack";
     }
@@ -541,9 +601,34 @@ module org-openroadm-device {
     }
     leaf is-pluggable-optics {
       type boolean;
+      config false;
+      mandatory true;
       description
-        "True is circuitpack is pluggable optics";
+        "True if circuitpack is pluggable optics";
     }
+    leaf is-physical {
+      type boolean;
+      config false;
+      mandatory true;
+      description
+        "is the entity physical or logical";
+    }
+    leaf is-passive {
+      type boolean;
+      config false;
+      mandatory true;
+      description
+        "is the entity passive and not actively managed by the device;
+         e.g., no physical inventory or plug-in notification supported";
+    }
+    leaf faceplate-label {
+      type string;
+      config false;
+      mandatory true;
+      description
+        "label on the faceplace silk screening";
+    }
+    uses user-description-grp;
     leaf due-date {
       type ietf-yang-types:date-and-time;
       description
@@ -689,6 +774,19 @@ module org-openroadm-device {
     }
   }
 
+  grouping mc-capabilities-grp {
+    leaf-list mc-capabilities {
+      type leafref {
+        path "/org-openroadm-device/mc-capability-profile/profile-name";
+      }
+      config false;
+      description
+        "Media channel capabilities";
+    }
+    description
+      "Media channel capabilities grouping";
+  }
+
   grouping degree {
     leaf degree-number {
       type uint16;
@@ -697,6 +795,11 @@ module org-openroadm-device {
         description
           "Validating if the degree is supported by device";
       }
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of degree. Whether it is planned, deployed, in maintenance, etc.";
     }
     leaf max-wavelengths {
       type uint16;
@@ -739,7 +842,7 @@ module org-openroadm-device {
         "otdr port associated with degree.";
       uses port-name;
     }
-    uses mc-capabilities-g;
+    uses mc-capabilities-grp;
   }
 
   grouping amplifier {
@@ -816,6 +919,11 @@ module org-openroadm-device {
       description
         "Amplifier direction. Each operators may have its own naming convention.
          Shall be consistent with tx-instance-port-direction-label and rx-instance-port-direction-label.";
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of the amplifier. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
 
@@ -913,6 +1021,12 @@ module org-openroadm-device {
     leaf physical-link-name {
       type string;
     }
+    leaf is-physical {
+      type boolean;
+      description
+        "is the entity physical or logical";
+    }
+    uses user-description-grp;
     container source {
       uses port-name {
         refine "circuit-pack-name" {
@@ -932,6 +1046,11 @@ module org-openroadm-device {
           mandatory true;
         }
       }
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of the physical link. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
 
@@ -958,6 +1077,11 @@ module org-openroadm-device {
           "Validating if the srg is supported by add/drop group";
       }
     }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of shared-risk-group. Whether it is planned, deployed, in maintenance, etc.";
+    }
     leaf wavelength-duplication {
       type org-openroadm-common-optical-channel-types:wavelength-duplication-type;
       config false;
@@ -978,7 +1102,7 @@ module org-openroadm-device {
         }
       }
     }
-    uses mc-capabilities-g;
+    uses mc-capabilities-grp;
   }
 
   grouping xponder {
@@ -995,6 +1119,11 @@ module org-openroadm-device {
       mandatory true;
       description
         "Identifier for xponder-type e.g Transponder, Muxponder";
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of xponder. Whether it is planned, deployed, in maintenance, etc.";
     }
     leaf recolor {
       type boolean;
@@ -1084,6 +1213,8 @@ module org-openroadm-device {
   }
 
   grouping supporting-circuit-pack-list-grp {
+    description
+      "supporting circuit pack list grouping";
     list supporting-port-list {
       key "index";
       description
@@ -1092,7 +1223,7 @@ module org-openroadm-device {
         type uint8;
         description
           "supporting circuit pack index";
-        }
+      }
       leaf circuit-pack-name {
         type leafref {
           path "/org-openroadm-device/circuit-packs/circuit-pack-name";
@@ -1107,10 +1238,8 @@ module org-openroadm-device {
         }
         description
           "port list";
-        }
+      }
     }
-    description
-      "supporting circuit pack list grouping";
   }
 
   grouping interface-name {
@@ -1122,6 +1251,8 @@ module org-openroadm-device {
       description
         "Name of an interface. Unique within the context of a device.";
     }
+    description
+      "interface name grouping";
   }
 
   grouping interfaces-grp {
@@ -1149,12 +1280,19 @@ module org-openroadm-device {
         description
           "The type of the interface.";
       }
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of interface. Whether it is planned, deployed, in maintenance, etc.";
+      }
       leaf administrative-state {
         type org-openroadm-equipment-states-types:admin-states;
+        mandatory true;
       }
       leaf operational-state {
         type org-openroadm-common-state-types:state;
         config false;
+        mandatory true;
       }
       leaf circuit-id {
         type string {
@@ -1226,9 +1364,25 @@ module org-openroadm-device {
     leaf label {
       type string;
       config false;
+      status deprecated;
       description
         "Faceplate label";
     }
+    leaf is-physical {
+      type boolean;
+      config false;
+      mandatory true;
+      description
+        "is the entity physical or logical";
+    }
+    leaf faceplate-label {
+      type string;
+      config false;
+      mandatory true;
+      description
+        "label on the faceplace silk screening";
+    }
+    uses user-description-grp;
     leaf circuit-id {
       type string {
         length "0..45";
@@ -1236,6 +1390,11 @@ module org-openroadm-device {
       description
         "circuit identifier/user label,
          can be used in alarm correlation and/or connection management ";
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of port. Whether it is planned, deployed, in maintenance, etc.";
     }
     leaf administrative-state {
       type org-openroadm-equipment-states-types:admin-states;
@@ -1281,6 +1440,7 @@ module org-openroadm-device {
         "List of the interfaces this port supports.  This is a list of names of instances in the flat instance list";
       uses interface-name;
     }
+    uses mc-capabilities-grp;
   }
 
   grouping org-openroadm-device-container {
@@ -1319,7 +1479,15 @@ module org-openroadm-device {
       }
       container pending-sw {
         config false;
+        description
+          "pending software information";
         uses org-openroadm-swdl:sw-bank;
+      }
+      container database-info {
+        config false;
+        description
+          "database restore information";
+        uses org-openroadm-swdl:database-info-group;
       }
       uses shelves;
       uses circuit-packs;
@@ -1328,6 +1496,11 @@ module org-openroadm-device {
       container protocols {
         description
           "Contains the supported protocols";
+        leaf lifecycle-state {
+          type org-openroadm-common-state-types:lifecycle-state;
+          description
+            "Lifecycle State of the protocols. Whether it is planned or deployed, etc.";
+        }
       }
       uses internal-links;
       uses physical-links;
@@ -1572,41 +1745,56 @@ module org-openroadm-device {
           }
         }
       }
-    }
-  }
-
-  grouping mc-capabilities-g {
-    container mc-capabilities {
-      config false;
-      description
-        "Capabilities of the media channel on a degree or SRG.  This is used to validate mc-ttp provisioning on degrees and SRGs.";
-      leaf slot-width-granularity {
-        type org-openroadm-common-optical-channel-types:frequency-GHz;
-        default "50";
+      list mc-capability-profile {
+        key "profile-name";
         config false;
+        leaf profile-name {
+          type string;
+          description
+            "Media channel profile name";
+        }
+        leaf center-freq-granularity {
+          type org-openroadm-common-optical-channel-types:frequency-GHz;
+          default "50";
+          config false;
+          description
+            "Granularity of allowed center frequencies.  The base frequency for this computation is 193.1 THz (G.694.1)";
+        }
+        leaf min-edge-freq {
+          type org-openroadm-common-optical-channel-types:frequency-THz;
+          config false;
+          description
+            "Minimum edge frequency";
+        }
+        leaf max-edge-freq {
+          type org-openroadm-common-optical-channel-types:frequency-THz;
+          config false;
+          description
+            "Maximum edge frequency";
+        }
+        leaf slot-width-granularity {
+          type org-openroadm-common-optical-channel-types:frequency-GHz;
+          default "50";
+          config false;
+          description
+            "Width of a slot measured in GHz.";
+        }
+        leaf min-slots {
+          type uint32;
+          default "1";
+          config false;
+          description
+            "Minimum number of slots permitted to be joined together to form a media channel.  Must be less than or equal to the max-slots";
+        }
+        leaf max-slots {
+          type uint32;
+          default "1";
+          config false;
+          description
+            "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
+        }
         description
-          "Width of a slot measured in GHz.";
-      }
-      leaf center-freq-granularity {
-        type org-openroadm-common-optical-channel-types:frequency-GHz;
-        default "50";
-        config false;
-        description
-          "Granularity of allowed center frequencies.  The base frequency for this computation is 193.1 THz (G.694.1)";
-      }
-      leaf min-slots {
-        type uint32;
-        default "1";
-        config false;
-        description
-          "Minimum number of slots permitted to be joined together to form a media channel.  Must be less than or equal to the max-slots";
-      }
-      leaf max-slots {
-        type uint32;
-        default "1";
-        config false;
-        description
-          "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
+          "Media channel capability profile list";
       }
     }
   }
@@ -1857,19 +2045,9 @@ module org-openroadm-device {
     uses org-openroadm-common-types:rpc-response-status;
   }
   notification otdr-scan-result {
-    leaf status {
-      type enumeration {
-        enum "Completed" {
-          value 1;
-        }
-        enum "Failed" {
-          value 2;
-        }
-      }
-      mandatory true;
-      description
-        "Completed or Failed for the scan's final status";
-    }
+    description
+      "This Notification is sent when the otdr-scan-result is complete or failed.";
+    uses org-openroadm-common-types:rpc-response-status;
     leaf result-file {
       type string;
     }

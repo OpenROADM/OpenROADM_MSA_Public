@@ -4,11 +4,11 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
@@ -16,11 +16,11 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2017-06-26;
+    revision-date 2018-09-28;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -167,6 +171,68 @@ module org-openroadm-otn-odu-interfaces {
       type uint16;
       description
         "ODUCn rate";
+    }
+    leaf oduflex-cbr-service {
+      type identityref {
+        base org-openroadm-otn-common-types:odu-rate-identity;
+      }
+      description
+        "ODUflex for CBR client signals (G.709)";
+    }
+    leaf oduflex-cbr-eth-bit-rate {
+      type uint32;
+      config false;
+      description
+        "Nominal bit rate [kbps] (Table 17-16, 17-18 / G.709 Amd.2 06/18)
+           25 781 250  (25G)
+          206 250 000 (200G)
+          412 500 000 (400G)";
+    }
+    leaf oduflex-cbr-pcs-bit-rate {
+      type uint32;
+      config false;
+      description
+        "Nominal bit rate of the aggregated 200GE or 400GE PCS signal consisting
+         of 8 or 16 PCS lanes with 256B/257B encoding and FEC at the PMA service
+         interface [kbps] (Table 17-18/G.709 06/18)
+           212 500 000  (200G)
+           425 000 000  (400G)";
+    }
+    leaf oduflex-cbr-z-rate-compensation {
+      type uint32;
+      config false;
+      description
+        "Z rate compensation (RC) blocks every (Z x 20479) client blocks
+         (Table 17-18 / G.709 06/18)
+           16  (200G)
+           32  (400G)";
+    }
+    leaf oduflex-gfp-num-ts {
+      type uint16;
+      description
+        "For ODUflex GFP-F mapped client signals (G.709), the number of
+         tributary slot as per G.709 Table 7-8";
+    }
+    leaf oduflex-gfp-ts-bandwidth {
+      type uint16;
+      description
+        "The tributary slot minimum bit rates in the approximated value [Mbps]
+         given ODUflex (GFP) 100 ppm (G.709 Table 7-8) :
+           1249 Mbps [1 249 052.312 277 kbps] (n = 1 to 8) (ODU2.ts)
+           1254 Mbps [1 254 344.906 9646 kbps] (n = 9 to 32) ODU3.ts)
+           1301 Mbps [1 301 336.986 2867 kbps] (n = 33 to 80) (ODU4.ts)";
+    }
+    leaf oduflex-imp-s {
+      type uint16;
+      description
+        "For ODUflex IMP (Idle insertion Mapping Procedure) mapped client signals,
+         s = 2, 8, n x 5 with N >= 1 (G.709 12.2.6 & Table 7-3)";
+    }
+    leaf oduflex-flexe-n {
+      type uint16;
+      description
+        "For ODUflex for FlexE-aware client signals, n in the range of 1 to 20*254
+         (G.709 17.12)";
     }
     leaf odu-function {
       type identityref {
@@ -384,16 +450,7 @@ module org-openroadm-otn-odu-interfaces {
         "enable/disable proactive Delay Measurement for TCM";
     }
     leaf tcm-direction {
-      type enumeration {
-        enum "up-tcm" {
-          description
-            "TCM termination direction faces the switch fabric.";
-        }
-        enum "down-tcm" {
-          description
-            "TCM termination direction faces the facility";
-        }
-      }
+      type org-openroadm-otn-common-types:tcm-direction-enum;
       description
         "Direction of TCM.";
     }
