@@ -8,7 +8,7 @@ module org-openroadm-swdl {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-swdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -87,6 +91,30 @@ module org-openroadm-swdl {
       description
         "activation date and time: The date load was activated";
     }
+    description
+      "software bank group";
+  }
+
+  grouping database-info-group {
+    leaf last-restored-time {
+      type yang:date-and-time;
+      description
+        "last restored time for the database";
+    }
+    leaf rollback-timer {
+      type string {
+        pattern "(([0-1][0-9]|2[0-3])-([0-5][0-9])-([0-5][0-9]))";
+      }
+      description
+        "value of rollback timer in hh-mm-ss";
+    }
+    leaf activation-date-time {
+      type yang:date-and-time;
+      description
+        "activation date and time: The date load was activated";
+    }
+    description
+      "database info group";
   }
 
   rpc sw-stage {

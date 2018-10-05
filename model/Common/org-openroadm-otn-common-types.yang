@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -153,13 +157,43 @@ module org-openroadm-otn-common-types {
   identity ODUflex-cbr {
     base odu-rate-identity;
     description
-      "Identity for an ODUflex-cbr";
+      "ODUFlex for CBR client signals (G.709)";
+  }
+
+  identity ODUflex-cbr-25G {
+    base odu-rate-identity;
+    description
+      "ODUFlex for CBR client signals 25G (G.709 17.13.1)";
+  }
+
+  identity ODUflex-cbr-200G {
+    base odu-rate-identity;
+    description
+      "ODUFlex for CBR client signals 200G (G.709 17.13.2)";
+  }
+
+  identity ODUflex-cbr-400G {
+    base odu-rate-identity;
+    description
+      "ODUFlex for CBR client signals 400G (G.709 17.13.2)";
+  }
+
+  identity ODUflex-imp {
+    base odu-rate-identity;
+    description
+      "ODUFlex for IMP (Idle insertion Mapping Procedure) mapped client signals (G.709)";
+  }
+
+  identity ODUflex-flexe {
+    base odu-rate-identity;
+    description
+      "ODUflex for FlexE-aware client signals (G.709)";
   }
 
   identity ODUflex-gfp {
     base odu-rate-identity;
     description
-      "Identity for an ODUflex-gfp";
+      "ODUflex for GFP-F mapped client signals (G.709)";
   }
 
   identity odtu-type-identity {
@@ -254,5 +288,20 @@ module org-openroadm-otn-common-types {
       "OPUCn trib slot in the form of 'A.B' with
        A = 1..n
        B = 1..20";
+  }
+
+  typedef tcm-direction-enum {
+    type enumeration {
+      enum "up-tcm" {
+        description
+          "TCM termination direction faces the switch fabric.";
+      }
+      enum "down-tcm" {
+        description
+           "TCM termination direction faces the facility";
+      }
+    }
+    description
+      "Enumeration type for TCM direction";
   }
 }

@@ -2,6 +2,16 @@ module org-openroadm-otn-common {
   namespace "http://org/openroadm/otn-common";
   prefix org-openroadm-otn-common;
 
+  import org-openroadm-resource-types {
+    prefix org-openroadm-resource-types;
+    revision-date 2018-09-28;
+  }
+
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2018-09-28;
+  }
+
   organization
     "Open ROADM MSA";
   contact
@@ -49,6 +59,10 @@ module org-openroadm-otn-common {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0";
+  }
   revision 2017-06-26 {
     description
       "Version 2.0";
@@ -156,5 +170,81 @@ module org-openroadm-otn-common {
       description
         "Percentage of errored blocks required to declare an interval bad, in units of 0.01%";
     }
+  }
+
+  typedef otn-interface-enum {
+    type enumeration {
+      enum "otu" {
+        value 1;
+        description
+          "OTU enumeration";
+      }
+      enum "odu-path" {
+        value 2;
+        description
+          "ODU Path enumeration";
+      }
+      enum "odu-tcm" {
+        value 3;
+        description
+          "ODU TCM enumeration";
+      }
+    }
+    description
+      "Enumeration type for otn interface";
+  }
+
+  notification otn-tti-info-change {
+    leaf resource-type {
+      type org-openroadm-resource-types:resource-type-enum;
+      mandatory true;
+      description
+        "Resource type for OTN TTI";
+    }
+    leaf resource {
+      type string;
+      mandatory true;
+      description
+        "Resource for OTN TTI";
+    }
+    leaf otn-interface-type {
+      type otn-interface-enum;
+      mandatory true;
+      description
+        "OTN interface type for TTI";
+    }
+    leaf otn-interface-tcm-layer {
+      when "../otn-interface-type='odu-tcm'";
+      type uint8;
+      description
+        "TCM layer for OTN TTI";
+    }
+    leaf otn-interface-tcm-direction {
+      when "../otn-interface-type='odu-tcm'";
+      type org-openroadm-otn-common-types:tcm-direction-enum;
+      description
+        "TCM direction for OTN TTI";
+    }
+    container tti-info {
+      leaf accepted-sapi {
+        type string;
+        description
+          "Accepted SAPI for TTI";
+      }
+      leaf accepted-dapi {
+        type string;
+        description
+          "Accepted DAPI for TTI";
+      }
+      leaf accepted-operator {
+        type string;
+        description
+          "Accepted operator for TTI";
+      }
+      description
+        "Container for TTI info";
+    }
+    description
+      "Notification for OTN TTI";
   }
 }

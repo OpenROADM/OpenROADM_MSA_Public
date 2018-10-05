@@ -1,14 +1,15 @@
 module org-openroadm-network-topology-types {
+  yang-version 1.1;
   namespace "http://org/openroadm/network/topology/types";
   prefix org-openroadm-network-topology-types;
 
   import ietf-network {
     prefix nd;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import ietf-network-topology {
     prefix nwt;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import org-openroadm-switching-pool-types {
     prefix org-openroadm-switching-pool-types;
@@ -120,7 +121,7 @@ module org-openroadm-network-topology-types {
     }
     leaf network-ref {
       type leafref {
-        path "/nd:network/nd:network-id";
+        path "/nd:networks/nd:network/nd:network-id";
       }
       description
         "Used to reference a network, for example an underlay
@@ -128,7 +129,7 @@ module org-openroadm-network-topology-types {
     }
     leaf node-ref {
       type leafref {
-        path "/nd:network[nd:network-id=current()/../network-ref]/nd:node/nd:node-id";
+        path "/nd:networks/nd:network[nd:network-id=current()/../network-ref]/nd:node/nd:node-id";
       }
       description
         "Used to reference a node.  

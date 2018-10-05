@@ -1,10 +1,11 @@
 module org-openroadm-srg {
+  yang-version 1.1; 
   namespace "http://org/openroadm/srg";
   prefix srg;
 
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -44,6 +45,10 @@ module org-openroadm-srg {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";

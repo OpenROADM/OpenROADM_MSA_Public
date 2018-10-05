@@ -35,6 +35,10 @@ module org-openroadm-common-node-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -43,7 +47,7 @@ module org-openroadm-common-node-types {
   typedef node-id-type {
     type string {
       length "7..63";
-      pattern "([a-zA-Z][a-zA-Z0-9-]{5,18}[a-zA-Z0-9])" {
+      pattern "([a-zA-Z][a-zA-Z0-9-]{5,61}[a-zA-Z0-9])" {
         error-message
           "A node-id must be 7 to 63 characters in length.
            A node-id can contain letters, numbers, and hyphens.

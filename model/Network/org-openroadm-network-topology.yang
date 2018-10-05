@@ -1,46 +1,47 @@
 module org-openroadm-network-topology {
+  yang-version 1.1;
   namespace "http://org/openroadm/network/topology";
   prefix topo;
 
   import ietf-network {
     prefix nd;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import ietf-network-topology {
     prefix nwt;
-    revision-date 2015-06-08;
+    revision-date 2018-02-26;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -49,13 +50,13 @@ module org-openroadm-network-topology {
     "OpenROADM.org.";
   description
     "YANG definitions for network view of a ROADM
-     
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      AT&T Intellectual Property.  All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -64,7 +65,7 @@ module org-openroadm-network-topology {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -76,6 +77,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -101,10 +106,10 @@ module org-openroadm-network-topology {
       "Version 2.0";
   }
 
-  deviation "/nd:network/nd:node/cnet:node-type" {
+  deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
       must
-        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or 
+        "(not /nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or
          (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
          (../cnet:node-type = 'DEGREE' or ../cnet:node-type = 'SRG' or ../cnet:node-type = 'TPDR' or ../cnet:node-type = 'SWITCH' or
           ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'EXT-PLUGGABLE' or
@@ -116,7 +121,7 @@ module org-openroadm-network-topology {
       }
     }
   }
-  deviation "/nd:network/nd:node/nwt:termination-point/cnet:tp-type" {
+  deviation "/nd:networks/nd:network/nd:node/nwt:termination-point/cnet:tp-type" {
     description
       "Defines which TP types can be instantiated on which Node types";
     deviate add {
@@ -145,10 +150,10 @@ module org-openroadm-network-topology {
       }
     }
   }
-  deviation "/nd:network/nwt:link/cnet:link-type" {
+  deviation "/nd:networks/nd:network/nwt:link/cnet:link-type" {
     deviate add {
       must
-        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or 
+        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or
          (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
          (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
           ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT'))" {
@@ -159,7 +164,7 @@ module org-openroadm-network-topology {
       }
     }
   }
-  augment "/nd:network/nd:network-types/cnet:openroadm-common-network" {
+  augment "/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
       "Introduce new network type for the Open ROADM optical
        `     network topology";
@@ -167,7 +172,7 @@ module org-openroadm-network-topology {
       presence "indicates optical network topology for Open ROADMs";
     }
   }
-  augment "/nd:network/nd:node" {
+  augment "/nd:networks/nd:network/nd:node" {
     when "../nd:network-types/cnet:openroadm-common-network/openroadm-topology";
     description
       "This augmentations adds the ROADM Node type to the generic node
@@ -207,7 +212,7 @@ module org-openroadm-network-topology {
       uses xpdr:xpdr-topo-node-attributes;
     }
   }
-  augment "/nd:network/nd:node/nwt:termination-point" {
+  augment "/nd:networks/nd:network/nd:node/nwt:termination-point" {
     when "../../nd:network-types/cnet:openroadm-common-network/openroadm-topology";
     description
       "Defines the type of a termination point in the ROADM topology and
@@ -292,7 +297,9 @@ module org-openroadm-network-topology {
         "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
     }
     container xpdr-client-attributes {
-      when "../cnet:tp-type = 'XPONDER-CLIENT'";
+      when "../../topo:node-type = 'TPDR' and ../cnet:tp-type = 'XPONDER-CLIENT'";
+      description
+        "Topology layer will allow client TPs only for Transponder nodes";
       uses xpdr:xpdr-connection-attributes;
       uses xpdr:xpdr-port-connection-attributes;
     }
@@ -311,7 +318,7 @@ module org-openroadm-network-topology {
       uses plg:pluggable-tp-attributes;
     }
   }
-  augment "/nd:network/nwt:link" {
+  augment "/nd:networks/nd:network/nwt:link" {
     when "../nd:network-types/cnet:openroadm-common-network/openroadm-topology";
     description
       "This augmentation defines ROADM link types in the ROADM topology";
@@ -328,6 +335,7 @@ module org-openroadm-network-topology {
       type decimal64 {
         fraction-digits 2;
       }
+      status deprecated;
     }
     leaf administrative-group {
       type uint32;
@@ -345,6 +353,7 @@ module org-openroadm-network-topology {
     }
     leaf link-latency {
       type uint32;
+      status deprecated;
       description
         "Latency of a link";
     }
@@ -356,6 +365,7 @@ module org-openroadm-network-topology {
     }
     leaf TE-metric {
       type uint32;
+      status deprecated;
       description
         "defines a Traffic Engineering metric which could be used for any type of link.
          Supersedes TE-metric originally defined in OMS-attributes grouping";
@@ -364,6 +374,7 @@ module org-openroadm-network-topology {
       type leafref {
         path "../../nwt:link/nwt:link-id";
       }
+      status deprecated;
       description
         "optional - pointer to reverse link in case of bidirectional link. Supersedes opposite-link
          originally defined in OMS-attributes container, to apply to any kind of link in the topology";

@@ -442,6 +442,11 @@ module org-openroadm-pm-types {
         description
           "Delay on TCM6 down direction.";
       }
+      enum "partialRateDiscard" {
+        value 83;
+        description
+          "Discarded packet as a result of policing or rate limiting for subrate ethernet.";
+      }
     }
   }
 

@@ -4,11 +4,11 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2018-09-28;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-03-30;
+    revision-date 2018-09-28;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-09-28 {
+    description
+      "Version 4.0.0";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -151,6 +155,25 @@ module org-openroadm-ethernet-interfaces {
       config false;
       description
         "duplex (HALF/FULL) corresponding to the interface";
+    }
+    container subrate-eth-sla {
+      presence "Explicit assignment of subrate ethernet allocation";
+      description
+        "SLA (Service Level Agreement) for subrate Ethernet";
+      leaf committed-info-rate {
+        type uint32;
+        mandatory true;
+        description
+          "Committed Information Rate (CIR), unit in Mbps.
+           For example, 1250 Mbps";
+      }
+      leaf committed-burst-size {
+        type uint16;
+        mandatory true;
+        description
+          "Committed Burst Size, unit in 1KB (K Byte).
+           Range 16 | 32 | 64 | 128 | 512 | 1024. Default: 16";
+      }
     }
   }
 

@@ -1,27 +1,38 @@
 module: org-openroadm-clli-network
-  augment /nd:network/nd:network-types:
+  augment /nd:networks/nd:network/nd:network-types:
     +--rw clli-network!
-  augment /nd:network/nd:node:
+  augment /nd:networks/nd:network/nd:node:
     +--rw clli?   string
 module: org-openroadm-common-network
-  augment /nd:network/nd:network-types:
+  augment /nd:networks/nd:network/nd:network-types:
     +--rw openroadm-common-network!
        +--rw topo:openroadm-topology!
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
-  augment /nd:network/nd:node:
-    +--rw node-type?     org-openroadm-network-types:openroadm-node-type
-    +--rw node-status?   org-openroadm-network-types:openroadm-node-status
-  augment /nd:network/nd:node/nwt:termination-point:
-    +--rw tp-type?       org-openroadm-network-types:openroadm-tp-type
-    +--rw eqpt-srg-id?   uint32
-  augment /nd:network/nwt:link:
+  augment /nd:networks/nd:network/nd:node:
+    +--rw node-type?         org-openroadm-network-types:openroadm-node-type
+    x--rw node-status?       org-openroadm-network-types:openroadm-node-status
+    +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+  augment /nd:networks/nd:network/nd:node/nwt:termination-point:
+    +--rw tp-type?           org-openroadm-network-types:openroadm-tp-type
+    +--rw eqpt-srg-id?       uint32
+    +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+  augment /nd:networks/nd:network/nwt:link:
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
+    +--rw clfi?                   string
+    +--rw opposite-link?          -> ../../nwt:link/link-id
+    +--rw link-length?            decimal64
+    +--rw link-latency?           uint32
+    +--rw TE-metric?              uint32
+    +--rw link-concatenation* [SRLG-Id]
+    |  +--rw SRLG-Id        uint32
+    |  +--rw SRLG-length?   uint32
     +--rw administrative-group?   uint32
     +--rw operational-state?      org-openroadm-common-state-types:state
     +--rw administrative-state?   org-openroadm-common-state-types:state
+    +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
 module: org-openroadm-network-topology
-  augment /nd:network/nd:node:
+  augment /nd:networks/nd:network/nd:node:
     x--rw node-type?           org-openroadm-network-types:openroadm-node-type
     +--rw srg-attributes
     |  +--rw srg-number?               uint16
@@ -43,7 +54,7 @@ module: org-openroadm-network-topology
     |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
-  augment /nd:network/nd:node/nwt:termination-point:
+  augment /nd:networks/nd:network/nd:node/nwt:termination-point:
     x--rw tp-type?                    org-openroadm-network-types:openroadm-tp-type
     +--rw tx-ttp-attributes
     |  +--rw used-wavelengths* [index]
@@ -112,25 +123,26 @@ module: org-openroadm-network-topology
        +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
        +--rw optic?               org-openroadm-common-equipment-types:optic-types
        +--rw state?               org-openroadm-common-state-types:state
-  augment /nd:network/nwt:link:
+  augment /nd:networks/nd:network/nwt:link:
     x--rw link-type?              org-openroadm-network-types:openroadm-link-type
-    +--rw link-length?            decimal64
+    x--rw link-length?            decimal64
     x--rw administrative-group?   uint32
     x--rw operational-state?      org-openroadm-common-state-types:state
     x--rw administrative-state?   org-openroadm-common-state-types:state
-    +--rw link-latency?           uint32
+    x--rw link-latency?           uint32
     +--rw amplified?              boolean
-    +--rw TE-metric?              uint32
-    +--rw opposite-link?          -> ../../nwt:link/link-id
+    x--rw TE-metric?              uint32
+    x--rw opposite-link?          -> ../../nwt:link/link-id
     +--rw OMS-attributes
        x--rw TE-metric?        uint32
        x--rw opposite-link?    -> ../../../nwt:link/link-id
        +--rw span
-       |  +--rw clfi?                  string
-       |  +--rw auto-spanloss?         boolean
-       |  +--rw spanloss-base?         org-openroadm-common-link-types:ratio-dB
-       |  +--rw spanloss-current?      org-openroadm-common-link-types:ratio-dB
-       |  +--rw engineered-spanloss?   org-openroadm-common-link-types:ratio-dB
+       |  x--rw clfi?                     string
+       |  +--rw auto-spanloss?            boolean
+       |  +--rw spanloss-base?            org-openroadm-common-link-types:ratio-dB
+       |  +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
+       |  +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
+       |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
        |  +--rw link-concatenation* [SRLG-Id]
        |     +--rw SRLG-Id        uint32
        |     +--rw fiber-type?    enumeration
@@ -157,19 +169,20 @@ module: org-openroadm-network-topology
                    |     +--rw administrative-state?             org-openroadm-common-state-types:state
                    +--:(span)
                       +--rw span
-                         +--rw clfi?                   string
-                         +--rw auto-spanloss?          boolean
-                         +--rw spanloss-base?          org-openroadm-common-link-types:ratio-dB
-                         +--rw spanloss-current?       org-openroadm-common-link-types:ratio-dB
-                         +--rw engineered-spanloss?    org-openroadm-common-link-types:ratio-dB
+                         x--rw clfi?                     string
+                         +--rw auto-spanloss?            boolean
+                         +--rw spanloss-base?            org-openroadm-common-link-types:ratio-dB
+                         +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
+                         +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
+                         +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
                          +--rw link-concatenation* [SRLG-Id]
                          |  +--rw SRLG-Id        uint32
                          |  +--rw fiber-type?    enumeration
                          |  +--rw SRLG-length?   uint32
                          |  +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
-                         +--rw administrative-state?   org-openroadm-common-state-types:state
+                         +--rw administrative-state?     org-openroadm-common-state-types:state
 module: org-openroadm-network
-  augment /nd:network/nd:node:
+  augment /nd:networks/nd:network/nd:node:
     x--rw node-type?                   nt:openroadm-node-type
     +--rw software-version?            string
     +--rw openroadm-version?           org-openroadm-common-types:openroadm-version-type
@@ -206,7 +219,7 @@ module: org-openroadm-network
           +--rw start-date?   yang:date-and-time
           +--rw end-date?     yang:date-and-time
 module: org-openroadm-otn-network-topology
-  augment /nd:network/nd:node:
+  augment /nd:networks/nd:network/nd:node:
     x--rw node-type?              org-openroadm-network-types:openroadm-node-type
     +--rw tp-bandwidth-sharing
     |  +--rw tp-bandwidth-sharing* [tp-sharing-id]
@@ -225,7 +238,7 @@ module: org-openroadm-otn-network-topology
     |        +--rw tp-list*                            nwt:tp-id
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
-  augment /nd:network/nd:node/nwt:termination-point:
+  augment /nd:networks/nd:network/nd:node/nwt:termination-point:
     x--rw tp-type?                              org-openroadm-network-types:openroadm-tp-type
     x--rw eqpt-srg-id?                          uint32
     +--rw tp-supported-interfaces
@@ -244,9 +257,9 @@ module: org-openroadm-otn-network-topology
        +--rw tail-equipment-id?   string
        +--rw tail-clfi?           string
        +--rw tp-id?               nwt:tp-id
-       +--rw network-ref?         -> /nd:network/network-id
-       +--rw node-ref?            -> /nd:network[nd:network-id=current()/../network-ref]/node/node-id
-  augment /nd:network/nwt:link:
+       +--rw network-ref?         -> /nd:networks/network/network-id
+       +--rw node-ref?            -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+  augment /nd:networks/nd:network/nwt:link:
     x--rw link-type?              org-openroadm-network-types:openroadm-link-type
     x--rw administrative-group?   uint32
     x--rw operational-state?      org-openroadm-common-state-types:state
