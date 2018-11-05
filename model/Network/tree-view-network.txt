@@ -102,7 +102,7 @@ module: org-openroadm-network-topology
     +--rw link-length?            decimal64
     +--rw administrative-group?   uint32
     +--rw operational-state?      ct:state
-    +--rw administrative-state?   ct:state
+    +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
     +--rw link-latency?           uint32
     +--rw amplified?              boolean
     +--rw OMS-attributes
@@ -137,7 +137,7 @@ module: org-openroadm-network-topology
                    |     +--rw initially-planned-out-voa-att?    org-openroadm-common-types:ratio-dB
                    |     +--rw eol-max-load-pIn?                 org-openroadm-common-types:power-dBm
                    |     +--rw node-id                           org-openroadm-common-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-common-types:state
+                   |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
                    +--:(span)
                       +--rw span
                          +--rw clfi?                   string
@@ -150,14 +150,14 @@ module: org-openroadm-network-topology
                          |  +--rw fiber-type?    enumeration
                          |  +--rw SRLG-length?   uint32
                          |  +--rw pmd?           org-openroadm-common-types:fiber-pmd
-                         +--rw administrative-state?   org-openroadm-common-types:state
+                         +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
 module: org-openroadm-network
   augment /nd:network/nd:network-types:
     +--rw openroadm-network!
   augment /nd:network/nd:node:
     +--rw node-type?                   nt:openroadm-node-type
     +--rw software-version?            string
-    +--rw openroadm-version?           string
+    +--rw openroadm-version?           org-openroadm-common-types:openroadm-version-type
     +--rw vendor?                      string
     +--rw model?                       string
     +--rw domain-subnetwork?           string
@@ -236,7 +236,7 @@ module: org-openroadm-otn-network-topology
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
     +--rw administrative-group?   uint32
     +--rw operational-state?      ct:state
-    +--rw administrative-state?   ct:state
+    +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
     +--rw available-bandwidth?    uint32
     +--rw used-bandwidth?         uint32
     +--rw ODU-protected?          boolean

@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-10-19 {
+    description
+      "Version 2.2.1";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -328,6 +332,38 @@ module org-openroadm-common-types {
     }
     description
       "status of RPC ";
+  }
+
+  typedef openroadm-version-type {
+    type enumeration {
+      enum "1.0" {
+        value 1;
+        description
+          "value for 1.0";
+      }
+      enum "2.0" {
+        value 2;
+        description
+          "value for 2.0";
+      }
+      enum "2.1" {
+        value 3;
+        description
+          "value for 2.1";
+      }
+      enum "2.2" {
+        value 4;
+        description
+          "value for 2.2";
+      }
+      enum "2.2.1" {
+        value 8;
+        description
+          "value for 2.2";
+      }
+    }
+    description
+      "OpenROADM version enum type";
   }
 
   typedef lifecycle-state {

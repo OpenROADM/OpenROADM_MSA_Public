@@ -4,15 +4,15 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -66,6 +66,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-10-19 {
+    description
+      "Version 2.2.1";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -184,17 +188,13 @@ module org-openroadm-port-capability {
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
                and the relation with mapped client ports.";
             leaf network-ho-odu-circuit-pack-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
-              }
+              type string;
               mandatory true;
               description
                 "Circuit-Pack identifier. Unique within the context of a device.";
             }
             leaf network-ho-odu-port-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name";
-              }
+              type string;
               mandatory true;
               description
                 "port identifier.";
@@ -314,9 +314,7 @@ module org-openroadm-port-capability {
             key "circuit-pack-name slot-name port-name";
             uses slot-id-grp;
             leaf port-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
-              }
+              type string;
             }
             leaf-list port-if-type {
               type identityref {

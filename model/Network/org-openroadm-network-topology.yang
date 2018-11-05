@@ -12,30 +12,34 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2017-12-15;
+    revision-date 2018-10-19;
   }
   import org-openroadm-common-types {
     prefix ct;
+    revision-date 2018-10-19;
+  }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
     revision-date 2017-12-15;
   }
 
@@ -72,6 +76,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-10-19 {
+    description
+      "Version 2.2.1";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";
@@ -264,7 +272,7 @@ module org-openroadm-network-topology {
       type ct:state;
     }
     leaf administrative-state {
-      type ct:state;
+      type org-openroadm-equipment-states-types:admin-states;
     }
     leaf link-latency {
       type uint32;
