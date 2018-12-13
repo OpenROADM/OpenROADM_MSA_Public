@@ -4,7 +4,7 @@ module org-openroadm-database {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -15,7 +15,7 @@ module org-openroadm-database {
     "This module contains definitions for System Management.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -40,6 +40,10 @@ module org-openroadm-database {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";

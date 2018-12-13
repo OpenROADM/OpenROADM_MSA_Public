@@ -3,21 +3,21 @@ module org-openroadm-link {
   namespace "http://org/openroadm/link";
   prefix link;
 
-  import org-openroadm-common-state-types {
-    prefix org-openroadm-common-state-types;
-    revision-date 2018-09-28;
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -29,7 +29,7 @@ module org-openroadm-link {
      
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
@@ -54,6 +54,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -205,7 +209,7 @@ module org-openroadm-link {
                   "Node id corresponding to the amplifier ";
               }
               leaf administrative-state {
-                type org-openroadm-common-state-types:state;
+                type org-openroadm-equipment-states-types:admin-states;
               }
             }
           }
@@ -213,7 +217,7 @@ module org-openroadm-link {
             container span {
               uses link:span-attributes;
               leaf administrative-state {
-                type org-openroadm-common-state-types:state;
+                type org-openroadm-equipment-states-types:admin-states;
               }
             }
           }

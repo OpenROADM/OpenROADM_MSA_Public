@@ -16,7 +16,7 @@ module org-openroadm-syslog {
      for Syslog configuration.                                               
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -56,6 +56,10 @@ module org-openroadm-syslog {
      described in the Simplified BSD License.";
   reference "RFC 5424: The Syslog Protocol";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";

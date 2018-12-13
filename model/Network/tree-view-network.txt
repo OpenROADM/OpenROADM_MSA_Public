@@ -29,7 +29,7 @@ module: org-openroadm-common-network
     |  +--rw SRLG-length?   uint32
     +--rw administrative-group?   uint32
     +--rw operational-state?      org-openroadm-common-state-types:state
-    +--rw administrative-state?   org-openroadm-common-state-types:state
+    +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
 module: org-openroadm-network-topology
   augment /nd:networks/nd:network/nd:node:
@@ -166,7 +166,7 @@ module: org-openroadm-network-topology
                    |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
                    |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
                    |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-common-state-types:state
+                   |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
                    +--:(span)
                       +--rw span
                          x--rw clfi?                     string
@@ -180,7 +180,7 @@ module: org-openroadm-network-topology
                          |  +--rw fiber-type?    enumeration
                          |  +--rw SRLG-length?   uint32
                          |  +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
-                         +--rw administrative-state?     org-openroadm-common-state-types:state
+                         +--rw administrative-state?     org-openroadm-equipment-states-types:admin-states
 module: org-openroadm-network
   augment /nd:networks/nd:network/nd:node:
     x--rw node-type?                   nt:openroadm-node-type

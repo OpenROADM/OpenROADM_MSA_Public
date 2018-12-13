@@ -31,8 +31,8 @@ module: org-openroadm-ber-test
        |  |  +---w service-name?     string
        |  |  +---w common-id?        string
        |  |  +---w version-number?   uint64
-       |  +---w rpc-timestamp?                   uint16
-       |  +---w timestamp?                       uint16
+       |  +---w rpc-timestamp?                   yang:date-and-time
+       |  +---w timestamp?                       yang:date-and-time
        |  +---w ber-results
        |     +---w ber-options
        |     |  +---w target-prefec-ber?    decimal64
@@ -66,8 +66,8 @@ module: org-openroadm-ber-test
        |  +--ro service-name?     string
        |  +--ro common-id?        string
        |  +--ro version-number?   uint64
-       +--ro rpc-timestamp?                   uint16
-       +--ro timestamp?                       uint16
+       +--ro rpc-timestamp?                   yang:date-and-time
+       +--ro timestamp?                       yang:date-and-time
        +--ro ber-results
           +--ro ber-options
           |  +--ro target-prefec-ber?    decimal64
@@ -117,7 +117,7 @@ module: org-openroadm-service
     |     |  +--rw otn-TE-metric?       uint8
     |     +--rw connection-type              connection-type
     |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-    |     +--rw administrative-state?        org-openroadm-common-state-types:state
+    |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
     |     +--ro operational-state?           org-openroadm-common-state-types:state
     |     +--rw condition?                   service-condition
     |     +--rw service-a-end
@@ -181,6 +181,10 @@ module: org-openroadm-service
     |     |  |  +--rw ip-address?   inet:ip-address
     |     |  |  +--rw url?          string
     |     |  +--rw user-label?          string
+    |     |  +--rw subrate-eth-sla
+    |     |     +--rw subrate-eth-sla!
+    |     |        +--rw committed-info-rate     uint32
+    |     |        +--rw committed-burst-size    uint16
     |     +--rw service-z-end
     |     |  +--rw service-format       service-format
     |     |  +--rw service-rate?        uint32
@@ -242,6 +246,10 @@ module: org-openroadm-service
     |     |  |  +--rw ip-address?   inet:ip-address
     |     |  |  +--rw url?          string
     |     |  +--rw user-label?          string
+    |     |  +--rw subrate-eth-sla
+    |     |     +--rw subrate-eth-sla!
+    |     |        +--rw committed-info-rate     uint32
+    |     |        +--rw committed-burst-size    uint16
     |     +--rw hard-constraints
     |     |  +--rw customer-code*   string
     |     |  +--rw (co-routing-or-general)?
@@ -703,7 +711,7 @@ module: org-openroadm-service
     |     |  +--rw otn-TE-metric?       uint8
     |     +--rw connection-type              connection-type
     |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-    |     +--rw administrative-state?        org-openroadm-common-state-types:state
+    |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
     |     +--ro operational-state?           org-openroadm-common-state-types:state
     |     +--rw condition?                   service-condition
     |     +--rw service-a-end
@@ -767,6 +775,10 @@ module: org-openroadm-service
     |     |  |  +--rw ip-address?   inet:ip-address
     |     |  |  +--rw url?          string
     |     |  +--rw user-label?          string
+    |     |  +--rw subrate-eth-sla
+    |     |     +--rw subrate-eth-sla!
+    |     |        +--rw committed-info-rate     uint32
+    |     |        +--rw committed-burst-size    uint16
     |     +--rw service-z-end
     |     |  +--rw service-format       service-format
     |     |  +--rw service-rate?        uint32
@@ -828,6 +840,10 @@ module: org-openroadm-service
     |     |  |  +--rw ip-address?   inet:ip-address
     |     |  |  +--rw url?          string
     |     |  +--rw user-label?          string
+    |     |  +--rw subrate-eth-sla
+    |     |     +--rw subrate-eth-sla!
+    |     |        +--rw committed-info-rate     uint32
+    |     |        +--rw committed-burst-size    uint16
     |     +--rw hard-constraints
     |     |  +--rw customer-code*   string
     |     |  +--rw (co-routing-or-general)?
@@ -1288,7 +1304,7 @@ module: org-openroadm-service
           |  +--rw otn-TE-metric?       uint8
           +--rw connection-type              connection-type
           +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-          +--rw administrative-state?        org-openroadm-common-state-types:state
+          +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
           +--ro operational-state?           org-openroadm-common-state-types:state
           +--rw condition?                   service-condition
           +--rw service-a-end
@@ -1352,6 +1368,10 @@ module: org-openroadm-service
           |  |  +--rw ip-address?   inet:ip-address
           |  |  +--rw url?          string
           |  +--rw user-label?          string
+          |  +--rw subrate-eth-sla
+          |     +--rw subrate-eth-sla!
+          |        +--rw committed-info-rate     uint32
+          |        +--rw committed-burst-size    uint16
           +--rw service-z-end
           |  +--rw service-format       service-format
           |  +--rw service-rate?        uint32
@@ -1413,6 +1433,10 @@ module: org-openroadm-service
           |  |  +--rw ip-address?   inet:ip-address
           |  |  +--rw url?          string
           |  +--rw user-label?          string
+          |  +--rw subrate-eth-sla
+          |     +--rw subrate-eth-sla!
+          |        +--rw committed-info-rate     uint32
+          |        +--rw committed-burst-size    uint16
           +--rw hard-constraints
           |  +--rw customer-code*   string
           |  +--rw (co-routing-or-general)?
@@ -1935,6 +1959,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
     |  |  |  +---w service-format       service-format
     |  |  |  +---w service-rate?        uint32
@@ -1996,6 +2024,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*   string
     |  |  |  +---w (co-routing-or-general)?
@@ -2261,6 +2293,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
     |  |  |  +---w service-format       service-format
     |  |  |  +---w service-rate?        uint32
@@ -2322,6 +2358,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*   string
     |  |  |  +---w (co-routing-or-general)?
@@ -2567,6 +2607,10 @@ module: org-openroadm-service
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?           string
+    |     |  +--ro subrate-eth-sla
+    |     |  |  +--ro subrate-eth-sla!
+    |     |  |     +--ro committed-info-rate     uint32
+    |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
     |     |     +--ro equipment-identifier    string
     |     |     +--ro equipment-type?         string
@@ -2633,6 +2677,10 @@ module: org-openroadm-service
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?           string
+    |     |  +--ro subrate-eth-sla
+    |     |  |  +--ro subrate-eth-sla!
+    |     |  |     +--ro committed-info-rate     uint32
+    |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
     |     |     +--ro equipment-identifier    string
     |     |     +--ro equipment-type?         string
@@ -2699,6 +2747,10 @@ module: org-openroadm-service
     |        |  +--ro ip-address?   inet:ip-address
     |        |  +--ro url?          string
     |        +--ro user-label?           string
+    |        +--ro subrate-eth-sla
+    |        |  +--ro subrate-eth-sla!
+    |        |     +--ro committed-info-rate     uint32
+    |        |     +--ro committed-burst-size    uint16
     |        +--ro equipment-required* [equipment-identifier]
     |           +--ro equipment-identifier    string
     |           +--ro equipment-type?         string
@@ -2775,6 +2827,10 @@ module: org-openroadm-service
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?          string
+    |  |     |  +---w subrate-eth-sla
+    |  |     |     +---w subrate-eth-sla!
+    |  |     |        +---w committed-info-rate     uint32
+    |  |     |        +---w committed-burst-size    uint16
     |  |     +---w service-z-end
     |  |     |  +---w service-format       service-format
     |  |     |  +---w service-rate?        uint32
@@ -2836,6 +2892,10 @@ module: org-openroadm-service
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?          string
+    |  |     |  +---w subrate-eth-sla
+    |  |     |     +---w subrate-eth-sla!
+    |  |     |        +---w committed-info-rate     uint32
+    |  |     |        +---w committed-burst-size    uint16
     |  |     +---w hard-constraints
     |  |     |  +---w customer-code*   string
     |  |     |  +---w (co-routing-or-general)?
@@ -3082,6 +3142,10 @@ module: org-openroadm-service
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?           string
+    |        |  +--ro subrate-eth-sla
+    |        |  |  +--ro subrate-eth-sla!
+    |        |  |     +--ro committed-info-rate     uint32
+    |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
     |        |     +--ro equipment-identifier    string
     |        |     +--ro equipment-type?         string
@@ -3148,6 +3212,10 @@ module: org-openroadm-service
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?           string
+    |        |  +--ro subrate-eth-sla
+    |        |  |  +--ro subrate-eth-sla!
+    |        |  |     +--ro committed-info-rate     uint32
+    |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
     |        |     +--ro equipment-identifier    string
     |        |     +--ro equipment-type?         string
@@ -3214,6 +3282,10 @@ module: org-openroadm-service
     |           |  +--ro ip-address?   inet:ip-address
     |           |  +--ro url?          string
     |           +--ro user-label?           string
+    |           +--ro subrate-eth-sla
+    |           |  +--ro subrate-eth-sla!
+    |           |     +--ro committed-info-rate     uint32
+    |           |     +--ro committed-burst-size    uint16
     |           +--ro equipment-required* [equipment-identifier]
     |              +--ro equipment-identifier    string
     |              +--ro equipment-type?         string
@@ -3327,6 +3399,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
     |  |  |  +---w service-format       service-format
     |  |  |  +---w service-rate?        uint32
@@ -3388,6 +3464,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*   string
     |  |  |  +---w (co-routing-or-general)?
@@ -3664,6 +3744,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
     |  |  |  +---w service-format       service-format
     |  |  |  +---w service-rate?        uint32
@@ -3725,6 +3809,10 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?          string
+    |  |  |  +---w subrate-eth-sla
+    |  |  |     +---w subrate-eth-sla!
+    |  |  |        +---w committed-info-rate     uint32
+    |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*   string
     |  |  |  +---w (co-routing-or-general)?
@@ -4055,14 +4143,18 @@ module: org-openroadm-service
     |  +--ro notification-type?   org-openroadm-common-service-types:service-notification-types
     |  +--ro status               rpc-status
     |  +--ro status-message?      string
-    |  +--ro service-name         string
+    |  +--ro service-name?        string
+    |  +--ro version-number?      uint64
+    |  +--ro common-id?           string
     |  +--ro actual-date?         yang:date-and-time
     +---n service-traffic-flow
-    |  +--ro service-name    string
-    |  +--ro actual-date?    yang:date-and-time
+    |  +--ro service-name      string
+    |  +--ro version-number?   uint64
+    |  +--ro actual-date?      yang:date-and-time
     +---n service-notification
        +--ro notificationType?            org-openroadm-resource-types:resource-notification-type
-       +--ro service-name                 string
+       +--ro version-number?              uint64
+       +--ro service-name?                string
        +--ro common-id?                   string
        +--ro sdnc-request-header
        |  +--ro request-id?          string
@@ -4093,7 +4185,7 @@ module: org-openroadm-service
        |  +--ro otn-TE-metric?       uint8
        +--ro connection-type              connection-type
        +--ro lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-       +--ro administrative-state?        org-openroadm-common-state-types:state
+       +--ro administrative-state?        org-openroadm-equipment-states-types:admin-states
        +--ro operational-state?           org-openroadm-common-state-types:state
        +--ro condition?                   service-condition
        +--ro service-a-end
@@ -4157,6 +4249,10 @@ module: org-openroadm-service
        |  |  +--ro ip-address?   inet:ip-address
        |  |  +--ro url?          string
        |  +--ro user-label?          string
+       |  +--ro subrate-eth-sla
+       |     +--ro subrate-eth-sla!
+       |        +--ro committed-info-rate     uint32
+       |        +--ro committed-burst-size    uint16
        +--ro service-z-end
        |  +--ro service-format       service-format
        |  +--ro service-rate?        uint32
@@ -4218,6 +4314,10 @@ module: org-openroadm-service
        |  |  +--ro ip-address?   inet:ip-address
        |  |  +--ro url?          string
        |  +--ro user-label?          string
+       |  +--ro subrate-eth-sla
+       |     +--ro subrate-eth-sla!
+       |        +--ro committed-info-rate     uint32
+       |        +--ro committed-burst-size    uint16
        +--ro hard-constraints
        |  +--ro customer-code*   string
        |  +--ro (co-routing-or-general)?

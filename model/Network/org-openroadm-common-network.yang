@@ -13,11 +13,15 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
+  }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -26,7 +30,7 @@ module org-openroadm-common-network {
     "www.OpenROADM.org.";
   description
     "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -51,6 +55,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -166,7 +174,7 @@ module org-openroadm-common-network {
       type org-openroadm-common-state-types:state;
     }
     leaf administrative-state {
-      type org-openroadm-common-state-types:state;
+      type org-openroadm-equipment-states-types:admin-states;
     }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;

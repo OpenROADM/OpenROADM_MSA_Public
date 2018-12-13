@@ -8,15 +8,15 @@ module org-openroadm-tca {
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -27,7 +27,7 @@ module org-openroadm-tca {
     "YANG definitions of Threshold Crossing Alert types.
        
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-      AT&T Intellectual Property.  All other rights reserved.
+      All other rights reserved.
       
       Redistribution and use in source and binary forms, with or without modification, 
       are permitted provided that the following conditions are met:
@@ -52,6 +52,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";

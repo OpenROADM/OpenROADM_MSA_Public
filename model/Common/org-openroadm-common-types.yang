@@ -10,7 +10,7 @@ module org-openroadm-common-types {
     "YANG definitions of common types.
        
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-      AT&T Intellectual Property.  All other rights reserved.
+      All other rights reserved.
       
       Redistribution and use in source and binary forms, with or without modification, 
       are permitted provided that the following conditions are met:
@@ -35,6 +35,14 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -162,6 +170,21 @@ module org-openroadm-common-types {
         description
           "value for 4.0";
       }
+      enum "2.2.1" {
+        value 8;
+        description
+          "value for 2.2.1";
+      }
+      enum "4.1" {
+        value 9;
+        description
+          "value for 4.1";
+      }
+      enum "3.1.1" {
+        value 10;
+        description
+          "value for 3.1.1";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -192,6 +215,24 @@ module org-openroadm-common-types {
       type string;
       description
         "Gives a more detailed status.";
+    }
+  }
+
+  grouping eth-rate-and-burst-size {
+    description
+      "Grouping of ethernet committed rate and burst size.";
+    leaf committed-info-rate {
+      type uint32;
+      mandatory true;
+      description
+        "Committed Information Rate (CIR), unit in Mbps. For example, 1250 Mbps";
+    }
+    leaf committed-burst-size {
+      type uint16;
+      mandatory true;
+      description
+        "Committed Burst Size, unit in 1KB (K Byte).
+                Range 16 | 32 | 64 | 128 | 512 | 1024. Default: 16";
     }
   }
 }
