@@ -10,7 +10,7 @@ module org-openroadm-otn-common-types {
     "YANG definitions for common otn related type definitions.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -298,7 +302,7 @@ module org-openroadm-otn-common-types {
       }
       enum "down-tcm" {
         description
-           "TCM termination direction faces the facility";
+          "TCM termination direction faces the facility";
       }
     }
     description

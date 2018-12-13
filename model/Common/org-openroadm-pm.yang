@@ -8,23 +8,23 @@ module org-openroadm-pm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -35,7 +35,7 @@ module org-openroadm-pm {
     "YANG definitions of performance management.
        
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-      AT&T Intellectual Property.  All other rights reserved.
+      All other rights reserved.
       
       Redistribution and use in source and binary forms, with or without modification, 
       are permitted provided that the following conditions are met:
@@ -60,6 +60,14 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -303,21 +311,21 @@ module org-openroadm-pm {
       "List of current PMs.";
     list current-pm-entry {
       key "pm-resource-type pm-resource-type-extension pm-resource-instance";
-      uses current-pm-group;
       description
         "List of current PM entries";
+      uses current-pm-group;
     }
   }
   container historical-pm-list {
-    if-feature historical-pm-retrieval;
+    if-feature "historical-pm-retrieval";
     config false;
     description
       "List of historical PM";
     list historical-pm-entry {
       key "pm-resource-type pm-resource-type-extension pm-resource-instance";
-      uses historical-pm-group;
       description
         "List of historical PM entries";
+      uses historical-pm-group;
     }
   }
 }

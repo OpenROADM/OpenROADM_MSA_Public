@@ -9,19 +9,19 @@ module org-openroadm-network {
   }
   import org-openroadm-network-types {
     prefix nt;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-roadm {
     prefix roadm;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import ietf-inet-types {
     prefix inet;
@@ -29,11 +29,11 @@ module org-openroadm-network {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -42,7 +42,7 @@ module org-openroadm-network {
     "www.OpenROADM.org.";
   description
     "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
@@ -67,6 +67,10 @@ module org-openroadm-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";

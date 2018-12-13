@@ -13,23 +13,23 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -38,13 +38,13 @@ module org-openroadm-otn-network-topology {
     "OpenROADM.org.";
   description
     "YANG definitions for network view of a ROADM
-
+     
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
-     AT&T Intellectual Property.  All other rights reserved.
-
+     All other rights reserved.
+     
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-
+     
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -53,7 +53,7 @@ module org-openroadm-otn-network-topology {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-
+     
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -65,6 +65,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -139,8 +143,9 @@ module org-openroadm-otn-network-topology {
        in the OTN Topology.";
     leaf node-type {
       type org-openroadm-network-types:openroadm-node-type;
-      must "(../node-type = 'SWITCH' or ../node-type = 'MUXPDR' or ../node-type = 'TPDR' or
-           ../node-type = 'REGEN' or ../node-type = 'REGEN-UNI')" {
+      must
+        "(../node-type = 'SWITCH' or ../node-type = 'MUXPDR' or ../node-type = 'TPDR' or
+         ../node-type = 'REGEN' or ../node-type = 'REGEN-UNI')" {
         error-message "Invalid node type for otn-topology";
       }
       status deprecated;
@@ -158,8 +163,9 @@ module org-openroadm-otn-network-topology {
       uses org-openroadm-network-topology-types:xpdr-odu-switching-pools;
     }
     container xpdr-attributes {
-      when "../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'TPDR' or
-           ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'";
+      when
+        "../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'TPDR' or
+         ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'";
       description
         "Topology-related attributes for Xponder nodes";
       uses xpdr:xpdr-topo-node-attributes;

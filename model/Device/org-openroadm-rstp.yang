@@ -4,11 +4,11 @@ module org-openroadm-rstp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -20,7 +20,7 @@ module org-openroadm-rstp {
      
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -45,6 +45,10 @@ module org-openroadm-rstp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";

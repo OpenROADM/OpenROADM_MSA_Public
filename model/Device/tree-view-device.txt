@@ -346,7 +346,7 @@ module: org-openroadm-device
        |  |     +--ro org-openroadm-pluggable-optics-holder-capability:supported-circuit-pack-types* [supported-circuit-pack-type]
        |  |        +--ro org-openroadm-pluggable-optics-holder-capability:supported-circuit-pack-type    string
        |  |        +--ro org-openroadm-pluggable-optics-holder-capability:ports* [port-name]
-       |  |           +--ro org-openroadm-pluggable-optics-holder-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
+       |  |           +--ro org-openroadm-pluggable-optics-holder-capability:port-name            string
        |  |           +--ro org-openroadm-pluggable-optics-holder-capability:port-capabilities
        |  |              +--ro org-openroadm-pluggable-optics-holder-capability:supported-interface-capability* [if-cap-type]
        |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:if-cap-type                       identityref
@@ -359,8 +359,8 @@ module: org-openroadm-device
        |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:tcm-direction-capability?   tcm-direction-capability-type
        |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:opu-payload-type-mapping*   org-openroadm-otn-common-types:payload-type-def
        |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:mpdr-client-restriction
-       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
-       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/ports/port-name
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    string
+       |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            string
        |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:odtu-type                           identityref
        |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-trib-port-number     uint16
        |  |                    |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-trib-slots*          uint16
@@ -379,10 +379,12 @@ module: org-openroadm-device
        |  +--ro circuit-pack-features*
        |  |  +--ro feature
        |  |     +--ro description?   string
+       |  |     +--ro boot?          boolean
        |  |     +--ro activated?     boolean
        |  +--ro circuit-pack-components*
        |  |  +--ro component
        |  |     +--ro name?               string
+       |  |     +--ro boot?               boolean
        |  |     +--ro current-version?    string
        |  |     +--ro version-to-apply?   string
        |  +--rw ports* [port-name]
@@ -444,8 +446,8 @@ module: org-openroadm-device
        |              +--ro org-openroadm-port-capability:tcm-direction-capability?   tcm-direction-capability-type
        |              +--ro org-openroadm-port-capability:opu-payload-type-mapping*   org-openroadm-otn-common-types:payload-type-def
        |              +--ro org-openroadm-port-capability:mpdr-client-restriction
-       |              |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
-       |              |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/ports/port-name
+       |              |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    string
+       |              |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            string
        |              |  +--ro org-openroadm-port-capability:odtu-type                           identityref
        |              |  +--ro org-openroadm-port-capability:network-ho-odu-trib-port-number     uint16
        |              |  +--ro org-openroadm-port-capability:network-ho-odu-trib-slots*          uint16
@@ -637,11 +639,17 @@ module: org-openroadm-device
        |  |  +--rw org-openroadm-otn-odu-interfaces:maint-testsignal
        |  |     +--rw org-openroadm-otn-odu-interfaces:enabled?               boolean
        |  |     +--rw org-openroadm-otn-odu-interfaces:testPattern?           enumeration
-       |  |     +--rw org-openroadm-otn-odu-interfaces:type?                  enumeration
+       |  |     +--rw org-openroadm-otn-odu-interfaces:type?                  testsig-type
        |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrors?             uint32
        |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrorsTerminal?     uint32
        |  |     +--ro org-openroadm-otn-odu-interfaces:syncSeconds?           string
        |  |     +--ro org-openroadm-otn-odu-interfaces:syncSecondsTerminal?   string
+       |  |     +---x org-openroadm-otn-odu-interfaces:clear-diagnostics
+       |  |        +---w org-openroadm-otn-odu-interfaces:input
+       |  |        |  +---w org-openroadm-otn-odu-interfaces:type?   testsig-type
+       |  |        +--ro org-openroadm-otn-odu-interfaces:output
+       |  |           +--ro org-openroadm-otn-odu-interfaces:status            org-openroadm-common-types:rpc-status
+       |  |           +--ro org-openroadm-otn-odu-interfaces:status-message?   string
        |  +--rw org-openroadm-otn-otu-interfaces:otu
        |  |  +--rw org-openroadm-otn-otu-interfaces:rate?                identityref
        |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-n-rate?        uint16
@@ -865,8 +873,9 @@ module: org-openroadm-device
        |     +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
        |     +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
        +--ro odu-switching-pools* [switching-pool-number]
-       |  +--ro switching-pool-number    uint16
-       |  +--ro switching-pool-type?     org-openroadm-switching-pool-types:switching-pool-types
+       |  +--ro switching-pool-number                    uint16
+       |  +--ro switching-pool-type?                     org-openroadm-switching-pool-types:switching-pool-types
+       |  +--ro odu-connection-direction-capabilities?   identityref
        |  +--ro non-blocking-list* [nbl-number]
        |     +--ro nbl-number                      uint16
        |     +--ro interconnect-bandwidth-unit?    uint32
@@ -904,9 +913,13 @@ module: org-openroadm-device
        |        +--ro org-openroadm-port-capability:slot-if-type-config* [circuit-pack-name slot-name port-name]
        |           +--ro org-openroadm-port-capability:circuit-pack-name    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
        |           +--ro org-openroadm-port-capability:slot-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/cp-slots/slot-name
-       |           +--ro org-openroadm-port-capability:port-name            -> /org-openroadm-device:org-openroadm-device/circuit-packs/ports/port-name
+       |           +--ro org-openroadm-port-capability:port-name            string
        |           +--ro org-openroadm-port-capability:port-if-type*        identityref
        |           +--ro org-openroadm-port-capability:port-module-type*    org-openroadm-port-types:port-module-types
+       +--rw org-openroadm-port-capability:provisioned-port-grp
+       |  +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
+       |     +--rw org-openroadm-port-capability:port-sharing-id            uint16
+       |     +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
        +--ro org-openroadm-flexogroup-capability:flexogroup-capabilities
        |  +--ro org-openroadm-flexogroup-capability:flexogroup-capability-group* [flexogroup-capability-id]
        |     +--ro org-openroadm-flexogroup-capability:flexogroup-capability-id    uint16
@@ -1588,6 +1601,7 @@ module: org-openroadm-fwdl
     +---x fw-update
        +---w input
        |  +---w circuit-pack-name?   string
+       |  +---w boot?                boolean
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string

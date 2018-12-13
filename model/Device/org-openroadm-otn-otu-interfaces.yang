@@ -4,23 +4,23 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -31,7 +31,7 @@ module org-openroadm-otn-otu-interfaces {
     "YANG definitions for device facility otnotu interfaces.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -70,6 +70,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";

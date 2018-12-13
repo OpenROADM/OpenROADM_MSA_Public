@@ -1,5 +1,5 @@
 module org-openroadm-roadm {
-  yang-version 1.1; 
+  yang-version 1.1;
   namespace "http://org/openroadm/roadm";
   prefix roadm;
 
@@ -11,7 +11,7 @@ module org-openroadm-roadm {
     "YANG definitions for network view of a ROADM
          
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -36,6 +36,10 @@ module org-openroadm-roadm {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";

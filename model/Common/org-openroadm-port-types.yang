@@ -4,7 +4,7 @@ module org-openroadm-port-types {
 
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -15,7 +15,7 @@ module org-openroadm-port-types {
     "YANG definitions for port types.
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -240,6 +244,19 @@ module org-openroadm-port-types {
       "Port types.";
   }
 
+  typedef port-module-types {
+    type enumeration {
+      enum "100GBASE-LR4" {
+        value 1;
+      }
+      enum "CWDM-4" {
+        value 2;
+      }
+    }
+    description
+      "Pluggable modue types.";
+  }
+
   grouping common-port {
     leaf port-power-capability-min-rx {
       type org-openroadm-common-link-types:power-dBm;
@@ -274,17 +291,4 @@ module org-openroadm-port-types {
   grouping roadm-port {
     uses common-port;
   }
-  
-  typedef port-module-types {
-    type enumeration {
-      enum "100GBASE-LR4" {
-        value 1;
-      }
-      enum "CWDM-4" {
-        value 2;
-      }
-    }
-    description
-      "Pluggable modue types.";
-  }  
 }

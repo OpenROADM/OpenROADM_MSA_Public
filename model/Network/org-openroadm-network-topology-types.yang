@@ -13,7 +13,7 @@ module org-openroadm-network-topology-types {
   }
   import org-openroadm-switching-pool-types {
     prefix org-openroadm-switching-pool-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -22,7 +22,7 @@ module org-openroadm-network-topology-types {
     "www.OpenROADM.org.";
   description
     "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
        
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
@@ -47,6 +47,10 @@ module org-openroadm-network-topology-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2017-12-15 {
     description
       "Version 2.2";

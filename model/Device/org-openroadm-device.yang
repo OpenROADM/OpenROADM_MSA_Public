@@ -16,71 +16,71 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-05-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
-    revision-date 2018-03-30;
+    revision-date 2018-11-30;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2018-09-28;
+    revision-date 2018-11-30;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
   import org-openroadm-switching-pool-types {
     prefix org-openroadm-switching-pool-types;
-    revision-date 2017-12-15;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -91,7 +91,7 @@ module org-openroadm-device {
     "YANG definitions of ROADM device
      
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
-     AT&T Intellectual Property.  All other rights reserved.
+     All other rights reserved.
      
      Redistribution and use in source and binary forms, with or without modification, 
      are permitted provided that the following conditions are met:
@@ -130,6 +130,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2018-11-30 {
+    description
+      "Version 4.1.0";
+  }
   revision 2018-09-28 {
     description
       "Version 4.0.0";
@@ -165,6 +169,23 @@ module org-openroadm-device {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  identity connection-direction-identity {
+    description
+      "Bidrectional capable, or Bi and Unidirectional capable";
+  }
+
+  identity connection-direction_bi {
+    base connection-direction-identity;
+    description
+      "Bidrectional capable";
+  }
+
+  identity connection-direction_bi_and_uni {
+    base connection-direction-identity;
+    description
+      "Bi and Unidirectional capable";
   }
 
   typedef interface-ref {
@@ -362,13 +383,15 @@ module org-openroadm-device {
         }
         enum "empty-prov-match" {
           value 2;
+          status deprecated;
           description
-            "Slot is empty and expected type is provisioned";
+            "(Deprecated) Slot is empty and expected type is provisioned";
         }
         enum "empty-prov-mismatch" {
           value 3;
+          status deprecated;
           description
-            "Slot is empty and an unsupported type is provisioned";
+            "(Deprecated) Slot is empty and an unsupported type is provisioned";
         }
         enum "installed-not-prov" {
           value 4;
@@ -385,6 +408,11 @@ module org-openroadm-device {
           description
             "Slot is occupied with mismatched provisioned type";
         }
+        enum "empty-prov" {
+          value 7;
+          description
+            "Slot is empty and provisioned";
+        }
       }
     }
   }
@@ -397,13 +425,13 @@ module org-openroadm-device {
   }
 
   grouping user-description-grp {
+    description
+      "user description group";
     leaf user-description {
       type string;
       description
         "user provided description";
     }
-    description
-      "user description group";
   }
 
   grouping shelf {
@@ -519,6 +547,11 @@ module org-openroadm-device {
           description
             "Feature description.";
         }
+        leaf boot {
+          type boolean;
+          description
+            "Flag to indicate boot loader or unprotected firmware update required";
+        }
         leaf activated {
           type boolean;
           description
@@ -535,6 +568,11 @@ module org-openroadm-device {
           type string;
           description
             "Name of a component on the circuit-pack that can have a load applied to it.";
+        }
+        leaf boot {
+          type boolean;
+          description
+            "Flag to indicate boot loader or unprotected firmware update required";
         }
         leaf current-version {
           type string;
@@ -775,6 +813,8 @@ module org-openroadm-device {
   }
 
   grouping mc-capabilities-grp {
+    description
+      "Media channel capabilities grouping";
     leaf-list mc-capabilities {
       type leafref {
         path "/org-openroadm-device/mc-capability-profile/profile-name";
@@ -783,8 +823,6 @@ module org-openroadm-device {
       description
         "Media channel capabilities";
     }
-    description
-      "Media channel capabilities grouping";
   }
 
   grouping degree {
@@ -1243,6 +1281,8 @@ module org-openroadm-device {
   }
 
   grouping interface-name {
+    description
+      "interface name grouping";
     leaf interface-name {
       type leafref {
         path "/org-openroadm-device/interface/name";
@@ -1251,8 +1291,6 @@ module org-openroadm-device {
       description
         "Name of an interface. Unique within the context of a device.";
     }
-    description
-      "interface name grouping";
   }
 
   grouping interfaces-grp {
@@ -1682,6 +1720,15 @@ module org-openroadm-device {
         }
         leaf switching-pool-type {
           type org-openroadm-switching-pool-types:switching-pool-types;
+          description
+            "Blocking/Non-Blocking";
+        }
+        leaf odu-connection-direction-capabilities {
+          type identityref {
+            base connection-direction-identity;
+          }
+          description
+            "Bidrectional capable, or Bi and Unidirectional capable";
         }
         list non-blocking-list {
           key "nbl-number";
@@ -1748,6 +1795,8 @@ module org-openroadm-device {
       list mc-capability-profile {
         key "profile-name";
         config false;
+        description
+          "Media channel capability profile list";
         leaf profile-name {
           type string;
           description
@@ -1793,8 +1842,6 @@ module org-openroadm-device {
           description
             "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
         }
-        description
-          "Media channel capability profile list";
       }
     }
   }
