@@ -4,7 +4,7 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -12,7 +12,7 @@ module org-openroadm-port-capability {
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -66,6 +66,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -137,6 +141,8 @@ module org-openroadm-port-capability {
   }
 
   grouping otn-capability-grp {
+    description
+      "OTN capability group";
     leaf-list if-protection-capability {
       type identityref {
         base org-openroadm-prot-otn-linear-aps:otn-protection-type;
@@ -171,13 +177,15 @@ module org-openroadm-port-capability {
       description
         "OPU payload-type mapping OPU.";
     }
-    description
-      "OTN capability group";
   }
 
   grouping odu-mux-hierarchy-grp {
+    description
+      "ODU mux hierarchy group";
     list mux-capability {
       key "stage-number ho-odu-type ho-odu-payload-type";
+      description
+        "low order ODU TCM direction capability";
       leaf stage-number {
         type uint8 {
           range "1 .. 2";
@@ -226,11 +234,7 @@ module org-openroadm-port-capability {
         description
           "Supported tcm direction capability for low order ODU associated with the port.";
       }
-      description
-        "low order ODU TCM direction capability";
     }
-    description
-      "ODU mux hierarchy group";
   }
 
   grouping port-capability-grp {
@@ -253,23 +257,21 @@ module org-openroadm-port-capability {
           type uint16;
         }
         container otn-capability {
+          description
+            "OTN capability";
           uses otn-capability-grp;
           container mpdr-client-restriction {
             description
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
                and the relation with mapped client ports.";
             leaf network-ho-odu-circuit-pack-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
-              }
+              type string;
               mandatory true;
               description
                 "Circuit-Pack identifier. Unique within the context of a device.";
             }
             leaf network-ho-odu-port-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../network-ho-odu-circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name";
-              }
+              type string;
               mandatory true;
               description
                 "port identifier.";
@@ -307,12 +309,10 @@ module org-openroadm-port-capability {
           }
           container odu-mux-hierarchy {
             presence "HO ODU supported hierarchy.";
-            uses odu-mux-hierarchy-grp;
             description
               "ODU mux hierarchy";
+            uses odu-mux-hierarchy-grp;
           }
-          description
-            "OTN capability";
         }
       }
     }
@@ -356,9 +356,7 @@ module org-openroadm-port-capability {
             key "circuit-pack-name slot-name port-name";
             uses slot-id-grp;
             leaf port-name {
-              type leafref {
-                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
-              }
+              type string;
             }
             leaf-list port-if-type {
               type identityref {
@@ -367,7 +365,7 @@ module org-openroadm-port-capability {
             }
             leaf-list port-module-type {
               type org-openroadm-port-types:port-module-types;
-            }			
+            }
           }
         }
       }
@@ -375,13 +373,13 @@ module org-openroadm-port-capability {
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports" {
-    uses port-capability-grp;
     description
       "augment for port capability";
+    uses port-capability-grp;
   }
   augment "/org-openroadm-device:org-openroadm-device" {
-    uses port-group-restriction-grp;
     description
       "augment for port group restriction";
+    uses port-group-restriction-grp;
   }
 }

@@ -35,6 +35,10 @@ module org-openroadm-common-state-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
@@ -65,6 +69,12 @@ module org-openroadm-common-state-types {
       }
       enum "draft" {
         value 8;
+      }
+      enum "deploy-failed" {
+        value 9;
+      }
+      enum "undeploy-failed" {
+        value 10;
       }
     }
     description

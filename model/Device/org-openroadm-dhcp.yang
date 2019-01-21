@@ -4,12 +4,13 @@ module org-openroadm-dhcp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import ietf-inet-types {
     prefix ietf-inet-types;
     revision-date 2013-07-15;
   }
+
   organization
     "Open ROADM MSA";
   contact
@@ -44,6 +45,10 @@ module org-openroadm-dhcp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -61,19 +66,19 @@ module org-openroadm-dhcp {
           "DHCP server group configuration that DHCP relays to";
         leaf server-group-name {
           type string;
-          description 
+          description
             "Name of the server-group";
         }
         leaf-list interface-name {
           type leafref {
             path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
           }
-          description 
+          description
             "Name of the interface";
         }
         leaf-list server-address {
           type ietf-inet-types:ipv4-address;
-          description 
+          description
             "List of IPv4 server addresses";
         }
       }
@@ -85,19 +90,19 @@ module org-openroadm-dhcp {
           "DHCP server group configuration that DHCP relays to";
         leaf server-group-name {
           type string;
-          description 
+          description
             "Name of the server-group";
         }
         leaf-list interface-name {
           type leafref {
             path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
           }
-          description 
+          description
             "Name of the interface";
         }
         leaf-list server-address {
           type ietf-inet-types:ipv6-address;
-          description 
+          description
             "List of IPv6 server addresses";
         }
       }

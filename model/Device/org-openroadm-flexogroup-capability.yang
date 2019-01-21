@@ -4,7 +4,7 @@ module org-openroadm-flexogroup-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -16,7 +16,7 @@ module org-openroadm-flexogroup-capability {
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
 
   organization
@@ -66,6 +66,10 @@ module org-openroadm-flexogroup-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -73,14 +77,12 @@ module org-openroadm-flexogroup-capability {
   revision 2018-05-30 {
     description
       "Version 3.1.0";
-    reference
-      "V3.1.0";
+    reference "V3.1.0";
   }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
-    reference
-      "V3.0.0";
+    reference "V3.0.0";
   }
 
   identity flexo-modulation-format-identity {

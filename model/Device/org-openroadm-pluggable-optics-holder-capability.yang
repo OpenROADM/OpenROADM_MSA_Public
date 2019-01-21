@@ -4,11 +4,11 @@ module org-openroadm-pluggable-optics-holder-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-pluggable-optics-holder-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -89,9 +93,7 @@ module org-openroadm-pluggable-optics-holder-capability {
           description
             "Port reference on supported pluggable circuit-pack";
           leaf port-name {
-            type leafref {
-              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
-            }
+            type string;
             description
               "Port name";
           }
