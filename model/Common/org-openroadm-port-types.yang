@@ -196,6 +196,19 @@ module org-openroadm-port-types {
       "Port types.";
   }
 
+  typedef port-module-types {
+    type enumeration {
+      enum "100GBASE-LR4" {
+        value 1;
+      }
+      enum "CWDM-4" {
+        value 2;
+      }
+    }
+    description
+      "Pluggable modue types.";
+  }
+
   grouping common-port {
     leaf port-power-capability-min-rx {
       type org-openroadm-common-link-types:power-dBm;
@@ -230,17 +243,4 @@ module org-openroadm-port-types {
   grouping roadm-port {
     uses common-port;
   }
-  
-  typedef port-module-types {
-    type enumeration {
-      enum "100GBASE-LR4" {
-        value 1;
-      }
-      enum "CWDM-4" {
-        value 2;
-      }
-    }
-    description
-      "Pluggable modue types.";
-  }  
 }

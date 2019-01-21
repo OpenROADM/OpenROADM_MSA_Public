@@ -154,7 +154,7 @@ module: org-openroadm-network-topology
                    |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
                    |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
                    |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-common-state-types:state
+                   |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
                    +--:(span)
                       +--rw span
                          +--rw clfi?                   string
@@ -167,7 +167,7 @@ module: org-openroadm-network-topology
                          |  +--rw fiber-type?    enumeration
                          |  +--rw SRLG-length?   uint32
                          |  +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
-                         +--rw administrative-state?   org-openroadm-common-state-types:state
+                         +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
 module: org-openroadm-network
   augment /nd:network/nd:node:
     x--rw node-type?                   nt:openroadm-node-type
@@ -250,7 +250,7 @@ module: org-openroadm-otn-network-topology
     x--rw link-type?              org-openroadm-network-types:openroadm-link-type
     x--rw administrative-group?   uint32
     x--rw operational-state?      org-openroadm-common-state-types:state
-    x--rw administrative-state?   org-openroadm-common-state-types:state
+    x--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
     +--rw available-bandwidth?    uint32
     +--rw used-bandwidth?         uint32
     +--rw ODU-protected?          boolean

@@ -117,7 +117,7 @@ module: org-openroadm-service
     |     |  +--rw otn-TE-metric?       uint8
     |     +--rw connection-type              connection-type
     |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-    |     +--rw administrative-state?        org-openroadm-common-state-types:state
+    |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
     |     +--ro operational-state?           org-openroadm-common-state-types:state
     |     +--rw condition?                   service-condition
     |     +--rw service-a-end
@@ -619,7 +619,7 @@ module: org-openroadm-service
     |     |  +--rw otn-TE-metric?       uint8
     |     +--rw connection-type              connection-type
     |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-    |     +--rw administrative-state?        org-openroadm-common-state-types:state
+    |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
     |     +--ro operational-state?           org-openroadm-common-state-types:state
     |     +--rw condition?                   service-condition
     |     +--rw service-a-end
@@ -1120,7 +1120,7 @@ module: org-openroadm-service
           |  +--rw otn-TE-metric?       uint8
           +--rw connection-type              connection-type
           +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-          +--rw administrative-state?        org-openroadm-common-state-types:state
+          +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
           +--ro operational-state?           org-openroadm-common-state-types:state
           +--rw condition?                   service-condition
           +--rw service-a-end
@@ -3841,7 +3841,7 @@ module: org-openroadm-service
        |  +--ro otn-TE-metric?       uint8
        +--ro connection-type              connection-type
        +--ro lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
-       +--ro administrative-state?        org-openroadm-common-state-types:state
+       +--ro administrative-state?        org-openroadm-equipment-states-types:admin-states
        +--ro operational-state?           org-openroadm-common-state-types:state
        +--ro condition?                   service-condition
        +--ro service-a-end

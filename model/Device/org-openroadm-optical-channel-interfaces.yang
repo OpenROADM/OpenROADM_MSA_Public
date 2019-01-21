@@ -4,7 +4,7 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -78,6 +78,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -153,11 +157,11 @@ module org-openroadm-optical-channel-interfaces {
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:opticalChannel'";
+    description
+      "augment for optical channel container";
     uses och-container;
     uses org-openroadm-optical-tributary-signal-interfaces:otsi-container;
     uses org-openroadm-flexo-interfaces:flexo-container;
     uses org-openroadm-flexogroup-interfaces:flexo-group-container;
-    description
-      "augment for optical channel container";
   }
 }

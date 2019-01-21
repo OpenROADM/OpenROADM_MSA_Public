@@ -24,7 +24,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -38,6 +38,10 @@ module org-openroadm-common-service-types {
     prefix org-openroadm-otn-common-types;
     revision-date 2018-03-30;
   }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+    revision-date 2017-12-15;
+  }
 
   organization
     "Open ROADM MSA";
@@ -45,13 +49,13 @@ module org-openroadm-common-service-types {
     "OpenROADM.org";
   description
     "YANG definitions of common service types.
-
+     
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       AT&T Intellectual Property.  All other rights reserved.
-
+     
       Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-
+     
       * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright notice,
@@ -60,7 +64,7 @@ module org-openroadm-common-service-types {
       * Neither the Members of the Open ROADM MSA Agreement nor the names of its
         contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-
+     
       THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
       AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
       WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -72,6 +76,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -99,6 +107,44 @@ module org-openroadm-common-service-types {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  identity service-resiliency-type-identity {
+    description
+      "A unique resiliency type identification of the service.";
+  }
+
+  identity unprotected {
+    base service-resiliency-type-identity;
+    description
+      "the service is not protected in the OpenROADM layer";
+  }
+
+  identity unprotected-diversely-routed {
+    base service-resiliency-type-identity;
+    description
+      "the service is not protected in the OpenROADM layer, but may be protected in a higher layer
+          a coupled service that may be routed partially or fully disjointly is defined";
+  }
+
+  identity protected {
+    base service-resiliency-type-identity;
+    description
+      "the service is protected in the OpenROADM layer : the protection is handled
+       autonomously in this layer";
+  }
+
+  identity restorable {
+    base service-resiliency-type-identity;
+    description
+      "the service can be restored autonomously in the OpenROADM layer";
+  }
+
+  identity external-trigger-restorable {
+    base service-resiliency-type-identity;
+    description
+      "the service can be restored in the OpenROADM layer, but the restoration is triggered
+       at a higher layer through service models' rpc";
   }
 
   typedef rpc-actions {
@@ -276,39 +322,6 @@ module org-openroadm-common-service-types {
         value 5;
       }
     }
-  }
-
-  identity service-resiliency-type-identity {
-	    description
-	      "A unique resiliency type identification of the service.";
-  }
-  identity unprotected {
-	    base service-resiliency-type-identity;
-	    description
-	      "the service is not protected in the OpenROADM layer";
-  }
-  identity unprotected-diversely-routed {
-	    base service-resiliency-type-identity;
-	    description
-		  "the service is not protected in the OpenROADM layer, but may be protected in a higher layer
-	       a coupled service that may be routed partially or fully disjointly is defined";
-  }
-  identity protected {
-	    base service-resiliency-type-identity;
-	    description
-	      "the service is protected in the OpenROADM layer : the protection is handled
-		   autonomously in this layer";
-  }
-  identity restorable {
-	    base service-resiliency-type-identity;
-	    description
-	      "the service can be restored autonomously in the OpenROADM layer";
-  }
-  identity external-trigger-restorable {
-	    base service-resiliency-type-identity;
-	    description
-	      "the service can be restored in the OpenROADM layer, but the restoration is triggered
-  		  at a higher layer through service models' rpc";
   }
 
   grouping configuration-response-common {
@@ -618,274 +631,274 @@ module org-openroadm-common-service-types {
          or the otn-topology layer depending upon service-layer (wdm or otn).";
     }
     leaf bandwidth-calendaring {
-        type boolean;
-        description
-          "True if service is active only during a specific time period";
+      type boolean;
+      description
+        "True if service is active only during a specific time period";
     }
     container bw-calendaring-parameters {
-		  when "../bandwidth-calendaring = 'true'" {
-	            description
-	            	"Includes all attributes associated with bandwidth calendaring option.
-				     Used to set service profile : each service corresponds to one specific
-				     time-period. Services defined on complementary time periods can be linked
-				     together through the coupled-service attribute ";
-	         }
-	    	 list bw-calendaring-coupled-services {
-	    		 key "service-index";
-	    	      leaf service-index {
-	    	    	  type uint16;
-	    	          description
-	    	    	  "service-number of the service that may be associated to the considered service";
-	    	      }
-	    	      leaf service-name {
-	    	    	  type string;
-	    	          description
-	    	    	  "service-name of the service that may be associated to the considered service in service-list";
-	    	      }
-	    	      leaf common-id {
-	    	    	  type string;
-	    	          description
-	    	    	  "common-id of the service that may be associated to the considered service in temp-service-list";
-	    	      }
-	    	      leaf version-number {
-	    	          type uint64;
-	    	          description
-		    	      "common-id of the service that may be associated to the considered service in versioned-service-list";
-	    	      }
-	    	 }
-	    	 list recurrence-pattern {
-	    	      key "recurrence-id";
-	    	      leaf recurrence-id {
-	    	    	  type uint32;
-	    	          description
-		    	      "id of the pattern defining the time during which the service is active ";
-	    	      }
-	    	      leaf-list day-of-the-week {
-	    	    	    type enumeration {
-	    	    	        enum "Monday" {
-	    	    	          value 1;
-	    	    	        }
-	    	    	        enum "Tuesday" {
-	    	    	          value 2;
-	    	    	        }
-	    	    	        enum "Wednesday" {
-	    	    	          value 3;
-	    	    	        }
-	    	    	        enum "Thursday" {
-	    	    	          value 4;
-	    	    	        }
-	    	    	        enum "Friday" {
-	    	    	          value 5;
-	    	    	        }
-	    	    	        enum "Saturday" {
-	    	    	          value 6;
-	    	    	        }
-	    	    	        enum "Sunday" {
-	    	    	          value 7;
-	    	    	        }
-	    	    	    }
-	    	          description
-	    	    	  "Each day for which the service is active from stat-time to end-time";
-	    	      }
-	    	      leaf start-time {
-		    	      type string {
-		    	        pattern '\d{2}:\d{2}:\d{2}';
-		    	      }
-		    	      description
-		    	        "start time expressed as hour:min:seconds";
-		    	  }
-		    	  leaf end-time {
-		    	      type string {
-		    	    	pattern '\d{2}:\d{2}:\d{2}';
-		    	      }
-		    	      description
-		    	    	"end time expressed as hour:min:seconds";
-		    	  }
-	    	 }
+      when "../bandwidth-calendaring = 'true'" {
+        description
+          "Includes all attributes associated with bandwidth calendaring option.
+           Used to set service profile : each service corresponds to one specific
+           time-period. Services defined on complementary time periods can be linked
+           together through the coupled-service attribute ";
+      }
+      list bw-calendaring-coupled-services {
+        key "service-index";
+        leaf service-index {
+          type uint16;
+          description
+            "service-number of the service that may be associated to the considered service";
+        }
+        leaf service-name {
+          type string;
+          description
+            "service-name of the service that may be associated to the considered service in service-list";
+        }
+        leaf common-id {
+          type string;
+          description
+            "common-id of the service that may be associated to the considered service in temp-service-list";
+        }
+        leaf version-number {
+          type uint64;
+          description
+            "common-id of the service that may be associated to the considered service in versioned-service-list";
+        }
+      }
+      list recurrence-pattern {
+        key "recurrence-id";
+        leaf recurrence-id {
+          type uint32;
+          description
+            "id of the pattern defining the time during which the service is active ";
+        }
+        leaf-list day-of-the-week {
+          type enumeration {
+            enum "Monday" {
+              value 1;
+            }
+            enum "Tuesday" {
+              value 2;
+            }
+            enum "Wednesday" {
+              value 3;
+            }
+            enum "Thursday" {
+              value 4;
+            }
+            enum "Friday" {
+              value 5;
+            }
+            enum "Saturday" {
+              value 6;
+            }
+            enum "Sunday" {
+              value 7;
+            }
+          }
+          description
+            "Each day for which the service is active from stat-time to end-time";
+        }
+        leaf start-time {
+          type string {
+            pattern "\\d{2}:\\d{2}:\\d{2}";
+          }
+          description
+            "start time expressed as hour:min:seconds";
+        }
+        leaf end-time {
+          type string {
+            pattern "\\d{2}:\\d{2}:\\d{2}";
+          }
+          description
+            "end time expressed as hour:min:seconds";
+        }
+      }
     }
   }
 
   grouping routing-metric {
-	   container routing-metric {
-		  description
-		        "Describes the metrics used to route a service.
-			     All parameters of integer type, to set the priority of the routing criterion
-			  	 '0' means the criterion is not used,
-			     '1'coresponds to the highest priority,
-			     '255'coresponds to the lowest priority.
-			     Priority might be handled in several way : 1) To select one from several paths with the same metrics,
-			     using lower priority metrics until metrics calculated allow the selection; 2) Using priority as
-			     a weight for composite metric calculation";
-	      leaf wdm-hop-count {
-	    	    type uint8 {
-	    	    	range "0..255";
-	    	    }
-	    	    default "1";
-	    	    description
-	    	     "Metric corresponding to the number of hop in the wdm layer";
-    	   }
-	      leaf otn-hop-count {
-	    	    type uint8 {
-	    	    	range "0..255";
-	    	    }
-	    	    default "0";
-	    	    description
-	    	     "Metric corresponding to the number of hop in the otn layer";
-		   }
-	      leaf wdm-load {
-	    	    type uint8 {
-	    	    	range "0..255";
-	    	    }
-	    	    default "0";
-	    	    description
-	    	     "Metric corresponding to the load of the wdm layer
-	    	      Can be used to avoid using heavy loaded links ";
-	    	   }
-	      leaf otn-load {
-	    	    type uint8 {
-	    	    	range "0..255";
-	    	    }
-	    	    default "0";
-	    	    description
-	    	     "Metric corresponding to the load of the otn layer.
-		    	  Can be used to avoid using heavy loaded links/switchs ";
-		   }
-    	   leaf latency {
-	    		type uint8 {
-	       	    	range "0..255";
-	       	    }
-	       	    default "0";
-	       	    description
-	       	     "Metric corresponding to the latency. Total path latency can be calculated from
-	       	      SRLG length of the OMS and the latency introduced by the equipment";
-	       }
-    	   leaf distance {
-	    		type uint8 {
-	       	    	range "0..255";
-	       	    }
-	       	    default "0";
-	       	    description
-	       	     "Metric associated with the distance. Total path distance can be
-	       	      calculated from SRLG length of the OMS";
-	       }
-    	   leaf wdm-TE-metric {
-	    		type uint8 {
-	       	    	range "0..255";
-	       	    }
-	       	    default "0";
-	       	    description
-		       	     "Used when routing shall be performed according to specific pre-defined
-	       	    	  TE-Metric. Total path metric can be calculated from OMS TE-metric attribute
-	       	    	  defined in org-openroadm-link module";
-	       }
-    	   leaf adaptation-number {
-	    		type uint8 {
-	       	    	range "0..255";
-	       	    }
-	       	    default "0";
-	       	    description
-	       	     "Metric associated with the adaptation between layers. Total path metric can
-	       	      can be calculated from the total number of transition between layers";
-	       }
-    	   leaf otn-TE-metric {
-	    		type uint8 {
-	       	    	range "0..255";
-	       	    }
-	       	    default "0";
-	       	    description
-	       	     "Used when routing shall be performed according to specific pre-defined
-	       	      metric associated with OTN (OTU/ODU level)";
-	       }
-	    }
-   }
+    container routing-metric {
+      description
+        "Describes the metrics used to route a service.
+         All parameters of integer type, to set the priority of the routing criterion
+         '0' means the criterion is not used,
+         '1'coresponds to the highest priority,
+         '255'coresponds to the lowest priority.
+         Priority might be handled in several way : 1) To select one from several paths with the same metrics,
+         using lower priority metrics until metrics calculated allow the selection; 2) Using priority as
+         a weight for composite metric calculation";
+      leaf wdm-hop-count {
+        type uint8 {
+          range "0..255";
+        }
+        default "1";
+        description
+          "Metric corresponding to the number of hop in the wdm layer";
+      }
+      leaf otn-hop-count {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric corresponding to the number of hop in the otn layer";
+      }
+      leaf wdm-load {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric corresponding to the load of the wdm layer
+           Can be used to avoid using heavy loaded links ";
+      }
+      leaf otn-load {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric corresponding to the load of the otn layer.
+           Can be used to avoid using heavy loaded links/switchs ";
+      }
+      leaf latency {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric corresponding to the latency. Total path latency can be calculated from
+           SRLG length of the OMS and the latency introduced by the equipment";
+      }
+      leaf distance {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric associated with the distance. Total path distance can be
+           calculated from SRLG length of the OMS";
+      }
+      leaf wdm-TE-metric {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Used when routing shall be performed according to specific pre-defined
+           TE-Metric. Total path metric can be calculated from OMS TE-metric attribute
+           defined in org-openroadm-link module";
+      }
+      leaf adaptation-number {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Metric associated with the adaptation between layers. Total path metric can
+           can be calculated from the total number of transition between layers";
+      }
+      leaf otn-TE-metric {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Used when routing shall be performed according to specific pre-defined
+           metric associated with OTN (OTU/ODU level)";
+      }
+    }
+  }
 
   grouping service-resiliency {
-	    container service-resiliency {
-		    leaf resiliency {
-		      type identityref{
-		    	  base service-resiliency-type-identity;
-		      }
-		      description
-		        "describes the type of resiliency and the associated layer ";
-		    }
-		    leaf revertive {
-		    	when "../resiliency != 'unprotected' and ../resiliency != 'unprotected-diversely-routed'" {
-		            description
-		              "revertive not applicable when service is neither protected nor restorable";
-		          }
-			      type boolean;
-			      description
-			        "defines if the service shall revert to the initial working path
-			    	 after protection or restoration has been triggered and fault condition
-			    	 has disappeared";
-			}
-		    leaf wait-to-restore {
-		    	when "../revertive = 'true'" {
-		            description
-		              "wait-to-restore applies for service defined as revertive ";
-		          }
-			      type uint64;
-			      units "ms";
-			      description
-			        "time delay to revert to initial path after conditions for reversion are satisfied";
-			}
-		    leaf holdoff-time {
-		    	when "../resiliency != 'unprotected' and ../resiliency != 'unprotected-diversely-routed'" {
-		            description
-		              "holdoff-time applies when services are either protected or restorable";
-		          }
-			      type uint64;
-			      units "ms";
-			      description
-			        "time delay to initiate a protection or restoration event";
-			}
-		    leaf pre-calculated-backup-path-number {
-		    	when "../resiliency = 'restorable' or ../resiliency = 'external-trigger-restorable'" {
-		            description
-		              "when service is restorable, defines the
-		               number of paths that shall be or have been pre-calculated";
-		          }
-			      type uint8;
-			      description
-				      "Associated to service-create / reconfigure / feasibility-check rpcs
-				    	 --> defines the target number of backup-paths to be calculated by PCE. This is an
-				    	 optional parameter : operator can provide it to conform with specific engineering rules.
-				    	 If not provided, PCE will evaluate the number of backup path to be provided automously.
-				       Associated with service --> gives the effective number of backup-paths
-				    	 returned/calculated by PCE that can be find in topology container";
-			}
-		    container coupled-service {
-		    	when "../resiliency = 'unprotected-diversely-routed'" {
-		            description
-		            	"for unprotected-diversely-routed services only one path is defined.
-				    	 Allows providing a link between services that are coupled
-				    	 through a routing disjonction criterion";
-		         }
-		    	 list coupled-services {
-		    	      key "service-index";
-		    	      leaf service-index {
-		    	    	  type uint16;
-		    	          description
-		    	    	  "service-number of the service that may be routed disjointly to the considered service";
-		    	      }
-		    	      leaf service-name {
-		    	    	  type string;
-		    	          description
-		    	    	  "service-name of the service that may be routed disjointly to the considered service in service-list";
-		    	      }
-		    	      leaf common-id {
-		    	    	  type string;
-		    	          description
-		    	    	  "common-id of the service that may be routed disjointly to the considered service in temp-service-list";
-		    	      }
-		    	      leaf version-number {
-		    	          type uint64;
-		    	          description
-			    	      "common-id of the service that may be routed disjointly to the considered service in versioned-service-list";
-		    	      }
-		    	 }
-		    }
-	    }
+    container service-resiliency {
+      leaf resiliency {
+        type identityref {
+          base service-resiliency-type-identity;
+        }
+        description
+          "describes the type of resiliency and the associated layer ";
+      }
+      leaf revertive {
+        when "../resiliency != 'unprotected' and ../resiliency != 'unprotected-diversely-routed'" {
+          description
+            "revertive not applicable when service is neither protected nor restorable";
+        }
+        type boolean;
+        description
+          "defines if the service shall revert to the initial working path
+           after protection or restoration has been triggered and fault condition
+           has disappeared";
+      }
+      leaf wait-to-restore {
+        when "../revertive = 'true'" {
+          description
+            "wait-to-restore applies for service defined as revertive ";
+        }
+        type uint64;
+        units "ms";
+        description
+          "time delay to revert to initial path after conditions for reversion are satisfied";
+      }
+      leaf holdoff-time {
+        when "../resiliency != 'unprotected' and ../resiliency != 'unprotected-diversely-routed'" {
+          description
+            "holdoff-time applies when services are either protected or restorable";
+        }
+        type uint64;
+        units "ms";
+        description
+          "time delay to initiate a protection or restoration event";
+      }
+      leaf pre-calculated-backup-path-number {
+        when "../resiliency = 'restorable' or ../resiliency = 'external-trigger-restorable'" {
+          description
+            "when service is restorable, defines the
+             number of paths that shall be or have been pre-calculated";
+        }
+        type uint8;
+        description
+          "Associated to service-create / reconfigure / feasibility-check rpcs
+           --> defines the target number of backup-paths to be calculated by PCE. This is an
+           optional parameter : operator can provide it to conform with specific engineering rules.
+           If not provided, PCE will evaluate the number of backup path to be provided automously.
+           Associated with service --> gives the effective number of backup-paths
+           returned/calculated by PCE that can be find in topology container";
+      }
+      container coupled-service {
+        when "../resiliency = 'unprotected-diversely-routed'" {
+          description
+            "for unprotected-diversely-routed services only one path is defined.
+             Allows providing a link between services that are coupled
+             through a routing disjonction criterion";
+        }
+        list coupled-services {
+          key "service-index";
+          leaf service-index {
+            type uint16;
+            description
+              "service-number of the service that may be routed disjointly to the considered service";
+          }
+          leaf service-name {
+            type string;
+            description
+              "service-name of the service that may be routed disjointly to the considered service in service-list";
+          }
+          leaf common-id {
+            type string;
+            description
+              "common-id of the service that may be routed disjointly to the considered service in temp-service-list";
+          }
+          leaf version-number {
+            type uint64;
+            description
+              "common-id of the service that may be routed disjointly to the considered service in versioned-service-list";
+          }
+        }
+      }
+    }
   }
 
   grouping service {
@@ -917,7 +930,7 @@ module org-openroadm-common-service-types {
         "Lifecycle State of service. Whether it is planned, deployed, in maintenance, etc.";
     }
     leaf administrative-state {
-      type org-openroadm-common-state-types:state;
+      type org-openroadm-equipment-states-types:admin-states;
       description
         "Administrative State: Intended state of service";
     }
@@ -961,58 +974,58 @@ module org-openroadm-common-service-types {
          connection-type = infrastructure service, for example.";
     }
     leaf current-active-path-id {
-	      type uint8;
-	      description
-	        "defines the current active path : '0' if active path is the working path
-	    	 id of the active backup path if protection or restoration has been triggered";
-	}
+      type uint8;
+      description
+        "defines the current active path : '0' if active path is the working path
+         id of the active backup path if protection or restoration has been triggered";
+    }
     container topology {
-    	description
-	  	   "topology corresponds to working-path which is the default path. It defines the initial path
-  	    	to which services defined as revertive may revert to when the failure condition disappear";
-    	   uses org-openroadm-topology:topology;
+      description
+        "topology corresponds to working-path which is the default path. It defines the initial path
+         to which services defined as revertive may revert to when the failure condition disappear";
+      uses org-openroadm-topology:topology;
     }
     container backup-topology {
-  	    list backup-path {
-	  	   key "backup-path-id";
-	  	   leaf backup-path-id {
-	  	      type uint8 {
-	  	      range "1..255";
-	  	      }
-	  	      description
-	  	        "Several backup paths may be used when backup-paths are pre-calculated.
-	  	    	 Backup-path-id avoids 0 which is associated with working path in current-active-path";
-	  	   }
-	  	   leaf failure-case-id {
-	  	      type string ;
-	  	      description
-	  	      "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
-	  	    }
-	  	      uses org-openroadm-topology:topology;
-	  	 }
-  	}
+      list backup-path {
+        key "backup-path-id";
+        leaf backup-path-id {
+          type uint8 {
+            range "1..255";
+          }
+          description
+            "Several backup paths may be used when backup-paths are pre-calculated.
+             Backup-path-id avoids 0 which is associated with working path in current-active-path";
+        }
+        leaf failure-case-id {
+          type string;
+          description
+            "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
+        }
+        uses org-openroadm-topology:topology;
+      }
+    }
     container network-topology {
       uses org-openroadm-topology:network-topology;
     }
     container network-backup-topology {
-  	    list backup-path {
-	  	   key "backup-path-id";
-	  	   leaf backup-path-id {
-	  	      type uint8 {
-	  	      range "1..255";
-	  	      }
-	  	      description
-	  	        "Several backup paths may be used when backup-paths are pre-calculated.
-	  	    	 Backup-path-id avoids 0 which is associated with working path in current-active-path";
-	  	   }
-	  	   leaf failure-case-id {
-	  	      type string ;
-	  	      description
-	  	      "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
-	  	    }
-	  	    uses org-openroadm-topology:network-topology;
-	  	 }
-  	}
+      list backup-path {
+        key "backup-path-id";
+        leaf backup-path-id {
+          type uint8 {
+            range "1..255";
+          }
+          description
+            "Several backup paths may be used when backup-paths are pre-calculated.
+             Backup-path-id avoids 0 which is associated with working path in current-active-path";
+        }
+        leaf failure-case-id {
+          type string;
+          description
+            "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
+        }
+        uses org-openroadm-topology:network-topology;
+      }
+    }
     leaf is-bandwidth-locked {
       type boolean;
       default "false";

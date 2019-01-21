@@ -12,7 +12,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,11 +20,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-ber-test {
     prefix org-openroadm-ber-test;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
 
   organization
@@ -33,13 +33,13 @@ module org-openroadm-service {
     "OpenROADM.org";
   description
     "YANG definitions of services.
-
+     
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       AT&T Intellectual Property.  All other rights reserved.
-
+     
       Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-
+     
       * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright notice,
@@ -48,7 +48,7 @@ module org-openroadm-service {
       * Neither the Members of the Open ROADM MSA Agreement nor the names of its
         contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-
+     
       THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
       AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
       WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -60,6 +60,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -248,7 +252,7 @@ module org-openroadm-service {
       "Whether a service was possible to be created, and if so
        the routing constraints match and the a and z end connection that have
        to match
-
+       
        Takes a list of potential services and determines if they are possible in the network
        using equipment that is installed on the network, formally planned or proposed for planning.
        All services are treated collectively to ensure that a given resource is not used more than once.
@@ -394,11 +398,11 @@ module org-openroadm-service {
   }
   rpc service-roll {
     description
-    	  "This rpc can be use to roll a service according to 2 possible options :
-    	     A new path may (no path pre-calculation) or may not be calculated according
-    	     to the parameters provided (which includes metrics). If path computation has been triggered
-    	     and is successful, a new path is provided, and the service can be rolled according to that path.";
-	input {
+      "This rpc can be use to roll a service according to 2 possible options :
+         A new path may (no path pre-calculation) or may not be calculated according
+         to the parameters provided (which includes metrics). If path computation has been triggered
+         and is successful, a new path is provided, and the service can be rolled according to that path.";
+    input {
       leaf service-name {
         type string;
         mandatory true;
@@ -463,13 +467,13 @@ module org-openroadm-service {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
        service-rpc-result Notification shall be sent.
-    	This rpc can be use to reroute a service according to 2 possible options :
-        	_Option1 : neither the backup-path-id nor the failure-case-id are provided, a new path shall be
-    	      calculated according to the parameters provided (which includes metrics). If path computation
-    	      is successful, a new path is provided, and the service is rerouted according to that path.
-        	_Option2 : if a backup-path-id or a failure-case-id are provided, the service shall
-    	      be rerouted according to the corresponding path. If path computation is triggered and successful,
-    	      a new path is provided, and the service is rerouted according to that path.";
+       This rpc can be use to reroute a service according to 2 possible options :
+        \t_Option1 : neither the backup-path-id nor the failure-case-id are provided, a new path shall be
+           calculated according to the parameters provided (which includes metrics). If path computation
+           is successful, a new path is provided, and the service is rerouted according to that path.
+        \t_Option2 : if a backup-path-id or a failure-case-id are provided, the service shall
+           be rerouted according to the corresponding path. If path computation is triggered and successful,
+           a new path is provided, and the service is rerouted according to that path.";
     input {
       leaf service-name {
         type string;
@@ -498,18 +502,18 @@ module org-openroadm-service {
         mandatory true;
       }
       leaf backup-path-id {
-	    type uint8 {
-	    	range "1..255";
-	    }
-	    description
-	        "When present, states that the service shall be rerouted according to a specific backup path";
-	  }
-	  leaf failure-case-id {
-	    type string ;
-	    description
-	    	"When present, states that the service shall be rerouted according to a specific backup path.
-	    	This last corresponds to the provided failure case id";
-	  }
+        type uint8 {
+          range "1..255";
+        }
+        description
+          "When present, states that the service shall be rerouted according to a specific backup path";
+      }
+      leaf failure-case-id {
+        type string;
+        description
+          "When present, states that the service shall be rerouted according to a specific backup path.
+           This last corresponds to the provided failure case id";
+      }
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {

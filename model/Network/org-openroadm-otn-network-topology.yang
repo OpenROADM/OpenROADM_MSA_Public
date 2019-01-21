@@ -20,15 +20,19 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
+  }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+    revision-date 2017-12-15;
   }
 
   organization
@@ -64,6 +68,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";
@@ -216,7 +224,7 @@ module org-openroadm-otn-network-topology {
       status deprecated;
     }
     leaf administrative-state {
-      type org-openroadm-common-state-types:state;
+      type org-openroadm-equipment-states-types:admin-states;
       status deprecated;
     }
     leaf available-bandwidth {

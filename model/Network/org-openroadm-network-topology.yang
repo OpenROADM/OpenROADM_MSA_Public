@@ -24,23 +24,23 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2018-05-30;
+    revision-date 2019-01-11;
   }
 
   organization
@@ -76,6 +76,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-05-30 {
     description
       "Version 3.1.0";

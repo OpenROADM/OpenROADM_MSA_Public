@@ -126,11 +126,13 @@ module org-openroadm-interfaces {
     description
       "Optical Transport Multiplex type for openROADM";
   }
+
   identity ppp {
     base interface-type;
     description
       "PPP for IP GNE.";
   }
+
   identity gcc {
     base interface-type;
     description

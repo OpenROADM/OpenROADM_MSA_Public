@@ -4,7 +4,7 @@ module org-openroadm-physical-types {
 
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-03-30;
+    revision-date 2019-01-11;
   }
   import ietf-yang-types {
     prefix yang;
@@ -44,6 +44,10 @@ module org-openroadm-physical-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-01-11 {
+    description
+      "Version 3.1.1";
+  }
   revision 2018-03-30 {
     description
       "Version 3.0.0";
