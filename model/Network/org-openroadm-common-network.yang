@@ -13,7 +13,7 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -55,6 +55,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -140,11 +144,13 @@ module org-openroadm-common-network {
       type decimal64 {
         fraction-digits 2;
       }
+      units "km";
     }
     leaf link-latency {
       type uint32;
       description
         "Latency of a link";
+      units "ms";
     }
     leaf TE-metric {
       type uint32;

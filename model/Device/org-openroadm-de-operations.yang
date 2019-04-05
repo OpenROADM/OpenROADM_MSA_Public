@@ -4,11 +4,11 @@ module org-openroadm-de-operations {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-de-operations {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";

@@ -35,9 +35,9 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2018-11-30 {
+  revision 2019-03-29 {
     description
-      "Version 4.1.0";
+      "Version 5.0.0";
   }
   revision 2018-11-30 {
     description
@@ -184,6 +184,11 @@ module org-openroadm-common-types {
         value 10;
         description
           "value for 3.1.1";
+      }
+      enum "5.0" {
+        value 11;
+        description
+          "value for 5.0";
       }
     }
     description

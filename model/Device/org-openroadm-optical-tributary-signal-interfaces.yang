@@ -8,7 +8,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-optical-operational-interfaces {
+    prefix org-openroadm-optical-operational-interfaces;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -58,6 +66,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -74,7 +86,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   grouping otsi-attributes {
     description
       "OTSi attributes group";
+    leaf provision-mode {
+      type org-openroadm-common-optical-channel-types:provision-mode-type;
+      default "explicit";
+      description
+        "The provision-mode specified by the controller. Default to 'explicit' (ie, the set of optical parameter specified in MSA Optical Spec).
+         The 'profile' provision-mode is introduced in MSA 5.0 to support the bookended xponder application";
+    }
     leaf otsi-rate {
+      when "../provision-mode = 'explicit'";
       type identityref {
         base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
       }
@@ -87,12 +107,14 @@ module org-openroadm-optical-tributary-signal-interfaces {
         "Center Frequency in THz.";
     }
     leaf width {
+      when "../provision-mode = 'explicit'";
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       config false;
       description
         "Frequency width in GHz.";
     }
     leaf modulation-format {
+      when "../provision-mode = 'explicit'";
       type org-openroadm-common-optical-channel-types:modulation-format;
       description
         "Modulation format";
@@ -103,11 +125,31 @@ module org-openroadm-optical-tributary-signal-interfaces {
         "The target transmit power for this channel. When set, the xponder will work to ensure that port-current-power reaches this level. Applicable only to channel on top of xpdr-network port";
     }
     leaf fec {
+      when "../provision-mode = 'explicit'";
       type identityref {
         base org-openroadm-common-optical-channel-types:fec-identity;
       }
       description
         "FEC for OTSi";
+    }
+    leaf operational-mode {
+      when "../provision-mode = 'profile'";
+      type string;
+      description
+        "In the case controller would set up the bookended xponder, controller could specify one of the supported operational modes published by the NE device.";
+    }
+    container operational-mode-params {
+      when "../provision-mode = 'profile'";
+      uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
+      description
+        "The container containing the optical parameters for the specified operational mode";
+    }
+    leaf supported-group-if {
+       type leafref {
+         path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+       }
+      description
+        "OTSiG or FlexO-group interface name.";
     }
   }
 

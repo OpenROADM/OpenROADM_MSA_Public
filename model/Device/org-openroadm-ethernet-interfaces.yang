@@ -1,10 +1,11 @@
 module org-openroadm-ethernet-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/ethernet-interfaces";
   prefix org-openroadm-eth-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,6 +13,14 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-maintenance-testsignal {
+    prefix org-openroadm-maint-testsignal;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-maintenance-loopback {
+    prefix org-openroadm-maint-loopback;
     revision-date 2018-11-30;
   }
 
@@ -62,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -177,6 +190,8 @@ module org-openroadm-ethernet-interfaces {
       description
         "Ethernet Interfaces";
       uses eth-attributes;
+      uses org-openroadm-maint-testsignal:maint-testsignal;
+      uses org-openroadm-maint-loopback:maint-loopback;
     }
   }
 

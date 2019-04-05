@@ -9,7 +9,7 @@ module org-openroadm-degree {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -46,6 +46,10 @@ module org-openroadm-degree {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -105,14 +109,6 @@ module org-openroadm-degree {
       description
         "maximum # of wavelengths";
     }
-    list available-wavelengths {
-      key "index";
-      description
-        "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid 
-         index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this 
-         will hold list of available spectra";
-      uses org-openroadm-network-types:wavelengths;
-    }
     leaf ingress-span-loss-aging-margin {
       type org-openroadm-common-link-types:ratio-dB;
       config true;
@@ -124,6 +120,12 @@ module org-openroadm-degree {
       config true;
       description
         "End Of Life Total input power at maximum load extracted from corresponding device OTS interface container";
+    }
+    leaf egress-average-channel-power {
+      type org-openroadm-common-link-types:power-dBm;
+      config true;
+      description
+        "Based upon the total max power across the 4.8 THz passband.";
     }
   }
 }

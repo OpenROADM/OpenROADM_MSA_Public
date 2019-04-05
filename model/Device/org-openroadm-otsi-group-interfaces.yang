@@ -1,11 +1,6 @@
-module org-openroadm-flexogroup-interfaces {
-  namespace "http://org/openroadm/flexogroup-interfaces";
-  prefix org-openroadm-flexogroup-interfaces;
-
-  import org-openroadm-common-optical-channel-types {
-    prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-03-29;
-  }
+module org-openroadm-otsi-group-interfaces {
+  namespace "http://org/openroadm/otsi-group-interfaces";
+  prefix org-openroadm-otsi-group-interfaces;
 
   organization
     "Open ROADM MSA";
@@ -13,13 +8,13 @@ module org-openroadm-flexogroup-interfaces {
     "OpenROADM.org";
   description
     "YANG definitions for device flexible optical transport network group interfaces.
-     
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2018,
      All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -28,7 +23,7 @@ module org-openroadm-flexogroup-interfaces {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -39,13 +34,13 @@ module org-openroadm-flexogroup-interfaces {
      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -58,46 +53,20 @@ module org-openroadm-flexogroup-interfaces {
     description
       "Version 5.0.0";
   }
-  revision 2018-11-30 {
-    description
-      "Version 4.1.0";
-  }
-  revision 2018-05-30 {
-    description
-      "Version 3.1.0";
-  }
-  revision 2018-03-30 {
-    description
-      "Version 3.0.0";
-  }
 
-  grouping flexo-group-attributes {
+  grouping otsi-group-container {
     description
-      "FlexO group attributes group";
-    leaf flexo-group-rate {
-      type identityref {
-        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
+      "OTSI group container group";
+    container otsi-group {
+      description
+        "OTSI group container";
+      leaf otsi-group-rate {
+        type decimal64 {
+          fraction-digits 3;
+        }
+        description
+          "supported rate by the OTSI group";
       }
-      description
-        "FlexO group rate";
-    }
-    leaf group-id {
-      type uint32 {
-        range "0..1048576";
-      }
-      description
-        "group id";
-    }
-  }
-
-  grouping flexo-group-container {
-    description
-      "FlexO group container group";
-    container flexo-group {
-      description
-        "Flexible Optical Transport Network group (G.709.3 FlexO-LR &
-         G.709.1 FlexO-SR) container";
-      uses flexo-group-attributes;
     }
   }
 }

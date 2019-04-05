@@ -8,11 +8,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,11 +20,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2018-11-30;
-  }
-  import org-openroadm-ber-test {
-    prefix org-openroadm-ber-test;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -60,6 +56,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -210,7 +210,18 @@ module org-openroadm-service {
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
-      uses org-openroadm-ber-test:service-identifiers-container;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+  rpc service-create-complex-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-and-supporting-services;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
@@ -221,7 +232,18 @@ module org-openroadm-service {
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
-      uses org-openroadm-ber-test:service-identifiers-container;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+  rpc service-delete-complex-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-and-supporting-services;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;

@@ -9,11 +9,11 @@ module org-openroadm-network-types {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -47,6 +47,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -222,9 +226,45 @@ module org-openroadm-network-types {
     }
   }
 
+  grouping available-freq-map {
+    list avail-freq-maps {
+      key "map-name";
+      leaf map-name {
+        type string;
+        description
+          "Identifier of the map. For C-band, recommend map-name = 'cband'";
+      }
+      leaf start-edge-freq {
+        type org-openroadm-common-optical-channel-types:frequency-THz;
+        description
+          "Starting edge frequency (min frequency) for the frequency map. For C-band, the recommendation is start-edge-freq = 191.325 THz";
+      }
+      leaf freq-map-granularity {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        description
+          "frequency granularity of each bit in the bitmap.  For C-band, the recommendation is freq-map-granularity = 6.25 GHz";
+      }
+      leaf effective-bits {
+        type uint16;
+        description
+          "Number of effective bits in the frequency bitmap.  Note the freq-map bitmap will be padded with 0 for byte alignment.";
+      }
+      leaf freq-map {
+        type binary; 
+        description
+          "Frequency bitmap.  Setting the value of the binary bit to 1 indicates that the corresponding spectrum is available and
+           setting to 0 indicates the corresponding spectrum is unavailable (used or unsupported).";
+      }
+      description
+        "Available spectrum information";
+    }
+  }
+
   grouping wavelengths {
     leaf index {
-      type uint32;
+      type int32;
+      description
+        "Index should be related to the frequency based on the formula 193.1 + index * .00625 THz";
     }
     uses flex-wave;
   }
@@ -241,6 +281,17 @@ module org-openroadm-network-types {
       config true;
       description
         "Frequency width in GHz.";
+    }
+  }
+
+  grouping type-variety-grp {
+    leaf type-variety {
+      type string;
+      config true;
+      description
+        "Equipment type variety defined by the Open ROADM MSA or by the vendor for bookending applications.
+         This field is used by external path computation tools as a reference in a catalog to get additional
+         information about the equipment’s optical capabilities.";
     }
   }
 

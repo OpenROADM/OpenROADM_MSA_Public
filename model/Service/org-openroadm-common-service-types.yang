@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -80,6 +80,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -328,6 +332,71 @@ module org-openroadm-common-service-types {
       }
       enum "activated-for-troubleshooting-failure" {
         value 5;
+      }
+    }
+  }
+
+  grouping service-and-supporting-services {
+    description
+        "Service identifiers and supporting services details";
+    uses service-identifiers-container;
+    uses supporting-services-identifiers-and-ends;
+  }
+
+  grouping supporting-services-identifiers-and-ends {
+    container supporting-services {
+      list supporting-service-details {
+        key "index";
+        leaf index {
+          type uint16;
+          description
+            "Service number of the supporting service";
+        }
+        uses service-identifiers-container;
+        uses service-ends-container;
+      }
+    }
+  }
+
+  grouping service-ends-container {
+    container service-a-end {
+      uses service-endpoint-summary;
+    }
+    container service-z-end {
+      uses service-endpoint-summary;
+    }
+  }
+
+  grouping service-endpoint-summary {
+    description
+        "Brief form of service-endpoint";
+    container service-endpoint-details {
+      leaf clli {
+        type string;
+        mandatory true;
+        description
+          "CLLI. Note this CLLI must match the site associated with the device-id of this endpoint";
+      }
+      uses org-openroadm-resource-types:device-id;
+      container tx-direction {
+        uses service-port;
+      }
+      container rx-direction {
+        uses service-port;
+      }
+    }
+  }
+
+  grouping service-identifiers-container {
+    container service-identifiers {
+      leaf service-name {
+        type string;
+      }
+      leaf common-id {
+        type string;
+      }
+      leaf version-number {
+        type uint64;
       }
     }
   }
