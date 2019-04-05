@@ -2319,7 +2319,7 @@ module: org-openroadm-service
     |  |  |  +---w version-number?   uint64
     |  |  +---w supporting-services
     |  |     +---w supporting-service-details* [index]
-    |  |        +---w index          uint16
+    |  |        +---w index                  uint16
     |  |        +---w service-identifiers
     |  |        |  +---w service-name?     string
     |  |        |  +---w common-id?        string
@@ -2407,8 +2407,8 @@ module: org-openroadm-service
     |  |  |  +---w common-id?        string
     |  |  |  +---w version-number?   uint64
     |  |  +---w supporting-services
-    |  |     +---w supporting-service-details* [service-index]
-    |  |        +---w service-index          uint16
+    |  |     +---w supporting-service-details* [index]
+    |  |        +---w index                  uint16
     |  |        +---w service-identifiers
     |  |        |  +---w service-name?     string
     |  |        |  +---w common-id?        string
