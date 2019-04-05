@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -115,6 +119,36 @@ module org-openroadm-routing-constraints {
             units "ms";
           }
         }
+	container hop-count {
+          description
+            "Maximum hops allowed";
+          leaf max-wdm-hop-count {
+            type uint8;
+          }
+	  leaf max-otn-hop-count {
+            type uint8;
+          }
+        }
+	container TE-metric {
+          description
+            "Maximum cost allowed";
+          leaf max-wdm-TE-metric {
+            type uint32;
+          }
+          leaf max-otn-TE-metric {
+            type uint32;
+          }
+     	}
+	container distance {
+          description
+            "Maximum distance allowed";
+          leaf max-distance {
+      	     type decimal64 {
+               fraction-digits 2;
+      	     }
+	     units "km";
+          }
+        }
       }
       case co-routing {
         container co-routing {
@@ -131,6 +165,11 @@ module org-openroadm-routing-constraints {
   grouping common-constraints {
     leaf-list fiber-bundle {
       type string;
+    }
+    leaf-list srlg-id {
+      type uint32;
+      description
+        "unique identifier for SRLG";
     }
     leaf-list site {
       type string;

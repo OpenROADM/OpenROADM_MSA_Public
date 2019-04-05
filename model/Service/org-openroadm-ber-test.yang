@@ -4,7 +4,7 @@ module org-openroadm-ber-test {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-ber-test {
     prefix org-openroadm-common-ber-test;
@@ -48,6 +48,10 @@ module org-openroadm-ber-test {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -74,20 +78,6 @@ module org-openroadm-ber-test {
     base service-rpc-identity;
     description
       "Identity for the ber-test rpc";
-  }
-
-  grouping service-identifiers-container {
-    container service-identifiers {
-      leaf service-name {
-        type string;
-      }
-      leaf common-id {
-        type string;
-      }
-      leaf version-number {
-        type uint64;
-      }
-    }
   }
 
   grouping ber-measurement {
@@ -142,7 +132,7 @@ module org-openroadm-ber-test {
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
-      uses service-identifiers-container;
+      uses org-openroadm-common-service-types:service-identifiers-container;
       leaf rpc-timestamp {
         type yang:date-and-time;
         units "seconds";
@@ -165,7 +155,7 @@ module org-openroadm-ber-test {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     uses org-openroadm-common-service-types:configuration-response-common;
-    uses service-identifiers-container;
+    uses org-openroadm-common-service-types:service-identifiers-container;
     leaf rpc-timestamp {
       type yang:date-and-time;
       units "seconds";

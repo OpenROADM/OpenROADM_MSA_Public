@@ -1,0 +1,93 @@
+module org-openroadm-gnmi {
+  yang-version 1.1;
+  namespace "http://org/openroadm/gnmi";
+  prefix org-openroadm-gnmi;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-security {
+    prefix org-openroadm-security;
+    revision-date 2019-03-29;
+  }
+  import ietf-inet-types {
+    prefix inet;
+    revision-date 2013-07-15;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for gnmi protocol.
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2019-03-29 {
+    description
+      "Initial revision.";
+  }
+
+  grouping gnmi_container {
+    container gnmi {
+      description
+        "gRPC Network Management Interface related configurations";
+      leaf enabled {
+        type boolean;
+        must "(current()='true' and ../certificate-id) or current()='false'" {
+          error-message "certificate-id should be configured to enable gNMI.";
+        }
+        default "false";
+        description
+          "Enable/Disable gNMI.";
+      }
+      leaf certificate-id {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-security:security/org-openroadm-security:certificate/org-openroadm-security:certificate-id";
+        }
+        description
+          "ID of the certificate from security table";
+      }
+      leaf port {
+        type inet:port-number;
+        default 6030;
+        description
+          "gNMI port to listen on";
+      }
+    }
+    description
+      "Grouping for setting of GNMI attributes ";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
+    uses gnmi_container;
+    description
+      "Creation of GNMI container under device protols ";
+  }
+}

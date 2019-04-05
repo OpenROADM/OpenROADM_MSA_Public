@@ -1,9 +1,17 @@
-module org-openroadm-flexogroup-interfaces {
-  namespace "http://org/openroadm/flexogroup-interfaces";
-  prefix org-openroadm-flexogroup-interfaces;
+module org-openroadm-otsigroup-capability {
+  namespace "http://org/openroadm/otsigroup-capability";
+  prefix org-openroadm-otsigroup-capability;
 
-  import org-openroadm-common-optical-channel-types {
-    prefix org-openroadm-common-optical-channel-types;
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-port-capability {
+    prefix org-openroadm-port-capability;
     revision-date 2019-03-29;
   }
 
@@ -12,14 +20,14 @@ module org-openroadm-flexogroup-interfaces {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for device flexible optical transport network group interfaces.
-     
+    "YANG definitions for Otsigroup capabilities.
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2018,
      All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -28,7 +36,7 @@ module org-openroadm-flexogroup-interfaces {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -39,14 +47,14 @@ module org-openroadm-flexogroup-interfaces {
      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
-     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+
+     Copyright (c) 2018 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
-     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
      describe your rights and restrictions with respect to this document. Code Components
@@ -58,46 +66,52 @@ module org-openroadm-flexogroup-interfaces {
     description
       "Version 5.0.0";
   }
-  revision 2018-11-30 {
+
+  grouping otsigroup-capability-grp {
     description
-      "Version 4.1.0";
-  }
-  revision 2018-05-30 {
-    description
-      "Version 3.1.0";
-  }
-  revision 2018-03-30 {
-    description
-      "Version 3.0.0";
+      "Otsigroup group capability";
+    container otsigroup-capabilities {
+      config false;
+      description
+        "Otsi group capabilities";
+      list otsigroup-capability-group {
+        key "otsigroup-capability-id";
+        description
+          "Otsigroup capability";
+        leaf otsigroup-capability-id {
+          type uint16;
+          description
+            "Otsigroup capability group id";
+        }
+        leaf if-cap-type {
+          type identityref {
+            base org-openroadm-port-types:if-OTUCn-ODUCn;
+          }
+          description
+            "Interface type/hierarchy/rate supported on this Otsi port. For example, if-n-otu4-n-odu4 and if-otucn-oducn";
+        }
+        leaf supported-n-otu4 {
+          type uint16;
+          description
+            "The supported number of OTU4 by the OTSi group.";
+        }
+        container otn-capability {
+          description
+            "OTN capability";
+          uses org-openroadm-port-capability:otn-capability-grp;
+        }
+        container ho-odu-mux-hierarchy {
+          description
+            "High order ODU mux hierarchy ";
+          uses org-openroadm-port-capability:odu-mux-hierarchy-grp;
+        }
+      }
+    }
   }
 
-  grouping flexo-group-attributes {
+  augment "/org-openroadm-device:org-openroadm-device" {
     description
-      "FlexO group attributes group";
-    leaf flexo-group-rate {
-      type identityref {
-        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
-      }
-      description
-        "FlexO group rate";
-    }
-    leaf group-id {
-      type uint32 {
-        range "0..1048576";
-      }
-      description
-        "group id";
-    }
-  }
-
-  grouping flexo-group-container {
-    description
-      "FlexO group container group";
-    container flexo-group {
-      description
-        "Flexible Optical Transport Network group (G.709.3 FlexO-LR &
-         G.709.1 FlexO-SR) container";
-      uses flexo-group-attributes;
-    }
+      "augment for Otsi group capability";
+    uses otsigroup-capability-grp;
   }
 }

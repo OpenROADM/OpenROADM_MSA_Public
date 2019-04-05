@@ -5,7 +5,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,7 +13,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -71,6 +71,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -127,12 +131,6 @@ module org-openroadm-otn-odu-interfaces {
       type uint16;
       description
         "Tributary Port Number (0-based), part of the MSI";
-    }
-    leaf trib-port-payload {
-      type string;
-      status deprecated;
-      description
-        "interface name being mapped to trib-port";
     }
   }
 
@@ -282,7 +280,7 @@ module org-openroadm-otn-odu-interfaces {
     uses org-openroadm-otn-common:deg-threshold;
     list tcm {
       key "layer tcm-direction";
-      max-elements "6";
+      max-elements "12";
       description
         "Tandem Connection Management";
       uses tcm-attributes;
@@ -354,12 +352,6 @@ module org-openroadm-otn-odu-interfaces {
         type org-openroadm-otn-common-types:payload-type-def;
         description
           "Expected Payload Type";
-      }
-      leaf payload-interface {
-        type string;
-        status deprecated;
-        description
-          "Expected Payload of OPU. It designates client interface name";
       }
       container msi {
         when "../payload-type = '20' or ../payload-type = '21'";

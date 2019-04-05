@@ -4,7 +4,7 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -70,6 +70,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -117,6 +121,13 @@ module org-openroadm-otn-otu-interfaces {
       description
         "rate identity of the OTU. 'identityref' is used
          to allow to extend for future higher rates";
+    }
+    leaf otu4-member-id {
+      when "../rate = org-openroadm-otn-common-types:OTU4";
+      type uint16;
+      description
+        "To uniquely identify each member of an OTSi group and the order of each member in the group.
+         Similar to FlexO PHY-ID in the FlexO Group (PID in G.709.1/3)";
     }
     leaf otucn-n-rate {
       type uint16;

@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -450,6 +454,186 @@ module org-openroadm-pm-types {
         value 83;
         description
           "Discarded packet as a result of policing or rate limiting for subrate ethernet.";
+      }
+      enum "erroredSecondsTCM1-up" {
+        value 84;
+        description
+          "errored Seconds Count on TCM1 up direction.";
+      }
+      enum "erroredSecondsTCM2-up" {
+        value 85;
+        description
+          "errored Seconds Count on TCM2 up direction.";
+      }
+      enum "erroredSecondsTCM3-up" {
+        value 86;
+        description
+          "errored Seconds Count on TCM3 up direction.";
+      }
+      enum "erroredSecondsTCM4-up" {
+        value 87;
+        description
+          "errored Seconds Count on TCM4 up direction.";
+      }
+      enum "erroredSecondsTCM5-up" {
+        value 88;
+        description
+          "errored Seconds Count on TCM5 up direction.";
+      }
+      enum "erroredSecondsTCM6-up" {
+        value 89;
+        description
+          "errored Seconds Count on TCM6 up direction.";
+      }
+      enum "severelyErroredSecondsTCM1-up" {
+        value 90;
+        description
+          "severely Errored Seconds Count on TCM1 up direction.";
+      }
+      enum "severelyErroredSecondsTCM2-up" {
+        value 91;
+        description
+          "severely Errored Seconds Count on TCM2 up direction.";
+      }
+      enum "severelyErroredSecondsTCM3-up" {
+        value 92;
+        description
+          "severely Errored Seconds Count on TCM3 up direction.";
+      }
+      enum "severelyErroredSecondsTCM4-up" {
+        value 93;
+        description
+          "severely Errored Seconds Count on TCM4 up direction.";
+      }
+      enum "severelyErroredSecondsTCM5-up" {
+        value 94;
+        description
+          "severely Errored Seconds Count on TCM5 up direction.";
+      }
+      enum "severelyErroredSecondsTCM6-up" {
+        value 95;
+        description
+          "severely Errored Seconds Count on TCM6 up direction.";
+      }
+      enum "unavailableSecondsTCM1-up" {
+        value 96;
+        description
+          "unavailable Seconds Count on TCM1 up direction.";
+      }
+      enum "unavailableSecondsTCM2-up" {
+        value 97;
+        description
+          "unavailable Seconds Count on TCM2 up direction.";
+      }
+      enum "unavailableSecondsTCM3-up" {
+        value 98;
+        description
+          "unavailable Seconds Count on TCM3 up direction.";
+      }
+      enum "unavailableSecondsTCM4-up" {
+        value 99;
+        description
+          "unavailable Seconds Count on TCM4 up direction.";
+      }
+      enum "unavailableSecondsTCM5-up" {
+        value 100;
+        description
+          "unavailable Seconds Count on TCM5 up direction.";
+      }
+      enum "unavailableSecondsTCM6-up" {
+        value 101;
+        description
+          "unavailable Seconds Count on TCM6 up direction.";
+      }
+      enum "erroredSecondsTCM1-down" {
+        value 102;
+        description
+          "errored Seconds Count on TCM1 down direction.";
+      }
+      enum "erroredSecondsTCM2-down" {
+        value 103;
+        description
+          "errored Seconds Count on TCM2 down direction.";
+      }
+      enum "erroredSecondsTCM3-down" {
+        value 104;
+        description
+          "errored Seconds Count on TCM3 down direction.";
+      }
+      enum "erroredSecondsTCM4-down" {
+        value 105;
+        description
+          "errored Seconds Count on TCM4 down direction.";
+      }
+      enum "erroredSecondsTCM5-down" {
+        value 106;
+        description
+          "errored Seconds Count on TCM5 down direction.";
+      }
+      enum "erroredSecondsTCM6-down" {
+        value 107;
+        description
+          "errored Seconds Count on TCM6 down direction.";
+      }
+      enum "severelyErroredSecondsTCM1-down" {
+        value 108;
+        description
+          "severely Errored Seconds Count on TCM1 down direction.";
+      }
+      enum "severelyErroredSecondsTCM2-down" {
+        value 109;
+        description
+          "severely Errored Seconds Count on TCM2 down direction.";
+      }
+      enum "severelyErroredSecondsTCM3-down" {
+        value 110;
+        description
+          "severely Errored Seconds Count on TCM3 down direction.";
+      }
+      enum "severelyErroredSecondsTCM4-down" {
+        value 111;
+        description
+          "severely Errored Seconds Count on TCM4 down direction.";
+      }
+      enum "severelyErroredSecondsTCM5-down" {
+        value 112;
+        description
+          "severely Errored Seconds Count on TCM5 down direction.";
+      }
+      enum "severelyErroredSecondsTCM6-down" {
+        value 113;
+        description
+          "severely Errored Seconds Count on TCM6 down direction.";
+      }
+      enum "unavailableSecondsTCM1-down" {
+        value 114;
+        description
+          "unavailable Seconds Count on TCM1 down direction.";
+      }
+      enum "unavailableSecondsTCM2-down" {
+        value 115;
+        description
+          "unavailable Seconds Count on TCM2 down direction.";
+      }
+      enum "unavailableSecondsTCM3-down" {
+        value 116;
+        description
+          "unavailable Seconds Count on TCM3 down direction.";
+      }
+      enum "unavailableSecondsTCM4-down" {
+        value 117;
+        description
+          "unavailable Seconds Count on TCM4 down direction.";
+      }
+      enum "unavailableSecondsTCM5-down" {
+        value 118;
+        description
+          "unavailable Seconds Count on TCM5 down direction.";
+      }
+      enum "unavailableSecondsTCM6-down" {
+        value 119;
+        description
+          "unavailable Seconds Count on TCM6 down direction.";
       }
     }
   }

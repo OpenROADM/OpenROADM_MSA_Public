@@ -8,7 +8,7 @@ module org-openroadm-swdl {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-swdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -105,7 +109,7 @@ module org-openroadm-swdl {
     leaf last-restored-time {
       type yang:date-and-time;
       description
-        "last restored time for the database";
+        "last restored time for the database, or the time that the database was created, whichever is later";
     }
     leaf rollback-timer {
       type string {

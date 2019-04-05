@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -130,6 +130,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -945,7 +949,7 @@ module org-openroadm-device {
     }
     leaf partner-amp {
       type leafref {
-        path "../amp-number";
+        path "/org-openroadm-device/line-amplifier/amp-number";
       }
       config false;
       description
@@ -1241,6 +1245,7 @@ module org-openroadm-device {
       description
         "Identifier of the supporting circuit-pack.";
     }
+
     leaf supporting-port {
       type leafref {
         path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name";

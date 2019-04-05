@@ -4,19 +4,23 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
     revision-date 2018-11-30;
+  }
+  import org-openroadm-optical-operational-interfaces {
+    prefix org-openroadm-optical-operational-interfaces;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -66,6 +70,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -241,6 +249,25 @@ module org-openroadm-port-capability {
     }
   }
 
+  grouping optical-operational-modes-grp-for-capability {
+    container optical-operational-modes {
+      description
+        "The xponder optical operational modes to be published by NE device.";
+      config false;
+      list operational-mode {
+        key "mode-id";
+        description
+          "The xponder optical operational mode to be published by NE device.";
+        leaf mode-id {
+          type string;
+          description
+            "The mode-id index to the xponder operational modes.";
+        }
+        uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
+      }
+    }
+  }
+
   grouping port-capability-grp {
     description
       "OpenROADM port capability parameters.";
@@ -260,6 +287,10 @@ module org-openroadm-port-capability {
         leaf-list flexogroup-capability-group-id {
           type uint16;
         }
+        leaf-list otsigroup-capability-group-id {
+          type uint16;
+        }
+        uses optical-operational-modes-grp-for-capability;
         container otn-capability {
           description
             "OTN capability";

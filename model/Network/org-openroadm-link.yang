@@ -17,7 +17,11 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2018-11-30;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-network-types {
+    prefix org-openroadm-network-types;
+    revision-date 2019-03-29;
   }
 
   organization
@@ -54,6 +58,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -81,13 +89,6 @@ module org-openroadm-link {
   revision 2017-06-17 {
     description
       "Version 2.0";
-  }
-
-  grouping OMS-attributes {
-    leaf TE-metric {
-      type uint32;
-      status deprecated;
-    }
   }
 
   grouping span-attributes {
@@ -202,6 +203,7 @@ module org-openroadm-link {
           case ila {
             container ila {
               uses org-openroadm-amplifier:amplifier-node-attributes;
+              uses org-openroadm-network-types:type-variety-grp;
               leaf node-id {
                 type org-openroadm-common-node-types:node-id-type;
                 mandatory true;

@@ -1,3 +1,4 @@
+
 module: ietf-network-topology
   augment /nw:networks/nw:network:
     +--rw link* [link-id]

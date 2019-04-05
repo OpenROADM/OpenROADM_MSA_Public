@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-03-29 {
+    description
+      "Version 5.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -282,5 +286,13 @@ module org-openroadm-common-optical-channel-types {
     }
     description
       "Modulation format";
+  }
+  typedef provision-mode-type {
+    type enumeration {
+      enum "explicit";
+      enum "profile";
+    }
+    description
+      "Provision Mode Type On Optical Channel";
   }
 }

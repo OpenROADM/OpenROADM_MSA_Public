@@ -1,0 +1,147 @@
+module org-openroadm-security {
+  yang-version 1.1;
+  namespace "http://org/openroadm/security";
+  prefix org-openroadm-security;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2019-03-29;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2019-03-29;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines the Yang model for openroadm security.
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2019-03-29 {
+    description
+      "Initial revision.";
+  }
+
+  typedef certificate-id-type {
+    type string {
+      length "3..250";
+      pattern '(([a-zA-Z]([a-zA-Z0-9_.-]*)([a-zA-Z0-9])))' {
+        error-message
+          "The certificate id must start with a letter and
+           end with a letter or digit. Interior characters are only
+           alphabets, digits, minus, underscore and dot.";
+      }
+    }
+    description
+      "The certificate id must starts with a letter and
+       end with a letter or digit. Interior characters are only
+       alphabets, digits, minus, underscore and dot.";
+  }
+
+  grouping security-container {
+    container security {
+      description
+        "Security related Configurations";
+      list certificate {
+        key "certificate-id";
+        max-elements 10;
+        description
+          "A list of certificates for this system";
+        leaf certificate-id {
+          type certificate-id-type;
+          description
+            "Certificate identifier";
+        }
+        leaf information {
+          type string;
+          config false;
+          description
+            "Information about the certificate
+             (subject line in the certificate).";
+        }
+        action install {
+          description
+            "Install certificate.";
+          input {
+            leaf filename {
+              type string;
+              description
+                "Name of the certificate file to be installed.";
+            }
+          }
+          output {
+            uses org-openroadm-common-types:rpc-response-status;
+          }
+        }
+      }
+      list ca-certificate {
+        key "ca-certificate-id";
+        max-elements 10;
+        description
+          "A list of CA certificates for this system";
+        leaf ca-certificate-id {
+          type certificate-id-type;
+          description
+            "CA certificate identifier";
+        }
+        leaf information {
+          type string;
+          config false;
+          description
+            "Information about the CA certificate
+             (subject line in the certificate).";
+        }
+        action install {
+          description
+            "Install certificate.";
+          input {
+            leaf filename {
+              type string;
+              description
+                "Name of the CA certificate file to be installed.";
+            }
+          }
+          output {
+            uses org-openroadm-common-types:rpc-response-status;
+          }
+        }
+      }
+    }
+    description
+      "Grouping for standalone security certificates";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device" {
+    uses security-container;
+    description
+      "Augment for security container under device";
+  }
+}
