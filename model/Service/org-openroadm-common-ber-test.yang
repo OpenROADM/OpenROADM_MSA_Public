@@ -65,4 +65,15 @@ module org-openroadm-common-ber-test {
       }
     }
   }
+  grouping complex-ber-test-options-container {
+    container complex-ber-options {
+      uses ber-test-options-container;
+      leaf is-complex-result{
+        type boolean;
+        default "false";
+        description
+          "True: Indicates that the results should be provided via complex-service-rpc-ber-test-async-callback. False: Indicates that the results should be provided via  service-rpc-ber-test-async-callback";
+      }
+    }
+  }
 }

@@ -5,19 +5,19 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-11-30;
+    revision-date 2019-05-31;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -140,14 +144,6 @@ module org-openroadm-ethernet-interfaces {
       description
         "Set duplex selections.";
     }
-    leaf mtu {
-      type uint32 {
-        range "1518..9000";
-      }
-      default "1522";
-      description
-        "Set Maximum Frame Size.";
-    }
     leaf auto-negotiation {
       type enumeration {
         enum "enabled" {
@@ -176,6 +172,12 @@ module org-openroadm-ethernet-interfaces {
       config false;
       description
         "duplex (HALF/FULL) corresponding to the interface";
+    }
+    leaf max-frame-size {
+      type uint32;
+      config false;
+      description
+        "Maximum Frame Size.";
     }
     container subrate-eth-sla {
       presence "Explicit assignment of subrate ethernet allocation";

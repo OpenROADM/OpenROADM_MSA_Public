@@ -4,15 +4,15 @@ module org-openroadm-otsigroup-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
 
   organization
@@ -62,6 +62,10 @@ module org-openroadm-otsigroup-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -94,6 +98,18 @@ module org-openroadm-otsigroup-capability {
           type uint16;
           description
             "The supported number of OTU4 by the OTSi group.";
+        }
+        container logical-port {
+          leaf circuit-pack-name {
+            type string;
+            description
+              "The circuit pack supporting the logical port";
+          }
+          leaf port-name {
+            type string;
+            description
+              "Upon the group creation (i.e., otsig or flexogroup), independent of one member or multiple members in the group, NE device shall inherently auto-create the logical port on one of existing circuit packs. NE shall ensure unique naming (logical port) with respect to the other ports on the associated circuit pack.";
+          }
         }
         container otn-capability {
           description

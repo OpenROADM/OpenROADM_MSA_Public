@@ -6,10 +6,6 @@ module org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-common-optical-channel-types;
     revision-date 2019-03-29;
   }
-  import org-openroadm-common-link-types {
-    prefix org-openroadm-common-link-types;
-    revision-date 2018-11-30;
-  }
 
   organization
     "Open ROADM MSA";
@@ -58,6 +54,10 @@ module org-openroadm-optical-operational-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -66,79 +66,11 @@ module org-openroadm-optical-operational-interfaces {
   grouping optical-operational-modes-grp-attr {
     description
       "optical operational modes attribute grouping";
-    leaf min-edge-freq {
-      type org-openroadm-common-optical-channel-types:frequency-THz;
-      units "THz";
-      description
-        "The supported minimum edge frequency.";
-    }
-    leaf max-edge-freq {
-      type org-openroadm-common-optical-channel-types:frequency-THz;
-      units "THz";
-      description
-        "The supported maximum edge frequency.";
-    }
-    leaf min-receive-power {
-      type org-openroadm-common-link-types:power-dBm;
-      units "dBm";
-      description
-        "The supported minimum receive power.";
-    }
-    leaf max-receive-power {
-      type org-openroadm-common-link-types:power-dBm;
-      units "dBm";
-      description
-        "The supported maximum receive power.";
-    }
-    leaf min-transmit-power {
-      type org-openroadm-common-link-types:power-dBm;
-      units "dBm";
-      description
-        "The supported minimum transmit power.";
-    }
-    leaf max-transmit-power {
-      type org-openroadm-common-link-types:power-dBm;
-      units "dBm";
-      description
-        "The supported maximum transmit power.";
-    }
-    leaf line-rate {
-      type decimal64 {
-        fraction-digits 3;
-      }
-      units "Gbps";
-      description
-        "The supported optical signal line rate.";
-    }
-    leaf baud-rate {
-      type decimal64 {
-        fraction-digits 3;
-      }
-      units "Gbaud";
-      description
-        "The supported signal baud rate.";
-    }
-    leaf modulation {
-      type string;
-      description
-        "The supported modulation format.";
-    }
-    leaf fec-type {
-      type string;
-      description
-        "The supported FEC type.";
-    }
-    leaf channel-width {
+    leaf spectral-width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       units "GHz";
       description
-        "The required minimum signal channel slot width.";
-    }
-    leaf min-received-osnr {
-      type org-openroadm-common-link-types:ratio-dB;
-      units "dB";
-      description
-        "The minimum ROSNR(required OSNR) at xponder receiver.";
+        "The required minimum signal spectral width of signal at -22 dbm.";
     }
   }
 }

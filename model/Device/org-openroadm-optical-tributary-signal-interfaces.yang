@@ -12,11 +12,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
+  }
+  import org-openroadm-interfaces {
+    prefix openROADM-if;
+    revision-date 2019-05-31;
   }
 
   organization
@@ -66,6 +70,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -100,6 +108,11 @@ module org-openroadm-optical-tributary-signal-interfaces {
       }
       description
         "OTSi rate";
+    }
+    leaf otsi-member-id {
+      type uint16;
+      description
+        "The member ID to uniquely identify each member in an OTSi group and the order of each member in the group.  For each group, system shall support non-consecutive member IDs.  User shall not set up two members with the same member ID.  Similar to FlexO PHY-ID in the FlexO Group (PID in G.709.1/3)";
     }
     leaf frequency {
       type org-openroadm-common-optical-channel-types:frequency-THz;
@@ -161,5 +174,12 @@ module org-openroadm-optical-tributary-signal-interfaces {
         "OTSi container";
       uses org-openroadm-optical-tributary-signal-interfaces:otsi-attributes;
     }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:otsi'";
+    description
+      "augment for otsi";
+    uses org-openroadm-optical-tributary-signal-interfaces:otsi-container;
   }
 }

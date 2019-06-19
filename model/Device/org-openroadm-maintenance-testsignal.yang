@@ -5,7 +5,7 @@ module org-openroadm-maintenance-testsignal {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
 
   organization
@@ -41,6 +41,10 @@ module org-openroadm-maintenance-testsignal {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -116,6 +120,7 @@ module org-openroadm-maintenance-testsignal {
               "Scrambled IDLE test-pattern per IEEE 802.3ba";
           }
         }
+        mandatory true;
         description
           "Set test signal pattern";
       }
@@ -126,37 +131,36 @@ module org-openroadm-maintenance-testsignal {
         description
           "Set test signal type (or direction).";
       }
-      leaf bitErrors {
-        when "../enabled = 'true' and ../type = 'fac'";
-        type uint32 {
-          range "0..4294967295";
-        }
+      leaf inSync {
+        type boolean;
         config false;
         description
-          "bit errors for test signal in facility direction.";
-      }
-      leaf bitErrorsTerminal {
-        when "../enabled = 'true' and ../type = 'term'";
-        type uint32 {
-          range "0..4294967295";
-        }
-        config false;
-        description
-          "bit errors for test signal in terminal direction.";
+          "sync status of the received test signal";
       }
       leaf syncSeconds {
-        when "../enabled = 'true' and ../type = 'fac'";
-        type string;
+        when "../enabled = 'true' and ../inSync = 'true'";
+        type uint32;
         config false;
+        mandatory true;
         description
-          "number of seconds the received facility test signal is in sync.";
+          "number of seconds the received test signal is in sync.";
       }
-      leaf syncSecondsTerminal {
-        when "../enabled = 'true' and ../type = 'term'";
-        type string;
+      leaf bitErrors {
+        when "../enabled = 'true'";
+        type uint32 {
+          range "0..4294967295";
+        }
         config false;
         description
-          "number of seconds the received terminal test signal is in sync.";
+          "bit errors for test signal.";
+      }
+      leaf bitErrorRate {
+        type decimal64 {
+          fraction-digits 17;
+        }
+        config false;
+        description
+          "bit error rate of the received test signal";
       }
       action clear-diagnostics {
         description

@@ -112,58 +112,78 @@ module: org-openroadm-network-topology
     |     +--rw effective-bits?         uint16
     |     +--rw freq-map?               binary
     +--rw xpdr-client-attributes
-    |  +--rw local-lgx?           string
-    |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
-    |  +--rw state?               org-openroadm-common-state-types:state
+    |  +--rw local-lgx?                       string
+    |  +--rw rate?                            identityref
+    |  +--rw modulation-format?               org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?                           org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?                           org-openroadm-common-state-types:state
     |  +--rw wavelength
     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-    |  +--rw tail-equipment?      string
-    |  +--rw tail-equipment-id?   string
-    |  +--rw tail-clfi?           string
+    |  +--rw tail-equipment?                  string
+    |  +--rw tail-equipment-id?               string
+    |  +--rw tail-clfi?                       string
+    |  +--rw supported-client-services
+    |  |  +--rw supported-client-service* [service-format]
+    |  |     +--rw service-format                   org-openroadm-service-format:service-format
+    |  |     +--rw service-rate*                    uint32
+    |  |     +--rw other-service-format-and-rate*   string
+    |  +--rw service-format?                  org-openroadm-service-format:service-format
+    |  +--rw service-rate?                    uint32
+    |  +--rw other-service-format-and-rate?   string
     +--rw xpdr-network-attributes
-    |  +--rw local-lgx?           string
-    |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
-    |  +--rw state?               org-openroadm-common-state-types:state
+    |  +--rw local-lgx?                     string
+    |  +--rw rate?                          identityref
+    |  +--rw modulation-format?             org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?                         org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?                         org-openroadm-common-state-types:state
     |  +--rw wavelength
     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-    |  +--rw tail-equipment?      string
-    |  +--rw tail-equipment-id?   string
-    |  +--rw tail-clfi?           string
-    |  +--rw operational-mode?    string
-    |  +--rw type-variety?        string
+    |  +--rw tail-equipment?                string
+    |  +--rw tail-equipment-id?             string
+    |  +--rw tail-clfi?                     string
+    |  +--rw supported-operational-modes
+    |  |  +--rw operational-mode* [mode-id]
+    |  |     +--rw mode-id           string
+    |  |     +--rw spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw operational-mode?              string
+    |  +--rw type-variety?                  string
     +--rw xpdr-port-attributes
-    |  +--rw local-lgx?           string
-    |  +--rw rate?                identityref
-    |  +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
-    |  +--rw optic?               org-openroadm-common-equipment-types:optic-types
-    |  +--rw state?               org-openroadm-common-state-types:state
+    |  +--rw local-lgx?                     string
+    |  +--rw rate?                          identityref
+    |  +--rw modulation-format?             org-openroadm-common-optical-channel-types:modulation-format
+    |  +--rw optic?                         org-openroadm-common-equipment-types:optic-types
+    |  +--rw state?                         org-openroadm-common-state-types:state
     |  +--rw wavelength
     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-    |  +--rw tail-equipment?      string
-    |  +--rw tail-equipment-id?   string
-    |  +--rw tail-clfi?           string
-    |  +--rw operational-mode?    string
-    |  +--rw type-variety?        string
+    |  +--rw tail-equipment?                string
+    |  +--rw tail-equipment-id?             string
+    |  +--rw tail-clfi?                     string
+    |  +--rw supported-operational-modes
+    |  |  +--rw operational-mode* [mode-id]
+    |  |     +--rw mode-id           string
+    |  |     +--rw spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw operational-mode?              string
+    |  +--rw type-variety?                  string
     +--rw ext-pluggable-attributes
-       +--rw rate?                identityref
-       +--rw modulation-format?   org-openroadm-common-optical-channel-types:modulation-format
-       +--rw optic?               org-openroadm-common-equipment-types:optic-types
-       +--rw state?               org-openroadm-common-state-types:state
+       +--rw rate?                          identityref
+       +--rw modulation-format?             org-openroadm-common-optical-channel-types:modulation-format
+       +--rw optic?                         org-openroadm-common-equipment-types:optic-types
+       +--rw state?                         org-openroadm-common-state-types:state
        +--rw wavelength
        |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
        |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-       +--rw tail-equipment?      string
-       +--rw tail-equipment-id?   string
-       +--rw tail-clfi?           string
-       +--rw operational-mode?    string
-       +--rw type-variety?        string
+       +--rw tail-equipment?                string
+       +--rw tail-equipment-id?             string
+       +--rw tail-clfi?                     string
+       +--rw supported-operational-modes
+       |  +--rw operational-mode* [mode-id]
+       |     +--rw mode-id           string
+       |     +--rw spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+       +--rw operational-mode?              string
+       +--rw type-variety?                  string
   augment /nd:networks/nd:network/nwt:link:
     x--rw link-length?      decimal64
     x--rw link-latency?     uint32
@@ -279,20 +299,28 @@ module: org-openroadm-otn-network-topology
     |  +--rw supported-interface-capability* [if-cap-type]
     |     +--rw if-cap-type    identityref
     +--rw xpdr-tp-port-connection-attributes
-       +--rw rate?                identityref
+       +--rw rate?                            identityref
        +--rw odtu-tpn-pool* [odtu-type]
        |  +--rw odtu-type    identityref
        |  +--rw tpn-pool*    uint16
-       +--rw ts-pool*             uint16
+       +--rw ts-pool*                         uint16
        +--rw wavelength
        |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
        |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
-       +--rw tail-equipment?      string
-       +--rw tail-equipment-id?   string
-       +--rw tail-clfi?           string
-       +--rw tp-id?               nwt:tp-id
-       +--rw network-ref?         -> /nd:networks/network/network-id
-       +--rw node-ref?            -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+       +--rw tail-equipment?                  string
+       +--rw tail-equipment-id?               string
+       +--rw tail-clfi?                       string
+       +--rw tp-id?                           nwt:tp-id
+       +--rw network-ref?                     -> /nd:networks/network/network-id
+       +--rw node-ref?                        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+       +--rw supported-client-services
+       |  +--rw supported-client-service* [service-format]
+       |     +--rw service-format                   org-openroadm-service-format:service-format
+       |     +--rw service-rate*                    uint32
+       |     +--rw other-service-format-and-rate*   string
+       +--rw service-format?                  org-openroadm-service-format:service-format
+       +--rw service-rate?                    uint32
+       +--rw other-service-format-and-rate?   string
   augment /nd:networks/nd:network/nwt:link:
     +--rw available-bandwidth?   uint32
     +--rw used-bandwidth?        uint32

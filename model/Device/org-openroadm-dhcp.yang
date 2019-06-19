@@ -4,7 +4,7 @@ module org-openroadm-dhcp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import ietf-inet-types {
     prefix ietf-inet-types;
@@ -45,6 +45,10 @@ module org-openroadm-dhcp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -118,7 +122,7 @@ module org-openroadm-dhcp {
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
-    when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:ode-type='xpdr'";
+    when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='xpdr'";
     uses dhcp-relay;
   }
 }

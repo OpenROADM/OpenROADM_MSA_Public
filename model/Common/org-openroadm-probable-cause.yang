@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -749,6 +753,31 @@ module org-openroadm-probable-cause {
       }
       enum "powerOutOfSpecificationLow" {
         value 274;
+      }
+      enum "gfpLossOfFrameDelineation" {
+        value 275;
+        description
+	  "GFP loss of frame delineation (dLFD G.806:6.2.5.2) is raised when the frame delineation process (clause 6.3.1 of [ITU-T G.7041]) is not in the 'SYNC' state";
+      }
+      enum "cmfLossOfSignal" {
+        value 276;
+        description
+          "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x01(G.7041: Table 6-4) is received";
+      }
+      enum "cmfLossOfSync" {
+        value 277;
+        description
+          "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x02(G.7041: Table 6-4) is received";
+      }
+      enum "cmfForwardDefectIndication" {
+        value 278;
+        description
+          "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x04(G.7041: Table 6-4) is received";
+      }
+      enum "cmfReverseDefectIndication" {
+        value 279;
+        description
+          "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x05(G.7041: Table 6-4) is received";
       }
     }
     description

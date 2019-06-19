@@ -50,6 +50,10 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -127,6 +131,30 @@ module org-openroadm-interfaces {
     base interface-type;
     description
       "OTN Optical channel Transport Unit.";
+  }
+
+  identity otsi {
+    base interface-type;
+    description
+      "OTSI interface.";
+  }
+
+  identity otsi-group {
+    base interface-type;
+    description
+      "OTSI Group interface.";
+  }
+
+  identity flexo {
+    base interface-type;
+    description
+      "Flexo interface.";
+  }
+
+  identity flexo-group {
+    base interface-type;
+    description
+      "Flexo Group interface.";
   }
 
   identity openROADMOpticalMultiplex {

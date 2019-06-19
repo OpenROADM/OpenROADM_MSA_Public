@@ -4,7 +4,7 @@ module org-openroadm-ber-test {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-common-ber-test {
     prefix org-openroadm-common-ber-test;
@@ -48,6 +48,10 @@ module org-openroadm-ber-test {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -111,7 +115,36 @@ module org-openroadm-ber-test {
       }
     }
   }
-
+  grouping ber-test-complex-result-details-container {
+    container ber-test-result-details {
+      list supporting-service-details {
+        key "index";
+        leaf index {
+          type uint16;
+          description
+            "Local id for list ";
+        }
+        uses org-openroadm-common-service-types:service-identifiers-container;
+        uses org-openroadm-common-service-types:service-ends-container;
+        leaf line-rate {
+          type uint64;
+          units "seconds";
+        }
+        container a-end-ber-measurement {
+          uses ber-measurement;
+        }
+        container z-end-ber-measurement {
+          uses ber-measurement;
+        }
+      }
+    }
+  }
+  grouping ber-test-complex-result-container {
+    container ber-results {
+      uses org-openroadm-common-ber-test:ber-test-options-container;
+      uses ber-test-complex-result-details-container;
+    }
+  }
   rpc ber-test {
     description
       "This is the ber-test rpc. It is supported for a service in the service-list.";
@@ -122,6 +155,21 @@ module org-openroadm-ber-test {
         mandatory true;
       }
       uses org-openroadm-common-ber-test:ber-test-options-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+rpc complex-ber-test {
+    description
+      "This is the complex-ber-test rpc. It is supported for a service in the service-list.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      leaf service-name {
+        type string;
+        mandatory true;
+      }
+      uses org-openroadm-common-ber-test:complex-ber-test-options-container;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
@@ -151,6 +199,30 @@ module org-openroadm-ber-test {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+  rpc complex-service-rpc-ber-test-async-callback {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+      leaf rpc-timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the initial rpc command that invoked the test";
+      }
+      leaf timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the callback/notification.";
+      }
+      uses ber-test-complex-result-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
   notification service-notification-ber-test {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -170,4 +242,24 @@ module org-openroadm-ber-test {
     }
     uses ber-test-result-details-container;
   }
+  notification complex-service-notification-ber-test {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    uses org-openroadm-common-service-types:configuration-response-common;
+    uses org-openroadm-common-service-types:service-identifiers-container;
+    leaf rpc-timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the initial rpc command that invoked the test";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the callback/notification.";
+    }
+    uses ber-test-complex-result-details-container;
+  }
 }
+
