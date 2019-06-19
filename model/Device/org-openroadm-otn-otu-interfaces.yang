@@ -4,11 +4,11 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-11-30;
+    revision-date 2019-05-31;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -70,6 +70,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -132,7 +136,7 @@ module org-openroadm-otn-otu-interfaces {
     leaf otucn-n-rate {
       type uint16;
       description
-        "OTUCn rate";
+        "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
     }
     leaf otucn-M-subrate {
       type uint16;

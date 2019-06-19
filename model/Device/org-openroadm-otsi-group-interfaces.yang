@@ -2,6 +2,15 @@ module org-openroadm-otsi-group-interfaces {
   namespace "http://org/openroadm/otsi-group-interfaces";
   prefix org-openroadm-otsi-group-interfaces;
 
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2019-05-31;
+  }
+  import org-openroadm-interfaces {
+    prefix openROADM-if;
+    revision-date 2019-05-31;
+  }
+
   organization
     "Open ROADM MSA";
   contact
@@ -49,6 +58,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -68,5 +81,12 @@ module org-openroadm-otsi-group-interfaces {
           "supported rate by the OTSI group";
       }
     }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
+    when "org-openroadm-device:type = 'openROADM-if:otsi-group'";
+    description
+      "augment for otsi group";
+    uses org-openroadm-otsi-group-interfaces:otsi-group-container;
   }
 }

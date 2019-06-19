@@ -4,15 +4,15 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -20,7 +20,7 @@ module org-openroadm-port-capability {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -246,6 +250,71 @@ module org-openroadm-port-capability {
         description
           "Supported tcm direction capability for low order ODU associated with the port.";
       }
+      list supported-otu-rate {
+        key "index";
+        description
+          "Supported OTU rate list";
+        leaf index {
+          type uint16;
+          description
+          "The index references to each of multiple supported rates.  Applicable to NxOTU4 and OTUCn supported by OTSiG (OTSi group).";
+        }
+        choice otu-rate {
+          case otucn {
+            leaf otucn-n-rate {
+              type uint16;
+              description
+                "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
+            }
+          }
+          case nxotu4 {
+            leaf supported-n-otu4 {
+              type uint16;
+              description
+                "Specify the number of N in the case of N x OTU4";
+            }
+          }
+          description
+            "To specify the supported rate in the case of OTUCn or NxOTU4";
+        }
+        list otsi {
+          key "circuit-pack-name port-name";
+          description
+            "Optical Tributary Signal list";
+          leaf circuit-pack-name {
+            type string;
+            description
+              "The circuit pack supporting the physical port";
+          }
+          leaf port-name {
+            type string;
+            description
+              "The physical port supporting the OTSI";
+          }
+          leaf otsi-rate {
+            type uint16;
+            units "Gbps";
+            mandatory true;
+            description
+              "Optical Tributary Signal (OTSi) rate in Gbps";
+          }
+          list operational-mode {
+            key "index";
+            description
+              "Operational mode list";
+            leaf index {
+              type uint8;
+              description
+                "The index references to the multiple supported operational modes";
+            }
+            leaf mode-id {
+              type string;
+              description
+                "Optical profile operational mode ID";
+            }
+          }
+        }
+      }
     }
   }
 
@@ -386,6 +455,12 @@ module org-openroadm-port-capability {
                 base org-openroadm-port-types:supported-if-capability;
               }
             }
+            leaf otsi-rate {
+              type uint16;
+              units "Gbps";
+              description
+                "Optical Tributary Signal (OTSi) rate in Gbps";
+            }
           }
           list slot-if-type-config {
             key "circuit-pack-name slot-name port-name";
@@ -400,6 +475,12 @@ module org-openroadm-port-capability {
             }
             leaf-list port-module-type {
               type org-openroadm-port-types:port-module-types;
+            }
+            leaf otsi-rate {
+              type uint16;
+              units "Gbps";
+              description
+                "Optical Tributary Signal (OTSi) rate in Gbps";
             }
           }
         }

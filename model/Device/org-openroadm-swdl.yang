@@ -8,7 +8,7 @@ module org-openroadm-swdl {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-swdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";

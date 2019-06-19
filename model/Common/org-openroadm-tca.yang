@@ -14,9 +14,9 @@ module org-openroadm-tca {
     prefix org-openroadm-pm-types;
     revision-date 2019-03-29;
   }
-  import org-openroadm-resource {
-    prefix org-openroadm-resource;
-    revision-date 2019-03-29;
+  import org-openroadm-resource-types {
+    prefix org-openroadm-resource-types;
+    revision-date 2018-11-30;
   }
 
   organization
@@ -25,33 +25,37 @@ module org-openroadm-tca {
     "OpenROADM.org";
   description
     "YANG definitions of Threshold Crossing Alert types.
-       
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -93,76 +97,179 @@ module org-openroadm-tca {
       "Version 1.2";
   }
 
-  grouping tca {
-    leaf id {
+  typedef threshold-enum {
+    type enumeration {
+      enum high {
+        value 1;
+        description
+          "enum value for high";
+      }
+      enum low {
+        value 2;
+        description
+          "enum value for low";
+      }
+    }
+    description
+      "typedef for threshold enum";
+  }
+
+  grouping tca-resource-grp {
+    leaf tca-resource-instance {
+      type instance-identifier;
+      mandatory true;
+      description
+        "Retrieves all TCA assciated with the resource instance";
+    }
+    leaf tca-resource-type {
+      type org-openroadm-resource-types:resource-type-enum;
+      mandatory true;
+      description
+        "The supported tca-resource type associated with the given resource instance.";
+    }
+    leaf tca-resource-type-extension {
       type string;
       mandatory true;
+      description
+        "The resource type extension when the type is not defined in the resource-type-enum.";
     }
-    container resource {
-      uses org-openroadm-resource:resource;
-    }
-    container pmParameterName {
-      uses org-openroadm-pm-types:pm-names;
-    }
-    leaf granularity {
-      type org-openroadm-pm-types:pm-granularity;
+    description
+      "group for TCA resources";
+  }
+
+  grouping current-tca-group {
+    description
+      "TCA Data with current values";
+    uses tca-resource-grp;
+    leaf enabled {
+      type boolean;
       mandatory true;
+      description
+        "Enable for the TCA entry";
     }
-    leaf location {
-      type org-openroadm-common-alarm-pm-types:location;
-      mandatory true;
-    }
-    leaf direction {
-      type org-openroadm-common-alarm-pm-types:direction;
-      mandatory true;
+    list pm-entry {
+      key "type extension location direction";
+      description
+        "List of PM entries";
+      uses current-tca-pm-val-group;
     }
   }
 
-  grouping potential-tca {
-    uses tca;
-    leaf lowThresholdValue {
-      type org-openroadm-pm-types:pm-data-type;
+  grouping current-tca-pm-val-group {
+    description
+      "Grouping for the TCA PM";
+    uses org-openroadm-pm-types:pm-names;
+    leaf location {
+      type org-openroadm-common-alarm-pm-types:location;
+      description
+        "Location PM type";
     }
-    leaf highThresholdValue {
-      type org-openroadm-pm-types:pm-data-type;
+    leaf direction {
+      type org-openroadm-common-alarm-pm-types:direction;
+      description
+        "Direction PM type";
+    }
+    list measurement {
+      key "granularity threshold-type";
+      description
+        "List for PM measurement";
+      leaf granularity {
+        type org-openroadm-pm-types:pm-granularity;
+        description
+          "Granularity for the PM entry";
+      }
+      leaf threshold-type {
+        type threshold-enum;
+        description
+          "Threshold enum type";
+      }
+      leaf enabled {
+        type boolean;
+        description
+          "Measurement enabled";
+      }
+      leaf threshold-value {
+        type org-openroadm-pm-types:pm-data-type;
+        mandatory true;
+        description
+          "Threshold value";
+      }
+      leaf threshold-default {
+        type org-openroadm-pm-types:pm-data-type;
+        config false;
+        description
+          "Threshold default value";
+      }
     }
   }
 
   notification tca-notification {
-    uses tca;
-    leaf thresholdValue {
+    description
+      "TCA notification";
+    uses tca-resource-grp;
+    leaf pm-type {
+      type org-openroadm-pm-types:pm-names-enum;
+      mandatory true;
+      description
+        "PM type";
+    }
+    leaf pm-extension {
+      type string;
+      mandatory true;
+      description
+        "PM extension";
+    }
+    leaf pm-location {
+      type org-openroadm-common-alarm-pm-types:location;
+      mandatory true;
+      description
+        "PM location";
+    }
+    leaf pm-direction {
+      type org-openroadm-common-alarm-pm-types:direction;
+      mandatory true;
+      description
+        "PM direction";
+    }
+    leaf pm-granularity {
+      type org-openroadm-pm-types:pm-granularity;
+      mandatory true;
+      description
+        "PM granularity";
+    }
+    leaf threshold-value {
       type org-openroadm-pm-types:pm-data-type;
       mandatory true;
+      description
+        "threshold value";
     }
-    leaf thresholdType {
-      type enumeration {
-        enum "high" {
-          value 1;
-        }
-        enum "low" {
-          value 2;
-        }
-      }
+    leaf threshold-type {
+      type threshold-enum;
       mandatory true;
       description
         "Threshold Crossed";
     }
-    leaf pmParameterValue {
+    leaf pm-value {
       type org-openroadm-pm-types:pm-data-type;
       mandatory true;
+      description
+        "PM Value";
     }
-    leaf raiseTime {
+    leaf raise-time {
       type yang:date-and-time;
       mandatory true;
+      description
+        "PM raise time";
     }
   }
   container potential-tca-list {
     description
-      "This is the set of threshold crossing alerts monitored on the device. Alerts are
-       enabled/disabled by adding/deleting the high/low threshold values from the list.";
-    list tca {
-      key "id";
-      uses potential-tca;
+      "List of current TCAs.";
+    list tca-entry {
+      key "tca-resource-type tca-resource-type-extension tca-resource-instance";
+      description
+        "List of current TCA entries";
+      uses current-tca-group;
     }
   }
 }

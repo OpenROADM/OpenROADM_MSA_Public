@@ -4,11 +4,11 @@ module org-openroadm-ip {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-03-29;
+    revision-date 2019-05-31;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2018-11-30;
+    revision-date 2019-05-31;
   }
   import ietf-inet-types {
     prefix inet;
@@ -43,6 +43,10 @@ module org-openroadm-ip {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2019-05-31 {
+    description
+      "Version 5.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -166,7 +170,7 @@ module org-openroadm-ip {
       }
       leaf mtu {
         type uint16 {
-          range "68..1500";
+          range "68..max";
         }
         units "octets";
         default "1500";
@@ -178,7 +182,9 @@ module org-openroadm-ip {
            depending on the interface's type.
            
            If this leaf is not configured, the operationally used MTU
-           depends on the interface's type.";
+           depends on the interface's type.
+
+           The max value supported must be at least 9000.";
         reference "RFC 791: Internet Protocol";
       }
       leaf address-src {

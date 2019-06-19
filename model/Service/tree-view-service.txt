@@ -20,7 +20,62 @@ module: org-openroadm-ber-test
     |        +--ro response-code          string
     |        +--ro response-message?      string
     |        +--ro ack-final-indicator    string
+    +---x complex-ber-test
+    |  +---w input
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w service-name           string
+    |  |  +---w complex-ber-options
+    |  |     +---w ber-options
+    |  |     |  +---w target-prefec-ber?    decimal64
+    |  |     |  +---w duration?             uint16
+    |  |     |  +---w pm-polling-timeout?   uint16
+    |  |     |  +---w retry-attempts?       uint16
+    |  |     +---w is-complex-result?   boolean
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x service-rpc-ber-test-async-callback
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |  |  +---w service-name?     string
+    |  |  |  +---w common-id?        string
+    |  |  |  +---w version-number?   uint64
+    |  |  +---w rpc-timestamp?                   yang:date-and-time
+    |  |  +---w timestamp?                       yang:date-and-time
+    |  |  +---w ber-results
+    |  |     +---w ber-options
+    |  |     |  +---w target-prefec-ber?    decimal64
+    |  |     |  +---w duration?             uint16
+    |  |     |  +---w pm-polling-timeout?   uint16
+    |  |     |  +---w retry-attempts?       uint16
+    |  |     +---w line-rate?               uint64
+    |  |     +---w a-end-ber-measurement
+    |  |     |  +---w ber-passed?            boolean
+    |  |     |  +---w target-prefec-ber?     decimal64
+    |  |     |  +---w measured-prefec-ber?   decimal64
+    |  |     +---w z-end-ber-measurement
+    |  |        +---w ber-passed?            boolean
+    |  |        +---w target-prefec-ber?     decimal64
+    |  |        +---w measured-prefec-ber?   decimal64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x complex-service-rpc-ber-test-async-callback
        +---w input
        |  +---w configuration-response-common
        |  |  +---w request-id             string
@@ -39,15 +94,70 @@ module: org-openroadm-ber-test
        |     |  +---w duration?             uint16
        |     |  +---w pm-polling-timeout?   uint16
        |     |  +---w retry-attempts?       uint16
-       |     +---w line-rate?               uint64
-       |     +---w a-end-ber-measurement
-       |     |  +---w ber-passed?            boolean
-       |     |  +---w target-prefec-ber?     decimal64
-       |     |  +---w measured-prefec-ber?   decimal64
-       |     +---w z-end-ber-measurement
-       |        +---w ber-passed?            boolean
-       |        +---w target-prefec-ber?     decimal64
-       |        +---w measured-prefec-ber?   decimal64
+       |     +---w ber-test-result-details
+       |        +---w supporting-service-details* [index]
+       |           +---w index                    uint16
+       |           +---w service-identifiers
+       |           |  +---w service-name?     string
+       |           |  +---w common-id?        string
+       |           |  +---w version-number?   uint64
+       |           +---w service-a-end
+       |           |  +---w service-endpoint-details
+       |           |     +---w clli            string
+       |           |     +---w node-id?        org-openroadm-common-node-types:node-id-type
+       |           |     +---w tx-direction
+       |           |     |  +---w port
+       |           |     |     +---w port-device-name?         string
+       |           |     |     +---w port-circuit-pack-name?   string
+       |           |     |     +---w port-type?                string
+       |           |     |     +---w port-name?                string
+       |           |     |     +---w port-rack?                string
+       |           |     |     +---w port-shelf?               string
+       |           |     |     +---w port-slot?                string
+       |           |     |     +---w port-sub-slot?            string
+       |           |     +---w rx-direction
+       |           |        +---w port
+       |           |           +---w port-device-name?         string
+       |           |           +---w port-circuit-pack-name?   string
+       |           |           +---w port-type?                string
+       |           |           +---w port-name?                string
+       |           |           +---w port-rack?                string
+       |           |           +---w port-shelf?               string
+       |           |           +---w port-slot?                string
+       |           |           +---w port-sub-slot?            string
+       |           +---w service-z-end
+       |           |  +---w service-endpoint-details
+       |           |     +---w clli            string
+       |           |     +---w node-id?        org-openroadm-common-node-types:node-id-type
+       |           |     +---w tx-direction
+       |           |     |  +---w port
+       |           |     |     +---w port-device-name?         string
+       |           |     |     +---w port-circuit-pack-name?   string
+       |           |     |     +---w port-type?                string
+       |           |     |     +---w port-name?                string
+       |           |     |     +---w port-rack?                string
+       |           |     |     +---w port-shelf?               string
+       |           |     |     +---w port-slot?                string
+       |           |     |     +---w port-sub-slot?            string
+       |           |     +---w rx-direction
+       |           |        +---w port
+       |           |           +---w port-device-name?         string
+       |           |           +---w port-circuit-pack-name?   string
+       |           |           +---w port-type?                string
+       |           |           +---w port-name?                string
+       |           |           +---w port-rack?                string
+       |           |           +---w port-shelf?               string
+       |           |           +---w port-slot?                string
+       |           |           +---w port-sub-slot?            string
+       |           +---w line-rate?               uint64
+       |           +---w a-end-ber-measurement
+       |           |  +---w ber-passed?            boolean
+       |           |  +---w target-prefec-ber?     decimal64
+       |           |  +---w measured-prefec-ber?   decimal64
+       |           +---w z-end-ber-measurement
+       |              +---w ber-passed?            boolean
+       |              +---w target-prefec-ber?     decimal64
+       |              +---w measured-prefec-ber?   decimal64
        +--ro output
           +--ro configuration-response-common
              +--ro request-id             string
@@ -57,6 +167,33 @@ module: org-openroadm-ber-test
 
   notifications:
     +---n service-notification-ber-test
+    |  +--ro configuration-response-common
+    |  |  +--ro request-id             string
+    |  |  +--ro response-code          string
+    |  |  +--ro response-message?      string
+    |  |  +--ro ack-final-indicator    string
+    |  +--ro service-identifiers
+    |  |  +--ro service-name?     string
+    |  |  +--ro common-id?        string
+    |  |  +--ro version-number?   uint64
+    |  +--ro rpc-timestamp?                   yang:date-and-time
+    |  +--ro timestamp?                       yang:date-and-time
+    |  +--ro ber-results
+    |     +--ro ber-options
+    |     |  +--ro target-prefec-ber?    decimal64
+    |     |  +--ro duration?             uint16
+    |     |  +--ro pm-polling-timeout?   uint16
+    |     |  +--ro retry-attempts?       uint16
+    |     +--ro line-rate?               uint64
+    |     +--ro a-end-ber-measurement
+    |     |  +--ro ber-passed?            boolean
+    |     |  +--ro target-prefec-ber?     decimal64
+    |     |  +--ro measured-prefec-ber?   decimal64
+    |     +--ro z-end-ber-measurement
+    |        +--ro ber-passed?            boolean
+    |        +--ro target-prefec-ber?     decimal64
+    |        +--ro measured-prefec-ber?   decimal64
+    +---n complex-service-notification-ber-test
        +--ro configuration-response-common
        |  +--ro request-id             string
        |  +--ro response-code          string
@@ -68,21 +205,70 @@ module: org-openroadm-ber-test
        |  +--ro version-number?   uint64
        +--ro rpc-timestamp?                   yang:date-and-time
        +--ro timestamp?                       yang:date-and-time
-       +--ro ber-results
-          +--ro ber-options
-          |  +--ro target-prefec-ber?    decimal64
-          |  +--ro duration?             uint16
-          |  +--ro pm-polling-timeout?   uint16
-          |  +--ro retry-attempts?       uint16
-          +--ro line-rate?               uint64
-          +--ro a-end-ber-measurement
-          |  +--ro ber-passed?            boolean
-          |  +--ro target-prefec-ber?     decimal64
-          |  +--ro measured-prefec-ber?   decimal64
-          +--ro z-end-ber-measurement
-             +--ro ber-passed?            boolean
-             +--ro target-prefec-ber?     decimal64
-             +--ro measured-prefec-ber?   decimal64
+       +--ro ber-test-result-details
+          +--ro supporting-service-details* [index]
+             +--ro index                    uint16
+             +--ro service-identifiers
+             |  +--ro service-name?     string
+             |  +--ro common-id?        string
+             |  +--ro version-number?   uint64
+             +--ro service-a-end
+             |  +--ro service-endpoint-details
+             |     +--ro clli            string
+             |     +--ro node-id?        org-openroadm-common-node-types:node-id-type
+             |     +--ro tx-direction
+             |     |  +--ro port
+             |     |     +--ro port-device-name?         string
+             |     |     +--ro port-circuit-pack-name?   string
+             |     |     +--ro port-type?                string
+             |     |     +--ro port-name?                string
+             |     |     +--ro port-rack?                string
+             |     |     +--ro port-shelf?               string
+             |     |     +--ro port-slot?                string
+             |     |     +--ro port-sub-slot?            string
+             |     +--ro rx-direction
+             |        +--ro port
+             |           +--ro port-device-name?         string
+             |           +--ro port-circuit-pack-name?   string
+             |           +--ro port-type?                string
+             |           +--ro port-name?                string
+             |           +--ro port-rack?                string
+             |           +--ro port-shelf?               string
+             |           +--ro port-slot?                string
+             |           +--ro port-sub-slot?            string
+             +--ro service-z-end
+             |  +--ro service-endpoint-details
+             |     +--ro clli            string
+             |     +--ro node-id?        org-openroadm-common-node-types:node-id-type
+             |     +--ro tx-direction
+             |     |  +--ro port
+             |     |     +--ro port-device-name?         string
+             |     |     +--ro port-circuit-pack-name?   string
+             |     |     +--ro port-type?                string
+             |     |     +--ro port-name?                string
+             |     |     +--ro port-rack?                string
+             |     |     +--ro port-shelf?               string
+             |     |     +--ro port-slot?                string
+             |     |     +--ro port-sub-slot?            string
+             |     +--ro rx-direction
+             |        +--ro port
+             |           +--ro port-device-name?         string
+             |           +--ro port-circuit-pack-name?   string
+             |           +--ro port-type?                string
+             |           +--ro port-name?                string
+             |           +--ro port-rack?                string
+             |           +--ro port-shelf?               string
+             |           +--ro port-slot?                string
+             |           +--ro port-sub-slot?            string
+             +--ro line-rate?               uint64
+             +--ro a-end-ber-measurement
+             |  +--ro ber-passed?            boolean
+             |  +--ro target-prefec-ber?     decimal64
+             |  +--ro measured-prefec-ber?   decimal64
+             +--ro z-end-ber-measurement
+                +--ro ber-passed?            boolean
+                +--ro target-prefec-ber?     decimal64
+                +--ro measured-prefec-ber?   decimal64
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]
@@ -121,14 +307,15 @@ module: org-openroadm-service
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
   |     +--rw service-a-end
-  |     |  +--rw service-format       service-format
-  |     |  +--rw service-rate?        uint32
-  |     |  +--rw otu-service-rate?    identityref
-  |     |  +--rw odu-service-rate?    identityref
-  |     |  +--rw ethernet-encoding?   ethernet-encoding-type
-  |     |  +--rw mapping-mode?        mapping-mode-type
-  |     |  +--rw clli                 string
-  |     |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+  |     |  +--rw service-format                   org-openroadm-service-format:service-format
+  |     |  +--rw service-rate?                    uint32
+  |     |  +--rw other-service-format-and-rate?   string
+  |     |  +--rw otu-service-rate?                identityref
+  |     |  +--rw odu-service-rate?                identityref
+  |     |  +--rw ethernet-encoding?               ethernet-encoding-type
+  |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw clli                             string
+  |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
@@ -175,25 +362,26 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+  |     |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
   |     |  +--rw router
   |     |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
-  |     |  +--rw user-label?          string
+  |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
   |     |     +--rw subrate-eth-sla!
   |     |        +--rw committed-info-rate     uint32
   |     |        +--rw committed-burst-size    uint16
   |     +--rw service-z-end
-  |     |  +--rw service-format       service-format
-  |     |  +--rw service-rate?        uint32
-  |     |  +--rw otu-service-rate?    identityref
-  |     |  +--rw odu-service-rate?    identityref
-  |     |  +--rw ethernet-encoding?   ethernet-encoding-type
-  |     |  +--rw mapping-mode?        mapping-mode-type
-  |     |  +--rw clli                 string
-  |     |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+  |     |  +--rw service-format                   org-openroadm-service-format:service-format
+  |     |  +--rw service-rate?                    uint32
+  |     |  +--rw other-service-format-and-rate?   string
+  |     |  +--rw otu-service-rate?                identityref
+  |     |  +--rw odu-service-rate?                identityref
+  |     |  +--rw ethernet-encoding?               ethernet-encoding-type
+  |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw clli                             string
+  |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
@@ -240,12 +428,12 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+  |     |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
   |     |  +--rw router
   |     |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
-  |     |  +--rw user-label?          string
+  |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
   |     |     +--rw subrate-eth-sla!
   |     |        +--rw committed-info-rate     uint32
@@ -735,14 +923,15 @@ module: org-openroadm-service
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
   |     +--rw service-a-end
-  |     |  +--rw service-format       service-format
-  |     |  +--rw service-rate?        uint32
-  |     |  +--rw otu-service-rate?    identityref
-  |     |  +--rw odu-service-rate?    identityref
-  |     |  +--rw ethernet-encoding?   ethernet-encoding-type
-  |     |  +--rw mapping-mode?        mapping-mode-type
-  |     |  +--rw clli                 string
-  |     |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+  |     |  +--rw service-format                   org-openroadm-service-format:service-format
+  |     |  +--rw service-rate?                    uint32
+  |     |  +--rw other-service-format-and-rate?   string
+  |     |  +--rw otu-service-rate?                identityref
+  |     |  +--rw odu-service-rate?                identityref
+  |     |  +--rw ethernet-encoding?               ethernet-encoding-type
+  |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw clli                             string
+  |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
@@ -789,25 +978,26 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+  |     |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
   |     |  +--rw router
   |     |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
-  |     |  +--rw user-label?          string
+  |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
   |     |     +--rw subrate-eth-sla!
   |     |        +--rw committed-info-rate     uint32
   |     |        +--rw committed-burst-size    uint16
   |     +--rw service-z-end
-  |     |  +--rw service-format       service-format
-  |     |  +--rw service-rate?        uint32
-  |     |  +--rw otu-service-rate?    identityref
-  |     |  +--rw odu-service-rate?    identityref
-  |     |  +--rw ethernet-encoding?   ethernet-encoding-type
-  |     |  +--rw mapping-mode?        mapping-mode-type
-  |     |  +--rw clli                 string
-  |     |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+  |     |  +--rw service-format                   org-openroadm-service-format:service-format
+  |     |  +--rw service-rate?                    uint32
+  |     |  +--rw other-service-format-and-rate?   string
+  |     |  +--rw otu-service-rate?                identityref
+  |     |  +--rw odu-service-rate?                identityref
+  |     |  +--rw ethernet-encoding?               ethernet-encoding-type
+  |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw clli                             string
+  |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
@@ -854,12 +1044,12 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+  |     |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
   |     |  +--rw router
   |     |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
-  |     |  +--rw user-label?          string
+  |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
   |     |     +--rw subrate-eth-sla!
   |     |        +--rw committed-info-rate     uint32
@@ -1348,14 +1538,15 @@ module: org-openroadm-service
         +--ro operational-state?           org-openroadm-common-state-types:state
         +--rw condition?                   service-condition
         +--rw service-a-end
-        |  +--rw service-format       service-format
-        |  +--rw service-rate?        uint32
-        |  +--rw otu-service-rate?    identityref
-        |  +--rw odu-service-rate?    identityref
-        |  +--rw ethernet-encoding?   ethernet-encoding-type
-        |  +--rw mapping-mode?        mapping-mode-type
-        |  +--rw clli                 string
-        |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+        |  +--rw service-format                   org-openroadm-service-format:service-format
+        |  +--rw service-rate?                    uint32
+        |  +--rw other-service-format-and-rate?   string
+        |  +--rw otu-service-rate?                identityref
+        |  +--rw odu-service-rate?                identityref
+        |  +--rw ethernet-encoding?               ethernet-encoding-type
+        |  +--rw mapping-mode?                    mapping-mode-type
+        |  +--rw clli                             string
+        |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
         |  +--rw tx-direction
         |  |  +--rw port
         |  |  |  +--rw port-device-name?         string
@@ -1402,25 +1593,26 @@ module: org-openroadm-service
         |  |     |  +--rw port-name?           string
         |  |     +--rw tail-roadm-port-aid?             string
         |  |     +--rw tail-roadm-port-rack-location?   string
-        |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+        |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
         |  +--rw router
         |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
         |  |  +--rw ip-address?   inet:ip-address
         |  |  +--rw url?          string
-        |  +--rw user-label?          string
+        |  +--rw user-label?                      string
         |  +--rw subrate-eth-sla
         |     +--rw subrate-eth-sla!
         |        +--rw committed-info-rate     uint32
         |        +--rw committed-burst-size    uint16
         +--rw service-z-end
-        |  +--rw service-format       service-format
-        |  +--rw service-rate?        uint32
-        |  +--rw otu-service-rate?    identityref
-        |  +--rw odu-service-rate?    identityref
-        |  +--rw ethernet-encoding?   ethernet-encoding-type
-        |  +--rw mapping-mode?        mapping-mode-type
-        |  +--rw clli                 string
-        |  +--rw node-id?             org-openroadm-common-node-types:node-id-type
+        |  +--rw service-format                   org-openroadm-service-format:service-format
+        |  +--rw service-rate?                    uint32
+        |  +--rw other-service-format-and-rate?   string
+        |  +--rw otu-service-rate?                identityref
+        |  +--rw odu-service-rate?                identityref
+        |  +--rw ethernet-encoding?               ethernet-encoding-type
+        |  +--rw mapping-mode?                    mapping-mode-type
+        |  +--rw clli                             string
+        |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
         |  +--rw tx-direction
         |  |  +--rw port
         |  |  |  +--rw port-device-name?         string
@@ -1467,12 +1659,12 @@ module: org-openroadm-service
         |  |     |  +--rw port-name?           string
         |  |     +--rw tail-roadm-port-aid?             string
         |  |     +--rw tail-roadm-port-rack-location?   string
-        |  +--rw optic-type?          org-openroadm-common-equipment-types:optic-types
+        |  +--rw optic-type?                      org-openroadm-common-equipment-types:optic-types
         |  +--rw router
         |  |  +--rw node-id?      org-openroadm-common-node-types:node-id-type
         |  |  +--rw ip-address?   inet:ip-address
         |  |  +--rw url?          string
-        |  +--rw user-label?          string
+        |  +--rw user-label?                      string
         |  +--rw subrate-eth-sla
         |     +--rw subrate-eth-sla!
         |        +--rw committed-info-rate     uint32
@@ -1959,14 +2151,15 @@ module: org-openroadm-service
     |  |  |        +---w version-number?   uint64
     |  |  +---w connection-type              org-openroadm-common-service-types:connection-type
     |  |  +---w service-a-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -2013,25 +2206,26 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -2078,12 +2272,12 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
@@ -2477,14 +2671,15 @@ module: org-openroadm-service
     |  |  |  +---w request-system-id?   string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |  +---w service-a-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -2531,25 +2726,26 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -2596,12 +2792,12 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
@@ -2831,14 +3027,15 @@ module: org-openroadm-service
     |     |           +--ro co-routing
     |     |              +--ro existing-service*   string
     |     +--ro service-a-end
-    |     |  +--ro service-format        service-format
-    |     |  +--ro service-rate?         uint32
-    |     |  +--ro otu-service-rate?     identityref
-    |     |  +--ro odu-service-rate?     identityref
-    |     |  +--ro ethernet-encoding?    ethernet-encoding-type
-    |     |  +--ro mapping-mode?         mapping-mode-type
-    |     |  +--ro clli                  string
-    |     |  +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |     |  +--ro service-format                   org-openroadm-service-format:service-format
+    |     |  +--ro service-rate?                    uint32
+    |     |  +--ro other-service-format-and-rate?   string
+    |     |  +--ro otu-service-rate?                identityref
+    |     |  +--ro odu-service-rate?                identityref
+    |     |  +--ro ethernet-encoding?               ethernet-encoding-type
+    |     |  +--ro mapping-mode?                    mapping-mode-type
+    |     |  +--ro clli                             string
+    |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  +--ro tx-direction
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
@@ -2885,12 +3082,12 @@ module: org-openroadm-service
     |     |  |     |  +--ro port-name?           string
     |     |  |     +--ro tail-roadm-port-aid?             string
     |     |  |     +--ro tail-roadm-port-rack-location?   string
-    |     |  +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |     |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |     |  +--ro router
     |     |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
-    |     |  +--ro user-label?           string
+    |     |  +--ro user-label?                      string
     |     |  +--ro subrate-eth-sla
     |     |  |  +--ro subrate-eth-sla!
     |     |  |     +--ro committed-info-rate     uint32
@@ -2901,14 +3098,15 @@ module: org-openroadm-service
     |     |     +--ro equipment-quantity?     uint32
     |     |     +--ro lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
     |     +--ro service-z-end
-    |     |  +--ro service-format        service-format
-    |     |  +--ro service-rate?         uint32
-    |     |  +--ro otu-service-rate?     identityref
-    |     |  +--ro odu-service-rate?     identityref
-    |     |  +--ro ethernet-encoding?    ethernet-encoding-type
-    |     |  +--ro mapping-mode?         mapping-mode-type
-    |     |  +--ro clli                  string
-    |     |  +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |     |  +--ro service-format                   org-openroadm-service-format:service-format
+    |     |  +--ro service-rate?                    uint32
+    |     |  +--ro other-service-format-and-rate?   string
+    |     |  +--ro otu-service-rate?                identityref
+    |     |  +--ro odu-service-rate?                identityref
+    |     |  +--ro ethernet-encoding?               ethernet-encoding-type
+    |     |  +--ro mapping-mode?                    mapping-mode-type
+    |     |  +--ro clli                             string
+    |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  +--ro tx-direction
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
@@ -2955,12 +3153,12 @@ module: org-openroadm-service
     |     |  |     |  +--ro port-name?           string
     |     |  |     +--ro tail-roadm-port-aid?             string
     |     |  |     +--ro tail-roadm-port-rack-location?   string
-    |     |  +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |     |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |     |  +--ro router
     |     |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
-    |     |  +--ro user-label?           string
+    |     |  +--ro user-label?                      string
     |     |  +--ro subrate-eth-sla
     |     |  |  +--ro subrate-eth-sla!
     |     |  |     +--ro committed-info-rate     uint32
@@ -2971,14 +3169,15 @@ module: org-openroadm-service
     |     |     +--ro equipment-quantity?     uint32
     |     |     +--ro lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
     |     +--ro intermediate-sites* [clli]
-    |        +--ro service-format        service-format
-    |        +--ro service-rate?         uint32
-    |        +--ro otu-service-rate?     identityref
-    |        +--ro odu-service-rate?     identityref
-    |        +--ro ethernet-encoding?    ethernet-encoding-type
-    |        +--ro mapping-mode?         mapping-mode-type
-    |        +--ro clli                  string
-    |        +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |        +--ro service-format                   org-openroadm-service-format:service-format
+    |        +--ro service-rate?                    uint32
+    |        +--ro other-service-format-and-rate?   string
+    |        +--ro otu-service-rate?                identityref
+    |        +--ro odu-service-rate?                identityref
+    |        +--ro ethernet-encoding?               ethernet-encoding-type
+    |        +--ro mapping-mode?                    mapping-mode-type
+    |        +--ro clli                             string
+    |        +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        +--ro tx-direction
     |        |  +--ro port
     |        |  |  +--ro port-device-name?         string
@@ -3025,12 +3224,12 @@ module: org-openroadm-service
     |        |     |  +--ro port-name?           string
     |        |     +--ro tail-roadm-port-aid?             string
     |        |     +--ro tail-roadm-port-rack-location?   string
-    |        +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |        +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |        +--ro router
     |        |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |        |  +--ro ip-address?   inet:ip-address
     |        |  +--ro url?          string
-    |        +--ro user-label?           string
+    |        +--ro user-label?                      string
     |        +--ro subrate-eth-sla
     |        |  +--ro subrate-eth-sla!
     |        |     +--ro committed-info-rate     uint32
@@ -3051,14 +3250,15 @@ module: org-openroadm-service
     |  |     +---w common-id                    string
     |  |     +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |     +---w service-a-end
-    |  |     |  +---w service-format       service-format
-    |  |     |  +---w service-rate?        uint32
-    |  |     |  +---w otu-service-rate?    identityref
-    |  |     |  +---w odu-service-rate?    identityref
-    |  |     |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |     |  +---w mapping-mode?        mapping-mode-type
-    |  |     |  +---w clli                 string
-    |  |     |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |     |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w other-service-format-and-rate?   string
+    |  |     |  +---w otu-service-rate?                identityref
+    |  |     |  +---w odu-service-rate?                identityref
+    |  |     |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |     |  +---w mapping-mode?                    mapping-mode-type
+    |  |     |  +---w clli                             string
+    |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |     |  +---w tx-direction
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
@@ -3105,25 +3305,26 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |     |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |     |  +---w router
     |  |     |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
-    |  |     |  +---w user-label?          string
+    |  |     |  +---w user-label?                      string
     |  |     |  +---w subrate-eth-sla
     |  |     |     +---w subrate-eth-sla!
     |  |     |        +---w committed-info-rate     uint32
     |  |     |        +---w committed-burst-size    uint16
     |  |     +---w service-z-end
-    |  |     |  +---w service-format       service-format
-    |  |     |  +---w service-rate?        uint32
-    |  |     |  +---w otu-service-rate?    identityref
-    |  |     |  +---w odu-service-rate?    identityref
-    |  |     |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |     |  +---w mapping-mode?        mapping-mode-type
-    |  |     |  +---w clli                 string
-    |  |     |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |     |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w other-service-format-and-rate?   string
+    |  |     |  +---w otu-service-rate?                identityref
+    |  |     |  +---w odu-service-rate?                identityref
+    |  |     |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |     |  +---w mapping-mode?                    mapping-mode-type
+    |  |     |  +---w clli                             string
+    |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |     |  +---w tx-direction
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
@@ -3170,12 +3371,12 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |     |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |     |  +---w router
     |  |     |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
-    |  |     |  +---w user-label?          string
+    |  |     |  +---w user-label?                      string
     |  |     |  +---w subrate-eth-sla
     |  |     |     +---w subrate-eth-sla!
     |  |     |        +---w committed-info-rate     uint32
@@ -3406,14 +3607,15 @@ module: org-openroadm-service
     |        |           +--ro co-routing
     |        |              +--ro existing-service*   string
     |        +--ro service-a-end
-    |        |  +--ro service-format        service-format
-    |        |  +--ro service-rate?         uint32
-    |        |  +--ro otu-service-rate?     identityref
-    |        |  +--ro odu-service-rate?     identityref
-    |        |  +--ro ethernet-encoding?    ethernet-encoding-type
-    |        |  +--ro mapping-mode?         mapping-mode-type
-    |        |  +--ro clli                  string
-    |        |  +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |        |  +--ro service-format                   org-openroadm-service-format:service-format
+    |        |  +--ro service-rate?                    uint32
+    |        |  +--ro other-service-format-and-rate?   string
+    |        |  +--ro otu-service-rate?                identityref
+    |        |  +--ro odu-service-rate?                identityref
+    |        |  +--ro ethernet-encoding?               ethernet-encoding-type
+    |        |  +--ro mapping-mode?                    mapping-mode-type
+    |        |  +--ro clli                             string
+    |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  +--ro tx-direction
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
@@ -3460,12 +3662,12 @@ module: org-openroadm-service
     |        |  |     |  +--ro port-name?           string
     |        |  |     +--ro tail-roadm-port-aid?             string
     |        |  |     +--ro tail-roadm-port-rack-location?   string
-    |        |  +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |        |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |        |  +--ro router
     |        |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
-    |        |  +--ro user-label?           string
+    |        |  +--ro user-label?                      string
     |        |  +--ro subrate-eth-sla
     |        |  |  +--ro subrate-eth-sla!
     |        |  |     +--ro committed-info-rate     uint32
@@ -3476,14 +3678,15 @@ module: org-openroadm-service
     |        |     +--ro equipment-quantity?     uint32
     |        |     +--ro lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
     |        +--ro service-z-end
-    |        |  +--ro service-format        service-format
-    |        |  +--ro service-rate?         uint32
-    |        |  +--ro otu-service-rate?     identityref
-    |        |  +--ro odu-service-rate?     identityref
-    |        |  +--ro ethernet-encoding?    ethernet-encoding-type
-    |        |  +--ro mapping-mode?         mapping-mode-type
-    |        |  +--ro clli                  string
-    |        |  +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |        |  +--ro service-format                   org-openroadm-service-format:service-format
+    |        |  +--ro service-rate?                    uint32
+    |        |  +--ro other-service-format-and-rate?   string
+    |        |  +--ro otu-service-rate?                identityref
+    |        |  +--ro odu-service-rate?                identityref
+    |        |  +--ro ethernet-encoding?               ethernet-encoding-type
+    |        |  +--ro mapping-mode?                    mapping-mode-type
+    |        |  +--ro clli                             string
+    |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  +--ro tx-direction
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
@@ -3530,12 +3733,12 @@ module: org-openroadm-service
     |        |  |     |  +--ro port-name?           string
     |        |  |     +--ro tail-roadm-port-aid?             string
     |        |  |     +--ro tail-roadm-port-rack-location?   string
-    |        |  +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |        |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |        |  +--ro router
     |        |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
-    |        |  +--ro user-label?           string
+    |        |  +--ro user-label?                      string
     |        |  +--ro subrate-eth-sla
     |        |  |  +--ro subrate-eth-sla!
     |        |  |     +--ro committed-info-rate     uint32
@@ -3546,14 +3749,15 @@ module: org-openroadm-service
     |        |     +--ro equipment-quantity?     uint32
     |        |     +--ro lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
     |        +--ro intermediate-sites* [clli]
-    |           +--ro service-format        service-format
-    |           +--ro service-rate?         uint32
-    |           +--ro otu-service-rate?     identityref
-    |           +--ro odu-service-rate?     identityref
-    |           +--ro ethernet-encoding?    ethernet-encoding-type
-    |           +--ro mapping-mode?         mapping-mode-type
-    |           +--ro clli                  string
-    |           +--ro node-id?              org-openroadm-common-node-types:node-id-type
+    |           +--ro service-format                   org-openroadm-service-format:service-format
+    |           +--ro service-rate?                    uint32
+    |           +--ro other-service-format-and-rate?   string
+    |           +--ro otu-service-rate?                identityref
+    |           +--ro odu-service-rate?                identityref
+    |           +--ro ethernet-encoding?               ethernet-encoding-type
+    |           +--ro mapping-mode?                    mapping-mode-type
+    |           +--ro clli                             string
+    |           +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |           +--ro tx-direction
     |           |  +--ro port
     |           |  |  +--ro port-device-name?         string
@@ -3600,12 +3804,12 @@ module: org-openroadm-service
     |           |     |  +--ro port-name?           string
     |           |     +--ro tail-roadm-port-aid?             string
     |           |     +--ro tail-roadm-port-rack-location?   string
-    |           +--ro optic-type?           org-openroadm-common-equipment-types:optic-types
+    |           +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
     |           +--ro router
     |           |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
     |           |  +--ro ip-address?   inet:ip-address
     |           |  +--ro url?          string
-    |           +--ro user-label?           string
+    |           +--ro user-label?                      string
     |           +--ro subrate-eth-sla
     |           |  +--ro subrate-eth-sla!
     |           |     +--ro committed-info-rate     uint32
@@ -3663,14 +3867,15 @@ module: org-openroadm-service
     |  |  |  +---w request-system-id?   string
     |  |  +---w connection-type              org-openroadm-common-service-types:connection-type
     |  |  +---w service-a-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -3717,25 +3922,26 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -3782,12 +3988,12 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
@@ -4048,14 +4254,15 @@ module: org-openroadm-service
     |  |  +---w common-id?                   string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |  +---w service-a-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -4102,25 +4309,26 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
-    |  |  |  +---w service-format       service-format
-    |  |  |  +---w service-rate?        uint32
-    |  |  |  +---w otu-service-rate?    identityref
-    |  |  |  +---w odu-service-rate?    identityref
-    |  |  |  +---w ethernet-encoding?   ethernet-encoding-type
-    |  |  |  +---w mapping-mode?        mapping-mode-type
-    |  |  |  +---w clli                 string
-    |  |  |  +---w node-id?             org-openroadm-common-node-types:node-id-type
+    |  |  |  +---w service-format                   org-openroadm-service-format:service-format
+    |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w other-service-format-and-rate?   string
+    |  |  |  +---w otu-service-rate?                identityref
+    |  |  |  +---w odu-service-rate?                identityref
+    |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
+    |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w clli                             string
+    |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
@@ -4167,12 +4375,12 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w optic-type?          org-openroadm-common-equipment-types:optic-types
+    |  |  |  +---w optic-type?                      org-openroadm-common-equipment-types:optic-types
     |  |  |  +---w router
     |  |  |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
-    |  |  |  +---w user-label?          string
+    |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
     |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
@@ -4613,14 +4821,15 @@ module: org-openroadm-service
        +--ro operational-state?           org-openroadm-common-state-types:state
        +--ro condition?                   service-condition
        +--ro service-a-end
-       |  +--ro service-format       service-format
-       |  +--ro service-rate?        uint32
-       |  +--ro otu-service-rate?    identityref
-       |  +--ro odu-service-rate?    identityref
-       |  +--ro ethernet-encoding?   ethernet-encoding-type
-       |  +--ro mapping-mode?        mapping-mode-type
-       |  +--ro clli                 string
-       |  +--ro node-id?             org-openroadm-common-node-types:node-id-type
+       |  +--ro service-format                   org-openroadm-service-format:service-format
+       |  +--ro service-rate?                    uint32
+       |  +--ro other-service-format-and-rate?   string
+       |  +--ro otu-service-rate?                identityref
+       |  +--ro odu-service-rate?                identityref
+       |  +--ro ethernet-encoding?               ethernet-encoding-type
+       |  +--ro mapping-mode?                    mapping-mode-type
+       |  +--ro clli                             string
+       |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
        |  +--ro tx-direction
        |  |  +--ro port
        |  |  |  +--ro port-device-name?         string
@@ -4667,25 +4876,26 @@ module: org-openroadm-service
        |  |     |  +--ro port-name?           string
        |  |     +--ro tail-roadm-port-aid?             string
        |  |     +--ro tail-roadm-port-rack-location?   string
-       |  +--ro optic-type?          org-openroadm-common-equipment-types:optic-types
+       |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
        |  +--ro router
        |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
        |  |  +--ro ip-address?   inet:ip-address
        |  |  +--ro url?          string
-       |  +--ro user-label?          string
+       |  +--ro user-label?                      string
        |  +--ro subrate-eth-sla
        |     +--ro subrate-eth-sla!
        |        +--ro committed-info-rate     uint32
        |        +--ro committed-burst-size    uint16
        +--ro service-z-end
-       |  +--ro service-format       service-format
-       |  +--ro service-rate?        uint32
-       |  +--ro otu-service-rate?    identityref
-       |  +--ro odu-service-rate?    identityref
-       |  +--ro ethernet-encoding?   ethernet-encoding-type
-       |  +--ro mapping-mode?        mapping-mode-type
-       |  +--ro clli                 string
-       |  +--ro node-id?             org-openroadm-common-node-types:node-id-type
+       |  +--ro service-format                   org-openroadm-service-format:service-format
+       |  +--ro service-rate?                    uint32
+       |  +--ro other-service-format-and-rate?   string
+       |  +--ro otu-service-rate?                identityref
+       |  +--ro odu-service-rate?                identityref
+       |  +--ro ethernet-encoding?               ethernet-encoding-type
+       |  +--ro mapping-mode?                    mapping-mode-type
+       |  +--ro clli                             string
+       |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
        |  +--ro tx-direction
        |  |  +--ro port
        |  |  |  +--ro port-device-name?         string
@@ -4732,12 +4942,12 @@ module: org-openroadm-service
        |  |     |  +--ro port-name?           string
        |  |     +--ro tail-roadm-port-aid?             string
        |  |     +--ro tail-roadm-port-rack-location?   string
-       |  +--ro optic-type?          org-openroadm-common-equipment-types:optic-types
+       |  +--ro optic-type?                      org-openroadm-common-equipment-types:optic-types
        |  +--ro router
        |  |  +--ro node-id?      org-openroadm-common-node-types:node-id-type
        |  |  +--ro ip-address?   inet:ip-address
        |  |  +--ro url?          string
-       |  +--ro user-label?          string
+       |  +--ro user-label?                      string
        |  +--ro subrate-eth-sla
        |     +--ro subrate-eth-sla!
        |        +--ro committed-info-rate     uint32
