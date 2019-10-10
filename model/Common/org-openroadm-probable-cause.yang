@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -732,24 +736,27 @@ module org-openroadm-probable-cause {
       enum "lossOfSignalPayload" {
         value 270;
         description
-          "Loss Of Signal Payload (G.798 6.2.1.2 dLOS-P)";
+          "Loss Of Signal Payload";
+        reference "G.798 6.2.1.2 dLOS-P, 16.8.2 OTSi/FlexO_A_Sk";
       }
       enum "lossOfLaneAlignment" {
         value 271;
         description
-          "Loss Of Lane Alignment (G.798 15.3.1.2 dLOL if the alignment
-           process is in OLA state; or 16.8.2 dLOL based on the FEC alignment
-           state diagram)";
+          "Loss Of Lane Alignment";
+        reference "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state;
+                  16.8.2 OTSi/FlexO_A_Sk that dLOL based on the FEC alignment state diagram";
       }
       enum "groupIdMismatch" {
         value 272;
         description
-          "Group Id Mismatch (G.798 dGIDM in Annex B.1.1.2.1)";
+          "Group Id Mismatch";
+        reference "G.798 dGIDM in Annex B.1.1.2.1; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
       enum "phyMapMismatch" {
         value 273;
         description
-          "PHY Map Mismatch (G.798 dPMM in Annex B.1.1.2.2)";
+          "PHY Map Mismatch";
+        reference "G.798 dPMM in Annex B.1.1.2.2; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
       enum "powerOutOfSpecificationLow" {
         value 274;

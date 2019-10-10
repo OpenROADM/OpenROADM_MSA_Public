@@ -16,7 +16,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -36,11 +36,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-09-27;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -50,20 +50,20 @@ module org-openroadm-common-service-types {
     prefix org-openroadm-service-format;
     revision-date 2019-05-31;
   }
- 
+
   organization
     "Open ROADM MSA";
   contact
     "OpenROADM.org";
   description
     "YANG definitions of common service types.
-     
+
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-     
+
       Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-     
+
       * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright notice,
@@ -72,7 +72,7 @@ module org-openroadm-common-service-types {
       * Neither the Members of the Open ROADM MSA Agreement nor the names of its
         contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-     
+
       THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
       AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
       WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -84,6 +84,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -169,49 +173,49 @@ module org-openroadm-common-service-types {
 
   typedef rpc-actions {
     type enumeration {
-      enum "service-create" {
+      enum service-create {
         value 1;
       }
-      enum "service-feasibility-check" {
+      enum service-feasibility-check {
         value 2;
       }
-      enum "service-delete" {
+      enum service-delete {
         value 3;
       }
-      enum "equipment-notification" {
+      enum equipment-notification {
         value 4;
       }
-      enum "temp-service-create" {
+      enum temp-service-create {
         value 5;
       }
-      enum "temp-service-delete" {
+      enum temp-service-delete {
         value 6;
       }
-      enum "service-roll" {
+      enum service-roll {
         value 7;
       }
-      enum "service-reconfigure" {
+      enum service-reconfigure {
         value 8;
       }
-      enum "service-restoration" {
+      enum service-restoration {
         value 9;
       }
-      enum "service-reversion" {
+      enum service-reversion {
         value 10;
       }
-      enum "service-reroute" {
+      enum service-reroute {
         value 11;
       }
-      enum "service-reroute-confirm" {
+      enum service-reroute-confirm {
         value 12;
       }
-      enum "network-re-optimization" {
+      enum network-re-optimization {
         value 13;
       }
-      enum "service-feasibility-check-bulk" {
+      enum service-feasibility-check-bulk {
         value 14;
       }
-      enum "ber-test" {
+      enum ber-test {
         value 15;
       }
     }
@@ -221,10 +225,10 @@ module org-openroadm-common-service-types {
 
   typedef ethernet-encoding-type {
     type enumeration {
-      enum "10GBASE-W" {
+      enum 10GBASE-W {
         value 1;
       }
-      enum "10GBASE-R" {
+      enum 10GBASE-R {
         value 2;
       }
     }
@@ -232,15 +236,15 @@ module org-openroadm-common-service-types {
 
   typedef mapping-mode-type {
     type enumeration {
-      enum "GFP-F" {
+      enum GFP-F {
         value 1;
         reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
       }
-      enum "GFP-E" {
+      enum GFP-E {
         value 2;
         reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
       }
-      enum "PCS-Transparent" {
+      enum PCS-Transparent {
         value 3;
         reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
       }
@@ -249,10 +253,10 @@ module org-openroadm-common-service-types {
 
   typedef service-layer-type {
     type enumeration {
-      enum "wdm" {
+      enum wdm {
         value 1;
       }
-      enum "otn" {
+      enum otn {
         value 2;
       }
     }
@@ -260,25 +264,25 @@ module org-openroadm-common-service-types {
 
   typedef service-notification-types {
     type enumeration {
-      enum "service-create-result" {
+      enum service-create-result {
         value 1;
       }
-      enum "service-reconfigure-result" {
+      enum service-reconfigure-result {
         value 2;
       }
-      enum "service-delete-result" {
+      enum service-delete-result {
         value 3;
       }
-      enum "service-roll-result" {
+      enum service-roll-result {
         value 4;
       }
-      enum "service-revert-result" {
+      enum service-revert-result {
         value 5;
       }
-      enum "service-reroute-result" {
+      enum service-reroute-result {
         value 6;
       }
-      enum "service-restoration-result" {
+      enum service-restoration-result {
         value 7;
       }
     }
@@ -286,13 +290,13 @@ module org-openroadm-common-service-types {
 
   typedef connection-type {
     type enumeration {
-      enum "service" {
+      enum service {
         value 1;
       }
-      enum "infrastructure" {
+      enum infrastructure {
         value 2;
       }
-      enum "roadm-line" {
+      enum roadm-line {
         value 3;
       }
     }
@@ -300,19 +304,19 @@ module org-openroadm-common-service-types {
 
   typedef service-condition {
     type enumeration {
-      enum "restored-temporarily" {
+      enum restored-temporarily {
         value 1;
       }
-      enum "re-routed-temporarily" {
+      enum re-routed-temporarily {
         value 2;
       }
-      enum "activated-for-service" {
+      enum activated-for-service {
         value 3;
       }
-      enum "activated-for-further-check" {
+      enum activated-for-further-check {
         value 4;
       }
-      enum "activated-for-troubleshooting-failure" {
+      enum activated-for-troubleshooting-failure {
         value 5;
       }
     }
@@ -320,7 +324,7 @@ module org-openroadm-common-service-types {
 
   grouping service-and-supporting-services {
     description
-        "Service identifiers and supporting services details";
+      "Service identifiers and supporting services details";
     uses service-identifiers-container;
     uses supporting-services-identifiers-and-ends;
   }
@@ -351,7 +355,7 @@ module org-openroadm-common-service-types {
 
   grouping service-endpoint-summary {
     description
-        "Brief form of service-endpoint";
+      "Brief form of service-endpoint";
     container service-endpoint-details {
       leaf clli {
         type string;
@@ -413,10 +417,24 @@ module org-openroadm-common-service-types {
 
   grouping subrate-eth-sla {
     container subrate-eth-sla {
-      presence "Explicit assignment of subrate ethernet allocation";
       description
         "SLA (Service Level Agreement) for subrate Ethernet";
       uses org-openroadm-common-types:eth-rate-and-burst-size;
+    }
+  }
+
+  grouping service-endpoint-project {
+    description
+      "Project Identifier information for service endpoints";
+    leaf project-id {
+      type string;
+      description
+        "Project identifier for the service end point";
+    }
+    leaf project-note {
+      type string;
+      description
+        "Additional details associated with the service end point project";
     }
   }
 
@@ -759,25 +777,25 @@ module org-openroadm-common-service-types {
         }
         leaf-list day-of-the-week {
           type enumeration {
-            enum "Monday" {
+            enum Monday {
               value 1;
             }
-            enum "Tuesday" {
+            enum Tuesday {
               value 2;
             }
-            enum "Wednesday" {
+            enum Wednesday {
               value 3;
             }
-            enum "Thursday" {
+            enum Thursday {
               value 4;
             }
-            enum "Friday" {
+            enum Friday {
               value 5;
             }
-            enum "Saturday" {
+            enum Saturday {
               value 6;
             }
-            enum "Sunday" {
+            enum Sunday {
               value 7;
             }
           }
@@ -786,14 +804,14 @@ module org-openroadm-common-service-types {
         }
         leaf start-time {
           type string {
-            pattern "\\d{2}:\\d{2}:\\d{2}";
+            pattern '\d{2}:\d{2}:\d{2}';
           }
           description
             "start time expressed as hour:min:seconds";
         }
         leaf end-time {
           type string {
-            pattern "\\d{2}:\\d{2}:\\d{2}";
+            pattern '\d{2}:\d{2}:\d{2}';
           }
           description
             "end time expressed as hour:min:seconds";
@@ -985,6 +1003,21 @@ module org-openroadm-common-service-types {
     }
   }
 
+  grouping service-order {
+    description
+      "Service Order information for service";
+    leaf order-id {
+      type string;
+      description
+        "Order identifier for this service";
+    }
+    leaf order-note {
+      type string;
+      description
+        "Additional details associated with the service order";
+    }
+  }
+
   grouping service {
     leaf service-name {
       type string;
@@ -998,6 +1031,7 @@ module org-openroadm-common-service-types {
         "To be used by the ROADM controller to identify the routing
          constraints received from planning application (PED).";
     }
+    uses service-order;
     uses sdnc-request-header;
     uses service-resiliency;
     uses routing-metric;
@@ -1030,9 +1064,11 @@ module org-openroadm-common-service-types {
     }
     container service-a-end {
       uses service-endpoint;
+      uses service-endpoint-project;
     }
     container service-z-end {
       uses service-endpoint;
+      uses service-endpoint-project;
     }
     uses org-openroadm-routing-constraints:routing-constraints;
     uses service-information;

@@ -13,7 +13,7 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -55,6 +55,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";

@@ -8,15 +8,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-03-29;
+    revision-date 2019-09-27;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -70,6 +70,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -158,9 +162,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
         "The container containing the optical parameters for the specified operational mode";
     }
     leaf supported-group-if {
-       type leafref {
-         path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
-       }
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      }
+      config false;
       description
         "OTSiG or FlexO-group interface name.";
     }

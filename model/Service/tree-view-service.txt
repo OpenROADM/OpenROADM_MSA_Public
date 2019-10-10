@@ -274,6 +274,8 @@ module: org-openroadm-service
   |  +--rw services* [service-name]
   |     +--rw service-name                 string
   |     +--rw common-id?                   string
+  |     +--rw order-id?                    string
+  |     +--rw order-note?                  string
   |     +--rw sdnc-request-header
   |     |  +--rw request-id?          string
   |     |  +--rw rpc-action?          rpc-actions
@@ -369,9 +371,11 @@ module: org-openroadm-service
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
-  |     |     +--rw subrate-eth-sla!
-  |     |        +--rw committed-info-rate     uint32
-  |     |        +--rw committed-burst-size    uint16
+  |     |  |  +--rw subrate-eth-sla
+  |     |  |     +--rw committed-info-rate     uint32
+  |     |  |     +--rw committed-burst-size    uint16
+  |     |  +--rw project-id?                      string
+  |     |  +--rw project-note?                    string
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -435,9 +439,11 @@ module: org-openroadm-service
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
-  |     |     +--rw subrate-eth-sla!
-  |     |        +--rw committed-info-rate     uint32
-  |     |        +--rw committed-burst-size    uint16
+  |     |  |  +--rw subrate-eth-sla
+  |     |  |     +--rw committed-info-rate     uint32
+  |     |  |     +--rw committed-burst-size    uint16
+  |     |  +--rw project-id?                      string
+  |     |  +--rw project-note?                    string
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw (co-routing-or-general)?
@@ -890,6 +896,8 @@ module: org-openroadm-service
   |     +--rw version-number               uint64
   |     +--rw service-name                 string
   |     +--rw common-id?                   string
+  |     +--rw order-id?                    string
+  |     +--rw order-note?                  string
   |     +--rw sdnc-request-header
   |     |  +--rw request-id?          string
   |     |  +--rw rpc-action?          rpc-actions
@@ -985,9 +993,11 @@ module: org-openroadm-service
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
-  |     |     +--rw subrate-eth-sla!
-  |     |        +--rw committed-info-rate     uint32
-  |     |        +--rw committed-burst-size    uint16
+  |     |  |  +--rw subrate-eth-sla
+  |     |  |     +--rw committed-info-rate     uint32
+  |     |  |     +--rw committed-burst-size    uint16
+  |     |  +--rw project-id?                      string
+  |     |  +--rw project-note?                    string
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -1051,9 +1061,11 @@ module: org-openroadm-service
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
   |     |  +--rw subrate-eth-sla
-  |     |     +--rw subrate-eth-sla!
-  |     |        +--rw committed-info-rate     uint32
-  |     |        +--rw committed-burst-size    uint16
+  |     |  |  +--rw subrate-eth-sla
+  |     |  |     +--rw committed-info-rate     uint32
+  |     |  |     +--rw committed-burst-size    uint16
+  |     |  +--rw project-id?                      string
+  |     |  +--rw project-note?                    string
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw (co-routing-or-general)?
@@ -1505,6 +1517,8 @@ module: org-openroadm-service
      +--rw services* [common-id]
         +--rw service-name?                string
         +--rw common-id                    string
+        +--rw order-id?                    string
+        +--rw order-note?                  string
         +--rw sdnc-request-header
         |  +--rw request-id?          string
         |  +--rw rpc-action?          rpc-actions
@@ -1600,9 +1614,11 @@ module: org-openroadm-service
         |  |  +--rw url?          string
         |  +--rw user-label?                      string
         |  +--rw subrate-eth-sla
-        |     +--rw subrate-eth-sla!
-        |        +--rw committed-info-rate     uint32
-        |        +--rw committed-burst-size    uint16
+        |  |  +--rw subrate-eth-sla
+        |  |     +--rw committed-info-rate     uint32
+        |  |     +--rw committed-burst-size    uint16
+        |  +--rw project-id?                      string
+        |  +--rw project-note?                    string
         +--rw service-z-end
         |  +--rw service-format                   org-openroadm-service-format:service-format
         |  +--rw service-rate?                    uint32
@@ -1666,9 +1682,11 @@ module: org-openroadm-service
         |  |  +--rw url?          string
         |  +--rw user-label?                      string
         |  +--rw subrate-eth-sla
-        |     +--rw subrate-eth-sla!
-        |        +--rw committed-info-rate     uint32
-        |        +--rw committed-burst-size    uint16
+        |  |  +--rw subrate-eth-sla
+        |  |     +--rw committed-info-rate     uint32
+        |  |     +--rw committed-burst-size    uint16
+        |  +--rw project-id?                      string
+        |  +--rw project-note?                    string
         +--rw hard-constraints
         |  +--rw customer-code*      string
         |  +--rw (co-routing-or-general)?
@@ -2122,6 +2140,8 @@ module: org-openroadm-service
     |  +---w input
     |  |  +---w service-name                 string
     |  |  +---w common-id?                   string
+    |  |  +---w order-id?                    string
+    |  |  +---w order-note?                  string
     |  |  +---w sdnc-request-header
     |  |  |  +---w request-id?          string
     |  |  |  +---w rpc-action?          rpc-actions
@@ -2213,9 +2233,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -2279,9 +2301,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*      string
     |  |  |  +---w (co-routing-or-general)?
@@ -2733,7 +2757,7 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
+    |  |  |     +---w subrate-eth-sla
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
@@ -2799,7 +2823,7 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
+    |  |  |     +---w subrate-eth-sla
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
@@ -3089,7 +3113,7 @@ module: org-openroadm-service
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?                      string
     |     |  +--ro subrate-eth-sla
-    |     |  |  +--ro subrate-eth-sla!
+    |     |  |  +--ro subrate-eth-sla
     |     |  |     +--ro committed-info-rate     uint32
     |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
@@ -3160,7 +3184,7 @@ module: org-openroadm-service
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?                      string
     |     |  +--ro subrate-eth-sla
-    |     |  |  +--ro subrate-eth-sla!
+    |     |  |  +--ro subrate-eth-sla
     |     |  |     +--ro committed-info-rate     uint32
     |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
@@ -3231,7 +3255,7 @@ module: org-openroadm-service
     |        |  +--ro url?          string
     |        +--ro user-label?                      string
     |        +--ro subrate-eth-sla
-    |        |  +--ro subrate-eth-sla!
+    |        |  +--ro subrate-eth-sla
     |        |     +--ro committed-info-rate     uint32
     |        |     +--ro committed-burst-size    uint16
     |        +--ro equipment-required* [equipment-identifier]
@@ -3312,7 +3336,7 @@ module: org-openroadm-service
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?                      string
     |  |     |  +---w subrate-eth-sla
-    |  |     |     +---w subrate-eth-sla!
+    |  |     |     +---w subrate-eth-sla
     |  |     |        +---w committed-info-rate     uint32
     |  |     |        +---w committed-burst-size    uint16
     |  |     +---w service-z-end
@@ -3378,7 +3402,7 @@ module: org-openroadm-service
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?                      string
     |  |     |  +---w subrate-eth-sla
-    |  |     |     +---w subrate-eth-sla!
+    |  |     |     +---w subrate-eth-sla
     |  |     |        +---w committed-info-rate     uint32
     |  |     |        +---w committed-burst-size    uint16
     |  |     +---w hard-constraints
@@ -3669,7 +3693,7 @@ module: org-openroadm-service
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?                      string
     |        |  +--ro subrate-eth-sla
-    |        |  |  +--ro subrate-eth-sla!
+    |        |  |  +--ro subrate-eth-sla
     |        |  |     +--ro committed-info-rate     uint32
     |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
@@ -3740,7 +3764,7 @@ module: org-openroadm-service
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?                      string
     |        |  +--ro subrate-eth-sla
-    |        |  |  +--ro subrate-eth-sla!
+    |        |  |  +--ro subrate-eth-sla
     |        |  |     +--ro committed-info-rate     uint32
     |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
@@ -3811,7 +3835,7 @@ module: org-openroadm-service
     |           |  +--ro url?          string
     |           +--ro user-label?                      string
     |           +--ro subrate-eth-sla
-    |           |  +--ro subrate-eth-sla!
+    |           |  +--ro subrate-eth-sla
     |           |     +--ro committed-info-rate     uint32
     |           |     +--ro committed-burst-size    uint16
     |           +--ro equipment-required* [equipment-identifier]
@@ -3860,6 +3884,8 @@ module: org-openroadm-service
     +---x temp-service-create
     |  +---w input
     |  |  +---w common-id                    string
+    |  |  +---w order-id?                    string
+    |  |  +---w order-note?                  string
     |  |  +---w sdnc-request-header
     |  |  |  +---w request-id?          string
     |  |  |  +---w rpc-action?          rpc-actions
@@ -3929,9 +3955,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -3995,9 +4023,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*      string
     |  |  |  +---w (co-routing-or-general)?
@@ -4252,6 +4282,8 @@ module: org-openroadm-service
     |  |  +---w service-name                 string
     |  |  +---w new-service-name?            string
     |  |  +---w common-id?                   string
+    |  |  +---w order-id?                    string
+    |  |  +---w order-note?                  string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
@@ -4316,9 +4348,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -4382,9 +4416,11 @@ module: org-openroadm-service
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
     |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla!
-    |  |  |        +---w committed-info-rate     uint32
-    |  |  |        +---w committed-burst-size    uint16
+    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  |     +---w committed-info-rate     uint32
+    |  |  |  |     +---w committed-burst-size    uint16
+    |  |  |  +---w project-id?                      string
+    |  |  |  +---w project-note?                    string
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*      string
     |  |  |  +---w (co-routing-or-general)?
@@ -4788,6 +4824,8 @@ module: org-openroadm-service
        +--ro version-number?              uint64
        +--ro service-name?                string
        +--ro common-id?                   string
+       +--ro order-id?                    string
+       +--ro order-note?                  string
        +--ro sdnc-request-header
        |  +--ro request-id?          string
        |  +--ro rpc-action?          rpc-actions
@@ -4883,9 +4921,11 @@ module: org-openroadm-service
        |  |  +--ro url?          string
        |  +--ro user-label?                      string
        |  +--ro subrate-eth-sla
-       |     +--ro subrate-eth-sla!
-       |        +--ro committed-info-rate     uint32
-       |        +--ro committed-burst-size    uint16
+       |  |  +--ro subrate-eth-sla
+       |  |     +--ro committed-info-rate     uint32
+       |  |     +--ro committed-burst-size    uint16
+       |  +--ro project-id?                      string
+       |  +--ro project-note?                    string
        +--ro service-z-end
        |  +--ro service-format                   org-openroadm-service-format:service-format
        |  +--ro service-rate?                    uint32
@@ -4949,9 +4989,11 @@ module: org-openroadm-service
        |  |  +--ro url?          string
        |  +--ro user-label?                      string
        |  +--ro subrate-eth-sla
-       |     +--ro subrate-eth-sla!
-       |        +--ro committed-info-rate     uint32
-       |        +--ro committed-burst-size    uint16
+       |  |  +--ro subrate-eth-sla
+       |  |     +--ro committed-info-rate     uint32
+       |  |     +--ro committed-burst-size    uint16
+       |  +--ro project-id?                      string
+       |  +--ro project-note?                    string
        +--ro hard-constraints
        |  +--ro customer-code*      string
        |  +--ro (co-routing-or-general)?
