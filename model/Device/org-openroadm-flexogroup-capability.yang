@@ -4,11 +4,11 @@ module org-openroadm-flexogroup-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-03-29;
+    revision-date 2019-09-27;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -16,7 +16,7 @@ module org-openroadm-flexogroup-capability {
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
 
   organization
@@ -66,6 +66,10 @@ module org-openroadm-flexogroup-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -120,6 +124,7 @@ module org-openroadm-flexogroup-capability {
         "Port index identifier. Unique within the context of a circuit-pack.";
     }
     leaf fec {
+      status deprecated;
       type identityref {
         base org-openroadm-common-optical-channel-types:fec-identity;
       }
@@ -128,7 +133,7 @@ module org-openroadm-flexogroup-capability {
     }
     leaf otsi-rate {
       type identityref {
-        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
       }
       mandatory true;
       description
@@ -207,6 +212,7 @@ module org-openroadm-flexogroup-capability {
           uses org-openroadm-port-capability:odu-mux-hierarchy-grp;
         }
         list supported-otucn-rate {
+          status deprecated;
           key "oducn-index";
           description
             "Supported OTUCn rate";

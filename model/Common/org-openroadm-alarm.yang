@@ -8,11 +8,11 @@ module org-openroadm-alarm {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
 
   organization
@@ -48,6 +48,10 @@ module org-openroadm-alarm {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";

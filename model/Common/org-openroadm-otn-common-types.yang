@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -73,6 +77,12 @@ module org-openroadm-otn-common-types {
   identity otu-rate-identity {
     description
       "A unique rate identification of the OTU.";
+  }
+
+  identity OTUCn {
+    base otu-rate-identity;
+    description
+      "Identity for an OTUCn";
   }
 
   identity OTU4 {
@@ -120,6 +130,12 @@ module org-openroadm-otn-common-types {
   identity odu-rate-identity {
     description
       "A unique rate identification of the ODU.";
+  }
+
+  identity ODUCn {
+    base odu-rate-identity;
+    description
+      "Identity for an ODUCn";
   }
 
   identity ODU4 {
@@ -205,6 +221,12 @@ module org-openroadm-otn-common-types {
       "A unique identification for the MSI odtu type.";
   }
 
+  identity ODTUCn.ts {
+    base odtu-type-identity;
+    description
+      "ODTUCn.ts - OPUCn MSI type (G.709 clause 20.2)";
+  }
+
   identity ODTU4.ts-Allocated {
     base odtu-type-identity;
     description
@@ -246,6 +268,12 @@ module org-openroadm-otn-common-types {
     base odtu-type-identity;
     description
       "ODTU3.ts MSI type";
+  }
+
+  identity ODTU4.ts {
+    base odtu-type-identity;
+    description
+      "ODTU4.ts MSI type";
   }
 
   identity unallocated {
