@@ -8,7 +8,7 @@ module org-openroadm-otn-common {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2018-11-30;
+    revision-date 2019-09-27;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-otn-common {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as 
      described in the Simplified BSD License.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";

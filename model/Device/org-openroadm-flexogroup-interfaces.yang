@@ -4,11 +4,11 @@ module org-openroadm-flexogroup-interfaces {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-03-29;
+    revision-date 2019-09-27;
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -62,6 +62,10 @@ module org-openroadm-flexogroup-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";

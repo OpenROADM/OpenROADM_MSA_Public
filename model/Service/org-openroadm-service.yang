@@ -12,7 +12,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,7 +20,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2019-05-31;
+    revision-date 2019-09-27;
   }
 
   organization
@@ -29,13 +29,13 @@ module org-openroadm-service {
     "OpenROADM.org";
   description
     "YANG definitions of services.
-     
+
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-     
+
       Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-     
+
       * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
       * Redistributions in binary form must reproduce the above copyright notice,
@@ -44,7 +44,7 @@ module org-openroadm-service {
       * Neither the Members of the Open ROADM MSA Agreement nor the names of its
         contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-     
+
       THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
       AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
       WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -56,6 +56,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-09-27 {
+    description
+      "Version 6.0.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -116,13 +120,13 @@ module org-openroadm-service {
     uses org-openroadm-common-service-types:service-resiliency;
     leaf propose-equipment {
       type enumeration {
-        enum "never" {
+        enum never {
           value 1;
         }
-        enum "ifNeeded" {
+        enum ifNeeded {
           value 2;
         }
-        enum "always" {
+        enum always {
           value 3;
         }
       }
@@ -188,6 +192,7 @@ module org-openroadm-service {
         description
           "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
       }
+      uses org-openroadm-common-service-types:service-order;
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
       uses org-openroadm-common-service-types:service-resiliency;
@@ -197,9 +202,11 @@ module org-openroadm-service {
       }
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
@@ -282,7 +289,7 @@ module org-openroadm-service {
       "Whether a service was possible to be created, and if so
        the routing constraints match and the a and z end connection that have
        to match
-       
+
        Takes a list of potential services and determines if they are possible in the network
        using equipment that is installed on the network, formally planned or proposed for planning.
        All services are treated collectively to ensure that a given resource is not used more than once.
@@ -328,12 +335,12 @@ module org-openroadm-service {
         }
         leaf tail-retention {
           type enumeration {
-            enum "yes" {
+            enum yes {
               value 1;
               description
                 "tails are left intact ";
             }
-            enum "no" {
+            enum no {
               value 2;
               description
                 "tails are deleted";
@@ -394,6 +401,7 @@ module org-openroadm-service {
         description
           "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
       }
+      uses org-openroadm-common-service-types:service-order;
       uses org-openroadm-common-service-types:sdnc-request-header;
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
@@ -401,9 +409,11 @@ module org-openroadm-service {
       }
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
@@ -475,14 +485,17 @@ module org-openroadm-service {
           "To be used by the ROADM controller to identify the routing
            constraints received from planning application (PED).";
       }
+      uses org-openroadm-common-service-types:service-order;
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
       }
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
+        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
@@ -514,14 +527,14 @@ module org-openroadm-service {
       }
       leaf option {
         type enumeration {
-          enum "permanent" {
+          enum permanent {
             value 1;
             description
               "A spare regen can be used to restore the
                service permanently without reverting back to the
                original regen";
           }
-          enum "temporary" {
+          enum temporary {
             value 2;
             description
               "a spare regen can be used to restore the
