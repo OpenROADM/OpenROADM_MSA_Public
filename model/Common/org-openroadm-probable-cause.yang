@@ -4,7 +4,7 @@ module org-openroadm-probable-cause {
 
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -13,33 +13,37 @@ module org-openroadm-probable-cause {
     "OpenROADM.org";
   description
     "YANG definitions of Probable Causes.
-     
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -83,705 +87,706 @@ module org-openroadm-probable-cause {
 
   typedef probable-cause-enum {
     type enumeration {
-      enum "vendorExtension" {
+      enum vendorExtension {
         value 1;
         description
           "vendorExtension";
       }
-      enum "openConnectionIndication" {
+      enum openConnectionIndication {
         value 2;
         description
           "Open connection indication (OCI)";
         reference "G.798";
       }
-      enum "alarmIndicationSignal" {
+      enum alarmIndicationSignal {
         value 3;
         description
           "Alarm indication signal";
         reference "G.798";
       }
-      enum "lossOfSignal" {
+      enum lossOfSignal {
         value 4;
         description
           "Loss of Signal";
       }
-      enum "opticalLineFail" {
+      enum opticalLineFail {
         value 5;
         description
           "Optical Line Fail";
       }
-      enum "opticalPowerDegraded" {
+      enum opticalPowerDegraded {
         value 6;
         description
           "Optical Power Degraded";
       }
-      enum "automaticLaserShutdown" {
+      enum automaticLaserShutdown {
         value 7;
         description
           "Automatic Laser Shutdown";
       }
-      enum "serverSignalFail" {
+      enum serverSignalFail {
         value 8;
         description
           "Server Signal Fail (SSF)";
         reference "G.798";
       }
-      enum "lockedDefect" {
+      enum lockedDefect {
         value 10;
         description
           "Locked defect (LCK)";
         reference "G.798";
       }
-      enum "trailTraceIdentifierMismatch" {
+      enum trailTraceIdentifierMismatch {
         value 11;
         description
           "Trail trace Identifier Mismatch (TIM)";
         reference "G.798";
       }
-      enum "degradedDefect" {
+      enum degradedDefect {
         value 12;
         description
           "Degraded defect (DEG)";
         reference "G.798";
       }
-      enum "backwardsDefectIndication" {
+      enum backwardsDefectIndication {
         value 13;
         description
           "Backward Defect Indication (BDI)";
         reference "G.798";
       }
-      enum "otsSpanlossPowerOutOfSpecificationHigh" {
+      enum otsSpanlossPowerOutOfSpecificationHigh {
         value 14;
       }
-      enum "automaticShutoffDisabled" {
+      enum automaticShutoffDisabled {
         value 15;
       }
-      enum "portLossOfLight" {
+      enum portLossOfLight {
         value 17;
       }
-      enum "reflectionTooHigh" {
+      enum reflectionTooHigh {
         value 18;
       }
-      enum "payloadMissingIndication" {
+      enum payloadMissingIndication {
         value 22;
         description
           "Will be applicable to ROADM when OSC signaling supported in future (G.709 2016-06 Figure 15-1A, 1B)";
       }
-      enum "forwardDefectIndication" {
+      enum forwardDefectIndication {
         value 23;
         description
           "Will be applicable to ROADM when OSC signaling supported in future (G.709 2016-06 Figure 15-1A, 1B)";
       }
-      enum "oscPowerOutOfSpecificationHigh" {
+      enum oscPowerOutOfSpecificationHigh {
         value 24;
       }
-      enum "oscPowerOutOfSpecificationLow" {
+      enum oscPowerOutOfSpecificationLow {
         value 25;
       }
-      enum "powerOutOfSpecificationHigh" {
+      enum powerOutOfSpecificationHigh {
         value 26;
       }
-      enum "lossOfSynchronization" {
+      enum lossOfSynchronization {
         value 27;
       }
-      enum "linkDown" {
+      enum linkDown {
         value 28;
       }
-      enum "equipmentFault" {
+      enum equipmentFault {
         value 29;
       }
-      enum "equipmentRemoved" {
+      enum equipmentRemoved {
         value 30;
       }
-      enum "equipmentMismatch" {
+      enum equipmentMismatch {
         value 31;
       }
-      enum "equipmentWarmup" {
+      enum equipmentWarmup {
         value 32;
       }
-      enum "equipmentLedOn" {
+      enum equipmentLedOn {
         value 33;
       }
-      enum "equipmentInterConnectFailure" {
+      enum equipmentInterConnectFailure {
         value 34;
       }
-      enum "equipmentMiscabledConnection" {
+      enum equipmentMiscabledConnection {
         value 35;
       }
-      enum "softwareVersionMismatch" {
+      enum softwareVersionMismatch {
         value 36;
       }
-      enum "softwareStageInProgress" {
+      enum softwareStageInProgress {
         value 37;
       }
-      enum "databaseCorruption" {
+      enum databaseCorruption {
         value 38;
       }
-      enum "databaseVersionMismatch" {
+      enum databaseVersionMismatch {
         value 44;
       }
-      enum "firmwareVersionMismatch" {
+      enum firmwareVersionMismatch {
         value 46;
       }
-      enum "incompatibleFirmware" {
+      enum incompatibleFirmware {
         value 49;
       }
-      enum "firmwareDownloadOrActivationFailure" {
+      enum firmwareDownloadOrActivationFailure {
         value 50;
       }
-      enum "firmwareInitInProgress" {
+      enum firmwareInitInProgress {
         value 51;
       }
-      enum "softwareReset" {
+      enum softwareReset {
         value 52;
       }
-      enum "fanCoolingFail" {
+      enum fanCoolingFail {
         value 53;
       }
-      enum "administrativeDown" {
+      enum administrativeDown {
         value 54;
       }
-      enum "lampTest" {
+      enum lampTest {
         value 55;
       }
-      enum "powerProblemA" {
+      enum powerProblemA {
         value 56;
       }
-      enum "powerProblemB" {
+      enum powerProblemB {
         value 57;
       }
-      enum "shelfProvisioningMode" {
+      enum shelfProvisioningMode {
         value 58;
       }
-      enum "sysNameChanged" {
+      enum sysNameChanged {
         value 59;
       }
-      enum "sysNtpNotSynchronized" {
+      enum sysNtpNotSynchronized {
         value 60;
       }
-      enum "lossOfFrame" {
+      enum lossOfFrame {
         value 63;
       }
-      enum "lossOfMultiframe" {
+      enum lossOfMultiframe {
         value 64;
       }
-      enum "backwardIncomingAlignmentError" {
+      enum backwardIncomingAlignmentError {
         value 65;
       }
-      enum "incomingAlignmentError" {
+      enum incomingAlignmentError {
         value 66;
       }
-      enum "payloadMismatch" {
+      enum payloadMismatch {
         value 67;
       }
-      enum "clientSignalFailDefect" {
+      enum clientSignalFailDefect {
         value 68;
       }
-      enum "highBER" {
+      enum highBER {
         value 123;
       }
-      enum "localFault" {
+      enum localFault {
         value 124;
       }
-      enum "remoteFault" {
+      enum remoteFault {
         value 125;
       }
-      enum "lossOfAlignment" {
+      enum lossOfAlignment {
         value 126;
       }
-      enum "lossOfFECAlignment" {
+      enum lossOfFECAlignment {
         value 127;
       }
-      enum "facilityLoopbackActive" {
+      enum facilityLoopbackActive {
         value 128;
       }
-      enum "facilityLoopback2Active" {
+      enum facilityLoopback2Active {
         value 129;
       }
-      enum "terminalLoopbackActive" {
+      enum terminalLoopbackActive {
         value 130;
       }
-      enum "facilityTestsignalActive" {
+      enum facilityTestsignalActive {
         value 131;
       }
-      enum "terminalTestsignalActive" {
+      enum terminalTestsignalActive {
         value 132;
       }
-      enum "certificateNotInstalled" {
+      enum certificateNotInstalled {
         value 134;
       }
-      enum "lockoutOfProtection" {
+      enum lockoutOfProtection {
         value 135;
       }
-      enum "forcedSwitchAwayFromWorking" {
+      enum forcedSwitchAwayFromWorking {
         value 136;
       }
-      enum "forcedSwitchAwayFromProtect" {
+      enum forcedSwitchAwayFromProtect {
         value 137;
       }
-      enum "automaticSwitchAwayFromWorkingDueToSF" {
+      enum automaticSwitchAwayFromWorkingDueToSF {
         value 138;
       }
-      enum "automaticSwitchAwayFromProtectDueToSF" {
+      enum automaticSwitchAwayFromProtectDueToSF {
         value 139;
       }
-      enum "automaticSwitchDueToWTR" {
+      enum automaticSwitchDueToWTR {
         value 140;
       }
-      enum "manualSwitchAwayFromWork" {
+      enum manualSwitchAwayFromWork {
         value 141;
       }
-      enum "manualSwitchAwayFromProtect" {
+      enum manualSwitchAwayFromProtect {
         value 142;
       }
-      enum "automaticPowerReduction" {
+      enum automaticPowerReduction {
         value 143;
       }
-      enum "lossOfSignalOSC" {
+      enum lossOfSignalOSC {
         value 144;
       }
-      enum "softwareValidateInProgress" {
+      enum softwareValidateInProgress {
         value 145;
       }
-      enum "databaseRollbackTimerInProgress" {
+      enum databaseRollbackTimerInProgress {
         value 146;
       }
-      enum "otdrScanInProgress" {
+      enum otdrScanInProgress {
         value 147;
       }
-      enum "lldpFail" {
+      enum lldpFail {
         value 148;
       }
-      enum "omsPowerOutOfSpecificationHigh" {
+      enum omsPowerOutOfSpecificationHigh {
         value 149;
       }
-      enum "omsPowerOutOfSpecificationLow" {
+      enum omsPowerOutOfSpecificationLow {
         value 150;
       }
-      enum "automaticSwitchAwayFromWorkingDueToSD" {
+      enum automaticSwitchAwayFromWorkingDueToSD {
         value 151;
       }
-      enum "automaticSwitchAwayFromProtectDueToSD" {
+      enum automaticSwitchAwayFromProtectDueToSD {
         value 152;
       }
-      enum "backwardIncomingAlignmentErrorTCM1-up" {
+      enum backwardIncomingAlignmentErrorTCM1-up {
         value 153;
       }
-      enum "backwardIncomingAlignmentErrorTCM2-up" {
+      enum backwardIncomingAlignmentErrorTCM2-up {
         value 154;
       }
-      enum "backwardIncomingAlignmentErrorTCM3-up" {
+      enum backwardIncomingAlignmentErrorTCM3-up {
         value 155;
       }
-      enum "backwardIncomingAlignmentErrorTCM4-up" {
+      enum backwardIncomingAlignmentErrorTCM4-up {
         value 156;
       }
-      enum "backwardIncomingAlignmentErrorTCM5-up" {
+      enum backwardIncomingAlignmentErrorTCM5-up {
         value 157;
       }
-      enum "backwardIncomingAlignmentErrorTCM6-up" {
+      enum backwardIncomingAlignmentErrorTCM6-up {
         value 158;
       }
-      enum "incomingAlignmentErrorTCM1-up" {
+      enum incomingAlignmentErrorTCM1-up {
         value 159;
       }
-      enum "incomingAlignmentErrorTCM2-up" {
+      enum incomingAlignmentErrorTCM2-up {
         value 160;
       }
-      enum "incomingAlignmentErrorTCM3-up" {
+      enum incomingAlignmentErrorTCM3-up {
         value 161;
       }
-      enum "incomingAlignmentErrorTCM4-up" {
+      enum incomingAlignmentErrorTCM4-up {
         value 162;
       }
-      enum "incomingAlignmentErrorTCM5-up" {
+      enum incomingAlignmentErrorTCM5-up {
         value 163;
       }
-      enum "incomingAlignmentErrorTCM6-up" {
+      enum incomingAlignmentErrorTCM6-up {
         value 164;
       }
-      enum "backwardsDefectIndicationTCM1-up" {
+      enum backwardsDefectIndicationTCM1-up {
         value 165;
       }
-      enum "backwardsDefectIndicationTCM2-up" {
+      enum backwardsDefectIndicationTCM2-up {
         value 166;
       }
-      enum "backwardsDefectIndicationTCM3-up" {
+      enum backwardsDefectIndicationTCM3-up {
         value 167;
       }
-      enum "backwardsDefectIndicationTCM4-up" {
+      enum backwardsDefectIndicationTCM4-up {
         value 168;
       }
-      enum "backwardsDefectIndicationTCM5-up" {
+      enum backwardsDefectIndicationTCM5-up {
         value 169;
       }
-      enum "backwardsDefectIndicationTCM6-up" {
+      enum backwardsDefectIndicationTCM6-up {
         value 170;
       }
-      enum "degradedDefectTCM1-up" {
+      enum degradedDefectTCM1-up {
         value 171;
       }
-      enum "degradedDefectTCM2-up" {
+      enum degradedDefectTCM2-up {
         value 172;
       }
-      enum "degradedDefectTCM3-up" {
+      enum degradedDefectTCM3-up {
         value 173;
       }
-      enum "degradedDefectTCM4-up" {
+      enum degradedDefectTCM4-up {
         value 174;
       }
-      enum "degradedDefectTCM5-up" {
+      enum degradedDefectTCM5-up {
         value 175;
       }
-      enum "degradedDefectTCM6-up" {
+      enum degradedDefectTCM6-up {
         value 176;
       }
-      enum "trailTraceIdentifierMisMatchTCM1-up" {
+      enum trailTraceIdentifierMisMatchTCM1-up {
         value 177;
       }
-      enum "trailTraceIdentifierMisMatchTCM2-up" {
+      enum trailTraceIdentifierMisMatchTCM2-up {
         value 178;
       }
-      enum "trailTraceIdentifierMisMatchTCM3-up" {
+      enum trailTraceIdentifierMisMatchTCM3-up {
         value 179;
       }
-      enum "trailTraceIdentifierMisMatchTCM4-up" {
+      enum trailTraceIdentifierMisMatchTCM4-up {
         value 180;
       }
-      enum "trailTraceIdentifierMisMatchTCM5-up" {
+      enum trailTraceIdentifierMisMatchTCM5-up {
         value 181;
       }
-      enum "trailTraceIdentifierMisMatchTCM6-up" {
+      enum trailTraceIdentifierMisMatchTCM6-up {
         value 182;
       }
-      enum "alarmIndicationSignalTCM1-up" {
+      enum alarmIndicationSignalTCM1-up {
         value 183;
       }
-      enum "alarmIndicationSignalTCM2-up" {
+      enum alarmIndicationSignalTCM2-up {
         value 184;
       }
-      enum "alarmIndicationSignalTCM3-up" {
+      enum alarmIndicationSignalTCM3-up {
         value 185;
       }
-      enum "alarmIndicationSignalTCM4-up" {
+      enum alarmIndicationSignalTCM4-up {
         value 186;
       }
-      enum "alarmIndicationSignalTCM5-up" {
+      enum alarmIndicationSignalTCM5-up {
         value 187;
       }
-      enum "alarmIndicationSignalTCM6-up" {
+      enum alarmIndicationSignalTCM6-up {
         value 188;
       }
-      enum "openConnectionIndicationTCM1-up" {
+      enum openConnectionIndicationTCM1-up {
         value 189;
       }
-      enum "openConnectionIndicationTCM2-up" {
+      enum openConnectionIndicationTCM2-up {
         value 190;
       }
-      enum "openConnectionIndicationTCM3-up" {
+      enum openConnectionIndicationTCM3-up {
         value 191;
       }
-      enum "openConnectionIndicationTCM4-up" {
+      enum openConnectionIndicationTCM4-up {
         value 192;
       }
-      enum "openConnectionIndicationTCM5-up" {
+      enum openConnectionIndicationTCM5-up {
         value 193;
       }
-      enum "openConnectionIndicationTCM6-up" {
+      enum openConnectionIndicationTCM6-up {
         value 194;
       }
-      enum "lockedDefectTCM1-up" {
+      enum lockedDefectTCM1-up {
         value 195;
       }
-      enum "lockedDefectTCM2-up" {
+      enum lockedDefectTCM2-up {
         value 196;
       }
-      enum "lockedDefectTCM3-up" {
+      enum lockedDefectTCM3-up {
         value 197;
       }
-      enum "lockedDefectTCM4-up" {
+      enum lockedDefectTCM4-up {
         value 198;
       }
-      enum "lockedDefectTCM5-up" {
+      enum lockedDefectTCM5-up {
         value 199;
       }
-      enum "lockedDefectTCM6-up" {
+      enum lockedDefectTCM6-up {
         value 200;
       }
-      enum "lossofTandemConnectionTCM1-up" {
+      enum lossofTandemConnectionTCM1-up {
         value 201;
       }
-      enum "lossofTandemConnectionTCM2-up" {
+      enum lossofTandemConnectionTCM2-up {
         value 202;
       }
-      enum "lossofTandemConnectionTCM3-up" {
+      enum lossofTandemConnectionTCM3-up {
         value 203;
       }
-      enum "lossofTandemConnectionTCM4-up" {
+      enum lossofTandemConnectionTCM4-up {
         value 204;
       }
-      enum "lossofTandemConnectionTCM5-up" {
+      enum lossofTandemConnectionTCM5-up {
         value 205;
       }
-      enum "lossofTandemConnectionTCM6-up" {
+      enum lossofTandemConnectionTCM6-up {
         value 206;
       }
-      enum "backwardIncomingAlignmentErrorTCM1-down" {
+      enum backwardIncomingAlignmentErrorTCM1-down {
         value 207;
       }
-      enum "backwardIncomingAlignmentErrorTCM2-down" {
+      enum backwardIncomingAlignmentErrorTCM2-down {
         value 208;
       }
-      enum "backwardIncomingAlignmentErrorTCM3-down" {
+      enum backwardIncomingAlignmentErrorTCM3-down {
         value 209;
       }
-      enum "backwardIncomingAlignmentErrorTCM4-down" {
+      enum backwardIncomingAlignmentErrorTCM4-down {
         value 210;
       }
-      enum "backwardIncomingAlignmentErrorTCM5-down" {
+      enum backwardIncomingAlignmentErrorTCM5-down {
         value 211;
       }
-      enum "backwardIncomingAlignmentErrorTCM6-down" {
+      enum backwardIncomingAlignmentErrorTCM6-down {
         value 212;
       }
-      enum "incomingAlignmentErrorTCM1-down" {
+      enum incomingAlignmentErrorTCM1-down {
         value 213;
       }
-      enum "incomingAlignmentErrorTCM2-down" {
+      enum incomingAlignmentErrorTCM2-down {
         value 214;
       }
-      enum "incomingAlignmentErrorTCM3-down" {
+      enum incomingAlignmentErrorTCM3-down {
         value 215;
       }
-      enum "incomingAlignmentErrorTCM4-down" {
+      enum incomingAlignmentErrorTCM4-down {
         value 216;
       }
-      enum "incomingAlignmentErrorTCM5-down" {
+      enum incomingAlignmentErrorTCM5-down {
         value 217;
       }
-      enum "incomingAlignmentErrorTCM6-down" {
+      enum incomingAlignmentErrorTCM6-down {
         value 218;
       }
-      enum "backwardsDefectIndicationTCM1-down" {
+      enum backwardsDefectIndicationTCM1-down {
         value 219;
       }
-      enum "backwardsDefectIndicationTCM2-down" {
+      enum backwardsDefectIndicationTCM2-down {
         value 220;
       }
-      enum "backwardsDefectIndicationTCM3-down" {
+      enum backwardsDefectIndicationTCM3-down {
         value 221;
       }
-      enum "backwardsDefectIndicationTCM4-down" {
+      enum backwardsDefectIndicationTCM4-down {
         value 222;
       }
-      enum "backwardsDefectIndicationTCM5-down" {
+      enum backwardsDefectIndicationTCM5-down {
         value 223;
       }
-      enum "backwardsDefectIndicationTCM6-down" {
+      enum backwardsDefectIndicationTCM6-down {
         value 224;
       }
-      enum "degradedDefectTCM1-down" {
+      enum degradedDefectTCM1-down {
         value 225;
       }
-      enum "degradedDefectTCM2-down" {
+      enum degradedDefectTCM2-down {
         value 226;
       }
-      enum "degradedDefectTCM3-down" {
+      enum degradedDefectTCM3-down {
         value 227;
       }
-      enum "degradedDefectTCM4-down" {
+      enum degradedDefectTCM4-down {
         value 228;
       }
-      enum "degradedDefectTCM5-down" {
+      enum degradedDefectTCM5-down {
         value 229;
       }
-      enum "degradedDefectTCM6-down" {
+      enum degradedDefectTCM6-down {
         value 230;
       }
-      enum "trailTraceIdentifierMisMatchTCM1-down" {
+      enum trailTraceIdentifierMisMatchTCM1-down {
         value 231;
       }
-      enum "trailTraceIdentifierMisMatchTCM2-down" {
+      enum trailTraceIdentifierMisMatchTCM2-down {
         value 232;
       }
-      enum "trailTraceIdentifierMisMatchTCM3-down" {
+      enum trailTraceIdentifierMisMatchTCM3-down {
         value 233;
       }
-      enum "trailTraceIdentifierMisMatchTCM4-down" {
+      enum trailTraceIdentifierMisMatchTCM4-down {
         value 234;
       }
-      enum "trailTraceIdentifierMisMatchTCM5-down" {
+      enum trailTraceIdentifierMisMatchTCM5-down {
         value 235;
       }
-      enum "trailTraceIdentifierMisMatchTCM6-down" {
+      enum trailTraceIdentifierMisMatchTCM6-down {
         value 236;
       }
-      enum "alarmIndicationSignalTCM1-down" {
+      enum alarmIndicationSignalTCM1-down {
         value 237;
       }
-      enum "alarmIndicationSignalTCM2-down" {
+      enum alarmIndicationSignalTCM2-down {
         value 238;
       }
-      enum "alarmIndicationSignalTCM3-down" {
+      enum alarmIndicationSignalTCM3-down {
         value 239;
       }
-      enum "alarmIndicationSignalTCM4-down" {
+      enum alarmIndicationSignalTCM4-down {
         value 240;
       }
-      enum "alarmIndicationSignalTCM5-down" {
+      enum alarmIndicationSignalTCM5-down {
         value 241;
       }
-      enum "alarmIndicationSignalTCM6-down" {
+      enum alarmIndicationSignalTCM6-down {
         value 242;
       }
-      enum "openConnectionIndicationTCM1-down" {
+      enum openConnectionIndicationTCM1-down {
         value 243;
       }
-      enum "openConnectionIndicationTCM2-down" {
+      enum openConnectionIndicationTCM2-down {
         value 244;
       }
-      enum "openConnectionIndicationTCM3-down" {
+      enum openConnectionIndicationTCM3-down {
         value 245;
       }
-      enum "openConnectionIndicationTCM4-down" {
+      enum openConnectionIndicationTCM4-down {
         value 246;
       }
-      enum "openConnectionIndicationTCM5-down" {
+      enum openConnectionIndicationTCM5-down {
         value 247;
       }
-      enum "openConnectionIndicationTCM6-down" {
+      enum openConnectionIndicationTCM6-down {
         value 248;
       }
-      enum "lockedDefectTCM1-down" {
+      enum lockedDefectTCM1-down {
         value 249;
       }
-      enum "lockedDefectTCM2-down" {
+      enum lockedDefectTCM2-down {
         value 250;
       }
-      enum "lockedDefectTCM3-down" {
+      enum lockedDefectTCM3-down {
         value 251;
       }
-      enum "lockedDefectTCM4-down" {
+      enum lockedDefectTCM4-down {
         value 252;
       }
-      enum "lockedDefectTCM5-down" {
+      enum lockedDefectTCM5-down {
         value 253;
       }
-      enum "lockedDefectTCM6-down" {
+      enum lockedDefectTCM6-down {
         value 254;
       }
-      enum "lossofTandemConnectionTCM1-down" {
+      enum lossofTandemConnectionTCM1-down {
         value 255;
       }
-      enum "lossofTandemConnectionTCM2-down" {
+      enum lossofTandemConnectionTCM2-down {
         value 256;
       }
-      enum "lossofTandemConnectionTCM3-down" {
+      enum lossofTandemConnectionTCM3-down {
         value 257;
       }
-      enum "lossofTandemConnectionTCM4-down" {
+      enum lossofTandemConnectionTCM4-down {
         value 258;
       }
-      enum "lossofTandemConnectionTCM5-down" {
+      enum lossofTandemConnectionTCM5-down {
         value 259;
       }
-      enum "lossofTandemConnectionTCM6-down" {
+      enum lossofTandemConnectionTCM6-down {
         value 260;
       }
-      enum "multiplexStructureIdentifierMismatch" {
+      enum multiplexStructureIdentifierMismatch {
         value 261;
         description
           "G798 : 6.2.9 (dMSIM)";
       }
-      enum "lossOfOmfIndication" {
+      enum lossOfOmfIndication {
         value 262;
         description
           "G798 : 14.3.10.2 Figure 14-73 (dLOOMFI)";
       }
-      enum "lossOfFrameAndLossOfMultiframe" {
+      enum lossOfFrameAndLossOfMultiframe {
         value 263;
         description
           "G798 : 6.2.5.3 (dLOFLOM)";
       }
-      enum "lossOfDatabaseRedundancy" {
+      enum lossOfDatabaseRedundancy {
         value 264;
         description
           "loss of database redundancy";
       }
-      enum "databaseLocked" {
+      enum databaseLocked {
         value 265;
         description
           "Database locked";
       }
-      enum "createTechInfoInProgress" {
+      enum createTechInfoInProgress {
         value 266;
         description
           "create-tech-info in progress";
       }
-      enum "circuitPackActivateFailed" {
+      enum circuitPackActivateFailed {
         value 267;
         description
           "circuit-pack activation failed";
       }
-      enum "softwareSubsystemFailed" {
+      enum softwareSubsystemFailed {
         value 268;
         description
           "Software subsystem failed";
       }
-      enum "diskFull" {
+      enum diskFull {
         value 269;
         description
           "Disk full";
       }
-      enum "lossOfSignalPayload" {
+      enum lossOfSignalPayload {
         value 270;
         description
           "Loss Of Signal Payload";
         reference "G.798 6.2.1.2 dLOS-P, 16.8.2 OTSi/FlexO_A_Sk";
       }
-      enum "lossOfLaneAlignment" {
+      enum lossOfLaneAlignment {
         value 271;
         description
           "Loss Of Lane Alignment";
-        reference "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state;
-                  16.8.2 OTSi/FlexO_A_Sk that dLOL based on the FEC alignment state diagram";
+        reference
+          "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state;
+           16.8.2 OTSi/FlexO_A_Sk that dLOL based on the FEC alignment state diagram";
       }
-      enum "groupIdMismatch" {
+      enum groupIdMismatch {
         value 272;
         description
           "Group Id Mismatch";
         reference "G.798 dGIDM in Annex B.1.1.2.1; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
-      enum "phyMapMismatch" {
+      enum phyMapMismatch {
         value 273;
         description
           "PHY Map Mismatch";
         reference "G.798 dPMM in Annex B.1.1.2.2; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
-      enum "powerOutOfSpecificationLow" {
+      enum powerOutOfSpecificationLow {
         value 274;
       }
-      enum "gfpLossOfFrameDelineation" {
+      enum gfpLossOfFrameDelineation {
         value 275;
         description
-	  "GFP loss of frame delineation (dLFD G.806:6.2.5.2) is raised when the frame delineation process (clause 6.3.1 of [ITU-T G.7041]) is not in the 'SYNC' state";
+          "GFP loss of frame delineation (dLFD G.806:6.2.5.2) is raised when the frame delineation process (clause 6.3.1 of [ITU-T G.7041]) is not in the 'SYNC' state";
       }
-      enum "cmfLossOfSignal" {
+      enum cmfLossOfSignal {
         value 276;
         description
           "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x01(G.7041: Table 6-4) is received";
       }
-      enum "cmfLossOfSync" {
+      enum cmfLossOfSync {
         value 277;
         description
           "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x02(G.7041: Table 6-4) is received";
       }
-      enum "cmfForwardDefectIndication" {
+      enum cmfForwardDefectIndication {
         value 278;
         description
           "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x04(G.7041: Table 6-4) is received";
       }
-      enum "cmfReverseDefectIndication" {
+      enum cmfReverseDefectIndication {
         value 279;
         description
           "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x05(G.7041: Table 6-4) is received";
@@ -814,19 +819,19 @@ module org-openroadm-probable-cause {
     }
     leaf type {
       type enumeration {
-        enum "communication" {
+        enum communication {
           value 1;
         }
-        enum "qualityOfService" {
+        enum qualityOfService {
           value 2;
         }
-        enum "processingError" {
+        enum processingError {
           value 3;
         }
-        enum "equipment" {
+        enum equipment {
           value 4;
         }
-        enum "environmental" {
+        enum environmental {
           value 5;
         }
       }

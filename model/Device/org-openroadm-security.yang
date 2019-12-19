@@ -5,11 +5,11 @@ module org-openroadm-security {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -45,6 +45,10 @@ module org-openroadm-security {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -75,6 +79,8 @@ module org-openroadm-security {
   }
 
   grouping security-container {
+    description
+      "Grouping for standalone security certificates";
     container security {
       description
         "Security related Configurations";
@@ -83,18 +89,6 @@ module org-openroadm-security {
         max-elements 10;
         description
           "A list of certificates for this system";
-        leaf certificate-id {
-          type certificate-id-type;
-          description
-            "Certificate identifier";
-        }
-        leaf information {
-          type string;
-          config false;
-          description
-            "Information about the certificate
-             (subject line in the certificate).";
-        }
         action install {
           description
             "Install certificate.";
@@ -109,24 +103,24 @@ module org-openroadm-security {
             uses org-openroadm-common-types:rpc-response-status;
           }
         }
+        leaf certificate-id {
+          type certificate-id-type;
+          description
+            "Certificate identifier";
+        }
+        leaf information {
+          type string;
+          config false;
+          description
+            "Information about the certificate
+             (subject line in the certificate).";
+        }
       }
       list ca-certificate {
         key "ca-certificate-id";
         max-elements 10;
         description
           "A list of CA certificates for this system";
-        leaf ca-certificate-id {
-          type certificate-id-type;
-          description
-            "CA certificate identifier";
-        }
-        leaf information {
-          type string;
-          config false;
-          description
-            "Information about the CA certificate
-             (subject line in the certificate).";
-        }
         action install {
           description
             "Install certificate.";
@@ -141,15 +135,25 @@ module org-openroadm-security {
             uses org-openroadm-common-types:rpc-response-status;
           }
         }
+        leaf ca-certificate-id {
+          type certificate-id-type;
+          description
+            "CA certificate identifier";
+        }
+        leaf information {
+          type string;
+          config false;
+          description
+            "Information about the CA certificate
+             (subject line in the certificate).";
+        }
       }
     }
-    description
-      "Grouping for standalone security certificates";
   }
 
   augment "/org-openroadm-device:org-openroadm-device" {
-    uses security-container;
     description
       "Augment for security container under device";
+    uses security-container;
   }
 }

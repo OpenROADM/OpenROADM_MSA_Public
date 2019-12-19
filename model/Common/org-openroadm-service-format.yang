@@ -35,6 +35,10 @@ module org-openroadm-service-format {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-05-31 {
     description
       "Version 5.1.0";
@@ -42,28 +46,28 @@ module org-openroadm-service-format {
 
   typedef service-format {
     type enumeration {
-      enum "Ethernet" {
+      enum Ethernet {
         value 1;
       }
-      enum "OTU" {
+      enum OTU {
         value 2;
       }
-      enum "OC" {
+      enum OC {
         value 3;
       }
-      enum "STM" {
+      enum STM {
         value 4;
       }
-      enum "OMS" {
+      enum OMS {
         value 5;
       }
-      enum "ODU" {
+      enum ODU {
         value 6;
       }
-      enum "OTM" {
+      enum OTM {
         value 7;
       }
-      enum "other" {
+      enum other {
         value 8;
         description
           "Used in bookending use case when service-format is not standardized by the Open ROADM MSA.

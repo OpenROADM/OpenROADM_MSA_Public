@@ -8,7 +8,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import iana-afn-safi {
     prefix ianaaf;
@@ -16,7 +16,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import ietf-yang-types {
     prefix yang;
@@ -29,33 +29,37 @@ module org-openroadm-lldp {
     "OpenROADM.org";
   description
     "YANG definitions for lldp protocol.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -125,42 +129,42 @@ module org-openroadm-lldp {
     }
     leaf remotePortIdSubType {
       type enumeration {
-        enum "other" {
+        enum other {
           value 0;
           description
             "reserved";
         }
-        enum "ifalias" {
+        enum ifalias {
           value 1;
           description
             "Interface Alias (IfAlias - IETF RFC 2863) ";
         }
-        enum "portcomponent" {
+        enum portcomponent {
           value 2;
           description
             "Port component (EntPhysicalAlias IETF RFC 4133)";
         }
-        enum "macaddress" {
+        enum macaddress {
           value 3;
           description
             "MAC address (IEEE Std 802) ";
         }
-        enum "networkaddress" {
+        enum networkaddress {
           value 4;
           description
             "Network Address";
         }
-        enum "ifname" {
+        enum ifname {
           value 5;
           description
             "Interface Name (ifName - IETF RFC 2863)";
         }
-        enum "agentcircuitid" {
+        enum agentcircuitid {
           value 6;
           description
             "Agent Circuit Id (IETF RFC 3046)";
         }
-        enum "local" {
+        enum local {
           value 7;
           description
             "Locally assigned";
@@ -176,42 +180,42 @@ module org-openroadm-lldp {
     }
     leaf remoteChassisIdSubType {
       type enumeration {
-        enum "reserved" {
+        enum reserved {
           value 0;
           description
             "reserved";
         }
-        enum "chassiscomponent" {
+        enum chassiscomponent {
           value 1;
           description
             "Chassis component (EntPhysicalAlias IETF RFC 4133)";
         }
-        enum "ifalias" {
+        enum ifalias {
           value 2;
           description
             "Interface Alias (IfAlias - IETF RFC 2863) ";
         }
-        enum "portcomponent" {
+        enum portcomponent {
           value 3;
           description
             "Port component (EntPhysicalAlias IETF RFC 4133)";
         }
-        enum "macaddress" {
+        enum macaddress {
           value 4;
           description
             "MAC address (IEEE Std 802) ";
         }
-        enum "networkaddress" {
+        enum networkaddress {
           value 5;
           description
             "Network Address";
         }
-        enum "ifname" {
+        enum ifname {
           value 6;
           description
             "Interface Name (ifName - IETF RFC 2863)";
         }
-        enum "local" {
+        enum local {
           value 7;
           description
             "Locally assigned";
@@ -236,12 +240,12 @@ module org-openroadm-lldp {
           "LLDP global configurations";
         leaf adminStatus {
           type enumeration {
-            enum "disable" {
+            enum disable {
               value 0;
               description
                 "Disable the LLDP feature per NE";
             }
-            enum "enable" {
+            enum enable {
               value 1;
               description
                 "Enable the LLDP feature per NE";
@@ -281,12 +285,12 @@ module org-openroadm-lldp {
         }
         leaf adminStatus {
           type enumeration {
-            enum "disable" {
+            enum disable {
               value 0;
               description
                 "Disables the LLDP frames transmit and receive on specific interface";
             }
-            enum "txandrx" {
+            enum txandrx {
               value 1;
               description
                 "Enable Transmit and Receive LLDP frames on specific interface";

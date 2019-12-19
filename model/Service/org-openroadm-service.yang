@@ -8,19 +8,19 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2019-03-29;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -56,6 +56,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -109,6 +113,7 @@ module org-openroadm-service {
     leaf connection-type {
       type org-openroadm-common-service-types:connection-type;
     }
+    uses org-openroadm-common-service-types:resource-status;
     container service-a-end {
       uses org-openroadm-common-service-types:service-endpoint;
     }
@@ -200,6 +205,7 @@ module org-openroadm-service {
         type org-openroadm-common-service-types:connection-type;
         mandatory true;
       }
+      uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
@@ -407,6 +413,7 @@ module org-openroadm-service {
         type org-openroadm-common-service-types:connection-type;
         mandatory true;
       }
+      uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
@@ -489,6 +496,7 @@ module org-openroadm-service {
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
       }
+      uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;

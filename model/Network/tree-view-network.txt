@@ -12,13 +12,18 @@ module: org-openroadm-common-network
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
   augment /nd:networks/nd:network/nd:node:
-    +--rw node-type?         org-openroadm-network-types:openroadm-node-type
-    x--rw node-status?       org-openroadm-network-types:openroadm-node-status
-    +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+    +--rw node-type?              org-openroadm-network-types:openroadm-node-type
+    +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+    +--rw operational-state?      org-openroadm-common-state-types:state
+    +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
   augment /nd:networks/nd:network/nd:node/nwt:termination-point:
-    +--rw tp-type?           org-openroadm-network-types:openroadm-tp-type
-    +--rw eqpt-srg-id?       uint32
-    +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+    +--rw tp-type?                        org-openroadm-network-types:openroadm-tp-type
+    +--rw physical-tp?                    boolean
+    +--rw associated-connection-map-tp*   -> /nd:networks/network/node/nwt:termination-point/tp-id
+    +--rw eqpt-srg-id?                    uint32
+    +--rw lifecycle-state?                org-openroadm-common-state-types:lifecycle-state
+    +--rw operational-state?              org-openroadm-common-state-types:state
+    +--rw administrative-state?           org-openroadm-equipment-states-types:admin-states
   augment /nd:networks/nd:network/nwt:link:
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
     +--rw clfi?                   string
@@ -192,7 +197,6 @@ module: org-openroadm-network-topology
     x--rw opposite-link?    -> ../../nwt:link/link-id
     +--rw OMS-attributes
        +--rw span
-       |  x--rw clfi?                     string
        |  +--rw auto-spanloss?            boolean
        |  +--rw spanloss-base?            org-openroadm-common-link-types:ratio-dB
        |  +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
@@ -226,7 +230,6 @@ module: org-openroadm-network-topology
                    |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
                    +--:(span)
                       +--rw span
-                         x--rw clfi?                     string
                          +--rw auto-spanloss?            boolean
                          +--rw spanloss-base?            org-openroadm-common-link-types:ratio-dB
                          +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
@@ -279,9 +282,15 @@ module: org-openroadm-otn-network-topology
   augment /nd:networks/nd:network/nd:node:
     +--rw tp-bandwidth-sharing
     |  +--rw tp-bandwidth-sharing* [tp-sharing-id]
-    |     +--rw tp-sharing-id       uint16
-    |     +--rw tp-list*            nwt:tp-id
-    |     +--rw shared-bandwidth?   uint16
+    |     +--rw tp-sharing-id         uint16
+    |     +--rw tp-list*              nwt:tp-id
+    |     +--rw shared-bandwidth?     uint16
+    |     +--rw possible-tp-config* [config-id]
+    |        +--rw config-id            uint16
+    |        +--rw tp-if-type-config* [tp-name]
+    |           +--rw tp-name       -> /nd:networks/network/node/nwt:termination-point/tp-id
+    |           +--rw tp-if-type*   identityref
+    |           +--rw otsi-rate?    uint16
     +--rw switching-pools
     |  +--rw odu-switching-pools* [switching-pool-number]
     |     +--rw switching-pool-number    uint16

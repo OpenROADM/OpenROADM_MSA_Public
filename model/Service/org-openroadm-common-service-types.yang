@@ -12,43 +12,47 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2019-03-29;
+    revision-date 2019-11-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-service-format {
     prefix org-openroadm-service-format;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
+  }
+  import org-openroadm-common-attributes {
+    prefix org-openroadm-common-attributes;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -84,6 +88,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -302,6 +310,41 @@ module org-openroadm-common-service-types {
     }
   }
 
+  typedef resource-status-type {
+    type enumeration {
+      enum deployed {
+        value 1;
+        description
+          "find the best route using deployed network resources,
+           regardless of network failures; lifecycle-state must
+           be deployed and operational-state is ignored.";
+      }
+      enum in-service {
+        value 2;
+        description
+          "find the best route using deployed network resources,
+           but route around failed resources; lifecycle-state
+           must be deployed and operational-state must be
+           inService.";
+      }
+      enum planned {
+        value 3;
+        description
+          "find the best route using both deployed and planned
+           network resources; lifecycle-state must be planned
+           or deployed (deploying, deployed-updating, deployed-
+           augmented, and deploy-failed may be considered
+           planned states) and operational-state is ignored. if
+           planned is selected, due-date must be specified in
+           the service request.";
+      }
+    }
+    default "deployed";
+    description
+      "identifies the state of network resources required to
+       complete a service request.  default is deployed";
+  }
+
   typedef service-condition {
     type enumeration {
       enum restored-temporarily {
@@ -340,6 +383,85 @@ module org-openroadm-common-service-types {
         }
         uses service-identifiers-container;
         uses service-ends-container;
+      }
+    }
+  }
+
+  grouping trail-trace {
+    description
+      "Trail trace grouping";
+    uses org-openroadm-common-attributes:trail-trace-tx;
+    uses org-openroadm-common-attributes:trail-trace-other;
+  }
+
+  grouping tcm-attributes {
+    description
+      "Tandem Connection Monitoring (TCM) attributes";
+    leaf layer {
+      type uint8 {
+        range "1..6";
+      }
+      description
+        "TCM layer";
+    }
+    leaf monitoring-mode {
+      type enumeration {
+        enum not-terminated {
+          description
+            "Not Terminated: no detection or generation.
+             Overhead is passed through the interface transparently in receive direction
+             unless extension is set for erase";
+        }
+        enum terminated {
+          description
+            "Terminated: detection and generation enabled.
+             Overhead is erased (replaced with all zeros) in receive direction, unless
+             extension is set to passthrough";
+        }
+        enum monitored {
+          description
+            "Monitored: detection enabled.
+             Overhead is passed through the interface transparently in receive direction
+             unless extension is set for erase";
+        }
+      }
+      description
+        "Monitoring mode of the TCM layer";
+    }
+    leaf ltc-act-enabled {
+      type boolean;
+      description
+        "enable/disable alarm transfer on detection of Loss of Tandem Connection (LTC)";
+    }
+    leaf proactive-delay-measurement-enabled {
+      type boolean;
+      description
+        "enable/disable proactive Delay Measurement for TCM";
+    }
+    leaf tcm-direction {
+      type org-openroadm-otn-common-types:tcm-direction-enum;
+      description
+        "Direction of TCM.";
+    }
+    uses trail-trace;
+    uses org-openroadm-common-attributes:deg-threshold;
+  }
+
+  grouping otn-attributes-grp {
+    container otn-attributes {
+      uses org-openroadm-common-attributes:parent-odu-allocation;
+      uses org-openroadm-common-attributes:trail-trace-tx;
+      uses org-openroadm-common-attributes:trail-trace-other;
+      uses org-openroadm-common-attributes:deg-threshold;
+      leaf-list reserved-tcm-layer {
+        type uint8;
+      }
+      list tcm {
+        key "layer tcm-direction";
+        max-elements 12;
+        description
+          "Tandem Connection Management";
+        uses tcm-attributes;
       }
     }
   }
@@ -511,6 +633,7 @@ module org-openroadm-common-service-types {
       description
         "Mapping mode.";
     }
+    uses otn-attributes-grp;
     leaf clli {
       type string;
       mandatory true;
@@ -1018,6 +1141,18 @@ module org-openroadm-common-service-types {
     }
   }
 
+  grouping resource-status {
+    description
+      "Grouping used to consisistenty apply resource-status
+       naming to appropriate RPC.";
+    leaf resource-status {
+      type resource-status-type;
+      description
+        "identifies the state of network resources required
+         to complete a service request.";
+    }
+  }
+
   grouping service {
     leaf service-name {
       type string;
@@ -1046,6 +1181,7 @@ module org-openroadm-common-service-types {
       description
         "Lifecycle State of service. Whether it is planned, deployed, in maintenance, etc.";
     }
+    uses resource-status;
     leaf administrative-state {
       type org-openroadm-equipment-states-types:admin-states;
       description

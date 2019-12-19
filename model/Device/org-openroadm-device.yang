@@ -16,71 +16,71 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-switching-pool-types {
     prefix org-openroadm-switching-pool-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -89,47 +89,51 @@ module org-openroadm-device {
     "OpenROADM.org";
   description
     "YANG definitions of ROADM device
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
-     Also contains code components extracted from IETF netconf.  These code components 
+
+     Also contains code components extracted from IETF netconf.  These code components
      are copyrighted and licensed as follows:
-     
-     Copyright (c) 2016 IETF Trust and the persons identified as the document authors. 
-     All rights reserved. 
-     
-     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating 
-     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of 
-     publication of this document. Please review these documents carefully, as they 
-     describe your rights and restrictions with respect to this document. Code Components 
+
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
      extracted from this document must include Simplified BSD License text as described in
-     Section 4.e of the Trust Legal Provisions and are provided without warranty as 
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -234,7 +238,7 @@ module org-openroadm-device {
     leaf node-number {
       type uint32;
       description
-        "Number assigned to a ROADM node at a 
+        "Number assigned to a ROADM node at a
          given office";
     }
     leaf node-type {
@@ -270,10 +274,10 @@ module org-openroadm-device {
     }
     leaf source {
       type enumeration {
-        enum "static" {
+        enum static {
           value 1;
         }
-        enum "dhcp" {
+        enum dhcp {
           value 2;
         }
       }
@@ -388,39 +392,39 @@ module org-openroadm-device {
     }
     leaf slot-status {
       type enumeration {
-        enum "empty-not-prov" {
+        enum empty-not-prov {
           value 1;
           description
             "Slot is empty and not provisioned";
         }
-        enum "empty-prov-match" {
+        enum empty-prov-match {
           value 2;
           status deprecated;
           description
             "(Deprecated) Slot is empty and expected type is provisioned";
         }
-        enum "empty-prov-mismatch" {
+        enum empty-prov-mismatch {
           value 3;
           status deprecated;
           description
             "(Deprecated) Slot is empty and an unsupported type is provisioned";
         }
-        enum "installed-not-prov" {
+        enum installed-not-prov {
           value 4;
           description
             "Slot is occupied but not provisioned";
         }
-        enum "installed-prov-match" {
+        enum installed-prov-match {
           value 5;
           description
             "Slot is occupied with matching provisioned type";
         }
-        enum "installed-prov-mismatch" {
+        enum installed-prov-mismatch {
           value 6;
           description
             "Slot is occupied with mismatched provisioned type";
         }
-        enum "empty-prov" {
+        enum empty-prov {
           value 7;
           description
             "Slot is empty and provisioned";
@@ -702,12 +706,12 @@ module org-openroadm-device {
       uses slot-info;
       leaf slot-type {
         type enumeration {
-          enum "pluggable-optics-holder" {
+          enum pluggable-optics-holder {
             value 1;
             description
               "slot accepts dedicated pluggable port circuit-pack";
           }
-          enum "other" {
+          enum other {
             value 2;
             description
               "slot accepts parent circuit-pack";
@@ -759,10 +763,10 @@ module org-openroadm-device {
     }
     leaf direction {
       type enumeration {
-        enum "unidirectional" {
+        enum unidirectional {
           value 1;
         }
-        enum "bidirectional" {
+        enum bidirectional {
           value 2;
         }
       }
@@ -840,7 +844,7 @@ module org-openroadm-device {
   grouping degree {
     leaf degree-number {
       type uint16;
-      must "not( current() > /org-openroadm-device/info/max-degrees) and current() > 0" {
+      must 'not( current() > /org-openroadm-device/info/max-degrees) and current() > 0' {
         error-message "Degree not supported by device ";
         description
           "Validating if the degree is supported by device";
@@ -961,7 +965,7 @@ module org-openroadm-device {
       }
       config false;
       description
-        "amp-number of amp module that is functionally associated to the amplifier  
+        "amp-number of amp module that is functionally associated to the amplifier
          in the opposite direction";
     }
     leaf ila-direction-label {
@@ -979,7 +983,7 @@ module org-openroadm-device {
 
   grouping external-links {
     description
-      "YANG definitions for external links.. 
+      "YANG definitions for external links..
        - physical links between ROADMs and between the ROADMs and XPonders, which can be added and removed manually.";
     list external-link {
       key "external-link-name";
@@ -1121,7 +1125,7 @@ module org-openroadm-device {
     }
     leaf srg-number {
       type uint16;
-      must "not(current()>/org-openroadm-device/info/max-srgs) and current()>0" {
+      must 'not(current()>/org-openroadm-device/info/max-srgs) and current()>0' {
         error-message "invalid SRG";
         description
           "Validating if the srg is supported by add/drop group";
@@ -1158,7 +1162,7 @@ module org-openroadm-device {
   grouping xponder {
     leaf xpdr-number {
       type uint16;
-      must "current() > 0" {
+      must 'current() > 0' {
         error-message "Xponder not supported by device ";
         description
           "Validating if the Xponder is supported by device";
@@ -1253,7 +1257,6 @@ module org-openroadm-device {
       description
         "Identifier of the supporting circuit-pack.";
     }
-
     leaf supporting-port {
       type leafref {
         path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name";
@@ -1601,7 +1604,7 @@ module org-openroadm-device {
             type string;
             config true;
             description
-              "Complements ports identification. Used notably in case of bidirectional ports, 
+              "Complements ports identification. Used notably in case of bidirectional ports,
                and/or in multi-degree amplifier nodes. Allows associating one of the directions
                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
@@ -1609,7 +1612,7 @@ module org-openroadm-device {
             type string;
             config true;
             description
-              "Complements ports identification. Used notably in case of bidirectional ports, 
+              "Complements ports identification. Used notably in case of bidirectional ports,
                and/or in multi-degree amplifier nodes. Allows associating one of the directions
                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
@@ -1631,7 +1634,7 @@ module org-openroadm-device {
             config true;
             mandatory true;
             description
-              "allows identifying ports associated with logical amp : 
+              "allows identifying ports associated with logical amp :
                TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
           uses port-name {
@@ -1651,7 +1654,7 @@ module org-openroadm-device {
             type string;
             config true;
             description
-              "allows identifying associated logical amp port in which OTDR is launched: 
+              "allows identifying associated logical amp port in which OTDR is launched:
                corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
           }
           uses port-name {
@@ -1757,14 +1760,14 @@ module org-openroadm-device {
             type uint32;
             config false;
             description
-              "Switch fabric interconnect bandwidth unit rate in bits per second. 
+              "Switch fabric interconnect bandwidth unit rate in bits per second.
                Represents granularity of switch fabric";
           }
           leaf interconnect-bandwidth {
             type uint32;
             config false;
             description
-              "Total interconnect bandwidth for a non-blocking element expressed as 
+              "Total interconnect bandwidth for a non-blocking element expressed as
                number of inter-connect-bandwidth units";
           }
           list port-list {
@@ -1958,8 +1961,8 @@ module org-openroadm-device {
       "Collects all log data for debugging and place it in a location accessible via ftp/sftp.
        This model assumes ASYNC operation, i.e. the command will return after the device accepts the command,
        A create-tech-info-notification will be send out later for the result of the operation.
-       The log-file is cleared at the start of every create-tech-info operation in order to ensure 
-       the up-to-date logs are collected. If a vendor does not support concurrent log collection, the second 
+       The log-file is cleared at the start of every create-tech-info operation in order to ensure
+       the up-to-date logs are collected. If a vendor does not support concurrent log collection, the second
        create-tech-info command will be rejected.";
     input {
       leaf shelf-id {
@@ -1967,7 +1970,7 @@ module org-openroadm-device {
           path "/org-openroadm-device/shelves/shelf-name";
         }
         description
-          "This optional field is used to specify the shelf for log collection. 
+          "This optional field is used to specify the shelf for log collection.
            When this filed is not provided, it is expected to collect logs for the whole node.
            Vendor should reject the command if the whole node log collection is not supported.";
       }
@@ -2116,7 +2119,7 @@ module org-openroadm-device {
     description
       "The Notification that a resource has been added, modified or removed.
        This notification can be triggered by changes in configuration and operational data.
-       It shall contain the changed field pointed by the xpath. 
+       It shall contain the changed field pointed by the xpath.
        Typically it is not intended for frequently changing volatile data e.g. PM, power levels";
     leaf change-time {
       type ietf-yang-types:date-and-time;
@@ -2126,11 +2129,11 @@ module org-openroadm-device {
     uses changed-by-parms;
     leaf datastore {
       type enumeration {
-        enum "running" {
+        enum running {
           description
             "The <running> datastore has changed.";
         }
-        enum "startup" {
+        enum startup {
           description
             "The <startup> datastore has changed";
         }

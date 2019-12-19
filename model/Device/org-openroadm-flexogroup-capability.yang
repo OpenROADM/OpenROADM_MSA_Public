@@ -4,19 +4,19 @@ module org-openroadm-flexogroup-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -25,13 +25,13 @@ module org-openroadm-flexogroup-capability {
     "OpenROADM.org";
   description
     "YANG definitions for Flexogroup capabilities.
-     
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2018,
      All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -40,7 +40,7 @@ module org-openroadm-flexogroup-capability {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -51,13 +51,13 @@ module org-openroadm-flexogroup-capability {
      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2018 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -66,6 +66,10 @@ module org-openroadm-flexogroup-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -124,10 +128,10 @@ module org-openroadm-flexogroup-capability {
         "Port index identifier. Unique within the context of a circuit-pack.";
     }
     leaf fec {
-      status deprecated;
       type identityref {
         base org-openroadm-common-optical-channel-types:fec-identity;
       }
+      status deprecated;
       description
         "Flexo FEC";
     }
@@ -212,8 +216,8 @@ module org-openroadm-flexogroup-capability {
           uses org-openroadm-port-capability:odu-mux-hierarchy-grp;
         }
         list supported-otucn-rate {
-          status deprecated;
           key "oducn-index";
+          status deprecated;
           description
             "Supported OTUCn rate";
           leaf oducn-index {

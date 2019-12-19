@@ -12,15 +12,15 @@ module org-openroadm-ospf {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-key-chain {
     prefix org-openroadm-key-chain;
-    revision-date 2019-03-29;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -29,24 +29,28 @@ module org-openroadm-ospf {
     "OpenROADM.org";
   description
     "This model defines the Yang model for ospf.
-     
+
      This model reuses data items defined in the IETF YANG model for
      OSPF described by draft-ietf-ospf-yang-00.
-     
+
      Some attributes which are not required in Open ROADM MSA are removed.
      Yang file included are changed to fit into Open ROADM MSA yang structure.
-     
+
      IETF code is subject to the following copyright and license:
      Copyright (c) IETF Trust and the persons identified as authors of
      the code.
      All rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without
      modification, is permitted pursuant to, and subject to the license
      terms contained in, the Simplified BSD License set forth in
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -276,37 +280,37 @@ module org-openroadm-ospf {
 
   typedef if-state-type {
     type enumeration {
-      enum "Down" {
+      enum Down {
         value 1;
         description
           "Interface down state";
       }
-      enum "Loopback" {
+      enum Loopback {
         value 2;
         description
           "Interface loopback state";
       }
-      enum "Waiting" {
+      enum Waiting {
         value 3;
         description
           "Interface waiting state";
       }
-      enum "Point-to-Point" {
+      enum Point-to-Point {
         value 4;
         description
           "Interface point-to-point state";
       }
-      enum "DR" {
+      enum DR {
         value 5;
         description
           "Interface Designated Router (DR) state";
       }
-      enum "BDR" {
+      enum BDR {
         value 6;
         description
           "Interface Backup Designated Router (BDR) state";
       }
-      enum "DR-Other" {
+      enum DR-Other {
         value 7;
         description
           "Interface Other Designated Router state";
@@ -318,42 +322,42 @@ module org-openroadm-ospf {
 
   typedef nbr-state-type {
     type enumeration {
-      enum "Down" {
+      enum Down {
         value 1;
         description
           "Neighbor down state";
       }
-      enum "Attempt" {
+      enum Attempt {
         value 2;
         description
           "Neighbor attempt state";
       }
-      enum "Init" {
+      enum Init {
         value 3;
         description
           "Neighbor init state";
       }
-      enum "2-Way" {
+      enum 2-Way {
         value 4;
         description
           "Neighbor 2-Way state";
       }
-      enum "ExStart" {
+      enum ExStart {
         value 5;
         description
           "Neighbor exchange start state";
       }
-      enum "Exchange" {
+      enum Exchange {
         value 6;
         description
           "Neighbor exchange state";
       }
-      enum "Loading" {
+      enum Loading {
         value 7;
         description
           "Neighbor loading state";
       }
-      enum "Full" {
+      enum Full {
         value 8;
         description
           "Neighbor full state";
@@ -365,12 +369,12 @@ module org-openroadm-ospf {
 
   typedef restart-helper-status-type {
     type enumeration {
-      enum "Not-Helping" {
+      enum Not-Helping {
         value 1;
         description
           "Restart helper status not helping.";
       }
-      enum "Helping" {
+      enum Helping {
         value 2;
         description
           "Restart helper status helping.";
@@ -382,27 +386,27 @@ module org-openroadm-ospf {
 
   typedef restart-exit-reason-type {
     type enumeration {
-      enum "None" {
+      enum None {
         value 1;
         description
           "Not attempted.";
       }
-      enum "InProgress" {
+      enum InProgress {
         value 2;
         description
           "Restart in progress.";
       }
-      enum "Completed" {
+      enum Completed {
         value 3;
         description
           "Successfully completed.";
       }
-      enum "TimedOut" {
+      enum TimedOut {
         value 4;
         description
           "Timed out.";
       }
-      enum "TopologyChanged" {
+      enum TopologyChanged {
         value 5;
         description
           "Aborted due to topology change.";
@@ -416,27 +420,27 @@ module org-openroadm-ospf {
 
   typedef packet-type {
     type enumeration {
-      enum "Hello" {
+      enum Hello {
         value 1;
         description
           "OSPF hello packet.";
       }
-      enum "Database-Descripton" {
+      enum Database-Descripton {
         value 2;
         description
           "OSPF database description packet.";
       }
-      enum "Link-State-Request" {
+      enum Link-State-Request {
         value 3;
         description
           "OSPF link state request packet.";
       }
-      enum "Link-State-Update" {
+      enum Link-State-Update {
         value 4;
         description
           "OSPF link state update packet.";
       }
-      enum "Link-State-Ack" {
+      enum Link-State-Ack {
         value 5;
         description
           "OSPF link state acknowlegement packet.";
@@ -448,16 +452,16 @@ module org-openroadm-ospf {
 
   typedef nssa-translator-state-type {
     type enumeration {
-      enum "Enabled" {
+      enum Enabled {
         value 1;
         description
           "NSSA translator enabled state.";
       }
-      enum "Elected" {
+      enum Elected {
         description
           "NSSA translator elected state.";
       }
-      enum "Disabled" {
+      enum Disabled {
         value 3;
         description
           "NSSA translator disabled state.";
@@ -469,16 +473,16 @@ module org-openroadm-ospf {
 
   typedef restart-status-type {
     type enumeration {
-      enum "Not-Restarting" {
+      enum Not-Restarting {
         value 1;
         description
           "Router is not restarting.";
       }
-      enum "Planned-Restart" {
+      enum Planned-Restart {
         description
           "Router is going through planned restart.";
       }
-      enum "Unplanned-Restart" {
+      enum Unplanned-Restart {
         value 3;
         description
           "Router is going through unplanned restart.";
@@ -518,7 +522,7 @@ module org-openroadm-ospf {
         }
       }
       units "seconds";
-      must "../dead-interval > ../hello-interval" {
+      must '../dead-interval > ../hello-interval' {
         error-message "The dead interval must be larger than the hello interval";
         description
           "The value MUST be greater than 'hello-internval'.";
@@ -605,20 +609,20 @@ module org-openroadm-ospf {
       "Configuration for real interfaces.";
     leaf network-type {
       type enumeration {
-        enum "broadcast" {
+        enum broadcast {
           description
             "Specify OSPF broadcast multi-access network.";
         }
-        enum "non-broadcast" {
+        enum non-broadcast {
           description
             "Specify OSPF Non-Broadcast Multi-Access
              (NBMA) network.";
         }
-        enum "point-to-multipoint" {
+        enum point-to-multipoint {
           description
             "Specify OSPF point-to-multipoint network.";
         }
-        enum "point-to-point" {
+        enum point-to-point {
           description
             "Specify OSPF point-to-point network.";
         }
@@ -658,7 +662,7 @@ module org-openroadm-ospf {
     description
       "OSPFv2 LSA body.";
     container router {
-      when "../../header/type = 1" {
+      when '../../header/type = 1' {
         description
           "Only apply to Router-LSA.";
       }
@@ -732,7 +736,7 @@ module org-openroadm-ospf {
       }
     }
     container network {
-      when "../../header/type = 2" {
+      when '../../header/type = 2' {
         description
           "Only apply to network LSA.";
       }
@@ -750,7 +754,7 @@ module org-openroadm-ospf {
       }
     }
     container summary {
-      when "../../header/type = 3 or ../../header/type = 4" {
+      when '../../header/type = 3 or ../../header/type = 4' {
         description
           "Only apply to Summary-LSA.";
       }
@@ -778,7 +782,7 @@ module org-openroadm-ospf {
       }
     }
     container external {
-      when "../../header/type = 5 or ../../header/type = 7" {
+      when '../../header/type = 5 or ../../header/type = 7' {
         description
           "Only apply to AS-external-LSA and NSSA-LSA.";
       }
@@ -946,7 +950,7 @@ module org-openroadm-ospf {
     description
       "OSPFv3 LSA body.";
     container router {
-      when "../../header/type = 8193" {
+      when '../../header/type = 8193' {
         description
           "Only apply to Router-LSA.";
       }
@@ -1012,7 +1016,7 @@ module org-openroadm-ospf {
       }
     }
     container network {
-      when "../../header/type = 8194" {
+      when '../../header/type = 8194' {
         description
           "Only apply to network LSA.";
       }
@@ -1026,7 +1030,7 @@ module org-openroadm-ospf {
       }
     }
     container inter-area-prefix {
-      when "../../header/type = 8195" {
+      when '../../header/type = 8195' {
         description
           "Only apply to inter-area-prefix LSA.";
       }
@@ -1040,7 +1044,7 @@ module org-openroadm-ospf {
       uses ospfv3-lsa-prefix;
     }
     container inter-area-router {
-      when "../../header/type = 8196" {
+      when '../../header/type = 8196' {
         description
           "Only apply to inter-area-router LSA.";
       }
@@ -1059,7 +1063,7 @@ module org-openroadm-ospf {
       }
     }
     container as-external {
-      when "../../header/type = 16389" {
+      when '../../header/type = 16389' {
         description
           "Only apply to as-external LSA.";
       }
@@ -1068,7 +1072,7 @@ module org-openroadm-ospf {
       uses ospfv3-lsa-external;
     }
     container nssa {
-      when "../../header/type = 8199" {
+      when '../../header/type = 8199' {
         description
           "Only apply to nssa LSA.";
       }
@@ -1077,7 +1081,7 @@ module org-openroadm-ospf {
       uses ospfv3-lsa-external;
     }
     container link {
-      when "../../header/type = 8" {
+      when '../../header/type = 8' {
         description
           "Only apply to link LSA.";
       }
@@ -1108,7 +1112,7 @@ module org-openroadm-ospf {
       }
     }
     container intra-area-prefix {
-      when "../../header/type = 8201" {
+      when '../../header/type = 8201' {
         description
           "Only apply to intra-area-prefix LSA.";
       }
@@ -1228,7 +1232,7 @@ module org-openroadm-ospf {
           "LSA ID.";
       }
       leaf opaque-type {
-        when "../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11" {
+        when '../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11' {
           description
             "Only apply to opaque LSA.";
         }
@@ -1238,7 +1242,7 @@ module org-openroadm-ospf {
           "Opaque type.";
       }
       leaf opaque-id {
-        when "../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11" {
+        when '../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11' {
           description
             "Only apply to opaque LSA.";
         }
@@ -1451,7 +1455,7 @@ module org-openroadm-ospf {
         "Set the summary default-cost for a stub or NSSA area.";
     }
     uses af-area-config {
-      when "/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:operation-mode = 'org-openroadm-ospf:ships-in-the-night'" {
+      when "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:operation-mode = 'org-openroadm-ospf:ships-in-the-night'" {
         description
           "Ships in the night configuration.";
       }
@@ -1644,27 +1648,27 @@ module org-openroadm-ospf {
     }
     leaf route-type {
       type enumeration {
-        enum "intra-area" {
+        enum intra-area {
           description
             "OSPF intra-area route";
         }
-        enum "inter-area" {
+        enum inter-area {
           description
             "OSPF inter-area route";
         }
-        enum "external-1" {
+        enum external-1 {
           description
             "OSPF external route type 1";
         }
-        enum "external-2" {
+        enum external-2 {
           description
             "OSPF External route type 2";
         }
-        enum "nssa-1" {
+        enum nssa-1 {
           description
             "OSPF NSSA external route type 1";
         }
-        enum "nssa-2" {
+        enum nssa-2 {
           description
             "OSPF NSSA external route type 2";
         }
@@ -1827,55 +1831,55 @@ module org-openroadm-ospf {
     }
     leaf error {
       type enumeration {
-        enum "badVersion" {
+        enum badVersion {
           description
             "Bad version";
         }
-        enum "areaMismatch" {
+        enum areaMismatch {
           description
             "Area mistmatch";
         }
-        enum "unknownNbmaNbr" {
+        enum unknownNbmaNbr {
           description
             "Unknown NBMA neighbor";
         }
-        enum "unknownVirtualNbr" {
+        enum unknownVirtualNbr {
           description
             "Unknown virtual link neighbor";
         }
-        enum "authTypeMismatch" {
+        enum authTypeMismatch {
           description
             "Auth type mismatch";
         }
-        enum "authFailure" {
+        enum authFailure {
           description
             "Auth failure";
         }
-        enum "netMaskMismatch" {
+        enum netMaskMismatch {
           description
             "Network mask mismatch";
         }
-        enum "helloIntervalMismatch" {
+        enum helloIntervalMismatch {
           description
             "Hello interval mismatch";
         }
-        enum "deadIntervalMismatch" {
+        enum deadIntervalMismatch {
           description
             "Dead interval mismatch";
         }
-        enum "optionMismatch" {
+        enum optionMismatch {
           description
             "Option mismatch";
         }
-        enum "mtuMismatch" {
+        enum mtuMismatch {
           description
             "MTU mismatch";
         }
-        enum "duplicateRouterId" {
+        enum duplicateRouterId {
           description
             "Duplicate router ID";
         }
-        enum "noError" {
+        enum noError {
           description
             "No error";
         }

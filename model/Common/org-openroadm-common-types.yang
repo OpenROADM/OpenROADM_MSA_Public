@@ -8,33 +8,37 @@ module org-openroadm-common-types {
     "OpenROADM.org";
   description
     "YANG definitions of common types.
-       
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -78,15 +82,15 @@ module org-openroadm-common-types {
 
   typedef activate-notification-type {
     type enumeration {
-      enum "activate" {
+      enum activate {
         value 1;
         description
           "software or database activation";
       }
-      enum "commit" {
+      enum commit {
         value 2;
         description
-          "commit the software or database. 
+          "commit the software or database.
            For software activate, this event can happen in the following scenarios:
              1) immediately when user issue sw-activate command without validationTimer
                 or if the validationTimer is specified as 00-00-00;
@@ -96,13 +100,13 @@ module org-openroadm-common-types {
                 or if the rollBackTimer is specified as 00-00-00;
              2) when user issue cancel-rollback-timer before it expires and with accept=true.";
       }
-      enum "cancel" {
+      enum cancel {
         value 3;
         description
           "cancel the database or software activation operation.
            For software activate, this event can happen in the following cases:
              1) when the validationTimer expires;
-             2) when the user issues cancel-validation-timer with accept=false.  
+             2) when the user issues cancel-validation-timer with accept=false.
            For database activate, this event can happen in the following cases:
              1) when the rollBackTimer expires;
              2) when the user issues cancel-rollback-timer with accept=false.";
@@ -114,10 +118,10 @@ module org-openroadm-common-types {
 
   typedef rpc-status {
     type enumeration {
-      enum "Successful" {
+      enum Successful {
         value 1;
       }
-      enum "Failed" {
+      enum Failed {
         value 2;
       }
     }
@@ -127,13 +131,13 @@ module org-openroadm-common-types {
 
   typedef extended-rpc-status {
     type enumeration {
-      enum "Successful" {
+      enum Successful {
         value 1;
       }
-      enum "Failed" {
+      enum Failed {
         value 2;
       }
-      enum "In-progress" {
+      enum In-progress {
         value 3;
       }
     }
@@ -143,70 +147,75 @@ module org-openroadm-common-types {
 
   typedef openroadm-version-type {
     type enumeration {
-      enum "1.0" {
+      enum 1.0 {
         value 1;
         description
           "value for 1.0";
       }
-      enum "2.0" {
+      enum 2.0 {
         value 2;
         description
           "value for 2.0";
       }
-      enum "2.1" {
+      enum 2.1 {
         value 3;
         description
           "value for 2.1";
       }
-      enum "2.2" {
+      enum 2.2 {
         value 4;
         description
           "value for 2.2";
       }
-      enum "3.0" {
+      enum 3.0 {
         value 5;
         description
           "value for 3.0";
       }
-      enum "3.1" {
+      enum 3.1 {
         value 6;
         description
           "value for 3.1";
       }
-      enum "4.0" {
+      enum 4.0 {
         value 7;
         description
           "value for 4.0";
       }
-      enum "2.2.1" {
+      enum 2.2.1 {
         value 8;
         description
           "value for 2.2.1";
       }
-      enum "4.1" {
+      enum 4.1 {
         value 9;
         description
           "value for 4.1";
       }
-      enum "3.1.1" {
+      enum 3.1.1 {
         value 10;
         description
           "value for 3.1.1";
       }
-      enum "5.0" {
+      enum 5.0 {
         value 11;
         description
           "value for 5.0";
       }
-      enum "5.1" {
+      enum 5.1 {
         value 12;
         description
           "value for 5.1";
       }
-      enum "6.0" {
+      enum 6.0 {
         value 13;
         description
           "value for 6.0";
+      }
+      enum 6.1 {
+        value 14;
+        description
+          "value for 6.1";
       }
     }
     description

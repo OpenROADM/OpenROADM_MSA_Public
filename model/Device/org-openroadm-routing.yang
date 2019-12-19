@@ -8,7 +8,7 @@ module org-openroadm-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -17,24 +17,28 @@ module org-openroadm-routing {
     "OpenROADM.org";
   description
     "This model defines Yang model for routing.
-     
+
      This model reuses data items defined in the IETF YANG model for
      interfaces described by RFC 8022.
-     
+
      Some attributes which are not required in Open ROADM MSA are removed.
      Yang file included are changed to fit into Open ROADM MSA yang structure.
-     
+
      IETF code is subject to the following copyright and license:
      Copyright (c) IETF Trust and the persons identified as authors of
      the code.
      All rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without
      modification, is permitted pursuant to, and subject to the license
      terms contained in, the Simplified BSD License set forth in
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -57,7 +61,7 @@ module org-openroadm-routing {
     description
       "This feature indicates that the server supports user-defined
        RIBs.
-       
+
        Servers that do not advertise this feature SHOULD provide
        exactly one system-controlled RIB per routing-instance and
        supported address family and make them also the default RIBs.
@@ -70,7 +74,7 @@ module org-openroadm-routing {
       "This feature indicates that the server supports configuration
        of an explicit 32-bit router ID that is used by some routing
        protocols.
-       
+
        Servers that do not advertise this feature set a router ID
        algorithmically, usually to one of configured IPv4 addresses.
        However, this algorithm is implementation-specific.";
@@ -191,23 +195,23 @@ module org-openroadm-routing {
        next-hops.";
     leaf special-next-hop {
       type enumeration {
-        enum "blackhole" {
+        enum blackhole {
           description
             "Silently discard the packet.";
         }
-        enum "unreachable" {
+        enum unreachable {
           description
             "Discard the packet and notify the sender with an error
              message indicating that the destination host is
              unreachable.";
         }
-        enum "prohibit" {
+        enum prohibit {
           description
             "Discard the packet and notify the sender with an error
              message indicating that the communication is
              administratively prohibited.";
         }
-        enum "receive" {
+        enum receive {
           description
             "The packet will be received by the local system.";
         }
@@ -224,7 +228,7 @@ module org-openroadm-routing {
       mandatory true;
       description
         "Options for next-hops in static routes.
-         
+
          It is expected that other cases will be added through
          augments from other modules, e.g., for Equal-Cost Multipath
          routing (ECMP).";
@@ -232,7 +236,7 @@ module org-openroadm-routing {
         description
           "Simple next-hop is specified as an outgoing interface,
            next-hop address or both.
-           
+
            Address-family-specific modules are expected to provide
            'next-hop-address' leaf via augmentation.";
         leaf outgoing-interface {
@@ -289,11 +293,11 @@ module org-openroadm-routing {
           type string;
           description
             "The name of the routing instance.
-             
+
              For system-controlled entries, the value of this leaf must
              be the same as the name of the corresponding entry in
              state data.
-             
+
              For user-controlled entries, an arbitrary name can be
              used.";
         }
@@ -310,7 +314,7 @@ module org-openroadm-routing {
           default "true";
           description
             "Enable/disable the routing instance.
-             
+
              If this parameter is false, the parent routing instance is
              disabled and does not appear in state data, despite any
              other configuration that might be present.";
@@ -372,7 +376,7 @@ module org-openroadm-routing {
               }
               description
                 "Configuration of the 'static' pseudo-protocol.
-                 
+
                  Address-family-specific modules augment this node with
                  their lists of routes.";
             }
@@ -386,7 +390,7 @@ module org-openroadm-routing {
             description
               "Each entry contains configuration for a RIB identified
                by the 'name' key.
-               
+
                Entries having the same key as a system-controlled entry
                of the list /routing-state/routing-instance/ribs/rib are
                used for configuring parameters of that entry. Other
@@ -395,18 +399,18 @@ module org-openroadm-routing {
               type string;
               description
                 "The name of the RIB.
-                 
+
                  For system-controlled entries, the value of this leaf
                  must be the same as the name of the corresponding
                  entry in state data.
-                 
+
                  For user-controlled entries, an arbitrary name can be
                  used.";
             }
             uses address-family-group {
               description
                 "Address family of the RIB.
-                 
+
                  It is mandatory for user-controlled RIBs. For
                  system-controlled RIBs it can be omitted, otherwise it
                  must match the address family of the corresponding
@@ -435,12 +439,12 @@ module org-openroadm-routing {
         description
           "Each list entry is a container for state data of a routing
            instance.
-           
+
            An implementation MUST support routing instance(s) of the
            type 'rt:default-routing-instance', and MAY support other
            types. An implementation MAY restrict the number of routing
            instances of each supported type.
-           
+
            An implementation SHOULD create at least one
            system-controlled instance, and MAY allow the clients to
            create user-controlled routing instances in
@@ -449,7 +453,7 @@ module org-openroadm-routing {
           type string;
           description
             "The name of the routing instance.
-             
+
              For system-controlled instances the name is persistent,
              i.e., it SHOULD NOT change across reboots.";
         }
@@ -463,7 +467,7 @@ module org-openroadm-routing {
         uses router-id {
           description
             "Global router ID.
-             
+
              It may be either configured or assigned algorithmically by
              the implementation.";
         }
@@ -474,7 +478,7 @@ module org-openroadm-routing {
             key "type name";
             description
               "State data of a routing protocol instance.
-               
+
                An implementation MUST provide exactly one
                system-controlled instance of the type 'direct'. Other
                instances MAY be created by configuration.";
@@ -489,7 +493,7 @@ module org-openroadm-routing {
               type string;
               description
                 "The name of the routing protocol instance.
-                 
+
                  For system-controlled instances this name is
                  persistent, i.e., it SHOULD NOT change across
                  reboots.";
@@ -506,7 +510,7 @@ module org-openroadm-routing {
               "Each entry represents a RIB identified by the 'name'
                key. All routes in a RIB MUST belong to the same address
                family.
-               
+
                For each routing instance, an implementation SHOULD
                provide one system-controlled default RIB for each
                supported address family.";
@@ -523,7 +527,7 @@ module org-openroadm-routing {
               description
                 "This flag has the value of 'true' if and only if the
                  RIB is the default RIB for the given address family.
-                 
+
                  A default RIB always receives direct routes. By
                  default it also receives routes from all routing
                  protocols.";

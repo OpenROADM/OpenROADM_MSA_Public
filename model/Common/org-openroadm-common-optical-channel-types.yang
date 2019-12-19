@@ -8,33 +8,37 @@ module org-openroadm-common-optical-channel-types {
     "OpenROADM.org";
   description
     "YANG definitions of common optical channel types.
-     
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -262,12 +266,12 @@ module org-openroadm-common-optical-channel-types {
 
   typedef wavelength-duplication-type {
     type enumeration {
-      enum "one-per-srg" {
+      enum one-per-srg {
         value 1;
         description
           "The SRG cannot handle wavelength duplication. Attempting to provision a connection on this SRG that uses the same wavelength as an existing service will result in failure.";
       }
-      enum "one-per-degree" {
+      enum one-per-degree {
         value 2;
         description
           "The SRG can handle wavelength duplication, but only one per degree. Attempting to provision a connection on this SRG that uses the same wavelength as an existing service will succeed, so long as the connections are not using the same degree.";
@@ -280,52 +284,52 @@ module org-openroadm-common-optical-channel-types {
 
   typedef modulation-format {
     type enumeration {
-      enum "bpsk" {
+      enum bpsk {
         value 0;
         description
           "binary phase-shift keying";
       }
-      enum "dc-dp-bpsk" {
+      enum dc-dp-bpsk {
         value 1;
         description
           "DC dual-polarization binary phase-shift keying";
       }
-      enum "qpsk" {
+      enum qpsk {
         value 2;
         description
           "quadrature phase-shift keying";
       }
-      enum "dp-qpsk" {
+      enum dp-qpsk {
         value 3;
         description
           "dual-polarization binary phase-shift keying";
       }
-      enum "qam16" {
+      enum qam16 {
         value 4;
         description
           "quadrature amplitude modulation 16";
       }
-      enum "dp-qam16" {
+      enum dp-qam16 {
         value 5;
         description
           "dual-polarization quadrature amplitude modulation 16";
       }
-      enum "dc-dp-qam16" {
+      enum dc-dp-qam16 {
         value 6;
         description
           "DC dual-polarization quadrature amplitude modulation 16";
       }
-      enum "qam8" {
+      enum qam8 {
         value 7;
         description
           "quadrature amplitude modulation 8";
       }
-      enum "dp-qam8" {
+      enum dp-qam8 {
         value 8;
         description
           "dual-polarization quadrature amplitude modulation 8";
       }
-      enum "dc-dp-qam8" {
+      enum dc-dp-qam8 {
         value 9;
         description
           "DC dual-polarization quadrature amplitude modulation 8";
@@ -334,10 +338,11 @@ module org-openroadm-common-optical-channel-types {
     description
       "Modulation format";
   }
+
   typedef provision-mode-type {
     type enumeration {
-      enum "explicit";
-      enum "profile";
+      enum explicit;
+      enum profile;
     }
     description
       "Provision Mode Type On Optical Channel";

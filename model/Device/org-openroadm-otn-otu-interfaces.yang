@@ -4,23 +4,27 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
+  }
+  import org-openroadm-common-attributes {
+    prefix org-openroadm-common-attributes;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -29,39 +33,39 @@ module org-openroadm-otn-otu-interfaces {
     "OpenROADM.org";
   description
     "YANG definitions for device facility otnotu interfaces.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -70,6 +74,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -131,7 +139,7 @@ module org-openroadm-otn-otu-interfaces {
          to allow to extend for future higher rates";
     }
     leaf otu4-member-id {
-      when "../rate = org-openroadm-otn-common-types:OTU4";
+      when "../rate = 'org-openroadm-otn-common-types:OTU4'";
       type uint16;
       description
         "To uniquely identify each member of an OTSi group and the order of each member in the group.
@@ -150,42 +158,42 @@ module org-openroadm-otn-otu-interfaces {
     }
     leaf fec {
       type enumeration {
-        enum "off" {
+        enum off {
           value 0;
           description
             "fec off";
         }
-        enum "rsfec" {
+        enum rsfec {
           value 1;
           description
             "rsfec";
         }
-        enum "sdfeca1" {
+        enum sdfeca1 {
           value 2;
           description
             "Clariphy SDFEC";
         }
-        enum "efec" {
+        enum efec {
           value 3;
           description
             "G.975.1 I.4";
         }
-        enum "ufec" {
+        enum ufec {
           value 4;
           description
             "G.975.1 I.7";
         }
-        enum "sdfec" {
+        enum sdfec {
           value 5;
           description
             "Soft decision FEC";
         }
-        enum "sdfecb1" {
+        enum sdfecb1 {
           value 6;
           description
             "SDFEC with SCFEC";
         }
-        enum "scfec" {
+        enum scfec {
           value 7;
           description
             "Stair case FEC";
@@ -195,7 +203,7 @@ module org-openroadm-otn-otu-interfaces {
         "Forward Error Correction";
     }
     uses org-openroadm-otn-common:trail-trace;
-    uses org-openroadm-otn-common:deg-threshold;
+    uses org-openroadm-common-attributes:deg-threshold;
   }
 
   grouping otu-container {
