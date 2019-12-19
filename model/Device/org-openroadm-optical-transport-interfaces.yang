@@ -4,15 +4,15 @@ module org-openroadm-optical-transport-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -22,39 +22,39 @@ module org-openroadm-optical-transport-interfaces {
   description
     "This module contains YANG definitions
      for the Optical Transport Interfaces.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -63,6 +63,10 @@ module org-openroadm-optical-transport-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -113,42 +117,42 @@ module org-openroadm-optical-transport-interfaces {
       "Optical Transport Section (OTS) attributes";
     leaf fiber-type {
       type enumeration {
-        enum "smf" {
+        enum smf {
           value 0;
           description
             "Single Mode Fiber";
         }
-        enum "eleaf" {
+        enum eleaf {
           value 1;
           description
             "ELEAF";
         }
-        enum "oleaf" {
+        enum oleaf {
           value 2;
           description
             "OLEAF";
         }
-        enum "dsf" {
+        enum dsf {
           value 3;
           description
             "DSF";
         }
-        enum "truewave" {
+        enum truewave {
           value 4;
           description
             "TRUEWAVE Reduced Slope";
         }
-        enum "truewavec" {
+        enum truewavec {
           value 5;
           description
             "TRUEWAVE Classic";
         }
-        enum "nz-dsf" {
+        enum nz-dsf {
           value 6;
           description
             "NZ-DSF";
         }
-        enum "ull" {
+        enum ull {
           value 7;
           description
             "Ultra Low Loss (ULL)";

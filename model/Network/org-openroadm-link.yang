@@ -5,23 +5,23 @@ module org-openroadm-link {
 
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2019-03-29;
+    revision-date 2019-11-29;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -30,14 +30,14 @@ module org-openroadm-link {
     "OpenROADM.org.";
   description
     "YANG definitions for an amplifier in Network Model
-     
-     
+
+
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
      All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -46,7 +46,7 @@ module org-openroadm-link {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -58,6 +58,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -100,10 +104,6 @@ module org-openroadm-link {
   }
 
   grouping span-attributes {
-    leaf clfi {
-      type string;
-      status deprecated;
-    }
     leaf auto-spanloss {
       type boolean;
       default "true";
@@ -141,42 +141,42 @@ module org-openroadm-link {
       }
       leaf fiber-type {
         type enumeration {
-          enum "smf" {
+          enum smf {
             value 0;
             description
               "Single Mode Fiber";
           }
-          enum "eleaf" {
+          enum eleaf {
             value 1;
             description
               "ELEAF";
           }
-          enum "oleaf" {
+          enum oleaf {
             value 2;
             description
               "OLEAF";
           }
-          enum "dsf" {
+          enum dsf {
             value 3;
             description
               "DSF";
           }
-          enum "truewave" {
+          enum truewave {
             value 4;
             description
               "TRUEWAVE Reduced Slope";
           }
-          enum "truewavec" {
+          enum truewavec {
             value 5;
             description
               "TRUEWAVE Classic";
           }
-          enum "nz-dsf" {
+          enum nz-dsf {
             value 6;
             description
               "NZ-DSF";
           }
-          enum "ull" {
+          enum ull {
             value 7;
             description
               "Ultra Low Loss (ULL)";

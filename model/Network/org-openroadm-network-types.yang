@@ -9,11 +9,11 @@ module org-openroadm-network-types {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -23,10 +23,10 @@ module org-openroadm-network-types {
   description
     "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
+
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice,
@@ -35,7 +35,7 @@ module org-openroadm-network-types {
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
        contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
+
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -47,6 +47,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -94,34 +98,34 @@ module org-openroadm-network-types {
 
   typedef openroadm-node-type {
     type enumeration {
-      enum "ROADM" {
+      enum ROADM {
         value 1;
       }
-      enum "DEGREE" {
+      enum DEGREE {
         value 11;
       }
-      enum "SRG" {
+      enum SRG {
         value 12;
       }
-      enum "XPONDER" {
+      enum XPONDER {
         value 3;
       }
-      enum "EXT-PLUGGABLE" {
+      enum EXT-PLUGGABLE {
         value 4;
       }
-      enum "TPDR" {
+      enum TPDR {
         value 13;
       }
-      enum "MUXPDR" {
+      enum MUXPDR {
         value 14;
       }
-      enum "REGEN" {
+      enum REGEN {
         value 15;
       }
-      enum "REGEN-UNI" {
+      enum REGEN-UNI {
         value 16;
       }
-      enum "SWITCH" {
+      enum SWITCH {
         value 17;
       }
     }
@@ -129,52 +133,52 @@ module org-openroadm-network-types {
 
   typedef openroadm-tp-type {
     type enumeration {
-      enum "DEGREE-TX-TTP" {
+      enum DEGREE-TX-TTP {
         value 1;
       }
-      enum "DEGREE-RX-TTP" {
+      enum DEGREE-RX-TTP {
         value 2;
       }
-      enum "DEGREE-TX-CTP" {
+      enum DEGREE-TX-CTP {
         value 3;
       }
-      enum "DEGREE-RX-CTP" {
+      enum DEGREE-RX-CTP {
         value 4;
       }
-      enum "SRG-TX-CP" {
+      enum SRG-TX-CP {
         value 5;
       }
-      enum "SRG-RX-CP" {
+      enum SRG-RX-CP {
         value 6;
       }
-      enum "SRG-TXRX-PP" {
+      enum SRG-TXRX-PP {
         value 7;
       }
-      enum "SRG-RX-PP" {
+      enum SRG-RX-PP {
         value 8;
       }
-      enum "SRG-TX-PP" {
+      enum SRG-TX-PP {
         value 9;
       }
-      enum "XPONDER-NETWORK" {
+      enum XPONDER-NETWORK {
         value 10;
       }
-      enum "XPONDER-CLIENT" {
+      enum XPONDER-CLIENT {
         value 11;
       }
-      enum "EXT-PLUGGABLE-TP" {
+      enum EXT-PLUGGABLE-TP {
         value 12;
       }
-      enum "DEGREE-TXRX-TTP" {
+      enum DEGREE-TXRX-TTP {
         value 13;
       }
-      enum "SRG-TXRX-CP" {
+      enum SRG-TXRX-CP {
         value 14;
       }
-      enum "XPONDER-PORT" {
+      enum XPONDER-PORT {
         value 15;
       }
-      enum "DEGREE-TXRX-CTP" {
+      enum DEGREE-TXRX-CTP {
         value 16;
       }
     }
@@ -182,53 +186,39 @@ module org-openroadm-network-types {
 
   typedef openroadm-link-type {
     type enumeration {
-      enum "EXPRESS-LINK" {
+      enum EXPRESS-LINK {
         value 1;
       }
-      enum "ADD-LINK" {
+      enum ADD-LINK {
         value 2;
       }
-      enum "DROP-LINK" {
+      enum DROP-LINK {
         value 3;
       }
-      enum "ROADM-TO-ROADM" {
+      enum ROADM-TO-ROADM {
         value 4;
       }
-      enum "XPONDER-INPUT" {
+      enum XPONDER-INPUT {
         value 5;
       }
-      enum "XPONDER-OUTPUT" {
+      enum XPONDER-OUTPUT {
         value 6;
       }
-      enum "OTN-LINK" {
+      enum OTN-LINK {
         value 7;
-      }
-    }
-  }
-
-  typedef openroadm-node-status {
-    type enumeration {
-      enum "PLANNED" {
-        value 1;
-      }
-      enum "DEPLOYED" {
-        value 2;
-      }
-      enum "MAINTENANCE" {
-        value 3;
       }
     }
   }
 
   typedef openroadm-node-connection-status {
     type enumeration {
-      enum "CONNECTED" {
+      enum CONNECTED {
         value 1;
       }
-      enum "CONNECTING" {
+      enum CONNECTING {
         value 2;
       }
-      enum "UNABLE-TO-CONNECT" {
+      enum UNABLE-TO-CONNECT {
         value 3;
       }
     }
@@ -237,6 +227,8 @@ module org-openroadm-network-types {
   grouping available-freq-map {
     list avail-freq-maps {
       key "map-name";
+      description
+        "Available spectrum information";
       leaf map-name {
         type string;
         description
@@ -258,13 +250,11 @@ module org-openroadm-network-types {
           "Number of effective bits in the frequency bitmap.  Note the freq-map bitmap will be padded with 0 for byte alignment.";
       }
       leaf freq-map {
-        type binary; 
+        type binary;
         description
           "Frequency bitmap.  Setting the value of the binary bit to 1 indicates that the corresponding spectrum is available and
            setting to 0 indicates the corresponding spectrum is unavailable (used or unsupported).";
       }
-      description
-        "Available spectrum information";
     }
   }
 

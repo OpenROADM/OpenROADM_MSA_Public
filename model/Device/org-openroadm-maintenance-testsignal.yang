@@ -5,7 +5,7 @@ module org-openroadm-maintenance-testsignal {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -14,33 +14,37 @@ module org-openroadm-maintenance-testsignal {
     "OpenROADM.org";
   description
     "YANG definitions for maintenance testsignal.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -75,12 +79,12 @@ module org-openroadm-maintenance-testsignal {
 
       typedef testsig-type {
         type enumeration {
-          enum "fac" {
+          enum fac {
             value 0;
             description
               "test signal in the facility direction";
           }
-          enum "term" {
+          enum term {
             value 1;
             description
               "test signal in the terminal direction";
@@ -88,6 +92,30 @@ module org-openroadm-maintenance-testsignal {
         }
         description
           "Testsignal enum typedef";
+      }
+      action clear-diagnostics {
+        description
+          "Perform maintenance and diagnostic counter clear.";
+        input {
+          leaf type {
+            type testsig-type;
+            description
+              "Maintenance and Diagnostic counter to be cleared.  If the type is not specified then it will reset the counter for the enabled type(s)";
+          }
+        }
+        output {
+          leaf status {
+            type org-openroadm-common-types:rpc-status;
+            mandatory true;
+            description
+              "RPC status";
+          }
+          leaf status-message {
+            type string;
+            description
+              "status message";
+          }
+        }
       }
       leaf enabled {
         type boolean;
@@ -98,27 +126,27 @@ module org-openroadm-maintenance-testsignal {
       leaf testPattern {
         when "../enabled = 'true'";
         type enumeration {
-          enum "PRBS" {
+          enum PRBS {
             value 0;
             description
               "Unframed, inverted PN-31 pattern or PRBS31 pattern per IEEE 802.3 clause 50.3.8.2 (inverted PN-31 at line rate)";
           }
-          enum "PRBS31" {
+          enum PRBS31 {
             value 1;
             description
               "PRBS31 with standard mapping per G.709";
           }
-          enum "PRBS23" {
+          enum PRBS23 {
             value 2;
             description
               "SONET/SDH Framed,inverted PN-23 pattern.";
           }
-          enum "PRZEROS" {
+          enum PRZEROS {
             value 3;
             description
               "pseudo-random with zeros data pattern per IEEE 802.3 clause 49.2.8";
           }
-          enum "IDLE" {
+          enum IDLE {
             value 4;
             description
               "Scrambled IDLE test-pattern per IEEE 802.3ba";
@@ -165,30 +193,6 @@ module org-openroadm-maintenance-testsignal {
         config false;
         description
           "bit error rate of the received test signal";
-      }
-      action clear-diagnostics {
-        description
-          "Perform maintenance and diagnostic counter clear.";
-        input {
-          leaf type {
-            type testsig-type;
-            description
-              "Maintenance and Diagnostic counter to be cleared.  If the type is not specified then it will reset the counter for the enabled type(s)";
-          }
-        }
-        output {
-          leaf status {
-            type org-openroadm-common-types:rpc-status;
-            mandatory true;
-            description
-              "RPC status";
-          }
-          leaf status-message {
-            type string;
-            description
-              "status message";
-          }
-        }
       }
     }
   }

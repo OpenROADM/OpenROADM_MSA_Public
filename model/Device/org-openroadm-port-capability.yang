@@ -4,23 +4,23 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
   import org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -29,39 +29,39 @@ module org-openroadm-port-capability {
     "OpenROADM.org";
   description
     "YANG definitions for port capabilities.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2017 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -70,6 +70,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -109,15 +113,15 @@ module org-openroadm-port-capability {
 
   typedef tcm-direction-capability-type {
     type enumeration {
-      enum "up-tcm" {
+      enum up-tcm {
         description
           "Port supports up TCM termination, e.g., direction facing the switch fabric";
       }
-      enum "down-tcm" {
+      enum down-tcm {
         description
           "Port supports down TCM termination, e.g., direction facing out of the equipment ";
       }
-      enum "up-down-tcm" {
+      enum up-down-tcm {
         description
           "Port supports both up and down TCM terminations";
       }
@@ -261,7 +265,7 @@ module org-openroadm-port-capability {
     description
       "ODU mux hierarchy group";
     uses odu-mux-hierarchy-base-grp {
-      augment mux-capability {
+      augment "mux-capability" {
         list supported-otu-rate {
           key "index";
           description
@@ -272,6 +276,8 @@ module org-openroadm-port-capability {
               "The index references to each of multiple supported rates.  Applicable to NxOTU4 and OTUCn supported by OTSiG (OTSi group).";
           }
           choice otu-rate {
+            description
+              "To specify the supported rate in the case of OTUCn or NxOTU4";
             case otucn {
               leaf otucn-n-rate {
                 type uint16;
@@ -286,8 +292,6 @@ module org-openroadm-port-capability {
                   "Specify the number of N in the case of N x OTU4";
               }
             }
-            description
-              "To specify the supported rate in the case of OTUCn or NxOTU4";
           }
           list otsi {
             key "circuit-pack-name port-name";
@@ -333,9 +337,9 @@ module org-openroadm-port-capability {
 
   grouping optical-operational-modes-grp-for-capability {
     container optical-operational-modes {
+      config false;
       description
         "The xponder optical operational modes to be published by NE device.";
-      config false;
       list operational-mode {
         key "mode-id";
         description
@@ -414,7 +418,7 @@ module org-openroadm-port-capability {
                 range "1 .. 80";
               }
               min-elements 1;
-              max-elements "80";
+              max-elements 80;
               description
                 "Network high order ODU trib slots";
             }

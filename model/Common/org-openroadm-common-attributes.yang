@@ -1,0 +1,184 @@
+module org-openroadm-common-attributes {
+  namespace "http://org/openroadm/common-attributes";
+  prefix org-openroadm-common-attributes;
+
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2019-11-29;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of common attributes.
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
+
+  grouping parent-odu-allocation {
+    description
+      "parent odu allocation group";
+    container parent-odu-allocation {
+      presence "Explicit assignment of parent ODU trib-slot and trib-port allocation. ";
+      description
+        "parent odu allocation";
+      leaf trib-port-number {
+        type uint16 {
+          range "1 .. 80";
+        }
+        mandatory true;
+        description
+          "Assigned tributary port number in parent OPU";
+      }
+      choice trib-slots-choice {
+        description
+          "trib slot selection";
+        case opu {
+          leaf-list trib-slots {
+            type uint16 {
+              range "1 .. 80";
+            }
+            min-elements 1;
+            max-elements 80;
+            description
+              "Assigned trib slots occupied in parent OPU MSI";
+          }
+        }
+        case opucn {
+          leaf-list opucn-trib-slots {
+            type org-openroadm-otn-common-types:opucn-trib-slot-def;
+            description
+              "Specify the list of OPUCn 5G tributary slots in the form of
+               TS #A.B (G.709 Figure 20-9) in the case of provisioning the low
+                order ODUk to the parent server ODUCn";
+          }
+        }
+      }
+    }
+  }
+
+  grouping deg-threshold {
+    description
+      "Deg threshold grouping";
+    leaf degm-intervals {
+      type uint8 {
+        range "2 .. 10";
+      }
+      default "2";
+      description
+        "G.806 - Consecutive bad intervals required for declare dDEG";
+    }
+    leaf degthr-percentage {
+      type uint16 {
+        range "1 .. 10000";
+      }
+      default "100";
+      description
+        "Percentage of errored blocks required to declare an interval bad, in units of 0.01%";
+    }
+  }
+
+  grouping trail-trace-tx {
+    description
+      "Trail trace tx grouping";
+    leaf tx-sapi {
+      type string {
+        length "0 .. 15";
+      }
+      description
+        "The provisioned 15 character transmit trace SAPI. Implementations shall add the [0] field automatically per ITU-T G.709";
+    }
+    leaf tx-dapi {
+      type string {
+        length "0 .. 15";
+      }
+      description
+        "The provisioned 15 character transmit trace DAPI. Implementations shall add the [0] field automatically per ITU-T G.709";
+    }
+    leaf tx-operator {
+      type string {
+        length "0 .. 32";
+      }
+      description
+        "The provisioned 32 character Operator Specific field";
+    }
+  }
+
+  grouping trail-trace-other {
+    description
+      "Trail trace other grouping";
+    leaf expected-sapi {
+      type string {
+        length "0 .. 15";
+      }
+      description
+        "The provisioned expected SAPI, to be compared with accepted TTI";
+    }
+    leaf expected-dapi {
+      type string {
+        length "0 .. 15";
+      }
+      description
+        "The provisioned expected DAPI, to be compared with accepted TTI";
+    }
+    leaf tim-act-enabled {
+      type boolean;
+      default "false";
+      description
+        "Enables TTI Mismatch consequent actions.";
+    }
+    leaf tim-detect-mode {
+      type enumeration {
+        enum Disabled {
+          description
+            "TTI is ignored";
+        }
+        enum SAPI {
+          description
+            "Expected SAPI is compared to the Accepted TTI. Other TTI fields are ignored";
+        }
+        enum DAPI {
+          description
+            "Expected DAPI is compared to the Accepted TTI. Other TTI fields are ignored";
+        }
+        enum SAPI-and-DAPI {
+          description
+            "Expected SAPI and Expected DAPI are compared to the Accepted TTI. Operator specific TTI field is ignored";
+        }
+      }
+      default "Disabled";
+      description
+        "tim detect mode leaf";
+    }
+  }
+}

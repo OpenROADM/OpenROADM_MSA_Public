@@ -8,33 +8,37 @@ module org-openroadm-common-equipment-types {
     "OpenROADM.org";
   description
     "YANG definitions of common types.
-       
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -46,10 +50,10 @@ module org-openroadm-common-equipment-types {
 
   typedef optic-types {
     type enumeration {
-      enum "gray" {
+      enum gray {
         value 1;
       }
-      enum "dwdm" {
+      enum dwdm {
         value 2;
       }
     }
@@ -57,25 +61,25 @@ module org-openroadm-common-equipment-types {
 
   typedef equipment-type-enum {
     type enumeration {
-      enum "other" {
+      enum other {
         value 1;
       }
-      enum "powerSupply" {
+      enum powerSupply {
         value 2;
       }
-      enum "shelfProcessor" {
+      enum shelfProcessor {
         value 3;
       }
-      enum "crossConnect" {
+      enum crossConnect {
         value 4;
       }
-      enum "fan" {
+      enum fan {
         value 5;
       }
-      enum "accessPanel" {
+      enum accessPanel {
         value 6;
       }
-      enum "circuitPack" {
+      enum circuitPack {
         value 7;
       }
     }

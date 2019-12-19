@@ -4,11 +4,11 @@ module org-openroadm-gcc-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2019-05-31;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -17,39 +17,39 @@ module org-openroadm-gcc-interfaces {
     "OpenROADM.org";
   description
     "YANG definitions for device facility gcc interfaces.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reprgccce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reprgccce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote prgcccts derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote prgcccts derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -58,6 +58,10 @@ module org-openroadm-gcc-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -93,22 +97,22 @@ module org-openroadm-gcc-interfaces {
         "GCC Channel on OTN interface.";
       leaf gcc-channel-type {
         type enumeration {
-          enum "gcc0" {
+          enum gcc0 {
             value 1;
             description
               "OTU GCC0 channel";
           }
-          enum "gcc1" {
+          enum gcc1 {
             value 2;
             description
               "ODU GCC1 channel";
           }
-          enum "gcc2" {
+          enum gcc2 {
             value 3;
             description
               "ODU GCC2 channel";
           }
-          enum "gcc1-gcc2" {
+          enum gcc1-gcc2 {
             value 4;
             description
               "Combined ODU GCC channel";

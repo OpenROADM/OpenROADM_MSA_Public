@@ -305,6 +305,7 @@ module: org-openroadm-service
   |     |  +--rw otn-TE-metric?       uint8
   |     +--rw connection-type              connection-type
   |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
+  |     +--rw resource-status?             resource-status-type
   |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
@@ -316,6 +317,39 @@ module: org-openroadm-service
   |     |  +--rw odu-service-rate?                identityref
   |     |  +--rw ethernet-encoding?               ethernet-encoding-type
   |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw otn-attributes
+  |     |  |  +--rw parent-odu-allocation!
+  |     |  |  |  +--rw trib-port-number          uint16
+  |     |  |  |  +--rw (trib-slots-choice)?
+  |     |  |  |     +--:(opu)
+  |     |  |  |     |  +--rw trib-slots*         uint16
+  |     |  |  |     +--:(opucn)
+  |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw tx-sapi?                 string
+  |     |  |  +--rw tx-dapi?                 string
+  |     |  |  +--rw tx-operator?             string
+  |     |  |  +--rw expected-sapi?           string
+  |     |  |  +--rw expected-dapi?           string
+  |     |  |  +--rw tim-act-enabled?         boolean
+  |     |  |  +--rw tim-detect-mode?         enumeration
+  |     |  |  +--rw degm-intervals?          uint8
+  |     |  |  +--rw degthr-percentage?       uint16
+  |     |  |  +--rw reserved-tcm-layer*      uint8
+  |     |  |  +--rw tcm* [layer tcm-direction]
+  |     |  |     +--rw layer                                  uint8
+  |     |  |     +--rw monitoring-mode?                       enumeration
+  |     |  |     +--rw ltc-act-enabled?                       boolean
+  |     |  |     +--rw proactive-delay-measurement-enabled?   boolean
+  |     |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+  |     |  |     +--rw tx-sapi?                               string
+  |     |  |     +--rw tx-dapi?                               string
+  |     |  |     +--rw tx-operator?                           string
+  |     |  |     +--rw expected-sapi?                         string
+  |     |  |     +--rw expected-dapi?                         string
+  |     |  |     +--rw tim-act-enabled?                       boolean
+  |     |  |     +--rw tim-detect-mode?                       enumeration
+  |     |  |     +--rw degm-intervals?                        uint8
+  |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
@@ -384,6 +418,39 @@ module: org-openroadm-service
   |     |  +--rw odu-service-rate?                identityref
   |     |  +--rw ethernet-encoding?               ethernet-encoding-type
   |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw otn-attributes
+  |     |  |  +--rw parent-odu-allocation!
+  |     |  |  |  +--rw trib-port-number          uint16
+  |     |  |  |  +--rw (trib-slots-choice)?
+  |     |  |  |     +--:(opu)
+  |     |  |  |     |  +--rw trib-slots*         uint16
+  |     |  |  |     +--:(opucn)
+  |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw tx-sapi?                 string
+  |     |  |  +--rw tx-dapi?                 string
+  |     |  |  +--rw tx-operator?             string
+  |     |  |  +--rw expected-sapi?           string
+  |     |  |  +--rw expected-dapi?           string
+  |     |  |  +--rw tim-act-enabled?         boolean
+  |     |  |  +--rw tim-detect-mode?         enumeration
+  |     |  |  +--rw degm-intervals?          uint8
+  |     |  |  +--rw degthr-percentage?       uint16
+  |     |  |  +--rw reserved-tcm-layer*      uint8
+  |     |  |  +--rw tcm* [layer tcm-direction]
+  |     |  |     +--rw layer                                  uint8
+  |     |  |     +--rw monitoring-mode?                       enumeration
+  |     |  |     +--rw ltc-act-enabled?                       boolean
+  |     |  |     +--rw proactive-delay-measurement-enabled?   boolean
+  |     |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+  |     |  |     +--rw tx-sapi?                               string
+  |     |  |     +--rw tx-dapi?                               string
+  |     |  |     +--rw tx-operator?                           string
+  |     |  |     +--rw expected-sapi?                         string
+  |     |  |     +--rw expected-dapi?                         string
+  |     |  |     +--rw tim-act-enabled?                       boolean
+  |     |  |     +--rw tim-detect-mode?                       enumeration
+  |     |  |     +--rw degm-intervals?                        uint8
+  |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
@@ -927,6 +994,7 @@ module: org-openroadm-service
   |     |  +--rw otn-TE-metric?       uint8
   |     +--rw connection-type              connection-type
   |     +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
+  |     +--rw resource-status?             resource-status-type
   |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
@@ -938,6 +1006,39 @@ module: org-openroadm-service
   |     |  +--rw odu-service-rate?                identityref
   |     |  +--rw ethernet-encoding?               ethernet-encoding-type
   |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw otn-attributes
+  |     |  |  +--rw parent-odu-allocation!
+  |     |  |  |  +--rw trib-port-number          uint16
+  |     |  |  |  +--rw (trib-slots-choice)?
+  |     |  |  |     +--:(opu)
+  |     |  |  |     |  +--rw trib-slots*         uint16
+  |     |  |  |     +--:(opucn)
+  |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw tx-sapi?                 string
+  |     |  |  +--rw tx-dapi?                 string
+  |     |  |  +--rw tx-operator?             string
+  |     |  |  +--rw expected-sapi?           string
+  |     |  |  +--rw expected-dapi?           string
+  |     |  |  +--rw tim-act-enabled?         boolean
+  |     |  |  +--rw tim-detect-mode?         enumeration
+  |     |  |  +--rw degm-intervals?          uint8
+  |     |  |  +--rw degthr-percentage?       uint16
+  |     |  |  +--rw reserved-tcm-layer*      uint8
+  |     |  |  +--rw tcm* [layer tcm-direction]
+  |     |  |     +--rw layer                                  uint8
+  |     |  |     +--rw monitoring-mode?                       enumeration
+  |     |  |     +--rw ltc-act-enabled?                       boolean
+  |     |  |     +--rw proactive-delay-measurement-enabled?   boolean
+  |     |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+  |     |  |     +--rw tx-sapi?                               string
+  |     |  |     +--rw tx-dapi?                               string
+  |     |  |     +--rw tx-operator?                           string
+  |     |  |     +--rw expected-sapi?                         string
+  |     |  |     +--rw expected-dapi?                         string
+  |     |  |     +--rw tim-act-enabled?                       boolean
+  |     |  |     +--rw tim-detect-mode?                       enumeration
+  |     |  |     +--rw degm-intervals?                        uint8
+  |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
@@ -1006,6 +1107,39 @@ module: org-openroadm-service
   |     |  +--rw odu-service-rate?                identityref
   |     |  +--rw ethernet-encoding?               ethernet-encoding-type
   |     |  +--rw mapping-mode?                    mapping-mode-type
+  |     |  +--rw otn-attributes
+  |     |  |  +--rw parent-odu-allocation!
+  |     |  |  |  +--rw trib-port-number          uint16
+  |     |  |  |  +--rw (trib-slots-choice)?
+  |     |  |  |     +--:(opu)
+  |     |  |  |     |  +--rw trib-slots*         uint16
+  |     |  |  |     +--:(opucn)
+  |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw tx-sapi?                 string
+  |     |  |  +--rw tx-dapi?                 string
+  |     |  |  +--rw tx-operator?             string
+  |     |  |  +--rw expected-sapi?           string
+  |     |  |  +--rw expected-dapi?           string
+  |     |  |  +--rw tim-act-enabled?         boolean
+  |     |  |  +--rw tim-detect-mode?         enumeration
+  |     |  |  +--rw degm-intervals?          uint8
+  |     |  |  +--rw degthr-percentage?       uint16
+  |     |  |  +--rw reserved-tcm-layer*      uint8
+  |     |  |  +--rw tcm* [layer tcm-direction]
+  |     |  |     +--rw layer                                  uint8
+  |     |  |     +--rw monitoring-mode?                       enumeration
+  |     |  |     +--rw ltc-act-enabled?                       boolean
+  |     |  |     +--rw proactive-delay-measurement-enabled?   boolean
+  |     |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+  |     |  |     +--rw tx-sapi?                               string
+  |     |  |     +--rw tx-dapi?                               string
+  |     |  |     +--rw tx-operator?                           string
+  |     |  |     +--rw expected-sapi?                         string
+  |     |  |     +--rw expected-dapi?                         string
+  |     |  |     +--rw tim-act-enabled?                       boolean
+  |     |  |     +--rw tim-detect-mode?                       enumeration
+  |     |  |     +--rw degm-intervals?                        uint8
+  |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
   |     |  +--rw tx-direction
@@ -1548,6 +1682,7 @@ module: org-openroadm-service
         |  +--rw otn-TE-metric?       uint8
         +--rw connection-type              connection-type
         +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
+        +--rw resource-status?             resource-status-type
         +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
         +--ro operational-state?           org-openroadm-common-state-types:state
         +--rw condition?                   service-condition
@@ -1559,6 +1694,39 @@ module: org-openroadm-service
         |  +--rw odu-service-rate?                identityref
         |  +--rw ethernet-encoding?               ethernet-encoding-type
         |  +--rw mapping-mode?                    mapping-mode-type
+        |  +--rw otn-attributes
+        |  |  +--rw parent-odu-allocation!
+        |  |  |  +--rw trib-port-number          uint16
+        |  |  |  +--rw (trib-slots-choice)?
+        |  |  |     +--:(opu)
+        |  |  |     |  +--rw trib-slots*         uint16
+        |  |  |     +--:(opucn)
+        |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+        |  |  +--rw tx-sapi?                 string
+        |  |  +--rw tx-dapi?                 string
+        |  |  +--rw tx-operator?             string
+        |  |  +--rw expected-sapi?           string
+        |  |  +--rw expected-dapi?           string
+        |  |  +--rw tim-act-enabled?         boolean
+        |  |  +--rw tim-detect-mode?         enumeration
+        |  |  +--rw degm-intervals?          uint8
+        |  |  +--rw degthr-percentage?       uint16
+        |  |  +--rw reserved-tcm-layer*      uint8
+        |  |  +--rw tcm* [layer tcm-direction]
+        |  |     +--rw layer                                  uint8
+        |  |     +--rw monitoring-mode?                       enumeration
+        |  |     +--rw ltc-act-enabled?                       boolean
+        |  |     +--rw proactive-delay-measurement-enabled?   boolean
+        |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+        |  |     +--rw tx-sapi?                               string
+        |  |     +--rw tx-dapi?                               string
+        |  |     +--rw tx-operator?                           string
+        |  |     +--rw expected-sapi?                         string
+        |  |     +--rw expected-dapi?                         string
+        |  |     +--rw tim-act-enabled?                       boolean
+        |  |     +--rw tim-detect-mode?                       enumeration
+        |  |     +--rw degm-intervals?                        uint8
+        |  |     +--rw degthr-percentage?                     uint16
         |  +--rw clli                             string
         |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
         |  +--rw tx-direction
@@ -1627,6 +1795,39 @@ module: org-openroadm-service
         |  +--rw odu-service-rate?                identityref
         |  +--rw ethernet-encoding?               ethernet-encoding-type
         |  +--rw mapping-mode?                    mapping-mode-type
+        |  +--rw otn-attributes
+        |  |  +--rw parent-odu-allocation!
+        |  |  |  +--rw trib-port-number          uint16
+        |  |  |  +--rw (trib-slots-choice)?
+        |  |  |     +--:(opu)
+        |  |  |     |  +--rw trib-slots*         uint16
+        |  |  |     +--:(opucn)
+        |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+        |  |  +--rw tx-sapi?                 string
+        |  |  +--rw tx-dapi?                 string
+        |  |  +--rw tx-operator?             string
+        |  |  +--rw expected-sapi?           string
+        |  |  +--rw expected-dapi?           string
+        |  |  +--rw tim-act-enabled?         boolean
+        |  |  +--rw tim-detect-mode?         enumeration
+        |  |  +--rw degm-intervals?          uint8
+        |  |  +--rw degthr-percentage?       uint16
+        |  |  +--rw reserved-tcm-layer*      uint8
+        |  |  +--rw tcm* [layer tcm-direction]
+        |  |     +--rw layer                                  uint8
+        |  |     +--rw monitoring-mode?                       enumeration
+        |  |     +--rw ltc-act-enabled?                       boolean
+        |  |     +--rw proactive-delay-measurement-enabled?   boolean
+        |  |     +--rw tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+        |  |     +--rw tx-sapi?                               string
+        |  |     +--rw tx-dapi?                               string
+        |  |     +--rw tx-operator?                           string
+        |  |     +--rw expected-sapi?                         string
+        |  |     +--rw expected-dapi?                         string
+        |  |     +--rw tim-act-enabled?                       boolean
+        |  |     +--rw tim-detect-mode?                       enumeration
+        |  |     +--rw degm-intervals?                        uint8
+        |  |     +--rw degthr-percentage?                     uint16
         |  +--rw clli                             string
         |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
         |  +--rw tx-direction
@@ -2170,6 +2371,7 @@ module: org-openroadm-service
     |  |  |        +---w common-id?        string
     |  |  |        +---w version-number?   uint64
     |  |  +---w connection-type              org-openroadm-common-service-types:connection-type
+    |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -2178,6 +2380,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -2246,6 +2481,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -2694,6 +2962,7 @@ module: org-openroadm-service
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
+    |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -2702,6 +2971,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -2768,6 +3070,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -3058,6 +3393,39 @@ module: org-openroadm-service
     |     |  +--ro odu-service-rate?                identityref
     |     |  +--ro ethernet-encoding?               ethernet-encoding-type
     |     |  +--ro mapping-mode?                    mapping-mode-type
+    |     |  +--ro otn-attributes
+    |     |  |  +--ro parent-odu-allocation!
+    |     |  |  |  +--ro trib-port-number          uint16
+    |     |  |  |  +--ro (trib-slots-choice)?
+    |     |  |  |     +--:(opu)
+    |     |  |  |     |  +--ro trib-slots*         uint16
+    |     |  |  |     +--:(opucn)
+    |     |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |     |  |  +--ro tx-sapi?                 string
+    |     |  |  +--ro tx-dapi?                 string
+    |     |  |  +--ro tx-operator?             string
+    |     |  |  +--ro expected-sapi?           string
+    |     |  |  +--ro expected-dapi?           string
+    |     |  |  +--ro tim-act-enabled?         boolean
+    |     |  |  +--ro tim-detect-mode?         enumeration
+    |     |  |  +--ro degm-intervals?          uint8
+    |     |  |  +--ro degthr-percentage?       uint16
+    |     |  |  +--ro reserved-tcm-layer*      uint8
+    |     |  |  +--ro tcm* [layer tcm-direction]
+    |     |  |     +--ro layer                                  uint8
+    |     |  |     +--ro monitoring-mode?                       enumeration
+    |     |  |     +--ro ltc-act-enabled?                       boolean
+    |     |  |     +--ro proactive-delay-measurement-enabled?   boolean
+    |     |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |     |  |     +--ro tx-sapi?                               string
+    |     |  |     +--ro tx-dapi?                               string
+    |     |  |     +--ro tx-operator?                           string
+    |     |  |     +--ro expected-sapi?                         string
+    |     |  |     +--ro expected-dapi?                         string
+    |     |  |     +--ro tim-act-enabled?                       boolean
+    |     |  |     +--ro tim-detect-mode?                       enumeration
+    |     |  |     +--ro degm-intervals?                        uint8
+    |     |  |     +--ro degthr-percentage?                     uint16
     |     |  +--ro clli                             string
     |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  +--ro tx-direction
@@ -3129,6 +3497,39 @@ module: org-openroadm-service
     |     |  +--ro odu-service-rate?                identityref
     |     |  +--ro ethernet-encoding?               ethernet-encoding-type
     |     |  +--ro mapping-mode?                    mapping-mode-type
+    |     |  +--ro otn-attributes
+    |     |  |  +--ro parent-odu-allocation!
+    |     |  |  |  +--ro trib-port-number          uint16
+    |     |  |  |  +--ro (trib-slots-choice)?
+    |     |  |  |     +--:(opu)
+    |     |  |  |     |  +--ro trib-slots*         uint16
+    |     |  |  |     +--:(opucn)
+    |     |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |     |  |  +--ro tx-sapi?                 string
+    |     |  |  +--ro tx-dapi?                 string
+    |     |  |  +--ro tx-operator?             string
+    |     |  |  +--ro expected-sapi?           string
+    |     |  |  +--ro expected-dapi?           string
+    |     |  |  +--ro tim-act-enabled?         boolean
+    |     |  |  +--ro tim-detect-mode?         enumeration
+    |     |  |  +--ro degm-intervals?          uint8
+    |     |  |  +--ro degthr-percentage?       uint16
+    |     |  |  +--ro reserved-tcm-layer*      uint8
+    |     |  |  +--ro tcm* [layer tcm-direction]
+    |     |  |     +--ro layer                                  uint8
+    |     |  |     +--ro monitoring-mode?                       enumeration
+    |     |  |     +--ro ltc-act-enabled?                       boolean
+    |     |  |     +--ro proactive-delay-measurement-enabled?   boolean
+    |     |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |     |  |     +--ro tx-sapi?                               string
+    |     |  |     +--ro tx-dapi?                               string
+    |     |  |     +--ro tx-operator?                           string
+    |     |  |     +--ro expected-sapi?                         string
+    |     |  |     +--ro expected-dapi?                         string
+    |     |  |     +--ro tim-act-enabled?                       boolean
+    |     |  |     +--ro tim-detect-mode?                       enumeration
+    |     |  |     +--ro degm-intervals?                        uint8
+    |     |  |     +--ro degthr-percentage?                     uint16
     |     |  +--ro clli                             string
     |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  +--ro tx-direction
@@ -3200,6 +3601,39 @@ module: org-openroadm-service
     |        +--ro odu-service-rate?                identityref
     |        +--ro ethernet-encoding?               ethernet-encoding-type
     |        +--ro mapping-mode?                    mapping-mode-type
+    |        +--ro otn-attributes
+    |        |  +--ro parent-odu-allocation!
+    |        |  |  +--ro trib-port-number          uint16
+    |        |  |  +--ro (trib-slots-choice)?
+    |        |  |     +--:(opu)
+    |        |  |     |  +--ro trib-slots*         uint16
+    |        |  |     +--:(opucn)
+    |        |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  +--ro tx-sapi?                 string
+    |        |  +--ro tx-dapi?                 string
+    |        |  +--ro tx-operator?             string
+    |        |  +--ro expected-sapi?           string
+    |        |  +--ro expected-dapi?           string
+    |        |  +--ro tim-act-enabled?         boolean
+    |        |  +--ro tim-detect-mode?         enumeration
+    |        |  +--ro degm-intervals?          uint8
+    |        |  +--ro degthr-percentage?       uint16
+    |        |  +--ro reserved-tcm-layer*      uint8
+    |        |  +--ro tcm* [layer tcm-direction]
+    |        |     +--ro layer                                  uint8
+    |        |     +--ro monitoring-mode?                       enumeration
+    |        |     +--ro ltc-act-enabled?                       boolean
+    |        |     +--ro proactive-delay-measurement-enabled?   boolean
+    |        |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |        |     +--ro tx-sapi?                               string
+    |        |     +--ro tx-dapi?                               string
+    |        |     +--ro tx-operator?                           string
+    |        |     +--ro expected-sapi?                         string
+    |        |     +--ro expected-dapi?                         string
+    |        |     +--ro tim-act-enabled?                       boolean
+    |        |     +--ro tim-detect-mode?                       enumeration
+    |        |     +--ro degm-intervals?                        uint8
+    |        |     +--ro degthr-percentage?                     uint16
     |        +--ro clli                             string
     |        +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        +--ro tx-direction
@@ -3273,6 +3707,7 @@ module: org-openroadm-service
     |  |  +---w service-request-list* []
     |  |     +---w common-id                    string
     |  |     +---w connection-type?             org-openroadm-common-service-types:connection-type
+    |  |     +---w resource-status?             resource-status-type
     |  |     +---w service-a-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
@@ -3281,6 +3716,39 @@ module: org-openroadm-service
     |  |     |  +---w odu-service-rate?                identityref
     |  |     |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |     |  +---w mapping-mode?                    mapping-mode-type
+    |  |     |  +---w otn-attributes
+    |  |     |  |  +---w parent-odu-allocation!
+    |  |     |  |  |  +---w trib-port-number          uint16
+    |  |     |  |  |  +---w (trib-slots-choice)?
+    |  |     |  |  |     +--:(opu)
+    |  |     |  |  |     |  +---w trib-slots*         uint16
+    |  |     |  |  |     +--:(opucn)
+    |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w tx-sapi?                 string
+    |  |     |  |  +---w tx-dapi?                 string
+    |  |     |  |  +---w tx-operator?             string
+    |  |     |  |  +---w expected-sapi?           string
+    |  |     |  |  +---w expected-dapi?           string
+    |  |     |  |  +---w tim-act-enabled?         boolean
+    |  |     |  |  +---w tim-detect-mode?         enumeration
+    |  |     |  |  +---w degm-intervals?          uint8
+    |  |     |  |  +---w degthr-percentage?       uint16
+    |  |     |  |  +---w reserved-tcm-layer*      uint8
+    |  |     |  |  +---w tcm* [layer tcm-direction]
+    |  |     |  |     +---w layer                                  uint8
+    |  |     |  |     +---w monitoring-mode?                       enumeration
+    |  |     |  |     +---w ltc-act-enabled?                       boolean
+    |  |     |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |     |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |     |  |     +---w tx-sapi?                               string
+    |  |     |  |     +---w tx-dapi?                               string
+    |  |     |  |     +---w tx-operator?                           string
+    |  |     |  |     +---w expected-sapi?                         string
+    |  |     |  |     +---w expected-dapi?                         string
+    |  |     |  |     +---w tim-act-enabled?                       boolean
+    |  |     |  |     +---w tim-detect-mode?                       enumeration
+    |  |     |  |     +---w degm-intervals?                        uint8
+    |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |     |  +---w tx-direction
@@ -3347,6 +3815,39 @@ module: org-openroadm-service
     |  |     |  +---w odu-service-rate?                identityref
     |  |     |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |     |  +---w mapping-mode?                    mapping-mode-type
+    |  |     |  +---w otn-attributes
+    |  |     |  |  +---w parent-odu-allocation!
+    |  |     |  |  |  +---w trib-port-number          uint16
+    |  |     |  |  |  +---w (trib-slots-choice)?
+    |  |     |  |  |     +--:(opu)
+    |  |     |  |  |     |  +---w trib-slots*         uint16
+    |  |     |  |  |     +--:(opucn)
+    |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w tx-sapi?                 string
+    |  |     |  |  +---w tx-dapi?                 string
+    |  |     |  |  +---w tx-operator?             string
+    |  |     |  |  +---w expected-sapi?           string
+    |  |     |  |  +---w expected-dapi?           string
+    |  |     |  |  +---w tim-act-enabled?         boolean
+    |  |     |  |  +---w tim-detect-mode?         enumeration
+    |  |     |  |  +---w degm-intervals?          uint8
+    |  |     |  |  +---w degthr-percentage?       uint16
+    |  |     |  |  +---w reserved-tcm-layer*      uint8
+    |  |     |  |  +---w tcm* [layer tcm-direction]
+    |  |     |  |     +---w layer                                  uint8
+    |  |     |  |     +---w monitoring-mode?                       enumeration
+    |  |     |  |     +---w ltc-act-enabled?                       boolean
+    |  |     |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |     |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |     |  |     +---w tx-sapi?                               string
+    |  |     |  |     +---w tx-dapi?                               string
+    |  |     |  |     +---w tx-operator?                           string
+    |  |     |  |     +---w expected-sapi?                         string
+    |  |     |  |     +---w expected-dapi?                         string
+    |  |     |  |     +---w tim-act-enabled?                       boolean
+    |  |     |  |     +---w tim-detect-mode?                       enumeration
+    |  |     |  |     +---w degm-intervals?                        uint8
+    |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |     |  +---w tx-direction
@@ -3638,6 +4139,39 @@ module: org-openroadm-service
     |        |  +--ro odu-service-rate?                identityref
     |        |  +--ro ethernet-encoding?               ethernet-encoding-type
     |        |  +--ro mapping-mode?                    mapping-mode-type
+    |        |  +--ro otn-attributes
+    |        |  |  +--ro parent-odu-allocation!
+    |        |  |  |  +--ro trib-port-number          uint16
+    |        |  |  |  +--ro (trib-slots-choice)?
+    |        |  |  |     +--:(opu)
+    |        |  |  |     |  +--ro trib-slots*         uint16
+    |        |  |  |     +--:(opucn)
+    |        |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  |  +--ro tx-sapi?                 string
+    |        |  |  +--ro tx-dapi?                 string
+    |        |  |  +--ro tx-operator?             string
+    |        |  |  +--ro expected-sapi?           string
+    |        |  |  +--ro expected-dapi?           string
+    |        |  |  +--ro tim-act-enabled?         boolean
+    |        |  |  +--ro tim-detect-mode?         enumeration
+    |        |  |  +--ro degm-intervals?          uint8
+    |        |  |  +--ro degthr-percentage?       uint16
+    |        |  |  +--ro reserved-tcm-layer*      uint8
+    |        |  |  +--ro tcm* [layer tcm-direction]
+    |        |  |     +--ro layer                                  uint8
+    |        |  |     +--ro monitoring-mode?                       enumeration
+    |        |  |     +--ro ltc-act-enabled?                       boolean
+    |        |  |     +--ro proactive-delay-measurement-enabled?   boolean
+    |        |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |        |  |     +--ro tx-sapi?                               string
+    |        |  |     +--ro tx-dapi?                               string
+    |        |  |     +--ro tx-operator?                           string
+    |        |  |     +--ro expected-sapi?                         string
+    |        |  |     +--ro expected-dapi?                         string
+    |        |  |     +--ro tim-act-enabled?                       boolean
+    |        |  |     +--ro tim-detect-mode?                       enumeration
+    |        |  |     +--ro degm-intervals?                        uint8
+    |        |  |     +--ro degthr-percentage?                     uint16
     |        |  +--ro clli                             string
     |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  +--ro tx-direction
@@ -3709,6 +4243,39 @@ module: org-openroadm-service
     |        |  +--ro odu-service-rate?                identityref
     |        |  +--ro ethernet-encoding?               ethernet-encoding-type
     |        |  +--ro mapping-mode?                    mapping-mode-type
+    |        |  +--ro otn-attributes
+    |        |  |  +--ro parent-odu-allocation!
+    |        |  |  |  +--ro trib-port-number          uint16
+    |        |  |  |  +--ro (trib-slots-choice)?
+    |        |  |  |     +--:(opu)
+    |        |  |  |     |  +--ro trib-slots*         uint16
+    |        |  |  |     +--:(opucn)
+    |        |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  |  +--ro tx-sapi?                 string
+    |        |  |  +--ro tx-dapi?                 string
+    |        |  |  +--ro tx-operator?             string
+    |        |  |  +--ro expected-sapi?           string
+    |        |  |  +--ro expected-dapi?           string
+    |        |  |  +--ro tim-act-enabled?         boolean
+    |        |  |  +--ro tim-detect-mode?         enumeration
+    |        |  |  +--ro degm-intervals?          uint8
+    |        |  |  +--ro degthr-percentage?       uint16
+    |        |  |  +--ro reserved-tcm-layer*      uint8
+    |        |  |  +--ro tcm* [layer tcm-direction]
+    |        |  |     +--ro layer                                  uint8
+    |        |  |     +--ro monitoring-mode?                       enumeration
+    |        |  |     +--ro ltc-act-enabled?                       boolean
+    |        |  |     +--ro proactive-delay-measurement-enabled?   boolean
+    |        |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |        |  |     +--ro tx-sapi?                               string
+    |        |  |     +--ro tx-dapi?                               string
+    |        |  |     +--ro tx-operator?                           string
+    |        |  |     +--ro expected-sapi?                         string
+    |        |  |     +--ro expected-dapi?                         string
+    |        |  |     +--ro tim-act-enabled?                       boolean
+    |        |  |     +--ro tim-detect-mode?                       enumeration
+    |        |  |     +--ro degm-intervals?                        uint8
+    |        |  |     +--ro degthr-percentage?                     uint16
     |        |  +--ro clli                             string
     |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  +--ro tx-direction
@@ -3780,6 +4347,39 @@ module: org-openroadm-service
     |           +--ro odu-service-rate?                identityref
     |           +--ro ethernet-encoding?               ethernet-encoding-type
     |           +--ro mapping-mode?                    mapping-mode-type
+    |           +--ro otn-attributes
+    |           |  +--ro parent-odu-allocation!
+    |           |  |  +--ro trib-port-number          uint16
+    |           |  |  +--ro (trib-slots-choice)?
+    |           |  |     +--:(opu)
+    |           |  |     |  +--ro trib-slots*         uint16
+    |           |  |     +--:(opucn)
+    |           |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |           |  +--ro tx-sapi?                 string
+    |           |  +--ro tx-dapi?                 string
+    |           |  +--ro tx-operator?             string
+    |           |  +--ro expected-sapi?           string
+    |           |  +--ro expected-dapi?           string
+    |           |  +--ro tim-act-enabled?         boolean
+    |           |  +--ro tim-detect-mode?         enumeration
+    |           |  +--ro degm-intervals?          uint8
+    |           |  +--ro degthr-percentage?       uint16
+    |           |  +--ro reserved-tcm-layer*      uint8
+    |           |  +--ro tcm* [layer tcm-direction]
+    |           |     +--ro layer                                  uint8
+    |           |     +--ro monitoring-mode?                       enumeration
+    |           |     +--ro ltc-act-enabled?                       boolean
+    |           |     +--ro proactive-delay-measurement-enabled?   boolean
+    |           |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |           |     +--ro tx-sapi?                               string
+    |           |     +--ro tx-dapi?                               string
+    |           |     +--ro tx-operator?                           string
+    |           |     +--ro expected-sapi?                         string
+    |           |     +--ro expected-dapi?                         string
+    |           |     +--ro tim-act-enabled?                       boolean
+    |           |     +--ro tim-detect-mode?                       enumeration
+    |           |     +--ro degm-intervals?                        uint8
+    |           |     +--ro degthr-percentage?                     uint16
     |           +--ro clli                             string
     |           +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |           +--ro tx-direction
@@ -3892,6 +4492,7 @@ module: org-openroadm-service
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
     |  |  +---w connection-type              org-openroadm-common-service-types:connection-type
+    |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -3900,6 +4501,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -3968,6 +4602,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -4285,6 +4952,7 @@ module: org-openroadm-service
     |  |  +---w order-id?                    string
     |  |  +---w order-note?                  string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
+    |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -4293,6 +4961,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -4361,6 +5062,39 @@ module: org-openroadm-service
     |  |  |  +---w odu-service-rate?                identityref
     |  |  |  +---w ethernet-encoding?               ethernet-encoding-type
     |  |  |  +---w mapping-mode?                    mapping-mode-type
+    |  |  |  +---w otn-attributes
+    |  |  |  |  +---w parent-odu-allocation!
+    |  |  |  |  |  +---w trib-port-number          uint16
+    |  |  |  |  |  +---w (trib-slots-choice)?
+    |  |  |  |  |     +--:(opu)
+    |  |  |  |  |     |  +---w trib-slots*         uint16
+    |  |  |  |  |     +--:(opucn)
+    |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w tx-sapi?                 string
+    |  |  |  |  +---w tx-dapi?                 string
+    |  |  |  |  +---w tx-operator?             string
+    |  |  |  |  +---w expected-sapi?           string
+    |  |  |  |  +---w expected-dapi?           string
+    |  |  |  |  +---w tim-act-enabled?         boolean
+    |  |  |  |  +---w tim-detect-mode?         enumeration
+    |  |  |  |  +---w degm-intervals?          uint8
+    |  |  |  |  +---w degthr-percentage?       uint16
+    |  |  |  |  +---w reserved-tcm-layer*      uint8
+    |  |  |  |  +---w tcm* [layer tcm-direction]
+    |  |  |  |     +---w layer                                  uint8
+    |  |  |  |     +---w monitoring-mode?                       enumeration
+    |  |  |  |     +---w ltc-act-enabled?                       boolean
+    |  |  |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |  |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |  |  |     +---w tx-sapi?                               string
+    |  |  |  |     +---w tx-dapi?                               string
+    |  |  |  |     +---w tx-operator?                           string
+    |  |  |  |     +---w expected-sapi?                         string
+    |  |  |  |     +---w expected-dapi?                         string
+    |  |  |  |     +---w tim-act-enabled?                       boolean
+    |  |  |  |     +---w tim-detect-mode?                       enumeration
+    |  |  |  |     +---w degm-intervals?                        uint8
+    |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
     |  |  |  +---w tx-direction
@@ -4855,6 +5589,7 @@ module: org-openroadm-service
        |  +--ro otn-TE-metric?       uint8
        +--ro connection-type              connection-type
        +--ro lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
+       +--ro resource-status?             resource-status-type
        +--ro administrative-state?        org-openroadm-equipment-states-types:admin-states
        +--ro operational-state?           org-openroadm-common-state-types:state
        +--ro condition?                   service-condition
@@ -4866,6 +5601,39 @@ module: org-openroadm-service
        |  +--ro odu-service-rate?                identityref
        |  +--ro ethernet-encoding?               ethernet-encoding-type
        |  +--ro mapping-mode?                    mapping-mode-type
+       |  +--ro otn-attributes
+       |  |  +--ro parent-odu-allocation!
+       |  |  |  +--ro trib-port-number          uint16
+       |  |  |  +--ro (trib-slots-choice)?
+       |  |  |     +--:(opu)
+       |  |  |     |  +--ro trib-slots*         uint16
+       |  |  |     +--:(opucn)
+       |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+       |  |  +--ro tx-sapi?                 string
+       |  |  +--ro tx-dapi?                 string
+       |  |  +--ro tx-operator?             string
+       |  |  +--ro expected-sapi?           string
+       |  |  +--ro expected-dapi?           string
+       |  |  +--ro tim-act-enabled?         boolean
+       |  |  +--ro tim-detect-mode?         enumeration
+       |  |  +--ro degm-intervals?          uint8
+       |  |  +--ro degthr-percentage?       uint16
+       |  |  +--ro reserved-tcm-layer*      uint8
+       |  |  +--ro tcm* [layer tcm-direction]
+       |  |     +--ro layer                                  uint8
+       |  |     +--ro monitoring-mode?                       enumeration
+       |  |     +--ro ltc-act-enabled?                       boolean
+       |  |     +--ro proactive-delay-measurement-enabled?   boolean
+       |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+       |  |     +--ro tx-sapi?                               string
+       |  |     +--ro tx-dapi?                               string
+       |  |     +--ro tx-operator?                           string
+       |  |     +--ro expected-sapi?                         string
+       |  |     +--ro expected-dapi?                         string
+       |  |     +--ro tim-act-enabled?                       boolean
+       |  |     +--ro tim-detect-mode?                       enumeration
+       |  |     +--ro degm-intervals?                        uint8
+       |  |     +--ro degthr-percentage?                     uint16
        |  +--ro clli                             string
        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
        |  +--ro tx-direction
@@ -4934,6 +5702,39 @@ module: org-openroadm-service
        |  +--ro odu-service-rate?                identityref
        |  +--ro ethernet-encoding?               ethernet-encoding-type
        |  +--ro mapping-mode?                    mapping-mode-type
+       |  +--ro otn-attributes
+       |  |  +--ro parent-odu-allocation!
+       |  |  |  +--ro trib-port-number          uint16
+       |  |  |  +--ro (trib-slots-choice)?
+       |  |  |     +--:(opu)
+       |  |  |     |  +--ro trib-slots*         uint16
+       |  |  |     +--:(opucn)
+       |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+       |  |  +--ro tx-sapi?                 string
+       |  |  +--ro tx-dapi?                 string
+       |  |  +--ro tx-operator?             string
+       |  |  +--ro expected-sapi?           string
+       |  |  +--ro expected-dapi?           string
+       |  |  +--ro tim-act-enabled?         boolean
+       |  |  +--ro tim-detect-mode?         enumeration
+       |  |  +--ro degm-intervals?          uint8
+       |  |  +--ro degthr-percentage?       uint16
+       |  |  +--ro reserved-tcm-layer*      uint8
+       |  |  +--ro tcm* [layer tcm-direction]
+       |  |     +--ro layer                                  uint8
+       |  |     +--ro monitoring-mode?                       enumeration
+       |  |     +--ro ltc-act-enabled?                       boolean
+       |  |     +--ro proactive-delay-measurement-enabled?   boolean
+       |  |     +--ro tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+       |  |     +--ro tx-sapi?                               string
+       |  |     +--ro tx-dapi?                               string
+       |  |     +--ro tx-operator?                           string
+       |  |     +--ro expected-sapi?                         string
+       |  |     +--ro expected-dapi?                         string
+       |  |     +--ro tim-act-enabled?                       boolean
+       |  |     +--ro tim-detect-mode?                       enumeration
+       |  |     +--ro degm-intervals?                        uint8
+       |  |     +--ro degthr-percentage?                     uint16
        |  +--ro clli                             string
        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
        |  +--ro tx-direction

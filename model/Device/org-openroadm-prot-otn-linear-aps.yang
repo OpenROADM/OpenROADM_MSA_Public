@@ -4,11 +4,11 @@ module org-openroadm-prot-otn-linear-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -17,39 +17,39 @@ module org-openroadm-prot-otn-linear-aps {
     "OpenROADM.org";
   description
     "YANG definitions for device facility OTN linear APS protection groups.
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
+
      Also contains code components extracted from IETF Interfaces.  These code components
      are copyrighted and licensed as follows:
-     
+
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
-     
+
      This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
@@ -58,6 +58,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -125,10 +129,10 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf level {
         type enumeration {
-          enum "line" {
+          enum line {
             value 1;
           }
-          enum "path" {
+          enum path {
             value 2;
           }
         }
@@ -146,10 +150,10 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf switching-direction {
         type enumeration {
-          enum "unidirectional-switching" {
+          enum unidirectional-switching {
             value 1;
           }
-          enum "bidirectional-switching" {
+          enum bidirectional-switching {
             value 2;
           }
         }
@@ -165,27 +169,27 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf mode {
         type enumeration {
-          enum "SNC/Ne" {
+          enum SNC/Ne {
             value 1;
             description
               "applicable to line or path switching";
           }
-          enum "SNC/Ns" {
+          enum SNC/Ns {
             value 2;
             description
               "applicable to line or path switching";
           }
-          enum "SNC/S" {
+          enum SNC/S {
             value 3;
             description
               "applicable to line or path switching";
           }
-          enum "SNC/I" {
+          enum SNC/I {
             value 4;
             description
               "applicable to line switching only";
           }
-          enum "CL-SNCG/I" {
+          enum CL-SNCG/I {
             value 5;
             description
               "applicable to line switching only";
@@ -197,47 +201,47 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf protection-trigger-level {
         type enumeration {
-          enum "OTUk/ODUkA-SSF-SSD" {
+          enum OTUk/ODUkA-SSF-SSD {
             value 1;
             description
               "applicable to SNC/I";
           }
-          enum "ODUkP/ODUjA-SSF-SSD" {
+          enum ODUkP/ODUjA-SSF-SSD {
             value 2;
             description
               "applicable to CL-SNCG/I";
           }
-          enum "ODUP-SSF-SSD" {
+          enum ODUP-SSF-SSD {
             value 3;
             description
               "applicable to SNC/Ne";
           }
-          enum "ODUT1" {
+          enum ODUT1 {
             value 4;
             description
               "applicable to SNC/Ns or SNC/S";
           }
-          enum "ODUT2" {
+          enum ODUT2 {
             value 5;
             description
               "applicable to SNC/Ns or SNC/S";
           }
-          enum "ODUT3" {
+          enum ODUT3 {
             value 6;
             description
               "applicable to SNC/Ns or SNC/S";
           }
-          enum "ODUT4" {
+          enum ODUT4 {
             value 7;
             description
               "applicable to SNC/Ns or SNC/S";
           }
-          enum "ODUT5" {
+          enum ODUT5 {
             value 8;
             description
               "applicable to SNC/Ns or SNC/S";
           }
-          enum "ODUT6" {
+          enum ODUT6 {
             value 9;
             description
               "applicable to SNC/Ns or SNC/S";
@@ -267,7 +271,7 @@ module org-openroadm-prot-otn-linear-aps {
             "switch hold-off time in milliseconds";
         }
         leaf holdoff-multiplier {
-          when "../holdoff= 100";
+          when '../holdoff= 100';
           type uint8 {
             range "1 .. 100";
           }
@@ -325,16 +329,16 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf switch-command {
         type enumeration {
-          enum "Lock-Out-Protect" {
+          enum Lock-Out-Protect {
             value 1;
           }
-          enum "Force-Switch" {
+          enum Force-Switch {
             value 2;
           }
-          enum "Manual-Switch" {
+          enum Manual-Switch {
             value 3;
           }
-          enum "Release" {
+          enum Release {
             value 4;
           }
         }
@@ -347,10 +351,10 @@ module org-openroadm-prot-otn-linear-aps {
   notification odu-sncp-pg-switch-event {
     leaf switch-status {
       type enumeration {
-        enum "switched-to-protect" {
+        enum switched-to-protect {
           value 1;
         }
-        enum "switched-back-to-working" {
+        enum switched-back-to-working {
           value 2;
         }
       }

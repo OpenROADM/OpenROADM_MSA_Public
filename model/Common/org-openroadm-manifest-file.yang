@@ -8,47 +8,51 @@ module org-openroadm-manifest-file {
     "OpenROADM.org";
   description
     "YANG definitions of sw-manifest-file
-     
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017, 
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.
-     
-     Also contains code components extracted from IETF netconf.  These code components 
+
+     Also contains code components extracted from IETF netconf.  These code components
      are copyrighted and licensed as follows:
-     
-     Copyright (c) 2016 IETF Trust and the persons identified as the document authors. 
-     All rights reserved. 
-     
-     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating 
-     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of 
-     publication of this document. Please review these documents carefully, as they 
-     describe your rights and restrictions with respect to this document. Code Components 
+
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+
+     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
      extracted from this document must include Simplified BSD License text as described in
-     Section 4.e of the Trust Legal Provisions and are provided without warranty as 
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2018-11-30 {
     description
       "Version 4.1.0";
@@ -148,7 +152,7 @@ module org-openroadm-manifest-file {
         "This field should match the /org-openroadm-device/info/vendor.
          It is assumed that the vendor value does not change during the
          processing of the manifest file.
-         
+
          The controller agent would use the vendor and model to find the
          manifest for an Open ROADM NE. The controller agent would also
          use the vendor and model to validate that this is a valid manifest
@@ -162,7 +166,7 @@ module org-openroadm-manifest-file {
         "This field should match the /org-openroadm-device/info/model.
          It is assumed that the model value does not change during the
          processing of the manifest file.
-         
+
          The controller agent would use the vendor and model to find the
          manifest for an Open ROADM NE. The controller agent would also
          use the vendor and model to validate that this is a valid manifest
@@ -183,12 +187,12 @@ module org-openroadm-manifest-file {
       description
         "global-async-timeout - time in seconds to wait for command processing to
          complete.
-         
+
          Upon timeout, the controller may either:
            - assume success;
            - assume failure;
            - poll the device to determine success/failure of the operation
-         
+
          This global-async-timeout applies to any asynchronous command.
         ";
     }
@@ -197,15 +201,15 @@ module org-openroadm-manifest-file {
       description
         "global-sync-timeout - time in seconds to wait for the rpc response for
          synchronous commands.
-         
+
          This global-sync-timeout applies to any synchronous command.
-         
+
          Upon timeout, the controller may either:
            - assume success;
            - assume failure;
            - poll the device to determine success/failure of the operation
-         
-         No default is modeled; if not provided, defaults to the global 
+
+         No default is modeled; if not provided, defaults to the global
          timeout supported by the controller for rpc responses.
         ";
     }
@@ -231,7 +235,7 @@ module org-openroadm-manifest-file {
   grouping is-async-command {
     description
       "is-async-command is to be supported by all manifest commands even if only
-       supported as sync or async. In such cases, a must statement should be 
+       supported as sync or async. In such cases, a must statement should be
        included to limit support to either sync or async.";
     leaf is-async {
       type boolean;
@@ -277,7 +281,7 @@ module org-openroadm-manifest-file {
 
   grouping command-reboot {
     description
-      "command-reboot is used by manifest commands which result in a 
+      "command-reboot is used by manifest commands which result in a
        device restart.";
     leaf auto-reboot {
       type uint16;
@@ -301,29 +305,29 @@ module org-openroadm-manifest-file {
            subdirectory structure of the vendor's software directory. This file
            (and optional path) must exist in the software release directory on
            the SFTP server.
-           
+
            local-file-path is the local path and filename to transfer the file on
            the device.
-           
+
            timeout - see timeout-command grouping for basic details;
                      if command is async,
                        - Receipt of an in-progress (version 2)
                          transfer-notification resets the timeout.
-           
+
          Maps to the transfer rpc with
             action = download
             local-file-path = local-file-path
             remote-file-path =
                sftp://user:password@host[:port]/path/remote-filename
-           
+
             The remote-file-path attribute on the transfer command would be
             constructed by the software download agent by appending the sftp URL
             (which includes username, password, host, port, and path to the
             software release directory) with the remote_filename.
-           
+
          In the context of the transfer, remote is the SFTP server (e.g., located
          on the software download agent) and local is on the Open ROADM device.
-           
+
          Expected notifications: transfer-notification
         ";
       uses transfer-command;
@@ -343,30 +347,30 @@ module org-openroadm-manifest-file {
            on the SFTP server. The filename can include a relative path that
            represents the subdirectory structure of the vendor's software
            directory.
-           
+
            local-file-path is the local path and filename of the file on
            the device to be uploaded to the SFTP server. This file must exist on
            the device.
-           
+
            timeout - see timeout-command grouping for basic details;
                      if command is async,
                        - Receipt of an in-progress (version 2)
                          transfer-notification resets the timeout.
-           
+
          Maps to the transfer rpc with
             action = upload
             local-file-path = local-file-path
             remote-file-path =
                sftp://user:password@host[:port]/path/remote-filename
-           
+
             The remote-file-path attribute on the transfer command would be
             constructed by the software download agent by appending the sftp URL
             (which includes username, password, host, port, and path to the
             software release directory) with the remote_filename.
-           
+
          In the context of the transfer, remote is the SFTP server (e.g., located
          on the software download agent) and local is on the Open ROADM device.
-           
+
          Expected notifications: transfer-notification
         ";
       uses transfer-command;
@@ -387,10 +391,10 @@ module org-openroadm-manifest-file {
          where
            filename is the filename to be deleted from the device. The filename
            may include path information.
-           
+
            timeout - overrides the global-sync-timeout; defaults to the
                      global-sync-timeout if not provided.
-           
+
          Maps to the delete-file rpc:
             delete-file filename
         ";
@@ -415,20 +419,20 @@ module org-openroadm-manifest-file {
          initiate additional file transfers from the SFTP server during the
          staging operation.  It is expected that the files will only be
          transferred from the software release directory.
-           
+
          format: sw-stage [filename] [timeout]
          where
            filename is the filename of the file to stage. If filename is not
            provided, the software download application will send the sw-stage
            command without a filename.
-           
+
            timeout - overrides the global-async-timeout; defaults to the
                      global-async-timeout if not provided.
-           
-           
+
+
          Maps to the sw-stage rpc:
             sw-stage [filename]
-           
+
          Expected notifications: sw-stage-notification
         ";
       uses file-command;
@@ -449,42 +453,42 @@ module org-openroadm-manifest-file {
         "Activate a software load in a device.  The details of what a device does
          during the activation phase is vendor specific.  The device initiates
          an automatic reboot as part of the activation.
-           
+
          format:  sw-activate version [validation-timer] [timeout] auto-reboot
          where:
            version: The version of software that is being activated. (The current
            YANG model indicates that version is optional; however, version should
            be a mandatory attribute of the sw-activate command in the manifest
            file).
-           
+
            validation-timer: Validation timer setting for the software activation.
            Format is expected to be in the form HH-MM-SS per the YANG model. The
            software download application expects this format in order to treat
            00-00-00 and no validation timer as the same use case.
-           
+
            timeout - overrides the global-async-timeout; defaults to the
            global-async-timeout if not provided. This timer begins as soon as the
            sw-activate processing begins. timeout must be greater than the
            auto-reboot time.
-           
+
            auto-reboot: time (in seconds) to wait to for the device to reboot.
            This is the device restart time (e.g. the length of time from device
            comm loss until the device is ready for login). This timer begins when
            the controller detects the comm-loss from the device. If login is not
            successful when this timer expires, the sw-activate is failed.
-           
+
            NOTE: if controller swdl application is not doing the login directly,
            the controller may need to augment the auto-reboot timer to account for
            the login time.
-           
+
          Maps to the sw-activate rpc:
            sw-activate version [validationTimer]
-           
+
          Expected notifications: sw-activate-notification
            When no validation timer (or validation-timer = 00-00-00), two
-           notifications will be expected: one for activate, the other for 
+           notifications will be expected: one for activate, the other for
            commit. Otherwise, only the activate notification is expected.
-           
+
            NOTE: the sw-activate-notifications (for activate) may be received
            before or after the reboot; it is assumed the sw-activate-notification
            (for commit) always occurs after the reboot. Any polling due to missed
@@ -496,7 +500,7 @@ module org-openroadm-manifest-file {
         type string;
         mandatory true;
         description
-          "Although version is optional in the sw-activate rpc, it is 
+          "Although version is optional in the sw-activate rpc, it is
            mandatory in the manifest file command.";
       }
       leaf validation-timer {
@@ -517,7 +521,7 @@ module org-openroadm-manifest-file {
       when "../command = 'db-backup'";
       description
         "Perform a database backup on the device.
-           
+
          format: db-backup [filename] [timeout]
          where
            filename is the filename of the backup file to be generated on the
@@ -525,12 +529,12 @@ module org-openroadm-manifest-file {
            will send the db-backup command without a filename. It's possible the
            filename will not be statically provided in the manifest file, but
            provided by the database backup application.
-           
+
            timeout - see timeout-command grouping for basic details;
-           
+
          Maps to the db-backup rpc:
            db-backup [filename]
-           
+
          Expected notifications: db-backup-notification
         ";
       uses file-command;
@@ -546,7 +550,7 @@ module org-openroadm-manifest-file {
       when "../command = 'db-restore'";
       description
         "Perform a database restore on the device.
-         
+
          format: db-restore [filename] [node-id-check] [timeout]
          where
            filename is the filename of the file to be restored on the
@@ -554,14 +558,14 @@ module org-openroadm-manifest-file {
            will send the db-restore command without a filename. It's possible the
            filename will not be statically provided in the manifest file, but
            provided by the database restore application.
-           
+
            node-id-check is a boolean indicating whether sysNameCheck is required.
-           
+
            timeout - see timeout-command grouping for basic details;
-           
+
          Maps to the db-restore rpc:
            db-restore [filename] [nodeIDCheck]
-           
+
          Expected notifications: db-restore-notification
         ";
       uses file-command;
@@ -590,37 +594,37 @@ module org-openroadm-manifest-file {
         "Activate a database on a device.  The details of what a device does
          during the activation phase is vendor specific.  The device initiates
          an automatic reboot as part of the activation.
-           
-         format:  db-activate [rollback-timer] [timeout] auto-reboot 
+
+         format:  db-activate [rollback-timer] [timeout] auto-reboot
          where:
            rollback-timer: Rollback timer setting for the database activation.
            Format is expected to be in the form HH-MM-SS per the YANG model. The
            database activation application expects this format in order to treat
            00-00-00 and no validation timer as the same use case.
-           
+
            timeout - overrides the global-async-timeout; defaults to the
            global-async-timeout if not provided. This timer begins as soon as the
            db-activate processing begins. timeout must be greater than the
            auto-reboot time.
-           
+
            auto-reboot: time (in seconds) to wait to for the device to reboot.
            This is the device restart time (e.g. the length of time from device
            comm loss until the device is ready for login). This timer begins when
            the controller detects the comm-loss from the device. If login is not
            successful when this timer expires, the db-activate is failed.
-           
+
            NOTE: if controller database application is not doing the login
            directly, the controller may need to augment the auto-reboot timer to
            account for the login time.
-           
+
          Maps to the db-activate rpc:
            db-activate [rollBackTimer]
-           
+
          Expected notifications: db-activate-notification
            When no rollback timer (or rollback-timer = 00-00-00), two
-           notifications will be expected: one for activate, the other for 
+           notifications will be expected: one for activate, the other for
            commit. Otherwise, only the activate notification is expected.
-           
+
            NOTE: the db-activate-notifications (for activate) may be received
            before or after the reboot; it is assumed the db-activate-notification
            (for commit) always occurs after the reboot. Any polling due to missed
@@ -645,7 +649,7 @@ module org-openroadm-manifest-file {
       "The manifest file provides instructions to a software download
        application to download and install a new software load into a vendor's
        equipment.
-       
+
        Software download files
            All vendor files for a software release should be stored in a
        separate directory. A unique directory would be used for each vendor,
@@ -655,8 +659,8 @@ module org-openroadm-manifest-file {
        subdirectories. The manifest file should be in the root directory of the
        software directory.
            A software directory must contain files for one and only one
-       software release. 
-       
+       software release.
+
        Manifest file name
            Each software release directory shall contain a manifest file for
        that release. The filename for the manifest file shall be sw-manifest.json.
@@ -669,7 +673,7 @@ module org-openroadm-manifest-file {
     list instruction-set {
       key "index";
       description
-        "The instruction set for a list of sw-versions that can be upgraded to 
+        "The instruction set for a list of sw-versions that can be upgraded to
          the sw-version specified at the top of the manifest file.";
       leaf index {
         type uint8;
@@ -681,11 +685,11 @@ module org-openroadm-manifest-file {
         description
           "The optional list of sw-versions that can be upgraded to the
            sw-version specified at the top of the sw-manifest file.
-           
+
            If not specified, this instruction set is used to upgrade from
            any sw-version to the sw-version specified at the top of the
            sw-manifest file.
-                               
+
            If multiple instruction sets are provided, from-sw-version
            should always be defined.";
       }
@@ -719,21 +723,21 @@ module org-openroadm-manifest-file {
            implementations do not support ordered-by user, the list is also
            indexed by command-order. The commands should be processed
            in the order of command-order.
-           
+
            Processing moves to the next command when:
            1. command is synchronous and rpc returns a successful result.
            2. command is asynchronous, the rpc returns a successful result,
            and
            2.1 expected successful notification(s) have been received; or
            2.2 timeout occurs.
-           \t\t    
+           \t\t
            Processing of the manifest file is aborted when:
            1. command is synchronous and rpc returns a failed result.
            2. command is asynchronous, and:
            2.1 the rpc returns a failed result; or
            2.2 a failed notification is received; or
            2.3 timeout occurs.
-           \t\t     
+           \t\t
            NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
            controller implementation per command. It may be considered either:
            - as a successful result
@@ -771,15 +775,15 @@ module org-openroadm-manifest-file {
     description
       "The manifest file provides instructions to a database operations
        application to backup the database on a device.
-       
+
        Since the files used for these operations are likely user selected,
        these manifest files are more likely used by the controller as a
        template to control the overall flow of a backup operation and provide
        a means of providing customized timeout values.
-       
+
        The following strings will be recognized as parameters to be replaced
        by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME.
-       
+
        Manifest file name
            Each vendor/model combination can have a separate manifest file
        defined for backup. These shall be named db-backup-manifest.json.
@@ -791,21 +795,21 @@ module org-openroadm-manifest-file {
          implementations do not support ordered-by user, the list is also
          indexed by command-order. The commands should be processed
          in the order of command-order.
-         
+
          Processing moves to the next command when:
             1. command is synchronous and rpc returns a successful result.
             2. command is asynchronous, the rpc returns a successful result,
                and
                2.1 expected successful notification(s) have been received; or
                2.2 timeout occurs.
-                           
+
          Processing of the manifest file is aborted when:
             1. command is synchronous and rpc returns a failed result.
             2. command is asynchronous, and:
                2.1 the rpc returns a failed result; or
                2.2 a failed notification is received; or
                2.3 timeout occurs.
-         
+
          NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
          controller implementation per command. It may be considered either:
              - as a successful result
@@ -841,16 +845,16 @@ module org-openroadm-manifest-file {
     description
       "The manifest file provides instructions to a database operations
        application to restore the database on a device.
-       
+
        Since the files used for these operations are likely user selected,
        these manifest files are more likely used by the controller as a
        template to control the overall flow of a restore operation and provide
        a means of providing customized timeout and auto-reboot values.
-       
+
        The following strings will be recognized as parameters to be replaced
        by the user selected values: __LOCAL-FILE-PATH, __REMOTE-FILENAME,
        __NODE-ID-CHECK.
-       
+
        Manifest file name
            Each vendor/model combination can have a separate manifest file
        defined for restore. These shall be named db-restore-manifest.json.
@@ -892,21 +896,21 @@ module org-openroadm-manifest-file {
          implementations do not support ordered-by user, the list is also
          indexed by command-order. The commands should be processed
          in the order of command-order.
-         
+
          Processing moves to the next command when:
             1. command is synchronous and rpc returns a successful result.
             2. command is asynchronous, the rpc returns a successful result,
                and
                2.1 expected successful notification(s) have been received; or
                2.2 timeout occurs.
-                           
+
          Processing of the manifest file is aborted when:
             1. command is synchronous and rpc returns a failed result.
             2. command is asynchronous, and:
                2.1 the rpc returns a failed result; or
                2.2 a failed notification is received; or
                2.3 timeout occurs.
-         
+
          NOTE: behavior for timeouts (synchronous or asynchronous) may depend upon
          controller implementation per command. It may be considered either:
              - as a successful result

@@ -5,11 +5,11 @@ module org-openroadm-gnmi {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-security {
     prefix org-openroadm-security;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import ietf-inet-types {
     prefix inet;
@@ -49,6 +49,10 @@ module org-openroadm-gnmi {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -63,6 +67,8 @@ module org-openroadm-gnmi {
   }
 
   grouping gnmi_container {
+    description
+      "Grouping for setting of GNMI attributes ";
     container gnmi {
       description
         "gRPC Network Management Interface related configurations";
@@ -84,18 +90,16 @@ module org-openroadm-gnmi {
       }
       leaf port {
         type inet:port-number;
-        default 6030;
+        default "6030";
         description
           "gNMI port to listen on";
       }
     }
-    description
-      "Grouping for setting of GNMI attributes ";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
-    uses gnmi_container;
     description
       "Creation of GNMI container under device protols ";
+    uses gnmi_container;
   }
 }

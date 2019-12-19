@@ -13,15 +13,15 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2019-09-27;
+    revision-date 2019-11-29;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2018-11-30;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -29,32 +29,36 @@ module org-openroadm-common-network {
   contact
     "www.OpenROADM.org.";
   description
-    "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+    "Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
-     
-     Redistribution and use in source and binary forms, with or without modification, 
+
+     Redistribution and use in source and binary forms, with or without modification,
      are permitted provided that the following conditions are met:
-     
-     * Redistributions of source code must retain the above copyright notice, this 
+
+     * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright notice, 
-       this list of conditions and the following disclaimer in the documentation and/or 
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
-     * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-       contributors may be used to endorse or promote products derived from this software 
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
-     
-     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-09-27 {
     description
       "Version 6.0.0";
@@ -94,7 +98,7 @@ module org-openroadm-common-network {
     }
   }
   augment "/nd:networks/nd:network/nd:node" {
-    when "../nd:network-types/openroadm-common-network";
+    when '../nd:network-types/cnet:openroadm-common-network';
     description
       "Augment the generic network node with Open ROADM common attributes.";
     leaf node-type {
@@ -102,22 +106,42 @@ module org-openroadm-common-network {
       description
         "A component of the network topology. Once the node-type is configured, it should not be modified.";
     }
-    leaf node-status {
-      type org-openroadm-network-types:openroadm-node-status;
-      status deprecated;
-    }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;
       description
         "Lifecycle State of a node. Whether it is planned, deployed, in maintenance, etc.";
     }
+    leaf operational-state {
+      type org-openroadm-common-state-types:state;
+    }
+    leaf administrative-state {
+      type org-openroadm-equipment-states-types:admin-states;
+    }
   }
   augment "/nd:networks/nd:network/nd:node/nwt:termination-point" {
-    when "../../nd:network-types/openroadm-common-network";
+    when '../../nd:network-types/cnet:openroadm-common-network';
     leaf tp-type {
       type org-openroadm-network-types:openroadm-tp-type;
       description
         "The type of a termination point in the ROADM topology.";
+    }
+    leaf physical-tp {
+      type boolean;
+      mandatory false;
+      description
+        "Applies to Termination Points that map to physical ports or slots on circuit packs.
+          Set to True when the termination point maps to ports of an existing circuit-pack,
+          False, when mapped to a slot (pluggable optics Holder) --> virtual tp.
+          This attribute is not present for other Termination Points.";
+    }
+    leaf-list associated-connection-map-tp {
+      type leafref {
+        path "/nd:networks/nd:network/nd:node/nwt:termination-point/nwt:tp-id";
+      }
+      description
+        "Used to identify relationships between client and network ports in transponders and
+          uni-directional regens. Provides the list of tps the tp is connected to, as defined
+          in the device connection map.";
     }
     leaf eqpt-srg-id {
       type uint32;
@@ -129,9 +153,15 @@ module org-openroadm-common-network {
       description
         "Lifecycle State of a termination point. Whether it is planned, deployed, in maintenance, etc.";
     }
+    leaf operational-state {
+      type org-openroadm-common-state-types:state;
+    }
+    leaf administrative-state {
+      type org-openroadm-equipment-states-types:admin-states;
+    }
   }
   augment "/nd:networks/nd:network/nwt:link" {
-    when "../nd:network-types/openroadm-common-network";
+    when '../nd:network-types/cnet:openroadm-common-network';
     description
       "This augmentation defines common link attributes in the Open ROADM common network";
     leaf link-type {
@@ -156,9 +186,9 @@ module org-openroadm-common-network {
     }
     leaf link-latency {
       type uint32;
+      units "ms";
       description
         "Latency of a link";
-      units "ms";
     }
     leaf TE-metric {
       type uint32;

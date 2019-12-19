@@ -8,33 +8,37 @@ module org-openroadm-pm-types {
     "OpenROADM.org";
   description
     "YANG definitions of performance management types.
-       
-      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016, 
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
-      
-      Redistribution and use in source and binary forms, with or without modification, 
+
+      Redistribution and use in source and binary forms, with or without modification,
       are permitted provided that the following conditions are met:
-      
-      * Redistributions of source code must retain the above copyright notice, this 
+
+      * Redistributions of source code must retain the above copyright notice, this
         list of conditions and the following disclaimer.
-      * Redistributions in binary form must reproduce the above copyright notice, 
-        this list of conditions and the following disclaimer in the documentation and/or 
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
         other materials provided with the distribution.
-      * Neither the Members of the Open ROADM MSA Agreement nor the names of its 
-        contributors may be used to endorse or promote products derived from this software 
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
         without specific prior written permission.
-      
-      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS'' 
-      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
-      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT, 
-      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
-      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA, 
-      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2019-11-29 {
+    description
+      "Version 6.1.0";
+  }
   revision 2019-03-29 {
     description
       "Version 5.0.0";
@@ -62,16 +66,16 @@ module org-openroadm-pm-types {
 
   typedef pm-granularity {
     type enumeration {
-      enum "notApplicable" {
+      enum notApplicable {
         value 1;
         description
           "This is for total statistic counters on devices that support
               them.";
       }
-      enum "15min" {
+      enum 15min {
         value 2;
       }
-      enum "24Hour" {
+      enum 24Hour {
         value 3;
       }
     }
@@ -94,13 +98,13 @@ module org-openroadm-pm-types {
 
   typedef validity {
     type enumeration {
-      enum "complete" {
+      enum complete {
         value 1;
       }
-      enum "partial" {
+      enum partial {
         value 2;
       }
-      enum "suspect" {
+      enum suspect {
         value 3;
       }
     }
@@ -110,527 +114,527 @@ module org-openroadm-pm-types {
 
   typedef pm-names-enum {
     type enumeration {
-      enum "vendorExtension" {
+      enum vendorExtension {
         value 1;
         description
           "vendor extension";
       }
-      enum "bitErrorRate" {
+      enum bitErrorRate {
         value 2;
         description
           "Bit error rate (BER)";
       }
-      enum "opticalPowerOutput" {
+      enum opticalPowerOutput {
         value 3;
         description
           "Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
       }
-      enum "opticalReturnLoss" {
+      enum opticalReturnLoss {
         value 4;
         description
           "Optical Return Loss (ORL-OTS) - at MW port(s) B";
       }
-      enum "opticalPowerInput" {
+      enum opticalPowerInput {
         value 5;
         description
           "Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH). Total optical power";
       }
-      enum "codeViolations" {
+      enum codeViolations {
         value 8;
         description
           "Code Violations (CV)";
       }
-      enum "erroredSeconds" {
+      enum erroredSeconds {
         value 9;
         description
           "Errored Seconds (ES)";
       }
-      enum "severelyErroredSeconds" {
+      enum severelyErroredSeconds {
         value 10;
         description
           "Severely Errored Seconds (SES)";
       }
-      enum "unavailableSeconds" {
+      enum unavailableSeconds {
         value 11;
         description
           "Unavailable Seconds (UAS)";
       }
-      enum "inFrames" {
+      enum inFrames {
         value 12;
         description
           "In frames (INFRAMES-E)";
       }
-      enum "inFramesErrored" {
+      enum inFramesErrored {
         value 13;
         description
           "In frames errored (INFRAMESERR-E)";
       }
-      enum "outFrames" {
+      enum outFrames {
         value 14;
         description
           "Out frames (OUTFRAMES-E)";
       }
-      enum "erroredSecondsEthernet" {
+      enum erroredSecondsEthernet {
         value 15;
         description
           "Errored Seconds Ethernet (ES-E)";
       }
-      enum "severelyErroredSecondsEthernet" {
+      enum severelyErroredSecondsEthernet {
         value 16;
         description
           "Severely Errored Seconds, Ethernet (SES-E)";
       }
-      enum "unavailableSecondsEthernet" {
+      enum unavailableSecondsEthernet {
         value 17;
         description
           "Unavailable Seconds, Ethernet (UAS-E)";
       }
-      enum "erroredBlockCount" {
+      enum erroredBlockCount {
         value 18;
         description
           "Errored block count";
       }
-      enum "delay" {
+      enum delay {
         value 19;
         description
           "Number of frames between a DMValue toggle event and the received DMp signal value toggle event";
       }
-      enum "defectSeconds" {
+      enum defectSeconds {
         value 20;
         description
           "Defect Seconds (DS)";
       }
-      enum "backwardIncomingAlignmentError" {
+      enum backwardIncomingAlignmentError {
         value 21;
         description
           "Backward Incoming Alignment Error (BIAE)";
       }
-      enum "incomingAlignmentError" {
+      enum incomingAlignmentError {
         value 22;
         description
           "Incoming Alignment Error (IAE)";
       }
-      enum "opticalPowerOutputMin" {
+      enum opticalPowerOutputMin {
         value 23;
         description
           "Minimum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
       }
-      enum "opticalPowerOutputMax" {
+      enum opticalPowerOutputMax {
         value 24;
         description
           "Maximum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
       }
-      enum "opticalPowerOutputAvg" {
+      enum opticalPowerOutputAvg {
         value 25;
         description
           "Average Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
       }
-      enum "opticalPowerInputMin" {
+      enum opticalPowerInputMin {
         value 26;
         description
           "Minimum Optical Power Input (OPIN-OTS). Total optical power";
       }
-      enum "opticalPowerInputMax" {
+      enum opticalPowerInputMax {
         value 27;
         description
           "Maximum Optical Power Input (OPIN-OTS). Total optical power";
       }
-      enum "opticalPowerInputAvg" {
+      enum opticalPowerInputAvg {
         value 28;
         description
           "Average Optical Power Input (OPIN-OTS). Total optical power";
       }
-      enum "opticalPowerOutputOSC" {
+      enum opticalPowerOutputOSC {
         value 29;
         description
           "OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
       }
-      enum "opticalPowerOutputOSCMin" {
+      enum opticalPowerOutputOSCMin {
         value 30;
         description
           "Minimum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
       }
-      enum "opticalPowerOutputOSCMax" {
+      enum opticalPowerOutputOSCMax {
         value 31;
         description
           "Maximum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
       }
-      enum "opticalPowerOutputOSCAvg" {
+      enum opticalPowerOutputOSCAvg {
         value 32;
         description
           "Average OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
       }
-      enum "opticalPowerInputOSC" {
+      enum opticalPowerInputOSC {
         value 33;
         description
           "OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
       }
-      enum "opticalPowerInputOSCMin" {
+      enum opticalPowerInputOSCMin {
         value 34;
         description
           "Minimum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
       }
-      enum "opticalPowerInputOSCMax" {
+      enum opticalPowerInputOSCMax {
         value 35;
         description
           "Maximum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
       }
-      enum "opticalPowerInputOSCAvg" {
+      enum opticalPowerInputOSCAvg {
         value 36;
         description
           "Average OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
       }
-      enum "preFECCorrectedErrors" {
+      enum preFECCorrectedErrors {
         value 37;
         description
           "pFEC corrected Errors";
       }
-      enum "totalOpticalPowerInput" {
+      enum totalOpticalPowerInput {
         value 38;
         description
           "Total Optical Power Input.";
       }
-      enum "totalOpticalPowerInputMin" {
+      enum totalOpticalPowerInputMin {
         value 39;
         description
           "Minimum Total Optical Power Input.";
       }
-      enum "totalOpticalPowerInputMax" {
+      enum totalOpticalPowerInputMax {
         value 40;
         description
           "Maximum Total Optical Power Input.";
       }
-      enum "totalOpticalPowerInputAvg" {
+      enum totalOpticalPowerInputAvg {
         value 41;
         description
           "Average Total Optical Power Input.";
       }
-      enum "FECCorrectableBlocks" {
+      enum FECCorrectableBlocks {
         value 42;
         description
           "FEC Correctable Blocks.";
       }
-      enum "FECUncorrectableBlocks" {
+      enum FECUncorrectableBlocks {
         value 43;
         description
           "FEC Uncorrectable Blocks.";
       }
-      enum "BIPErrorCounter" {
+      enum BIPErrorCounter {
         value 56;
         description
           "BIP Error Counter";
       }
-      enum "protectionSwitchingCount" {
+      enum protectionSwitchingCount {
         value 57;
         description
           "Protection Switching Count (PSC)";
       }
-      enum "protectionSwitchingDuration" {
+      enum protectionSwitchingDuration {
         value 58;
         description
           "Protection Switching Duration in seconds (PSD)";
       }
-      enum "erroredBlockCountTCM1-up" {
+      enum erroredBlockCountTCM1-up {
         value 59;
         description
           "errored Blocks Count on TCM1 up direction.";
       }
-      enum "erroredBlockCountTCM2-up" {
+      enum erroredBlockCountTCM2-up {
         value 60;
         description
           "errored Blocks Count on TCM2 up direction.";
       }
-      enum "erroredBlockCountTCM3-up" {
+      enum erroredBlockCountTCM3-up {
         value 61;
         description
           "errored Blocks Count on TCM3 up direction.";
       }
-      enum "erroredBlockCountTCM4-up" {
+      enum erroredBlockCountTCM4-up {
         value 62;
         description
           "errored Blocks Count on TCM4 up direction.";
       }
-      enum "erroredBlockCountTCM5-up" {
+      enum erroredBlockCountTCM5-up {
         value 63;
         description
           "errored Blocks Count on TCM5 up direction.";
       }
-      enum "erroredBlockCountTCM6-up" {
+      enum erroredBlockCountTCM6-up {
         value 64;
         description
           "errored Blocks Count on TCM6 up direction.";
       }
-      enum "delayTCM1-up" {
+      enum delayTCM1-up {
         value 65;
         description
           "Delay on TCM1 up direction.";
       }
-      enum "delayTCM2-up" {
+      enum delayTCM2-up {
         value 66;
         description
           "Delay on TCM2 up direction.";
       }
-      enum "delayTCM3-up" {
+      enum delayTCM3-up {
         value 67;
         description
           "Delay on TCM3 up direction.";
       }
-      enum "delayTCM4-up" {
+      enum delayTCM4-up {
         value 68;
         description
           "Delay on TCM4 up direction.";
       }
-      enum "delayTCM5-up" {
+      enum delayTCM5-up {
         value 69;
         description
           "Delay on TCM5 up direction.";
       }
-      enum "delayTCM6-up" {
+      enum delayTCM6-up {
         value 70;
         description
           "Delay on TCM6 up direction.";
       }
-      enum "erroredBlockCountTCM1-down" {
+      enum erroredBlockCountTCM1-down {
         value 71;
         description
           "errored Blocks Count on TCM1 down direction.";
       }
-      enum "erroredBlockCountTCM2-down" {
+      enum erroredBlockCountTCM2-down {
         value 72;
         description
           "errored Blocks Count on TCM2 down direction.";
       }
-      enum "erroredBlockCountTCM3-down" {
+      enum erroredBlockCountTCM3-down {
         value 73;
         description
           "errored Blocks Count on TCM3 down direction.";
       }
-      enum "erroredBlockCountTCM4-down" {
+      enum erroredBlockCountTCM4-down {
         value 74;
         description
           "errored Blocks Count on TCM4 down direction.";
       }
-      enum "erroredBlockCountTCM5-down" {
+      enum erroredBlockCountTCM5-down {
         value 75;
         description
           "errored Blocks Count on TCM5 down direction.";
       }
-      enum "erroredBlockCountTCM6-down" {
+      enum erroredBlockCountTCM6-down {
         value 76;
         description
           "errored Blocks Count on TCM6 down direction.";
       }
-      enum "delayTCM1-down" {
+      enum delayTCM1-down {
         value 77;
         description
           "Delay on TCM1 down direction.";
       }
-      enum "delayTCM2-down" {
+      enum delayTCM2-down {
         value 78;
         description
           "Delay on TCM2 down direction.";
       }
-      enum "delayTCM3-down" {
+      enum delayTCM3-down {
         value 79;
         description
           "Delay on TCM3 down direction.";
       }
-      enum "delayTCM4-down" {
+      enum delayTCM4-down {
         value 80;
         description
           "Delay on TCM4 down direction.";
       }
-      enum "delayTCM5-down" {
+      enum delayTCM5-down {
         value 81;
         description
           "Delay on TCM5 down direction.";
       }
-      enum "delayTCM6-down" {
+      enum delayTCM6-down {
         value 82;
         description
           "Delay on TCM6 down direction.";
       }
-      enum "partialRateDiscard" {
+      enum partialRateDiscard {
         value 83;
         description
           "Discarded packet as a result of policing or rate limiting for subrate ethernet.";
       }
-      enum "erroredSecondsTCM1-up" {
+      enum erroredSecondsTCM1-up {
         value 84;
         description
           "errored Seconds Count on TCM1 up direction.";
       }
-      enum "erroredSecondsTCM2-up" {
+      enum erroredSecondsTCM2-up {
         value 85;
         description
           "errored Seconds Count on TCM2 up direction.";
       }
-      enum "erroredSecondsTCM3-up" {
+      enum erroredSecondsTCM3-up {
         value 86;
         description
           "errored Seconds Count on TCM3 up direction.";
       }
-      enum "erroredSecondsTCM4-up" {
+      enum erroredSecondsTCM4-up {
         value 87;
         description
           "errored Seconds Count on TCM4 up direction.";
       }
-      enum "erroredSecondsTCM5-up" {
+      enum erroredSecondsTCM5-up {
         value 88;
         description
           "errored Seconds Count on TCM5 up direction.";
       }
-      enum "erroredSecondsTCM6-up" {
+      enum erroredSecondsTCM6-up {
         value 89;
         description
           "errored Seconds Count on TCM6 up direction.";
       }
-      enum "severelyErroredSecondsTCM1-up" {
+      enum severelyErroredSecondsTCM1-up {
         value 90;
         description
           "severely Errored Seconds Count on TCM1 up direction.";
       }
-      enum "severelyErroredSecondsTCM2-up" {
+      enum severelyErroredSecondsTCM2-up {
         value 91;
         description
           "severely Errored Seconds Count on TCM2 up direction.";
       }
-      enum "severelyErroredSecondsTCM3-up" {
+      enum severelyErroredSecondsTCM3-up {
         value 92;
         description
           "severely Errored Seconds Count on TCM3 up direction.";
       }
-      enum "severelyErroredSecondsTCM4-up" {
+      enum severelyErroredSecondsTCM4-up {
         value 93;
         description
           "severely Errored Seconds Count on TCM4 up direction.";
       }
-      enum "severelyErroredSecondsTCM5-up" {
+      enum severelyErroredSecondsTCM5-up {
         value 94;
         description
           "severely Errored Seconds Count on TCM5 up direction.";
       }
-      enum "severelyErroredSecondsTCM6-up" {
+      enum severelyErroredSecondsTCM6-up {
         value 95;
         description
           "severely Errored Seconds Count on TCM6 up direction.";
       }
-      enum "unavailableSecondsTCM1-up" {
+      enum unavailableSecondsTCM1-up {
         value 96;
         description
           "unavailable Seconds Count on TCM1 up direction.";
       }
-      enum "unavailableSecondsTCM2-up" {
+      enum unavailableSecondsTCM2-up {
         value 97;
         description
           "unavailable Seconds Count on TCM2 up direction.";
       }
-      enum "unavailableSecondsTCM3-up" {
+      enum unavailableSecondsTCM3-up {
         value 98;
         description
           "unavailable Seconds Count on TCM3 up direction.";
       }
-      enum "unavailableSecondsTCM4-up" {
+      enum unavailableSecondsTCM4-up {
         value 99;
         description
           "unavailable Seconds Count on TCM4 up direction.";
       }
-      enum "unavailableSecondsTCM5-up" {
+      enum unavailableSecondsTCM5-up {
         value 100;
         description
           "unavailable Seconds Count on TCM5 up direction.";
       }
-      enum "unavailableSecondsTCM6-up" {
+      enum unavailableSecondsTCM6-up {
         value 101;
         description
           "unavailable Seconds Count on TCM6 up direction.";
       }
-      enum "erroredSecondsTCM1-down" {
+      enum erroredSecondsTCM1-down {
         value 102;
         description
           "errored Seconds Count on TCM1 down direction.";
       }
-      enum "erroredSecondsTCM2-down" {
+      enum erroredSecondsTCM2-down {
         value 103;
         description
           "errored Seconds Count on TCM2 down direction.";
       }
-      enum "erroredSecondsTCM3-down" {
+      enum erroredSecondsTCM3-down {
         value 104;
         description
           "errored Seconds Count on TCM3 down direction.";
       }
-      enum "erroredSecondsTCM4-down" {
+      enum erroredSecondsTCM4-down {
         value 105;
         description
           "errored Seconds Count on TCM4 down direction.";
       }
-      enum "erroredSecondsTCM5-down" {
+      enum erroredSecondsTCM5-down {
         value 106;
         description
           "errored Seconds Count on TCM5 down direction.";
       }
-      enum "erroredSecondsTCM6-down" {
+      enum erroredSecondsTCM6-down {
         value 107;
         description
           "errored Seconds Count on TCM6 down direction.";
       }
-      enum "severelyErroredSecondsTCM1-down" {
+      enum severelyErroredSecondsTCM1-down {
         value 108;
         description
           "severely Errored Seconds Count on TCM1 down direction.";
       }
-      enum "severelyErroredSecondsTCM2-down" {
+      enum severelyErroredSecondsTCM2-down {
         value 109;
         description
           "severely Errored Seconds Count on TCM2 down direction.";
       }
-      enum "severelyErroredSecondsTCM3-down" {
+      enum severelyErroredSecondsTCM3-down {
         value 110;
         description
           "severely Errored Seconds Count on TCM3 down direction.";
       }
-      enum "severelyErroredSecondsTCM4-down" {
+      enum severelyErroredSecondsTCM4-down {
         value 111;
         description
           "severely Errored Seconds Count on TCM4 down direction.";
       }
-      enum "severelyErroredSecondsTCM5-down" {
+      enum severelyErroredSecondsTCM5-down {
         value 112;
         description
           "severely Errored Seconds Count on TCM5 down direction.";
       }
-      enum "severelyErroredSecondsTCM6-down" {
+      enum severelyErroredSecondsTCM6-down {
         value 113;
         description
           "severely Errored Seconds Count on TCM6 down direction.";
       }
-      enum "unavailableSecondsTCM1-down" {
+      enum unavailableSecondsTCM1-down {
         value 114;
         description
           "unavailable Seconds Count on TCM1 down direction.";
       }
-      enum "unavailableSecondsTCM2-down" {
+      enum unavailableSecondsTCM2-down {
         value 115;
         description
           "unavailable Seconds Count on TCM2 down direction.";
       }
-      enum "unavailableSecondsTCM3-down" {
+      enum unavailableSecondsTCM3-down {
         value 116;
         description
           "unavailable Seconds Count on TCM3 down direction.";
       }
-      enum "unavailableSecondsTCM4-down" {
+      enum unavailableSecondsTCM4-down {
         value 117;
         description
           "unavailable Seconds Count on TCM4 down direction.";
       }
-      enum "unavailableSecondsTCM5-down" {
+      enum unavailableSecondsTCM5-down {
         value 118;
         description
           "unavailable Seconds Count on TCM5 down direction.";
       }
-      enum "unavailableSecondsTCM6-down" {
+      enum unavailableSecondsTCM6-down {
         value 119;
         description
           "unavailable Seconds Count on TCM6 down direction.";
