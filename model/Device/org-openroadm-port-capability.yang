@@ -365,7 +365,7 @@ module org-openroadm-port-capability {
           "Supported interface capability on the port.";
         leaf if-cap-type {
           type identityref {
-            base org-openroadm-port-types:if-otsi-flexo-flexogroup;
+            base org-openroadm-port-types:supported-if-capability;
           }
           description
             "Interface type/hierarchy/rate supported on this port";
