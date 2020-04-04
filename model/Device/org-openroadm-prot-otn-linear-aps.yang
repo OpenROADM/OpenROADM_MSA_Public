@@ -4,11 +4,11 @@ module org-openroadm-prot-otn-linear-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -107,14 +111,8 @@ module org-openroadm-prot-otn-linear-aps {
       "Version 2.0";
   }
 
-  identity otn-protection-type {
-    description
-      "OTN base protection identity from which
-         specific protection types are derived.";
-  }
-
   identity odu-one-plus-one {
-    base otn-protection-type;
+    base org-openroadm-common-types:otn-protection-type;
     description
       "ODU Linear Protection 1+1 permanent bridge";
   }
@@ -142,7 +140,7 @@ module org-openroadm-prot-otn-linear-aps {
       }
       leaf prot-type {
         type identityref {
-          base otn-protection-type;
+          base org-openroadm-common-types:otn-protection-type;
         }
         default "odu-one-plus-one";
         description
@@ -348,6 +346,7 @@ module org-openroadm-prot-otn-linear-aps {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   notification odu-sncp-pg-switch-event {
     leaf switch-status {
       type enumeration {
@@ -367,6 +366,7 @@ module org-openroadm-prot-otn-linear-aps {
         "The odu-sncp-protection-group name";
     }
   }
+
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
     uses odu-sncp-protection-grps;
   }

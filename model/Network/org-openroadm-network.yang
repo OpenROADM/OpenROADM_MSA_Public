@@ -9,7 +9,7 @@ module org-openroadm-network {
   }
   import org-openroadm-network-types {
     prefix nt;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-roadm {
     prefix roadm;
@@ -17,11 +17,11 @@ module org-openroadm-network {
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import ietf-inet-types {
     prefix inet;
@@ -29,11 +29,11 @@ module org-openroadm-network {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -67,6 +67,10 @@ module org-openroadm-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -122,16 +126,16 @@ module org-openroadm-network {
 
   deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
-      must
-        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network) or
-         (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network and
-         (../cnet:node-type = 'ROADM' or ../cnet:node-type = 'XPONDER' or ../cnet:node-type = 'EXT-PLUGGABLE'))" {
-        error-message "Invalid node type for openroadm-network";
-        description
-          "The valid node types in the ROADM network are XPONDER, EXT-PLUGGABLE and ROADM.";
+      must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network) or
+            (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network and
+            (../cnet:node-type = 'ROADM' or ../cnet:node-type = 'XPONDER' or ../cnet:node-type = 'EXT-PLUGGABLE'))" {
+          error-message "Invalid node type for openroadm-network";
+          description
+            "The valid node types in the ROADM network are XPONDER, EXT-PLUGGABLE and ROADM.";
       }
     }
   }
+
   augment "/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
       "Introduce new network type for the Open ROADM optical network";
@@ -142,6 +146,7 @@ module org-openroadm-network {
          network";
     }
   }
+
   augment "/nd:networks/nd:network/nd:node" {
     when '../nd:network-types/cnet:openroadm-common-network/net:openroadm-network';
     description

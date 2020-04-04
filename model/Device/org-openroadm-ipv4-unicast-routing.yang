@@ -4,7 +4,7 @@ module org-openroadm-ipv4-unicast-routing {
 
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import ietf-inet-types {
     prefix inet;
@@ -12,7 +12,7 @@ module org-openroadm-ipv4-unicast-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -39,6 +39,10 @@ module org-openroadm-ipv4-unicast-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -58,7 +62,8 @@ module org-openroadm-ipv4-unicast-routing {
   revision 2015-05-25 {
     description
       "Initial revision.";
-    reference "RFC XXXX: A YANG Data Model for Routing Management";
+    reference
+      "RFC XXXX: A YANG Data Model for Routing Management";
   }
 
   identity ipv4-unicast {
@@ -67,10 +72,7 @@ module org-openroadm-ipv4-unicast-routing {
       "This identity represents the IPv4 unicast address family.";
   }
 
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-routing:static-routes" {
-    description
-      "This augment defines the configuration of the 'static'
-       pseudo-protocol with data specific to IPv4 unicast.";
+  grouping ipv4-uni-grp {
     container ipv4 {
       description
         "Configuration of a 'static' pseudo-protocol instance
@@ -109,5 +111,14 @@ module org-openroadm-ipv4-unicast-routing {
         }
       }
     }
+    description
+     "Grouping for IPv4";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-routing:static-routes" {
+    description
+      "This augment defines the configuration of the 'static'
+       pseudo-protocol with data specific to IPv4 unicast.";
+    uses ipv4-uni-grp;
   }
 }

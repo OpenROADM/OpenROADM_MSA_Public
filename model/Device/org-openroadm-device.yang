@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -81,6 +81,14 @@ module org-openroadm-device {
   import org-openroadm-switching-pool-types {
     prefix org-openroadm-switching-pool-types;
     revision-date 2019-11-29;
+  }
+  import org-openroadm-optical-operational-interfaces {
+    prefix org-openroadm-optical-operational-interfaces;
+    revision-date 2020-03-27;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -130,6 +138,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -399,13 +411,13 @@ module org-openroadm-device {
         }
         enum empty-prov-match {
           value 2;
-          status deprecated;
+          status obsolete;
           description
             "(Deprecated) Slot is empty and expected type is provisioned";
         }
         enum empty-prov-mismatch {
           value 3;
-          status deprecated;
+          status obsolete;
           description
             "(Deprecated) Slot is empty and an unsupported type is provisioned";
         }
@@ -803,7 +815,8 @@ module org-openroadm-device {
       default "off";
       description
         "Whether connection is currently in power or gain/loss mode";
-      reference "openroadm.org: Open ROADM MSA Specification.";
+      reference
+        "openroadm.org: Open ROADM MSA Specification.";
     }
     leaf target-output-power {
       type org-openroadm-common-link-types:power-dBm;
@@ -831,7 +844,7 @@ module org-openroadm-device {
   grouping mc-capabilities-grp {
     description
       "Media channel capabilities grouping";
-    leaf-list mc-capabilities {
+    leaf-list mc-capability-profile-name {
       type leafref {
         path "/org-openroadm-device/mc-capability-profile/profile-name";
       }
@@ -844,11 +857,8 @@ module org-openroadm-device {
   grouping degree {
     leaf degree-number {
       type uint16;
-      must 'not( current() > /org-openroadm-device/info/max-degrees) and current() > 0' {
-        error-message "Degree not supported by device ";
-        description
-          "Validating if the degree is supported by device";
-      }
+      description
+        "Degree number should be greater than zero and not greater than max-degrees";
     }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;
@@ -1125,11 +1135,8 @@ module org-openroadm-device {
     }
     leaf srg-number {
       type uint16;
-      must 'not(current()>/org-openroadm-device/info/max-srgs) and current()>0' {
-        error-message "invalid SRG";
-        description
-          "Validating if the srg is supported by add/drop group";
-      }
+      description
+        "Srg number should be greater than zero and not greater than max-srgs";
     }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;
@@ -1356,13 +1363,6 @@ module org-openroadm-device {
           "circuit identifier/user label,
            can be used in alarm correlation and/or connection management ";
       }
-      leaf supporting-interface {
-        type leafref {
-          path "/org-openroadm-device/interface/name";
-        }
-        description
-          "supporting interface";
-      }
       uses supporting-port-name;
       leaf-list supporting-interface-list {
         type leafref {
@@ -1371,7 +1371,6 @@ module org-openroadm-device {
         description
           "supporting interface list";
       }
-      uses supporting-circuit-pack-list-grp;
     }
   }
 
@@ -1414,13 +1413,6 @@ module org-openroadm-device {
       mandatory true;
       description
         "Whether port is uni (tx/rx) or bi-directional and";
-    }
-    leaf label {
-      type string;
-      config false;
-      status deprecated;
-      description
-        "Faceplate label";
     }
     leaf is-physical {
       type boolean;
@@ -1495,6 +1487,360 @@ module org-openroadm-device {
       uses interface-name;
     }
     uses mc-capabilities-grp;
+  }
+
+  grouping odu-mux-hierarchy-grp {
+    description
+      "ODU mux hierarchy group";
+    list mux-capability {
+      key "stage-number ho-odu-type ho-odu-payload-type";
+      description
+        "low order ODU TCM direction capability";
+      leaf stage-number {
+        type uint8 {
+          range "1 .. 2";
+        }
+        description
+          "stage number";
+      }
+      leaf ho-odu-type {
+        type identityref {
+          base org-openroadm-otn-common-types:odu-rate-identity;
+        }
+        description
+          "High order ODU type";
+      }
+      leaf ho-odu-payload-type {
+        type org-openroadm-otn-common-types:payload-type-def;
+        description
+          "High order ODU payload type";
+      }
+      leaf-list supported-lo-odu-type {
+        type identityref {
+          base org-openroadm-otn-common-types:odu-rate-identity;
+        }
+        description
+          "Supported low order ODU type";
+      }
+      leaf lo-odu-proactive-DMp {
+        type boolean;
+        description
+          "low order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+      }
+      leaf lo-odu-tcm-capable {
+        type boolean;
+        description
+          "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
+      }
+      leaf lo-odu-proactive-DMt {
+        when "../lo-odu-tcm-capable= 'true'";
+        type boolean;
+        description
+          "low order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+      }
+      leaf lo-odu-tcm-direction-capability {
+        when "../lo-odu-tcm-capable= 'true'";
+        type org-openroadm-common-types:tcm-direction-capability-type;
+        description
+          "Supported tcm direction capability for low order ODU associated with the port.";
+      }
+    }
+  }
+
+  identity flexo-modulation-format-identity {
+    description
+      "Flexo modulation format identification";
+  }
+
+  grouping flexo-grp {
+    description
+      "Flexo group";
+    leaf circuit-pack-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
+      }
+      description
+        "Circuit-Pack identifier. Unique within the context of a device.";
+    }
+    leaf port-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
+      }
+      description
+        "Port index identifier. Unique within the context of a circuit-pack.";
+    }
+    leaf fec {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:fec-identity;
+      }
+      status deprecated;
+      description
+        "Flexo FEC";
+    }
+    leaf otsi-rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+      }
+      mandatory true;
+      description
+        "Flexo rate";
+    }
+    leaf otsi-modulation-format {
+      type identityref {
+        base flexo-modulation-format-identity;
+      }
+      description
+        "Flexo modulation format";
+    }
+    leaf otsi-width {
+      type uint16;
+      description
+        "OTSI width";
+    }
+    leaf operational-mode-id {
+      type string;
+      mandatory true;
+      description
+        "Optical profile operational mode identifier";
+    }
+  }
+
+  grouping otsigroup-capability-grp {
+    description
+      "Otsigroup group capability";
+    leaf if-cap-type {
+      type identityref {
+        base org-openroadm-port-types:if-OTUCn-ODUCn;
+      }
+      description
+        "Interface type/hierarchy/rate supported on this Otsi port. For example, if-n-otu4-n-odu4 and if-otucn-oducn";
+    }
+    choice otu-rate {
+      description
+        "To specify the supported rate in the case of OTUCn or NxOTU4";
+      case otucn {
+        leaf otucn-n-rate {
+          type uint16;
+          description
+            "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
+        }
+      }
+      case nxotu4 {
+        leaf supported-n-otu4 {
+          type uint16;
+          description
+            "Specify the number of N in the case of N x OTU4";
+        }
+      }
+    }
+    leaf-list foic-type {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:foic-identity;
+      }
+      description
+        "FlexO interface type ";
+    }
+    leaf otn-capability-profile-name {
+      type leafref {
+        path "/org-openroadm-device/otn-capability-profile/profile-name";
+      }
+      description
+        "OTN capabilities";
+    }
+    leaf otn-odu-mux-hierarchy-profile-name {
+      type leafref {
+        path "/org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name";
+      }
+      description
+        "OTN ODU Mux hierarchy capabilities";
+    }
+  }
+
+  grouping split-lambda-capability-grp {
+    description
+      "Split lambda capability group";
+    container logical-port {
+      leaf circuit-pack-name {
+        type string;
+        description
+          "The circuit pack supporting the logical port";
+      }
+      leaf port-name {
+        type string;
+        description
+          "Port name for logical-port";
+      }
+      description
+        "Logical port container";
+    }
+    list otsi {
+      key "circuit-pack-name port-name";
+      description
+        "OTSI list for split lambda";
+      leaf circuit-pack-name {
+        type string;
+        description
+          "OTSI circuit pack name";
+      }
+      leaf port-name {
+        type string;
+        description
+          "OTSI port name";
+      }
+      leaf otsi-rate {
+         type identityref {
+           base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+         }
+         description
+           "OTSI rate";
+      }
+      leaf-list optical-operational-mode {
+        type leafref {
+          path "/org-openroadm-device/optical-operational-mode-profile/profile-name";
+        }
+        description
+          "Optical operational mode leaf list";
+      }
+    }
+    leaf-list otsigroup-capability-profile-name {
+      type leafref {
+        path "/org-openroadm-device/otsigroup-capability-profile/profile-name";
+      }
+      description
+        "OTSI group capability mode";
+    }
+  }
+
+  grouping otn-capability-grp {
+    description
+      "OTN capability group";
+    leaf-list if-protection-capability {
+      type identityref {
+        base org-openroadm-common-types:otn-protection-type;
+      }
+      description
+        "supported protection types if protection is supported on this port";
+    }
+    leaf proactive-DMp {
+      type boolean;
+      description
+        "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+    }
+    leaf tcm-capable {
+      type boolean;
+      description
+        "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
+    }
+    leaf proactive-DMt {
+      when "../tcm-capable= 'true'";
+      type boolean;
+      description
+        "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+    }
+    leaf tcm-direction-capability {
+      when "../tcm-capable= 'true'";
+      type org-openroadm-common-types:tcm-direction-capability-type;
+      description
+        "Supported tcm direction capability on the ODUk associated with the port.";
+    }
+    leaf-list opu-payload-type-mapping {
+      type org-openroadm-otn-common-types:payload-type-def;
+      description
+        "OPU payload-type mapping OPU.";
+    }
+  }
+
+  grouping otn-odu-mux-hierarchy-grp {
+    description
+      "ODU mux hierarchy base group";
+     list mux-capability {
+       key "stage-number ho-odu-type ho-odu-payload-type";
+       description
+         "low order ODU TCM direction capability";
+       leaf stage-number {
+         type uint8 {
+           range "1 .. 2";
+         }
+         description
+           "stage number";
+       }
+       leaf ho-odu-type {
+         type identityref {
+           base org-openroadm-otn-common-types:odu-rate-identity;
+         }
+         description
+           "High order ODU type";
+       }
+       leaf ho-odu-payload-type {
+         type org-openroadm-otn-common-types:payload-type-def;
+         description
+           "High order ODU payload type";
+       }
+       leaf-list supported-lo-odu-type {
+         type identityref {
+           base org-openroadm-otn-common-types:odu-rate-identity;
+         }
+         description
+           "Supported low order ODU type";
+       }
+       leaf lo-odu-proactive-DMp {
+         type boolean;
+         description
+           "low order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
+       }
+       leaf lo-odu-tcm-capable {
+         type boolean;
+         description
+           "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
+       }
+       leaf lo-odu-proactive-DMt {
+         when "../lo-odu-tcm-capable= 'true'";
+         type boolean;
+         description
+           "low order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
+       }
+       leaf lo-odu-tcm-direction-capability {
+         when "../lo-odu-tcm-capable= 'true'";
+         type org-openroadm-common-types:tcm-direction-capability-type;
+         description
+           "Supported tcm direction capability for low order ODU associated with the port.";
+       }
+    }
+  }
+
+  grouping mux-grp {
+    leaf odtu-type {
+      type identityref {
+        base org-openroadm-otn-common-types:odtu-type-identity;
+      }
+      mandatory true;
+      description
+        "ODTU type, part of the MSI (Multiplex Structure Identifier)";
+    }
+    leaf network-ho-odu-trib-port-number {
+      type uint16 {
+        range "1 .. 80";
+      }
+      mandatory true;
+      description
+        "Tributary port number";
+    }
+    leaf-list network-ho-odu-trib-slots {
+      type uint16 {
+        range "1 .. 80";
+      }
+      min-elements 1;
+      max-elements 80;
+      description
+        "Network high order ODU trib slots";
+    }
+    leaf-list network-ho-odu-opucn-trib-slots {
+      type org-openroadm-otn-common-types:opucn-trib-slot-def;
+      description
+        "Network high order ODU OPU tributary slots";
+    }
+    description
+      "Mux group grouping";
   }
 
   grouping org-openroadm-device-container {
@@ -1808,6 +2154,18 @@ module org-openroadm-device {
           }
         }
       }
+      list otsigroup-capability-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTSI group operational profile";
+        leaf profile-name {
+          type string;
+          description
+            "OTSI group profile name";
+        }
+        uses otsigroup-capability-grp;
+      }
       list mc-capability-profile {
         key "profile-name";
         config false;
@@ -1858,6 +2216,66 @@ module org-openroadm-device {
           description
             "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
         }
+      }
+      list split-lambda-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTN capability profile";
+        leaf profile-name {
+          type string;
+          description
+            "Split lambda profile name";
+        }
+        uses split-lambda-capability-grp;
+      }
+      list otn-odu-mux-hierarchy-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTN ODU mux hierarchy profile list";
+        leaf profile-name {
+          type string;
+          description
+            "OTN ODU mux hierarchy profile name";
+        }
+        uses otn-odu-mux-hierarchy-grp;
+      }
+      list optical-operational-mode-profile {
+        key "profile-name";
+        config false;
+        description
+          "Optical operational profile";
+        leaf profile-name {
+          type string;
+          description
+            "Optical operational profile name";
+        }
+        uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
+      }
+      list otn-capability-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTN capability profile";
+        leaf profile-name {
+          type string;
+          description
+            "OTN capability profile name";
+        }
+        uses otn-capability-grp;
+      }
+      list muxp-profile {
+        key "profile-name";
+        config false;
+        description
+          "Muxp profile list";
+        leaf profile-name {
+          type string;
+          description
+            "Mux profile name";
+        }
+        uses mux-grp;
       }
     }
   }
@@ -1956,6 +2374,7 @@ module org-openroadm-device {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc create-tech-info {
     description
       "Collects all log data for debugging and place it in a location accessible via ftp/sftp.
@@ -1985,6 +2404,7 @@ module org-openroadm-device {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc get-connection-port-trail {
     input {
       leaf connection-name {
@@ -2007,6 +2427,7 @@ module org-openroadm-device {
       }
     }
   }
+
   rpc disable-automatic-shutoff {
     input {
       choice degree-or-amp {
@@ -2045,6 +2466,7 @@ module org-openroadm-device {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc start-scan {
     input {
       choice degree-or-amp {
@@ -2086,6 +2508,7 @@ module org-openroadm-device {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc set-current-datetime {
     description
       "Set the info/current-datetime leaf to the specified value.";
@@ -2101,12 +2524,14 @@ module org-openroadm-device {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   notification create-tech-info-notification {
     description
       "This Notification is sent when the create-tech-info is complete or failed.";
     uses create-tech-info-group;
     uses org-openroadm-common-types:rpc-response-status;
   }
+
   notification otdr-scan-result {
     description
       "This Notification is sent when the otdr-scan-result is complete or failed.";
@@ -2115,6 +2540,7 @@ module org-openroadm-device {
       type string;
     }
   }
+
   notification change-notification {
     description
       "The Notification that a resource has been added, modified or removed.
@@ -2169,5 +2595,6 @@ module org-openroadm-device {
       }
     }
   }
+
   uses org-openroadm-device-container;
 }

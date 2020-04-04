@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -96,13 +100,15 @@ module org-openroadm-probable-cause {
         value 2;
         description
           "Open connection indication (OCI)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum alarmIndicationSignal {
         value 3;
         description
           "Alarm indication signal";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum lossOfSignal {
         value 4;
@@ -128,31 +134,36 @@ module org-openroadm-probable-cause {
         value 8;
         description
           "Server Signal Fail (SSF)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum lockedDefect {
         value 10;
         description
           "Locked defect (LCK)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum trailTraceIdentifierMismatch {
         value 11;
         description
           "Trail trace Identifier Mismatch (TIM)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum degradedDefect {
         value 12;
         description
           "Degraded defect (DEG)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum backwardsDefectIndication {
         value 13;
         description
           "Backward Defect Indication (BDI)";
-        reference "G.798";
+        reference
+          "G.798";
       }
       enum otsSpanlossPowerOutOfSpecificationHigh {
         value 14;
@@ -741,7 +752,8 @@ module org-openroadm-probable-cause {
         value 270;
         description
           "Loss Of Signal Payload";
-        reference "G.798 6.2.1.2 dLOS-P, 16.8.2 OTSi/FlexO_A_Sk";
+        reference
+          "G.798 6.2.1.2 dLOS-P, 16.8.2 OTSi/FlexO_A_Sk";
       }
       enum lossOfLaneAlignment {
         value 271;
@@ -749,19 +761,22 @@ module org-openroadm-probable-cause {
           "Loss Of Lane Alignment";
         reference
           "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state;
-           16.8.2 OTSi/FlexO_A_Sk that dLOL based on the FEC alignment state diagram";
+           16.7.2 (OTSi/FlexO-1-SC_A_Sk) (G.709.3) & 16.8.2 (OTSiG/FlexO_A_Sk) (G.709.1)
+           that dLOL based on the FEC alignment state diagram";
       }
       enum groupIdMismatch {
         value 272;
         description
           "Group Id Mismatch";
-        reference "G.798 dGIDM in Annex B.1.1.2.1; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
+        reference
+          "G.798 dGIDM in Annex B.1.1.2.1; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
-      enum phyMapMismatch {
+      enum flexoMapMismatch {
         value 273;
         description
-          "PHY Map Mismatch";
-        reference "G.798 dPMM in Annex B.1.1.2.2; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
+          "FlexO Map Mismatch";
+        reference
+          "G.798 dFMM in Annex B.1.1.2.2; G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk";
       }
       enum powerOutOfSpecificationLow {
         value 274;
@@ -790,6 +805,27 @@ module org-openroadm-probable-cause {
         value 279;
         description
           "GFP client signal fail (dCSF G.806:6.2.6.4.1) is raised when a GFP frame with correct tHEC, with aPTI = '100' and a valid UPI code 0x05(G.7041: Table 6-4) is received";
+      }
+      enum localDegradedSER {
+        value 280;
+        description
+          "Local Degraded SER";
+        reference
+          "IEEE 802.3-2018  Section 45.2.3.60.1,  IEEE 802.3-2018  Section 119";
+      }
+      enum remoteDegradedSER {
+        value 281;
+        description
+          "Remote Degraded SER";
+        reference
+          "IEEE 802.3-2018  Section 45.2.3.60.2,  IEEE 802.3-2018  Section 119";
+      }
+      enum fecDegradedSER {
+        value 282;
+        description
+          "PCS FEC Degrade SER";
+        reference
+          "IEEE 802.3-2018  Section 119";
       }
     }
     description

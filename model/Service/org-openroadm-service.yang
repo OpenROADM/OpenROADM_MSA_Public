@@ -12,7 +12,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,7 +20,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
+  }
+  import org-openroadm-controller-customization {
+    prefix org-openroadm-controller-customization;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -56,6 +60,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -222,6 +230,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:response-parameters;
     }
   }
+
   rpc service-create-result-notification-request {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -233,6 +242,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-create-complex-result-notification-request {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -244,6 +254,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-delete-result-notification-request {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -255,6 +266,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-delete-complex-result-notification-request {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -266,6 +278,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-feasibility-check {
     description
       "Whether a service was possible to be created, and if so
@@ -290,6 +303,7 @@ module org-openroadm-service {
       uses service-feasibility-check-outputs;
     }
   }
+
   rpc service-feasibility-check-bulk {
     description
       "Whether a service was possible to be created, and if so
@@ -320,6 +334,7 @@ module org-openroadm-service {
       }
     }
   }
+
   rpc service-delete {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
@@ -360,6 +375,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc equipment-notification {
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
@@ -399,6 +415,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc temp-service-create {
     input {
       leaf common-id {
@@ -432,6 +449,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:response-parameters;
     }
   }
+
   rpc temp-service-delete {
     input {
       leaf common-id {
@@ -443,6 +461,7 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-roll {
     description
       "This rpc can be use to roll a service according to 2 possible options :
@@ -468,6 +487,7 @@ module org-openroadm-service {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc service-reconfigure {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
@@ -514,6 +534,7 @@ module org-openroadm-service {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc service-restoration {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
@@ -571,6 +592,7 @@ module org-openroadm-service {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc service-reversion {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
@@ -593,6 +615,7 @@ module org-openroadm-service {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc service-reroute {
     description
       "Whether this request was validated and processed correctly. If successful, it returns the proposed new route.
@@ -613,6 +636,7 @@ module org-openroadm-service {
       uses org-openroadm-routing-constraints:routing-constraints;
     }
   }
+
   rpc service-reroute-confirm {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
@@ -631,6 +655,7 @@ module org-openroadm-service {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc network-re-optimization {
     input {
       leaf service-name {
@@ -676,6 +701,7 @@ module org-openroadm-service {
       }
     }
   }
+
   notification service-rpc-result {
     description
       "This Notification indicates result of service RPC";
@@ -685,6 +711,7 @@ module org-openroadm-service {
     uses org-openroadm-common-types:rpc-response-status;
     uses org-openroadm-common-service-types:service-notification-result;
   }
+
   notification service-traffic-flow {
     description
       "This Notification indicates that traffic is flowing again on the service after an administrative action has completed";
@@ -705,6 +732,7 @@ module org-openroadm-service {
         "Actual date and time traffic started flowing";
     }
   }
+
   notification service-notification {
     description
       "This Notification that a service has been added, modified or removed.
@@ -723,6 +751,69 @@ module org-openroadm-service {
     }
     uses org-openroadm-common-service-types:service;
   }
+
+  notification non-rpc-related-notification {
+    description
+      "Used to notify SDN controller that :
+       _a change occured in the data tree associated with the topology or the service Datastore of the RNC
+       _the attenuation on a ROADM to ROADM link as exceeded the value that can be accepted with current design
+       _the restoration of an optical OTN/WDM service";
+    leaf notificationType {
+      type org-openroadm-controller-customization:non-rpc-related-notification-type;
+      description
+        "This notification indicates whether a change occured in the data tree
+         associated with the topology or the service Datastore, an out of limit
+         attenuation on a WDM link, or the restoration of an optical WDM/OTN service.";
+    }
+    leaf notificationId {
+      type string;
+      description
+        "Unique identifier for the notification.";
+    }
+    leaf notification-time {
+      type yang:date-and-time;
+      description
+        "Time at which notification is raised";
+    }
+    leaf service-name {
+      when "../notificationType = 'service-state-change' or ../notificationType = 'autonomous-optical-restoration-triggered'" {
+        description
+          "When Service Data store is modified, or a restoration has been triggered
+           service-name is provided";
+      }
+      type string;
+    }
+    leaf impacted-resource-type {
+      when "../notificationType = 'topology-change' or ../notificationType = 'service-state-change'" {
+        description
+          "Used to provide additional information on the type of resource impacted by the
+           change in the data-store, to target more effectively consecutive request";
+      }
+      type string;
+    }
+    leaf impacted-resource-id {
+      when "../notificationType = 'topology-change' or ../notificationType = 'service-state-change'" {
+        description
+          "Identifies the resource impacted by the change in the data-store";
+      }
+      type string;
+    }
+    leaf topology-layer {
+      when "../notificationType = 'topology-change'" {
+        description
+          "indicates the layer associated with the topological change";
+      }
+      type enumeration {
+        enum openroadm-topology {
+          value 1;
+        }
+        enum otn-topology {
+          value 2;
+        }
+      }
+    }
+  }
+
   container service-list {
     description
       "List of service. Can only be created, deleted, modified, etc. using special RPCs. Will only contain one service with a given name.
@@ -759,5 +850,10 @@ module org-openroadm-service {
         }
       }
     }
+  }
+  container controller-behaviour-settings {
+    description
+      "Parameters allowing to set the controller behaviour";
+    uses org-openroadm-controller-customization:controller-parameters;
   }
 }

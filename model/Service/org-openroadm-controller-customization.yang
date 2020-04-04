@@ -1,0 +1,560 @@
+module org-openroadm-controller-customization {
+  namespace "http://org/openroadm/controller/customization";
+  prefix org-openroadm-controller-customization;
+
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2019-11-29;
+  }
+  import org-openroadm-common-service-types {
+    prefix org-openroadm-common-service-types;
+    revision-date 2020-03-27;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2020-03-27;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of services.
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
+
+  typedef notification-events {
+    type enumeration {
+      enum roadm-to-roadm-link-creation {
+        value 1;
+      }
+      enum roadm-to-roadm-link-deletion {
+        value 2;
+      }
+      enum otn-link-creation {
+        value 3;
+      }
+      enum otn-link-deletion {
+        value 4;
+      }
+      enum xpdr-in-out-link-creation {
+        value 5;
+      }
+      enum xpdr-in-out-link-deletion {
+        value 6;
+      }
+      enum link-state-change {
+        value 7;
+      }
+      enum otn-link-bandwidth-usage-change {
+        value 8;
+      }
+      enum node-creation {
+        value 9;
+      }
+      enum node-deletion {
+        value 10;
+      }
+      enum node-state-change {
+        value 11;
+      }
+      enum tp-creation {
+        value 12;
+      }
+      enum tp-deletion {
+        value 13;
+      }
+      enum tp-state-change {
+        value 14;
+      }
+      enum ila-state-change {
+        value 15;
+      }
+      enum none {
+        value 16;
+      }
+      enum all {
+        value 17;
+      }
+    }
+    description
+      "Define possible notification events.";
+  }
+
+  typedef rmsa-policy {
+    type enumeration {
+      enum maximize-capacity {
+        value 1;
+      }
+      enum maximize-reach {
+        value 2;
+      }
+      enum minimize-margins {
+        value 3;
+      }
+      enum maximize-margins {
+        value 4;
+      }
+      enum customer-spectrum-partitioning {
+        value 5;
+      }
+      enum fragmentation-limiting-partitioning {
+        value 6;
+      }
+    }
+    description
+      "Defines Routing Modulation and and Spectrum Allocation policies.";
+  }
+
+  typedef non-rpc-related-notification-type {
+    type enumeration {
+      enum service-state-change {
+        value 1;
+      }
+      enum topology-change {
+        value 2;
+      }
+      enum exceeded-attenuation-crossing-warning {
+        value 3;
+      }
+      enum insufficient-margin-crossing-alarm {
+        value 4;
+      }
+      enum autonomous-optical-restoration-triggered {
+        value 5;
+      }
+    }
+    description
+      "Defines notification types for non rpc related notifications.";
+  }
+
+  grouping spectrum-portion {
+    description
+      "Specifies a portion of the spectrum and its characteristics.";
+    leaf spectrum-portion-id {
+      type uint8;
+      description
+        "Identifies a spectrum portion with specific characteristics.";
+    }
+    leaf start-edge-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "If present, this parameter states the lowest frequency to start
+         filling the spectrum, or a spectrum portion if stop-bandwidth
+         is also defined.";
+    }
+    leaf stop-edge-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "If present and associated with a start frequency, this parameter
+         states the upper frequency broundary to fill the spectrum portion.
+         If present, in the absence of a start frequency, this parameter
+         states the highest frequency to start filling the spectrum.";
+    }
+    leaf-list dedicated-customer {
+      type string;
+      description
+        "Applies only to spectrum-portion (both start and stop edge frequencies
+         defined), when the spectrum-portion is dedicated to some customers.
+         This list shall includes customer-codes identifying specific customers.
+         No customer out of this list can share the bandwidth of this spectrum
+         portion";
+    }
+    leaf-list non-authorized-customer {
+      type string;
+      description
+        "Applies only to spectrum-portion (both start and stop edge frequencies
+         defined), when the spectrum-portion is dedicated to some customers.
+         This list shall includes customer-codes identifying specific customers,
+         that are not allowed to share the bandwidth of this spectrum portion";
+    }
+  }
+
+  grouping controller-parameters {
+    description
+      "Defines the structure of Service/controller-behaviour-settings container,
+       as well as the structure of controller-parameters-setting rpc input";
+    container non-rpc-related-notification-settings {
+      description
+        "Defines url, notification-type and type of events that shall / shall not
+         trigger notifications";
+      list non-rpc-related-notification-url-list {
+        key "non-rpc-related-notification-type";
+        description
+          "Used to record url to be used when forwarding non rpc related
+           notifications.";
+        leaf non-rpc-related-notification-type {
+          type non-rpc-related-notification-type;
+          description
+            "Type of notification will trigger specific leaves.";
+        }
+        leaf notification-url {
+          type string;
+          description
+            "Defines the url the notification is sent to.";
+        }
+        leaf-list events-disabling-notification {
+          when "../non-rpc-related-notification-type = 'topology-change'";
+          type notification-events;
+          description
+            "List of events for which notifications to SDN-Controller are
+             not desirabled. The filtering is currently activated only on topological
+             changes which could lead to large volumes of data.";
+        }
+        leaf-list events-triggering-notification {
+          when "../non-rpc-related-notification-type = 'topology-change'";
+          type notification-events;
+          description
+            "List of events for which notifications to SDN-Controller are
+             desirabled. Has the priority with regards to events-disabling-notification.
+             As an example if events-disabling-notification is set to all,
+             events set in events-triggering-notification will be the only
+             events to be notified";
+        }
+      }
+    }
+    container spectrum-filling {
+      description
+        "Spectrum may be filled according to specific rules to limit partitionning
+         or to dedicate part of the spectrum to some specific clients (customer-code)";
+      list spectrum-filling-rules {
+        key "rule-id";
+        description
+          "Defines a set of rules used to fill the spectrum";
+        leaf rule-id {
+          type uint16;
+          description
+            "defines the rule identifier";
+        }
+        leaf priority {
+          type uint8;
+          description
+            "The rules shall be applied sequentially according to their defined
+             priority (Highest:1, lowest:255). Rules with highest priority
+             will be applied first";
+        }
+        leaf RMSA-policy {
+          type rmsa-policy;
+          description
+            "Defines the Routing, Spectrum & Mode assignment policy to be applied";
+        }
+        container spectrum-range-of-appliance {
+          when "../RMSA-policy = 'customer-spectrum-partitioning' or ../RMSA-policy
+                              = 'fragmentation-limiting-partitioning'";
+          description
+            "Defines, when needed, the spectrum range to which the rule applies";
+          uses spectrum-portion;
+          leaf dedicated-signal-bandwidth-multiple {
+            when "../../RMSA-policy = 'fragmentation-limiting-partitioning'" {
+              description
+                "For fragmentation partitioning, defines which part of the spectrum
+                 will be used according to the signal spectral occupation";
+            }
+            type uint8;
+            description
+              "Used for spectrum partitioning to reduce fragmentation. Defines
+               the width of the service to be provisioned in the spectrum portion.
+               As an example a spectrum portion can be dedicated to signals with
+               a 50 GHz multiple spectral occupation, whereas another portion
+               of the spectrum is dedicated to signal with a 75 GHz multiple
+               spectral occupation";
+          }
+        }
+      }
+    }
+    container margins {
+      description
+        "defines all margins operator may want to specify";
+      leaf minimum-fiber-attenuation-bol-margin {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Minimum fiber-attenuation margin to be considered for path calculation
+           at begining of life. The path calculation shall be made considering on
+           each link the engineered-spanloss (provided by an external sytem)
+           _The RNC shall raise an ALARM to the northbound Controller through
+           an insufficient-margin-crossing-alarm as soon as:
+           (span-loss-base + minimum-fiber-attenuation-bol-margin) - engineered-spanloss >
+           threshold-observed-vs-design-margin
+           _The RNC shall raise a WARNING to the northbound Controller through
+           an exceeded-attenuation-crossing-warning as soon as : (engineered-spanloss
+           - spanloss-current) < threshold-observed-vs-design-attenuation.";
+      }
+      leaf threshold-observed-vs-design-attenuation {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Defines the threshold used to raise an alarm when fiber initial attenuation
+           is too close to the engineered-spanloss, meaning the value accounted for the
+           design has been underestimated and a new design shall triggered.";
+      }
+      leaf threshold-observed-vs-design-margin {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Defines the threshold used to raise a warning when fiber measured attenuation
+           comes too close to the engineered-spanloss, so that remaining margin is considered
+           as too limited.";
+      }
+      list minimum-osnr-margins {
+        key "margin-id";
+        description
+          "osnr margins to be considered may differ according to the rate and the modulation format";
+        leaf margin-id {
+          type string;
+          description
+            "defines a margin for specific line-rates and modulation formats";
+        }
+        leaf minimum-osnr-margin-value {
+          type org-openroadm-common-link-types:ratio-dB;
+          description
+            "Minimum OSNR margin to be considered to keep an acceptable OSNR value
+              at end of life for the associated line-rates and modulation-formats";
+        }
+        leaf-list line-rates {
+          type uint64;
+          description
+            "Line-rates to which the osnr-margin applies";
+        }
+        leaf-list modulation-formats {
+          type org-openroadm-common-optical-channel-types:modulation-format;
+          description
+            "Modulation-formats to which the osnr-margin applies";
+        }
+      }
+    }
+    container metrics-policy {
+      description
+        "Defines how the RNC shall interpret the routing-metrics";
+      leaf composite-metric-versus-selective {
+        type boolean;
+        description
+          "Defines the way the RNC shall interpret the priorities defined
+           for the metrics: _ True corresponds to a weighted composite metric,
+           _ False corresponds to a selective priority based metric";
+      }
+    }
+    container regeneration-policy {
+      description
+        "Defines rules to place regenerators when a service-feasibility-check
+         rpc is invoked, or when a service-create rpc is invoked if spare
+         regenerators are already in place";
+      leaf global-placement {
+        type enumeration {
+          enum regenerator-banks {
+            value 1;
+          }
+          enum distributed {
+            value 2;
+          }
+        }
+        description
+          "To priviledge the positioning in specific locations";
+      }
+      leaf on-path-positioning {
+        type enumeration {
+          enum maximize-rate {
+            value 1;
+          }
+          enum latest-convenient-hop {
+            value 2;
+          }
+        }
+        description
+          "To position regenerators as far as possible on the path or optimizing
+           performances";
+      }
+      leaf path-symmetry {
+        type boolean;
+        description
+          "True corresponds to same location on A to Z and Z to A paths
+           False allows positioning regenerators in different nodes for A
+           to Z and Z to A paths";
+      }
+      leaf-list preferred-sites {
+        type string;
+        description
+          "Node-id of the sites to be privileged when positioning regenerators
+           in specific locations";
+      }
+      leaf-list forbidden-sites {
+        type string;
+        description
+          "Node-id of the sites regenerators shall not be placed";
+      }
+    }
+    container default-behaviour {
+      description
+        "Parameters in this container are used to define default behaviour
+         in case optional parameters in rpc have not been defined";
+      leaf default-backup-path-number {
+        type uint16;
+        description
+          "0 means on the fly path calculation. Higher number corresponds
+           to backup path pre-calculation, and states the number of paths
+           to be calculated";
+      }
+      leaf reversion {
+        type boolean;
+        description
+          "Concerns reversion for service that have a resiliency defined
+           as restorable (restoration handled autonomously by the controller
+           at the WDM/OTN layer)";
+      }
+      leaf wait-to-restore {
+        type uint64;
+        units "ms";
+        description
+          "time delay to revert to initial path after conditions for reversion
+           are satisfied";
+      }
+      leaf holdoff-time {
+        type uint64;
+        units "ms";
+        description
+          "time delay to initiate a protection or restoration event";
+      }
+    }
+    container sla-definition {
+      description
+        "Definition of Service Level Agreements parameters";
+      list sla-parameters {
+        key "sla-id";
+        description
+          "Defines several SLA profiles and associated expected behaviour";
+        leaf sla-id {
+          type string;
+          description
+            "sla-id as defined by the operator";
+        }
+        leaf preemption {
+          type boolean;
+          description
+            "False : service shall never be preempted True : preemption of
+             the service is allowed";
+        }
+        leaf restoration-priority {
+          type uint8;
+          description
+            "The service shall be restored according to the defined priority
+             (First:1, latest:255). Services with highest priority will be restored first";
+        }
+      }
+    }
+    container failure-case-list {
+      description
+        "Use to provide information on failure cases associated with backup-path
+         pre-calculation: If PCE supports the calculation of multiple backup-paths,
+         these might be identified through a failure case-id corresponding
+         to a node, physical-link or logical-link failure";
+      list failure-case {
+        key "failure-case-id";
+        description
+          "Describes and identifies different failure-cases. Each of them can be
+           associated with one or several backup-paths in the context of backup-path
+           pre-calculation";
+        leaf failure-case-id {
+          type uint32;
+          description
+            "Identifies a failure case";
+        }
+        leaf failure-type {
+          type enumeration {
+            enum node-failure {
+              value 1;
+            }
+            enum logical-link-failure {
+              value 2;
+            }
+            enum physiscal-link-failure {
+              value 3;
+            }
+          }
+          description
+            "describes failure type that can be simulated in a planner or by a PCE
+             to calculate a backup path";
+        }
+        leaf-list nodes {
+          when "../failure-type = 'node-failure'" {
+            description
+              "List of nodes impacted by the failure (not only single failures
+               may be envisaged).";
+          }
+          type string;
+          description
+            "Nodes as they appear in the openroadm-topology or otn-topology
+             layer";
+        }
+        leaf-list logical-links {
+          when "../failure-type = 'logical-link-failure'" {
+            description
+              "List of logical links impacted by the failure (not only single
+               failures may be envisaged).";
+          }
+          type string;
+          description
+            "logical links as they appear in the otn-topology layer";
+        }
+        leaf-list physical-links {
+          when "../failure-type = 'physical-link-failure'" {
+            description
+              "List of physical links impacted by the failure (not only single
+               failures may be envisaged).";
+          }
+          type string;
+          description
+            "physical-links as they appear in the openroadm-topology layer";
+        }
+      }
+    }
+  }
+
+  rpc controller-parameters-setting {
+    description
+      "Rpc used to populate controller parameters in the Data Store
+       of the RNC.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses controller-parameters;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      leaf-list unsupported-customization-options {
+        type string;
+        description
+          "Provides a list of customization parameters that are not supported by
+           the RNC controller. Leaflist items corresponds to the yang nodes of
+           controller-parameters that the RNC does not handle. It is assumed that
+           for a yang node provided in the list, all nodes/leaves at a lower level
+           in the hierarchy are also not supported by the RNC";
+      }
+    }
+  }
+}

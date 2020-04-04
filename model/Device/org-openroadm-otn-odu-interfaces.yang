@@ -5,7 +5,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,19 +13,19 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -75,6 +75,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -197,34 +201,6 @@ module org-openroadm-otn-odu-interfaces {
       }
       description
         "ODUflex for CBR client signals (G.709)";
-    }
-    leaf oduflex-cbr-eth-bit-rate {
-      type uint32;
-      config false;
-      description
-        "Nominal bit rate [kbps] (Table 17-16, 17-18 / G.709 Amd.2 06/18)
-           25 781 250  (25G)
-          206 250 000 (200G)
-          412 500 000 (400G)";
-    }
-    leaf oduflex-cbr-pcs-bit-rate {
-      type uint32;
-      config false;
-      description
-        "Nominal bit rate of the aggregated 200GE or 400GE PCS signal consisting
-         of 8 or 16 PCS lanes with 256B/257B encoding and FEC at the PMA service
-         interface [kbps] (Table 17-18/G.709 06/18)
-           212 500 000  (200G)
-           425 000 000  (400G)";
-    }
-    leaf oduflex-cbr-z-rate-compensation {
-      type uint32;
-      config false;
-      description
-        "Z rate compensation (RC) blocks every (Z x 20479) client blocks
-         (Table 17-18 / G.709 06/18)
-           16  (200G)
-           32  (400G)";
     }
     leaf oduflex-gfp-num-ts {
       type uint16;

@@ -49,6 +49,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -68,7 +72,8 @@ module org-openroadm-manifest-file {
   revision 2017-09-29 {
     description
       "Version 2.1";
-    reference "This module serves as the manifest file reference.";
+    reference
+      "This module serves as the manifest file reference.";
   }
 
   identity manifest-commands {
@@ -112,6 +117,12 @@ module org-openroadm-manifest-file {
       "sw-activate sw-manifest-command";
   }
 
+  identity cancel-validation-timer {
+    base sw-manifest-commands;
+    description
+      "cancel-validation-timer sw-manifest-command";
+  }
+
   identity db-backup-manifest-commands {
     base manifest-commands;
     description
@@ -140,6 +151,12 @@ module org-openroadm-manifest-file {
     base db-restore-manifest-commands;
     description
       "db-activate db-restore-manifest-command";
+  }
+
+  identity cancel-rollback-timer {
+    base db-restore-manifest-commands;
+    description
+      "cancel-rollback-timer db-restore-manifest-command";
   }
 
   grouping base-manifest {
@@ -441,6 +458,17 @@ module org-openroadm-manifest-file {
     }
   }
 
+  grouping wait-time-command {
+    description
+      "Wait timer starting from the completion of sw-activate or db-activate before canceling the validation timer or rollback timer";
+    leaf wait-time {
+      type uint16;
+      mandatory true;
+      description
+        "See command for detailed description.";
+    }
+  }
+
   grouping sw-activate-command {
     description
       "sw-activate-command";
@@ -514,6 +542,32 @@ module org-openroadm-manifest-file {
     }
   }
 
+  grouping cancel-validation-timer-command {
+    description
+      "cancel-validation-timer-command";
+    container cancel-validation-timer {
+      when "../command = 'cancel-validation-timer'";
+      description
+        "Command to automatically cancel the validation timer after wait-time.
+         Accept will be set to True if this command is used.
+
+         format:  cancel-validation-timer wait-time [time-out]
+         where:
+
+           wait-time - wait timer starting from the completion of
+           sw-activate before canceling the validation timer.
+
+           timeout - see timeout-command grouping for basic details.
+
+         Expected notifications: sw-activate-notification
+           commit notification is expected.
+        ";
+      uses wait-time-command;
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
   grouping db-backup-command {
     description
       "db-backup-command";
@@ -577,6 +631,31 @@ module org-openroadm-manifest-file {
            the value for user input. __NODE-ID-CHECK is used for that purpose. Other valid
            values are true or false. Maps to a boolean value in the rpc invocation.";
       }
+      uses timeout-command;
+      uses is-async-command;
+    }
+  }
+
+  grouping cancel-rollback-timer-command {
+    description
+      "cancel-rollback-timer-command";
+    container cancel-rollback-timer {
+      when "../command = 'cancel-rollback-timer'";
+      description
+        "Command to automatically cancel the rollback timer after wait-time.
+         Accept will be set to True if this command is used.
+
+         format: cancel-rollback-timer wait-time [timeout]
+
+           wait-time - Wait timer starting from the completion of
+           db-activate before canceling the rollback timer.
+
+           timeout - see timeout-command grouping for basic details.
+
+         Expected notifications: db-activate-notification
+           commit notification is expected.
+        ";
+      uses wait-time-command;
       uses timeout-command;
       uses is-async-command;
     }
@@ -766,6 +845,7 @@ module org-openroadm-manifest-file {
           uses delete-file-command;
           uses sw-stage-command;
           uses sw-activate-command;
+          uses cancel-validation-timer-command;
         }
       }
     }
@@ -939,6 +1019,7 @@ module org-openroadm-manifest-file {
         uses delete-file-command;
         uses db-restore-command;
         uses db-activate-command;
+        uses cancel-rollback-timer-command;
       }
     }
   }

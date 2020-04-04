@@ -8,7 +8,7 @@ module org-openroadm-file-transfer {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import ietf-yang-types {
     prefix ietf-yang-types;
@@ -48,6 +48,10 @@ module org-openroadm-file-transfer {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -142,6 +146,7 @@ module org-openroadm-file-transfer {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc show-file {
     description
       "Show one or more files in the specified directory.";
@@ -191,6 +196,7 @@ module org-openroadm-file-transfer {
       }
     }
   }
+
   rpc delete-file {
     description
       "Delete one or more files in the specified directory.";
@@ -208,6 +214,7 @@ module org-openroadm-file-transfer {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   notification transfer-notification {
     description
       "notification for transfer operation events.";

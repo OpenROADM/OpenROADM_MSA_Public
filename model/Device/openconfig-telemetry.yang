@@ -24,17 +24,20 @@ module openconfig-telemetry {
   revision 2017-08-24 {
     description
       "Minor formatting fixes";
-    reference "0.4.1";
+    reference
+      "0.4.1";
   }
   revision 2017-02-20 {
     description
       "Fixes for YANG 1.0 compliance, add types module";
-    reference "0.4.0";
+    reference
+      "0.4.0";
   }
   revision 2016-04-05 {
     description
       "OpenConfig public release";
-    reference "0.2.0";
+    reference
+      "0.2.0";
   }
 
   grouping telemetry-top {
@@ -671,6 +674,7 @@ module openconfig-telemetry {
          the device to a telemetry collector destination.";
     }
   }
+
   oc-ext:openconfig-version "0.4.1";
 
   uses telemetry-top;

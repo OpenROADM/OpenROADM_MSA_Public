@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -91,6 +95,14 @@ module org-openroadm-port-types {
   }
 
   identity if-100GE {
+    base supported-if-capability;
+  }
+
+  identity if-200GE {
+    base supported-if-capability;
+  }
+
+  identity if-400GE {
     base supported-if-capability;
   }
 
@@ -164,7 +176,7 @@ module org-openroadm-port-types {
 
   identity if-otsi-otucn-oducn {
     base supported-if-capability;
-    status deprecated;
+    status obsolete;
   }
 
   identity if-OTU4-ODU4 {
@@ -350,6 +362,14 @@ module org-openroadm-port-types {
   }
 
   identity SFP-unspecified {
+    base pluggable-identifiers-identity;
+  }
+
+  identity pluggable-type-other {
+    base pluggable-identifiers-identity;
+  }
+
+  identity pluggable-type-unspecified {
     base pluggable-identifiers-identity;
   }
 
