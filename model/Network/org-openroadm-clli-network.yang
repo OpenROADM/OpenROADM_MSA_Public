@@ -64,6 +64,7 @@ module org-openroadm-clli-network {
          network";
     }
   }
+
   augment "/nd:networks/nd:network/nd:node" {
     when '../nd:network-types/cn:clli-network';
     description

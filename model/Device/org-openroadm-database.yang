@@ -4,7 +4,7 @@ module org-openroadm-database {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-database {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -105,6 +109,7 @@ module org-openroadm-database {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc db-restore {
     description
       "Restore database ";
@@ -127,6 +132,7 @@ module org-openroadm-database {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc db-activate {
     description
       "activate the database";
@@ -141,6 +147,7 @@ module org-openroadm-database {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc cancel-rollback-timer {
     description
       "Cancel roll back timer which user provisioned as part of activate command";
@@ -155,6 +162,7 @@ module org-openroadm-database {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc database-init {
     description
       "Initialize the database to default DB";
@@ -162,16 +170,19 @@ module org-openroadm-database {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   notification db-backup-notification {
     description
       "notification for db-backup operation events.";
     uses org-openroadm-common-types:rpc-response-status;
   }
+
   notification db-restore-notification {
     description
       "notification for db-restore operation events.";
     uses org-openroadm-common-types:rpc-response-status;
   }
+
   notification db-activate-notification {
     description
       "notification for database activation events.";

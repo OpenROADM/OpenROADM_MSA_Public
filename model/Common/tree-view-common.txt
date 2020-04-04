@@ -133,8 +133,8 @@ module: org-openroadm-manifest-file
   |     +--rw cancel-validation-timer-sync-timeout?    uint16
   |     +--rw sw-manifest-commands
   |        +--rw sw-manifest-command* [command-order]
-  |           +--rw command-order    uint8
-  |           +--rw command          identityref
+  |           +--rw command-order              uint8
+  |           +--rw command                    identityref
   |           +--rw download-file
   |           |  +--rw remote-filename    string
   |           |  +--rw local-file-path    string
@@ -149,11 +149,15 @@ module: org-openroadm-manifest-file
   |           |  +--rw timeout?    uint16
   |           |  +--rw is-async?   boolean
   |           +--rw sw-activate
-  |              +--rw version             string
-  |              +--rw validation-timer?   string
-  |              +--rw timeout?            uint16
-  |              +--rw auto-reboot         uint16
-  |              +--rw is-async?           boolean
+  |           |  +--rw version             string
+  |           |  +--rw validation-timer?   string
+  |           |  +--rw timeout?            uint16
+  |           |  +--rw auto-reboot         uint16
+  |           |  +--rw is-async?           boolean
+  |           +--rw cancel-validation-timer
+  |              +--rw wait-time    uint16
+  |              +--rw timeout?     uint16
+  |              +--rw is-async?    boolean
   +--rw db-backup-manifest!
   |  +--rw vendor                         string
   |  +--rw model                          string
@@ -189,8 +193,8 @@ module: org-openroadm-manifest-file
      +--rw database-init-sync-timeout?            uint16
      +--rw db-restore-manifest-commands
         +--rw db-restore-manifest-command* [command-order]
-           +--rw command-order    uint8
-           +--rw command          identityref
+           +--rw command-order            uint8
+           +--rw command                  identityref
            +--rw download-file
            |  +--rw remote-filename    string
            |  +--rw local-file-path    string
@@ -206,10 +210,14 @@ module: org-openroadm-manifest-file
            |  +--rw timeout?         uint16
            |  +--rw is-async?        boolean
            +--rw db-activate
-              +--rw rollback-timer?   string
-              +--rw timeout?          uint16
-              +--rw auto-reboot       uint16
-              +--rw is-async?         boolean
+           |  +--rw rollback-timer?   string
+           |  +--rw timeout?          uint16
+           |  +--rw auto-reboot       uint16
+           |  +--rw is-async?         boolean
+           +--rw cancel-rollback-timer
+              +--rw wait-time    uint16
+              +--rw timeout?     uint16
+              +--rw is-async?    boolean
 module: org-openroadm-pm
   +--ro current-pm-list
   |  +--ro current-pm-entry* [pm-resource-type pm-resource-type-extension pm-resource-instance]

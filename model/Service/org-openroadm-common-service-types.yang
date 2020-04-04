@@ -16,7 +16,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -36,11 +36,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -52,7 +52,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -88,6 +88,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -226,6 +230,9 @@ module org-openroadm-common-service-types {
       enum ber-test {
         value 15;
       }
+      enum controller-parameters-setting {
+        value 16;
+      }
     }
     description
       "rpc-actions include all the rpc methods";
@@ -246,15 +253,18 @@ module org-openroadm-common-service-types {
     type enumeration {
       enum GFP-F {
         value 1;
-        reference "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
+        reference
+          "GFP-F - ITU-T G.7041 SubClause 7.1, Payload Only";
       }
       enum GFP-E {
         value 2;
-        reference "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
+        reference
+          "GFP-E - ITU-T G.7041 SubClause 7.9, Payload + Preamble + Ordered Sets";
       }
       enum PCS-Transparent {
         value 3;
-        reference "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
+        reference
+          "PCS-Transparent - ITU-T G.709 Subclause 17.2 , CBR10G3 mapping to ODU2e";
       }
     }
   }
@@ -610,24 +620,22 @@ module org-openroadm-common-service-types {
         "ODU Rate of the requested service";
     }
     leaf ethernet-encoding {
-      when
-        "(../service-format='Ethernet')
-         and
-         (../service-rate=10)" {
-        description
-          "Applicable only to Ethernet 10G services";
+      when "(../service-format='Ethernet')
+            and
+            (../service-rate=10)" {
+          description
+            "Applicable only to Ethernet 10G services";
       }
       type ethernet-encoding-type;
       description
         "Ethernet encoding type";
     }
     leaf mapping-mode {
-      when
-        "(../service-format='Ethernet')
-         and
-         (../service-rate=10)" {
-        description
-          "Mapping Mode, currently only defined for Ethernet 10G services";
+      when "(../service-format='Ethernet')
+            and
+            (../service-rate=10)" {
+          description
+            "Mapping Mode, currently only defined for Ethernet 10G services";
       }
       type mapping-mode-type;
       description
@@ -854,6 +862,11 @@ module org-openroadm-common-service-types {
         "Assumption: a service would not span multiple topology layers.
          Reference to the network-id of either the openroadm-topology
          or the otn-topology layer depending upon service-layer (wdm or otn).";
+    }
+    leaf sla-id {
+      type string;
+      description
+        "Service Level Agreement";
     }
     leaf bandwidth-calendaring {
       type boolean;

@@ -15,17 +15,20 @@ module openconfig-extensions {
   revision 2017-04-11 {
     description
       "rename password type to 'hashed' and clarify description";
-    reference "0.3.0";
+    reference
+      "0.3.0";
   }
   revision 2017-01-29 {
     description
       "Added extension for annotating encrypted values.";
-    reference "0.2.0";
+    reference
+      "0.2.0";
   }
   revision 2015-10-09 {
     description
       "Initial OpenConfig public release";
-    reference "0.1.0";
+    reference
+      "0.1.0";
   }
 
   extension openconfig-version {

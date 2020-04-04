@@ -13,19 +13,19 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -61,6 +61,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -104,42 +108,42 @@ module org-openroadm-otn-network-topology {
 
   deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
-      must
-        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology) or
-         (/nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology and
-         (../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'TPDR' or
-          ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'))" {
-        error-message "Invalid node type for otn-topology";
-        description
-          "The type of a node in the OTN topology";
+      must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology) or
+            (/nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology and
+            (../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'TPDR' or
+             ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'))" {
+          error-message "Invalid node type for otn-topology";
+          description
+            "The type of a node in the OTN topology";
       }
     }
   }
+
   deviation "/nd:networks/nd:network/nd:node/nwt:termination-point/cnet:tp-type" {
     description
       "Defines which TP types can be instantiated on which Node types";
     deviate add {
-      must
-        "(/nd:network/nd:node/cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'SWITCH' and ../../cnet:node-type != 'TPDR'
-         and ../cnet:node-type != 'REGEN' and ../cnet:node-type != 'REGEN-UNI') or
-         ((../../cnet:node-type = 'MUXPDR' or ../../cnet:node-type = 'SWITCH' or ../../cnet:node-type = 'TPDR' or
-         ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI') and
-         (../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-PORT'))" {
-        error-message "Invalid TP for node type Xponder";
+      must "(/nd:network/nd:node/cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'SWITCH' and ../../cnet:node-type != 'TPDR'
+            and ../cnet:node-type != 'REGEN' and ../cnet:node-type != 'REGEN-UNI') or
+            ((../../cnet:node-type = 'MUXPDR' or ../../cnet:node-type = 'SWITCH' or ../../cnet:node-type = 'TPDR' or
+            ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI') and
+            (../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-PORT'))" {
+          error-message "Invalid TP for node type Xponder";
       }
     }
   }
+
   deviation "/nd:networks/nd:network/nwt:link/cnet:link-type" {
     deviate add {
-      must
-        "(not /nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology) or
-         (/nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology and ../cnet:link-type = 'OTN-LINK')" {
-        error-message "Invalid link type for otn-topology";
-        description
-          "The valid link type in the OTN topology is 'OTN-LINK'";
+      must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology) or
+            (/nd:network/nd:network-types/cnet:openroadm-common-network/otn-topology and ../cnet:link-type = 'OTN-LINK')" {
+          error-message "Invalid link type for otn-topology";
+          description
+            "The valid link type in the OTN topology is 'OTN-LINK'";
       }
     }
   }
+
   augment "/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network" {
     description
       "Introduce new network type for the Open ROADM OTN network topology";
@@ -147,6 +151,7 @@ module org-openroadm-otn-network-topology {
       presence "indicates OTN topology for Transponder, Muxponder, Switchponder and OTN-switch";
     }
   }
+
   augment "/nd:networks/nd:network/nd:node" {
     when '../nd:network-types/cnet:openroadm-common-network/otn-topology';
     description
@@ -164,14 +169,14 @@ module org-openroadm-otn-network-topology {
       uses org-openroadm-network-topology-types:xpdr-odu-switching-pools;
     }
     container xpdr-attributes {
-      when
-        "../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'TPDR' or
-         ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'";
+      when "../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'SWITCH' or ../cnet:node-type = 'TPDR' or
+            ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI'";
       description
         "Topology-related attributes for Xponder nodes";
       uses xpdr:xpdr-topo-node-attributes;
     }
   }
+
   augment "/nd:networks/nd:network/nd:node/nwt:termination-point" {
     when '../../nd:network-types/cnet:openroadm-common-network/otn-topo:otn-topology';
     description
@@ -193,6 +198,7 @@ module org-openroadm-otn-network-topology {
       uses xpdr:supported-client-services;
     }
   }
+
   augment "/nd:networks/nd:network/nwt:link" {
     when '../nd:network-types/cnet:openroadm-common-network/otn-topo:otn-topology';
     description

@@ -89,6 +89,7 @@ module org-openroadm-common-link-types {
     }
     description
       "Optical Control Mode: identifies specific algorithm related to power management and general optical control.";
-    reference "openroadm.org: Open ROADM MSA Specification.";
+    reference
+      "openroadm.org: Open ROADM MSA Specification.";
   }
 }

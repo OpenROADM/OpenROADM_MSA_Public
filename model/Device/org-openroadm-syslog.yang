@@ -54,7 +54,8 @@ module org-openroadm-syslog {
      extracted from this document must include Simplified BSD License text as described in
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
-  reference "RFC 5424: The Syslog Protocol";
+  reference
+    "RFC 5424: The Syslog Protocol";
 
   revision 2019-11-29 {
     description
@@ -175,12 +176,11 @@ module org-openroadm-syslog {
          no selection should occur or disable this filter.";
     }
     leaf severity-operator {
-      when
-        "../severity != 'all' and
-                    ../severity != 'none'" {
-        description
-          "The severity-operator is not applicable for severity 'all' or
-           severity 'none'";
+      when "../severity != 'all' and
+                       ../severity != 'none'" {
+          description
+            "The severity-operator is not applicable for severity 'all' or
+             severity 'none'";
       }
       if-feature "selector-sevop-config";
       type enumeration {
@@ -311,7 +311,8 @@ module org-openroadm-syslog {
                 description
                   "This container describes the TCP transport
                    options.";
-                reference "RFC 6587: Transmission of Syslog Messages over TCP";
+                reference
+                  "RFC 6587: Transmission of Syslog Messages over TCP";
                 leaf address {
                   type inet:host;
                   description
@@ -334,7 +335,8 @@ module org-openroadm-syslog {
                 description
                   "This container describes the UDP transport
                    options.";
-                reference "RFC 5426: Transmission of Syslog Messages over UDP";
+                reference
+                  "RFC 5426: Transmission of Syslog Messages over UDP";
                 leaf address {
                   type inet:host;
                   description

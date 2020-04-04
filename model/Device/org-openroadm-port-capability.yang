@@ -4,23 +4,11 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2019-11-29;
-  }
-  import org-openroadm-prot-otn-linear-aps {
-    prefix org-openroadm-prot-otn-linear-aps;
-    revision-date 2019-11-29;
-  }
-  import org-openroadm-otn-common-types {
-    prefix org-openroadm-otn-common-types;
-    revision-date 2019-11-29;
-  }
-  import org-openroadm-optical-operational-interfaces {
-    prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -70,6 +58,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -111,25 +103,6 @@ module org-openroadm-port-capability {
       "Version 2.1";
   }
 
-  typedef tcm-direction-capability-type {
-    type enumeration {
-      enum up-tcm {
-        description
-          "Port supports up TCM termination, e.g., direction facing the switch fabric";
-      }
-      enum down-tcm {
-        description
-          "Port supports down TCM termination, e.g., direction facing out of the equipment ";
-      }
-      enum up-down-tcm {
-        description
-          "Port supports both up and down TCM terminations";
-      }
-    }
-    description
-      "TCM direction capability for the port";
-  }
-
   grouping port-id-grp {
     leaf circuit-pack-name {
       type leafref {
@@ -164,194 +137,17 @@ module org-openroadm-port-capability {
     }
   }
 
-  grouping otn-capability-grp {
-    description
-      "OTN capability group";
-    leaf-list if-protection-capability {
-      type identityref {
-        base org-openroadm-prot-otn-linear-aps:otn-protection-type;
-      }
-      description
-        "supported protection types if protection is supported on this port";
-    }
-    leaf proactive-DMp {
-      type boolean;
-      description
-        "ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
-    }
-    leaf tcm-capable {
-      type boolean;
-      description
-        "only when tcm-capable=true, the following two are applicable (ie, proactive-DMt, tcm-direction";
-    }
-    leaf proactive-DMt {
-      when "../tcm-capable= 'true'";
-      type boolean;
-      description
-        "ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
-    }
-    leaf tcm-direction-capability {
-      when "../tcm-capable= 'true'";
-      type tcm-direction-capability-type;
-      description
-        "Supported tcm direction capability on the ODUk associated with the port.";
-    }
-    leaf-list opu-payload-type-mapping {
-      type org-openroadm-otn-common-types:payload-type-def;
-      description
-        "OPU payload-type mapping OPU.";
-    }
-  }
-
-  grouping odu-mux-hierarchy-base-grp {
-    description
-      "ODU mux hierarchy base group";
-    list mux-capability {
-      key "stage-number ho-odu-type ho-odu-payload-type";
-      description
-        "low order ODU TCM direction capability";
-      leaf stage-number {
-        type uint8 {
-          range "1 .. 2";
-        }
-        description
-          "stage number";
-      }
-      leaf ho-odu-type {
-        type identityref {
-          base org-openroadm-otn-common-types:odu-rate-identity;
-        }
-        description
-          "High order ODU type";
-      }
-      leaf ho-odu-payload-type {
-        type org-openroadm-otn-common-types:payload-type-def;
-        description
-          "High order ODU payload type";
-      }
-      leaf-list supported-lo-odu-type {
-        type identityref {
-          base org-openroadm-otn-common-types:odu-rate-identity;
-        }
-        description
-          "Supported low order ODU type";
-      }
-      leaf lo-odu-proactive-DMp {
-        type boolean;
-        description
-          "low order ODU PM delay measurement (DMp) (G.709 06-2016 15.8.2.1.6)";
-      }
-      leaf lo-odu-tcm-capable {
-        type boolean;
-        description
-          "only when lo-odu-tcm-capable=true, the following two are applicable (ie, lo-odu-proactive-DMt, lo-odu-tcm-direction";
-      }
-      leaf lo-odu-proactive-DMt {
-        when "../lo-odu-tcm-capable= 'true'";
-        type boolean;
-        description
-          "low order ODU TCM delay measurement (DMt) (G.709 06-2016 15.8.2.2.8)";
-      }
-      leaf lo-odu-tcm-direction-capability {
-        when "../lo-odu-tcm-capable= 'true'";
-        type tcm-direction-capability-type;
-        description
-          "Supported tcm direction capability for low order ODU associated with the port.";
-      }
-    }
-  }
-
-  grouping odu-mux-hierarchy-grp {
-    description
-      "ODU mux hierarchy group";
-    uses odu-mux-hierarchy-base-grp {
-      augment "mux-capability" {
-        list supported-otu-rate {
-          key "index";
-          description
-            "Supported OTU rate list";
-          leaf index {
-            type uint16;
-            description
-              "The index references to each of multiple supported rates.  Applicable to NxOTU4 and OTUCn supported by OTSiG (OTSi group).";
-          }
-          choice otu-rate {
-            description
-              "To specify the supported rate in the case of OTUCn or NxOTU4";
-            case otucn {
-              leaf otucn-n-rate {
-                type uint16;
-                description
-                  "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
-              }
-            }
-            case nxotu4 {
-              leaf supported-n-otu4 {
-                type uint16;
-                description
-                  "Specify the number of N in the case of N x OTU4";
-              }
-            }
-          }
-          list otsi {
-            key "circuit-pack-name port-name";
-            description
-              "Optical Tributary Signal list";
-            leaf circuit-pack-name {
-              type string;
-              description
-                "The circuit pack supporting the physical port";
-            }
-            leaf port-name {
-              type string;
-              description
-                "The physical port supporting the OTSI";
-            }
-            leaf otsi-rate {
-              type uint16;
-              units "Gbps";
-              mandatory true;
-              description
-                "Optical Tributary Signal (OTSi) rate in Gbps";
-            }
-            list operational-mode {
-              key "index";
-              description
-                "Operational mode list";
-              leaf index {
-                type uint8;
-                description
-                  "The index references to the multiple supported operational modes";
-              }
-              leaf mode-id {
-                type string;
-                description
-                  "Optical profile operational mode ID";
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   grouping optical-operational-modes-grp-for-capability {
-    container optical-operational-modes {
+    leaf-list optical-operational-mode-profile-name {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:optical-operational-mode-profile/org-openroadm-device:profile-name";
+      }
       config false;
       description
-        "The xponder optical operational modes to be published by NE device.";
-      list operational-mode {
-        key "mode-id";
-        description
-          "The xponder optical operational mode to be published by NE device.";
-        leaf mode-id {
-          type string;
-          description
-            "The mode-id index to the xponder operational modes.";
-        }
-        uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
-      }
+        "Optical operation capabilities leaf list";
     }
+    description
+      "Optical operational modes grouping";
   }
 
   grouping port-capability-grp {
@@ -365,22 +161,34 @@ module org-openroadm-port-capability {
           "Supported interface capability on the port.";
         leaf if-cap-type {
           type identityref {
-            base org-openroadm-port-types:if-otsi-flexo-flexogroup;
+            base org-openroadm-port-types:supported-if-capability;
           }
           description
             "Interface type/hierarchy/rate supported on this port";
         }
-        leaf-list flexogroup-capability-group-id {
-          type uint16;
+        leaf-list split-lambda-profile-name {
+          type leafref {
+            path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:split-lambda-profile/org-openroadm-device:profile-name";
+          }
+          description
+            "Split lambda mode capabilities";
         }
-        leaf-list otsigroup-capability-group-id {
-          type uint16;
+        leaf-list otsigroup-capability-profile-name {
+          type leafref {
+             path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:otsigroup-capability-profile/org-openroadm-device:profile-name";
+          }
+          description
+            "OTSI group capabilities";
         }
         uses optical-operational-modes-grp-for-capability;
         container otn-capability {
           description
             "OTN capability";
-          uses otn-capability-grp;
+          leaf otn-capability-profile-name {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:otn-capability-profile/org-openroadm-device:profile-name";
+            }
+          }
           container mpdr-client-restriction {
             description
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
@@ -397,43 +205,33 @@ module org-openroadm-port-capability {
               description
                 "port identifier.";
             }
-            leaf odtu-type {
-              type identityref {
-                base org-openroadm-otn-common-types:odtu-type-identity;
+            leaf muxp-profile-name {
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-profile/org-openroadm-device:profile-name";
               }
-              mandatory true;
-              description
-                "ODTU type, part of the MSI (Multiplex Structure Identifier)";
-            }
-            leaf network-ho-odu-trib-port-number {
-              type uint16 {
-                range "1 .. 80";
-              }
-              mandatory true;
-              description
-                "Tributary port number";
-            }
-            leaf-list network-ho-odu-trib-slots {
-              type uint16 {
-                range "1 .. 80";
-              }
-              min-elements 1;
-              max-elements 80;
-              description
-                "Network high order ODU trib slots";
-            }
-            leaf-list network-ho-odu-opucn-trib-slots {
-              type org-openroadm-otn-common-types:opucn-trib-slot-def;
-              description
-                "Network high order ODU OPU tributary slots";
             }
           }
-          container odu-mux-hierarchy {
-            presence "HO ODU supported hierarchy.";
+          leaf otn-odu-mux-hierarchy-profile-name {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:otn-odu-mux-hierarchy-profile/org-openroadm-device:profile-name";
+            }
             description
-              "ODU mux hierarchy";
-            uses odu-mux-hierarchy-base-grp;
+              "OTN ODU Mux hierarchy capabilities";
           }
+        }
+        container logical-port {
+          leaf circuit-pack-name {
+            type string;
+            description
+              "The circuit pack supporting the logical port";
+          }
+          leaf port-name {
+            type string;
+            description
+              "Port name for logical-port";
+          }
+          description
+            "Logical port container";
         }
       }
     }
@@ -525,11 +323,13 @@ module org-openroadm-port-capability {
       "augment for port capability";
     uses port-capability-grp;
   }
+
   augment "/org-openroadm-device:org-openroadm-device" {
     description
       "augment for port group restriction";
     uses port-group-restriction-grp;
   }
+
   augment "/org-openroadm-device:org-openroadm-device" {
     description
       "augment for provisioned port group";

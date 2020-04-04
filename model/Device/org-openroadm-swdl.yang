@@ -8,7 +8,7 @@ module org-openroadm-swdl {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -44,6 +44,10 @@ module org-openroadm-swdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -153,6 +157,7 @@ module org-openroadm-swdl {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc sw-activate {
     description
       "Activate new load";
@@ -172,6 +177,7 @@ module org-openroadm-swdl {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   rpc cancel-validation-timer {
     description
       "Cancel validation timer which user provisioned as part of activate command";
@@ -187,11 +193,13 @@ module org-openroadm-swdl {
       uses org-openroadm-common-types:rpc-response-status;
     }
   }
+
   notification sw-stage-notification {
     description
       "notification for sw-stage.";
     uses org-openroadm-common-types:rpc-response-status;
   }
+
   notification sw-activate-notification {
     description
       "notification for sw-activate events.";

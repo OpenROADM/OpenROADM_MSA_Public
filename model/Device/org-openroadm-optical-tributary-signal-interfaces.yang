@@ -8,15 +8,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -70,6 +70,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -112,7 +116,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
     leaf otsi-rate {
       when "../provision-mode = 'explicit'";
       type identityref {
-        base org-openroadm-common-optical-channel-types:flexo-otsi-rate-identity;
+        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
       }
       description
         "OTSi rate";
@@ -153,14 +157,14 @@ module org-openroadm-optical-tributary-signal-interfaces {
       description
         "FEC for OTSi";
     }
-    leaf operational-mode {
-      when "../provision-mode = 'profile'";
+    leaf optical-operational-mode {
       type string;
       description
-        "In the case controller would set up the bookended xponder, controller could specify one of the supported operational modes published by the NE device.";
+        "Optical-operational-mode sets the xponder settings based on one of the operational mode capabilities as published by the device.  This attribute is mandatory when the provision-mode is set to profile.";
     }
     container operational-mode-params {
       when "../provision-mode = 'profile'";
+      config false;
       description
         "The container containing the optical parameters for the specified operational mode";
       uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
@@ -172,6 +176,25 @@ module org-openroadm-optical-tributary-signal-interfaces {
       config false;
       description
         "OTSiG or FlexO-group interface name.";
+    }
+    container flexo {
+      presence "Explicit assigment for flexo container";
+      description
+        "Flexo presence container";
+      leaf foic-type {
+        type identityref {
+          base org-openroadm-common-optical-channel-types:foic-identity;
+        }
+        mandatory true;
+        description
+          "Assigned flexo instance type";
+      }
+      leaf-list iid {
+        type uint16;
+        ordered-by user;
+        description
+          "A list of FlexO instance identification (G.709.1 clause 9.2.3)";
+      }
     }
   }
 

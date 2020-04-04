@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -217,6 +221,11 @@ module org-openroadm-common-types {
         description
           "value for 6.1";
       }
+      enum 7.0 {
+        value 15;
+        description
+          "value for 7.0";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -267,4 +276,30 @@ module org-openroadm-common-types {
                 Range 16 | 32 | 64 | 128 | 512 | 1024. Default: 16";
     }
   }
+
+  identity otn-protection-type {
+    description
+      "OTN base protection identity from which
+         specific protection types are derived.";
+  }
+
+  typedef tcm-direction-capability-type {
+    type enumeration {
+      enum up-tcm {
+        description
+          "Port supports up TCM termination, e.g., direction facing the switch fabric";
+      }
+      enum down-tcm {
+        description
+          "Port supports down TCM termination, e.g., direction facing out of the equipment ";
+      }
+      enum up-down-tcm {
+        description
+          "Port supports both up and down TCM terminations";
+      }
+    }
+    description
+      "TCM direction capability for the port";
+  }
+
 }

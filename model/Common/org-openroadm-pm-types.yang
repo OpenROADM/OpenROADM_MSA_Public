@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -638,6 +642,31 @@ module org-openroadm-pm-types {
         value 119;
         description
           "unavailable Seconds Count on TCM6 down direction.";
+      }
+      enum fecCorrectedCodewords {
+        value 120;
+        description
+          "FEC Corrected Codewords Counter";
+      }
+      enum fecUncorrectedCodewords {
+        value 121;
+        description
+          "FEC Uncorrected Codewords Counter";
+      }
+      enum fecSymbolErrors {
+        value 122;
+        description
+          "FEC Symbol Error Counter";
+      }
+      enum localFaultSeconds {
+        value 123;
+        description
+          "Local Fault Seconds";
+      }
+      enum remoteFaultSeconds {
+        value 124;
+        description
+          "Remote Fault Seconds";
       }
     }
   }

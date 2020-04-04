@@ -4,11 +4,15 @@ module org-openroadm-otsi-group-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
     revision-date 2019-11-29;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2020-03-27;
   }
 
   organization
@@ -58,6 +62,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -81,12 +89,17 @@ module org-openroadm-otsi-group-interfaces {
     container otsi-group {
       description
         "OTSI group container";
-      leaf otsi-group-rate {
-        type decimal64 {
-          fraction-digits 3;
+      leaf group-rate {
+        type identityref {
+          base org-openroadm-common-optical-channel-types:otsi-rate-identity;
         }
         description
-          "supported rate by the OTSI group";
+          "Supported group rate";
+      }
+      leaf group-id {
+        type uint32;
+        description
+          "Mandatory for FlexO B100G.  Not required for Non-FlexO B100G.";
       }
     }
   }

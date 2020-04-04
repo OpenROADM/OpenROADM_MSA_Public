@@ -4,7 +4,7 @@ module org-openroadm-rstp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -45,6 +45,10 @@ module org-openroadm-rstp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -371,12 +375,14 @@ module org-openroadm-rstp {
        event is sent for the same transition";
     uses org-openroadm-resource-types:device-id;
   }
+
   notification rstp-new-root {
     description
       "RSTP:The rstp-new-root event indicates that the sending agent has
        become the new root of the Spanning Tree ";
     uses org-openroadm-resource-types:device-id;
   }
+
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protocols" {
     when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='rdm' or /org-openroadm-device:org-openroadm-device/org-openroadm-device:info/org-openroadm-device:node-type='ila'";
     uses rstp-container;

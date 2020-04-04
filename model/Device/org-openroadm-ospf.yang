@@ -12,11 +12,11 @@ module org-openroadm-ospf {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-key-chain {
     prefix org-openroadm-key-chain;
@@ -47,6 +47,10 @@ module org-openroadm-ospf {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -1565,7 +1569,8 @@ module org-openroadm-ospf {
   grouping interface-operation {
     description
       "OSPF interface operation state.";
-    reference "RFC2328 Section 9";
+    reference
+      "RFC2328 Section 9";
     uses interface-config;
     leaf state {
       type if-state-type;
@@ -1765,6 +1770,7 @@ module org-openroadm-ospf {
         "Interface state.";
     }
   }
+
   notification if-config-error {
     description
       "This notification is sent when interface
@@ -1888,6 +1894,7 @@ module org-openroadm-ospf {
         "Error code.";
     }
   }
+
   notification nbr-state-change {
     description
       "This notification is sent when neighbor
@@ -1963,6 +1970,7 @@ module org-openroadm-ospf {
         "Neighbor state.";
     }
   }
+
   notification nbr-restart-helper-status-change {
     description
       "This notification is sent when neighbor restart
@@ -2027,6 +2035,7 @@ module org-openroadm-ospf {
         "Restart helper exit reason.";
     }
   }
+
   notification rx-bad-packet {
     description
       "This notification is sent when an OSPF packet
@@ -2092,6 +2101,7 @@ module org-openroadm-ospf {
         "OSPF packet type.";
     }
   }
+
   notification lsdb-approaching-overflow {
     description
       "This notification is sent when the number of LSAs
@@ -2105,6 +2115,7 @@ module org-openroadm-ospf {
          entries that can be stored in the link state database.";
     }
   }
+
   notification lsdb-overflow {
     description
       "This notification is sent when the number of LSAs
@@ -2118,6 +2129,7 @@ module org-openroadm-ospf {
          entries that can be stored in the link state database.";
     }
   }
+
   notification nssa-translator-status-change {
     description
       "This notification is sent when there is a change
@@ -2135,6 +2147,7 @@ module org-openroadm-ospf {
         "NSSA translator status.";
     }
   }
+
   notification restart-status-change {
     description
       "This notification is sent when the graceful restart
@@ -2160,14 +2173,8 @@ module org-openroadm-ospf {
         "Restart exit reason.";
     }
   }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol" {
-    when "org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
-      description
-        "This augment is only valid for a routing protocol instance
-         of OSPF (type 'ospfv2' or 'ospfv3').";
-    }
-    description
-      "OSPF augmentation.";
+
+  grouping ospf-grp {
     container ospf {
       description
         "OSPF.";
@@ -2278,27 +2285,34 @@ module org-openroadm-ospf {
         }
       }
     }
+    description
+      "Grouping for OSPF";
   }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance" {
-    when
-      "../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or
-       ../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol" {
+    when "org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
       description
-        "This augment is only valid for OSPF
-         (type 'ospfv2' or 'ospfv3').";
+        "This augment is only valid for a routing protocol instance
+         of OSPF (type 'ospfv2' or 'ospfv3').";
+    }
+    description
+      "OSPF augmentation.";
+    uses ospf-grp;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance" {
+    when "../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or
+          ../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
+        description
+          "This augment is only valid for OSPF
+           (type 'ospfv2' or 'ospfv3').";
     }
     if-feature "multi-topology";
     description
       "OSPF multi-topology routing-protocol augmentation.";
   }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance/org-openroadm-ospf:area/org-openroadm-ospf:interface" {
-    when "../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
-      description
-        "This augment is only valid for OSPFv2.";
-    }
-    if-feature "org-openroadm-ospf:multi-topology";
-    description
-      "OSPF multi-topology interface augmentation.";
+
+  grouping topology-cost-grp {
     list topology {
       key "name";
       description
@@ -2316,15 +2330,22 @@ module org-openroadm-ospf {
           "Interface cost for this topology";
       }
     }
-  }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol" {
-    when "org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
-      description
-        "This augment is only valid for a routing protocol instance
-         of type 'ospfv2' or 'ospfv3'.";
-    }
     description
-      "OSPF configuration.";
+      "Grouping for topology cost";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance/org-openroadm-ospf:area/org-openroadm-ospf:interface" {
+    when "../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
+      description
+        "This augment is only valid for OSPFv2.";
+    }
+    if-feature "org-openroadm-ospf:multi-topology";
+    description
+      "OSPF multi-topology interface augmentation.";
+    uses topology-cost-grp;
+  }
+
+  grouping ospf-lsa-grp {
     container ospf {
       description
         "OSPF";
@@ -2438,15 +2459,22 @@ module org-openroadm-ospf {
         }
       }
     }
-  }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance" {
-    when "../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
-      description
-        "This augment is only valid for OSPFv2.";
-    }
-    if-feature "multi-topology";
     description
-      "OSPF multi-topology routing-protocol augmentation.";
+      "Grouping for ospf lsa";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol" {
+    when "org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2' or org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
+      description
+        "This augment is only valid for a routing protocol instance
+         of type 'ospfv2' or 'ospfv3'.";
+    }
+    description
+      "OSPF configuration.";
+    uses ospf-lsa-grp;
+  }
+
+  grouping topology-area-grp {
     list topology {
       key "name";
       description
@@ -2469,15 +2497,22 @@ module org-openroadm-ospf {
         }
       }
     }
+    description
+      "Grouping for topology area";
   }
-  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance/org-openroadm-ospf:area/org-openroadm-ospf:interface" {
-    when "../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance" {
+    when "../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
       description
         "This augment is only valid for OSPFv2.";
     }
-    if-feature "org-openroadm-ospf:multi-topology";
+    if-feature "multi-topology";
     description
-      "OSPF multi-topology interface augmentation.";
+      "OSPF multi-topology routing-protocol augmentation.";
+    uses topology-area-grp;
+  }
+
+  grouping topology-grp {
     list topology {
       key "name";
       description
@@ -2490,5 +2525,18 @@ module org-openroadm-ospf {
           "One of the topology enabled on this interface";
       }
     }
+    description
+      "Grouping for topology";
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-ospf:ospf/org-openroadm-ospf:instance/org-openroadm-ospf:area/org-openroadm-ospf:interface" {
+    when "../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv2'" {
+      description
+        "This augment is only valid for OSPFv2.";
+    }
+    if-feature "org-openroadm-ospf:multi-topology";
+    description
+      "OSPF multi-topology interface augmentation.";
+    uses topology-grp;
   }
 }

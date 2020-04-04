@@ -190,11 +190,7 @@ module: org-openroadm-network-topology
        +--rw operational-mode?              string
        +--rw type-variety?                  string
   augment /nd:networks/nd:network/nwt:link:
-    x--rw link-length?      decimal64
-    x--rw link-latency?     uint32
     +--rw amplified?        boolean
-    x--rw TE-metric?        uint32
-    x--rw opposite-link?    -> ../../nwt:link/link-id
     +--rw OMS-attributes
        +--rw span
        |  +--rw auto-spanloss?            boolean

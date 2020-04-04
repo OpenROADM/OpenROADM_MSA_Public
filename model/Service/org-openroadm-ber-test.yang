@@ -4,7 +4,7 @@ module org-openroadm-ber-test {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2019-11-29;
+    revision-date 2020-03-27;
   }
   import org-openroadm-common-ber-test {
     prefix org-openroadm-common-ber-test;
@@ -48,6 +48,10 @@ module org-openroadm-ber-test {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -171,6 +175,7 @@ module org-openroadm-ber-test {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc complex-ber-test {
     description
       "This is the complex-ber-test rpc. It is supported for a service in the service-list.";
@@ -186,6 +191,7 @@ module org-openroadm-ber-test {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc service-rpc-ber-test-async-callback {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -210,6 +216,7 @@ module org-openroadm-ber-test {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   rpc complex-service-rpc-ber-test-async-callback {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -234,6 +241,7 @@ module org-openroadm-ber-test {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
+
   notification service-notification-ber-test {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
@@ -253,6 +261,7 @@ module org-openroadm-ber-test {
     }
     uses ber-test-result-details-container;
   }
+
   notification complex-service-notification-ber-test {
     description
       "This is the callback notification that the controller invokes on the carrier system.";

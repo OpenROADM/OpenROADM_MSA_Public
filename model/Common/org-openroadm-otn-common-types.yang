@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-03-27 {
+    description
+      "Version 7.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -184,20 +188,25 @@ module org-openroadm-otn-common-types {
       "ODUFlex for CBR client signals (G.709)";
   }
 
+  identity ODUflex-cbr-identity {
+    description
+      "Service type for ODUflex (CBR)";
+  }
+
   identity ODUflex-cbr-25G {
-    base odu-rate-identity;
+    base ODUflex-cbr-identity;
     description
       "ODUFlex for CBR client signals 25G (G.709 17.13.1)";
   }
 
   identity ODUflex-cbr-200G {
-    base odu-rate-identity;
+    base ODUflex-cbr-identity;
     description
       "ODUFlex for CBR client signals 200G (G.709 17.13.2)";
   }
 
   identity ODUflex-cbr-400G {
-    base odu-rate-identity;
+    base ODUflex-cbr-identity;
     description
       "ODUFlex for CBR client signals 400G (G.709 17.13.2)";
   }
