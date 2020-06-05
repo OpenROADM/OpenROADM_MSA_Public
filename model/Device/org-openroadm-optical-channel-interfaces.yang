@@ -4,7 +4,7 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -16,11 +16,11 @@ module org-openroadm-optical-channel-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -163,13 +167,6 @@ module org-openroadm-optical-channel-interfaces {
       type org-openroadm-common-link-types:power-dBm;
       description
         "The target transmit power for this channel. When set, the xponder will work to ensure that port-current-power reaches this level. Applicable only to channel on top of xpdr-network port";
-    }
-    leaf supported-group-if {
-      type leafref {
-        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
-      }
-      description
-        "OTSiG or FlexO-group interface name.";
     }
     leaf optical-operational-mode {
       type string;

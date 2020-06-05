@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -64,37 +68,21 @@ module org-openroadm-common-optical-channel-types {
       "Version 3.0.0";
   }
 
+  identity optical-rate-identity {
+    description
+      "base for otsi and och idenity";
+  }
+
   identity och-rate-identity {
+    base optical-rate-identity;
     description
       "A unique och rate identification";
   }
 
   identity otsi-rate-identity {
+    base optical-rate-identity;
     description
       "A unique OTSi rate identification";
-  }
-
-  identity fec-identity {
-    description
-      "A unique FEC identification";
-  }
-
-  identity sc-fec {
-    base fec-identity;
-    description
-      "Staircase FEC identification";
-  }
-
-  identity rs-fec {
-    base fec-identity;
-    description
-      "Reed Solomon FEC identification";
-  }
-
-  identity o-fec {
-    base fec-identity;
-    description
-      "OpenROADM FEC identification";
   }
 
   identity foic-identity {

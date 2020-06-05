@@ -4,7 +4,7 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -58,6 +58,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -189,7 +193,7 @@ module org-openroadm-port-capability {
               path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:otn-capability-profile/org-openroadm-device:profile-name";
             }
           }
-          container mpdr-client-restriction {
+          list mpdr-client-restriction {
             description
               "Restriction rules for how LO ODUs are multiplexed into HO ODU
                and the relation with mapped client ports.";
@@ -205,7 +209,7 @@ module org-openroadm-port-capability {
               description
                 "port identifier.";
             }
-            leaf muxp-profile-name {
+            leaf-list muxp-profile-name {
               type leafref {
                 path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-profile/org-openroadm-device:profile-name";
               }

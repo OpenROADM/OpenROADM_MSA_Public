@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -84,7 +84,7 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -138,6 +138,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -1291,7 +1295,7 @@ module org-openroadm-device {
         }
         mandatory true;
         description
-          "The supported circuit-pack. It will be empty if holder status is empty-not-prov, or installed-not-prov";
+          "The supported circuit-pack.";
       }
       leaf-list port-list {
         type leafref {
@@ -1455,14 +1459,6 @@ module org-openroadm-device {
       description
         "Operational state of a port";
     }
-    leaf-list supported-interface-capability {
-      type identityref {
-        base org-openroadm-port-types:supported-if-capability;
-      }
-      config false;
-      description
-        "Interface types supported on this port";
-    }
     leaf logical-connection-point {
       type string;
       description
@@ -1569,14 +1565,13 @@ module org-openroadm-device {
       description
         "Port index identifier. Unique within the context of a circuit-pack.";
     }
-    leaf fec {
-      type identityref {
-        base org-openroadm-common-optical-channel-types:fec-identity;
-      }
+
+    uses org-openroadm-common-types:fec-grouping {
       status deprecated;
       description
-        "Flexo FEC";
+        "Flexo FEC / Forward Error Correction";
     }
+
     leaf otsi-rate {
       type identityref {
         base org-openroadm-common-optical-channel-types:otsi-rate-identity;
@@ -1610,7 +1605,7 @@ module org-openroadm-device {
       "Otsigroup group capability";
     leaf if-cap-type {
       type identityref {
-        base org-openroadm-port-types:if-OTUCn-ODUCn;
+        base org-openroadm-port-types:supported-if-capability;
       }
       description
         "Interface type/hierarchy/rate supported on this Otsi port. For example, if-n-otu4-n-odu4 and if-otucn-oducn";
@@ -1816,6 +1811,19 @@ module org-openroadm-device {
       mandatory true;
       description
         "ODTU type, part of the MSI (Multiplex Structure Identifier)";
+    }
+    leaf network-odu-rate {
+       type identityref {
+       base org-openroadm-otn-common-types:odu-rate-identity;
+      }
+      mandatory true;
+      description
+        "Network ODU rate";
+    }
+    leaf network-oducn-n-rate {
+      type uint16;
+      description
+        "Network ODUCn rate, eg, network-oducn-n-rate=4 for ODUC4";
     }
     leaf network-ho-odu-trib-port-number {
       type uint16 {

@@ -5,7 +5,7 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,11 +13,11 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -129,16 +133,17 @@ module org-openroadm-ethernet-interfaces {
       type uint32;
       description
         "Set speed of the interface, unit mbps.
-         This is for ETH facility. ";
+         This is for ETH facility.
+         Applies to both management and transport Ethernet.
+         Optional, must be specified for transport Ethernet or when auto-negotiation is disabled.";
     }
-    leaf fec {
-      type enumeration {
-        enum off;
-        enum rsfec;
-      }
+
+    uses org-openroadm-common-types:fec-grouping {
       description
-        "Forward Error Correction Choices. ";
+        "Forward Error Correction Choices.
+         Applies to transport Ethernet. Mandatory for transport Ethernet.";
     }
+
     leaf duplex {
       type enumeration {
         enum half {
@@ -154,7 +159,9 @@ module org-openroadm-ethernet-interfaces {
       }
       default "full";
       description
-        "Set duplex selections.";
+        "Set duplex selections.
+         Applies to both management and transport Ethernet.
+         Optional, default “full”. Transport Ethernet only supports full.";
     }
     leaf auto-negotiation {
       type enumeration {
@@ -171,46 +178,58 @@ module org-openroadm-ethernet-interfaces {
       }
       default "enabled";
       description
-        "Set Auto Negotiation: Enabled/Disabled.";
+        "Set Auto Negotiation: Enabled/Disabled.
+         Applies to both management and transport Ethernet.
+         Optional, default “enabled”. Transport Ethernet only supports enabled.";
     }
     leaf curr-speed {
       type string;
       config false;
       description
-        "speed (UNKNOWN/AUTO/10/100/1000/10000) corresponding to the interface";
+        "Speed (UNKNOWN/AUTO/10/100/1000/10000) corresponding to the interface.
+         Applies to both management and transport Ethernet.";
     }
     leaf curr-duplex {
       type string;
       config false;
       description
-        "duplex (HALF/FULL) corresponding to the interface";
+        "Duplex (HALF/FULL) corresponding to the interface.
+         Applies to both management and transport Ethernet.";
     }
     leaf max-frame-size {
       type uint32;
       config false;
       description
-        "Maximum Frame Size.";
+        "Maximum Frame Size.  Applies to management Ethernet.";
     }
     container subrate-eth-sla {
       presence "Explicit assignment of subrate ethernet allocation";
       description
-        "SLA (Service Level Agreement) for subrate Ethernet";
+        "SLA (Service Level Agreement) for subrate Ethernet.
+         Applies to transport Ethernet.";
       uses org-openroadm-common-types:eth-rate-and-burst-size;
     }
+    description
+      "Ethernet attributes grouping";
   }
 
   grouping ethernet-container {
     container ethernet {
       description
-        "Ethernet Interfaces";
+        "Ethernet Interfaces.
+         Maintenance test signal and loopback provisioning is supported for transport Ethernet.";
       uses eth-attributes;
       uses org-openroadm-maint-testsignal:maint-testsignal;
       uses org-openroadm-maint-loopback:maint-loopback;
     }
+    description
+      "Ethernet container grouping";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:ethernetCsmacd'";
     uses ethernet-container;
+    description
+      "Augment for interface";
   }
 }

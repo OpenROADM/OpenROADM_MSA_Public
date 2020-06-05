@@ -356,10 +356,10 @@ module: org-openroadm-device
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:optical-operational-mode-profile-name*   -> /org-openroadm-device:org-openroadm-device/optical-operational-mode-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:otn-capability
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-capability-profile-name?          -> /org-openroadm-device:org-openroadm-device/otn-capability-profile/profile-name
-     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:mpdr-client-restriction
+     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:mpdr-client-restriction* []
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    string
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            string
-     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-profile-name?                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:logical-port
      |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:circuit-pack-name?   string
@@ -393,7 +393,6 @@ module: org-openroadm-device
      |     +--rw lifecycle-state?                                   org-openroadm-common-state-types:lifecycle-state
      |     +--rw administrative-state?                              org-openroadm-equipment-states-types:admin-states
      |     +--ro operational-state                                  org-openroadm-common-state-types:state
-     |     +--ro supported-interface-capability*                    identityref
      |     +--rw logical-connection-point?                          string
      |     +--ro partner-port
      |     |  +--ro circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
@@ -430,10 +429,10 @@ module: org-openroadm-device
      |           +--ro org-openroadm-port-capability:optical-operational-mode-profile-name*   -> /org-openroadm-device:org-openroadm-device/optical-operational-mode-profile/profile-name
      |           +--ro org-openroadm-port-capability:otn-capability
      |           |  +--ro org-openroadm-port-capability:otn-capability-profile-name?          -> /org-openroadm-device:org-openroadm-device/otn-capability-profile/profile-name
-     |           |  +--ro org-openroadm-port-capability:mpdr-client-restriction
+     |           |  +--ro org-openroadm-port-capability:mpdr-client-restriction* []
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    string
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            string
-     |           |  |  +--ro org-openroadm-port-capability:muxp-profile-name?                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |           |  |  +--ro org-openroadm-port-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
      |           |  +--ro org-openroadm-port-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |           +--ro org-openroadm-port-capability:logical-port
      |              +--ro org-openroadm-port-capability:circuit-pack-name?   string
@@ -449,6 +448,36 @@ module: org-openroadm-device
      |  +--rw supporting-circuit-pack-name?                             -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--rw supporting-port?                                          -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name
      |  +--rw supporting-interface-list*                                -> /org-openroadm-device/interface/name
+     |  +--rw org-openroadm-eth-interfaces:ethernet
+     |  |  +--rw org-openroadm-eth-interfaces:speed?              uint32
+     |  |  +--rw org-openroadm-eth-interfaces:fec?                identityref
+     |  |  +--rw org-openroadm-eth-interfaces:duplex?             enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?   enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?         string
+     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?        string
+     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?     uint32
+     |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
+     |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
+     |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
+     |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
+     |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
+     |  |  |  |  +---w org-openroadm-eth-interfaces:input
+     |  |  |  |  |  +---w org-openroadm-eth-interfaces:type?   testsig-type
+     |  |  |  |  +--ro org-openroadm-eth-interfaces:output
+     |  |  |  |     +--ro org-openroadm-eth-interfaces:status            org-openroadm-common-types:rpc-status
+     |  |  |  |     +--ro org-openroadm-eth-interfaces:status-message?   string
+     |  |  |  +--rw org-openroadm-eth-interfaces:enabled?             boolean
+     |  |  |  +--rw org-openroadm-eth-interfaces:testPattern          enumeration
+     |  |  |  +--rw org-openroadm-eth-interfaces:type?                testsig-type
+     |  |  |  +--ro org-openroadm-eth-interfaces:inSync?              boolean
+     |  |  |  +--ro org-openroadm-eth-interfaces:seconds              uint32
+     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrors?           uint32
+     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrorRate?        decimal64
+     |  |  +--rw org-openroadm-eth-interfaces:maint-loopback
+     |  |     +--rw org-openroadm-eth-interfaces:enabled?   boolean
+     |  |     +--rw org-openroadm-eth-interfaces:type?      enumeration
+     |  +--rw org-openroadm-gcc-interfaces:gcc
+     |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
      |  +--rw org-openroadm-ip:ipv4!
      |  |  +--rw org-openroadm-ip:enabled?         boolean
      |  |  +--rw org-openroadm-ip:forwarding?      boolean
@@ -470,6 +499,48 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-ip:address* [ip]
      |  |     +--rw org-openroadm-ip:ip               inet:ipv6-address-no-zone
      |  |     +--rw org-openroadm-ip:prefix-length    uint8
+     |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
+     |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-media-channel-interfaces:center-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-media-channel-interfaces:slot-width?    org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-network-media-channel-interfaces:nmc-ctp
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?       org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-optical-channel-interfaces:och
+     |  |  +--rw org-openroadm-optical-channel-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
+     |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
+     |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
+     |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
+     |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-optical-transport-interfaces:ots
+     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
+     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-transmit?               org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
+     |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-rate?                  identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
+     |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type            identityref
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                 uint8
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*   uint32
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:accepted-iid*        uint8
      |  +--rw org-openroadm-otn-odu-interfaces:odu!
      |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oducn-n-rate?                          uint16
@@ -566,16 +637,12 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-otn-odu-interfaces:seconds              uint32
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrors?           uint32
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrorRate?        decimal64
-     |  +--rw org-openroadm-ppp-interfaces:ppp
-     |  |  +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
-     |  +--rw org-openroadm-gcc-interfaces:gcc
-     |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
      |  +--rw org-openroadm-otn-otu-interfaces:otu
      |  |  +--rw org-openroadm-otn-otu-interfaces:rate?                identityref
      |  |  +--rw org-openroadm-otn-otu-interfaces:otu4-member-id?      uint16
      |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-n-rate?        uint16
      |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-M-subrate?     uint16
-     |  |  +--rw org-openroadm-otn-otu-interfaces:fec?                 enumeration
+     |  |  +--rw org-openroadm-otn-otu-interfaces:fec?                 identityref
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-sapi?             string
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-dapi?             string
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-operator?         string
@@ -591,78 +658,11 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-otn-otu-interfaces:maint-loopback
      |  |     +--rw org-openroadm-otn-otu-interfaces:enabled?   boolean
      |  |     +--rw org-openroadm-otn-otu-interfaces:type?      enumeration
-     |  +--rw org-openroadm-optical-channel-interfaces:och
-     |  |  +--rw org-openroadm-optical-channel-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
-     |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
-     |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
-     |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
-     |  |  +--rw org-openroadm-optical-channel-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
-     |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
-     |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
-     |  +--rw org-openroadm-network-media-channel-interfaces:nmc-ctp
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?   org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?       org-openroadm-common-optical-channel-types:frequency-GHz
-     |  +--rw org-openroadm-optical-transport-interfaces:ots
-     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
-     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-transmit?               org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-     |  +--rw org-openroadm-eth-interfaces:ethernet
-     |  |  +--rw org-openroadm-eth-interfaces:speed?              uint32
-     |  |  +--rw org-openroadm-eth-interfaces:fec?                enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:duplex?             enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?   enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?         string
-     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?        string
-     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?     uint32
-     |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
-     |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
-     |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
-     |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
-     |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
-     |  |  |  |  +---w org-openroadm-eth-interfaces:input
-     |  |  |  |  |  +---w org-openroadm-eth-interfaces:type?   testsig-type
-     |  |  |  |  +--ro org-openroadm-eth-interfaces:output
-     |  |  |  |     +--ro org-openroadm-eth-interfaces:status            org-openroadm-common-types:rpc-status
-     |  |  |  |     +--ro org-openroadm-eth-interfaces:status-message?   string
-     |  |  |  +--rw org-openroadm-eth-interfaces:enabled?             boolean
-     |  |  |  +--rw org-openroadm-eth-interfaces:testPattern          enumeration
-     |  |  |  +--rw org-openroadm-eth-interfaces:type?                testsig-type
-     |  |  |  +--ro org-openroadm-eth-interfaces:inSync?              boolean
-     |  |  |  +--ro org-openroadm-eth-interfaces:seconds              uint32
-     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrors?           uint32
-     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrorRate?        decimal64
-     |  |  +--rw org-openroadm-eth-interfaces:maint-loopback
-     |  |     +--rw org-openroadm-eth-interfaces:enabled?   boolean
-     |  |     +--rw org-openroadm-eth-interfaces:type?      enumeration
-     |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
-     |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-media-channel-interfaces:center-freq?   org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-media-channel-interfaces:slot-width?    org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw org-openroadm-otsi-group-interfaces:otsi-group
      |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?   identityref
      |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?     uint32
-     |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-rate?                  identityref
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
-     |     +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
-     |     +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
-     |     |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
-     |     +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
-     |     +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
-     |        +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type    identityref
-     |        +--rw org-openroadm-optical-tributary-signal-interfaces:iid*         uint16
+     |  +--rw org-openroadm-ppp-interfaces:ppp
+     |     +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
      +--rw protection-grps
      |  +--rw org-openroadm-prot-otn-linear-aps:odu-sncp-pg* [name]
      |     +--rw org-openroadm-prot-otn-linear-aps:name                        string
@@ -691,66 +691,66 @@ module: org-openroadm-device
      |  |     +--rw org-openroadm-dhcp:server-group-name    string
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv6-address
-     |  +--rw org-openroadm-rstp:rstp
-     |  |  +--ro org-openroadm-rstp:max-bridge-instances?   uint32
-     |  |  +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
-     |  |     +--rw org-openroadm-rstp:bridge-name    string
-     |  |     +--rw org-openroadm-rstp:rstp-config
-     |  |     |  +--rw org-openroadm-rstp:bridge-priority?          uint32
-     |  |     |  +--rw org-openroadm-rstp:shutdown?                 empty
-     |  |     |  +--rw org-openroadm-rstp:hold-time?                uint32
-     |  |     |  +--rw org-openroadm-rstp:hello-time?               uint32
-     |  |     |  +--rw org-openroadm-rstp:max-age?                  uint32
-     |  |     |  +--rw org-openroadm-rstp:forward-delay?            uint32
-     |  |     |  +--rw org-openroadm-rstp:transmit-hold-count?      uint32
-     |  |     |  +--rw org-openroadm-rstp:rstp-bridge-port-table* [ifname]
-     |  |     |     +--rw org-openroadm-rstp:ifname      -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |     |     +--rw org-openroadm-rstp:cost?       uint32
-     |  |     |     +--rw org-openroadm-rstp:priority?   uint32
-     |  |     +--ro org-openroadm-rstp:rstp-state
-     |  |        +--ro org-openroadm-rstp:rstp-bridge-attr
-     |  |        |  +--ro org-openroadm-rstp:root-bridge-port?         uint32
-     |  |        |  +--ro org-openroadm-rstp:root-path-cost?           uint32
-     |  |        |  +--ro org-openroadm-rstp:root-bridge-priority?     uint32
-     |  |        |  +--ro org-openroadm-rstp:root-bridge-id?           bridge-id-type
-     |  |        |  +--ro org-openroadm-rstp:root-hold-time?           uint32
-     |  |        |  +--ro org-openroadm-rstp:root-hello-time?          uint32
-     |  |        |  +--ro org-openroadm-rstp:root-max-age?             uint32
-     |  |        |  +--ro org-openroadm-rstp:root-forward-delay?       uint32
-     |  |        |  +--ro org-openroadm-rstp:bridge-id?                bridge-id-type
-     |  |        |  +--ro org-openroadm-rstp:topo-change-count?        uint32
-     |  |        |  +--ro org-openroadm-rstp:time-since-topo-change?   uint32
-     |  |        +--ro org-openroadm-rstp:rstp-bridge-port-attr
-     |  |           +--ro org-openroadm-rstp:rstp-bridge-port-table* [ifname]
-     |  |              +--ro org-openroadm-rstp:ifname                    string
-     |  |              +--ro org-openroadm-rstp:bridge-port-state?        enumeration
-     |  |              +--ro org-openroadm-rstp:bridge-port-role?         enumeration
-     |  |              +--ro org-openroadm-rstp:bridge-port-id?           uint32
-     |  |              +--ro org-openroadm-rstp:oper-edge-bridge-port?    empty
-     |  |              +--ro org-openroadm-rstp:designated-bridge-port?   uint32
-     |  |              +--ro org-openroadm-rstp:designated-bridgeid?      bridge-id-type
      |  +--rw org-openroadm-gnmi:gnmi
      |  |  +--rw org-openroadm-gnmi:enabled?          boolean
      |  |  +--rw org-openroadm-gnmi:certificate-id?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
      |  |  +--rw org-openroadm-gnmi:port?             inet:port-number
      |  +--rw org-openroadm-lldp:lldp
-     |     +--rw org-openroadm-lldp:global-config
-     |     |  +--rw org-openroadm-lldp:adminStatus?           enumeration
-     |     |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
-     |     |  +--rw org-openroadm-lldp:msgTxHoldMultiplier?   uint8
-     |     +--rw org-openroadm-lldp:port-config* [ifName]
-     |     |  +--rw org-openroadm-lldp:ifName         -> /org-openroadm-device:org-openroadm-device/interface/name
-     |     |  +--rw org-openroadm-lldp:adminStatus?   enumeration
-     |     +--ro org-openroadm-lldp:nbr-list
-     |        +--ro org-openroadm-lldp:if-name* [ifName]
-     |           +--ro org-openroadm-lldp:ifName                      string
-     |           +--ro org-openroadm-lldp:remoteSysName?              string
-     |           +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   ianaaf:address-family
-     |           +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
-     |           +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
-     |           +--ro org-openroadm-lldp:remotePortId?               string
-     |           +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
-     |           +--ro org-openroadm-lldp:remoteChassisId?            string
+     |  |  +--rw org-openroadm-lldp:global-config
+     |  |  |  +--rw org-openroadm-lldp:adminStatus?           enumeration
+     |  |  |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
+     |  |  |  +--rw org-openroadm-lldp:msgTxHoldMultiplier?   uint8
+     |  |  +--rw org-openroadm-lldp:port-config* [ifName]
+     |  |  |  +--rw org-openroadm-lldp:ifName         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  |  +--rw org-openroadm-lldp:adminStatus?   enumeration
+     |  |  +--ro org-openroadm-lldp:nbr-list
+     |  |     +--ro org-openroadm-lldp:if-name* [ifName]
+     |  |        +--ro org-openroadm-lldp:ifName                      string
+     |  |        +--ro org-openroadm-lldp:remoteSysName?              string
+     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   ianaaf:address-family
+     |  |        +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
+     |  |        +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
+     |  |        +--ro org-openroadm-lldp:remotePortId?               string
+     |  |        +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
+     |  |        +--ro org-openroadm-lldp:remoteChassisId?            string
+     |  +--rw org-openroadm-rstp:rstp
+     |     +--ro org-openroadm-rstp:max-bridge-instances?   uint32
+     |     +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
+     |        +--rw org-openroadm-rstp:bridge-name    string
+     |        +--rw org-openroadm-rstp:rstp-config
+     |        |  +--rw org-openroadm-rstp:bridge-priority?          uint32
+     |        |  +--rw org-openroadm-rstp:shutdown?                 empty
+     |        |  +--rw org-openroadm-rstp:hold-time?                uint32
+     |        |  +--rw org-openroadm-rstp:hello-time?               uint32
+     |        |  +--rw org-openroadm-rstp:max-age?                  uint32
+     |        |  +--rw org-openroadm-rstp:forward-delay?            uint32
+     |        |  +--rw org-openroadm-rstp:transmit-hold-count?      uint32
+     |        |  +--rw org-openroadm-rstp:rstp-bridge-port-table* [ifname]
+     |        |     +--rw org-openroadm-rstp:ifname      -> /org-openroadm-device:org-openroadm-device/interface/name
+     |        |     +--rw org-openroadm-rstp:cost?       uint32
+     |        |     +--rw org-openroadm-rstp:priority?   uint32
+     |        +--ro org-openroadm-rstp:rstp-state
+     |           +--ro org-openroadm-rstp:rstp-bridge-attr
+     |           |  +--ro org-openroadm-rstp:root-bridge-port?         uint32
+     |           |  +--ro org-openroadm-rstp:root-path-cost?           uint32
+     |           |  +--ro org-openroadm-rstp:root-bridge-priority?     uint32
+     |           |  +--ro org-openroadm-rstp:root-bridge-id?           bridge-id-type
+     |           |  +--ro org-openroadm-rstp:root-hold-time?           uint32
+     |           |  +--ro org-openroadm-rstp:root-hello-time?          uint32
+     |           |  +--ro org-openroadm-rstp:root-max-age?             uint32
+     |           |  +--ro org-openroadm-rstp:root-forward-delay?       uint32
+     |           |  +--ro org-openroadm-rstp:bridge-id?                bridge-id-type
+     |           |  +--ro org-openroadm-rstp:topo-change-count?        uint32
+     |           |  +--ro org-openroadm-rstp:time-since-topo-change?   uint32
+     |           +--ro org-openroadm-rstp:rstp-bridge-port-attr
+     |              +--ro org-openroadm-rstp:rstp-bridge-port-table* [ifname]
+     |                 +--ro org-openroadm-rstp:ifname                    string
+     |                 +--ro org-openroadm-rstp:bridge-port-state?        enumeration
+     |                 +--ro org-openroadm-rstp:bridge-port-role?         enumeration
+     |                 +--ro org-openroadm-rstp:bridge-port-id?           uint32
+     |                 +--ro org-openroadm-rstp:oper-edge-bridge-port?    empty
+     |                 +--ro org-openroadm-rstp:designated-bridge-port?   uint32
+     |                 +--ro org-openroadm-rstp:designated-bridgeid?      bridge-id-type
      +--ro internal-link* [internal-link-name]
      |  +--ro internal-link-name    string
      |  +--ro source
@@ -936,6 +936,8 @@ module: org-openroadm-device
      +--ro muxp-profile* [profile-name]
      |  +--ro profile-name                       string
      |  +--ro odtu-type                          identityref
+     |  +--ro network-odu-rate                   identityref
+     |  +--ro network-oducn-n-rate?              uint16
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
