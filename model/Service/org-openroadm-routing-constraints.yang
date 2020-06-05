@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -213,6 +217,18 @@ module org-openroadm-routing-constraints {
       }
       leaf link {
         type boolean;
+      }
+      container equipment {
+        leaf roadm-srg {
+          type boolean;
+          description "ROADM shared-risk-group diversity";
+        }
+        leaf xponder-srg {
+          type boolean;
+          description "xponder eqpt-srg-id diversity";
+        }
+        description
+          "Equipment Diversity Contraints";
       }
     }
   }

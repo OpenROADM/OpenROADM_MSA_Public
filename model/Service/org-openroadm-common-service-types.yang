@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2019-11-29;
+    revision-date 2020-05-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -88,6 +88,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -459,7 +463,15 @@ module org-openroadm-common-service-types {
 
   grouping otn-attributes-grp {
     container otn-attributes {
+      when "(../service-format='OTU' or ../service-format='ODU')" {
+        description
+          "For any OTN services (OTU and OTN)";
+      }
       uses org-openroadm-common-attributes:parent-odu-allocation;
+      uses org-openroadm-common-types:fec-grouping {
+        description
+          "OTN FEC / Forward Error Correction";
+      }
       uses org-openroadm-common-attributes:trail-trace-tx;
       uses org-openroadm-common-attributes:trail-trace-other;
       uses org-openroadm-common-attributes:deg-threshold;
@@ -476,6 +488,20 @@ module org-openroadm-common-service-types {
     }
   }
 
+  grouping ethernet-subrate-attributes-grp {
+    container ethernet-attributes {
+      when "(../service-format='Ethernet')" {
+        description
+          "For any Ethernet services";
+      }
+      uses org-openroadm-common-types:fec-grouping {
+        description
+          "ETH FEC / Forward Error Correction";
+      }
+      uses org-openroadm-common-service-types:subrate-eth-sla;
+    }
+  }
+  
   grouping service-ends-container {
     container service-a-end {
       uses service-endpoint-summary;
@@ -549,6 +575,7 @@ module org-openroadm-common-service-types {
 
   grouping subrate-eth-sla {
     container subrate-eth-sla {
+      presence "Explicit assignment of subrate ethernet allocation";
       description
         "SLA (Service Level Agreement) for subrate Ethernet";
       uses org-openroadm-common-types:eth-rate-and-burst-size;
@@ -688,13 +715,8 @@ module org-openroadm-common-service-types {
       description
         "Label for service endpoint, defined by the user";
     }
-    container subrate-eth-sla {
-      when "(../service-format='Ethernet')" {
-        description
-          "For any Ethernet services";
-      }
-      uses org-openroadm-common-service-types:subrate-eth-sla;
-    }
+
+    uses ethernet-subrate-attributes-grp;
   }
 
   grouping sdnc-request-header {

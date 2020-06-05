@@ -4,11 +4,11 @@ module org-openroadm-ber-test {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2020-03-27;
+    revision-date 2020-05-29;
   }
   import org-openroadm-common-ber-test {
     prefix org-openroadm-common-ber-test;
-    revision-date 2019-11-29;
+    revision-date 2020-05-29;
   }
   import ietf-yang-types {
     prefix yang;
@@ -48,6 +48,10 @@ module org-openroadm-ber-test {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";

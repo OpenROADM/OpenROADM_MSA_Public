@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-05-29 {
+    description
+      "Version 7.1.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -226,6 +230,11 @@ module org-openroadm-common-types {
         description
           "value for 7.0";
       }
+      enum 7.1 {
+        value 16;
+        description
+          "value for 7.1";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -300,6 +309,119 @@ module org-openroadm-common-types {
     }
     description
       "TCM direction capability for the port";
+  }
+
+
+
+
+
+
+  //
+  // Identities for FEC -- used for Device and Service models
+  //
+
+  // Base Identity
+  identity fec-identity {
+    description
+      "A unique FEC identification";
+  }
+
+  // FEC Off (duplications for backwards compatibility)
+  identity off-fec {
+    status deprecated;
+    base fec-identity;
+    description
+      "FEC Off";
+  }
+  identity off {
+    base fec-identity;
+    description
+      "FEC Off";
+  }
+
+  // Staircase FEC (duplications for backwards compatibility)
+  identity sc-fec {
+    status deprecated;
+    base fec-identity;
+    description
+      "Staircase FEC identification";
+  }
+  identity scfec {
+    base fec-identity;
+    description
+      "Staircase FEC identification";
+  }
+
+  // Reed Solomon FEC (duplication for backwards compatibility)
+  identity rs-fec {
+    status deprecated;
+    base fec-identity;
+    description
+      "Reed Solomon FEC identification";
+  }
+  identity rsfec {
+    base fec-identity;
+    description
+      "Reed Solomon FEC identification";
+  }
+
+  // OpenROADM FEC (duplication for backwards compatibility)
+  identity o-fec {
+    status deprecated;
+    base fec-identity;
+    description
+      "OpenROADM FEC identification";
+  }
+  identity ofec {
+    base fec-identity;
+    description
+      "OpenROADM FEC identification";
+  }
+
+  // G.975.1 I.4
+  identity efec {
+    base fec-identity;
+    description
+      "G.975.1 I.4";
+  }
+
+  // G.975.1 I.7
+  identity ufec {
+    base fec-identity;
+    description
+      "G.975.1 I.7";
+  }
+
+  // Soft Decision FEC
+  identity sdfec {
+    base fec-identity;
+    description
+      "Soft Decision FEC";
+  }
+
+  // Clariphy SDFEC
+  identity sdfeca1 {
+    base fec-identity;
+    description
+      "Clariphy SDFEC";
+  }
+
+  // SDFEC with SCFED
+  identity sdfecb1 {
+    base fec-identity;
+    description
+      "SDFEC with SCFEC";
+  }
+
+
+  grouping fec-grouping {
+    leaf fec {
+      type identityref {
+        base org-openroadm-common-types:fec-identity;
+      }
+      description
+        "FEC / Forward Error Correction";
+    }
   }
 
 }

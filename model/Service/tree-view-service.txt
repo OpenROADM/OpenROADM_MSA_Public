@@ -394,6 +394,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -473,8 +474,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -495,6 +497,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -574,8 +577,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -587,10 +591,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -629,10 +636,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -1084,6 +1094,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -1163,8 +1174,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -1185,6 +1197,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -1264,8 +1277,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -1277,10 +1291,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -1319,10 +1336,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -1773,6 +1793,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -1852,8 +1873,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -1874,6 +1896,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw trib-slots*         uint16
   |     |  |  |     +--:(opucn)
   |     |  |  |        +--rw opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+  |     |  |  +--rw fec?                     identityref
   |     |  |  +--rw tx-sapi?                 string
   |     |  |  +--rw tx-dapi?                 string
   |     |  |  +--rw tx-operator?             string
@@ -1953,8 +1976,9 @@ module: org-openroadm-service
   |     |  |  +--rw ip-address?   inet:ip-address
   |     |  |  +--rw url?          string
   |     |  +--rw user-label?                      string
-  |     |  +--rw subrate-eth-sla
-  |     |  |  +--rw subrate-eth-sla
+  |     |  +--rw ethernet-attributes
+  |     |  |  +--rw fec?               identityref
+  |     |  |  +--rw subrate-eth-sla!
   |     |  |     +--rw committed-info-rate     uint32
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
@@ -1966,10 +1990,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -2008,10 +2035,13 @@ module: org-openroadm-service
   |     |     |  +--rw diversity
   |     |     |  |  +--rw existing-service*                 string
   |     |     |  |  +--rw existing-service-applicability
-  |     |     |  |     +--rw site?   boolean
-  |     |     |  |     +--rw node?   boolean
-  |     |     |  |     +--rw srlg?   boolean
-  |     |     |  |     +--rw link?   boolean
+  |     |     |  |     +--rw site?        boolean
+  |     |     |  |     +--rw node?        boolean
+  |     |     |  |     +--rw srlg?        boolean
+  |     |     |  |     +--rw link?        boolean
+  |     |     |  |     +--rw equipment
+  |     |     |  |        +--rw roadm-srg?     boolean
+  |     |     |  |        +--rw xponder-srg?   boolean
   |     |     |  +--rw exclude
   |     |     |  |  +--rw fiber-bundle*              string
   |     |     |  |  +--rw srlg-id*                   uint32
@@ -2513,6 +2543,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -2592,8 +2623,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -2614,6 +2646,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -2693,8 +2726,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -2706,10 +2740,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -2748,10 +2785,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -2824,10 +2864,13 @@ module: org-openroadm-service
     |        |     |  +--ro diversity
     |        |     |  |  +--ro existing-service*                 string
     |        |     |  |  +--ro existing-service-applicability
-    |        |     |  |     +--ro site?   boolean
-    |        |     |  |     +--ro node?   boolean
-    |        |     |  |     +--ro srlg?   boolean
-    |        |     |  |     +--ro link?   boolean
+    |        |     |  |     +--ro site?        boolean
+    |        |     |  |     +--ro node?        boolean
+    |        |     |  |     +--ro srlg?        boolean
+    |        |     |  |     +--ro link?        boolean
+    |        |     |  |     +--ro equipment
+    |        |     |  |        +--ro roadm-srg?     boolean
+    |        |     |  |        +--ro xponder-srg?   boolean
     |        |     |  +--ro exclude
     |        |     |  |  +--ro fiber-bundle*              string
     |        |     |  |  +--ro srlg-id*                   uint32
@@ -2866,10 +2909,13 @@ module: org-openroadm-service
     |              |  +--ro diversity
     |              |  |  +--ro existing-service*                 string
     |              |  |  +--ro existing-service-applicability
-    |              |  |     +--ro site?   boolean
-    |              |  |     +--ro node?   boolean
-    |              |  |     +--ro srlg?   boolean
-    |              |  |     +--ro link?   boolean
+    |              |  |     +--ro site?        boolean
+    |              |  |     +--ro node?        boolean
+    |              |  |     +--ro srlg?        boolean
+    |              |  |     +--ro link?        boolean
+    |              |  |     +--ro equipment
+    |              |  |        +--ro roadm-srg?     boolean
+    |              |  |        +--ro xponder-srg?   boolean
     |              |  +--ro exclude
     |              |  |  +--ro fiber-bundle*              string
     |              |  |  +--ro srlg-id*                   uint32
@@ -3105,6 +3151,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -3184,8 +3231,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |     +---w fec?               identityref
+    |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w service-z-end
@@ -3204,6 +3252,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -3283,8 +3332,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |     +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |     +---w fec?               identityref
+    |  |  |     +---w subrate-eth-sla!
     |  |  |        +---w committed-info-rate     uint32
     |  |  |        +---w committed-burst-size    uint16
     |  |  +---w hard-constraints
@@ -3294,10 +3344,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -3336,10 +3389,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -3435,10 +3491,13 @@ module: org-openroadm-service
     |     |  |     |  +--ro diversity
     |     |  |     |  |  +--ro existing-service*                 string
     |     |  |     |  |  +--ro existing-service-applicability
-    |     |  |     |  |     +--ro site?   boolean
-    |     |  |     |  |     +--ro node?   boolean
-    |     |  |     |  |     +--ro srlg?   boolean
-    |     |  |     |  |     +--ro link?   boolean
+    |     |  |     |  |     +--ro site?        boolean
+    |     |  |     |  |     +--ro node?        boolean
+    |     |  |     |  |     +--ro srlg?        boolean
+    |     |  |     |  |     +--ro link?        boolean
+    |     |  |     |  |     +--ro equipment
+    |     |  |     |  |        +--ro roadm-srg?     boolean
+    |     |  |     |  |        +--ro xponder-srg?   boolean
     |     |  |     |  +--ro exclude
     |     |  |     |  |  +--ro fiber-bundle*              string
     |     |  |     |  |  +--ro srlg-id*                   uint32
@@ -3477,10 +3536,13 @@ module: org-openroadm-service
     |     |        |  +--ro diversity
     |     |        |  |  +--ro existing-service*                 string
     |     |        |  |  +--ro existing-service-applicability
-    |     |        |  |     +--ro site?   boolean
-    |     |        |  |     +--ro node?   boolean
-    |     |        |  |     +--ro srlg?   boolean
-    |     |        |  |     +--ro link?   boolean
+    |     |        |  |     +--ro site?        boolean
+    |     |        |  |     +--ro node?        boolean
+    |     |        |  |     +--ro srlg?        boolean
+    |     |        |  |     +--ro link?        boolean
+    |     |        |  |     +--ro equipment
+    |     |        |  |        +--ro roadm-srg?     boolean
+    |     |        |  |        +--ro xponder-srg?   boolean
     |     |        |  +--ro exclude
     |     |        |  |  +--ro fiber-bundle*              string
     |     |        |  |  +--ro srlg-id*                   uint32
@@ -3528,6 +3590,7 @@ module: org-openroadm-service
     |     |  |  |     |  +--ro trib-slots*         uint16
     |     |  |  |     +--:(opucn)
     |     |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |     |  |  +--ro fec?                     identityref
     |     |  |  +--ro tx-sapi?                 string
     |     |  |  +--ro tx-dapi?                 string
     |     |  |  +--ro tx-operator?             string
@@ -3607,8 +3670,9 @@ module: org-openroadm-service
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?                      string
-    |     |  +--ro subrate-eth-sla
-    |     |  |  +--ro subrate-eth-sla
+    |     |  +--ro ethernet-attributes
+    |     |  |  +--ro fec?               identityref
+    |     |  |  +--ro subrate-eth-sla!
     |     |  |     +--ro committed-info-rate     uint32
     |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
@@ -3632,6 +3696,7 @@ module: org-openroadm-service
     |     |  |  |     |  +--ro trib-slots*         uint16
     |     |  |  |     +--:(opucn)
     |     |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |     |  |  +--ro fec?                     identityref
     |     |  |  +--ro tx-sapi?                 string
     |     |  |  +--ro tx-dapi?                 string
     |     |  |  +--ro tx-operator?             string
@@ -3711,8 +3776,9 @@ module: org-openroadm-service
     |     |  |  +--ro ip-address?   inet:ip-address
     |     |  |  +--ro url?          string
     |     |  +--ro user-label?                      string
-    |     |  +--ro subrate-eth-sla
-    |     |  |  +--ro subrate-eth-sla
+    |     |  +--ro ethernet-attributes
+    |     |  |  +--ro fec?               identityref
+    |     |  |  +--ro subrate-eth-sla!
     |     |  |     +--ro committed-info-rate     uint32
     |     |  |     +--ro committed-burst-size    uint16
     |     |  +--ro equipment-required* [equipment-identifier]
@@ -3736,6 +3802,7 @@ module: org-openroadm-service
     |        |  |     |  +--ro trib-slots*         uint16
     |        |  |     +--:(opucn)
     |        |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  +--ro fec?                     identityref
     |        |  +--ro tx-sapi?                 string
     |        |  +--ro tx-dapi?                 string
     |        |  +--ro tx-operator?             string
@@ -3815,8 +3882,9 @@ module: org-openroadm-service
     |        |  +--ro ip-address?   inet:ip-address
     |        |  +--ro url?          string
     |        +--ro user-label?                      string
-    |        +--ro subrate-eth-sla
-    |        |  +--ro subrate-eth-sla
+    |        +--ro ethernet-attributes
+    |        |  +--ro fec?               identityref
+    |        |  +--ro subrate-eth-sla!
     |        |     +--ro committed-info-rate     uint32
     |        |     +--ro committed-burst-size    uint16
     |        +--ro equipment-required* [equipment-identifier]
@@ -3851,6 +3919,7 @@ module: org-openroadm-service
     |  |     |  |  |     |  +---w trib-slots*         uint16
     |  |     |  |  |     +--:(opucn)
     |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w fec?                     identityref
     |  |     |  |  +---w tx-sapi?                 string
     |  |     |  |  +---w tx-dapi?                 string
     |  |     |  |  +---w tx-operator?             string
@@ -3930,8 +3999,9 @@ module: org-openroadm-service
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?                      string
-    |  |     |  +---w subrate-eth-sla
-    |  |     |     +---w subrate-eth-sla
+    |  |     |  +---w ethernet-attributes
+    |  |     |     +---w fec?               identityref
+    |  |     |     +---w subrate-eth-sla!
     |  |     |        +---w committed-info-rate     uint32
     |  |     |        +---w committed-burst-size    uint16
     |  |     +---w service-z-end
@@ -3950,6 +4020,7 @@ module: org-openroadm-service
     |  |     |  |  |     |  +---w trib-slots*         uint16
     |  |     |  |  |     +--:(opucn)
     |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w fec?                     identityref
     |  |     |  |  +---w tx-sapi?                 string
     |  |     |  |  +---w tx-dapi?                 string
     |  |     |  |  +---w tx-operator?             string
@@ -4029,8 +4100,9 @@ module: org-openroadm-service
     |  |     |  |  +---w ip-address?   inet:ip-address
     |  |     |  |  +---w url?          string
     |  |     |  +---w user-label?                      string
-    |  |     |  +---w subrate-eth-sla
-    |  |     |     +---w subrate-eth-sla
+    |  |     |  +---w ethernet-attributes
+    |  |     |     +---w fec?               identityref
+    |  |     |     +---w subrate-eth-sla!
     |  |     |        +---w committed-info-rate     uint32
     |  |     |        +---w committed-burst-size    uint16
     |  |     +---w hard-constraints
@@ -4040,10 +4112,13 @@ module: org-openroadm-service
     |  |     |     |  +---w diversity
     |  |     |     |  |  +---w existing-service*                 string
     |  |     |     |  |  +---w existing-service-applicability
-    |  |     |     |  |     +---w site?   boolean
-    |  |     |     |  |     +---w node?   boolean
-    |  |     |     |  |     +---w srlg?   boolean
-    |  |     |     |  |     +---w link?   boolean
+    |  |     |     |  |     +---w site?        boolean
+    |  |     |     |  |     +---w node?        boolean
+    |  |     |     |  |     +---w srlg?        boolean
+    |  |     |     |  |     +---w link?        boolean
+    |  |     |     |  |     +---w equipment
+    |  |     |     |  |        +---w roadm-srg?     boolean
+    |  |     |     |  |        +---w xponder-srg?   boolean
     |  |     |     |  +---w exclude
     |  |     |     |  |  +---w fiber-bundle*              string
     |  |     |     |  |  +---w srlg-id*                   uint32
@@ -4082,10 +4157,13 @@ module: org-openroadm-service
     |  |     |     |  +---w diversity
     |  |     |     |  |  +---w existing-service*                 string
     |  |     |     |  |  +---w existing-service-applicability
-    |  |     |     |  |     +---w site?   boolean
-    |  |     |     |  |     +---w node?   boolean
-    |  |     |     |  |     +---w srlg?   boolean
-    |  |     |     |  |     +---w link?   boolean
+    |  |     |     |  |     +---w site?        boolean
+    |  |     |     |  |     +---w node?        boolean
+    |  |     |     |  |     +---w srlg?        boolean
+    |  |     |     |  |     +---w link?        boolean
+    |  |     |     |  |     +---w equipment
+    |  |     |     |  |        +---w roadm-srg?     boolean
+    |  |     |     |  |        +---w xponder-srg?   boolean
     |  |     |     |  +---w exclude
     |  |     |     |  |  +---w fiber-bundle*              string
     |  |     |     |  |  +---w srlg-id*                   uint32
@@ -4182,10 +4260,13 @@ module: org-openroadm-service
     |        |  |     |  +--ro diversity
     |        |  |     |  |  +--ro existing-service*                 string
     |        |  |     |  |  +--ro existing-service-applicability
-    |        |  |     |  |     +--ro site?   boolean
-    |        |  |     |  |     +--ro node?   boolean
-    |        |  |     |  |     +--ro srlg?   boolean
-    |        |  |     |  |     +--ro link?   boolean
+    |        |  |     |  |     +--ro site?        boolean
+    |        |  |     |  |     +--ro node?        boolean
+    |        |  |     |  |     +--ro srlg?        boolean
+    |        |  |     |  |     +--ro link?        boolean
+    |        |  |     |  |     +--ro equipment
+    |        |  |     |  |        +--ro roadm-srg?     boolean
+    |        |  |     |  |        +--ro xponder-srg?   boolean
     |        |  |     |  +--ro exclude
     |        |  |     |  |  +--ro fiber-bundle*              string
     |        |  |     |  |  +--ro srlg-id*                   uint32
@@ -4224,10 +4305,13 @@ module: org-openroadm-service
     |        |        |  +--ro diversity
     |        |        |  |  +--ro existing-service*                 string
     |        |        |  |  +--ro existing-service-applicability
-    |        |        |  |     +--ro site?   boolean
-    |        |        |  |     +--ro node?   boolean
-    |        |        |  |     +--ro srlg?   boolean
-    |        |        |  |     +--ro link?   boolean
+    |        |        |  |     +--ro site?        boolean
+    |        |        |  |     +--ro node?        boolean
+    |        |        |  |     +--ro srlg?        boolean
+    |        |        |  |     +--ro link?        boolean
+    |        |        |  |     +--ro equipment
+    |        |        |  |        +--ro roadm-srg?     boolean
+    |        |        |  |        +--ro xponder-srg?   boolean
     |        |        |  +--ro exclude
     |        |        |  |  +--ro fiber-bundle*              string
     |        |        |  |  +--ro srlg-id*                   uint32
@@ -4275,6 +4359,7 @@ module: org-openroadm-service
     |        |  |  |     |  +--ro trib-slots*         uint16
     |        |  |  |     +--:(opucn)
     |        |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  |  +--ro fec?                     identityref
     |        |  |  +--ro tx-sapi?                 string
     |        |  |  +--ro tx-dapi?                 string
     |        |  |  +--ro tx-operator?             string
@@ -4354,8 +4439,9 @@ module: org-openroadm-service
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?                      string
-    |        |  +--ro subrate-eth-sla
-    |        |  |  +--ro subrate-eth-sla
+    |        |  +--ro ethernet-attributes
+    |        |  |  +--ro fec?               identityref
+    |        |  |  +--ro subrate-eth-sla!
     |        |  |     +--ro committed-info-rate     uint32
     |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
@@ -4379,6 +4465,7 @@ module: org-openroadm-service
     |        |  |  |     |  +--ro trib-slots*         uint16
     |        |  |  |     +--:(opucn)
     |        |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |        |  |  +--ro fec?                     identityref
     |        |  |  +--ro tx-sapi?                 string
     |        |  |  +--ro tx-dapi?                 string
     |        |  |  +--ro tx-operator?             string
@@ -4458,8 +4545,9 @@ module: org-openroadm-service
     |        |  |  +--ro ip-address?   inet:ip-address
     |        |  |  +--ro url?          string
     |        |  +--ro user-label?                      string
-    |        |  +--ro subrate-eth-sla
-    |        |  |  +--ro subrate-eth-sla
+    |        |  +--ro ethernet-attributes
+    |        |  |  +--ro fec?               identityref
+    |        |  |  +--ro subrate-eth-sla!
     |        |  |     +--ro committed-info-rate     uint32
     |        |  |     +--ro committed-burst-size    uint16
     |        |  +--ro equipment-required* [equipment-identifier]
@@ -4483,6 +4571,7 @@ module: org-openroadm-service
     |           |  |     |  +--ro trib-slots*         uint16
     |           |  |     +--:(opucn)
     |           |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |           |  +--ro fec?                     identityref
     |           |  +--ro tx-sapi?                 string
     |           |  +--ro tx-dapi?                 string
     |           |  +--ro tx-operator?             string
@@ -4562,8 +4651,9 @@ module: org-openroadm-service
     |           |  +--ro ip-address?   inet:ip-address
     |           |  +--ro url?          string
     |           +--ro user-label?                      string
-    |           +--ro subrate-eth-sla
-    |           |  +--ro subrate-eth-sla
+    |           +--ro ethernet-attributes
+    |           |  +--ro fec?               identityref
+    |           |  +--ro subrate-eth-sla!
     |           |     +--ro committed-info-rate     uint32
     |           |     +--ro committed-burst-size    uint16
     |           +--ro equipment-required* [equipment-identifier]
@@ -4637,6 +4727,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -4716,8 +4807,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -4738,6 +4830,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -4817,8 +4910,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -4830,10 +4924,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -4872,10 +4969,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -4970,10 +5070,13 @@ module: org-openroadm-service
     |        |     |  +--ro diversity
     |        |     |  |  +--ro existing-service*                 string
     |        |     |  |  +--ro existing-service-applicability
-    |        |     |  |     +--ro site?   boolean
-    |        |     |  |     +--ro node?   boolean
-    |        |     |  |     +--ro srlg?   boolean
-    |        |     |  |     +--ro link?   boolean
+    |        |     |  |     +--ro site?        boolean
+    |        |     |  |     +--ro node?        boolean
+    |        |     |  |     +--ro srlg?        boolean
+    |        |     |  |     +--ro link?        boolean
+    |        |     |  |     +--ro equipment
+    |        |     |  |        +--ro roadm-srg?     boolean
+    |        |     |  |        +--ro xponder-srg?   boolean
     |        |     |  +--ro exclude
     |        |     |  |  +--ro fiber-bundle*              string
     |        |     |  |  +--ro srlg-id*                   uint32
@@ -5012,10 +5115,13 @@ module: org-openroadm-service
     |              |  +--ro diversity
     |              |  |  +--ro existing-service*                 string
     |              |  |  +--ro existing-service-applicability
-    |              |  |     +--ro site?   boolean
-    |              |  |     +--ro node?   boolean
-    |              |  |     +--ro srlg?   boolean
-    |              |  |     +--ro link?   boolean
+    |              |  |     +--ro site?        boolean
+    |              |  |     +--ro node?        boolean
+    |              |  |     +--ro srlg?        boolean
+    |              |  |     +--ro link?        boolean
+    |              |  |     +--ro equipment
+    |              |  |        +--ro roadm-srg?     boolean
+    |              |  |        +--ro xponder-srg?   boolean
     |              |  +--ro exclude
     |              |  |  +--ro fiber-bundle*              string
     |              |  |  +--ro srlg-id*                   uint32
@@ -5098,6 +5204,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -5177,8 +5284,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -5199,6 +5307,7 @@ module: org-openroadm-service
     |  |  |  |  |     |  +---w trib-slots*         uint16
     |  |  |  |  |     +--:(opucn)
     |  |  |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  |  +---w fec?                     identityref
     |  |  |  |  +---w tx-sapi?                 string
     |  |  |  |  +---w tx-dapi?                 string
     |  |  |  |  +---w tx-operator?             string
@@ -5278,8 +5387,9 @@ module: org-openroadm-service
     |  |  |  |  +---w ip-address?   inet:ip-address
     |  |  |  |  +---w url?          string
     |  |  |  +---w user-label?                      string
-    |  |  |  +---w subrate-eth-sla
-    |  |  |  |  +---w subrate-eth-sla
+    |  |  |  +---w ethernet-attributes
+    |  |  |  |  +---w fec?               identityref
+    |  |  |  |  +---w subrate-eth-sla!
     |  |  |  |     +---w committed-info-rate     uint32
     |  |  |  |     +---w committed-burst-size    uint16
     |  |  |  +---w project-id?                      string
@@ -5291,10 +5401,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -5333,10 +5446,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -5481,10 +5597,13 @@ module: org-openroadm-service
     |     |     |  +--ro diversity
     |     |     |  |  +--ro existing-service*                 string
     |     |     |  |  +--ro existing-service-applicability
-    |     |     |  |     +--ro site?   boolean
-    |     |     |  |     +--ro node?   boolean
-    |     |     |  |     +--ro srlg?   boolean
-    |     |     |  |     +--ro link?   boolean
+    |     |     |  |     +--ro site?        boolean
+    |     |     |  |     +--ro node?        boolean
+    |     |     |  |     +--ro srlg?        boolean
+    |     |     |  |     +--ro link?        boolean
+    |     |     |  |     +--ro equipment
+    |     |     |  |        +--ro roadm-srg?     boolean
+    |     |     |  |        +--ro xponder-srg?   boolean
     |     |     |  +--ro exclude
     |     |     |  |  +--ro fiber-bundle*              string
     |     |     |  |  +--ro srlg-id*                   uint32
@@ -5523,10 +5642,13 @@ module: org-openroadm-service
     |           |  +--ro diversity
     |           |  |  +--ro existing-service*                 string
     |           |  |  +--ro existing-service-applicability
-    |           |  |     +--ro site?   boolean
-    |           |  |     +--ro node?   boolean
-    |           |  |     +--ro srlg?   boolean
-    |           |  |     +--ro link?   boolean
+    |           |  |     +--ro site?        boolean
+    |           |  |     +--ro node?        boolean
+    |           |  |     +--ro srlg?        boolean
+    |           |  |     +--ro link?        boolean
+    |           |  |     +--ro equipment
+    |           |  |        +--ro roadm-srg?     boolean
+    |           |  |        +--ro xponder-srg?   boolean
     |           |  +--ro exclude
     |           |  |  +--ro fiber-bundle*              string
     |           |  |  +--ro srlg-id*                   uint32
@@ -5568,10 +5690,13 @@ module: org-openroadm-service
     |  |  |     |  +---w diversity
     |  |  |     |  |  +---w existing-service*                 string
     |  |  |     |  |  +---w existing-service-applicability
-    |  |  |     |  |     +---w site?   boolean
-    |  |  |     |  |     +---w node?   boolean
-    |  |  |     |  |     +---w srlg?   boolean
-    |  |  |     |  |     +---w link?   boolean
+    |  |  |     |  |     +---w site?        boolean
+    |  |  |     |  |     +---w node?        boolean
+    |  |  |     |  |     +---w srlg?        boolean
+    |  |  |     |  |     +---w link?        boolean
+    |  |  |     |  |     +---w equipment
+    |  |  |     |  |        +---w roadm-srg?     boolean
+    |  |  |     |  |        +---w xponder-srg?   boolean
     |  |  |     |  +---w exclude
     |  |  |     |  |  +---w fiber-bundle*              string
     |  |  |     |  |  +---w srlg-id*                   uint32
@@ -5610,10 +5735,13 @@ module: org-openroadm-service
     |  |        |  +---w diversity
     |  |        |  |  +---w existing-service*                 string
     |  |        |  |  +---w existing-service-applicability
-    |  |        |  |     +---w site?   boolean
-    |  |        |  |     +---w node?   boolean
-    |  |        |  |     +---w srlg?   boolean
-    |  |        |  |     +---w link?   boolean
+    |  |        |  |     +---w site?        boolean
+    |  |        |  |     +---w node?        boolean
+    |  |        |  |     +---w srlg?        boolean
+    |  |        |  |     +---w link?        boolean
+    |  |        |  |     +---w equipment
+    |  |        |  |        +---w roadm-srg?     boolean
+    |  |        |  |        +---w xponder-srg?   boolean
     |  |        |  +---w exclude
     |  |        |  |  +---w fiber-bundle*              string
     |  |        |  |  +---w srlg-id*                   uint32
@@ -5739,6 +5867,7 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro trib-slots*         uint16
     |  |  |  |     +--:(opucn)
     |  |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  +--ro fec?                     identityref
     |  |  |  +--ro tx-sapi?                 string
     |  |  |  +--ro tx-dapi?                 string
     |  |  |  +--ro tx-operator?             string
@@ -5818,8 +5947,9 @@ module: org-openroadm-service
     |  |  |  +--ro ip-address?   inet:ip-address
     |  |  |  +--ro url?          string
     |  |  +--ro user-label?                      string
-    |  |  +--ro subrate-eth-sla
-    |  |  |  +--ro subrate-eth-sla
+    |  |  +--ro ethernet-attributes
+    |  |  |  +--ro fec?               identityref
+    |  |  |  +--ro subrate-eth-sla!
     |  |  |     +--ro committed-info-rate     uint32
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
@@ -5840,6 +5970,7 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro trib-slots*         uint16
     |  |  |  |     +--:(opucn)
     |  |  |  |        +--ro opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |  |  +--ro fec?                     identityref
     |  |  |  +--ro tx-sapi?                 string
     |  |  |  +--ro tx-dapi?                 string
     |  |  |  +--ro tx-operator?             string
@@ -5919,8 +6050,9 @@ module: org-openroadm-service
     |  |  |  +--ro ip-address?   inet:ip-address
     |  |  |  +--ro url?          string
     |  |  +--ro user-label?                      string
-    |  |  +--ro subrate-eth-sla
-    |  |  |  +--ro subrate-eth-sla
+    |  |  +--ro ethernet-attributes
+    |  |  |  +--ro fec?               identityref
+    |  |  |  +--ro subrate-eth-sla!
     |  |  |     +--ro committed-info-rate     uint32
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
@@ -5932,10 +6064,13 @@ module: org-openroadm-service
     |  |     |  +--ro diversity
     |  |     |  |  +--ro existing-service*                 string
     |  |     |  |  +--ro existing-service-applicability
-    |  |     |  |     +--ro site?   boolean
-    |  |     |  |     +--ro node?   boolean
-    |  |     |  |     +--ro srlg?   boolean
-    |  |     |  |     +--ro link?   boolean
+    |  |     |  |     +--ro site?        boolean
+    |  |     |  |     +--ro node?        boolean
+    |  |     |  |     +--ro srlg?        boolean
+    |  |     |  |     +--ro link?        boolean
+    |  |     |  |     +--ro equipment
+    |  |     |  |        +--ro roadm-srg?     boolean
+    |  |     |  |        +--ro xponder-srg?   boolean
     |  |     |  +--ro exclude
     |  |     |  |  +--ro fiber-bundle*              string
     |  |     |  |  +--ro srlg-id*                   uint32
@@ -5974,10 +6109,13 @@ module: org-openroadm-service
     |  |     |  +--ro diversity
     |  |     |  |  +--ro existing-service*                 string
     |  |     |  |  +--ro existing-service-applicability
-    |  |     |  |     +--ro site?   boolean
-    |  |     |  |     +--ro node?   boolean
-    |  |     |  |     +--ro srlg?   boolean
-    |  |     |  |     +--ro link?   boolean
+    |  |     |  |     +--ro site?        boolean
+    |  |     |  |     +--ro node?        boolean
+    |  |     |  |     +--ro srlg?        boolean
+    |  |     |  |     +--ro link?        boolean
+    |  |     |  |     +--ro equipment
+    |  |     |  |        +--ro roadm-srg?     boolean
+    |  |     |  |        +--ro xponder-srg?   boolean
     |  |     |  +--ro exclude
     |  |     |  |  +--ro fiber-bundle*              string
     |  |     |  |  +--ro srlg-id*                   uint32
