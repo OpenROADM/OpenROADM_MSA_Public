@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -235,6 +239,11 @@ module org-openroadm-common-types {
         description
           "value for 7.1";
       }
+      enum 8.0 {
+        value 17;
+        description
+          "value for 8.0";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -413,6 +422,12 @@ module org-openroadm-common-types {
       "SDFEC with SCFEC";
   }
 
+  // Base-R
+  identity baser {
+    base fec-identity;
+    description
+      "Base-R (IEEE 802.3)";
+  }
 
   grouping fec-grouping {
     leaf fec {

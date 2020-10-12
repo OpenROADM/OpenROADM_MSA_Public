@@ -8,11 +8,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,10 +20,14 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
+    revision-date 2020-09-25;
+  }
+  import org-openroadm-topology {
+    prefix org-openroadm-topology;
     revision-date 2020-05-29;
   }
 
@@ -60,6 +64,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -158,7 +166,6 @@ module org-openroadm-service {
   }
 
   grouping service-feasibility-check-outputs {
-    uses org-openroadm-common-service-types:response-parameters;
     container service-a-end {
       uses org-openroadm-common-service-types:service-endpoint;
       list equipment-required {
@@ -179,18 +186,137 @@ module org-openroadm-service {
         uses org-openroadm-common-service-types:equipment-info;
       }
     }
-    list intermediate-sites {
-      key "clli";
-      uses org-openroadm-common-service-types:service-endpoint;
-      list equipment-required {
-        key "equipment-identifier";
+    uses org-openroadm-common-service-types:intermediate-site-container;
+    container requested-service-topology {
+      description
+        "This corresponds to the topology of the service requested. Includes all the
+        containers: topology, backup topology, network topology, and 
+        network backup-topology";
+      container topology {
         description
-          "List of required equipment, including equipment type, state and
-           quantity over entire route of service";
-        uses org-openroadm-common-service-types:equipment-info;
+          "topology corresponds to working-path which is the default path. It defines the initial path
+          to which services defined as revertive may revert to when the failure condition disappear";
+        uses org-openroadm-topology:topology;
+      }
+      container backup-topology {
+        list backup-path {
+          key "backup-path-id";
+          leaf backup-path-id {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Several backup paths may be used when backup-paths are pre-calculated.
+              Backup-path-id avoids 0 which is associated with working path in current-active-path";
+          }
+          leaf failure-case-id {
+            type string;
+            description
+              "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
+          }
+          uses org-openroadm-topology:topology;
+        }
+      }
+      container network-topology {
+        uses org-openroadm-topology:network-topology;
+      }
+      container network-backup-topology {
+        list backup-path {
+          key "backup-path-id";
+          leaf backup-path-id {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Several backup paths may be used when backup-paths are pre-calculated.
+              Backup-path-id avoids 0 which is associated with working path in current-active-path";
+          }
+          leaf failure-case-id {
+            type string;
+            description
+              "A failure case Id can be used to associate a backup-path to a specific failure (srlg, OMS,...)";
+          }
+          uses org-openroadm-topology:network-topology;
+        }
+      }
+    }
+    list supporting-service-hierarchy {
+      key "service-identifier";
+      uses org-openroadm-common-service-types:service-hierarchy;
+      description
+        "This lists all the supporting services and their respective hierarchy, includes the
+        proposed one";
+    }
+    uses service-path-metrics;
+  }
+
+  grouping service-path-metrics {
+    container primary-path-metrics {
+      description 
+        "These service metrics are associated with primary 
+        service path";
+      uses service-metrics;
+    }
+    list backup-path-metrics {
+      description
+        "These service metrics are associated with the backup
+        service path";
+      key "backup-path-id";
+      leaf backup-path-id {
+        description "Unique identifier for the backup service path";
+        type uint8 {
+          range "1..255";
+        }
+      }
+      uses service-metrics;
+    }
+  }
+
+  grouping service-metrics {
+    container service-metrics {
+      description
+        "All the metrics associated with end-to-end service feasibility
+        This container will have all the metrics that have'max' contraint in
+        org-openroadm-routing-constraints";
+      
+      leaf latency {
+        description
+          "Provides end-to-end latency of a service-path; It can be measured or 
+          estimated";
+        type uint32;
+        units "microsecs";
+      }
+      leaf distance {
+        description
+          "Provides end-to-end distance of a service-path";
+        type decimal64 {
+          fraction-digits 2;
+        }
+        units "km";
+      }
+      container hop-count {
+        description
+          "Maximum hops allowed";
+        leaf wdm-hop-count {
+          type uint8;
+        }
+        leaf otn-hop-count {
+          type uint8;
+        }
+      }
+      container TE-metric {
+        description
+          "Maximum cost allowed";
+        leaf wdm-TE-metric {
+          type uint32;
+        }
+        leaf otn-TE-metric {
+          type uint32;
+        }
       }
     }
   }
+  
 
   rpc service-create {
     description
@@ -235,12 +361,113 @@ module org-openroadm-service {
     }
   }
 
+  rpc service-create-bulk {
+    description
+      "Whether this request passed initial validation and was accepted for processing. 
+      Once the request completes processing, a service-rpc-result Notification shall be 
+      sent. This is 'all' or 'nothing' operation, which means that either all services
+      are created or none of them will be created.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      list service-request-list {
+         key "service-name";
+         leaf service-name {
+           type string;
+           mandatory true;
+           description
+             "Identifier for the service to be created in
+              the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+         }
+         leaf common-id {
+           type string;
+           description
+             "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+         }
+         uses org-openroadm-common-service-types:service-order;
+         uses org-openroadm-common-service-types:routing-metric;
+         uses org-openroadm-common-service-types:service-resiliency;
+         leaf connection-type {
+           type org-openroadm-common-service-types:connection-type;
+           mandatory true;
+         }
+         uses org-openroadm-common-service-types:resource-status;
+         container service-a-end {
+           uses org-openroadm-common-service-types:service-endpoint;
+           uses org-openroadm-common-service-types:service-endpoint-project;
+         }
+         container service-z-end {
+           uses org-openroadm-common-service-types:service-endpoint;
+           uses org-openroadm-common-service-types:service-endpoint-project;
+         }
+         uses org-openroadm-routing-constraints:routing-constraints;
+         uses org-openroadm-common-service-types:service-information;
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      list service-response-list {
+        key "service-name";
+        leaf service-name {
+          type string;
+          mandatory true;
+        }
+        uses org-openroadm-common-service-types:response-parameters;
+      }
+    }
+  }
+
+  rpc temp-service-create-bulk {
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      list service-request-list {
+         key "common-id";
+         leaf common-id {
+           type string;
+           mandatory true;
+           description
+             "To be used by the ROADM controller to identify the routing constraints 
+             received from planning application (PED).";
+         }
+         uses org-openroadm-common-service-types:service-order;
+         uses org-openroadm-common-service-types:routing-metric;
+         uses org-openroadm-common-service-types:service-resiliency;
+         leaf connection-type {
+           type org-openroadm-common-service-types:connection-type;
+           mandatory true;
+         }
+         uses org-openroadm-common-service-types:resource-status;
+         container service-a-end {
+           uses org-openroadm-common-service-types:service-endpoint;
+           uses org-openroadm-common-service-types:service-endpoint-project;
+         }
+         container service-z-end {
+           uses org-openroadm-common-service-types:service-endpoint;
+           uses org-openroadm-common-service-types:service-endpoint-project;
+         }
+         uses org-openroadm-routing-constraints:routing-constraints;
+         uses org-openroadm-common-service-types:service-information;
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      list service-response-list {
+        key "common-id";
+        leaf common-id {
+          type string;
+          mandatory true;
+        }
+        uses org-openroadm-common-service-types:response-parameters;
+      }
+    }
+  }
+
   rpc service-create-result-notification-request {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:service-identifiers-container;
+      uses service-path-metrics;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
@@ -253,6 +480,7 @@ module org-openroadm-service {
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:service-and-supporting-services;
+      uses service-path-metrics;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
@@ -304,6 +532,7 @@ module org-openroadm-service {
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:response-parameters;
       uses service-feasibility-check-outputs;
     }
   }
@@ -334,7 +563,8 @@ module org-openroadm-service {
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
       list service-response-list {
-        uses service-feasibility-check-outputs;
+         uses org-openroadm-common-service-types:response-parameters;
+         uses service-feasibility-check-outputs;
       }
     }
   }

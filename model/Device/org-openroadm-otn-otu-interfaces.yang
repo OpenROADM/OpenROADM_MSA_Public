@@ -4,7 +4,7 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
-    revision-date 2019-11-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -28,7 +28,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
 
   organization
@@ -78,6 +78,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -158,11 +162,13 @@ module org-openroadm-otn-otu-interfaces {
          Similar to FlexO PHY-ID in the FlexO Group (PID in G.709.1/3)";
     }
     leaf otucn-n-rate {
+      when "../rate = 'org-openroadm-otn-common-types:OTUCn'";
       type uint16;
       description
         "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
     }
     leaf otucn-M-subrate {
+      when "../rate = 'org-openroadm-otn-common-types:OTUCn'";
       type uint16;
       description
         "OTUCn subrate (OTUCn-M), value of M specifies the number of active

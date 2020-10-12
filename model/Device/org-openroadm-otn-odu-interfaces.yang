@@ -5,7 +5,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,7 +13,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -75,6 +75,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -195,6 +199,7 @@ module org-openroadm-otn-odu-interfaces {
          to allow to extend for future higher rates";
     }
     leaf oducn-n-rate {
+      when "../rate = 'org-openroadm-otn-common-types:ODUCn'";
       type uint16;
       description
         "ODUCn rate";
@@ -214,6 +219,7 @@ module org-openroadm-otn-odu-interfaces {
     }
     leaf oduflex-gfp-ts-bandwidth {
       type uint16;
+      config false;
       description
         "The tributary slot minimum bit rates in the approximated value [Mbps]
          given ODUflex (GFP) 100 ppm (G.709 Table 7-8) :

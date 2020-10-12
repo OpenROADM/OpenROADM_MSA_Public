@@ -52,6 +52,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -169,7 +173,6 @@ module org-openroadm-resource {
     }
     leaf width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
-      config false;
       description
         "Frequency width in GHz.";
     }
@@ -177,6 +180,11 @@ module org-openroadm-resource {
       type org-openroadm-common-optical-channel-types:modulation-format;
       description
         "Modulation format";
+    }
+    leaf optical-operational-mode {
+      type string;
+      description
+        "One of the operational mode capabilities as published by the device";
     }
   }
 
@@ -191,6 +199,46 @@ module org-openroadm-resource {
         "rate identity of the ODU. 'identityref' is used
          to allow to extend for future higher rates";
     }
+    leaf oducn-n-rate {
+      when "../rate = 'org-openroadm-otn-common-types:ODUCn'";
+      type uint16;
+      description
+        "ODUCn rate";
+    }
+    leaf oduflex-cbr-service {
+      type identityref {
+        base org-openroadm-otn-common-types:ODUflex-cbr-identity;
+      }
+      description
+        "ODUflex for CBR client signals (G.709)";
+    }
+    leaf oduflex-gfp-num-ts {
+      type uint16;
+      description
+        "For ODUflex GFP-F mapped client signals (G.709), the number of
+         tributary slot as per G.709 Table 7-8";
+    }
+    leaf oduflex-gfp-ts-bandwidth {
+      type uint16;
+      description
+        "The tributary slot minimum bit rates in the approximated value [Mbps]
+         given ODUflex (GFP) 100 ppm (G.709 Table 7-8) :
+           1249 Mbps [1 249 052.312 277 kbps] (n = 1 to 8) (ODU2.ts)
+           1254 Mbps [1 254 344.906 9646 kbps] (n = 9 to 32) ODU3.ts)
+           1301 Mbps [1 301 336.986 2867 kbps] (n = 33 to 80) (ODU4.ts)";
+    }
+    leaf oduflex-imp-s {
+      type uint16;
+      description
+        "For ODUflex IMP (Idle insertion Mapping Procedure) mapped client signals,
+         s = 2, 8, n x 5 with N >= 1 (G.709 12.2.6 & Table 7-3)";
+    }
+    leaf oduflex-flexe-n {
+      type uint16;
+      description
+        "For ODUflex for FlexE-aware client signals, n in the range of 1 to 20*254
+         (G.709 17.12)";
+    }
     container parent-odu-allocation {
       description
         "parent odu allocation";
@@ -201,18 +249,32 @@ module org-openroadm-resource {
         description
           "Assigned tributary port number in parent OPU";
       }
-      leaf-list trib-slots {
-        type uint16 {
-          range "1 .. 80";
-        }
-        min-elements 1;
-        max-elements 80;
+      choice trib-slots-choice {
         description
-          "Assigned trib slots occupied in parent OPU MSI";
+          "trib slot selection";
+        case opu {
+          leaf-list trib-slots {
+            type uint16 {
+              range "1 .. 80";
+            }
+            min-elements 1;
+            max-elements 80;
+            description
+              "Assigned trib slots occupied in parent OPU MSI";
+          }
+        }
+        case opucn {
+          leaf-list opucn-trib-slots {
+            type org-openroadm-otn-common-types:opucn-trib-slot-def;
+            description
+              "Specify the list of OPUCn 5G tributary slots in the form of
+               TS #A.B (G.709 Figure 20-9) in the case of provisioning the low
+                order ODUk to the parent server ODUCn";
+          }
+        }
       }
     }
   }
-
   grouping otu-attributes {
     description
       "OTU attributes";
@@ -223,6 +285,75 @@ module org-openroadm-resource {
       description
         "rate identity of the OTU. 'identityref' is used
          to allow to extend for future higher rates";
+    }
+    leaf otu4-member-id {
+      when "../rate = 'org-openroadm-otn-common-types:OTU4'";
+      type uint16;
+      description
+        "To uniquely identify each member of an OTSi group and the order of each member in the group.
+         Similar to FlexO PHY-ID in the FlexO Group (PID in G.709.1/3)";
+    }
+    leaf otucn-n-rate {
+      when "../rate = 'org-openroadm-otn-common-types:OTUCn'";
+      type uint16;
+      description
+        "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
+    }
+    leaf otucn-M-subrate {
+      when "../rate = 'org-openroadm-otn-common-types:OTUCn'";
+      type uint16;
+      description
+        "OTUCn subrate (OTUCn-M), value of M specifies the number of active
+         5 Gbit/s OPUCn tributary slots (G.709 Annex H)";
+    }
+  }
+
+  grouping otsi-attributes {
+    description
+      "Optical Channel attributes";
+    leaf otsi-rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+      }
+      description
+        "OTSi rate";
+    }
+    leaf frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Center Frequency in THz.";
+    }
+    leaf width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Frequency width in GHz.";
+    }
+    leaf modulation-format {
+      type org-openroadm-common-optical-channel-types:modulation-format;
+      description
+        "Modulation format";
+    }
+    leaf optical-operational-mode {
+      type string;
+      description
+        "One of the operational mode capabilities as published by the device";
+    }
+  }
+
+  grouping otsi-group-attributes {
+    description
+      "Optical Channel attributes";
+    leaf group-rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+      }
+      description
+        "Supported group rate";
+    }
+    leaf group-id {
+      type uint32;
+      description
+        "Mandatory for FlexO B100G.  Not required for Non-FlexO B100G.";
     }
   }
 
@@ -272,6 +403,18 @@ module org-openroadm-resource {
       description
         "Optical Channel Transport Unit (OTU)";
       uses otu-attributes;
+    }
+    container otsi {
+      when "../type = 'otsi'";
+      description
+        "OTSI";
+      uses otsi-attributes;
+    }
+    container otsi-group {
+      when "../type = 'otsi-group'";
+      description
+        "OTSI-Group";
+      uses otsi-group-attributes;
     }
   }
 

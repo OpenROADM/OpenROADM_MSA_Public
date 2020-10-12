@@ -539,14 +539,14 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type            identityref
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                 uint8
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*   uint32
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:accepted-iid*        uint8
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*   uint32
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*        uint8
      |  +--rw org-openroadm-otn-odu-interfaces:odu!
      |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oducn-n-rate?                          uint16
      |  |  +--rw org-openroadm-otn-odu-interfaces:oduflex-cbr-service?                   identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oduflex-gfp-num-ts?                    uint16
-     |  |  +--rw org-openroadm-otn-odu-interfaces:oduflex-gfp-ts-bandwidth?              uint16
+     |  |  +--ro org-openroadm-otn-odu-interfaces:oduflex-gfp-ts-bandwidth?              uint16
      |  |  +--rw org-openroadm-otn-odu-interfaces:oduflex-imp-s?                         uint16
      |  |  +--rw org-openroadm-otn-odu-interfaces:oduflex-flexe-n?                       uint16
      |  |  +--rw org-openroadm-otn-odu-interfaces:odu-function?                          identityref
@@ -835,14 +835,19 @@ module: org-openroadm-device
      |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |     +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      +--rw xponder* [xpdr-number]
-     |  +--rw xpdr-number        uint16
-     |  +--rw xpdr-type          org-openroadm-device-types:xpdr-node-types
-     |  +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
-     |  +--ro recolor?           boolean
+     |  +--rw xpdr-number                     uint16
+     |  +--rw xpdr-type                       org-openroadm-device-types:xpdr-node-types
+     |  +--rw lifecycle-state?                org-openroadm-common-state-types:lifecycle-state
+     |  +--ro recolor?                        boolean
      |  +--rw xpdr-port* [index]
+     |  |  +--rw index                uint32
+     |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  |  +--rw eqpt-srg-id?         uint32
+     |  +--rw xpdr-pluggable-optics-holder* [index]
      |     +--rw index                uint32
      |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-     |     +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |     +--rw cp-slot-name         string
      |     +--rw eqpt-srg-id?         uint32
      +--rw roadm-connections* [connection-name]
      |  +--rw connection-name        string
