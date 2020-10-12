@@ -8,7 +8,7 @@ module org-openroadm-alarm {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;

@@ -8,7 +8,7 @@ module org-openroadm-controller-customization {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -48,6 +48,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";

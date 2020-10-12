@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -102,6 +106,10 @@ module org-openroadm-routing-constraints {
       case general {
         container diversity {
           uses diversity-existing-service-constraints;
+          uses diversity-constraints;
+          description
+            "Diversity constraints for single or bulk requests.
+            diversity-constraints provides more options for bulk requests";
         }
         container exclude {
           uses common-constraints;
@@ -163,7 +171,14 @@ module org-openroadm-routing-constraints {
           leaf-list existing-service {
             type string;
             description
-              "Diverse from existing services identified by facility CLFI";
+              "Co-route with existing services identified by service-name 
+              or common-id";
+          }
+          leaf-list service-identifier {
+            type string;
+            description
+              "Indicates that new services that are part of the bulk service request
+              should be co-routed";
           }
         }
       }
@@ -199,6 +214,21 @@ module org-openroadm-routing-constraints {
     }
   }
 
+  grouping equipment{
+    container equipment {
+      leaf roadm-srg {
+        type boolean;
+        description "ROADM shared-risk-group diversity";
+      }
+      leaf xponder-srg {
+        type boolean;
+        description "xponder eqpt-srg-id diversity";
+      }
+      description
+        "Equipment Diversity Contraints";
+    }
+  }
+
   grouping diversity-existing-service-constraints {
     leaf-list existing-service {
       type string;
@@ -218,18 +248,54 @@ module org-openroadm-routing-constraints {
       leaf link {
         type boolean;
       }
-      container equipment {
-        leaf roadm-srg {
-          type boolean;
-          description "ROADM shared-risk-group diversity";
-        }
-        leaf xponder-srg {
-          type boolean;
-          description "xponder eqpt-srg-id diversity";
-        }
-        description
-          "Equipment Diversity Contraints";
-      }
+      uses equipment;
     }
   }
+
+  grouping diversity-constraints {
+    leaf diversity-type {
+      type enumeration {
+        enum serial {
+          value 1;
+          description
+            "Indicates that new services that are part of the bulk service request 
+            should be routed serially for diversity.";
+        }
+        enum synchronous {
+          value 2;
+          description
+            "Indicates that new services that are part of the bulk service request 
+            should be routed synchronously for diversity.";
+        }
+      }
+      description 
+        "This is only used when creating services using service-create-bulk. 
+        It is expected that 'diversity-type' should be same for all services,
+        within the group. Which means it can be either 'serial' or 'synchronous'
+        but not both.";
+    }
+    leaf-list service-identifier {
+      type string;
+      description
+        "This list should only be used for the new services that are being created
+        by the bulk service request. Existing services should use the existing
+        ";
+    }
+    container service-applicability {
+      leaf site {
+        type boolean;
+      }
+      leaf node {
+        type boolean;
+      }
+      leaf srlg {
+        type boolean;
+      }
+      leaf link {
+        type boolean;
+      }
+      uses equipment;
+    }
+  }
+
 }

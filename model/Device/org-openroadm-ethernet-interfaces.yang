@@ -5,7 +5,7 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,15 +13,15 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
-    revision-date 2019-11-29;
+    revision-date 2020-09-25;
   }
 
   organization
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";

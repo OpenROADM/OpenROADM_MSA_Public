@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -60,7 +60,7 @@ module org-openroadm-device {
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2019-11-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -138,6 +138,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -1210,6 +1214,30 @@ module org-openroadm-device {
         refine "port-name" {
           mandatory true;
         }
+      }
+      leaf eqpt-srg-id {
+        type uint32;
+        description
+          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+      }
+    }
+    list xpdr-pluggable-optics-holder {
+      key "index";
+      description
+        "Xponder pluggable optics";
+      leaf index {
+        type uint32;
+      }
+      uses circuit-pack-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+      }
+      leaf cp-slot-name {
+        type string;
+        mandatory true;
+        description
+          "cp-slot-name mapped to /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/cp-slots/slot-name";
       }
       leaf eqpt-srg-id {
         type uint32;

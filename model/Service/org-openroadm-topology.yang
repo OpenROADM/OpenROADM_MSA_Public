@@ -4,7 +4,7 @@ module org-openroadm-topology {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2020-05-29;
+    revision-date 2020-09-25;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;

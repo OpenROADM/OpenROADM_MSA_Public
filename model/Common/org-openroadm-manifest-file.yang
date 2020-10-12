@@ -49,6 +49,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-09-25 {
+    description
+      "Version 8.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -399,7 +403,7 @@ module org-openroadm-manifest-file {
       "delete-file-command";
     container delete-file {
       when "../command = 'delete-file'";
-      must "is-async != 'false'" {
+      must "is-async = 'false'" {
         error-message "delete-file is only supported as sync command";
       }
       description
@@ -474,7 +478,7 @@ module org-openroadm-manifest-file {
       "sw-activate-command";
     container sw-activate {
       when "../command = 'sw-activate'";
-      must "is-async != 'true'" {
+      must "is-async = 'true'" {
         error-message "sw-activate is only supported as async command";
       }
       description
@@ -666,7 +670,7 @@ module org-openroadm-manifest-file {
       "db-activate-command";
     container db-activate {
       when "../command = 'db-activate'";
-      must "is-async != 'true'" {
+      must "is-async = 'true'" {
         error-message "db-activate is only supported as async command";
       }
       description
