@@ -238,7 +238,7 @@ module: org-openroadm-device
      +--rw info
      |  +--rw node-id?                            org-openroadm-common-node-types:node-id-type
      |  +--rw node-number?                        uint32
-     |  +--rw node-type                           org-openroadm-device-types:node-types
+     |  +--rw node-type                           org-openroadm-common-node-types:node-types
      |  +--rw clli?                               string
      |  +--ro vendor                              string
      |  +--ro model                               string
@@ -836,7 +836,7 @@ module: org-openroadm-device
      |     +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      +--rw xponder* [xpdr-number]
      |  +--rw xpdr-number                     uint16
-     |  +--rw xpdr-type                       org-openroadm-device-types:xpdr-node-types
+     |  +--rw xpdr-type                       org-openroadm-common-node-types:xpdr-node-types
      |  +--rw lifecycle-state?                org-openroadm-common-state-types:lifecycle-state
      |  +--ro recolor?                        boolean
      |  +--rw xpdr-port* [index]

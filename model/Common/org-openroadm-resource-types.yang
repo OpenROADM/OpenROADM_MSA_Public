@@ -4,7 +4,7 @@ module org-openroadm-resource-types {
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2019-11-29;
+    revision-date 2020-12-11;
   }
 
   organization

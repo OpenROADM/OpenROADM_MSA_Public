@@ -1,4 +1,5 @@
 module org-openroadm-service {
+  yang-version 1.1;
   namespace "http://org/openroadm/service";
   prefix org-openroadm-service;
 
@@ -8,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -20,11 +21,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
@@ -64,6 +65,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -128,21 +133,8 @@ module org-openroadm-service {
     description
       "Version 1.2";
   }
-
-  grouping service-feasibility-check-inputs {
-    leaf connection-type {
-      type org-openroadm-common-service-types:connection-type;
-    }
-    uses org-openroadm-common-service-types:resource-status;
-    container service-a-end {
-      uses org-openroadm-common-service-types:service-endpoint;
-    }
-    container service-z-end {
-      uses org-openroadm-common-service-types:service-endpoint;
-    }
-    uses org-openroadm-routing-constraints:routing-constraints;
-    uses org-openroadm-common-service-types:routing-metric;
-    uses org-openroadm-common-service-types:service-resiliency;
+  
+  grouping proposed-equipment-g {
     leaf propose-equipment {
       type enumeration {
         enum never {
@@ -162,10 +154,36 @@ module org-openroadm-service {
          use existing deployed and planned equipment. If ifNeeded, routes using existing equipment
          will be preferred. If always, a route with proposed equipment shall be returned, if possible";
     }
+  }
+
+  grouping service-feasibility-check-inputs {
+    leaf connection-type {
+      type org-openroadm-common-service-types:connection-type;
+    }
+    uses org-openroadm-common-service-types:resource-status;
+    uses org-openroadm-common-service-types:routing-metric;
+    uses org-openroadm-common-service-types:service-resiliency;
+    uses proposed-equipment-g;
+    container service-a-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+    }
+    container service-z-end {
+      uses org-openroadm-common-service-types:service-endpoint;
+    }
+    uses org-openroadm-routing-constraints:routing-constraints;
     uses org-openroadm-common-service-types:service-information;
+    uses org-openroadm-common-service-types:max-regeneration-options;
   }
 
   grouping service-feasibility-check-outputs {
+    leaf connection-type {
+      type org-openroadm-common-service-types:connection-type;
+    }
+    uses org-openroadm-common-service-types:resource-status;
+    uses org-openroadm-common-service-types:routing-metric;
+    uses org-openroadm-common-service-types:service-resiliency;
+    uses proposed-equipment-g;
+    uses org-openroadm-common-service-types:service-information;
     container service-a-end {
       uses org-openroadm-common-service-types:service-endpoint;
       list equipment-required {
@@ -248,6 +266,8 @@ module org-openroadm-service {
         proposed one";
     }
     uses service-path-metrics;
+    uses org-openroadm-common-service-types:max-regeneration-options;
+    uses org-openroadm-common-service-types:regeneration-option-list;
   }
 
   grouping service-path-metrics {
@@ -531,6 +551,13 @@ module org-openroadm-service {
       uses service-feasibility-check-inputs;
     }
     output {
+      leaf common-id {
+        type string;
+        mandatory true;
+        description
+          "To be used by the ROADM controller to identify the routing constraints
+           received from planning application (PED).";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:response-parameters;
       uses service-feasibility-check-outputs;
@@ -550,6 +577,7 @@ module org-openroadm-service {
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       list service-request-list {
+        key "common-id";
         leaf common-id {
           type string;
           mandatory true;
@@ -563,8 +591,16 @@ module org-openroadm-service {
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
       list service-response-list {
-         uses org-openroadm-common-service-types:response-parameters;
-         uses service-feasibility-check-outputs;
+        key "common-id";
+        leaf common-id {
+          type string;
+          mandatory true;
+          description
+            "To be used by the ROADM controller to identify the routing constraints
+            received from planning application (PED).";
+        }
+        uses org-openroadm-common-service-types:response-parameters;
+        uses service-feasibility-check-outputs;
       }
     }
   }

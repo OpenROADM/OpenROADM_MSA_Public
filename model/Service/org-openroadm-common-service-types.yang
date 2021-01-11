@@ -12,7 +12,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
@@ -28,7 +28,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2019-11-29;
+    revision-date 2020-12-11;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -88,6 +88,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -1132,10 +1136,11 @@ module org-openroadm-common-service-types {
   }
 
   grouping service-information {
-    leaf due-date {
+        leaf due-date {
       type yang:date-and-time;
       description
-        "Date and time service to be turn up. If time is not specified for a given date, default to midnight. Service turned up immediately if no due date is specified";
+        "Date and time service to be turn up. If time is not specified for a given date, 
+        default to midnight. Service turned up immediately if no due date is specified";
     }
     leaf end-date {
       type yang:date-and-time;
@@ -1147,32 +1152,40 @@ module org-openroadm-common-service-types {
     leaf nc-code {
       type string;
       description
-        "NC code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
+        "NC code applied to wavelength service only. This is reported against the service,
+         but may not get reflected in the service in the network.";
     }
     leaf nci-code {
       type string;
       description
-        "NCI code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
+        "NCI code applied to wavelength service only. This is reported against the service, 
+        but may not get reflected in the service in the network.";
     }
     leaf secondary-nci-code {
       type string;
       description
-        "NC code applied to wavelength service only. This is reported against the service, but may not get reflected in the service in the network.";
+        "NC code applied to wavelength service only. This is reported against the service,
+         but may not get reflected in the service in the network.";
     }
     leaf customer {
       type string;
       description
-        "To be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
+        "To be included in ticket information. This is reported against the service, 
+        but may not get reflected in the service in the network.";
     }
     leaf customer-contact {
       type string;
       description
-        "Customer contact information to be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
+        "Customer contact information to be included in ticket information. 
+        This is reported against the service, but may not get reflected in the service 
+        in the network.";
     }
     leaf operator-contact {
       type string;
       description
-        "Operator contact information to be included in ticket information. This is reported against the service, but may not get reflected in the service in the network.";
+        "Operator contact information to be included in ticket information. 
+        This is reported against the service, but may not get reflected in the service 
+        in the network.";
     }
     leaf service-layer {
       type service-layer-type;
@@ -1835,4 +1848,47 @@ module org-openroadm-common-service-types {
         reflected in the service in the network.";
     }
   }
+
+  grouping max-regeneration-options  {
+    leaf max-regeneration-options {
+      type uint8;
+      default 1;
+      description
+        "Max regeneration options, is maximum number of regeneration-option-list elements requested in 
+        service-feasibility output. RNC can return less number of regeneration-options based on it's 
+        calculation but should not return more than max-regeneration-options. The goal of this field 
+        is to avoid RNC from having performance issues.";
+    }    
+  }
+
+  grouping regeneration-option-list {
+    list regeneration-option-list {
+      key "regeneration-option-rank";
+      leaf regeneration-option-rank {
+        type uint8;
+         description
+          "Regen option rank is derived rank based on optical performance or based on other metrics.";
+      }
+      list regeneration-clli-list {
+        key "sequence-id";
+        leaf sequence-id {
+          type uint8;
+          description
+            "Sequence id will define order of regeneration location for output path in A to Z direction.";         
+        }
+        leaf regeneration-clli {
+          type string;
+           description
+            "CLLI for the site where regeneraton is located or bring proposed.";          
+        }
+        leaf lifecycle-state {
+          type org-openroadm-common-state-types:lifecycle-state;
+          description
+           "Lifecycle State for regeneration CLLI indicating whether regen is already deployed or being proposed
+           for at this site.";                
+        }
+      }  
+    }  
+  }
+
 }

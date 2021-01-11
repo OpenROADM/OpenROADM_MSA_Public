@@ -1,10 +1,10 @@
 module org-openroadm-routing-constraints {
-  namespace "http://org/openroadm/routing/constrains";
+  namespace "http://org/openroadm/routing/constraints";
   prefix org-openroadm-routing-constraints;
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2019-11-29;
+    revision-date 2020-12-11;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -131,7 +135,9 @@ module org-openroadm-routing-constraints {
           description
             "Maximum latency allowed";
           leaf max-latency {
-            type uint32;
+            type decimal64 {
+              fraction-digits 4;
+            }
             units "ms";
           }
         }
