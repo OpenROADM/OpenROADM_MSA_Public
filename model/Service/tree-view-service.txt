@@ -313,7 +313,33 @@ module: org-openroadm-controller-customization
        |  |  +---w on-path-positioning?   enumeration
        |  |  +---w path-symmetry?         boolean
        |  |  +---w preferred-sites*       string
-       |  |  +---w forbidden-sites*       string
+       |  +---w global-restriction
+       |  |  +---w site-restriction
+       |  |  |  +---w restriction-scopes*   restriction-scope
+       |  |  |  +---w site* [site-id]
+       |  |  |     +---w site-id             string
+       |  |  |     +---w restriction-type?   restriction-type
+       |  |  +---w node-restriction
+       |  |  |  +---w restriction-scopes*   restriction-scope
+       |  |  |  +---w node* [node-id]
+       |  |  |     +---w node-id             org-openroadm-common-node-types:node-id-type
+       |  |  |     +---w restriction-type?   restriction-type
+       |  |  +---w regeneration-site-restriction
+       |  |  |  +---w restriction-scopes*   restriction-scope
+       |  |  |  +---w forbidden-site* [site-id]
+       |  |  |     +---w site-id                          string
+       |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
+       |  |  +---w regeneration-node-restriction
+       |  |  |  +---w restriction-scopes*   restriction-scope
+       |  |  |  +---w forbidden-node* [node-id]
+       |  |  |     +---w node-id                          org-openroadm-common-node-types:node-id-type
+       |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
+       |  |  +---w link-restriction
+       |  |  |  +---w restriction-scopes*   restriction-scope
+       |  |  |  +---w link-id*              string
+       |  |  +---w supporting-service-restriction
+       |  |     +---w restriction-scopes*    restriction-scope
+       |  |     +---w supporting-services*   string
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -629,7 +655,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -685,7 +711,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -1445,7 +1471,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -1501,7 +1527,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -2260,7 +2286,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -2316,7 +2342,7 @@ module: org-openroadm-service
   |     |     |  |  |  +--rw link-id            string
   |     |     |  |  +--rw supporting-service-name*   string
   |     |     |  +--rw latency
-  |     |     |  |  +--rw max-latency?   uint32
+  |     |     |  |  +--rw max-latency?   decimal64
   |     |     |  +--rw hop-count
   |     |     |  |  +--rw max-wdm-hop-count?   uint8
   |     |     |  |  +--rw max-otn-hop-count?   uint8
@@ -2820,7 +2846,33 @@ module: org-openroadm-service
      |  +--rw on-path-positioning?   enumeration
      |  +--rw path-symmetry?         boolean
      |  +--rw preferred-sites*       string
-     |  +--rw forbidden-sites*       string
+     +--rw global-restriction
+     |  +--rw site-restriction
+     |  |  +--rw restriction-scopes*   restriction-scope
+     |  |  +--rw site* [site-id]
+     |  |     +--rw site-id             string
+     |  |     +--rw restriction-type?   restriction-type
+     |  +--rw node-restriction
+     |  |  +--rw restriction-scopes*   restriction-scope
+     |  |  +--rw node* [node-id]
+     |  |     +--rw node-id             org-openroadm-common-node-types:node-id-type
+     |  |     +--rw restriction-type?   restriction-type
+     |  +--rw regeneration-site-restriction
+     |  |  +--rw restriction-scopes*   restriction-scope
+     |  |  +--rw forbidden-site* [site-id]
+     |  |     +--rw site-id                          string
+     |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
+     |  +--rw regeneration-node-restriction
+     |  |  +--rw restriction-scopes*   restriction-scope
+     |  |  +--rw forbidden-node* [node-id]
+     |  |     +--rw node-id                          org-openroadm-common-node-types:node-id-type
+     |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
+     |  +--rw link-restriction
+     |  |  +--rw restriction-scopes*   restriction-scope
+     |  |  +--rw link-id*              string
+     |  +--rw supporting-service-restriction
+     |     +--rw restriction-scopes*    restriction-scope
+     |     +--rw supporting-services*   string
      +--rw default-behaviour
      |  +--rw default-backup-path-number?   uint16
      |  +--rw reversion?                    boolean
@@ -3126,7 +3178,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -3182,7 +3234,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -3272,7 +3324,7 @@ module: org-openroadm-service
     |        |     |  |  |  +--ro link-id            string
     |        |     |  |  +--ro supporting-service-name*   string
     |        |     |  +--ro latency
-    |        |     |  |  +--ro max-latency?   uint32
+    |        |     |  |  +--ro max-latency?   decimal64
     |        |     |  +--ro hop-count
     |        |     |  |  +--ro max-wdm-hop-count?   uint8
     |        |     |  |  +--ro max-otn-hop-count?   uint8
@@ -3328,7 +3380,7 @@ module: org-openroadm-service
     |              |  |  |  +--ro link-id            string
     |              |  |  +--ro supporting-service-name*   string
     |              |  +--ro latency
-    |              |  |  +--ro max-latency?   uint32
+    |              |  |  +--ro max-latency?   decimal64
     |              |  +--ro hop-count
     |              |  |  +--ro max-wdm-hop-count?   uint8
     |              |  |  +--ro max-otn-hop-count?   uint8
@@ -3628,7 +3680,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -3684,7 +3736,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -3776,7 +3828,7 @@ module: org-openroadm-service
     |           |     |  |  |  +--ro link-id            string
     |           |     |  |  +--ro supporting-service-name*   string
     |           |     |  +--ro latency
-    |           |     |  |  +--ro max-latency?   uint32
+    |           |     |  |  +--ro max-latency?   decimal64
     |           |     |  +--ro hop-count
     |           |     |  |  +--ro max-wdm-hop-count?   uint8
     |           |     |  |  +--ro max-otn-hop-count?   uint8
@@ -3832,7 +3884,7 @@ module: org-openroadm-service
     |                 |  |  |  +--ro link-id            string
     |                 |  |  +--ro supporting-service-name*   string
     |                 |  +--ro latency
-    |                 |  |  +--ro max-latency?   uint32
+    |                 |  |  +--ro max-latency?   decimal64
     |                 |  +--ro hop-count
     |                 |  |  +--ro max-wdm-hop-count?   uint8
     |                 |  |  +--ro max-otn-hop-count?   uint8
@@ -4131,7 +4183,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -4187,7 +4239,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -4279,7 +4331,7 @@ module: org-openroadm-service
     |           |     |  |  |  +--ro link-id            string
     |           |     |  |  +--ro supporting-service-name*   string
     |           |     |  +--ro latency
-    |           |     |  |  +--ro max-latency?   uint32
+    |           |     |  |  +--ro max-latency?   decimal64
     |           |     |  +--ro hop-count
     |           |     |  |  +--ro max-wdm-hop-count?   uint8
     |           |     |  |  +--ro max-otn-hop-count?   uint8
@@ -4335,7 +4387,7 @@ module: org-openroadm-service
     |                 |  |  |  +--ro link-id            string
     |                 |  |  +--ro supporting-service-name*   string
     |                 |  +--ro latency
-    |                 |  |  +--ro max-latency?   uint32
+    |                 |  |  +--ro max-latency?   decimal64
     |                 |  +--ro hop-count
     |                 |  |  +--ro max-wdm-hop-count?   uint8
     |                 |  |  +--ro max-otn-hop-count?   uint8
@@ -4578,6 +4630,29 @@ module: org-openroadm-service
     |  |  |  +---w request-system-id?   string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |  +---w resource-status?             resource-status-type
+    |  |  +---w routing-metric
+    |  |  |  +---w wdm-hop-count?       uint8
+    |  |  |  +---w otn-hop-count?       uint8
+    |  |  |  +---w wdm-load?            uint8
+    |  |  |  +---w otn-load?            uint8
+    |  |  |  +---w latency?             uint8
+    |  |  |  +---w distance?            uint8
+    |  |  |  +---w wdm-TE-metric?       uint8
+    |  |  |  +---w adaptation-number?   uint8
+    |  |  |  +---w otn-TE-metric?       uint8
+    |  |  +---w service-resiliency
+    |  |  |  +---w resiliency?                          identityref
+    |  |  |  +---w revertive?                           boolean
+    |  |  |  +---w wait-to-restore?                     uint64
+    |  |  |  +---w holdoff-time?                        uint64
+    |  |  |  +---w pre-calculated-backup-path-number?   uint8
+    |  |  |  +---w coupled-service
+    |  |  |     +---w coupled-services* [service-index]
+    |  |  |        +---w service-index     uint16
+    |  |  |        +---w service-name?     string
+    |  |  |        +---w common-id?        string
+    |  |  |        +---w version-number?   uint64
+    |  |  +---w propose-equipment?           enumeration
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
@@ -4825,7 +4900,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -4881,7 +4956,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -4894,29 +4969,6 @@ module: org-openroadm-service
     |  |  |        +---w co-routing
     |  |  |           +---w existing-service*     string
     |  |  |           +---w service-identifier*   string
-    |  |  +---w routing-metric
-    |  |  |  +---w wdm-hop-count?       uint8
-    |  |  |  +---w otn-hop-count?       uint8
-    |  |  |  +---w wdm-load?            uint8
-    |  |  |  +---w otn-load?            uint8
-    |  |  |  +---w latency?             uint8
-    |  |  |  +---w distance?            uint8
-    |  |  |  +---w wdm-TE-metric?       uint8
-    |  |  |  +---w adaptation-number?   uint8
-    |  |  |  +---w otn-TE-metric?       uint8
-    |  |  +---w service-resiliency
-    |  |  |  +---w resiliency?                          identityref
-    |  |  |  +---w revertive?                           boolean
-    |  |  |  +---w wait-to-restore?                     uint64
-    |  |  |  +---w holdoff-time?                        uint64
-    |  |  |  +---w pre-calculated-backup-path-number?   uint8
-    |  |  |  +---w coupled-service
-    |  |  |     +---w coupled-services* [service-index]
-    |  |  |        +---w service-index     uint16
-    |  |  |        +---w service-name?     string
-    |  |  |        +---w common-id?        string
-    |  |  |        +---w version-number?   uint64
-    |  |  +---w propose-equipment?           enumeration
     |  |  +---w due-date?                    yang:date-and-time
     |  |  +---w end-date?                    yang:date-and-time
     |  |  +---w eventHorizonStart?           yang:date-and-time
@@ -4934,17 +4986,19 @@ module: org-openroadm-service
     |  |  +---w sla-id?                      string
     |  |  +---w bandwidth-calendaring?       boolean
     |  |  +---w bw-calendaring-parameters
-    |  |     +---w bw-calendaring-coupled-services* [service-index]
-    |  |     |  +---w service-index     uint16
-    |  |     |  +---w service-name?     string
-    |  |     |  +---w common-id?        string
-    |  |     |  +---w version-number?   uint64
-    |  |     +---w recurrence-pattern* [recurrence-id]
-    |  |        +---w recurrence-id      uint32
-    |  |        +---w day-of-the-week*   enumeration
-    |  |        +---w start-time?        string
-    |  |        +---w end-time?          string
+    |  |  |  +---w bw-calendaring-coupled-services* [service-index]
+    |  |  |  |  +---w service-index     uint16
+    |  |  |  |  +---w service-name?     string
+    |  |  |  |  +---w common-id?        string
+    |  |  |  |  +---w version-number?   uint64
+    |  |  |  +---w recurrence-pattern* [recurrence-id]
+    |  |  |     +---w recurrence-id      uint32
+    |  |  |     +---w day-of-the-week*   enumeration
+    |  |  |     +---w start-time?        string
+    |  |  |     +---w end-time?          string
+    |  |  +---w max-regeneration-options?    uint8
     |  +--ro output
+    |     +--ro common-id                        string
     |     +--ro configuration-response-common
     |     |  +--ro request-id             string
     |     |  +--ro response-code          string
@@ -4994,7 +5048,7 @@ module: org-openroadm-service
     |     |  |     |  |  |  +--ro link-id            string
     |     |  |     |  |  +--ro supporting-service-name*   string
     |     |  |     |  +--ro latency
-    |     |  |     |  |  +--ro max-latency?   uint32
+    |     |  |     |  |  +--ro max-latency?   decimal64
     |     |  |     |  +--ro hop-count
     |     |  |     |  |  +--ro max-wdm-hop-count?   uint8
     |     |  |     |  |  +--ro max-otn-hop-count?   uint8
@@ -5050,7 +5104,7 @@ module: org-openroadm-service
     |     |        |  |  |  +--ro link-id            string
     |     |        |  |  +--ro supporting-service-name*   string
     |     |        |  +--ro latency
-    |     |        |  |  +--ro max-latency?   uint32
+    |     |        |  |  +--ro max-latency?   decimal64
     |     |        |  +--ro hop-count
     |     |        |  |  +--ro max-wdm-hop-count?   uint8
     |     |        |  |  +--ro max-otn-hop-count?   uint8
@@ -5063,6 +5117,58 @@ module: org-openroadm-service
     |     |           +--ro co-routing
     |     |              +--ro existing-service*     string
     |     |              +--ro service-identifier*   string
+    |     +--ro connection-type?                 org-openroadm-common-service-types:connection-type
+    |     +--ro resource-status?                 resource-status-type
+    |     +--ro routing-metric
+    |     |  +--ro wdm-hop-count?       uint8
+    |     |  +--ro otn-hop-count?       uint8
+    |     |  +--ro wdm-load?            uint8
+    |     |  +--ro otn-load?            uint8
+    |     |  +--ro latency?             uint8
+    |     |  +--ro distance?            uint8
+    |     |  +--ro wdm-TE-metric?       uint8
+    |     |  +--ro adaptation-number?   uint8
+    |     |  +--ro otn-TE-metric?       uint8
+    |     +--ro service-resiliency
+    |     |  +--ro resiliency?                          identityref
+    |     |  +--ro revertive?                           boolean
+    |     |  +--ro wait-to-restore?                     uint64
+    |     |  +--ro holdoff-time?                        uint64
+    |     |  +--ro pre-calculated-backup-path-number?   uint8
+    |     |  +--ro coupled-service
+    |     |     +--ro coupled-services* [service-index]
+    |     |        +--ro service-index     uint16
+    |     |        +--ro service-name?     string
+    |     |        +--ro common-id?        string
+    |     |        +--ro version-number?   uint64
+    |     +--ro propose-equipment?               enumeration
+    |     +--ro due-date?                        yang:date-and-time
+    |     +--ro end-date?                        yang:date-and-time
+    |     +--ro eventHorizonStart?               yang:date-and-time
+    |     +--ro eventHorizonEnd?                 yang:date-and-time
+    |     +--ro nc-code?                         string
+    |     +--ro nci-code?                        string
+    |     +--ro secondary-nci-code?              string
+    |     +--ro customer?                        string
+    |     +--ro customer-contact?                string
+    |     +--ro operator-contact?                string
+    |     +--ro service-layer?                   service-layer-type
+    |     +--ro clli-network-ref?                string
+    |     +--ro openroadm-network-ref?           string
+    |     +--ro openroadm-topology-ref?          string
+    |     +--ro sla-id?                          string
+    |     +--ro bandwidth-calendaring?           boolean
+    |     +--ro bw-calendaring-parameters
+    |     |  +--ro bw-calendaring-coupled-services* [service-index]
+    |     |  |  +--ro service-index     uint16
+    |     |  |  +--ro service-name?     string
+    |     |  |  +--ro common-id?        string
+    |     |  |  +--ro version-number?   uint64
+    |     |  +--ro recurrence-pattern* [recurrence-id]
+    |     |     +--ro recurrence-id      uint32
+    |     |     +--ro day-of-the-week*   enumeration
+    |     |     +--ro start-time?        string
+    |     |     +--ro end-time?          string
     |     +--ro service-a-end
     |     |  +--ro service-format                   org-openroadm-service-format:service-format
     |     |  +--ro service-rate?                    uint32
@@ -5767,16 +5873,23 @@ module: org-openroadm-service
     |     |        +--ro wdm-TE-metric?   uint32
     |     |        +--ro otn-TE-metric?   uint32
     |     +--ro backup-path-metrics* [backup-path-id]
-    |        +--ro backup-path-id     uint8
-    |        +--ro service-metrics
-    |           +--ro latency?     uint32
-    |           +--ro distance?    decimal64
-    |           +--ro hop-count
-    |           |  +--ro wdm-hop-count?   uint8
-    |           |  +--ro otn-hop-count?   uint8
-    |           +--ro TE-metric
-    |              +--ro wdm-TE-metric?   uint32
-    |              +--ro otn-TE-metric?   uint32
+    |     |  +--ro backup-path-id     uint8
+    |     |  +--ro service-metrics
+    |     |     +--ro latency?     uint32
+    |     |     +--ro distance?    decimal64
+    |     |     +--ro hop-count
+    |     |     |  +--ro wdm-hop-count?   uint8
+    |     |     |  +--ro otn-hop-count?   uint8
+    |     |     +--ro TE-metric
+    |     |        +--ro wdm-TE-metric?   uint32
+    |     |        +--ro otn-TE-metric?   uint32
+    |     +--ro max-regeneration-options?        uint8
+    |     +--ro regeneration-option-list* [regeneration-option-rank]
+    |        +--ro regeneration-option-rank    uint8
+    |        +--ro regeneration-clli-list* [sequence-id]
+    |           +--ro sequence-id          uint8
+    |           +--ro regeneration-clli?   string
+    |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
     +---x service-feasibility-check-bulk
     |  +---w input
     |  |  +---w sdnc-request-header
@@ -5784,10 +5897,33 @@ module: org-openroadm-service
     |  |  |  +---w rpc-action?          rpc-actions
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
-    |  |  +---w service-request-list* []
+    |  |  +---w service-request-list* [common-id]
     |  |     +---w common-id                    string
     |  |     +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |     +---w resource-status?             resource-status-type
+    |  |     +---w routing-metric
+    |  |     |  +---w wdm-hop-count?       uint8
+    |  |     |  +---w otn-hop-count?       uint8
+    |  |     |  +---w wdm-load?            uint8
+    |  |     |  +---w otn-load?            uint8
+    |  |     |  +---w latency?             uint8
+    |  |     |  +---w distance?            uint8
+    |  |     |  +---w wdm-TE-metric?       uint8
+    |  |     |  +---w adaptation-number?   uint8
+    |  |     |  +---w otn-TE-metric?       uint8
+    |  |     +---w service-resiliency
+    |  |     |  +---w resiliency?                          identityref
+    |  |     |  +---w revertive?                           boolean
+    |  |     |  +---w wait-to-restore?                     uint64
+    |  |     |  +---w holdoff-time?                        uint64
+    |  |     |  +---w pre-calculated-backup-path-number?   uint8
+    |  |     |  +---w coupled-service
+    |  |     |     +---w coupled-services* [service-index]
+    |  |     |        +---w service-index     uint16
+    |  |     |        +---w service-name?     string
+    |  |     |        +---w common-id?        string
+    |  |     |        +---w version-number?   uint64
+    |  |     +---w propose-equipment?           enumeration
     |  |     +---w service-a-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
@@ -6035,7 +6171,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -6091,7 +6227,7 @@ module: org-openroadm-service
     |  |     |     |  |  |  +---w link-id            string
     |  |     |     |  |  +---w supporting-service-name*   string
     |  |     |     |  +---w latency
-    |  |     |     |  |  +---w max-latency?   uint32
+    |  |     |     |  |  +---w max-latency?   decimal64
     |  |     |     |  +---w hop-count
     |  |     |     |  |  +---w max-wdm-hop-count?   uint8
     |  |     |     |  |  +---w max-otn-hop-count?   uint8
@@ -6104,29 +6240,6 @@ module: org-openroadm-service
     |  |     |        +---w co-routing
     |  |     |           +---w existing-service*     string
     |  |     |           +---w service-identifier*   string
-    |  |     +---w routing-metric
-    |  |     |  +---w wdm-hop-count?       uint8
-    |  |     |  +---w otn-hop-count?       uint8
-    |  |     |  +---w wdm-load?            uint8
-    |  |     |  +---w otn-load?            uint8
-    |  |     |  +---w latency?             uint8
-    |  |     |  +---w distance?            uint8
-    |  |     |  +---w wdm-TE-metric?       uint8
-    |  |     |  +---w adaptation-number?   uint8
-    |  |     |  +---w otn-TE-metric?       uint8
-    |  |     +---w service-resiliency
-    |  |     |  +---w resiliency?                          identityref
-    |  |     |  +---w revertive?                           boolean
-    |  |     |  +---w wait-to-restore?                     uint64
-    |  |     |  +---w holdoff-time?                        uint64
-    |  |     |  +---w pre-calculated-backup-path-number?   uint8
-    |  |     |  +---w coupled-service
-    |  |     |     +---w coupled-services* [service-index]
-    |  |     |        +---w service-index     uint16
-    |  |     |        +---w service-name?     string
-    |  |     |        +---w common-id?        string
-    |  |     |        +---w version-number?   uint64
-    |  |     +---w propose-equipment?           enumeration
     |  |     +---w due-date?                    yang:date-and-time
     |  |     +---w end-date?                    yang:date-and-time
     |  |     +---w eventHorizonStart?           yang:date-and-time
@@ -6144,23 +6257,25 @@ module: org-openroadm-service
     |  |     +---w sla-id?                      string
     |  |     +---w bandwidth-calendaring?       boolean
     |  |     +---w bw-calendaring-parameters
-    |  |        +---w bw-calendaring-coupled-services* [service-index]
-    |  |        |  +---w service-index     uint16
-    |  |        |  +---w service-name?     string
-    |  |        |  +---w common-id?        string
-    |  |        |  +---w version-number?   uint64
-    |  |        +---w recurrence-pattern* [recurrence-id]
-    |  |           +---w recurrence-id      uint32
-    |  |           +---w day-of-the-week*   enumeration
-    |  |           +---w start-time?        string
-    |  |           +---w end-time?          string
+    |  |     |  +---w bw-calendaring-coupled-services* [service-index]
+    |  |     |  |  +---w service-index     uint16
+    |  |     |  |  +---w service-name?     string
+    |  |     |  |  +---w common-id?        string
+    |  |     |  |  +---w version-number?   uint64
+    |  |     |  +---w recurrence-pattern* [recurrence-id]
+    |  |     |     +---w recurrence-id      uint32
+    |  |     |     +---w day-of-the-week*   enumeration
+    |  |     |     +---w start-time?        string
+    |  |     |     +---w end-time?          string
+    |  |     +---w max-regeneration-options?    uint8
     |  +--ro output
     |     +--ro configuration-response-common
     |     |  +--ro request-id             string
     |     |  +--ro response-code          string
     |     |  +--ro response-message?      string
     |     |  +--ro ack-final-indicator    string
-    |     +--ro service-response-list* []
+    |     +--ro service-response-list* [common-id]
+    |        +--ro common-id                       string
     |        +--ro response-parameters
     |        |  +--ro hard-constraints
     |        |  |  +--ro customer-code*      string
@@ -6205,7 +6320,7 @@ module: org-openroadm-service
     |        |  |     |  |  |  +--ro link-id            string
     |        |  |     |  |  +--ro supporting-service-name*   string
     |        |  |     |  +--ro latency
-    |        |  |     |  |  +--ro max-latency?   uint32
+    |        |  |     |  |  +--ro max-latency?   decimal64
     |        |  |     |  +--ro hop-count
     |        |  |     |  |  +--ro max-wdm-hop-count?   uint8
     |        |  |     |  |  +--ro max-otn-hop-count?   uint8
@@ -6261,7 +6376,7 @@ module: org-openroadm-service
     |        |        |  |  |  +--ro link-id            string
     |        |        |  |  +--ro supporting-service-name*   string
     |        |        |  +--ro latency
-    |        |        |  |  +--ro max-latency?   uint32
+    |        |        |  |  +--ro max-latency?   decimal64
     |        |        |  +--ro hop-count
     |        |        |  |  +--ro max-wdm-hop-count?   uint8
     |        |        |  |  +--ro max-otn-hop-count?   uint8
@@ -6274,6 +6389,58 @@ module: org-openroadm-service
     |        |           +--ro co-routing
     |        |              +--ro existing-service*     string
     |        |              +--ro service-identifier*   string
+    |        +--ro connection-type?                org-openroadm-common-service-types:connection-type
+    |        +--ro resource-status?                resource-status-type
+    |        +--ro routing-metric
+    |        |  +--ro wdm-hop-count?       uint8
+    |        |  +--ro otn-hop-count?       uint8
+    |        |  +--ro wdm-load?            uint8
+    |        |  +--ro otn-load?            uint8
+    |        |  +--ro latency?             uint8
+    |        |  +--ro distance?            uint8
+    |        |  +--ro wdm-TE-metric?       uint8
+    |        |  +--ro adaptation-number?   uint8
+    |        |  +--ro otn-TE-metric?       uint8
+    |        +--ro service-resiliency
+    |        |  +--ro resiliency?                          identityref
+    |        |  +--ro revertive?                           boolean
+    |        |  +--ro wait-to-restore?                     uint64
+    |        |  +--ro holdoff-time?                        uint64
+    |        |  +--ro pre-calculated-backup-path-number?   uint8
+    |        |  +--ro coupled-service
+    |        |     +--ro coupled-services* [service-index]
+    |        |        +--ro service-index     uint16
+    |        |        +--ro service-name?     string
+    |        |        +--ro common-id?        string
+    |        |        +--ro version-number?   uint64
+    |        +--ro propose-equipment?              enumeration
+    |        +--ro due-date?                       yang:date-and-time
+    |        +--ro end-date?                       yang:date-and-time
+    |        +--ro eventHorizonStart?              yang:date-and-time
+    |        +--ro eventHorizonEnd?                yang:date-and-time
+    |        +--ro nc-code?                        string
+    |        +--ro nci-code?                       string
+    |        +--ro secondary-nci-code?             string
+    |        +--ro customer?                       string
+    |        +--ro customer-contact?               string
+    |        +--ro operator-contact?               string
+    |        +--ro service-layer?                  service-layer-type
+    |        +--ro clli-network-ref?               string
+    |        +--ro openroadm-network-ref?          string
+    |        +--ro openroadm-topology-ref?         string
+    |        +--ro sla-id?                         string
+    |        +--ro bandwidth-calendaring?          boolean
+    |        +--ro bw-calendaring-parameters
+    |        |  +--ro bw-calendaring-coupled-services* [service-index]
+    |        |  |  +--ro service-index     uint16
+    |        |  |  +--ro service-name?     string
+    |        |  |  +--ro common-id?        string
+    |        |  |  +--ro version-number?   uint64
+    |        |  +--ro recurrence-pattern* [recurrence-id]
+    |        |     +--ro recurrence-id      uint32
+    |        |     +--ro day-of-the-week*   enumeration
+    |        |     +--ro start-time?        string
+    |        |     +--ro end-time?          string
     |        +--ro service-a-end
     |        |  +--ro service-format                   org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                    uint32
@@ -6978,16 +7145,23 @@ module: org-openroadm-service
     |        |        +--ro wdm-TE-metric?   uint32
     |        |        +--ro otn-TE-metric?   uint32
     |        +--ro backup-path-metrics* [backup-path-id]
-    |           +--ro backup-path-id     uint8
-    |           +--ro service-metrics
-    |              +--ro latency?     uint32
-    |              +--ro distance?    decimal64
-    |              +--ro hop-count
-    |              |  +--ro wdm-hop-count?   uint8
-    |              |  +--ro otn-hop-count?   uint8
-    |              +--ro TE-metric
-    |                 +--ro wdm-TE-metric?   uint32
-    |                 +--ro otn-TE-metric?   uint32
+    |        |  +--ro backup-path-id     uint8
+    |        |  +--ro service-metrics
+    |        |     +--ro latency?     uint32
+    |        |     +--ro distance?    decimal64
+    |        |     +--ro hop-count
+    |        |     |  +--ro wdm-hop-count?   uint8
+    |        |     |  +--ro otn-hop-count?   uint8
+    |        |     +--ro TE-metric
+    |        |        +--ro wdm-TE-metric?   uint32
+    |        |        +--ro otn-TE-metric?   uint32
+    |        +--ro max-regeneration-options?       uint8
+    |        +--ro regeneration-option-list* [regeneration-option-rank]
+    |           +--ro regeneration-option-rank    uint8
+    |           +--ro regeneration-clli-list* [sequence-id]
+    |              +--ro sequence-id          uint8
+    |              +--ro regeneration-clli?   string
+    |              +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
     +---x service-delete
     |  +---w input
     |  |  +---w sdnc-request-header
@@ -7289,7 +7463,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -7345,7 +7519,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -7457,7 +7631,7 @@ module: org-openroadm-service
     |        |     |  |  |  +--ro link-id            string
     |        |     |  |  +--ro supporting-service-name*   string
     |        |     |  +--ro latency
-    |        |     |  |  +--ro max-latency?   uint32
+    |        |     |  |  +--ro max-latency?   decimal64
     |        |     |  +--ro hop-count
     |        |     |  |  +--ro max-wdm-hop-count?   uint8
     |        |     |  |  +--ro max-otn-hop-count?   uint8
@@ -7513,7 +7687,7 @@ module: org-openroadm-service
     |              |  |  |  +--ro link-id            string
     |              |  |  +--ro supporting-service-name*   string
     |              |  +--ro latency
-    |              |  |  +--ro max-latency?   uint32
+    |              |  |  +--ro max-latency?   decimal64
     |              |  +--ro hop-count
     |              |  |  +--ro max-wdm-hop-count?   uint8
     |              |  |  +--ro max-otn-hop-count?   uint8
@@ -7812,7 +7986,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -7868,7 +8042,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -8030,7 +8204,7 @@ module: org-openroadm-service
     |     |     |  |  |  +--ro link-id            string
     |     |     |  |  +--ro supporting-service-name*   string
     |     |     |  +--ro latency
-    |     |     |  |  +--ro max-latency?   uint32
+    |     |     |  |  +--ro max-latency?   decimal64
     |     |     |  +--ro hop-count
     |     |     |  |  +--ro max-wdm-hop-count?   uint8
     |     |     |  |  +--ro max-otn-hop-count?   uint8
@@ -8086,7 +8260,7 @@ module: org-openroadm-service
     |           |  |  |  +--ro link-id            string
     |           |  |  +--ro supporting-service-name*   string
     |           |  +--ro latency
-    |           |  |  +--ro max-latency?   uint32
+    |           |  |  +--ro max-latency?   decimal64
     |           |  +--ro hop-count
     |           |  |  +--ro max-wdm-hop-count?   uint8
     |           |  |  +--ro max-otn-hop-count?   uint8
@@ -8145,7 +8319,7 @@ module: org-openroadm-service
     |  |  |     |  |  |  +---w link-id            string
     |  |  |     |  |  +---w supporting-service-name*   string
     |  |  |     |  +---w latency
-    |  |  |     |  |  +---w max-latency?   uint32
+    |  |  |     |  |  +---w max-latency?   decimal64
     |  |  |     |  +---w hop-count
     |  |  |     |  |  +---w max-wdm-hop-count?   uint8
     |  |  |     |  |  +---w max-otn-hop-count?   uint8
@@ -8201,7 +8375,7 @@ module: org-openroadm-service
     |  |        |  |  |  +---w link-id            string
     |  |        |  |  +---w supporting-service-name*   string
     |  |        |  +---w latency
-    |  |        |  |  +---w max-latency?   uint32
+    |  |        |  |  +---w max-latency?   decimal64
     |  |        |  +---w hop-count
     |  |        |  |  +---w max-wdm-hop-count?   uint8
     |  |        |  |  +---w max-otn-hop-count?   uint8
@@ -8543,7 +8717,7 @@ module: org-openroadm-service
     |  |     |  |  |  +--ro link-id            string
     |  |     |  |  +--ro supporting-service-name*   string
     |  |     |  +--ro latency
-    |  |     |  |  +--ro max-latency?   uint32
+    |  |     |  |  +--ro max-latency?   decimal64
     |  |     |  +--ro hop-count
     |  |     |  |  +--ro max-wdm-hop-count?   uint8
     |  |     |  |  +--ro max-otn-hop-count?   uint8
@@ -8599,7 +8773,7 @@ module: org-openroadm-service
     |  |     |  |  |  +--ro link-id            string
     |  |     |  |  +--ro supporting-service-name*   string
     |  |     |  +--ro latency
-    |  |     |  |  +--ro max-latency?   uint32
+    |  |     |  |  +--ro max-latency?   decimal64
     |  |     |  +--ro hop-count
     |  |     |  |  +--ro max-wdm-hop-count?   uint8
     |  |     |  |  +--ro max-otn-hop-count?   uint8

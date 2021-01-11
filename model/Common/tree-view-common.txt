@@ -122,6 +122,8 @@ module: org-openroadm-manifest-file
   +--rw sw-manifest!
   |  +--rw vendor                  string
   |  +--rw model                   string
+  |  +--rw additional-models*      string
+  |  +--rw node-type*              org-openroadm-common-node-types:node-types
   |  +--rw sw-version              string
   |  +--rw global-async-timeout?   uint16
   |  +--rw global-sync-timeout?    uint16
@@ -149,11 +151,13 @@ module: org-openroadm-manifest-file
   |           |  +--rw timeout?    uint16
   |           |  +--rw is-async?   boolean
   |           +--rw sw-activate
-  |           |  +--rw version             string
-  |           |  +--rw validation-timer?   string
-  |           |  +--rw timeout?            uint16
-  |           |  +--rw auto-reboot         uint16
-  |           |  +--rw is-async?           boolean
+  |           |  +--rw version                       string
+  |           |  +--rw validation-timer?             string
+  |           |  +--rw validation-timer-start-ref?   timer-ref-enum
+  |           |  +--rw timeout?                      uint16
+  |           |  +--rw timeout-start-ref?            timer-ref-enum
+  |           |  +--rw auto-reboot                   uint16
+  |           |  +--rw is-async?                     boolean
   |           +--rw cancel-validation-timer
   |              +--rw wait-time    uint16
   |              +--rw timeout?     uint16
@@ -161,6 +165,8 @@ module: org-openroadm-manifest-file
   +--rw db-backup-manifest!
   |  +--rw vendor                         string
   |  +--rw model                          string
+  |  +--rw additional-models*             string
+  |  +--rw node-type*                     org-openroadm-common-node-types:node-types
   |  +--rw sw-version?                    string
   |  +--rw global-async-timeout?          uint16
   |  +--rw global-sync-timeout?           uint16
@@ -184,6 +190,8 @@ module: org-openroadm-manifest-file
   +--rw db-restore-manifest!
      +--rw vendor                                 string
      +--rw model                                  string
+     +--rw additional-models*                     string
+     +--rw node-type*                             org-openroadm-common-node-types:node-types
      +--rw sw-version?                            string
      +--rw global-async-timeout?                  uint16
      +--rw global-sync-timeout?                   uint16
@@ -210,10 +218,12 @@ module: org-openroadm-manifest-file
            |  +--rw timeout?         uint16
            |  +--rw is-async?        boolean
            +--rw db-activate
-           |  +--rw rollback-timer?   string
-           |  +--rw timeout?          uint16
-           |  +--rw auto-reboot       uint16
-           |  +--rw is-async?         boolean
+           |  +--rw rollback-timer?             string
+           |  +--rw rollback-timer-start-ref?   timer-ref-enum
+           |  +--rw timeout?                    uint16
+           |  +--rw timeout-start-ref?          timer-ref-enum
+           |  +--rw auto-reboot                 uint16
+           |  +--rw is-async?                   boolean
            +--rw cancel-rollback-timer
               +--rw wait-time    uint16
               +--rw timeout?     uint16
@@ -224,7 +234,6 @@ module: org-openroadm-pm
   |     +--ro pm-resource-instance          instance-identifier
   |     +--ro pm-resource-type              org-openroadm-resource-types:resource-type-enum
   |     +--ro pm-resource-type-extension    string
-  |     +--ro start-time                    yang:date-and-time
   |     +--ro retrieval-time                yang:date-and-time
   |     +--ro current-pm* [type extension location direction]
   |        +--ro type           pm-names-enum
@@ -236,6 +245,7 @@ module: org-openroadm-pm
   |           +--ro pmParameterValue    pm-data-type
   |           +--ro pmParameterUnit?    string
   |           +--ro validity?           validity
+  |           +--ro start-time          yang:date-and-time
   +--ro historical-pm-list {historical-pm-retrieval}?
      +--ro historical-pm-entry* [pm-resource-type pm-resource-type-extension pm-resource-instance]
         +--ro pm-resource-instance          instance-identifier

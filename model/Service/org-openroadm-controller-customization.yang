@@ -1,4 +1,5 @@
 module org-openroadm-controller-customization {
+  yang-version 1.1;
   namespace "http://org/openroadm/controller/customization";
   prefix org-openroadm-controller-customization;
 
@@ -6,9 +7,13 @@ module org-openroadm-controller-customization {
     prefix org-openroadm-common-link-types;
     revision-date 2019-11-29;
   }
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2020-12-11;
+  }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -48,6 +53,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -164,6 +173,99 @@ module org-openroadm-controller-customization {
     }
     description
       "Defines notification types for non rpc related notifications.";
+  }
+
+  typedef restriction-scope {
+    description
+      "Used to indicate the scope of global restrictions";
+    type enumeration {
+      enum service-create {
+        value 1;
+      }
+      enum service-create-bulk {
+        value 2;
+      }
+      enum temp-service-create {
+        value 3;
+      }
+      enum temp-service-create-bulk {
+        value 4;
+      }
+      enum service-feasibility-check {
+        value 5;
+      }
+      enum service-feasibility-check-bulk {
+        value 6;
+      }
+      enum service-roll {
+        value 7;
+      }
+      enum service-reconfigure {
+        value 8;
+      }
+      enum service-restoration {
+        value 9;
+      }
+      enum service-reroute {
+        value 10;
+      }
+      enum network-re-optimization {
+        value 11;
+      }
+      enum all {
+        value 12;
+      }
+    }
+  }
+
+  typedef restriction-type {
+    description
+      "Used to indicate type of restriction for site or node";
+    type enumeration {
+      enum add-drop {
+        value 1;
+        description 
+          "Add/drops are forbidden at the associated node (or site).
+          No service may add or drop at site/node";
+      }
+      enum pass-through {
+        value 2;
+        description
+          "Routing through the associated node (or site) is forbidden.
+          No service may pass-through at site/node";
+      } 
+      enum both {
+        value 3;
+        description
+          "Both adds/drops and through routing are forbidden for 
+          the associated node (or site).";
+      }
+    }
+  }
+
+  typedef regeneration-restriction-type {
+    description
+      "Used to indicate the type of restriction for the regeneration type";
+    type enumeration {
+      enum do-not-propose {
+        value 1;
+        description
+          "Proposing new regens (via a feasibility check) 
+          at the associated node (or site) is forbidden.";
+      }
+      enum do-not-use-existing {
+        value 2;
+        description
+          "Use of an existing regen at the associated node 
+          (or site) is forbidden.";
+      }
+      enum both {
+        value 3;
+        description
+          "Both use of existing regens and proposal of new regens
+           are forbidden at the associated node (or site).";
+      }
+    }
   }
 
   grouping spectrum-portion {
@@ -372,8 +474,8 @@ module org-openroadm-controller-customization {
     container regeneration-policy {
       description
         "Defines rules to place regenerators when a service-feasibility-check
-         rpc is invoked, or when a service-create rpc is invoked if spare
-         regenerators are already in place";
+        rpc is invoked, or when a service-create rpc is invoked if spare
+        regenerators are already in place";
       leaf global-placement {
         type enumeration {
           enum regenerator-banks {
@@ -397,25 +499,134 @@ module org-openroadm-controller-customization {
         }
         description
           "To position regenerators as far as possible on the path or optimizing
-           performances";
+          performances";
       }
       leaf path-symmetry {
         type boolean;
         description
           "True corresponds to same location on A to Z and Z to A paths
-           False allows positioning regenerators in different nodes for A
-           to Z and Z to A paths";
+          False allows positioning regenerators in different nodes for A
+          to Z and Z to A paths";
       }
       leaf-list preferred-sites {
-        type string;
-        description
-          "Node-id of the sites to be privileged when positioning regenerators
-           in specific locations";
+          type string;
+          description
+            "CLLI's of the sites to be privileged when positioning regenerators
+            in specific locations";
       }
-      leaf-list forbidden-sites {
-        type string;
-        description
-          "Node-id of the sites regenerators shall not be placed";
+    }
+    container global-restriction {
+      container site-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the restriction scopes applicable for the site-restriction.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        list site {
+          key "site-id";
+          description
+            "List of sites to be excluded from paths when routing.";
+          leaf site-id {
+            type string;
+          }
+          leaf restriction-type {
+            type restriction-type;
+            default "both";
+          }
+        }
+      }
+      container node-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the restriction scopes applicable for the node-restriction.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        list node {
+          key "node-id";
+          description
+            "List of equipment nodes to be excluded from paths when routing.";
+          leaf node-id {
+            type org-openroadm-common-node-types:node-id-type;
+          }
+          leaf restriction-type {
+            type restriction-type;
+            default "both";
+          }
+        }
+      }
+      container regeneration-site-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the restriction scopes applicable for the regeneration-restriction.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        list forbidden-site {
+          key "site-id";
+          description
+            "List of forbidden sites where regenerators shall not be placed";
+          leaf site-id {
+            type string;
+          }
+          leaf regeneration-restriction-type {
+            type regeneration-restriction-type;
+            default "both";
+          }
+        }
+      }
+      container regeneration-node-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the restriction scopes applicable for the regeneration-restriction.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        list forbidden-node {
+          key "node-id";
+          description
+            "List of forbidden nodes where regenerators shall not be placed";
+          leaf node-id {
+            type org-openroadm-common-node-types:node-id-type;
+          }
+          leaf regeneration-restriction-type {
+            type regeneration-restriction-type;
+            default "both";
+          }
+        }
+      }
+      container link-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the resctriction scopes applicable for the link-restriction.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        leaf-list link-id {
+          type string;
+          description
+            "List of links to be excluded from paths when routing.";
+        }
+      }
+      container supporting-service-restriction {
+        leaf-list restriction-scopes {
+          description
+            "Set of the resctriction scopes applicable for the supporting-services.
+            Default scope is set to all RPCs";
+          type restriction-scope;
+          default "all";
+        }
+        leaf-list supporting-services {
+          type string;
+          description
+            "List of supporting services to be excluded from paths when routing";
+        }
       }
     }
     container default-behaviour {
@@ -543,7 +754,7 @@ module org-openroadm-controller-customization {
       }
     }
   }
-
+  
   rpc controller-parameters-setting {
     description
       "Rpc used to populate controller parameters in the Data Store

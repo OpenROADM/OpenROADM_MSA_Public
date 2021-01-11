@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -40,7 +40,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2019-11-29;
+    revision-date 2020-12-11;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -48,7 +48,7 @@ module org-openroadm-device {
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
-    revision-date 2019-11-29;
+    revision-date 2020-12-11;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2020-03-27;
+    revision-date 2020-12-11;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2020-09-25;
+    revision-date 2020-12-11;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -138,6 +138,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -262,7 +266,7 @@ module org-openroadm-device {
          given office";
     }
     leaf node-type {
-      type org-openroadm-device-types:node-types;
+      type org-openroadm-common-node-types:node-types;
       config true;
       mandatory true;
       description
@@ -1184,7 +1188,7 @@ module org-openroadm-device {
       }
     }
     leaf xpdr-type {
-      type org-openroadm-device-types:xpdr-node-types;
+      type org-openroadm-common-node-types:xpdr-node-types;
       mandatory true;
       description
         "Identifier for xponder-type e.g Transponder, Muxponder";
@@ -1865,10 +1869,9 @@ module org-openroadm-device {
       type uint16 {
         range "1 .. 80";
       }
-      min-elements 1;
       max-elements 80;
       description
-        "Network high order ODU trib slots";
+        "Network high order ODU trib slots for ODUk (HO-ODU4 and below)";
     }
     leaf-list network-ho-odu-opucn-trib-slots {
       type org-openroadm-otn-common-types:opucn-trib-slot-def;

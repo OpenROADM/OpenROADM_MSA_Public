@@ -309,6 +309,7 @@ module: org-openroadm-otn-network-topology
        |  +--rw odtu-type    identityref
        |  +--rw tpn-pool*    uint16
        +--rw ts-pool*                         uint16
+       +--rw opucn-ts-pool*                   org-openroadm-otn-common-types:opucn-trib-slot-def
        +--rw wavelength
        |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
        |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz

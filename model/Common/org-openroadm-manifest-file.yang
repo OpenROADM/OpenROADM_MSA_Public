@@ -1,6 +1,12 @@
+
 module org-openroadm-manifest-file {
   namespace "http://org/openroadm/manifest-file";
   prefix org-openroadm-manifest-file;
+
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2020-12-11;
+  }
 
   organization
     "Open ROADM MSA";
@@ -49,6 +55,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -78,6 +88,23 @@ module org-openroadm-manifest-file {
       "Version 2.1";
     reference
       "This module serves as the manifest file reference.";
+  }
+
+  typedef timer-ref-enum {
+    type enumeration {
+      enum before-reboot {
+        value 1;
+        description
+          "Before reboot";
+      }
+      enum after-reboot {
+        value 2;
+        description
+          "After reboot";
+      }
+    }
+    description
+      "Qualifier for timer starts before or after reboot";
   }
 
   identity manifest-commands {
@@ -193,6 +220,21 @@ module org-openroadm-manifest-file {
          use the vendor and model to validate that this is a valid manifest
          for the Open ROADM NE.
         ";
+    }
+    leaf-list additional-models {
+      type string;
+      description
+        "Used to list additional equipment models supported by the manifest file, 
+         the model attribute has been maintained for backward compatibility.
+        ";
+    }
+    leaf-list node-type {      
+      type org-openroadm-common-node-types:node-types;      
+      description        
+        "Identifier for node-type e.g Roadm, xponder.         
+         For a given vendor and model, this leaf-list lists
+         the node-types the manifest file is applicable to.        
+        ";    
     }
     leaf sw-version {
       type string;
@@ -498,10 +540,19 @@ module org-openroadm-manifest-file {
            software download application expects this format in order to treat
            00-00-00 and no validation timer as the same use case.
 
+           validation-timer-start-ref: Qualifier for validation timer start
+           applicability.  Optional indication if the validation timer value
+           will start before or after reboot.  Only applicable if
+           auto-reboot > 0.
+
            timeout - overrides the global-async-timeout; defaults to the
            global-async-timeout if not provided. This timer begins as soon as the
            sw-activate processing begins. timeout must be greater than the
            auto-reboot time.
+
+           timeout-start-ref: Qualifier for timeout start applicability.
+           Optional indication if the timeout values will start before or
+           after reboot.  Only applicable if auto-reboot > 0.
 
            auto-reboot: time (in seconds) to wait to for the device to reboot.
            This is the device restart time (e.g. the length of time from device
@@ -540,7 +591,13 @@ module org-openroadm-manifest-file {
         description
           "hh-mm-ss";
       }
+      leaf validation-timer-start-ref {
+        type timer-ref-enum;
+      }
       uses timeout-command;
+      leaf timeout-start-ref {
+        type timer-ref-enum;
+      }
       uses command-reboot;
       uses is-async-command;
     }
@@ -685,10 +742,19 @@ module org-openroadm-manifest-file {
            database activation application expects this format in order to treat
            00-00-00 and no validation timer as the same use case.
 
+           rollback-timer-start-ref: Qualifier for rollback timer start
+           applicability.  Optional indication if the rollback timer value
+           will start before or after reboot.  Only applicable if
+           auto-reboot > 0.
+
            timeout - overrides the global-async-timeout; defaults to the
            global-async-timeout if not provided. This timer begins as soon as the
            db-activate processing begins. timeout must be greater than the
            auto-reboot time.
+
+           timeout-start-ref: Qualifier for timeout start applicability.
+           Optional indication if the timeout values will start before or
+           after reboot.  Only applicable if auto-reboot > 0.
 
            auto-reboot: time (in seconds) to wait to for the device to reboot.
            This is the device restart time (e.g. the length of time from device
@@ -720,7 +786,13 @@ module org-openroadm-manifest-file {
         description
           "hh-mm-ss";
       }
+      leaf rollback-timer-start-ref {
+        type timer-ref-enum;
+      }
       uses timeout-command;
+      leaf timeout-start-ref {
+        type timer-ref-enum;
+      }
       uses command-reboot;
       uses is-async-command;
     }

@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2020-12-11 {
+    description
+      "Version 8.1";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -286,9 +290,11 @@ module org-openroadm-probable-cause {
       }
       enum backwardIncomingAlignmentError {
         value 65;
+        status obsolete;
       }
       enum incomingAlignmentError {
         value 66;
+        status obsolete;
       }
       enum payloadMismatch {
         value 67;
@@ -373,9 +379,15 @@ module org-openroadm-probable-cause {
       }
       enum omsPowerOutOfSpecificationHigh {
         value 149;
+        status obsolete;
+        description
+          "Instead of raising the omsPowerOutOfSpecificationHigh, the recommendation is to raise the powerOutOfSpecificationHigh against the if-OMS";
       }
       enum omsPowerOutOfSpecificationLow {
         value 150;
+        status obsolete;
+        description
+          "Instead of raising the omsPowerOutOfSpecificationLow, the recommendation is to raise the powerOutOfSpecificationLow against the if-OMS";
       }
       enum automaticSwitchAwayFromWorkingDueToSD {
         value 151;
@@ -837,6 +849,58 @@ module org-openroadm-probable-cause {
           "Far End Fault Indication";
         reference
           "IEEE 802.3-2018 Section 24.3.2.1";
+      }
+      enum administrativeTesting {
+        value 284;
+        description
+          "Alarm showing that a maintenance action (loopback or testsignal) is in progress.  Cleared when admin state changes to Up or Down";
+      }
+      enum highSER {
+        value 285;
+        description
+          "High Symbol Error Rate when FEC bypass indication is enabled";
+        reference
+          "IEEE 802.3 91.6.5, 119.2.5.3";
+      }
+      enum incompatibleHardware {
+        value 286;
+        description
+          "Incompatible Hardware, does not match with the Application (e.g. FEC type)";
+      }
+      enum opticalInterconnectLossHigh {
+        value 287;
+        description
+          "Interconnection loss high alarm for fiber";
+      }
+      enum secondarySoftwareCorruption {
+        value 288;
+        description
+          "Corrupt secondary software";
+      }
+      enum softwareSyncInProgress {
+        value 289;
+        description
+          "Indication of active software synchronization with secondary storage";
+      }
+      enum totalpowerOutOfSpecificationHigh {
+        value 290;
+        description
+          "Total Power Out Of Specification High for multi-channel drop";
+      }
+      enum totalpowerOutOfSpecificationLow {
+        value 291;
+        description
+          "Total Power Out Of Specification Low for multi-channel drop";
+      }
+      enum "powerOutOfRangeLow" {        
+        value 292;        
+        description
+          "Measured power is outside the supported or advertised power range";      
+      }      
+      enum "powerOutOfRangeHigh" {        
+        value 293;        
+        description          
+          "Measured power is outside the supported or advertised power range";      
       }
     }
     description
