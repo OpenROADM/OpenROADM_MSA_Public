@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-05-29 {
     description
       "Version 7.1.0";
@@ -89,6 +93,12 @@ module org-openroadm-common-optical-channel-types {
     description
       "A unique FOICx.k identification (G.709.3 FlexO-LR and
        G.709.1 FlexO-SR)";
+  }
+
+  identity foic1.1 {
+    base foic-identity;
+    description
+      "Applicable to the FlexO type defined in G.Sup58 2020-09";
   }
 
   identity foic1.2 {

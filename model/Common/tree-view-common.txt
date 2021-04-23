@@ -118,6 +118,7 @@ module: org-openroadm-alarm
        +--ro circuit-id?          string
        +--ro additional-detail?   string
        +--ro corrective-action?   string
+
 module: org-openroadm-manifest-file
   +--rw sw-manifest!
   |  +--rw vendor                  string
@@ -133,10 +134,11 @@ module: org-openroadm-manifest-file
   |     +--rw is-commit-sw-activate-async?             boolean
   |     +--rw cancel-validation-timer-async-timeout?   uint16
   |     +--rw cancel-validation-timer-sync-timeout?    uint16
+  |     +--rw resync-after-commit?                     boolean
   |     +--rw sw-manifest-commands
   |        +--rw sw-manifest-command* [command-order]
   |           +--rw command-order              uint8
-  |           +--rw command                    identityref
+  |           +--rw command                    union
   |           +--rw download-file
   |           |  +--rw remote-filename    string
   |           |  +--rw local-file-path    string
@@ -159,9 +161,10 @@ module: org-openroadm-manifest-file
   |           |  +--rw auto-reboot                   uint16
   |           |  +--rw is-async?                     boolean
   |           +--rw cancel-validation-timer
-  |              +--rw wait-time    uint16
-  |              +--rw timeout?     uint16
-  |              +--rw is-async?    boolean
+  |              +--rw wait-time              uint16
+  |              +--rw timeout?               uint16
+  |              +--rw is-async?              boolean
+  |              +--rw resync-after-commit?   boolean
   +--rw db-backup-manifest!
   |  +--rw vendor                         string
   |  +--rw model                          string
@@ -173,7 +176,7 @@ module: org-openroadm-manifest-file
   |  +--rw db-backup-manifest-commands
   |     +--rw db-backup-manifest-command* [command-order]
   |        +--rw command-order    uint8
-  |        +--rw command          identityref
+  |        +--rw command          union
   |        +--rw upload-file
   |        |  +--rw remote-filename    string
   |        |  +--rw local-file-path    string
@@ -202,7 +205,7 @@ module: org-openroadm-manifest-file
      +--rw db-restore-manifest-commands
         +--rw db-restore-manifest-command* [command-order]
            +--rw command-order            uint8
-           +--rw command                  identityref
+           +--rw command                  union
            +--rw download-file
            |  +--rw remote-filename    string
            |  +--rw local-file-path    string
@@ -228,6 +231,7 @@ module: org-openroadm-manifest-file
               +--rw wait-time    uint16
               +--rw timeout?     uint16
               +--rw is-async?    boolean
+
 module: org-openroadm-pm
   +--ro current-pm-list
   |  +--ro current-pm-entry* [pm-resource-type pm-resource-type-extension pm-resource-instance]
@@ -331,6 +335,7 @@ module: org-openroadm-pm
        +--ro pm-filename       string
        +--ro status            rpc-status
        +--ro status-message?   string
+
 module: org-openroadm-tca
   +--rw potential-tca-list
      +--rw tca-entry* [tca-resource-type tca-resource-type-extension tca-resource-instance]
@@ -364,6 +369,7 @@ module: org-openroadm-tca
        +--ro threshold-type                 threshold-enum
        +--ro pm-value                       org-openroadm-pm-types:pm-data-type
        +--ro raise-time                     yang:date-and-time
+
 module: org-openroadm-user-mgmt
 
   rpcs:
