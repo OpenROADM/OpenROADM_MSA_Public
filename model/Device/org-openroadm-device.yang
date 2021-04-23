@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2020-05-29;
+    revision-date 2021-03-26;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -84,7 +84,7 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2020-05-29;
+    revision-date 2021-03-26;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -138,6 +138,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -559,12 +563,30 @@ module org-openroadm-device {
         type string;
         mandatory true;
         description
-          "Type of circuit-pack";
+          "Type of circuit-pack
+
+          For pluggable circuit packs, optical lanes are modeled as child ports
+          with pointers to the physical port as the parent.  The number of lanes
+          supported by the pluggable circuit pack is determined by the provisioned
+          circuit-pack-type and/or circuit-pack-product-code.  The specific
+          implementation is up to the vendor.  For a pluggable circuit pack with
+          only one lane, only the physical port would exist and there should not
+          be a child port (i.e, the single lane is represented by the physical
+          port)";
       }
       leaf circuit-pack-product-code {
         type string;
         description
-          "Product Code for the circuit-pack";
+          "Product Code for the circuit-pack
+
+          For pluggable circuit packs, optical lanes are modeled as child ports
+          with pointers to the physical port as the parent.  The number of lanes
+          supported by the pluggable circuit pack is determined by the provisioned
+          circuit-pack-type and/or circuit-pack-product-code.  The specific
+          implementation is up to the vendor.  For a pluggable circuit pack with
+          only one lane, only the physical port would exist and there should not
+          be a child port (i.e, the single lane is represented by the physical
+          port)";
       }
       uses circuit-pack;
     }
@@ -749,6 +771,19 @@ module org-openroadm-device {
       description
         "List of ports on this circuit-pack. Note that pluggables are considered independent circuit-packs.  All ports that are physically present on a pluggable, need to be modeled as a port against that pluggable circuit-pack, and not against the parent circuit-pack.";
       uses port;
+      container interconnect-loss-alarm {
+        leaf user-threshold {
+          type org-openroadm-common-link-types:ratio-dB;
+          description
+            "User configurable setting for interconnect loss alarm threshold [dB]";
+        }
+        leaf threshold-default {
+          type org-openroadm-common-link-types:ratio-dB;
+          config false;
+          description
+            "Vendor-specific default value for the interconnect loss alarm [dB]";
+        }
+      }
       container roadm-port {
         when "../port-qual='roadm-external'";
         uses org-openroadm-port-types:roadm-port;
@@ -1145,6 +1180,18 @@ module org-openroadm-device {
       description
         "The number of ports currently provisioned for a given srg.";
     }
+    leaf prov-max-add-drop-ports {
+      type uint16;
+      description
+        "Provisioned max add/drop ports.  Used by a management system to keep
+         track of the maximum number of add/drop port based on external
+         constraints such as rack configuration.  It is expected that the
+         management system would set this attribute to a value less than or
+         equal to the RO max-add-drop-ports.  This value is for management
+         system use only and is not enforced by the system.  E.g., this value
+         will not restrict any provisioning.  It is up to the management system
+         to ensure equipment is not provisioned to exceed this value.";
+    }
     leaf srg-number {
       type uint16;
       description
@@ -1405,7 +1452,17 @@ module org-openroadm-device {
           path "/org-openroadm-device/interface/name";
         }
         description
-          "supporting interface list";
+          "Supporting interface list.
+           a) For an interface that is created directly on a port, this leaf-list
+              is not applicable and must not be specified.
+           b) For an interface that is created on another interface(s), this
+              leaf-list must be provided.  The supporting-circuit-pack-name and
+              supporting-port-name is not required to be specified. If not
+              specified, the device will auto-populate the supporting-circuit-pack-name
+              and supporting-port-name.  The supporting-circuit-pack-name and
+              supporting-port-name may optionally be supplied in addition to the
+              supporting-interface-list; however, the device shall validate that
+              they are consistent or deny the provisioning.";
       }
     }
   }
@@ -1702,6 +1759,7 @@ module org-openroadm-device {
     }
     list otsi {
       key "circuit-pack-name port-name";
+      unique "order-index";
       description
         "OTSI list for split lambda";
       leaf circuit-pack-name {
@@ -1728,6 +1786,11 @@ module org-openroadm-device {
         description
           "Optical operational mode leaf list";
       }
+      leaf order-index {
+        type int8;
+        description
+          "The device supported FlexO-x-DO/OTSi interfaces's sequential order within the FlexO-group/OTSi-group";
+        }
     }
     leaf-list otsigroup-capability-profile-name {
       type leafref {

@@ -55,6 +55,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -112,20 +116,26 @@ module org-openroadm-manifest-file {
       "base identity for defining manifest-commands.";
   }
 
-  identity download-file {
+  identity file-manifest-commands {
     base manifest-commands;
+    description
+      "base identity for defining manifest-commands specific to file operations.";
+  }
+
+  identity download-file {
+    base file-manifest-commands;
     description
       "download-file (transfer from OWB-C to Device)";
   }
 
   identity upload-file {
-    base manifest-commands;
+    base file-manifest-commands;
     description
       "upload-file (transfer from Device to OWB-C)";
   }
 
   identity delete-file {
-    base manifest-commands;
+    base file-manifest-commands;
     description
       "delete-file from device";
   }
@@ -308,6 +318,25 @@ module org-openroadm-manifest-file {
          When supported as a sync command, the OWB-C will determine the success/failure
          of the command based on the RPC response instead of waiting for transient
          notifications from the device.";
+    }
+  }
+
+  grouping resync-after-commit-command {
+    description
+      "Support for a request to the controller to resync with the NE following
+       a commit operation. This applies to the case where the commit is automatically
+       executed by the NE, or if the commit is via the cancel-validation-timer
+       operation. When using the cancel-validation-timer operation, this applies only
+       when accept=true.";
+    leaf resync-after-commit {
+      type boolean;
+      default "false";
+      description
+        "Support for a request to the controller to resync with the NE following
+         a commit operation. This applies to the case where the commit is automatically
+         executed by the NE, or if the commit is via the cancel-validation-timer
+         operation. When using the cancel-validation-timer operation, this applies only
+         when accept=true.";
     }
   }
 
@@ -506,7 +535,8 @@ module org-openroadm-manifest-file {
 
   grouping wait-time-command {
     description
-      "Wait timer starting from the completion of sw-activate or db-activate before canceling the validation timer or rollback timer";
+      "Wait timer starting from the completion of sw-activate or db-activate
+       before canceling the validation timer or rollback timer";
     leaf wait-time {
       type uint16;
       mandatory true;
@@ -626,6 +656,7 @@ module org-openroadm-manifest-file {
       uses wait-time-command;
       uses timeout-command;
       uses is-async-command;
+      uses resync-after-commit-command;
     }
   }
 
@@ -872,6 +903,7 @@ module org-openroadm-manifest-file {
            supported as a sync command. If not specified, the global-sync-timeout
            is used.";
       }
+      uses resync-after-commit-command;
       container sw-manifest-commands {
         description
           "The ordered list of commands to be processed. Since some yang
@@ -910,8 +942,13 @@ module org-openroadm-manifest-file {
               "The order in which commands should be processed.";
           }
           leaf command {
-            type identityref {
-              base sw-manifest-commands;
+            type union {
+              type identityref {
+                base file-manifest-commands;
+              }
+              type identityref {
+                base sw-manifest-commands;
+              }
             }
             mandatory true;
             description
@@ -983,8 +1020,13 @@ module org-openroadm-manifest-file {
             "The order in which commands should be processed.";
         }
         leaf command {
-          type identityref {
-            base db-backup-manifest-commands;
+          type union {
+            type identityref {
+              base file-manifest-commands;
+            }
+            type identityref {
+              base db-backup-manifest-commands;
+            }
           }
           mandatory true;
           description
@@ -1084,8 +1126,13 @@ module org-openroadm-manifest-file {
             "The order in which commands should be processed.";
         }
         leaf command {
-          type identityref {
-            base db-restore-manifest-commands;
+          type union {
+            type identityref {
+              base file-manifest-commands;
+            }
+            type identityref {
+              base db-restore-manifest-commands;
+            }
           }
           mandatory true;
           description

@@ -4,7 +4,7 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -16,11 +16,11 @@ module org-openroadm-optical-channel-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2020-05-29;
+    revision-date 2021-03-26;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2020-05-29;
+    revision-date 2021-03-26;
   }
 
   organization
@@ -70,6 +70,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";

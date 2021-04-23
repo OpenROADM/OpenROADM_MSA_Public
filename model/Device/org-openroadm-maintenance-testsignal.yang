@@ -5,7 +5,7 @@ module org-openroadm-maintenance-testsignal {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
 
   organization
@@ -41,6 +41,10 @@ module org-openroadm-maintenance-testsignal {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -194,7 +198,7 @@ module org-openroadm-maintenance-testsignal {
           "number of seconds the received test signal is in sync.";
       }
       leaf bitErrors {
-        when "../enabled = 'true'";
+        when "../enabled = 'true' and ../inSync = 'true'";
         type uint32 {
           range "0..4294967295";
         }
@@ -203,6 +207,7 @@ module org-openroadm-maintenance-testsignal {
           "bit errors for test signal.";
       }
       leaf bitErrorRate {
+        when "../enabled = 'true' and ../inSync = 'true'";
         type decimal64 {
           fraction-digits 17;
         }

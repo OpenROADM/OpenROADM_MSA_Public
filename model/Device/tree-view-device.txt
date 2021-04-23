@@ -89,6 +89,7 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
+
 module: org-openroadm-database
 
   rpcs:
@@ -133,6 +134,7 @@ module: org-openroadm-database
        +--ro db-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-de-operations
 
   rpcs:
@@ -233,6 +235,7 @@ module: org-openroadm-de-operations
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
+
 module: org-openroadm-device
   +--rw org-openroadm-device
      +--rw info
@@ -403,6 +406,9 @@ module: org-openroadm-device
      |     +--ro interfaces* []
      |     |  +--ro interface-name?   -> /org-openroadm-device/interface/name
      |     +--ro mc-capability-profile-name*                        -> /org-openroadm-device/mc-capability-profile/profile-name
+     |     +--rw interconnect-loss-alarm
+     |     |  +--rw user-threshold?      org-openroadm-common-link-types:ratio-dB
+     |     |  +--ro threshold-default?   org-openroadm-common-link-types:ratio-dB
      |     +--rw roadm-port
      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
@@ -449,13 +455,14 @@ module: org-openroadm-device
      |  +--rw supporting-port?                                          -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name
      |  +--rw supporting-interface-list*                                -> /org-openroadm-device/interface/name
      |  +--rw org-openroadm-eth-interfaces:ethernet
-     |  |  +--rw org-openroadm-eth-interfaces:speed?              uint32
-     |  |  +--rw org-openroadm-eth-interfaces:fec?                identityref
-     |  |  +--rw org-openroadm-eth-interfaces:duplex?             enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?   enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?         string
-     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?        string
-     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?     uint32
+     |  |  +--rw org-openroadm-eth-interfaces:speed?                      uint32
+     |  |  +--rw org-openroadm-eth-interfaces:fec?                        identityref
+     |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?   enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:duplex?                     enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?           enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                 string
+     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                string
+     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?             uint32
      |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
      |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
      |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
@@ -552,6 +559,7 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-otn-odu-interfaces:odu-function?                          identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:monitoring-mode?                       enumeration
      |  |  +--ro org-openroadm-otn-odu-interfaces:no-oam-function?                       empty
+     |  |  +--rw org-openroadm-otn-odu-interfaces:no-maint-testsignal-function?          empty
      |  |  +--rw org-openroadm-otn-odu-interfaces:proactive-delay-measurement-enabled?   boolean
      |  |  +--rw org-openroadm-otn-odu-interfaces:parent-odu-allocation!
      |  |  |  +--rw org-openroadm-otn-odu-interfaces:trib-port-number          uint16
@@ -798,6 +806,7 @@ module: org-openroadm-device
      +--rw shared-risk-group* [srg-number]
      |  +--ro max-add-drop-ports                    uint16
      |  +--ro current-provisioned-add-drop-ports    uint16
+     |  +--rw prov-max-add-drop-ports?              uint16
      |  +--rw srg-number                            uint16
      |  +--rw lifecycle-state?                      org-openroadm-common-state-types:lifecycle-state
      |  +--ro wavelength-duplication                org-openroadm-common-optical-channel-types:wavelength-duplication-type
@@ -915,6 +924,7 @@ module: org-openroadm-device
      |  |  +--ro port-name                   string
      |  |  +--ro otsi-rate?                  identityref
      |  |  +--ro optical-operational-mode*   -> /org-openroadm-device/optical-operational-mode-profile/profile-name
+     |  |  +--ro order-index?                int8
      |  +--ro otsigroup-capability-profile-name*   -> /org-openroadm-device/otsigroup-capability-profile/profile-name
      +--ro otn-odu-mux-hierarchy-profile* [profile-name]
      |  +--ro profile-name      string
@@ -1600,6 +1610,7 @@ module: org-openroadm-device
        +--ro edit* []
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
+
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -1636,6 +1647,7 @@ module: org-openroadm-file-transfer
        +--ro progress
           +--ro bytes-transferred?     uint64
           +--ro percentage-complete?   uint8
+
 module: org-openroadm-fwdl
 
   rpcs:
@@ -1646,6 +1658,7 @@ module: org-openroadm-fwdl
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-key-chain
   +--rw key-chains
   |  +--rw key-chain-list* [name]
@@ -1670,6 +1683,7 @@ module: org-openroadm-key-chain
               +--ro (algorithm)?
                  +--:(md5)
                     +--ro md5?   empty
+
 module: org-openroadm-lldp
 
   notifications:
@@ -1686,6 +1700,7 @@ module: org-openroadm-lldp
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
+
 module: org-openroadm-ospf
 
   notifications:
@@ -1802,6 +1817,7 @@ module: org-openroadm-ospf
        +--ro status?                  restart-status-type
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
+
 module: org-openroadm-otn-common
 
   notifications:
@@ -1815,6 +1831,7 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
+
 module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
@@ -1831,6 +1848,7 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
+
 module: org-openroadm-rstp
 
   notifications:
@@ -1838,6 +1856,7 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
+
 module: org-openroadm-swdl
 
   rpcs:
@@ -1869,6 +1888,7 @@ module: org-openroadm-swdl
        +--ro sw-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -1894,3 +1914,4 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
+

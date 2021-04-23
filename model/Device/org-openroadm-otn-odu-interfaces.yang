@@ -5,7 +5,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,7 +13,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2020-12-11;
+    revision-date 2021-03-26;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -75,6 +75,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-03-26 {
+    description
+      "Version 9.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -275,6 +279,11 @@ module org-openroadm-otn-odu-interfaces {
       type empty;
       description
         "No OAM functionality exists for this ODU interface, the entity exists in software only. This entity does not report alarms or PM and does not support TCM, TTI, delay measurement, loopbacks, test signal and other hardware-based functions. This is an optional parameter, only needs to be present when no-oam-function supported for this interface.";
+    }
+    leaf no-maint-testsignal-function {
+      type empty;
+      description
+        "No test signal function exists for this ODU interface. Similar to no-oam-function this entity does not support test signal generation, but all the other functions are available. This is an optional parameter, only needs to be present when test signal generation is not supported by this interface.";
     }
     leaf proactive-delay-measurement-enabled {
       type boolean;

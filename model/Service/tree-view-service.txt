@@ -269,6 +269,7 @@ module: org-openroadm-ber-test
                 +--ro ber-passed?            boolean
                 +--ro target-prefec-ber?     decimal64
                 +--ro measured-prefec-ber?   decimal64
+
 module: org-openroadm-controller-customization
 
   rpcs:
@@ -364,6 +365,7 @@ module: org-openroadm-controller-customization
           |  +--ro response-message?      string
           |  +--ro ack-final-indicator    string
           +--ro unsupported-customization-options*   string
+
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]
@@ -760,6 +762,8 @@ module: org-openroadm-service
   |     +--rw topology
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id              string
+  |     |  |  +--rw subroute_id?    string
+  |     |  |  +--rw previous_ids*   string
   |     |  |  +--rw hop-type?       enumeration
   |     |  |  +--rw device
   |     |  |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -851,6 +855,8 @@ module: org-openroadm-service
   |     |  |     +--rw extension?   string
   |     |  +--rw zToA* [id]
   |     |     +--rw id              string
+  |     |     +--rw subroute_id?    string
+  |     |     +--rw previous_ids*   string
   |     |     +--rw hop-type?       enumeration
   |     |     +--rw device
   |     |     |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -946,6 +952,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id              string
+  |     |     |  +--rw subroute_id?    string
+  |     |     |  +--rw previous_ids*   string
   |     |     |  +--rw hop-type?       enumeration
   |     |     |  +--rw device
   |     |     |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1037,6 +1045,8 @@ module: org-openroadm-service
   |     |     |     +--rw extension?   string
   |     |     +--rw zToA* [id]
   |     |        +--rw id              string
+  |     |        +--rw subroute_id?    string
+  |     |        +--rw previous_ids*   string
   |     |        +--rw hop-type?       enumeration
   |     |        +--rw device
   |     |        |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1129,6 +1139,8 @@ module: org-openroadm-service
   |     +--rw network-topology
   |     |  +--rw a-to-z* [id]
   |     |  |  +--rw id                       string
+  |     |  |  +--rw subroute_id?             string
+  |     |  |  +--rw previous_ids*            string
   |     |  |  +--rw network-resource
   |     |  |  |  +--rw (network-resource)?
   |     |  |  |     +--:(network-resource-tp)
@@ -1141,6 +1153,8 @@ module: org-openroadm-service
   |     |  |  +--rw network-resource-type    identityref
   |     |  +--rw z-to-a* [id]
   |     |     +--rw id                       string
+  |     |     +--rw subroute_id?             string
+  |     |     +--rw previous_ids*            string
   |     |     +--rw network-resource
   |     |     |  +--rw (network-resource)?
   |     |     |     +--:(network-resource-tp)
@@ -1157,6 +1171,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw a-to-z* [id]
   |     |     |  +--rw id                       string
+  |     |     |  +--rw subroute_id?             string
+  |     |     |  +--rw previous_ids*            string
   |     |     |  +--rw network-resource
   |     |     |  |  +--rw (network-resource)?
   |     |     |  |     +--:(network-resource-tp)
@@ -1169,6 +1185,8 @@ module: org-openroadm-service
   |     |     |  +--rw network-resource-type    identityref
   |     |     +--rw z-to-a* [id]
   |     |        +--rw id                       string
+  |     |        +--rw subroute_id?             string
+  |     |        +--rw previous_ids*            string
   |     |        +--rw network-resource
   |     |        |  +--rw (network-resource)?
   |     |        |     +--:(network-resource-tp)
@@ -1576,6 +1594,8 @@ module: org-openroadm-service
   |     +--rw topology
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id              string
+  |     |  |  +--rw subroute_id?    string
+  |     |  |  +--rw previous_ids*   string
   |     |  |  +--rw hop-type?       enumeration
   |     |  |  +--rw device
   |     |  |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1667,6 +1687,8 @@ module: org-openroadm-service
   |     |  |     +--rw extension?   string
   |     |  +--rw zToA* [id]
   |     |     +--rw id              string
+  |     |     +--rw subroute_id?    string
+  |     |     +--rw previous_ids*   string
   |     |     +--rw hop-type?       enumeration
   |     |     +--rw device
   |     |     |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1762,6 +1784,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id              string
+  |     |     |  +--rw subroute_id?    string
+  |     |     |  +--rw previous_ids*   string
   |     |     |  +--rw hop-type?       enumeration
   |     |     |  +--rw device
   |     |     |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1853,6 +1877,8 @@ module: org-openroadm-service
   |     |     |     +--rw extension?   string
   |     |     +--rw zToA* [id]
   |     |        +--rw id              string
+  |     |        +--rw subroute_id?    string
+  |     |        +--rw previous_ids*   string
   |     |        +--rw hop-type?       enumeration
   |     |        +--rw device
   |     |        |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -1945,6 +1971,8 @@ module: org-openroadm-service
   |     +--rw network-topology
   |     |  +--rw a-to-z* [id]
   |     |  |  +--rw id                       string
+  |     |  |  +--rw subroute_id?             string
+  |     |  |  +--rw previous_ids*            string
   |     |  |  +--rw network-resource
   |     |  |  |  +--rw (network-resource)?
   |     |  |  |     +--:(network-resource-tp)
@@ -1957,6 +1985,8 @@ module: org-openroadm-service
   |     |  |  +--rw network-resource-type    identityref
   |     |  +--rw z-to-a* [id]
   |     |     +--rw id                       string
+  |     |     +--rw subroute_id?             string
+  |     |     +--rw previous_ids*            string
   |     |     +--rw network-resource
   |     |     |  +--rw (network-resource)?
   |     |     |     +--:(network-resource-tp)
@@ -1973,6 +2003,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw a-to-z* [id]
   |     |     |  +--rw id                       string
+  |     |     |  +--rw subroute_id?             string
+  |     |     |  +--rw previous_ids*            string
   |     |     |  +--rw network-resource
   |     |     |  |  +--rw (network-resource)?
   |     |     |  |     +--:(network-resource-tp)
@@ -1985,6 +2017,8 @@ module: org-openroadm-service
   |     |     |  +--rw network-resource-type    identityref
   |     |     +--rw z-to-a* [id]
   |     |        +--rw id                       string
+  |     |        +--rw subroute_id?             string
+  |     |        +--rw previous_ids*            string
   |     |        +--rw network-resource
   |     |        |  +--rw (network-resource)?
   |     |        |     +--:(network-resource-tp)
@@ -2391,6 +2425,8 @@ module: org-openroadm-service
   |     +--rw topology
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id              string
+  |     |  |  +--rw subroute_id?    string
+  |     |  |  +--rw previous_ids*   string
   |     |  |  +--rw hop-type?       enumeration
   |     |  |  +--rw device
   |     |  |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -2482,6 +2518,8 @@ module: org-openroadm-service
   |     |  |     +--rw extension?   string
   |     |  +--rw zToA* [id]
   |     |     +--rw id              string
+  |     |     +--rw subroute_id?    string
+  |     |     +--rw previous_ids*   string
   |     |     +--rw hop-type?       enumeration
   |     |     +--rw device
   |     |     |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -2577,6 +2615,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id              string
+  |     |     |  +--rw subroute_id?    string
+  |     |     |  +--rw previous_ids*   string
   |     |     |  +--rw hop-type?       enumeration
   |     |     |  +--rw device
   |     |     |  |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -2668,6 +2708,8 @@ module: org-openroadm-service
   |     |     |     +--rw extension?   string
   |     |     +--rw zToA* [id]
   |     |        +--rw id              string
+  |     |        +--rw subroute_id?    string
+  |     |        +--rw previous_ids*   string
   |     |        +--rw hop-type?       enumeration
   |     |        +--rw device
   |     |        |  +--rw node-id?   org-openroadm-common-node-types:node-id-type
@@ -2760,6 +2802,8 @@ module: org-openroadm-service
   |     +--rw network-topology
   |     |  +--rw a-to-z* [id]
   |     |  |  +--rw id                       string
+  |     |  |  +--rw subroute_id?             string
+  |     |  |  +--rw previous_ids*            string
   |     |  |  +--rw network-resource
   |     |  |  |  +--rw (network-resource)?
   |     |  |  |     +--:(network-resource-tp)
@@ -2772,6 +2816,8 @@ module: org-openroadm-service
   |     |  |  +--rw network-resource-type    identityref
   |     |  +--rw z-to-a* [id]
   |     |     +--rw id                       string
+  |     |     +--rw subroute_id?             string
+  |     |     +--rw previous_ids*            string
   |     |     +--rw network-resource
   |     |     |  +--rw (network-resource)?
   |     |     |     +--:(network-resource-tp)
@@ -2788,6 +2834,8 @@ module: org-openroadm-service
   |     |     +--rw failure-case-id?   string
   |     |     +--rw a-to-z* [id]
   |     |     |  +--rw id                       string
+  |     |     |  +--rw subroute_id?             string
+  |     |     |  +--rw previous_ids*            string
   |     |     |  +--rw network-resource
   |     |     |  |  +--rw (network-resource)?
   |     |     |  |     +--:(network-resource-tp)
@@ -2800,6 +2848,8 @@ module: org-openroadm-service
   |     |     |  +--rw network-resource-type    identityref
   |     |     +--rw z-to-a* [id]
   |     |        +--rw id                       string
+  |     |        +--rw subroute_id?             string
+  |     |        +--rw previous_ids*            string
   |     |        +--rw network-resource
   |     |        |  +--rw (network-resource)?
   |     |        |     +--:(network-resource-tp)
@@ -5417,6 +5467,8 @@ module: org-openroadm-service
     |     |  +--ro topology
     |     |  |  +--ro aToZ* [id]
     |     |  |  |  +--ro id              string
+    |     |  |  |  +--ro subroute_id?    string
+    |     |  |  |  +--ro previous_ids*   string
     |     |  |  |  +--ro hop-type?       enumeration
     |     |  |  |  +--ro device
     |     |  |  |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -5508,6 +5560,8 @@ module: org-openroadm-service
     |     |  |  |     +--ro extension?   string
     |     |  |  +--ro zToA* [id]
     |     |  |     +--ro id              string
+    |     |  |     +--ro subroute_id?    string
+    |     |  |     +--ro previous_ids*   string
     |     |  |     +--ro hop-type?       enumeration
     |     |  |     +--ro device
     |     |  |     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -5603,6 +5657,8 @@ module: org-openroadm-service
     |     |  |     +--ro failure-case-id?   string
     |     |  |     +--ro aToZ* [id]
     |     |  |     |  +--ro id              string
+    |     |  |     |  +--ro subroute_id?    string
+    |     |  |     |  +--ro previous_ids*   string
     |     |  |     |  +--ro hop-type?       enumeration
     |     |  |     |  +--ro device
     |     |  |     |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -5694,6 +5750,8 @@ module: org-openroadm-service
     |     |  |     |     +--ro extension?   string
     |     |  |     +--ro zToA* [id]
     |     |  |        +--ro id              string
+    |     |  |        +--ro subroute_id?    string
+    |     |  |        +--ro previous_ids*   string
     |     |  |        +--ro hop-type?       enumeration
     |     |  |        +--ro device
     |     |  |        |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -5786,6 +5844,8 @@ module: org-openroadm-service
     |     |  +--ro network-topology
     |     |  |  +--ro a-to-z* [id]
     |     |  |  |  +--ro id                       string
+    |     |  |  |  +--ro subroute_id?             string
+    |     |  |  |  +--ro previous_ids*            string
     |     |  |  |  +--ro network-resource
     |     |  |  |  |  +--ro (network-resource)?
     |     |  |  |  |     +--:(network-resource-tp)
@@ -5798,6 +5858,8 @@ module: org-openroadm-service
     |     |  |  |  +--ro network-resource-type    identityref
     |     |  |  +--ro z-to-a* [id]
     |     |  |     +--ro id                       string
+    |     |  |     +--ro subroute_id?             string
+    |     |  |     +--ro previous_ids*            string
     |     |  |     +--ro network-resource
     |     |  |     |  +--ro (network-resource)?
     |     |  |     |     +--:(network-resource-tp)
@@ -5814,6 +5876,8 @@ module: org-openroadm-service
     |     |        +--ro failure-case-id?   string
     |     |        +--ro a-to-z* [id]
     |     |        |  +--ro id                       string
+    |     |        |  +--ro subroute_id?             string
+    |     |        |  +--ro previous_ids*            string
     |     |        |  +--ro network-resource
     |     |        |  |  +--ro (network-resource)?
     |     |        |  |     +--:(network-resource-tp)
@@ -5826,6 +5890,8 @@ module: org-openroadm-service
     |     |        |  +--ro network-resource-type    identityref
     |     |        +--ro z-to-a* [id]
     |     |           +--ro id                       string
+    |     |           +--ro subroute_id?             string
+    |     |           +--ro previous_ids*            string
     |     |           +--ro network-resource
     |     |           |  +--ro (network-resource)?
     |     |           |     +--:(network-resource-tp)
@@ -6689,6 +6755,8 @@ module: org-openroadm-service
     |        |  +--ro topology
     |        |  |  +--ro aToZ* [id]
     |        |  |  |  +--ro id              string
+    |        |  |  |  +--ro subroute_id?    string
+    |        |  |  |  +--ro previous_ids*   string
     |        |  |  |  +--ro hop-type?       enumeration
     |        |  |  |  +--ro device
     |        |  |  |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -6780,6 +6848,8 @@ module: org-openroadm-service
     |        |  |  |     +--ro extension?   string
     |        |  |  +--ro zToA* [id]
     |        |  |     +--ro id              string
+    |        |  |     +--ro subroute_id?    string
+    |        |  |     +--ro previous_ids*   string
     |        |  |     +--ro hop-type?       enumeration
     |        |  |     +--ro device
     |        |  |     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -6875,6 +6945,8 @@ module: org-openroadm-service
     |        |  |     +--ro failure-case-id?   string
     |        |  |     +--ro aToZ* [id]
     |        |  |     |  +--ro id              string
+    |        |  |     |  +--ro subroute_id?    string
+    |        |  |     |  +--ro previous_ids*   string
     |        |  |     |  +--ro hop-type?       enumeration
     |        |  |     |  +--ro device
     |        |  |     |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -6966,6 +7038,8 @@ module: org-openroadm-service
     |        |  |     |     +--ro extension?   string
     |        |  |     +--ro zToA* [id]
     |        |  |        +--ro id              string
+    |        |  |        +--ro subroute_id?    string
+    |        |  |        +--ro previous_ids*   string
     |        |  |        +--ro hop-type?       enumeration
     |        |  |        +--ro device
     |        |  |        |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -7058,6 +7132,8 @@ module: org-openroadm-service
     |        |  +--ro network-topology
     |        |  |  +--ro a-to-z* [id]
     |        |  |  |  +--ro id                       string
+    |        |  |  |  +--ro subroute_id?             string
+    |        |  |  |  +--ro previous_ids*            string
     |        |  |  |  +--ro network-resource
     |        |  |  |  |  +--ro (network-resource)?
     |        |  |  |  |     +--:(network-resource-tp)
@@ -7070,6 +7146,8 @@ module: org-openroadm-service
     |        |  |  |  +--ro network-resource-type    identityref
     |        |  |  +--ro z-to-a* [id]
     |        |  |     +--ro id                       string
+    |        |  |     +--ro subroute_id?             string
+    |        |  |     +--ro previous_ids*            string
     |        |  |     +--ro network-resource
     |        |  |     |  +--ro (network-resource)?
     |        |  |     |     +--:(network-resource-tp)
@@ -7086,6 +7164,8 @@ module: org-openroadm-service
     |        |        +--ro failure-case-id?   string
     |        |        +--ro a-to-z* [id]
     |        |        |  +--ro id                       string
+    |        |        |  +--ro subroute_id?             string
+    |        |        |  +--ro previous_ids*            string
     |        |        |  +--ro network-resource
     |        |        |  |  +--ro (network-resource)?
     |        |        |  |     +--:(network-resource-tp)
@@ -7098,6 +7178,8 @@ module: org-openroadm-service
     |        |        |  +--ro network-resource-type    identityref
     |        |        +--ro z-to-a* [id]
     |        |           +--ro id                       string
+    |        |           +--ro subroute_id?             string
+    |        |           +--ro previous_ids*            string
     |        |           +--ro network-resource
     |        |           |  +--ro (network-resource)?
     |        |           |     +--:(network-resource-tp)
@@ -8822,6 +8904,8 @@ module: org-openroadm-service
     |  +--ro topology
     |  |  +--ro aToZ* [id]
     |  |  |  +--ro id              string
+    |  |  |  +--ro subroute_id?    string
+    |  |  |  +--ro previous_ids*   string
     |  |  |  +--ro hop-type?       enumeration
     |  |  |  +--ro device
     |  |  |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -8913,6 +8997,8 @@ module: org-openroadm-service
     |  |  |     +--ro extension?   string
     |  |  +--ro zToA* [id]
     |  |     +--ro id              string
+    |  |     +--ro subroute_id?    string
+    |  |     +--ro previous_ids*   string
     |  |     +--ro hop-type?       enumeration
     |  |     +--ro device
     |  |     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -9008,6 +9094,8 @@ module: org-openroadm-service
     |  |     +--ro failure-case-id?   string
     |  |     +--ro aToZ* [id]
     |  |     |  +--ro id              string
+    |  |     |  +--ro subroute_id?    string
+    |  |     |  +--ro previous_ids*   string
     |  |     |  +--ro hop-type?       enumeration
     |  |     |  +--ro device
     |  |     |  |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -9099,6 +9187,8 @@ module: org-openroadm-service
     |  |     |     +--ro extension?   string
     |  |     +--ro zToA* [id]
     |  |        +--ro id              string
+    |  |        +--ro subroute_id?    string
+    |  |        +--ro previous_ids*   string
     |  |        +--ro hop-type?       enumeration
     |  |        +--ro device
     |  |        |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
@@ -9191,6 +9281,8 @@ module: org-openroadm-service
     |  +--ro network-topology
     |  |  +--ro a-to-z* [id]
     |  |  |  +--ro id                       string
+    |  |  |  +--ro subroute_id?             string
+    |  |  |  +--ro previous_ids*            string
     |  |  |  +--ro network-resource
     |  |  |  |  +--ro (network-resource)?
     |  |  |  |     +--:(network-resource-tp)
@@ -9203,6 +9295,8 @@ module: org-openroadm-service
     |  |  |  +--ro network-resource-type    identityref
     |  |  +--ro z-to-a* [id]
     |  |     +--ro id                       string
+    |  |     +--ro subroute_id?             string
+    |  |     +--ro previous_ids*            string
     |  |     +--ro network-resource
     |  |     |  +--ro (network-resource)?
     |  |     |     +--:(network-resource-tp)
@@ -9219,6 +9313,8 @@ module: org-openroadm-service
     |  |     +--ro failure-case-id?   string
     |  |     +--ro a-to-z* [id]
     |  |     |  +--ro id                       string
+    |  |     |  +--ro subroute_id?             string
+    |  |     |  +--ro previous_ids*            string
     |  |     |  +--ro network-resource
     |  |     |  |  +--ro (network-resource)?
     |  |     |  |     +--:(network-resource-tp)
@@ -9231,6 +9327,8 @@ module: org-openroadm-service
     |  |     |  +--ro network-resource-type    identityref
     |  |     +--ro z-to-a* [id]
     |  |        +--ro id                       string
+    |  |        +--ro subroute_id?             string
+    |  |        +--ro previous_ids*            string
     |  |        +--ro network-resource
     |  |        |  +--ro (network-resource)?
     |  |        |     +--:(network-resource-tp)
@@ -9250,3 +9348,4 @@ module: org-openroadm-service
        +--ro impacted-resource-type?   string
        +--ro impacted-resource-id?     string
        +--ro topology-layer?           enumeration
+
