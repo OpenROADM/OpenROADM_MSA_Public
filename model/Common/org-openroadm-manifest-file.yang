@@ -5,7 +5,7 @@ module org-openroadm-manifest-file {
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2020-12-11;
+    revision-date 2021-05-28;
   }
 
   organization
@@ -55,6 +55,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";
@@ -629,6 +633,17 @@ module org-openroadm-manifest-file {
         type timer-ref-enum;
       }
       uses command-reboot;
+      leaf login-delay {
+        type uint16;
+        units "seconds";
+        description
+          "The amount of time that the controller will delay before attempting
+           to relogin to the device following the reboot after the sw-activate
+           RPC. The timer begins upon receipt of the successful response to the
+           sw-activate RPC. If not specified, there will be no additional delay
+           and the controller will execute its normal connection retry
+           mechanism.";
+      }
       uses is-async-command;
     }
   }
@@ -903,6 +918,16 @@ module org-openroadm-manifest-file {
            supported as a sync command. If not specified, the global-sync-timeout
            is used.";
       }
+      leaf nsa-firmware-delay {
+        type uint16;
+        units "seconds";
+        description
+          "The amount of time after the completion of an auto or manual commit
+           operation for the device to finalize any non-service affecting
+           firmware download.  The controller will delay evaluating the
+           circuit-pack-features/components list until after this timer has
+           expired.";
+      }
       uses resync-after-commit-command;
       container sw-manifest-commands {
         description
@@ -1143,6 +1168,69 @@ module org-openroadm-manifest-file {
         uses db-restore-command;
         uses db-activate-command;
         uses cancel-rollback-timer-command;
+      }
+    }
+  }
+  container timeout-manifest {
+    presence
+      "The timeout-manifest provides information to the controller on the
+       timeouts for retrieval and RPC commands that the controller supports.";
+    description
+      "The manifest file provides timeout values for certain retrieval and RPC
+       operations supported by the controller. It also indicates if RPC
+       operations are async or sync.";
+    uses base-manifest {
+      refine "sw-version" {
+        mandatory true;
+      }
+    }
+    list timeout-values {
+      key "controller-vendor controller-model";
+      description
+        "Set of timeout values indexed by the controller vendor and model.
+         Since the retrieval and RPC operations may be supported differently
+         by each controller, separate timeout-values and controller-defined
+         command-names can be specified.";
+      leaf controller-vendor {
+        type string;
+        description
+          "Name of the vendor for the controller. This value should be
+           provided by the controller.";
+      }
+      leaf controller-model {
+        type string;
+        description
+          "Model of the controller.  This value should be provided by the
+           controller.";
+      }
+      list retrieval-command {
+        key "command-name";
+        description
+          "The list of retrieval commands supported by the controller.";
+        leaf command-name {
+          type string;
+          description
+            "Retrieval command name.
+             The controller will support a specific set of retrival command-name
+             strings.  The controller will provide the list of command-names that
+             are supported and how the command-name maps to a retrieval command.";
+        }
+        uses timeout-command;
+      }
+      list rpc-command {
+        key "command-name";
+        description
+          "The list of RPC commands supported by the controller.";
+        leaf command-name {
+          type string;
+          description
+            "RPC command name.
+             The controller will support a specific set of RPC command-name
+             strings.  The controller will provide the list of command-names that
+             are supported and how the command-name maps to a RPC command.";
+        }
+        uses timeout-command;
+        uses is-async-command;
       }
     }
   }

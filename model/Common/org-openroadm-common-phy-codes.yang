@@ -1,0 +1,327 @@
+module org-openroadm-common-phy-codes {
+  namespace "http://org/openroadm/common-phy-codes";
+  prefix org-openroadm-common-phy-codes;
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of common types.
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2021-05-28 {
+    description
+        "Version 9.1";
+    }
+
+  identity compliance-code-identity {
+    description
+      "Base identity for reporting pluggable compliance codes per port.";
+  }
+
+  identity phy-code-none {
+    base compliance-code-identity;
+    description
+      "Used to report that no OpenROADM codes are supported.";
+  }
+
+  // BEGIN section for client phy code entities
+  
+  // Parent identity
+  identity client-phy-code-identity {
+    description
+      "base identity for client phy code.";
+  }
+
+  // IEEE 802.3 - 2018 PHY/PMD Names (subset)
+  identity ethernet-1000BASE-SX {
+    base client-phy-code-identity;
+  }
+  identity ethernet-1000BASE-LX {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-SR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-LR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-ER {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-SW {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-LW {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-EW {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-SR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-LR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-ER {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-CR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-CR-S {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-KR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-25GBASE-KR-S {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GBASE-SR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GBASE-LR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GBASE-ER4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GBASE-FR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GBASE-T {
+    base client-phy-code-identity;
+  }  
+  identity ethernet-40GBASE-KR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-50GBASE-SR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-50GBASE-FR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-50GBASE-LR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-50GBASE-KR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-50GBASE-CR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-CR2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-KR2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-SR10 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-SR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-LR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-ER4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-SR2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-DR {
+    base client-phy-code-identity;
+  }  
+  identity ethernet-100GBASE-CR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-KP4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GBASE-KR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-200GBASE-SR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-200GBASE-DR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-200GBASE-FR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-200GBASE-LR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-SR16 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-DR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-FR8 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-LR8 {
+    base client-phy-code-identity;
+  }
+
+
+  // Common names not defined in IEEE 802.3
+  identity ethernet-1000BASE-EX {
+    base client-phy-code-identity;
+  }
+  identity ethernet-1000BASE-ZX {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-ZR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-10GBASE-ZW {
+    base client-phy-code-identity;
+  }
+  identity ethernet-40GQSFP-PSM4 {
+    base client-phy-code-identity;
+  }
+
+
+  // http://psm4.org 
+  identity ethernet-100G-PSM4 {
+    base client-phy-code-identity;
+  }
+
+
+  // http://www.cwdm4-msa.org/
+  identity ethernet-100GE-CWDM4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100GE-4WDM-10 {
+    base client-phy-code-identity;
+  }
+
+
+
+  // http://100glambda.com/
+  identity ethernet-100G-FR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-100G-LR {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400G-FR4 {
+    base client-phy-code-identity;
+  }
+
+
+  // ITU-T G.959.1 - 2018 */
+  identity otn-P1I1-1D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1S1-1D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1L1-1D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1L1-1D2 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1I1-2D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1I1-2D2 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1S1-2D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1S1-2D2a {
+    base client-phy-code-identity;
+  }
+  identity otn-P1S1-2D2b {
+    base client-phy-code-identity;
+  }
+  identity otn-1S1-2D2bF {
+    base client-phy-code-identity;
+  }
+  identity otn-P1L1-2D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-P1L1-2D2 {
+    base client-phy-code-identity;
+  }
+  identity otn-1L1-2D2F {
+    base client-phy-code-identity;
+  }
+  identity otn-P1L1-2D2E {
+    base client-phy-code-identity;
+  }
+  identity otn-1L1-2D2FE {
+    base client-phy-code-identity;
+  }
+  identity otn-C4S1-2D1 {
+    base client-phy-code-identity;
+  }
+  identity otn-1I1-3D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-8R1-4D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-4I1-9D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-4L1-9C1F {
+    base client-phy-code-identity;
+  }
+  identity otn-4L1-9D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-4I1-4D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-8I1-4D1F {
+    base client-phy-code-identity;
+  }
+
+  typedef compliance-codes-union {
+    type union {
+      type identityref { base client-phy-code-identity; }
+      type identityref { base compliance-code-identity; }
+    }
+    default "org-openroadm-common-phy-codes:phy-code-none";
+    description
+      "Compliance codes supported in OpenROADM.";
+  }
+  // END section for client phy code entities
+}

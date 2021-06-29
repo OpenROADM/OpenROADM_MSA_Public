@@ -134,6 +134,7 @@ module: org-openroadm-manifest-file
   |     +--rw is-commit-sw-activate-async?             boolean
   |     +--rw cancel-validation-timer-async-timeout?   uint16
   |     +--rw cancel-validation-timer-sync-timeout?    uint16
+  |     +--rw nsa-firmware-delay?                      uint16
   |     +--rw resync-after-commit?                     boolean
   |     +--rw sw-manifest-commands
   |        +--rw sw-manifest-command* [command-order]
@@ -159,6 +160,7 @@ module: org-openroadm-manifest-file
   |           |  +--rw timeout?                      uint16
   |           |  +--rw timeout-start-ref?            timer-ref-enum
   |           |  +--rw auto-reboot                   uint16
+  |           |  +--rw login-delay?                  uint16
   |           |  +--rw is-async?                     boolean
   |           +--rw cancel-validation-timer
   |              +--rw wait-time              uint16
@@ -191,46 +193,64 @@ module: org-openroadm-manifest-file
   |           +--rw timeout?    uint16
   |           +--rw is-async?   boolean
   +--rw db-restore-manifest!
-     +--rw vendor                                 string
-     +--rw model                                  string
-     +--rw additional-models*                     string
-     +--rw node-type*                             org-openroadm-common-node-types:node-types
-     +--rw sw-version?                            string
-     +--rw global-async-timeout?                  uint16
-     +--rw global-sync-timeout?                   uint16
-     +--rw is-commit-db-activate-async?           boolean
-     +--rw cancel-rollback-timer-async-timeout?   uint16
-     +--rw cancel-rollback-timer-sync-timeout?    uint16
-     +--rw database-init-sync-timeout?            uint16
-     +--rw db-restore-manifest-commands
-        +--rw db-restore-manifest-command* [command-order]
-           +--rw command-order            uint8
-           +--rw command                  union
-           +--rw download-file
-           |  +--rw remote-filename    string
-           |  +--rw local-file-path    string
-           |  +--rw timeout?           uint16
-           |  +--rw is-async?          boolean
-           +--rw delete-file
-           |  +--rw filename    string
-           |  +--rw timeout?    uint16
-           |  +--rw is-async?   boolean
-           +--rw db-restore
-           |  +--rw filename?        string
-           |  +--rw node-id-check?   string
-           |  +--rw timeout?         uint16
-           |  +--rw is-async?        boolean
-           +--rw db-activate
-           |  +--rw rollback-timer?             string
-           |  +--rw rollback-timer-start-ref?   timer-ref-enum
-           |  +--rw timeout?                    uint16
-           |  +--rw timeout-start-ref?          timer-ref-enum
-           |  +--rw auto-reboot                 uint16
-           |  +--rw is-async?                   boolean
-           +--rw cancel-rollback-timer
-              +--rw wait-time    uint16
-              +--rw timeout?     uint16
-              +--rw is-async?    boolean
+  |  +--rw vendor                                 string
+  |  +--rw model                                  string
+  |  +--rw additional-models*                     string
+  |  +--rw node-type*                             org-openroadm-common-node-types:node-types
+  |  +--rw sw-version?                            string
+  |  +--rw global-async-timeout?                  uint16
+  |  +--rw global-sync-timeout?                   uint16
+  |  +--rw is-commit-db-activate-async?           boolean
+  |  +--rw cancel-rollback-timer-async-timeout?   uint16
+  |  +--rw cancel-rollback-timer-sync-timeout?    uint16
+  |  +--rw database-init-sync-timeout?            uint16
+  |  +--rw db-restore-manifest-commands
+  |     +--rw db-restore-manifest-command* [command-order]
+  |        +--rw command-order            uint8
+  |        +--rw command                  union
+  |        +--rw download-file
+  |        |  +--rw remote-filename    string
+  |        |  +--rw local-file-path    string
+  |        |  +--rw timeout?           uint16
+  |        |  +--rw is-async?          boolean
+  |        +--rw delete-file
+  |        |  +--rw filename    string
+  |        |  +--rw timeout?    uint16
+  |        |  +--rw is-async?   boolean
+  |        +--rw db-restore
+  |        |  +--rw filename?        string
+  |        |  +--rw node-id-check?   string
+  |        |  +--rw timeout?         uint16
+  |        |  +--rw is-async?        boolean
+  |        +--rw db-activate
+  |        |  +--rw rollback-timer?             string
+  |        |  +--rw rollback-timer-start-ref?   timer-ref-enum
+  |        |  +--rw timeout?                    uint16
+  |        |  +--rw timeout-start-ref?          timer-ref-enum
+  |        |  +--rw auto-reboot                 uint16
+  |        |  +--rw is-async?                   boolean
+  |        +--rw cancel-rollback-timer
+  |           +--rw wait-time    uint16
+  |           +--rw timeout?     uint16
+  |           +--rw is-async?    boolean
+  +--rw timeout-manifest!
+     +--rw vendor                  string
+     +--rw model                   string
+     +--rw additional-models*      string
+     +--rw node-type*              org-openroadm-common-node-types:node-types
+     +--rw sw-version              string
+     +--rw global-async-timeout?   uint16
+     +--rw global-sync-timeout?    uint16
+     +--rw timeout-values* [controller-vendor controller-model]
+        +--rw controller-vendor    string
+        +--rw controller-model     string
+        +--rw retrieval-command* [command-name]
+        |  +--rw command-name    string
+        |  +--rw timeout?        uint16
+        +--rw rpc-command* [command-name]
+           +--rw command-name    string
+           +--rw timeout?        uint16
+           +--rw is-async?       boolean
 
 module: org-openroadm-pm
   +--ro current-pm-list
@@ -338,22 +358,72 @@ module: org-openroadm-pm
 
 module: org-openroadm-tca
   +--rw potential-tca-list
-     +--rw tca-entry* [tca-resource-type tca-resource-type-extension tca-resource-instance]
-        +--rw tca-resource-instance          instance-identifier
-        +--rw tca-resource-type              org-openroadm-resource-types:resource-type-enum
-        +--rw tca-resource-type-extension    string
-        +--rw enabled                        boolean
-        +--rw pm-entry* [type extension location direction]
-           +--rw type           pm-names-enum
-           +--rw extension      string
-           +--rw location       org-openroadm-common-alarm-pm-types:location
-           +--rw direction      org-openroadm-common-alarm-pm-types:direction
+  |  +--rw tca-entry* [tca-resource-type tca-resource-type-extension tca-resource-instance]
+  |     +--rw tca-resource-instance             instance-identifier
+  |     +--rw tca-resource-type                 org-openroadm-resource-types:resource-type-enum
+  |     +--rw tca-resource-type-extension       string
+  |     +--rw enabled                           boolean
+  |     +--rw (tca-profile-configuration)? {tca-profiles}?
+  |     |  +--:(direct-configuration)
+  |     |  |  +--rw tca-configured-profile      string
+  |     |  |  +--ro tca-applicable-profiles*    string
+  |     |  +--:(inherited-configuration)
+  |     |     +--ro tca-active-profile          string
+  |     |     +--ro tca-profile-rootresource    instance-identifier
+  |     +--ro baseline-entry* [type extension location direction]
+  |     |  +--ro type              pm-names-enum
+  |     |  +--ro extension         string
+  |     |  +--ro location          org-openroadm-common-alarm-pm-types:location
+  |     |  +--ro direction         org-openroadm-common-alarm-pm-types:direction
+  |     |  +--ro baseline          org-openroadm-pm-types:pm-data-type
+  |     |  +--ro baseline-state    baseline-state-enum
+  |     |  +--ro baseline-time?    yang:date-and-time
+  |     +--rw pm-entry* [type extension location direction] {no-tca-profiles or not tca-profiles}?
+  |        +--rw type                pm-names-enum
+  |        +--rw extension           string
+  |        +--rw location            org-openroadm-common-alarm-pm-types:location
+  |        +--rw direction           org-openroadm-common-alarm-pm-types:direction
+  |        +--ro measurement-type?   measurement-enum
+  |        +--rw measurement* [granularity threshold-type]
+  |           +--rw granularity          org-openroadm-pm-types:pm-granularity
+  |           +--rw threshold-type       threshold-enum
+  |           +--rw enabled?             boolean
+  |           +--rw threshold-value      org-openroadm-pm-types:pm-data-type
+  |           +--ro threshold-default?   org-openroadm-pm-types:pm-data-type
+  +--rw tca-profile-list
+     +--rw tca-profile-entry* [tca-profile-name]
+        +--rw tca-profile-name           string
+        +--rw tca-profile-description    string
+        +--ro tca-profile-access         enumeration
+        +--rw pm-entry* [tca-resource-type tca-resource-type-extension tca-if-type tca-if-rate type extension location direction]
+           +--rw tca-resource-type              org-openroadm-resource-types:resource-type-enum
+           +--rw tca-resource-type-extension    string
+           +--rw tca-if-type                    tca-if-type-union
+           +--rw tca-if-rate                    tca-if-rate-union
+           +--rw type                           pm-names-enum
+           +--rw extension                      string
+           +--rw location                       org-openroadm-common-alarm-pm-types:location
+           +--rw direction                      org-openroadm-common-alarm-pm-types:direction
+           +--ro measurement-type?              measurement-enum
            +--rw measurement* [granularity threshold-type]
               +--rw granularity          org-openroadm-pm-types:pm-granularity
               +--rw threshold-type       threshold-enum
+              +--ro threshold-access     enumeration
               +--rw enabled?             boolean
               +--rw threshold-value      org-openroadm-pm-types:pm-data-type
               +--ro threshold-default?   org-openroadm-pm-types:pm-data-type
+
+  rpcs:
+    +---x tca-set-baseline
+       +---w input
+       |  +---w tca-resource-instance    instance-identifier
+       |  +---w type                     pm-names-enum
+       |  +---w extension?               string
+       |  +---w location?                org-openroadm-common-alarm-pm-types:location
+       |  +---w direction?               org-openroadm-common-alarm-pm-types:direction
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
 
   notifications:
     +---n tca-notification

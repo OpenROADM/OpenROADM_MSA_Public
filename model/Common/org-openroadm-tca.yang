@@ -1,4 +1,5 @@
 module org-openroadm-tca {
+  yang-version 1.1;
   namespace "http://org/openroadm/tca";
   prefix org-openroadm-tca;
 
@@ -16,6 +17,22 @@ module org-openroadm-tca {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
+    revision-date 2021-05-28;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2021-03-26;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2020-03-27;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2021-05-28;
+  }
+  import org-openroadm-interfaces {
+    prefix org-openroadm-interfaces;
     revision-date 2019-11-29;
   }
 
@@ -52,6 +69,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -109,21 +130,63 @@ module org-openroadm-tca {
       "Version 1.2";
   }
 
+  feature tca-auto-baselining {
+    description
+      "This feature indicates that the server supports automatic
+       baselining of relative thresholds.";
+  }
+
+  feature tca-profiles {
+    description
+      "This feature means that the server supports threshold profiles
+       for PM counter thresholds instead of individual threshold
+       variables.";
+  }
+
+  feature no-tca-profiles {
+    description
+      "Dummy feature to enable a full tree view. The server does not need
+       to announce or implement this feature.";
+  }
+
+  typedef measurement-enum {
+    type enumeration {
+      enum absolute {
+        value 1;
+        description
+          "enum value for absolute thresholding with high, low or both thresholds";
+      }
+      enum relative {
+        value 2;
+        description
+          "enum value for baselined relative thresholding with high/low/both thresholds
+	   or single symmetrical threshold";
+      }
+    }
+    description
+      "typedef for type of a measurement list";
+  }
+
   typedef threshold-enum {
     type enumeration {
       enum high {
         value 1;
         description
-          "enum value for high";
+          "enum value for high absolute or relative threshold";
       }
       enum low {
         value 2;
         description
-          "enum value for low";
+          "enum value for low absolute or relative threshold";
+      }
+      enum symmetrical {
+        value 3;
+        description
+          "enum value for symmetric relative threshold";
       }
     }
     description
-      "typedef for threshold enum";
+      "typedef for type of a threshold value";
   }
 
   grouping tca-resource-grp {
@@ -149,6 +212,51 @@ module org-openroadm-tca {
     }
   }
 
+  grouping tca-profile-grp {
+    description
+      "group for setting up a TCA profile for a tca-entry";
+    choice tca-profile-configuration {
+      if-feature tca-profiles;
+      description
+        "Configuration of the profile for this resource instance";
+
+      case direct-configuration {
+        leaf tca-configured-profile {
+          type string;
+          mandatory true;
+          description
+            "Name of TCA profile for this resource instance";
+        }
+        leaf-list tca-applicable-profiles {
+          type string;
+          config false;
+          description
+	      "List of all profiles applicable to this tca resource instance.
+	       If the list is empty, all profiles can be assigned to this instance.";
+        }
+      }
+      case inherited-configuration {
+        leaf tca-active-profile {
+          type string;
+          config false;
+	  mandatory true;
+          description
+            "This tca-entry does not allow profile assignment, tca-active profile
+	     points to the profile name configured in the parent tca-entry.";
+        }
+        leaf tca-profile-rootresource {
+          type instance-identifier;
+          config false;
+	  mandatory true;
+          description
+            "This tca-entry does not allow profile assignment, tca-profile-rootresource
+	     points to the parent tca-entry used to set up the profile for this
+	     resource instance.";
+        }
+      }
+    }
+  }
+
   grouping current-tca-group {
     description
       "TCA Data with current values";
@@ -159,7 +267,16 @@ module org-openroadm-tca {
       description
         "Enable for the TCA entry";
     }
+    uses tca-profile-grp;
+    list baseline-entry {
+      key "type extension location direction";
+      config false;
+      description
+        "List of baselined PM values";
+      uses current-tca-baseline-group;
+    }
     list pm-entry {
+      if-feature "no-tca-profiles or not tca-profiles";
       key "type extension location direction";
       description
         "List of PM entries";
@@ -181,6 +298,13 @@ module org-openroadm-tca {
       description
         "Direction PM type";
     }
+    leaf measurement-type {
+      type measurement-enum;
+      config false;
+      default "absolute";
+      description
+        "Type of the measurement list";
+    }
     list measurement {
       key "granularity threshold-type";
       description
@@ -193,7 +317,7 @@ module org-openroadm-tca {
       leaf threshold-type {
         type threshold-enum;
         description
-          "Threshold enum type";
+          "Type of the threshold-value";
       }
       leaf enabled {
         type boolean;
@@ -212,6 +336,65 @@ module org-openroadm-tca {
         description
           "Threshold default value";
       }
+    }
+  }
+
+  typedef baseline-state-enum {
+    type enumeration {
+      enum not-set {
+        value 1;
+        description
+          "the baseline value has not yet been set and is undefined";
+      }
+      enum manually-set {
+        value 2;
+        description
+          "the baseline value has been set by the baseline RPC";
+      }
+      enum automatically-set {
+        value 3;
+        description
+          "the baseline value has been automatically set";
+      }
+    }
+    description
+      "typedef for baseline-state enum";
+  }
+
+  grouping current-tca-baseline-group {
+    description
+      "Grouping for the baselined values";
+    uses org-openroadm-pm-types:pm-names;
+    leaf location {
+      type org-openroadm-common-alarm-pm-types:location;
+      description
+        "Location PM type";
+    }
+    leaf direction {
+      type org-openroadm-common-alarm-pm-types:direction;
+      description
+        "Direction PM type";
+    }
+    leaf baseline {
+      type org-openroadm-pm-types:pm-data-type;
+      config false;
+      mandatory true;
+      description
+        "Baselined value";
+    }
+    leaf baseline-state {
+      type baseline-state-enum;
+      config false;
+      mandatory true;
+      description
+        "State of baselined value";
+    }
+    leaf baseline-time {
+      when "../baseline-state != 'not-set'";
+      type yang:date-and-time;
+      config false;
+      description
+        "date-time of last baseline setting";
     }
   }
 
@@ -285,4 +468,204 @@ module org-openroadm-tca {
       uses current-tca-group;
     }
   }
+
+  identity tca-identities {
+    description
+      "TCA identities";
+  }
+
+  identity tca-not-applicable {
+    base tca-identities;
+    description
+      "not applicable type/any rate value.";
+  }
+
+  typedef tca-if-type-union {
+    type union {
+      type identityref {
+        base org-openroadm-interfaces:interface-type;
+      }
+      type identityref {
+        base tca-identities;
+      }
+    }
+    default "tca-not-applicable";
+    description
+      "type for defining an interface type.";
+  }
+
+  typedef tca-if-rate-union {
+    type union {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:optical-rate-identity;
+      }
+      type identityref {
+        base org-openroadm-otn-common-types:otu-rate-identity;
+      }
+      type identityref {
+        base org-openroadm-otn-common-types:odu-rate-identity;
+      }
+      type uint32;  /* corresponds to 'speed' leaf of Ethernet interfaces */
+                    /* specified in Mbps, i.e. 1000 for 1GBE, 10000 for 10GBE, etc. */
+      type identityref {
+        base tca-identities;
+      }
+    }
+    default "tca-not-applicable";
+    description
+      "type for defining an interface rate.";
+  }
+
+  container tca-profile-list {
+    description
+      "List of TCA profiles";
+
+    list tca-profile-entry {
+      key "tca-profile-name";
+      description
+        "Single TCA profile";
+      leaf tca-profile-name {
+        type string;
+	mandatory true;
+	description
+	  "key name of profile instance";
+      }
+      leaf tca-profile-description {
+        type string;
+	mandatory true;
+	description
+	  "description of profile instance";
+      }
+      leaf tca-profile-access {
+        type enumeration {
+	  enum read         { value 1; }
+	  enum write        { value 2; }
+	}
+	config false;
+	mandatory true;
+	description
+	  "user access rights to profile instance";
+      }
+
+      list pm-entry {
+        key "tca-resource-type tca-resource-type-extension tca-if-type tca-if-rate type extension location direction";
+	description
+	  "entry for single PM counter threshold(s)";
+        leaf tca-resource-type {
+	  type org-openroadm-resource-types:resource-type-enum;
+	  mandatory true;
+	  description
+	    "The PM resource type associated with the threshold(s)";
+	}
+	leaf tca-resource-type-extension {
+	  type string;
+	  mandatory true;
+	  description
+	    "The PM resource type extension when the type is not in resource-type-enum";
+	}
+	leaf tca-if-type {
+	  type tca-if-type-union;
+	  mandatory true;
+	  description
+	    "The interface type for interface resources, or tca-not-applicable";
+        }
+	leaf tca-if-rate {
+	  type tca-if-rate-union;
+	  mandatory true;
+	  description
+	    "The interface rate for interface resources, or tca-not-applicable";
+	}
+        uses org-openroadm-pm-types:pm-names;
+        leaf location {
+          type org-openroadm-common-alarm-pm-types:location;
+          description
+            "Location PM type";
+        }
+        leaf direction {
+          type org-openroadm-common-alarm-pm-types:direction;
+          description
+            "Direction PM type";
+        }
+        leaf measurement-type {
+          type measurement-enum;
+          config false;
+	  default "absolute";
+          description
+            "Type of the measurement list";
+        }
+        list measurement {
+          key "granularity threshold-type";
+          description
+	    "threshold value per granularity and threshold-type";
+          leaf granularity {
+            type org-openroadm-pm-types:pm-granularity;
+            description
+              "Granularity for the PM entry";
+          }
+          leaf threshold-type {
+            type threshold-enum;
+            description
+              "Threshold enum type";
+          }
+	  leaf threshold-access {
+            type enumeration {
+	      enum read         { value 1; }
+	      enum write        { value 2; }
+	    }
+	    config false;
+	    mandatory true;
+	    description
+	      "user access to threshold value";
+	  }
+          leaf enabled {
+            type boolean;
+	    mandatory false;
+            description
+              "Measurement enabled";
+          }
+          leaf threshold-value {
+            type org-openroadm-pm-types:pm-data-type;
+            mandatory true;
+            description
+              "Threshold value";
+          }
+          leaf threshold-default {
+            type org-openroadm-pm-types:pm-data-type;
+            config false;
+	    mandatory false;
+            description
+              "Threshold default value";
+          }
+        }
+      }
+    }
+  }
+
+  rpc tca-set-baseline {
+    description
+      "RPC sets the baseline value of relative thresholds to the current reading.";
+    input {
+      leaf tca-resource-instance {
+        type instance-identifier;
+	mandatory true;
+	description
+	  "Resource instance for which the baseline is being set.";
+      }
+      uses org-openroadm-pm-types:pm-names;
+      leaf location {
+        type org-openroadm-common-alarm-pm-types:location;
+        description
+          "Location PM type";
+      }
+      leaf direction {
+        type org-openroadm-common-alarm-pm-types:direction;
+        description
+          "Direction PM type";
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
 }

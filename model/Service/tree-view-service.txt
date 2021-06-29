@@ -409,6 +409,8 @@ module: org-openroadm-service
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -451,7 +453,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -474,7 +477,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -513,6 +517,8 @@ module: org-openroadm-service
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -555,7 +561,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -578,7 +585,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -1241,6 +1249,8 @@ module: org-openroadm-service
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -1283,7 +1293,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -1306,7 +1317,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -1345,6 +1357,8 @@ module: org-openroadm-service
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -1387,7 +1401,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -1410,7 +1425,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -2072,6 +2088,8 @@ module: org-openroadm-service
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -2114,7 +2132,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -2137,7 +2156,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -2176,6 +2196,8 @@ module: org-openroadm-service
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
+  |     |  +--rw is-split-lambda?                 boolean
+  |     |  +--rw split-lambda-service-rate?       uint32
   |     |  +--rw other-service-format-and-rate?   string
   |     |  +--rw otu-service-rate?                identityref
   |     |  +--rw odu-service-rate?                identityref
@@ -2218,7 +2240,8 @@ module: org-openroadm-service
   |     |  |     +--rw degthr-percentage?                     uint16
   |     |  +--rw clli                             string
   |     |  +--rw node-id?                         org-openroadm-common-node-types:node-id-type
-  |     |  +--rw tx-direction
+  |     |  +--rw tx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -2241,7 +2264,8 @@ module: org-openroadm-service
   |     |  |     |  +--rw port-name?           string
   |     |  |     +--rw tail-roadm-port-aid?             string
   |     |  |     +--rw tail-roadm-port-rack-location?   string
-  |     |  +--rw rx-direction
+  |     |  +--rw rx-direction* [index]
+  |     |  |  +--rw index    uint8
   |     |  |  +--rw port
   |     |  |  |  +--rw port-device-name?         string
   |     |  |  |  +--rw port-circuit-pack-name?   string
@@ -2980,6 +3004,8 @@ module: org-openroadm-service
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -3022,7 +3048,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -3045,7 +3072,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -3084,6 +3112,8 @@ module: org-openroadm-service
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -3126,7 +3156,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -3149,7 +3180,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -3482,6 +3514,8 @@ module: org-openroadm-service
     |  |     +---w service-a-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -3524,7 +3558,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -3547,7 +3582,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -3586,6 +3622,8 @@ module: org-openroadm-service
     |  |     +---w service-z-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -3628,7 +3666,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -3651,7 +3690,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -3985,6 +4025,8 @@ module: org-openroadm-service
     |  |     +---w service-a-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -4027,7 +4069,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -4050,7 +4093,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -4089,6 +4133,8 @@ module: org-openroadm-service
     |  |     +---w service-z-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -4131,7 +4177,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -4154,7 +4201,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -4706,6 +4754,8 @@ module: org-openroadm-service
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -4748,7 +4798,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -4771,7 +4822,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -4808,6 +4860,8 @@ module: org-openroadm-service
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -4850,7 +4904,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -4873,7 +4928,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -5222,6 +5278,8 @@ module: org-openroadm-service
     |     +--ro service-a-end
     |     |  +--ro service-format                   org-openroadm-service-format:service-format
     |     |  +--ro service-rate?                    uint32
+    |     |  +--ro is-split-lambda?                 boolean
+    |     |  +--ro split-lambda-service-rate?       uint32
     |     |  +--ro other-service-format-and-rate?   string
     |     |  +--ro otu-service-rate?                identityref
     |     |  +--ro odu-service-rate?                identityref
@@ -5264,7 +5322,8 @@ module: org-openroadm-service
     |     |  |     +--ro degthr-percentage?                     uint16
     |     |  +--ro clli                             string
     |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |     |  +--ro tx-direction
+    |     |  +--ro tx-direction* [index]
+    |     |  |  +--ro index    uint8
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
     |     |  |  |  +--ro port-circuit-pack-name?   string
@@ -5287,7 +5346,8 @@ module: org-openroadm-service
     |     |  |     |  +--ro port-name?           string
     |     |  |     +--ro tail-roadm-port-aid?             string
     |     |  |     +--ro tail-roadm-port-rack-location?   string
-    |     |  +--ro rx-direction
+    |     |  +--ro rx-direction* [index]
+    |     |  |  +--ro index    uint8
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
     |     |  |  |  +--ro port-circuit-pack-name?   string
@@ -5336,6 +5396,8 @@ module: org-openroadm-service
     |     +--ro service-z-end
     |     |  +--ro service-format                   org-openroadm-service-format:service-format
     |     |  +--ro service-rate?                    uint32
+    |     |  +--ro is-split-lambda?                 boolean
+    |     |  +--ro split-lambda-service-rate?       uint32
     |     |  +--ro other-service-format-and-rate?   string
     |     |  +--ro otu-service-rate?                identityref
     |     |  +--ro odu-service-rate?                identityref
@@ -5378,7 +5440,8 @@ module: org-openroadm-service
     |     |  |     +--ro degthr-percentage?                     uint16
     |     |  +--ro clli                             string
     |     |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |     |  +--ro tx-direction
+    |     |  +--ro tx-direction* [index]
+    |     |  |  +--ro index    uint8
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
     |     |  |  |  +--ro port-circuit-pack-name?   string
@@ -5401,7 +5464,8 @@ module: org-openroadm-service
     |     |  |     |  +--ro port-name?           string
     |     |  |     +--ro tail-roadm-port-aid?             string
     |     |  |     +--ro tail-roadm-port-rack-location?   string
-    |     |  +--ro rx-direction
+    |     |  +--ro rx-direction* [index]
+    |     |  |  +--ro index    uint8
     |     |  |  +--ro port
     |     |  |  |  +--ro port-device-name?         string
     |     |  |  |  +--ro port-circuit-pack-name?   string
@@ -5993,6 +6057,8 @@ module: org-openroadm-service
     |  |     +---w service-a-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -6035,7 +6101,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -6058,7 +6125,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -6095,6 +6163,8 @@ module: org-openroadm-service
     |  |     +---w service-z-end
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
+    |  |     |  +---w is-split-lambda?                 boolean
+    |  |     |  +---w split-lambda-service-rate?       uint32
     |  |     |  +---w other-service-format-and-rate?   string
     |  |     |  +---w otu-service-rate?                identityref
     |  |     |  +---w odu-service-rate?                identityref
@@ -6137,7 +6207,8 @@ module: org-openroadm-service
     |  |     |  |     +---w degthr-percentage?                     uint16
     |  |     |  +---w clli                             string
     |  |     |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |     |  +---w tx-direction
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -6160,7 +6231,8 @@ module: org-openroadm-service
     |  |     |  |     |  +---w port-name?           string
     |  |     |  |     +---w tail-roadm-port-aid?             string
     |  |     |  |     +---w tail-roadm-port-rack-location?   string
-    |  |     |  +---w rx-direction
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
     |  |     |  |  +---w port
     |  |     |  |  |  +---w port-device-name?         string
     |  |     |  |  |  +---w port-circuit-pack-name?   string
@@ -6510,6 +6582,8 @@ module: org-openroadm-service
     |        +--ro service-a-end
     |        |  +--ro service-format                   org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                    uint32
+    |        |  +--ro is-split-lambda?                 boolean
+    |        |  +--ro split-lambda-service-rate?       uint32
     |        |  +--ro other-service-format-and-rate?   string
     |        |  +--ro otu-service-rate?                identityref
     |        |  +--ro odu-service-rate?                identityref
@@ -6552,7 +6626,8 @@ module: org-openroadm-service
     |        |  |     +--ro degthr-percentage?                     uint16
     |        |  +--ro clli                             string
     |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |        |  +--ro tx-direction
+    |        |  +--ro tx-direction* [index]
+    |        |  |  +--ro index    uint8
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
     |        |  |  |  +--ro port-circuit-pack-name?   string
@@ -6575,7 +6650,8 @@ module: org-openroadm-service
     |        |  |     |  +--ro port-name?           string
     |        |  |     +--ro tail-roadm-port-aid?             string
     |        |  |     +--ro tail-roadm-port-rack-location?   string
-    |        |  +--ro rx-direction
+    |        |  +--ro rx-direction* [index]
+    |        |  |  +--ro index    uint8
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
     |        |  |  |  +--ro port-circuit-pack-name?   string
@@ -6624,6 +6700,8 @@ module: org-openroadm-service
     |        +--ro service-z-end
     |        |  +--ro service-format                   org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                    uint32
+    |        |  +--ro is-split-lambda?                 boolean
+    |        |  +--ro split-lambda-service-rate?       uint32
     |        |  +--ro other-service-format-and-rate?   string
     |        |  +--ro otu-service-rate?                identityref
     |        |  +--ro odu-service-rate?                identityref
@@ -6666,7 +6744,8 @@ module: org-openroadm-service
     |        |  |     +--ro degthr-percentage?                     uint16
     |        |  +--ro clli                             string
     |        |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |        |  +--ro tx-direction
+    |        |  +--ro tx-direction* [index]
+    |        |  |  +--ro index    uint8
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
     |        |  |  |  +--ro port-circuit-pack-name?   string
@@ -6689,7 +6768,8 @@ module: org-openroadm-service
     |        |  |     |  +--ro port-name?           string
     |        |  |     +--ro tail-roadm-port-aid?             string
     |        |  |     +--ro tail-roadm-port-rack-location?   string
-    |        |  +--ro rx-direction
+    |        |  +--ro rx-direction* [index]
+    |        |  |  +--ro index    uint8
     |        |  |  +--ro port
     |        |  |  |  +--ro port-device-name?         string
     |        |  |  |  +--ro port-circuit-pack-name?   string
@@ -7297,6 +7377,8 @@ module: org-openroadm-service
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -7339,7 +7421,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7362,7 +7445,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7401,6 +7485,8 @@ module: org-openroadm-service
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -7443,7 +7529,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7466,7 +7553,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7784,7 +7872,12 @@ module: org-openroadm-service
     |                    +--ro service-identifier*   string
     +---x temp-service-delete
     |  +---w input
-    |  |  +---w common-id    string
+    |  |  +---w common-id              string
+    |  |  +---w sdnc-request-header
+    |  |     +---w request-id?          string
+    |  |     +---w rpc-action?          rpc-actions
+    |  |     +---w notification-url?    string
+    |  |     +---w request-system-id?   string
     |  +--ro output
     |     +--ro configuration-response-common
     |        +--ro request-id             string
@@ -7793,8 +7886,13 @@ module: org-openroadm-service
     |        +--ro ack-final-indicator    string
     +---x service-roll
     |  +---w input
-    |  |  +---w service-name      string
-    |  |  +---w due-date?         yang:date-and-time
+    |  |  +---w service-name           string
+    |  |  +---w due-date?              yang:date-and-time
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
     |  |  +---w routing-metric
     |  |     +---w wdm-hop-count?       uint8
     |  |     +---w otn-hop-count?       uint8
@@ -7806,13 +7904,38 @@ module: org-openroadm-service
     |  |     +---w adaptation-number?   uint8
     |  |     +---w otn-TE-metric?       uint8
     |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-roll-result-notification-request
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |     +---w service-name?     string
+    |  |     +---w common-id?        string
+    |  |     +---w version-number?   uint64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x service-reconfigure
     |  +---w input
     |  |  +---w service-name                 string
     |  |  +---w new-service-name?            string
     |  |  +---w common-id?                   string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
     |  |  +---w order-id?                    string
     |  |  +---w order-note?                  string
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
@@ -7820,6 +7943,8 @@ module: org-openroadm-service
     |  |  +---w service-a-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -7862,7 +7987,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7885,7 +8011,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7924,6 +8051,8 @@ module: org-openroadm-service
     |  |  +---w service-z-end
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
+    |  |  |  +---w is-split-lambda?                 boolean
+    |  |  |  +---w split-lambda-service-rate?       uint32
     |  |  |  +---w other-service-format-and-rate?   string
     |  |  |  +---w otu-service-rate?                identityref
     |  |  |  +---w odu-service-rate?                identityref
@@ -7966,7 +8095,8 @@ module: org-openroadm-service
     |  |  |  |     +---w degthr-percentage?                     uint16
     |  |  |  +---w clli                             string
     |  |  |  +---w node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  |  +---w tx-direction
+    |  |  |  +---w tx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -7989,7 +8119,8 @@ module: org-openroadm-service
     |  |  |  |     |  +---w port-name?           string
     |  |  |  |     +---w tail-roadm-port-aid?             string
     |  |  |  |     +---w tail-roadm-port-rack-location?   string
-    |  |  |  +---w rx-direction
+    |  |  |  +---w rx-direction* [index]
+    |  |  |  |  +---w index    uint8
     |  |  |  |  +---w port
     |  |  |  |  |  +---w port-device-name?         string
     |  |  |  |  |  +---w port-circuit-pack-name?   string
@@ -8187,14 +8318,39 @@ module: org-openroadm-service
     |  |           +---w common-id?        string
     |  |           +---w version-number?   uint64
     |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-reconfigure-result-notification-request
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |     +---w service-name?     string
+    |  |     +---w common-id?        string
+    |  |     +---w version-number?   uint64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x service-restoration
     |  +---w input
-    |  |  +---w service-name       string
-    |  |  +---w option             enumeration
-    |  |  +---w backup-path-id?    uint8
-    |  |  +---w failure-case-id?   string
+    |  |  +---w service-name           string
+    |  |  +---w option                 enumeration
+    |  |  +---w backup-path-id?        uint8
+    |  |  +---w failure-case-id?       string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
     |  |  +---w routing-metric
     |  |     +---w wdm-hop-count?       uint8
     |  |     +---w otn-hop-count?       uint8
@@ -8206,18 +8362,68 @@ module: org-openroadm-service
     |  |     +---w adaptation-number?   uint8
     |  |     +---w otn-TE-metric?       uint8
     |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-restoration-result-notification-request
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |     +---w service-name?     string
+    |  |     +---w common-id?        string
+    |  |     +---w version-number?   uint64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x service-reversion
     |  +---w input
-    |  |  +---w service-name    string
-    |  |  +---w due-date?       yang:date-and-time
+    |  |  +---w service-name           string
+    |  |  +---w due-date?              yang:date-and-time
+    |  |  +---w sdnc-request-header
+    |  |     +---w request-id?          string
+    |  |     +---w rpc-action?          rpc-actions
+    |  |     +---w notification-url?    string
+    |  |     +---w request-system-id?   string
     |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-reversion-result-notification-request
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |     +---w service-name?     string
+    |  |     +---w common-id?        string
+    |  |     +---w version-number?   uint64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x service-reroute
     |  +---w input
-    |  |  +---w service-name          string
+    |  |  +---w service-name           string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
     |  |  +---w routing-metric
     |  |  |  +---w wdm-hop-count?       uint8
     |  |  |  +---w otn-hop-count?       uint8
@@ -8241,8 +8447,11 @@ module: org-openroadm-service
     |  |           +---w common-id?        string
     |  |           +---w version-number?   uint64
     |  +--ro output
-    |     +--ro status              rpc-status
-    |     +--ro status-message?     string
+    |     +--ro configuration-response-common
+    |     |  +--ro request-id             string
+    |     |  +--ro response-code          string
+    |     |  +--ro response-message?      string
+    |     |  +--ro ack-final-indicator    string
     |     +--ro hard-constraints
     |     |  +--ro customer-code*      string
     |     |  +--ro (co-routing-or-general)?
@@ -8357,7 +8566,12 @@ module: org-openroadm-service
     |                 +--ro service-identifier*   string
     +---x service-reroute-confirm
     |  +---w input
-    |  |  +---w service-name        string
+    |  |  +---w service-name           string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
     |  |  +---w hard-constraints
     |  |  |  +---w customer-code*      string
     |  |  |  +---w (co-routing-or-general)?
@@ -8471,15 +8685,40 @@ module: org-openroadm-service
     |  |              +---w existing-service*     string
     |  |              +---w service-identifier*   string
     |  +--ro output
-    |     +--ro status            rpc-status
-    |     +--ro status-message?   string
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-reroute-confirm-result-notification-request
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |     +---w service-name?     string
+    |  |     +---w common-id?        string
+    |  |     +---w version-number?   uint64
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
     +---x network-re-optimization
        +---w input
-       |  +---w service-name?     string
-       |  +---w a-end?            string
-       |  +---w z-end?            string
-       |  +---w pass-through?     string
-       |  +---w customer-code?    string
+       |  +---w service-name?          string
+       |  +---w a-end?                 string
+       |  +---w z-end?                 string
+       |  +---w pass-through?          string
+       |  +---w customer-code?         string
+       |  +---w sdnc-request-header
+       |  |  +---w request-id?          string
+       |  |  +---w rpc-action?          rpc-actions
+       |  |  +---w notification-url?    string
+       |  |  +---w request-system-id?   string
        |  +---w routing-metric
        |     +---w wdm-hop-count?       uint8
        |     +---w otn-hop-count?       uint8
@@ -8491,9 +8730,12 @@ module: org-openroadm-service
        |     +---w adaptation-number?   uint8
        |     +---w otn-TE-metric?       uint8
        +--ro output
-          +--ro status                    rpc-status
-          +--ro status-message?           string
-          +--ro optimization-candidate?   string
+          +--ro configuration-response-common
+          |  +--ro request-id             string
+          |  +--ro response-code          string
+          |  +--ro response-message?      string
+          |  +--ro ack-final-indicator    string
+          +--ro optimization-candidate?          string
 
   notifications:
     +---n service-rpc-result
@@ -8551,6 +8793,8 @@ module: org-openroadm-service
     |  +--ro service-a-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
+    |  |  +--ro is-split-lambda?                 boolean
+    |  |  +--ro split-lambda-service-rate?       uint32
     |  |  +--ro other-service-format-and-rate?   string
     |  |  +--ro otu-service-rate?                identityref
     |  |  +--ro odu-service-rate?                identityref
@@ -8593,7 +8837,8 @@ module: org-openroadm-service
     |  |  |     +--ro degthr-percentage?                     uint16
     |  |  +--ro clli                             string
     |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  +--ro tx-direction
+    |  |  +--ro tx-direction* [index]
+    |  |  |  +--ro index    uint8
     |  |  |  +--ro port
     |  |  |  |  +--ro port-device-name?         string
     |  |  |  |  +--ro port-circuit-pack-name?   string
@@ -8616,7 +8861,8 @@ module: org-openroadm-service
     |  |  |     |  +--ro port-name?           string
     |  |  |     +--ro tail-roadm-port-aid?             string
     |  |  |     +--ro tail-roadm-port-rack-location?   string
-    |  |  +--ro rx-direction
+    |  |  +--ro rx-direction* [index]
+    |  |  |  +--ro index    uint8
     |  |  |  +--ro port
     |  |  |  |  +--ro port-device-name?         string
     |  |  |  |  +--ro port-circuit-pack-name?   string
@@ -8655,6 +8901,8 @@ module: org-openroadm-service
     |  +--ro service-z-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
+    |  |  +--ro is-split-lambda?                 boolean
+    |  |  +--ro split-lambda-service-rate?       uint32
     |  |  +--ro other-service-format-and-rate?   string
     |  |  +--ro otu-service-rate?                identityref
     |  |  +--ro odu-service-rate?                identityref
@@ -8697,7 +8945,8 @@ module: org-openroadm-service
     |  |  |     +--ro degthr-percentage?                     uint16
     |  |  +--ro clli                             string
     |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
-    |  |  +--ro tx-direction
+    |  |  +--ro tx-direction* [index]
+    |  |  |  +--ro index    uint8
     |  |  |  +--ro port
     |  |  |  |  +--ro port-device-name?         string
     |  |  |  |  +--ro port-circuit-pack-name?   string
@@ -8720,7 +8969,8 @@ module: org-openroadm-service
     |  |  |     |  +--ro port-name?           string
     |  |  |     +--ro tail-roadm-port-aid?             string
     |  |  |     +--ro tail-roadm-port-rack-location?   string
-    |  |  +--ro rx-direction
+    |  |  +--ro rx-direction* [index]
+    |  |  |  +--ro index    uint8
     |  |  |  +--ro port
     |  |  |  |  +--ro port-device-name?         string
     |  |  |  |  +--ro port-circuit-pack-name?   string

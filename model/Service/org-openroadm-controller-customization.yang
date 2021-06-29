@@ -9,11 +9,11 @@ module org-openroadm-controller-customization {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2020-12-11;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -53,6 +53,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";

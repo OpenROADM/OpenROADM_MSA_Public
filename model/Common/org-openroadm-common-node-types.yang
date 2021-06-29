@@ -35,6 +35,10 @@ module org-openroadm-common-node-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -79,6 +83,28 @@ module org-openroadm-common-node-types {
        4. extplug for external pluggable";
   }
 
+  typedef node-subtypes {
+    type enumeration {
+      enum none {
+        value 1;
+        description
+          "The none-enum indicates there is no node-subtype refinement. 
+           Standard OpenROADM node properties apply in this case. If an 
+           optional-leaf of node-subtypes is not present, the behaviour is the 
+           same as the none-enum.";
+      }
+      enum edge-optical-spec {
+        value 2;
+        description
+          "This enum refines a ROADM node-type. It indicates that node conforms 
+           to edge optical specifications as defined in the OpenROADM MSA 
+           Specification: MW-MW(Edge), MW-Wr(Edge), and Local Control (Edge).";
+      }
+    }
+    description
+      "Identifier for node-subtype. Provides refinement of node-type.";
+  }
+
   typedef xpdr-node-types {
     type enumeration {
       enum tpdr {
@@ -103,7 +129,20 @@ module org-openroadm-common-node-types {
        2. Muxponder
        3. OTN switchponder
        4. Regenerator
-       5. Regenerator based on unidirectional model";
+       5. Regenerator based on unidirectional model
+
+       Xponder types are modeled in one of two ways:
+
+       Type 1: The xponder ports are configured with port-qual of xpdr-client or
+xpdr-network, the xponder connectivity is advertised using connection-map, and
+no explicit cross connects are provisioned.
+
+       Type 2: The xponder ports are configured with port-qual of switch-network
+or switch-client, the connectivity is advertised using switching-pool, and
+explicit cross connects are provisioned.
+
+       Type 1 applies to transponders, unidirectional regenerators, and bidirectional regenerators.
+       Type 2 applies to muxponders and switchponders.";
   }
 
   typedef node-id-type {
