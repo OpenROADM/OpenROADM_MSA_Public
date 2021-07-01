@@ -242,6 +242,7 @@ module: org-openroadm-device
      |  +--rw node-id?                            org-openroadm-common-node-types:node-id-type
      |  +--rw node-number?                        uint32
      |  +--rw node-type                           org-openroadm-common-node-types:node-types
+     |  +--rw node-subtype?                       org-openroadm-common-node-types:node-subtypes
      |  +--rw clli?                               string
      |  +--ro vendor                              string
      |  +--ro model                               string
@@ -310,6 +311,7 @@ module: org-openroadm-device
      +--rw circuit-packs* [circuit-pack-name]
      |  +--rw circuit-pack-type            string
      |  +--rw circuit-pack-product-code?   string
+     |  +--rw third-party-pluggable?       empty
      |  +--rw circuit-pack-name            string
      |  +--rw lifecycle-state?             org-openroadm-common-state-types:lifecycle-state
      |  +--rw administrative-state         org-openroadm-equipment-states-types:admin-states
@@ -356,6 +358,7 @@ module: org-openroadm-device
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:if-cap-type                              identityref
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:split-lambda-profile-name*               -> /org-openroadm-device:org-openroadm-device/split-lambda-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:otsigroup-capability-profile-name*       -> /org-openroadm-device:org-openroadm-device/otsigroup-capability-profile/profile-name
+     |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:otsi-profile-name*                       -> /org-openroadm-device:org-openroadm-device/otsi-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:optical-operational-mode-profile-name*   -> /org-openroadm-device:org-openroadm-device/optical-operational-mode-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:otn-capability
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-capability-profile-name?          -> /org-openroadm-device:org-openroadm-device/otn-capability-profile/profile-name
@@ -370,15 +373,19 @@ module: org-openroadm-device
      |  +--ro software-load-version?       string
      |  +--ro circuit-pack-features* []
      |  |  +--ro feature
-     |  |     +--ro description?   string
-     |  |     +--ro boot?          boolean
-     |  |     +--ro activated?     boolean
+     |  |     +--ro description             string
+     |  |     +--ro boot?                   boolean
+     |  |     +--ro activated               boolean
+     |  |     +--ro is-service-affecting    boolean
+     |  |     +--ro activate-timeout        uint16
      |  +--ro circuit-pack-components* []
      |  |  +--ro component
-     |  |     +--ro name?               string
-     |  |     +--ro boot?               boolean
-     |  |     +--ro current-version?    string
-     |  |     +--ro version-to-apply?   string
+     |  |     +--ro name                    string
+     |  |     +--ro boot?                   boolean
+     |  |     +--ro current-version         string
+     |  |     +--ro version-to-apply?       string
+     |  |     +--ro is-service-affecting    boolean
+     |  |     +--ro activate-timeout        uint16
      |  +--rw ports* [port-name]
      |     +--rw port-name                                          string
      |     +--rw supporting-port-list* [index]
@@ -389,6 +396,7 @@ module: org-openroadm-device
      |     +--rw port-qual?                                         org-openroadm-device-types:port-qual
      |     +--ro port-wavelength-type?                              org-openroadm-port-types:port-wavelength-types
      |     +--ro port-direction                                     org-openroadm-common-alarm-pm-types:direction
+     |     +--ro compliance-codes*                                  org-openroadm-common-phy-codes:compliance-codes-union
      |     +--ro is-physical                                        boolean
      |     +--ro faceplate-label                                    string
      |     +--rw user-description?                                  string
@@ -432,6 +440,7 @@ module: org-openroadm-device
      |           +--ro org-openroadm-port-capability:if-cap-type                              identityref
      |           +--ro org-openroadm-port-capability:split-lambda-profile-name*               -> /org-openroadm-device:org-openroadm-device/split-lambda-profile/profile-name
      |           +--ro org-openroadm-port-capability:otsigroup-capability-profile-name*       -> /org-openroadm-device:org-openroadm-device/otsigroup-capability-profile/profile-name
+     |           +--ro org-openroadm-port-capability:otsi-profile-name*                       -> /org-openroadm-device:org-openroadm-device/otsi-profile/profile-name
      |           +--ro org-openroadm-port-capability:optical-operational-mode-profile-name*   -> /org-openroadm-device:org-openroadm-device/optical-operational-mode-profile/profile-name
      |           +--ro org-openroadm-port-capability:otn-capability
      |           |  +--ro org-openroadm-port-capability:otn-capability-profile-name?          -> /org-openroadm-device:org-openroadm-device/otn-capability-profile/profile-name
@@ -559,7 +568,7 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-otn-odu-interfaces:odu-function?                          identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:monitoring-mode?                       enumeration
      |  |  +--ro org-openroadm-otn-odu-interfaces:no-oam-function?                       empty
-     |  |  +--rw org-openroadm-otn-odu-interfaces:no-maint-testsignal-function?          empty
+     |  |  +--ro org-openroadm-otn-odu-interfaces:no-maint-testsignal-function?          empty
      |  |  +--rw org-openroadm-otn-odu-interfaces:proactive-delay-measurement-enabled?   boolean
      |  |  +--rw org-openroadm-otn-odu-interfaces:parent-odu-allocation!
      |  |  |  +--rw org-openroadm-otn-odu-interfaces:trib-port-number          uint16
@@ -956,6 +965,12 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+     +--ro otsi-profile* [profile-name]
+     |  +--ro profile-name                 string
+     |  +--ro otsi-rate                    identityref
+     |  +--ro otsi-optical-mode-support* []
+     |     +--ro modulation-format    org-openroadm-common-optical-channel-types:modulation-format
+     |     +--ro fec                  identityref
      +--rw org-openroadm-security:security
      |  +--rw org-openroadm-security:certificate* [certificate-id]
      |  |  +---x org-openroadm-security:install

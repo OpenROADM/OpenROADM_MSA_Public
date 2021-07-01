@@ -9,27 +9,27 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2020-12-11;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2019-11-29;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
 
   organization
@@ -65,6 +65,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";
@@ -730,6 +734,7 @@ module org-openroadm-service {
         type string;
         mandatory true;
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
@@ -755,10 +760,23 @@ module org-openroadm-service {
         description
           "date and time service to be rolled";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc service-roll-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
@@ -786,6 +804,7 @@ module org-openroadm-service {
           "To be used by the ROADM controller to identify the routing
            constraints received from planning application (PED).";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:service-order;
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
@@ -805,7 +824,19 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:service-resiliency;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc service-reconfigure-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
@@ -860,10 +891,23 @@ module org-openroadm-service {
           "When present, states that the service shall be rerouted according to a specific backup path.
            This last corresponds to the provided failure case id";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc service-restoration-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
@@ -884,9 +928,22 @@ module org-openroadm-service {
         description
           "date and time service to be reverted";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc service-reversion-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
@@ -902,11 +959,12 @@ module org-openroadm-service {
           "Identifier for the service to be re-routed in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
       uses org-openroadm-common-service-types:service-resiliency;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-routing-constraints:routing-constraints;
     }
   }
@@ -923,10 +981,23 @@ module org-openroadm-service {
           "Identifier for the service to be re-routed in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-routing-constraints:routing-constraints;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc service-reroute-confirm-result-notification-request {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
@@ -966,10 +1037,11 @@ module org-openroadm-service {
           "Services that belong to the specified customer
            are to be checked by the RNC for re-optimization ";
       }
+      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
-      uses org-openroadm-common-types:rpc-response-status;
+      uses org-openroadm-common-service-types:configuration-response-common;
       leaf optimization-candidate {
         type string;
       }

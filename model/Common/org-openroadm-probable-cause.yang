@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -732,7 +736,9 @@ module org-openroadm-probable-cause {
       enum lossOfFrameAndLossOfMultiframe {
         value 263;
         description
-          "G798 : 6.2.5.3 (dLOFLOM)";
+          "Loss Of Frame and Loss Of Multiframe";
+        reference
+          "G798 : 6.2.5.3 (dLOFLOM) and 15.3.1.2 FlexO-n/OTUCn_A_Sk where the dLOFLOM defect shall be reported against OTUCn interface";
       }
       enum lossOfDatabaseRedundancy {
         value 264;
@@ -776,9 +782,9 @@ module org-openroadm-probable-cause {
         description
           "Loss Of Lane Alignment";
         reference
-          "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state;
+          "G.798 15.3.1.2 FlexO-n/OTUCn_A_Sk that dLOL if the alignment process is in OLA state, where the dLOL defect shall be reported against OTUCn interface;
            16.7.2 (OTSi/FlexO-1-SC_A_Sk) (G.709.3) & 16.8.2 (OTSiG/FlexO_A_Sk) (G.709.1)
-           that dLOL based on the FEC alignment state diagram";
+           that dLOL based on the FEC alignment state diagram, where the dLOL defect shall be reported against OTSi interface";
       }
       enum groupIdMismatch {
         value 272;
@@ -901,6 +907,21 @@ module org-openroadm-probable-cause {
         value 293;        
         description          
           "Measured power is outside the supported or advertised power range";      
+      }
+      enum "remoteDefectIndication" {
+        value 294;
+        description
+          "Remote Defect Indication";
+        reference
+          "G.798 15.2.1.2 dRDI if the extracted Remote PHY Fault is 1 (FlexO-x TT_Sk)";
+      }
+      enum "lossOfRcBlocks" {
+        value 295;
+        description
+          "Loss Of RC Blocks";
+        reference
+          "G.798 14.3.20.2 dLRC (loss of RC blocks) for 200G/400G ETH based
+           on ODUflexP to ETCy adaptation sink function using BMP (ODUflexP/ETCy_A_Sk)";
       }
     }
     description

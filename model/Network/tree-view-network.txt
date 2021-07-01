@@ -14,6 +14,7 @@ module: org-openroadm-common-network
        +--rw otn-topo:otn-topology!
   augment /nd:networks/nd:network/nd:node:
     +--rw node-type?              org-openroadm-network-types:openroadm-node-type
+    +--rw node-subtype?           org-openroadm-common-node-types:node-subtypes
     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
     +--rw operational-state?      org-openroadm-common-state-types:state
     +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states

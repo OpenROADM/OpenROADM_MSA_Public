@@ -23,6 +23,10 @@ module org-openroadm-common-network {
     prefix org-openroadm-equipment-states-types;
     revision-date 2019-11-29;
   }
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2021-05-28;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -122,6 +126,12 @@ module org-openroadm-common-network {
       type org-openroadm-network-types:openroadm-node-type;
       description
         "A component of the network topology. Once the node-type is configured, it should not be modified.";
+    }
+    leaf node-subtype {
+      type org-openroadm-common-node-types:node-subtypes;
+      description
+        "An optional refinement of the node-type. Once the node-subtype is configured, it
+         should not be modified.";
     }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;

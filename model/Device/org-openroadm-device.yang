@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -40,7 +40,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2020-12-11;
+    revision-date 2021-05-28;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -52,7 +52,7 @@ module org-openroadm-device {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2019-11-29;
+    revision-date 2021-05-28;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2021-03-26;
+    revision-date 2021-05-28;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -90,6 +90,11 @@ module org-openroadm-device {
     prefix org-openroadm-otn-common-types;
     revision-date 2020-03-27;
   }
+  import org-openroadm-common-phy-codes {
+    prefix org-openroadm-common-phy-codes;
+    revision-date 2021-05-28;
+  }
+
 
   organization
     "Open ROADM MSA";
@@ -138,6 +143,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-05-28 {
+    description
+      "Version 9.1";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";
@@ -276,6 +285,13 @@ module org-openroadm-device {
       description
         "Identifier for node-type e.g Roadm, xponder.
          Once the node-type is configured, it should not be modified.";
+    }
+    leaf node-subtype {
+      type org-openroadm-common-node-types:node-subtypes;
+      config true;
+      description
+        "A refinement of the node-type. Once the node-subtype is configured,
+         it should not be modified.";
     }
     leaf clli {
       type string;
@@ -588,6 +604,11 @@ module org-openroadm-device {
           be a child port (i.e, the single lane is represented by the physical
           port)";
       }
+      leaf third-party-pluggable {
+        type empty;
+        description
+          "Indicates whether the physical pluggable circuit-pack is from this vendor (attribute is absent) or a third party (attribute is present).";
+      }
       uses circuit-pack;
     }
   }
@@ -606,18 +627,39 @@ module org-openroadm-device {
           "List of features supported by the installed load and indications on whether the features have been applied or not.";
         leaf description {
           type string;
+          mandatory true;
           description
             "Feature description.";
         }
         leaf boot {
           type boolean;
+          default false;
           description
             "Flag to indicate boot loader or unprotected firmware update required";
         }
         leaf activated {
           type boolean;
+          mandatory true;
           description
             "Indicator if the feature has been activated.";
+        }
+        leaf is-service-affecting {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the feature/component is service affecting when
+             activated/applied";
+        }
+        leaf activate-timeout {
+          type uint16;
+          mandatory true;
+          units "seconds";
+          description
+            "The timeout when activating/applying the circuit pack
+             feature/component.  The timer starts when the activation begins for
+             non-service affecting updates (plug-in, power on, software download
+             commit, etc.) or when the cold restart RPC response is received for
+             service affecting updates.";
         }
       }
     }
@@ -628,16 +670,19 @@ module org-openroadm-device {
           "Optional list of components on the circuit-pack and the load information applicable to those components.  If a load is not up to date and will upgrade when a cold restart occurs, the version that will be applied should also be listed.  If there is no misalignment, this does not need to be reported.";
         leaf name {
           type string;
+          mandatory true;
           description
             "Name of a component on the circuit-pack that can have a load applied to it.";
         }
         leaf boot {
           type boolean;
+          default "false";
           description
             "Flag to indicate boot loader or unprotected firmware update required";
         }
         leaf current-version {
           type string;
+          mandatory true;
           description
             "Name of the load version currently running on the component.";
         }
@@ -645,6 +690,24 @@ module org-openroadm-device {
           type string;
           description
             "Name of the load version for the component that will be applied when cold restart occurs on the circuit-pack.";
+        }
+        leaf is-service-affecting {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the feature/component is service affecting when
+             activated/applied";
+        }
+        leaf activate-timeout {
+          type uint16;
+          mandatory true;
+          units "seconds";
+          description
+            "The timeout when activating/applying the circuit pack
+             feature/component. The timer starts when the activation begins for
+             non-service affecting updates (plug-in, power on, software download
+             commit, etc.) or when the cold restart RPC response is received for
+             service affecting updates.";
         }
       }
     }
@@ -1507,6 +1570,12 @@ module org-openroadm-device {
       description
         "Whether port is uni (tx/rx) or bi-directional and";
     }
+    leaf-list compliance-codes {
+      type org-openroadm-common-phy-codes:compliance-codes-union;
+      config false;
+      description
+        "A list of OpenROADM defined compliance codes supported by this port.";
+    }
     leaf is-physical {
       type boolean;
       config false;
@@ -1945,6 +2014,38 @@ module org-openroadm-device {
       "Mux group grouping";
   }
 
+  grouping otsi-grp {
+    leaf otsi-rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+      }
+      mandatory true;
+      description
+        "OTSi rate";
+    }
+    list otsi-optical-mode-support {
+      config false;
+      description
+        "List of supported optical mode attributes";
+      leaf modulation-format {
+        type org-openroadm-common-optical-channel-types:modulation-format;
+        mandatory true;
+        description
+          "OTSi modulation formats supported by the profile";
+      }
+      leaf fec {
+        type identityref {
+          base org-openroadm-common-types:fec-identity;
+        }
+        mandatory true;
+        description
+          "OTSi FEC types supported by the profile";
+      }
+    }
+    description
+      "OTSi group grouping";
+  }
+
   grouping org-openroadm-device-container {
     container org-openroadm-device {
       container info {
@@ -2379,6 +2480,18 @@ module org-openroadm-device {
         }
         uses mux-grp;
       }
+      list otsi-profile {
+        key "profile-name";
+        config false;
+        description
+          "Optical Tributary Signal (OTSi) profile";
+        leaf profile-name {
+          type string;
+          description
+            "OTSI profile name";
+        }
+        uses otsi-grp;
+      }
     }
   }
 
@@ -2433,6 +2546,7 @@ module org-openroadm-device {
       }
     }
   }
+
 
   rpc led-control {
     description
