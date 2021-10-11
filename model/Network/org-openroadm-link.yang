@@ -3,6 +3,10 @@ module org-openroadm-link {
   namespace "http://org/openroadm/link";
   prefix link;
 
+  import ietf-network {
+    prefix nd;
+    revision-date 2018-02-26;
+  }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
     revision-date 2019-11-29;
@@ -17,11 +21,15 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2019-11-29;
+    revision-date 2021-09-24;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-common-network {
+    prefix cnet;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -58,6 +66,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -152,70 +164,75 @@ module org-openroadm-link {
       description
         "ROADM span loss provided by an external system";
     }
-    list link-concatenation {
-      key "SRLG-Id";
-      leaf SRLG-Id {
-        type uint32;
-        description
-          "unique identifier for SRLG";
-      }
-      leaf fiber-type {
-        type enumeration {
-          enum smf {
-            value 0;
-            description
-              "Single Mode Fiber";
-          }
-          enum eleaf {
-            value 1;
-            description
-              "ELEAF";
-          }
-          enum oleaf {
-            value 2;
-            description
-              "OLEAF";
-          }
-          enum dsf {
-            value 3;
-            description
-              "DSF";
-          }
-          enum truewave {
-            value 4;
-            description
-              "TRUEWAVE Reduced Slope";
-          }
-          enum truewavec {
-            value 5;
-            description
-              "TRUEWAVE Classic";
-          }
-          enum nz-dsf {
-            value 6;
-            description
-              "NZ-DSF";
-          }
-          enum ull {
-            value 7;
-            description
-              "Ultra Low Loss (ULL)";
+    uses org-openroadm-network-types:link-concatenation {
+      augment link-concatenation {
+        leaf fiber-type {
+          type enumeration {
+            enum smf {
+              value 0;
+              description
+                "Single Mode Fiber";
+            }
+            enum eleaf {
+              value 1;
+              description
+                "ELEAF";
+            }
+            enum oleaf {
+              value 2;
+              description
+                "OLEAF";
+            }
+            enum dsf {
+              value 3;
+              description
+                "DSF";
+            }
+            enum truewave {
+              value 4;
+              description
+                "TRUEWAVE Reduced Slope";
+            }
+            enum truewavec {
+              value 5;
+              description
+                "TRUEWAVE Classic";
+            }
+            enum nz-dsf {
+              value 6;
+              description
+                "NZ-DSF";
+            }
+            enum ull {
+              value 7;
+              description
+                "Ultra Low Loss (ULL)";
+            }
           }
         }
-      }
-      leaf SRLG-length {
-        type uint32;
-        description
-          "fiber length in meters";
-      }
-      leaf pmd {
-        type org-openroadm-common-link-types:fiber-pmd;
-        description
-          "Total PMD";
+        leaf pmd {
+          type org-openroadm-common-link-types:fiber-pmd;
+          description
+            "Total PMD";
+        }
+        leaf subject-to-high-SOP-changes {
+      	  type boolean;
+      	  description
+      		  "identifies fibers that may experience high polarization rotation rates
+      		   and which might be inadequate for some modulation format";
+        }
       }
     }
-  }
-
+    uses org-openroadm-network-types:future-SRLGs {
+      augment "future-SRLGs" {
+        leaf-list SRLG-Id {
+          type leafref {
+            path "/nd:networks/nd:network/cnet:SRLG-list/cnet:SRLG-Id";
+          }
+        }  
+      }
+    }
+  } 
   grouping amplified-link-attributes {
     list amplified-link {
       key "section-elt-number";

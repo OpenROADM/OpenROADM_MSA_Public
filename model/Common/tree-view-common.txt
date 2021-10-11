@@ -31,6 +31,8 @@ module: org-openroadm-alarm
         |  |     |  +--ro interface-name            string
         |  |     +--:(odu-sncp-pg)
         |  |     |  +--ro odu-sncp-pg-name          string
+        |  |     +--:(client-sncp-pg)
+        |  |     |  +--ro client-sncp-pg-name       string
         |  |     +--:(other)
         |  |     |  +--ro other-resource-id         string
         |  |     +--:(device)
@@ -91,6 +93,8 @@ module: org-openroadm-alarm
        |  |     |  +--ro interface-name            string
        |  |     +--:(odu-sncp-pg)
        |  |     |  +--ro odu-sncp-pg-name          string
+       |  |     +--:(client-sncp-pg)
+       |  |     |  +--ro client-sncp-pg-name       string
        |  |     +--:(other)
        |  |     |  +--ro other-resource-id         string
        |  |     +--:(device)
@@ -319,6 +323,8 @@ module: org-openroadm-pm
     |  |  |     |  +---w interface-name            string
     |  |  |     +--:(odu-sncp-pg)
     |  |  |     |  +---w odu-sncp-pg-name          string
+    |  |  |     +--:(client-sncp-pg)
+    |  |  |     |  +---w client-sncp-pg-name       string
     |  |  |     +--:(other)
     |  |  |     |  +---w other-resource-id         string
     |  |  |     +--:(device)

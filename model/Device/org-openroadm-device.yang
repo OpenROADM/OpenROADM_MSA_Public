@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -52,7 +52,7 @@ module org-openroadm-device {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -88,14 +88,12 @@ module org-openroadm-device {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2020-03-27;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
     revision-date 2021-05-28;
   }
-
-
   organization
     "Open ROADM MSA";
   contact
@@ -143,6 +141,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -222,6 +224,16 @@ module org-openroadm-device {
   revision 2016-10-14 {
     description
       "Version 1.2";
+  }
+
+  feature netconf-idle-supervision {
+    description
+      "This feature indicates that the device supports NETCONF idle supervision.";
+  }
+
+  feature ssh-idle-supervision {
+    description
+      "This feature indicates that the device supports SSH keep-alive and idle supervision.";
   }
 
   identity connection-direction-identity {
@@ -410,6 +422,46 @@ module org-openroadm-device {
            angle east or west from the Prime Meridian, ranging
            from 0 at the Prime Meridian to +180 eastward and
            -180 westward.";
+      }
+    }
+    container netconf {
+      description
+        "NETCONF session parameters";
+      leaf idle-timeout {
+        if-feature netconf-idle-supervision;
+        type uint32 {
+          range "0..1440";
+        }
+        default "60";
+        description
+          "NETCONF session idle timeout in minutes. A value of 0 disables idle supervision.
+           Sessions with an active subscription will always disable idle supervision,
+           regardless of this value.";
+      }
+    }
+    container ssh {
+      description
+        "SSH session parameters";
+      leaf client-alive-interval {
+        if-feature ssh-idle-supervision;
+        type uint32 {
+          range "0..3600";
+        }
+        default "120";
+        description
+          "Number of idle seconds before a SSH keep-alive message is sent to the SSH/NETCONF client.
+           A value of 0 disables SSH keep-alive and idle supervision.";
+      }
+      leaf client-alive-max-count {
+        if-feature ssh-idle-supervision;
+        type uint32 {
+          range "0..20";
+        }
+        default "3";
+        description
+          "Max number of missing SSH keep-alive message responses before the SSN/NETCONF session
+           is terminated.
+           A value of 0 disables SSH keep-alive and idle supervision.";
       }
     }
   }
@@ -982,6 +1034,12 @@ module org-openroadm-device {
       description
         "maximum number of wavelengths";
     }
+    leaf-list optical-operational-mode-profile-name {
+    	type string;
+    	config false;
+    	description
+    		"defines the supported openroadm specifications";
+    }
     list circuit-packs {
       key "index";
       description
@@ -1033,6 +1091,12 @@ module org-openroadm-device {
       mandatory true;
       description
         "Amplifier type";
+    }
+    leaf-list optical-operational-mode-profile-name {
+    	type string;
+    	config false;
+    	description
+    		"defines the supported openroadm specifications";
     }
     leaf control-mode {
       type org-openroadm-common-amplifier-types:line-amplifier-control-mode;
@@ -1260,6 +1324,12 @@ module org-openroadm-device {
       description
         "Srg number should be greater than zero and not greater than max-srgs";
     }
+    leaf-list optical-operational-mode-profile-name {
+    	type string;
+    	config false;
+    	description
+    		"defines the supported openroadm specifications";
+    }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;
       description
@@ -1361,6 +1431,43 @@ module org-openroadm-device {
     }
   }
 
+  grouping ext-pluggable {
+    leaf extplug-number {
+      type uint16;
+      must 'current() > 0' {
+        error-message "External pluggable not supported by device ";
+        description
+          "Validating if the External pluggable is supported by device";
+      }
+    }
+    leaf lifecycle-state {
+      type org-openroadm-common-state-types:lifecycle-state;
+      description
+        "Lifecycle State of external-pluggable. Whether it is planned, deployed, in maintenance, etc.";
+    }
+    list extplug-port {
+      key "index";
+      description
+        "Network Port(s) within a External Plug : only one port if it is bidirectionnal";
+      leaf index {
+        type uint16;
+      }
+      uses port-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+        refine "port-name" {
+          mandatory true;
+        }
+      }
+      leaf eqpt-srg-id {
+        type uint32;
+        description
+          "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
+      }
+    }
+  }  
+  
   grouping degree-number {
     leaf degree-number {
       type leafref {
@@ -1527,6 +1634,10 @@ module org-openroadm-device {
               supporting-interface-list; however, the device shall validate that
               they are consistent or deny the provisioning.";
       }
+      container common-functions {
+        description
+          "Container to take common interface functions from augments in sub-modules.";
+      }
     }
   }
 
@@ -1536,6 +1647,11 @@ module org-openroadm-device {
     container protection-grps {
       description
         "The list of configured protection groups on the device.";
+    }
+    container protection-profiles {
+      config false;
+      description
+        "The list of defined protection profiles on the device.";
     }
   }
 
@@ -1768,6 +1884,13 @@ module org-openroadm-device {
       description
         "Interface type/hierarchy/rate supported on this Otsi port. For example, if-n-otu4-n-odu4 and if-otucn-oducn";
     }
+    leaf flexo-payload-type {
+      type org-openroadm-otn-common-types:flexo-payload-type-def;
+      description
+        "By default 0x00. Payload type 0x02 in FlexO multiplexed structure
+         (G.709.3 Annex F (2020-12))
+         G.798 15.3.5.1 (FlexO-n/OTUCni_A_So) source to insert PT code '0000 0010' (2021-01)";
+    }
     choice otu-rate {
       description
         "To specify the supported rate in the case of OTUCn or NxOTU4";
@@ -1775,7 +1898,10 @@ module org-openroadm-device {
         leaf otucn-n-rate {
           type uint16;
           description
-            "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively";
+            "Specify the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively.
+             When NE publishes in the OTSi group capability profile with FlexO payload type = 0x02,
+             (Section 9.2.6.2, G.709.1 2020-12) this RO attribute indicates the OTSiG group supports
+             multiple OTUCni, with the highest rate up to the specific otucn-n-rate ";
         }
       }
       case nxotu4 {
@@ -2221,6 +2347,11 @@ module org-openroadm-device {
         key "xpdr-number";
         uses xponder;
       }
+      list ext-pluggable {
+        when "/org-openroadm-device/info/node-type='extplug'";
+        key "extplug-number";
+        uses ext-pluggable;
+    }
       list roadm-connections {
         when "/org-openroadm-device/info/node-type='rdm'";
         key "connection-name";
@@ -2448,7 +2579,11 @@ module org-openroadm-device {
         key "profile-name";
         config false;
         description
-          "Optical operational profile";
+          "List of optical operational mode profiles which includes :
+        	_specific operational mode used for bookended applications
+        	_openroadm operational mode introduced in R10.0 to describe the 
+        	specifications a device may complies with whether it is a Xponder
+        	(port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
         leaf profile-name {
           type string;
           description

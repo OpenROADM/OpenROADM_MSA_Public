@@ -40,6 +40,10 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -169,6 +173,11 @@ module org-openroadm-resource-types {
         value 18;
         description
           "temp-service";
+      }
+      enum client-sncp-pg {
+        value 19;
+        description
+          "client-sncp-pg";
       }
     }
   }
@@ -355,6 +364,15 @@ module org-openroadm-resource-types {
       mandatory true;
       description
         "name of the odu-snc-pg";
+    }
+  }
+
+  grouping client-sncp-pg-name {
+    leaf client-sncp-pg-name {
+      type string;
+      mandatory true;
+      description
+        "name of the client-snc-pg";
     }
   }
 

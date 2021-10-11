@@ -46,6 +46,10 @@ module org-openroadm-amplifier {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2021-09-24 {
+	description
+	  "Version 10.0";
+  }  
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -158,6 +162,12 @@ module org-openroadm-amplifier {
       config true;
       description
         "Based upon the total max power across the 4.8 THz passband.";
+    }
+    leaf-list supported-operational-modes {
+      type string;
+      config true;
+      description
+        "defines the supported openroadm specifications";
     }
   }
 }

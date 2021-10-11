@@ -4,7 +4,7 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -58,6 +58,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -164,10 +168,10 @@ module org-openroadm-port-capability {
       }
       config false;
       description
-        "Optical operation capabilities leaf list";
+        "Optical operation capabilities handled through specific operation modes leaf list";
     }
     description
-      "Optical operational modes grouping";
+        "Optical operational modes grouping";
   }
 
   grouping port-capability-grp {

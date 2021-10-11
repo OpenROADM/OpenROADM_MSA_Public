@@ -8,11 +8,11 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
@@ -20,11 +20,15 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
     revision-date 2019-11-29;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -74,6 +78,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -162,6 +170,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
       description
         "Frequency width in GHz.";
     }
+    uses org-openroadm-common-optical-channel-types:full-bandwidth-grouping;
     leaf modulation-format {
       when "../provision-mode = 'explicit'";
       type org-openroadm-common-optical-channel-types:modulation-format;
@@ -230,6 +239,13 @@ module org-openroadm-optical-tributary-signal-interfaces {
         config false;
         description
           "AcIID[1]..AcIID[n] on a per FlexO instance basis (G.798 2019-12, Figure 15-10 FlexO-n/OTUCn_A_Sk processes)";
+      }
+      leaf-list accepted-payload-id {
+        type org-openroadm-otn-common-types:flexo-payload-type-def;
+        config false;
+        description
+          "FlexO payload type extracted from PT overhead (G.798 15.3.5.2
+           (FlexO-n/OTUCni_A_Sk)(2021-01))";
       }
     }
   }

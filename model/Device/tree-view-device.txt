@@ -168,6 +168,8 @@ module: org-openroadm-de-operations
        |  |     |  +---w interface-name            string
        |  |     +--:(odu-sncp-pg)
        |  |     |  +---w odu-sncp-pg-name          string
+       |  |     +--:(client-sncp-pg)
+       |  |     |  +---w client-sncp-pg-name       string
        |  |     +--:(other)
        |  |     |  +---w other-resource-id         string
        |  |     +--:(device)
@@ -219,6 +221,8 @@ module: org-openroadm-de-operations
        |     |  +--ro interface-name            string
        |     +--:(odu-sncp-pg)
        |     |  +--ro odu-sncp-pg-name          string
+       |     +--:(client-sncp-pg)
+       |     |  +--ro client-sncp-pg-name       string
        |     +--:(other)
        |     |  +--ro other-resource-id         string
        |     +--:(device)
@@ -264,6 +268,11 @@ module: org-openroadm-device
      |  +--rw geoLocation
      |  |  +--rw latitude?    decimal64
      |  |  +--rw longitude?   decimal64
+     |  +--rw netconf
+     |  |  +--rw idle-timeout?   uint32 {netconf-idle-supervision}?
+     |  +--rw ssh
+     |  |  +--rw client-alive-interval?    uint32 {ssh-idle-supervision}?
+     |  |  +--rw client-alive-max-count?   uint32 {ssh-idle-supervision}?
      |  +--ro max-degrees?                        uint16
      |  +--ro max-srgs?                           uint16
      |  +--ro max-num-bin-15min-historical-pm?    uint16
@@ -463,6 +472,8 @@ module: org-openroadm-device
      |  +--rw supporting-circuit-pack-name?                             -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--rw supporting-port?                                          -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name
      |  +--rw supporting-interface-list*                                -> /org-openroadm-device/interface/name
+     |  +--rw common-functions
+     |  |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile-name*   -> /org-openroadm-device:org-openroadm-device/protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/profile-name
      |  +--rw org-openroadm-eth-interfaces:ethernet
      |  |  +--rw org-openroadm-eth-interfaces:speed?                      uint32
      |  |  +--rw org-openroadm-eth-interfaces:fec?                        identityref
@@ -521,13 +532,17 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-media-channel-interfaces:center-freq?   org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-media-channel-interfaces:slot-width?    org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw org-openroadm-network-media-channel-interfaces:nmc-ctp
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?   org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?       org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?                org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-3dB?    org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-10dB?   org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw org-openroadm-optical-channel-interfaces:och
      |  |  +--rw org-openroadm-optical-channel-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
      |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
      |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
@@ -545,6 +560,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
@@ -553,10 +570,11 @@ module: org-openroadm-device
      |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type            identityref
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                 uint8
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*   uint32
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*        uint8
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type              identityref
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
      |  +--rw org-openroadm-otn-odu-interfaces:odu!
      |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oducn-n-rate?                          uint16
@@ -655,47 +673,92 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrors?           uint32
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrorRate?        decimal64
      |  +--rw org-openroadm-otn-otu-interfaces:otu
-     |  |  +--rw org-openroadm-otn-otu-interfaces:rate?                identityref
-     |  |  +--rw org-openroadm-otn-otu-interfaces:otu4-member-id?      uint16
-     |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-n-rate?        uint16
-     |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-M-subrate?     uint16
-     |  |  +--rw org-openroadm-otn-otu-interfaces:fec?                 identityref
-     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-sapi?             string
-     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-dapi?             string
-     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-operator?         string
-     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-sapi?       string
-     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-dapi?       string
-     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-operator?   string
-     |  |  +--rw org-openroadm-otn-otu-interfaces:expected-sapi?       string
-     |  |  +--rw org-openroadm-otn-otu-interfaces:expected-dapi?       string
-     |  |  +--rw org-openroadm-otn-otu-interfaces:tim-act-enabled?     boolean
-     |  |  +--rw org-openroadm-otn-otu-interfaces:tim-detect-mode?     enumeration
-     |  |  +--rw org-openroadm-otn-otu-interfaces:degm-intervals?      uint8
-     |  |  +--rw org-openroadm-otn-otu-interfaces:degthr-percentage?   uint16
+     |  |  +--rw org-openroadm-otn-otu-interfaces:rate?                      identityref
+     |  |  +--rw org-openroadm-otn-otu-interfaces:otu4-member-id?            uint16
+     |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-n-rate?              uint16
+     |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-M-subrate?           uint16
+     |  |  +--rw org-openroadm-otn-otu-interfaces:fec?                       identityref
+     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-sapi?                   string
+     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-dapi?                   string
+     |  |  +--rw org-openroadm-otn-otu-interfaces:tx-operator?               string
+     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-sapi?             string
+     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-dapi?             string
+     |  |  +--ro org-openroadm-otn-otu-interfaces:accepted-operator?         string
+     |  |  +--rw org-openroadm-otn-otu-interfaces:expected-sapi?             string
+     |  |  +--rw org-openroadm-otn-otu-interfaces:expected-dapi?             string
+     |  |  +--rw org-openroadm-otn-otu-interfaces:tim-act-enabled?           boolean
+     |  |  +--rw org-openroadm-otn-otu-interfaces:tim-detect-mode?           enumeration
+     |  |  +--rw org-openroadm-otn-otu-interfaces:degm-intervals?            uint8
+     |  |  +--rw org-openroadm-otn-otu-interfaces:degthr-percentage?         uint16
      |  |  +--rw org-openroadm-otn-otu-interfaces:maint-loopback
-     |  |     +--rw org-openroadm-otn-otu-interfaces:enabled?   boolean
-     |  |     +--rw org-openroadm-otn-otu-interfaces:type?      enumeration
+     |  |  |  +--rw org-openroadm-otn-otu-interfaces:enabled?   boolean
+     |  |  |  +--rw org-openroadm-otn-otu-interfaces:type?      enumeration
+     |  |  +--rw org-openroadm-otn-otu-interfaces:parent-flexo-allocation!
+     |  |     +--rw org-openroadm-otn-otu-interfaces:trib-port-number    uint8
+     |  |     +--rw org-openroadm-otn-otu-interfaces:iid*                uint8
      |  +--rw org-openroadm-otsi-group-interfaces:otsi-group
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?   identityref
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?     uint32
+     |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
+     |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
+     |  |  +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
+     |  |     +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |  |     +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |  |     +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
+     |  |        +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |        +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |        +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |        +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
      |  +--rw org-openroadm-ppp-interfaces:ppp
      |     +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
      +--rw protection-grps
      |  +--rw org-openroadm-prot-otn-linear-aps:odu-sncp-pg* [name]
-     |     +--rw org-openroadm-prot-otn-linear-aps:name                        string
-     |     +--rw org-openroadm-prot-otn-linear-aps:level                       enumeration
-     |     +--rw org-openroadm-prot-otn-linear-aps:prot-type?                  identityref
-     |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?        enumeration
-     |     +--rw org-openroadm-prot-otn-linear-aps:revertive?                  boolean
-     |     +--rw org-openroadm-prot-otn-linear-aps:mode                        enumeration
-     |     +--rw org-openroadm-prot-otn-linear-aps:protection-trigger-level?   enumeration
-     |     +--rw org-openroadm-prot-otn-linear-aps:wait-to-restore?            uint8
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:name                        string
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:level                       protection-level-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:prot-type?                  identityref
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:mode                        protection-mode-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:tcm-layer                   tcm-layer-type
+     |  |  x--rw org-openroadm-prot-otn-linear-aps:protection-trigger-level?   enumeration
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:switching-direction?        switching-direction-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:revertive?                  boolean
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:sd-enable?                  boolean
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:wait-to-restore?            uint8
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff-timer
+     |  |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff?              uint8
+     |  |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff-multiplier?   uint8
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:working-if                  -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:pg-interfaces*              -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--ro org-openroadm-prot-otn-linear-aps:active-if?                  -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?              request-state-type
+     |  +--rw org-openroadm-prot-otn-linear-aps:client-sncp-pg* [name]
+     |     +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
+     |     +--rw org-openroadm-prot-otn-linear-aps:revertive?             boolean
+     |     +--rw org-openroadm-prot-otn-linear-aps:sd-enable?             boolean
+     |     +--rw org-openroadm-prot-otn-linear-aps:wait-to-restore?       uint8
      |     +--rw org-openroadm-prot-otn-linear-aps:holdoff-timer
      |     |  +--rw org-openroadm-prot-otn-linear-aps:holdoff?              uint8
      |     |  +--rw org-openroadm-prot-otn-linear-aps:holdoff-multiplier?   uint8
-     |     +--rw org-openroadm-prot-otn-linear-aps:working-if                  -> /org-openroadm-device:org-openroadm-device/interface/name
-     |     +--rw org-openroadm-prot-otn-linear-aps:pg-interfaces*              -> /org-openroadm-device:org-openroadm-device/interface/name
-     |     +--ro org-openroadm-prot-otn-linear-aps:active-if?                  -> /org-openroadm-device:org-openroadm-device/interface/name
+     |     +--rw org-openroadm-prot-otn-linear-aps:working-if             -> /org-openroadm-device:org-openroadm-device/interface/name
+     |     +--rw org-openroadm-prot-otn-linear-aps:pg-interfaces*         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |     +--ro org-openroadm-prot-otn-linear-aps:active-if?             -> /org-openroadm-device:org-openroadm-device/interface/name
+     |     +--ro org-openroadm-prot-otn-linear-aps:request-state?         request-state-type
+     +--ro protection-profiles
+     |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile* [profile-name]
+     |     +--ro org-openroadm-prot-otn-linear-aps:profile-name            string
+     |     +--ro org-openroadm-prot-otn-linear-aps:level                   protection-level-type
+     |     +--ro org-openroadm-prot-otn-linear-aps:prot-type               identityref
+     |     +--ro org-openroadm-prot-otn-linear-aps:switching-direction     switching-direction-type
+     |     +--ro org-openroadm-prot-otn-linear-aps:mode-list*              protection-mode-type
+     |     +--ro org-openroadm-prot-otn-linear-aps:xc-capabilities-list*   xc-capabilities-type
+     |     +--ro org-openroadm-prot-otn-linear-aps:pg-capabilities-list*   pg-capabilities-type
      +--rw protocols
      |  +--rw lifecycle-state?                      org-openroadm-common-state-types:lifecycle-state
      |  +--rw org-openroadm-dhcp:ipv4-dhcp-relay
@@ -798,9 +861,10 @@ module: org-openroadm-device
      |     +--rw circuit-pack-name    string
      |     +--rw port-name            string
      +--rw degree* [degree-number]
-     |  +--rw degree-number                 uint16
-     |  +--rw lifecycle-state?              org-openroadm-common-state-types:lifecycle-state
-     |  +--ro max-wavelengths               uint16
+     |  +--rw degree-number                            uint16
+     |  +--rw lifecycle-state?                         org-openroadm-common-state-types:lifecycle-state
+     |  +--ro max-wavelengths                          uint16
+     |  +--ro optical-operational-mode-profile-name*   string
      |  +--rw circuit-packs* [index]
      |  |  +--rw index                uint32
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
@@ -811,30 +875,32 @@ module: org-openroadm-device
      |  +--rw otdr-port
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
-     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
      +--rw shared-risk-group* [srg-number]
-     |  +--ro max-add-drop-ports                    uint16
-     |  +--ro current-provisioned-add-drop-ports    uint16
-     |  +--rw prov-max-add-drop-ports?              uint16
-     |  +--rw srg-number                            uint16
-     |  +--rw lifecycle-state?                      org-openroadm-common-state-types:lifecycle-state
-     |  +--ro wavelength-duplication                org-openroadm-common-optical-channel-types:wavelength-duplication-type
+     |  +--ro max-add-drop-ports                       uint16
+     |  +--ro current-provisioned-add-drop-ports       uint16
+     |  +--rw prov-max-add-drop-ports?                 uint16
+     |  +--rw srg-number                               uint16
+     |  +--ro optical-operational-mode-profile-name*   string
+     |  +--rw lifecycle-state?                         org-openroadm-common-state-types:lifecycle-state
+     |  +--ro wavelength-duplication                   org-openroadm-common-optical-channel-types:wavelength-duplication-type
      |  +--rw circuit-packs* [index]
      |  |  +--rw index                uint32
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
-     |  +--ro mc-capability-profile-name*           -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
      +--rw line-amplifier* [amp-number]
-     |  +--rw amp-number                      uint8
-     |  +--ro amp-type                        org-openroadm-common-amplifier-types:amplifier-types
-     |  +--rw control-mode?                   org-openroadm-common-amplifier-types:line-amplifier-control-mode
-     |  +--ro amp-gain-range?                 org-openroadm-common-amplifier-types:amplifier-gain-range
-     |  +--rw target-gain?                    org-openroadm-common-link-types:ratio-dB
-     |  +--rw target-tilt?                    org-openroadm-common-link-types:ratio-dB
-     |  +--rw egress-average-channel-power?   org-openroadm-common-link-types:power-dBm
-     |  +--ro out-voa-att?                    org-openroadm-common-link-types:ratio-dB
-     |  +--ro partner-amp?                    -> /org-openroadm-device/line-amplifier/amp-number
-     |  +--rw ila-direction-label?            string
-     |  +--rw lifecycle-state?                org-openroadm-common-state-types:lifecycle-state
+     |  +--rw amp-number                               uint8
+     |  +--ro amp-type                                 org-openroadm-common-amplifier-types:amplifier-types
+     |  +--ro optical-operational-mode-profile-name*   string
+     |  +--rw control-mode?                            org-openroadm-common-amplifier-types:line-amplifier-control-mode
+     |  +--ro amp-gain-range?                          org-openroadm-common-amplifier-types:amplifier-gain-range
+     |  +--rw target-gain?                             org-openroadm-common-link-types:ratio-dB
+     |  +--rw target-tilt?                             org-openroadm-common-link-types:ratio-dB
+     |  +--rw egress-average-channel-power?            org-openroadm-common-link-types:power-dBm
+     |  +--ro out-voa-att?                             org-openroadm-common-link-types:ratio-dB
+     |  +--ro partner-amp?                             -> /org-openroadm-device/line-amplifier/amp-number
+     |  +--rw ila-direction-label?                     string
+     |  +--rw lifecycle-state?                         org-openroadm-common-state-types:lifecycle-state
      |  +--rw circuit-pack* [index]
      |  |  +--rw index                uint32
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
@@ -866,6 +932,14 @@ module: org-openroadm-device
      |     +--rw index                uint32
      |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |     +--rw cp-slot-name         string
+     |     +--rw eqpt-srg-id?         uint32
+     +--rw ext-pluggable* [extplug-number]
+     |  +--rw extplug-number     uint16
+     |  +--rw lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |  +--rw extplug-port* [index]
+     |     +--rw index                uint16
+     |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |     +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |     +--rw eqpt-srg-id?         uint32
      +--rw roadm-connections* [connection-name]
      |  +--rw connection-name        string
@@ -907,6 +981,7 @@ module: org-openroadm-device
      +--ro otsigroup-capability-profile* [profile-name]
      |  +--ro profile-name                          string
      |  +--ro if-cap-type?                          identityref
+     |  +--ro flexo-payload-type?                   org-openroadm-otn-common-types:flexo-payload-type-def
      |  +--ro (otu-rate)?
      |  |  +--:(otucn)
      |  |  |  +--ro otucn-n-rate?                   uint16
@@ -1851,8 +1926,16 @@ module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
     +---x odu-sncp-protection-switch
+    |  +---w input
+    |  |  +---w protection-group    -> /org-openroadm-device:org-openroadm-device/protection-grps/org-openroadm-prot-otn-linear-aps:odu-sncp-pg/name
+    |  |  +---w pg-interface        -> /org-openroadm-device:org-openroadm-device/interface/name
+    |  |  +---w switch-command?     enumeration
+    |  +--ro output
+    |     +--ro status            rpc-status
+    |     +--ro status-message?   string
+    +---x client-sncp-protection-switch
        +---w input
-       |  +---w protection-group    -> /org-openroadm-device:org-openroadm-device/protection-grps/org-openroadm-prot-otn-linear-aps:odu-sncp-pg/name
+       |  +---w protection-group    -> /org-openroadm-device:org-openroadm-device/protection-grps/org-openroadm-prot-otn-linear-aps:client-sncp-pg/name
        |  +---w pg-interface        -> /org-openroadm-device:org-openroadm-device/interface/name
        |  +---w switch-command?     enumeration
        +--ro output

@@ -4,7 +4,7 @@ module org-openroadm-optical-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -16,7 +16,7 @@ module org-openroadm-optical-channel-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
@@ -70,6 +70,10 @@ module org-openroadm-optical-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -173,6 +177,7 @@ module org-openroadm-optical-channel-interfaces {
       description
         "Frequency width in GHz.";
     }
+    uses org-openroadm-common-optical-channel-types:full-bandwidth-grouping;
     leaf modulation-format {
       when "../provision-mode = 'explicit'";
       type org-openroadm-common-optical-channel-types:modulation-format;

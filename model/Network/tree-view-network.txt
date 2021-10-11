@@ -12,6 +12,12 @@ module: org-openroadm-common-network
        +--rw topo:openroadm-topology!
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
+  augment /nd:networks/nd:network:
+    +--rw SRLG-list* [SRLG-Id]
+       +--rw SRLG-Id        uint32
+       +--rw SRLG-name?     string
+       +--rw SRLG-type?     org-openroadm-common-types:SRLG-type
+       +--rw SRLG-length?   decimal64
   augment /nd:networks/nd:network/nd:node:
     +--rw node-type?              org-openroadm-network-types:openroadm-node-type
     +--rw node-subtype?           org-openroadm-common-node-types:node-subtypes
@@ -35,7 +41,10 @@ module: org-openroadm-common-network
     +--rw TE-metric?              uint32
     +--rw link-concatenation* [SRLG-Id]
     |  +--rw SRLG-Id        uint32
-    |  +--rw SRLG-length?   uint32
+    |  +--rw SRLG-length?   decimal64
+    +--rw future-SRLGs* [start-date]
+    |  +--rw start-date    yang:date-and-time
+    |  +--rw SRLG-Id*      -> /nd:networks/network/SRLG-list/SRLG-Id
     +--rw administrative-group?   uint32
     +--rw operational-state?      org-openroadm-common-state-types:state
     +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
@@ -45,23 +54,25 @@ module: org-openroadm-network-topology
 
   augment /nd:networks/nd:network/nd:node:
     +--rw srg-attributes
-    |  +--rw srg-number?               uint16
-    |  +--rw max-pp?                   uint32
-    |  +--rw current-provisioned-pp?   uint32
-    |  +--rw wavelength-duplication?   org-openroadm-common-optical-channel-types:wavelength-duplication-type
+    |  +--rw srg-number?                    uint16
+    |  +--rw max-pp?                        uint32
+    |  +--rw current-provisioned-pp?        uint32
+    |  +--rw wavelength-duplication?        org-openroadm-common-optical-channel-types:wavelength-duplication-type
+    |  +--rw supported-operational-modes*   string
     |  +--rw avail-freq-maps* [map-name]
     |  |  +--rw map-name                string
     |  |  +--rw start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +--rw effective-bits?         uint16
     |  |  +--rw freq-map?               binary
-    |  +--rw type-variety?             string
+    |  +--rw type-variety?                  string
     +--rw degree-attributes
     |  +--rw degree-number?                    uint16
     |  +--rw max-wavelengths?                  uint32
     |  +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
     |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
     |  +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
+    |  +--rw supported-operational-modes*      string
     |  +--rw avail-freq-maps* [map-name]
     |  |  +--rw map-name                string
     |  |  +--rw start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
@@ -202,10 +213,14 @@ module: org-openroadm-network-topology
        |  +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
        |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
        |  +--rw link-concatenation* [SRLG-Id]
-       |     +--rw SRLG-Id        uint32
-       |     +--rw fiber-type?    enumeration
-       |     +--rw SRLG-length?   uint32
-       |     +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
+       |  |  +--rw SRLG-Id                        uint32
+       |  |  +--rw SRLG-length?                   decimal64
+       |  |  +--rw fiber-type?                    enumeration
+       |  |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+       |  |  +--rw subject-to-high-SOP-changes?   boolean
+       |  +--rw future-SRLGs* [start-date]
+       |     +--rw start-date    yang:date-and-time
+       |     +--rw SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
        +--rw amplified-link
           +--rw amplified-link* [section-elt-number]
              +--rw section-elt-number    uint16
@@ -224,6 +239,7 @@ module: org-openroadm-network-topology
                    |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
                    |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
                    |     +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
+                   |     +--rw supported-operational-modes*      string
                    |     +--rw type-variety?                     string
                    |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
                    |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
@@ -235,10 +251,14 @@ module: org-openroadm-network-topology
                          +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
                          +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
                          +--rw link-concatenation* [SRLG-Id]
-                         |  +--rw SRLG-Id        uint32
-                         |  +--rw fiber-type?    enumeration
-                         |  +--rw SRLG-length?   uint32
-                         |  +--rw pmd?           org-openroadm-common-link-types:fiber-pmd
+                         |  +--rw SRLG-Id                        uint32
+                         |  +--rw SRLG-length?                   decimal64
+                         |  +--rw fiber-type?                    enumeration
+                         |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+                         |  +--rw subject-to-high-SOP-changes?   boolean
+                         +--rw future-SRLGs* [start-date]
+                         |  +--rw start-date    yang:date-and-time
+                         |  +--rw SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
                          +--rw administrative-state?     org-openroadm-equipment-states-types:admin-states
 
 module: org-openroadm-network

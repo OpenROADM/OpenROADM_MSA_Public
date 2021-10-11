@@ -4,7 +4,7 @@ module org-openroadm-optical-operational-interfaces {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
 
   organization

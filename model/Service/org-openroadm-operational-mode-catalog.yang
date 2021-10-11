@@ -1,0 +1,573 @@
+module org-openroadm-operational-mode-catalog {
+  namespace "http://org/openroadm/operational-mode-catalog";
+  prefix org-openroadm-operational-mode-catalog;
+
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2019-11-29;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2021-09-24;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of common attributes.
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2021-09-24 {
+    description
+      "Version 10";
+  }
+
+  typedef impairment-type {
+    type enumeration {
+      enum CD-ps/nm;
+      enum PDL-dB;
+      enum PMD-ps;
+      enum power-dBm;
+      enum cross-talk-total-power-dB;
+      enum colorless-drop-adjacent-channel-crosstalk-GHz;
+    }
+    description
+      "definition of impairment type and unit used in penaty list";
+  }
+
+  grouping operational-mode-grid-parameters {
+    description
+      "main parameters required to describe grid usage";
+    leaf min-central-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      mandatory true;
+      description
+        "min supported frequency";
+    }
+    leaf max-central-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      mandatory true;
+      description
+        "max supported frequency";
+    }
+    leaf central-frequency-granularity {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      mandatory true;
+      description
+        "granularity supported for the central frequency setting";
+    }
+    leaf min-spacing {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      mandatory true;
+      description
+        "minimum spacing required between 2 channels";
+    }
+  }
+
+  grouping operational-mode-roadm-base-parameters {
+    description
+      "main parameters used to qualify amplifier and ROADM (express/add/drop)";
+    leaf per-channel-Pin-min {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "minimum input power";
+    }
+    leaf per-channel-Pin-max {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "maximum output power";
+    }
+    leaf max-introduced-pdl {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "polarization dependent gain/loss";
+    }
+    leaf max-introduced-dgd {
+      type decimal64 {
+        fraction-digits 2;
+      }
+      units "ps/nm";
+      description
+        "Maximum diferential group delay";
+    }
+    leaf max-introduced-cd {
+      type decimal64 {
+        fraction-digits 2;
+      }
+      units "ps";
+      description
+        "Maximum introduced chromatic dispersion";
+    }
+  }
+
+  grouping polynomial-fit {
+	description
+	  "polynomial fit used to model noise mask";
+    container osnr-polynomial-fit {
+        description
+          "describe the osnr contribution of amplifier/roadm
+           OSNR (dB/0.1nm) = A*Pin^3+B*Pin^2+C*Pin+D, Pin (dBm) ";
+        leaf A {
+          type decimal64 {
+            fraction-digits 8;
+          }
+          description
+            "A*Pin^3";
+        }
+        leaf B {
+          type decimal64 {
+            fraction-digits 8;
+          }
+          description
+            "B*Pin^2";
+        }
+        leaf C {
+          type decimal64 {
+            fraction-digits 8;
+          }
+          description
+            "C*Pin";
+        }
+        leaf D {
+          type decimal64 {
+            fraction-digits 8;
+          }
+          description
+            "Constant";
+        }
+      }
+  }
+  
+  grouping power-mask {
+    description
+      "describes how power shall be set according preceeding span loss";
+    list mask-power-vs-pin {
+      key "lower-boundary upper-boundary";
+      description
+        "for power range provides C and D parameter : Pout[50GHz BW] (dBm) = C*span-loss (dBm)+ D";
+      leaf lower-boundary {
+        type uint32;
+        description
+          "defines the lower Power boundary for which C & Dparameters apply";
+      }
+      leaf upper-boundary {
+        type uint32;
+        description
+          "defines the upper Power boundary for which C & Dparameters apply";
+      }
+      leaf C {
+        type decimal64 {
+          fraction-digits 8;
+        }
+        description
+          "C*span-loss";
+      }
+      leaf D {
+        type decimal64 {
+          fraction-digits 8;
+        }
+        description
+          "Constant";
+      }
+      leaf fiber-type {
+        type enumeration {
+          enum smf {
+            value 0;
+            description
+              "Single Mode Fiber";
+          }
+          enum eleaf {
+            value 1;
+            description
+              "ELEAF";
+          }
+          enum oleaf {
+            value 2;
+            description
+              "OLEAF";
+          }
+          enum dsf {
+            value 3;
+            description
+              "DSF";
+          }
+          enum truewave {
+            value 4;
+            description
+              "TRUEWAVE Reduced Slope";
+          }
+          enum truewavec {
+            value 5;
+            description
+              "TRUEWAVE Classic";
+          }
+          enum nz-dsf {
+            value 6;
+            description
+              "NZ-DSF";
+          }
+          enum ull {
+            value 7;
+            description
+              "Ultra Low Loss (ULL)";
+          }
+        }
+        description
+          "enumeration of the different existing fiber type";
+      }
+    }
+  }
+
+  grouping operational-mode-roadm-add-parameters {
+    description
+      "includes parameters to be used for specification modeling";
+    container Add {
+      description
+        "add block-specification";
+      list add-openroadm-operational-mode {
+        key "openroadm-operational-mode-id";
+        description
+          "defines the openroadm operational mode pointing to an official specification ";
+        leaf openroadm-operational-mode-id {
+          type string;
+          description
+            "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+        }
+        leaf incremental-osnr {
+        	type org-openroadm-common-link-types:ratio-dB;
+        	description
+        		"incremental osnr considering noisless input at 0dBm";
+        }
+        uses operational-mode-roadm-base-parameters;
+        uses power-mask;
+      }
+    }
+  }
+
+  grouping operational-mode-common-amplifier-drop-parameters {
+    description
+      "includes parameters to be used for specification modeling";
+    list openroadm-operational-mode {
+      key "openroadm-operational-mode-id";
+      description
+        "defines the openroadm operational mode pointing to an official specification ";
+      leaf openroadm-operational-mode-id {
+        type string;
+        description
+          "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+      }
+      uses operational-mode-roadm-base-parameters;
+      uses polynomial-fit;
+      leaf per-channel-Pout-min {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Minimum output power";
+      }
+      leaf per-channel-Pout-max {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum output power";
+      }
+    }
+  }
+
+  grouping operational-mode-roadm-drop-parameters {
+    description
+      "includes parameters to be used for specification modeling";
+    container Drop {
+      description
+        "drop block-specification";
+      uses operational-mode-common-amplifier-drop-parameters;
+    }
+  }
+
+  grouping operational-mode-roadm-express-parameters {
+    description
+      "includes parameters to be used for specification modeling";
+    container Express {
+      description
+        "Express specifications";
+      list openroadm-operational-mode {
+        key "openroadm-operational-mode-id";
+        description
+          "defines the openroadm operational mode pointing to an official specification ";
+        leaf openroadm-operational-mode-id {
+          type string;
+          description
+            "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+        }
+        uses operational-mode-roadm-base-parameters;
+        uses polynomial-fit;
+        uses power-mask;
+      }
+    }
+  }
+
+  grouping operational-mode-amplifier-parameters {
+    description
+      "includes parameters to be used for specification modeling";
+    container Amplifier {
+      description
+        "drop block-specification";
+      uses operational-mode-common-amplifier-drop-parameters;
+    }
+  }
+
+  grouping operational-mode-transponder-parameters {
+    description
+      "describes parameters used to qualify xponders line performances";
+    leaf baud-rate {
+      type decimal64 {
+        fraction-digits 1;
+      }
+      units "Gbauds";
+      description
+        "baud-rate in Gbauds";
+    }
+    leaf line-rate {
+      type decimal64 {
+        fraction-digits 1;
+      }
+      units "Gbps";
+      mandatory true;
+      description
+        "line coding rate in Gbps";
+    }
+    leaf modulation-format {
+      type org-openroadm-common-optical-channel-types:modulation-format;
+      mandatory true;
+      description
+        "modulation format as defined in openroadm";
+    }
+    leaf min-TX-osnr {
+      type org-openroadm-common-link-types:ratio-dB;
+      mandatory true;
+      description
+        "Defined in 0.1 nm @ 193.6 Thz bandwidth";
+    }
+    list TX-OOB-osnr {
+      key "WR-openroadm-operational-mode-id";
+      description
+        "describe noise contribution associated with a specific transponder
+         according to the multiplexing architecture of the SRG it is connected to";
+      leaf WR-openroadm-operational-mode-id {
+        type string;
+        description
+          "openroadm operational mode of the multiplexor which the transponder is connected to";
+      }
+      leaf min-OOB-osnr-multi-channel-value {
+        type org-openroadm-common-link-types:ratio-dB;
+        mandatory true;
+        description
+          "Measured outside +/-150GHz BW, including SMSR, and 15 channels worst case contribution";
+      }
+      leaf min-OOB-osnr-single-channel-value {
+        type org-openroadm-common-link-types:ratio-dB;
+        mandatory true;
+        description
+          "Measured outside +/-150GHz BW, excluding SMSR, single channel";
+      }
+    }
+    list output-power-range {
+      key "WR-openroadm-operational-mode-id";
+      description
+          "describe output power range associated with a specific transponder
+           according to the multiplexing architecture of the SRG it is connected to";
+      leaf WR-openroadm-operational-mode-id {
+        type string;
+        description
+            "openroadm operational mode of the multiplexor which the transponder is connected to";
+      }
+      leaf min-output-power {
+        type org-openroadm-common-link-types:ratio-dB;
+        mandatory true;
+        description
+          "minimum supported output-power";
+      }
+      leaf max-output-power {
+        type org-openroadm-common-link-types:ratio-dB;
+        mandatory true;
+        description
+          "maximum supported output-power";
+      }
+    }
+    leaf min-RX-osnr-tolerance {
+      type org-openroadm-common-link-types:ratio-dB;
+      mandatory true;
+      description
+        "Defined in 0.1 nm @ 193.6 Thz bandwidth";
+    }
+    leaf min-input-power-at-RX-osnr {
+      type org-openroadm-common-link-types:ratio-dB;
+      mandatory true;
+      description
+        "minimum input-power for given osnr tolerance";
+    }
+    leaf max-input-power {
+      type org-openroadm-common-link-types:ratio-dB;
+      mandatory true;
+      description
+        "maximum supported intput-power causing either an overload or the damage of the receiver";
+    }
+    leaf channel-width {
+    	type org-openroadm-common-optical-channel-types:frequency-GHz;
+    	description
+    		"-20 dB channel width, required for target power calculation";
+    }
+    leaf fec-type {
+        type identityref {
+           base org-openroadm-common-types:fec-identity;
+        }
+        description
+          "fec type";
+    }
+    leaf min-roll-off {
+      type decimal64 {
+        fraction-digits 2;
+      }
+      units "dB/decade";
+      description
+        "Minimum Roll-off factor";
+    }
+    leaf max-roll-off {
+      type decimal64 {
+        fraction-digits 2;
+        }
+      units "dB/decade";
+      description
+        "Maximum Roll-off factor";
+    }    
+    list penalties {
+      key "parameter-and-unit up-to-boundary";
+      description
+        "Penalties includes contributions from different impairments including
+    	 cd, pmd, low RX Power, pdl,...";
+      leaf parameter-and-unit {
+        type impairment-type;
+        description
+          "impairment leading to the penalty";
+      }
+      leaf up-to-boundary {
+        type int32;
+        description
+          "defines the upper (for positive values) and lower (for negative values)
+           limit for which the penalty value is valid";
+      }
+      leaf penalty-value {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "defined penalty in dB";
+      }
+    }
+  }
+
+  grouping operational-mode-catalog {
+    description
+      "this catalog is used to store data related to operational modes and related specifications
+       for OpenROADM operational modes this allows translating official specifications
+       for other Operational modes this provides the controller with the specifications
+       of bookended/alien transponders
+       The catalog shall be fed using operational-mode-setting rpc";
+    container openroadm-operational-modes {
+      description
+        "All operational modes corresponding to official OpenROAM specifications";
+      container grid-parameters {
+        description
+          "Parameters associated with global spectrum use";
+        uses operational-mode-grid-parameters;
+      }
+      container xponders-pluggables {
+    	  presence "Container includes mandatory nodes but may however not be present 
+    		  in the rpc used to feed the catalog (merge operation)";
+    	  description
+              "Parameters associated with xponders and pluggables";
+        list xponder-pluggable-openroadm-operational-mode {
+          key "openroadm-operational-mode-id";
+          description
+            "defines the openroadm operational mode pointing to an official specification ";
+          leaf openroadm-operational-mode-id {
+            type string;
+            description
+              "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+          }          
+          uses operational-mode-transponder-parameters;
+        }
+      }
+      container roadms {
+        description
+          "Parameters associated with roadms";
+        uses operational-mode-roadm-express-parameters;
+        uses operational-mode-roadm-add-parameters;
+        uses operational-mode-roadm-drop-parameters;
+      }
+      container amplifiers {
+        description
+          "Parameters associated with amplifiers";
+        uses operational-mode-amplifier-parameters;
+      }
+    }
+    container specific-operational-modes {
+      description
+        "All specific operational modes corresponding to bookended or alien units";
+      list specific-operational-mode {
+        key "operational-mode-id";
+        description
+          "List of all declared specific operationnal modes";
+        leaf operational-mode-id {
+          type string;
+          description
+            "unique identifier which identifies the operational mode";
+        }
+        leaf originator {
+        	type string;
+        	description
+        		"identifies the system vendor which originated associated specification";
+        }
+        leaf sponsor {
+        	type string;
+        	description
+        		"identifies the service provider which reviewed and sponsored associated specification";
+        }
+        uses operational-mode-grid-parameters;
+        uses operational-mode-transponder-parameters;
+        leaf configurable-output-power {
+        	type boolean;
+        	mandatory true;
+        	description
+        		"defines whether the output power can be set or not";
+        }
+      }
+    }
+  }
+}

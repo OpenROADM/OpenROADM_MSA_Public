@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -341,27 +345,61 @@ module org-openroadm-probable-cause {
       }
       enum lockoutOfProtection {
         value 135;
+        description
+         "Raised on a protection group, state=W,LOP";
+        reference
+         "ITU-T G.873.1";
       }
       enum forcedSwitchAwayFromWorking {
         value 136;
+        description
+         "Raised on a protection group, state=P,FS";
+        reference
+         "ITU-T G.873.1";
       }
       enum forcedSwitchAwayFromProtect {
         value 137;
+        description
+         "Raised on a protection group, state=W,FS";
+        reference
+         "ITU-T G.873.1";
       }
       enum automaticSwitchAwayFromWorkingDueToSF {
         value 138;
+        description
+         "Raised on a protection group, state=P,SF or P,SD";
+        reference
+         "ITU-T G.873.1";
       }
       enum automaticSwitchAwayFromProtectDueToSF {
         value 139;
+        description
+         "Raised on a protection group, state=W,SF or W,SD";
+        reference
+         "ITU-T G.873.1";
       }
       enum automaticSwitchDueToWTR {
         value 140;
+        description
+         "Raised on a protection group, state=P,WTR";
+        reference
+         "ITU-T G.873.1";
       }
       enum manualSwitchAwayFromWork {
         value 141;
+        status deprecated;
+        description
+         "Raised on a protection group, state=P,MS.
+          Deprecated, see manualSwitchAwayFromWorking.";
+        reference
+         "ITU-T G.873.1";
       }
       enum manualSwitchAwayFromProtect {
         value 142;
+        description
+         "Raised on a protection group, state=W,MS";
+        reference
+         "ITU-T G.873.1";
       }
       enum automaticPowerReduction {
         value 143;
@@ -922,6 +960,29 @@ module org-openroadm-probable-cause {
         reference
           "G.798 14.3.20.2 dLRC (loss of RC blocks) for 200G/400G ETH based
            on ODUflexP to ETCy adaptation sink function using BMP (ODUflexP/ETCy_A_Sk)";
+      }
+      enum manualSwitchAwayFromWorking {
+        value 296;
+        description
+         "Raised on a protection group, state=P,MS";
+        reference
+         "ITU-T G.873.1";
+      }
+      enum apsProtocolError {
+        value 297;
+        description
+         "Raised on a protection group when the APS protocol receives
+          no or an unexpected response.";
+        reference
+         "ITU-T G.873.1";
+      }
+      enum apsConfigurationMismatch {
+        value 298;
+        description
+         "Raised on a protection group when the APS protocol detects
+          a far end configuration mismatch.";
+        reference
+         "ITU-T G.873.1";
       }
     }
     description

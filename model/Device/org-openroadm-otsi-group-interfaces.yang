@@ -4,7 +4,7 @@ module org-openroadm-otsi-group-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,11 @@ module org-openroadm-otsi-group-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-otn-common-types {
+    prefix org-openroadm-otn-common-types;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -62,6 +66,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -103,6 +111,35 @@ module org-openroadm-otsi-group-interfaces {
       "Version 5.0.0";
   }
 
+  grouping msi-group {
+    leaf index {
+      type uint16;
+      description
+        "The FlexO multiplexed structure (G.709.3 Annex F (2020-12))
+         G.798 15.3.5.1 (FlexO-n/OTUCni_A_So), 15.3.5.2 (FlexO-n/OTUCni_A_Sk)
+         (2021-01)";
+    }
+    leaf instance-id {
+      type uint16;
+      description
+        "FlexO instance id (G.709.1 2020-12)";
+    }
+    leaf occupation {
+      type boolean;
+      description
+        "occupied";
+    }
+    leaf trib-port {
+      type uint16;
+      description
+        "The tributary port identifier in FlexO multiplexed structure
+         (G.709.3 Annex F (2020-12))
+         G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)";
+    }
+    description
+      "MSI Group grouping";
+  }
+
   grouping otsi-group-container {
     description
       "OTSI group container group";
@@ -120,6 +157,44 @@ module org-openroadm-otsi-group-interfaces {
         type uint32;
         description
           "Mandatory for FlexO B100G.  Not required for Non-FlexO B100G.";
+      }
+      container flexo-group-container {
+        presence "flexo group";
+        leaf payload-id {
+          type org-openroadm-otn-common-types:flexo-payload-type-def;
+          description
+            "Payload type PT (Section 9.2.6.2, G.709.1 2020-12)";
+        }
+        list tx-msi {
+          key "index";
+          config false;
+            description
+              "The transmitted FlexO multiplexed structure
+               (G.709.3 Annex F (2020-12))
+               G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)
+               Instance id in TX MSI shall reflect programmed.";
+          uses msi-group;
+        }
+        list rx-msi {
+          key "index";
+          config false;
+            description
+              "The accepted FlexO multiplexed structure
+               (G.709.3 Annex F (2020-12))
+               G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
+               Instance id in RX MSI shall reflect accepted.";
+          uses msi-group;
+        }
+        list exp-msi {
+          key "index";
+          config false;
+            description
+              "The expected FlexO multiplexed structure
+               (G.709.3 Annex F (2020-12))
+               G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
+               Instance id in EXP MSI shall reflect programmed.";
+          uses msi-group;
+        }
       }
     }
   }
