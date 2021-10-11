@@ -49,6 +49,10 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";
@@ -325,6 +329,16 @@ module org-openroadm-otn-common-types {
     }
     description
       "Common type definition for odu payload-type";
+  }
+
+  typedef flexo-payload-type-def {
+    type string {
+      length "2";
+      pattern '[0-9a-fA-F]*';
+    }
+    description
+      "Common type definition for flexo payload-type (Section 9.2.6.2,
+       G.709.1 2020-12)";
   }
 
   typedef opucn-trib-slot-def {

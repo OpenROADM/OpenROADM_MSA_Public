@@ -4,11 +4,11 @@ module org-openroadm-prot-otn-linear-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -137,6 +141,270 @@ module org-openroadm-prot-otn-linear-aps {
       "ODU Linear Protection 1+1 permanent bridge";
   }
 
+  typedef protection-level-type {
+    type enumeration {
+      enum line {
+        value 1;
+      }
+      enum path {
+        value 2;
+      }
+      enum client {
+        value 3;
+      }
+    }
+    description
+      "Designates protection group as Line, Path or Client.
+       An odu-sncp-pg can have level 'line' or 'path'.
+       A client-sncp-pg (implicitly) has level 'client'.
+       The level of a protection-profile indicates whether it is
+       implemented by an odu-sncp-pg or client-sncp-pg.";
+  }
+
+  typedef switching-direction-type {
+    type enumeration {
+      enum unidirectional-switching {
+        value 1;
+      }
+      enum bidirectional-switching {
+        value 2;
+      }
+    }
+    description
+      "Bidirectional refers to APS signaling enabled (G.873.1 Table 7-1 Table 8-1).";
+  }
+
+  typedef protection-mode-type {
+    type enumeration {
+      enum SNC/Ne {
+        value 1;
+        description
+          "applicable to line or path switching";
+      }
+      enum SNC/Ns {
+        value 2;
+        description
+          "applicable to line or path switching";
+      }
+      enum SNC/S {
+        value 3;
+        description
+          "applicable to line or path switching";
+      }
+      enum SNC/I {
+        value 4;
+        description
+          "applicable to line switching only";
+      }
+      enum CL-SNCG/I {
+        value 5;
+        description
+          "applicable to line switching only";
+      }
+    }
+    description
+      "Defines the protection mode";
+  }
+
+  typedef tcm-layer-type {
+    type enumeration {
+      enum ODUT1 {
+        value 1;
+      }
+      enum ODUT2 {
+        value 2;
+      }
+      enum ODUT3 {
+        value 3;
+      }
+      enum ODUT4 {
+        value 4;
+      }
+      enum ODUT5 {
+        value 5;
+      }
+      enum ODUT6 {
+        value 6;
+      }
+    }
+    description
+      "Defines the TCM layer for SNC/S and SNC/Ns protection";
+  }
+
+  typedef request-state-type {
+    type enumeration {
+      enum LOP-NE {
+        value 1;
+      }
+      enum LOP-FE {
+        value 2;
+      }
+      enum SF-NE {
+        value 3;
+      }
+      enum SF-FE {
+        value 4;
+      }
+      enum FS-NE {
+        value 5;
+      }
+      enum FS-FE {
+        value 6;
+      }
+      enum SD-NE {
+        value 7;
+      }
+      enum SD-FE {
+        value 8;
+      }
+      enum MS-NE {
+        value 9;
+      }
+      enum MS-FE {
+        value 10;
+      }
+      enum WTR-NE {
+        value 11;
+      }
+      enum WTR-FE {
+        value 12;
+      }
+      enum EXER-NE {
+        value 13;
+      }
+      enum EXER-FE {
+        value 14;
+      }
+      enum DNR-NE {
+        value 15;
+      }
+      enum NR-NE {
+        value 16;
+      }
+    }
+    description
+      "Request/State of the protection state machine from ITU-T G.873.1 tables 9-2 and 9-3";
+  }
+
+  typedef xc-capabilities-type {
+    type enumeration {
+      enum unidirectional-xc {
+        value 1;
+      }
+      enum bidirectional-xc {
+        value 2;
+      }
+      enum select-and-bridge-xc {
+        value 3;
+      }
+      enum drop-and-continue-xc {
+        value 4;
+      }
+    }
+    description
+      "Cross-connection capabilities available for the CPs of a protection group.";
+  }
+
+  typedef pg-capabilities-type {
+    type enumeration {
+      enum sd-detection {
+        value 1;
+        description
+          "The PG supports signal degrade (SD) detection according to ITU-T G.873.1 section 6.1.";
+      }
+      enum revertive {
+        value 2;
+        description
+          "The PG supports revertive switching as defined in ITU-T G.873.1 section 8.3.";
+      }
+    }
+    description
+      "General capabilities available for a protection group.";
+  }
+
+  grouping generic-sncp-pg {
+    leaf switching-direction {
+      type switching-direction-type;
+      default "unidirectional-switching";
+      description
+        "Bidirectional refers to APS signaling enabled (G.873.1 Table 7-1 Table 8-1).";
+    }
+    leaf revertive {
+      type boolean;
+      default "false";
+      description
+        "Sets reversion behavior.";
+    }
+    leaf sd-enable {
+      type boolean;
+       default "true";
+       description
+         "Enable the signal degrade condition for protection switching.
+          When a protection group does not support SD detection,
+          setting sd-enable to true will be rejected.";
+    }
+    leaf wait-to-restore {
+      when "../revertive = 'true'";
+      type uint8 {
+        range "1..12";
+      }
+      units "minutes";
+      default "5";
+      description
+        "Wait to restore time in minutes";
+    }
+    container holdoff-timer {
+      leaf holdoff {
+        type uint8 {
+          range "0 | 20 | 100";
+        }
+        units "milliseconds";
+        default "0";
+        description
+          "switch hold-off time in milliseconds";
+      }
+      leaf holdoff-multiplier {
+        when '../holdoff= 100';
+        type uint8 {
+          range "1 .. 100";
+        }
+        default "1";
+        description
+          "switch holdoff time multiplier x100 milliseconds";
+      }
+    }
+    leaf working-if {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      }
+      mandatory true;
+      description
+        "Designated work interface";
+    }
+    leaf-list pg-interfaces {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      }
+      min-elements 1;
+      description
+        "List of interfaces in the PG";
+    }
+    leaf active-if {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      }
+      config false;
+      description
+        "Active interface in the PG";
+    }
+    leaf request-state {
+      type request-state-type;
+      config false;
+      description
+        "Request/State of the protection state machine according to ITU-T G.873.1 9.3";
+    }
+  }
+
   grouping odu-sncp-protection-grps {
     list odu-sncp-pg {
       key "name";
@@ -146,13 +414,12 @@ module org-openroadm-prot-otn-linear-aps {
           "The odu-sncp-protection-group name";
       }
       leaf level {
-        type enumeration {
-          enum line {
-            value 1;
-          }
-          enum path {
-            value 2;
-          }
+        type protection-level-type;
+        must "current() = 'path' or current() = 'line'" {
+          error-message
+            "Protection level for odu-scnp-protection must be Path or Line";
+          description
+            "odu-sncp specific validation for protection-level-type";
         }
         mandatory true;
         description
@@ -166,58 +433,21 @@ module org-openroadm-prot-otn-linear-aps {
         description
           "The type of the protection group.";
       }
-      leaf switching-direction {
-        type enumeration {
-          enum unidirectional-switching {
-            value 1;
-          }
-          enum bidirectional-switching {
-            value 2;
-          }
-        }
-        default "unidirectional-switching";
-        description
-          "Bidirectional refers to APS signaling enabled (G.873.1 Table 7-1 Table 8-1).";
-      }
-      leaf revertive {
-        type boolean;
-        default "false";
-        description
-          "Sets reversion behavior.";
-      }
       leaf mode {
-        type enumeration {
-          enum SNC/Ne {
-            value 1;
-            description
-              "applicable to line or path switching";
-          }
-          enum SNC/Ns {
-            value 2;
-            description
-              "applicable to line or path switching";
-          }
-          enum SNC/S {
-            value 3;
-            description
-              "applicable to line or path switching";
-          }
-          enum SNC/I {
-            value 4;
-            description
-              "applicable to line switching only";
-          }
-          enum CL-SNCG/I {
-            value 5;
-            description
-              "applicable to line switching only";
-          }
-        }
+        type protection-mode-type;
         mandatory true;
         description
           "Sets the protection mode";
       }
+      leaf tcm-layer {
+        when "../mode = 'SNC/Ns' or ../mode = 'SNC/S'";
+        type tcm-layer-type;
+        mandatory true;
+        description
+          "Sets the TCM layer for SNC/S and SNC/Ns protection.";
+      }
       leaf protection-trigger-level {
+        status deprecated;
         type enumeration {
           enum OTUk/ODUkA-SSF-SSD {
             value 1;
@@ -266,61 +496,122 @@ module org-openroadm-prot-otn-linear-aps {
           }
         }
         description
-          "Indicates switch trigger.";
+          "Indicates switch trigger. Deprecated as information is redundant.";
       }
-      leaf wait-to-restore {
-        when "../revertive = 'true'";
-        type uint8 {
-          range "1..12";
-        }
-        units "minutes";
-        default "5";
+
+      uses generic-sncp-pg;
+    }
+  }
+
+  grouping client-sncp-protection-grps {
+    list client-sncp-pg {
+      key "name";
+      leaf name {
+        type string;
         description
-          "Wait to restore time in minutes";
+          "The client-sncp-protection-group name";
       }
-      container holdoff-timer {
-        leaf holdoff {
-          type uint8 {
-            range "0 | 20 | 100";
-          }
-          units "milliseconds";
-          default "0";
-          description
-            "switch hold-off time in milliseconds";
-        }
-        leaf holdoff-multiplier {
-          when '../holdoff= 100';
-          type uint8 {
-            range "1 .. 100";
-          }
-          default "1";
-          description
-            "switch holdoff time multiplier x100 milliseconds";
-        }
+
+      uses generic-sncp-pg;
+    }
+  }
+
+  grouping protection-profiles {
+    list protection-profile {
+      key "profile-name";
+      config false;
+      description
+        "SNCP protection group profile";
+      leaf profile-name {
+        type string;
+        description
+          "The SNCP profile name";
       }
-      leaf working-if {
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
-        }
+      leaf level {
+        type protection-level-type;
+        config false;
         mandatory true;
         description
-          "Designated work interface";
+          "Designates protection group as Line, Path or Client";
       }
-      leaf-list pg-interfaces {
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
-        }
-        min-elements 1;
-        description
-          "List of interfaces in the PG";
-      }
-      leaf active-if {
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      leaf prot-type {
+        when "../level = 'line' or ../level = 'path'";
+        type identityref {
+          base org-openroadm-common-types:otn-protection-type;
         }
         config false;
+        mandatory true;
         description
-          "Active interface in the PG";
+          "The type of the protection group.";
+      }
+      leaf switching-direction {
+        type switching-direction-type;
+        config false;
+        mandatory true;
+        description
+          "Bidirectional refers to APS signaling enabled (G.873.1 Table 7-1 Table 8-1).";
+      }
+      leaf-list mode-list {
+        when "../level = 'line' or ../level = 'path'";
+        type protection-mode-type;
+        config false;
+        description
+          "List of available protection modes in this profile";
+      }
+      leaf-list xc-capabilities-list {
+        type xc-capabilities-type;
+        config false;
+        description
+          "List of available cross-connect capabilities in this profile";
+      }
+      leaf-list pg-capabilities-list {
+        type pg-capabilities-type;
+        config false;
+        description
+          "List of general capabilities in this profile";
+      }
+    }
+  }
+
+  grouping protection-profile-list-grps {
+    leaf-list protection-profile-name {
+      config false;
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/org-openroadm-prot-otn-linear-aps:profile-name";
+      }
+      description
+        "List of protection profiles supported by this Interface object.
+         Supported by interface types ethernetCsmacd (client protection),
+         otnOdu and otnOtu (line or path protection).";
+    }
+  }
+
+  grouping generic-sncp-protection-switch-rpc {
+    leaf pg-interface {
+      type leafref {
+        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+      }
+      mandatory true;
+      description
+        "Target protection group interface";
+    }
+    leaf switch-command {
+      type enumeration {
+        enum Lock-Out-Protect {
+          value 1;
+        }
+        enum Force-Switch {
+          value 2;
+        }
+        enum Manual-Switch {
+          value 3;
+        }
+        enum Release {
+          value 4;
+        }
+        enum Exercise {
+          value 5;
+        }
       }
     }
   }
@@ -337,30 +628,26 @@ module org-openroadm-prot-otn-linear-aps {
         description
           "Target protection group";
       }
-      leaf pg-interface {
+      uses generic-sncp-protection-switch-rpc;
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+  rpc client-sncp-protection-switch {
+    description
+      "Client SNCP Protection Switch RPC with synchronous implementation";
+    input {
+      leaf protection-group {
         type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-otn-linear-aps:client-sncp-pg/org-openroadm-prot-otn-linear-aps:name";
         }
         mandatory true;
         description
-          "Target protection group interface";
+          "Target protection group";
       }
-      leaf switch-command {
-        type enumeration {
-          enum Lock-Out-Protect {
-            value 1;
-          }
-          enum Force-Switch {
-            value 2;
-          }
-          enum Manual-Switch {
-            value 3;
-          }
-          enum Release {
-            value 4;
-          }
-        }
-      }
+      uses generic-sncp-protection-switch-rpc;
     }
     output {
       uses org-openroadm-common-types:rpc-response-status;
@@ -389,5 +676,17 @@ module org-openroadm-prot-otn-linear-aps {
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
     uses odu-sncp-protection-grps;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
+    uses client-sncp-protection-grps;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-profiles" {
+    uses protection-profiles;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:common-functions" {
+    uses protection-profile-list-grps;
   }
 }

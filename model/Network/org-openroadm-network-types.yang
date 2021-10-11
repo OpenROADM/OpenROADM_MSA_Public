@@ -9,11 +9,15 @@ module org-openroadm-network-types {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
     revision-date 2020-12-11;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -47,6 +51,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";
@@ -339,6 +347,66 @@ module org-openroadm-network-types {
         type yang:date-and-time;
         description
           "date and time node will end maintenance or date when node is deployed";
+      }
+    }
+  }
+
+  grouping link-concatenation {
+    list link-concatenation {
+      key "SRLG-Id";
+      leaf SRLG-Id {
+        type uint32;
+        description
+          "unique identifier for SRLG";
+      }
+      leaf SRLG-length {
+        type decimal64 {
+          fraction-digits 2;
+        }
+        description
+          "Fiber length in desired distance unit of measure";
+      }
+    }
+  }
+
+  grouping SRLG-list{
+    list SRLG-list {
+      key "SRLG-Id";
+      description 
+        "List of all SRLG-Ids. Controller will be responsible to maintain completeness of SRLG-Ids by doing union of 
+         internal and external SRLG information.";
+      leaf SRLG-Id {
+        type uint32;
+        description
+          "unique identifier for SRLG";
+      }
+      leaf SRLG-name {
+        type string;
+        description
+          "Name of the SRLG";
+      }
+      leaf SRLG-type {
+        type org-openroadm-common-types:SRLG-type;
+        description
+          "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG";
+      }
+      leaf SRLG-length {
+        type decimal64 {
+          fraction-digits 2;
+        }
+        description
+          "Fiber length in desired distance unit of measure";
+      }
+    }
+  }
+
+  grouping future-SRLGs {
+    list future-SRLGs {
+      key "start-date";
+      description
+        "Start date represents end date for currently active SRLGs. Start date will represent start date for planned SRLGs";
+      leaf start-date {
+        type yang:date-and-time;
       }
     }
   }

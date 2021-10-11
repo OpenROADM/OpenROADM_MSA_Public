@@ -4,7 +4,7 @@ module org-openroadm-common-attributes {
 
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2020-03-27;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-common-attributes {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2020-03-27 {
     description
       "Version 7.0.0";

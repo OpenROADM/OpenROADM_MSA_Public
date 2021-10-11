@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -135,7 +139,11 @@ module org-openroadm-pm-types {
       enum opticalPowerOutput {
         value 3;
         description
-          "Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+          "Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH, OPT, OPT-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Unbinned/current value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalReturnLoss {
         value 4;
@@ -145,62 +153,101 @@ module org-openroadm-pm-types {
       enum opticalPowerInput {
         value 5;
         description
-          "Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH). Total optical power";
+          "Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH, OPR, OPR-OSC(on Port)).
+           Total optical power.
+           Unbinned/current value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum codeViolations {
         value 8;
         description
-          "Code Violations (CV)";
+          "BIP-8 error counter, sum of all lanes. RX/TX.";
+        reference
+          "RX: IEEE 802.3-2018, sections 82.2.8 (BIP calculations), 82.2.15 (Alignment marker removal),
+                                45.2.3.46, 45.2.3.47 (MDIO counters).
+           TX: IEEE 802.3-2018, sections 91.5.2.4 (Alignment marker removal),
+                                91.6.14 (BIP_error_counter_i), 45.2.1.117,.118 (MDIO counters).";
       }
       enum erroredSeconds {
         value 9;
         description
           "Errored Seconds (ES)";
+        reference
+          "ITU-T G.7710-200707 section 10.2.1.";
       }
       enum severelyErroredSeconds {
         value 10;
         description
           "Severely Errored Seconds (SES)";
+        reference
+          "ITU-T G.7710-200707 section 10.2.1.";
       }
       enum unavailableSeconds {
         value 11;
         description
           "Unavailable Seconds (UAS)";
+        reference
+          "ITU-T G.7710-200707 section 10.1.5.";
       }
       enum inFrames {
         value 12;
         description
-          "In frames (INFRAMES-E)";
+          "In frames (INFRAMES-E).
+           Equivalent to RMON MIB etherStatsPkts (RX).";
+        reference
+          "RMON MIB RFC 2819.";
       }
       enum inFramesErrored {
         value 13;
         description
-          "In frames errored (INFRAMESERR-E)";
+          "In frames errored (INFRAMESERR-E).
+           Equivalent to sum of RMON MIB etherStatsCRCAlignErrors + etherStatsFragments + etherStatsJabbers.";
+        reference
+          "RMON MIB RFC 2819.";
       }
       enum outFrames {
         value 14;
         description
-          "Out frames (OUTFRAMES-E)";
+          "Out frames (OUTRAMES-E).
+           Equivalent to RMON MIB etherStatsPkts (TX).";
+        reference
+          "RMON MIB RFC 2819.";
       }
       enum erroredSecondsEthernet {
         value 15;
+        status deprecated;
         description
-          "Errored Seconds Ethernet (ES-E)";
+          "Errored Seconds Ethernet (ES-E).
+           Deprecated, use erroredSeconds.";
       }
       enum severelyErroredSecondsEthernet {
         value 16;
+        status deprecated;
         description
-          "Severely Errored Seconds, Ethernet (SES-E)";
+          "Severely Errored Seconds, Ethernet (SES-E).
+           Deprecated, use severelyErroredSeconds.";
       }
       enum unavailableSecondsEthernet {
         value 17;
+        status deprecated;
         description
-          "Unavailable Seconds, Ethernet (UAS-E)";
+          "Unavailable Seconds, Ethernet (UAS-E).
+           Deprecated, use unavailableSeconds.";
       }
       enum erroredBlockCount {
         value 18;
         description
-          "Errored block count";
+          "Errored block count (ETH-IF, OTU-IF, ODU-IF).
+           ETH-IF: PCS layer error as defined in IEEE 802.3-2018.
+           OTU-IF, ODU-IF: BIP-8 errors as defined in ITU-T G.798-202101.";
+        reference
+          "IEEE 802.3-2018, sections 36.2.4.6 (8B10B PCS errors),
+                            49.2.4.6 (64B66B PCS errors), 49.2.14.2 (10G counter),
+                            82.2.3.5 (100G errors), 82.3.1 (100G counter),
+                            119.2.3.4 (400G errors), 119.3.1 (400G counter),
+                            45.2.3.16.4, 45.2.3.22 (MDIO counters).
+           ITU-T G.798-202101, section 6.5.1.1 (Errored block count).";
       }
       enum delay {
         value 19;
@@ -226,72 +273,120 @@ module org-openroadm-pm-types {
       enum opticalPowerOutputMin {
         value 23;
         description
-          "Minimum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+          "Minimum Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH, OPT, OPT-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerOutputMax {
         value 24;
         description
-          "Maximum Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+          "Maximum Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH, OPT, OPT-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerOutputAvg {
         value 25;
         description
-          "Average Optical Power Output (OPOUT-OTS). Total optical power includes Variable Optical Attenuator (VOA) attenuation";
+          "Average Optical Power Output (OPOUT-OTS, OPOUT-OMS, OPT-OCH, OPT, OPT-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerInputMin {
         value 26;
         description
-          "Minimum Optical Power Input (OPIN-OTS). Total optical power";
+          "Minimum Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH, OPR, OPR-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerInputMax {
         value 27;
         description
-          "Maximum Optical Power Input (OPIN-OTS). Total optical power";
+          "Maximum Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH, OPR, OPR-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerInputAvg {
         value 28;
         description
-          "Average Optical Power Input (OPIN-OTS). Total optical power";
+          "Average Optical Power Input (OPIN-OTS, OPIN-OMS, OPR-OCH, OPR, OPR-OSC(on Port)).
+           Total optical power includes Variable Optical Attenuator (VOA) attenuation.
+           Binned (15min/1day) value reported against OTS-IF, OMS-IF or Port entities.";
+        reference
+          "OTS-IF, OMS-IF: ITU-T G.872-201701 section 8.4.3.";
       }
       enum opticalPowerOutputOSC {
         value 29;
         description
-          "OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+          "OSC Optical Transmit Power Output on MW port (OPT-OSC).
+           Unbinned/current value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerOutputOSCMin {
         value 30;
         description
-          "Minimum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+          "Minimum OSC Optical Transmit Power Output on MW port (OPT-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerOutputOSCMax {
         value 31;
         description
-          "Maximum OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+          "Maximum OSC Optical Transmit Power Output on MW port (OPT-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerOutputOSCAvg {
         value 32;
         description
-          "Average OSC Optical Power Output (OPT-OSC). OSC Transmit power on MW port";
+          "Average OSC Optical Transmit Power Output on MW port (OPT-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerInputOSC {
         value 33;
         description
-          "OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+          "OSC Optical Receive Power Input on MW port (OPR-OSC).
+           Unbinned/current value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerInputOSCMin {
         value 34;
         description
-          "Minimum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+          "Minimum OSC Optical Receive Power Input on MW port (OPR-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerInputOSCMax {
         value 35;
         description
-          "Maximum OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+          "Maximum OSC Optical Receive Power Input on MW port (OPR-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum opticalPowerInputOSCAvg {
         value 36;
         description
-          "Average OSC Optical Power Input (OPR-OSC). OSC Receive power on MW port";
+          "Average OSC Optical Receive Power Input on MW port (OPR-OSC).
+           Binned (15min/1day) value reported against OTS-IF interfaces.";
+        reference
+          "ITU-T G.872-201701 section 8.4.2.";
       }
       enum preFECCorrectedErrors {
         value 37;
@@ -664,16 +759,25 @@ module org-openroadm-pm-types {
         value 120;
         description
           "FEC Corrected Codewords Counter";
+        reference
+          "100 GE: IEEE802.3-2018 sections 91.6.9 (FEC_corrected_cw_counter), 45.2.1.112 (MDIO).
+           400 GE: IEEE802.3-2018 sections 119.3.1 (FEC_corrected_cw_counter), 45.2.3.61 (MDIO).";
       }
       enum fecUncorrectedCodewords {
         value 121;
         description
           "FEC Uncorrected Codewords Counter";
+        reference
+          "100 GE: IEEE802.3-2018 sections 91.6.10 (FEC_uncorrected_cw_counter), 45.2.1.113 (MDIO).
+           400 GE: IEEE802.3-2018 sections 119.3.1 (FEC_uncorrected_cw_counter), 45.2.3.62 (MDIO).";
       }
       enum fecSymbolErrors {
         value 122;
         description
           "FEC Symbol Error Counter";
+        reference
+          "100 GE: IEEE802.3-2018 sections 91.6.12 (FEC_symbol_error_counter_i), 45.2.1.115/116 (MDIO).
+           400 GE: IEEE802.3-2018 sections 119.3.1 (FEC_symbol_error_counter_i), 45.2.3.57/58 (MDIO).";
       }
       enum localFaultSeconds {
         value 123;

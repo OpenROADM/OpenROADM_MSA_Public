@@ -8,15 +8,19 @@ module org-openroadm-resource {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2020-03-27;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -52,6 +56,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -164,16 +172,9 @@ module org-openroadm-resource {
     }
   }
 
-  grouping och-attributes {
+  grouping common-och-otsi-attributes {
     description
-      "Optical Channel attributes";
-    leaf rate {
-      type identityref {
-        base org-openroadm-common-optical-channel-types:och-rate-identity;
-      }
-      description
-        "rate";
-    }
+      "Optical Channel and otsi common attributes";
     leaf frequency {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       description
@@ -184,16 +185,55 @@ module org-openroadm-resource {
       description
         "Frequency width in GHz.";
     }
+    leaf optical-operational-mode {
+      type string;
+      description
+        "The path was calculated according to the supported operational modes.
+         Selected mode can be either a specific or an openROADM operational-mode";
+    }
+  }
+  
+  grouping path-computation-outputs {
+	description
+	  "Parameters resulting of path computation";
+    leaf rx-estimated-osnr {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated OSNR for the path";
+    }
+    leaf rx-estimated-gsnr {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated Generalized SNR (including non linear impairments) for the path";
+    }
+    leaf max-output-power {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "maximum output-power";
+    }
+    leaf min-output-power {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "minimum output-power";
+    }
+  }
+
+  grouping och-attributes {
+    description
+      "Optical Channel attributes";
+    leaf rate {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:och-rate-identity;
+      }
+      description
+        "rate";
+    }
     leaf modulation-format {
       type org-openroadm-common-optical-channel-types:modulation-format;
       description
         "Modulation format";
     }
-    leaf optical-operational-mode {
-      type string;
-      description
-        "One of the operational mode capabilities as published by the device";
-    }
+    uses common-och-otsi-attributes;
   }
 
   grouping odu-attributes {
@@ -283,6 +323,7 @@ module org-openroadm-resource {
       }
     }
   }
+
   grouping otu-attributes {
     description
       "OTU attributes";
@@ -326,26 +367,12 @@ module org-openroadm-resource {
       description
         "OTSi rate";
     }
-    leaf frequency {
-      type org-openroadm-common-optical-channel-types:frequency-THz;
-      description
-        "Center Frequency in THz.";
-    }
-    leaf width {
-      type org-openroadm-common-optical-channel-types:frequency-GHz;
-      description
-        "Frequency width in GHz.";
-    }
     leaf modulation-format {
       type org-openroadm-common-optical-channel-types:modulation-format;
       description
         "Modulation format";
     }
-    leaf optical-operational-mode {
-      type string;
-      description
-        "One of the operational mode capabilities as published by the device";
-    }
+    uses common-och-otsi-attributes;
   }
 
   grouping otsi-group-attributes {
@@ -485,6 +512,9 @@ module org-openroadm-resource {
         }
         case odu-sncp-pg {
           uses org-openroadm-resource-types:odu-sncp-pg-name;
+        }
+        case client-sncp-pg {
+          uses org-openroadm-resource-types:client-sncp-pg-name;
         }
         case other {
           uses org-openroadm-resource-types:other-resource-id;

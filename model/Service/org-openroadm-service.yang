@@ -9,27 +9,39 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-resource {
+    prefix org-openroadm-resource;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-operational-mode-catalog {
+    prefix org-openroadm-operational-mode-catalog;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2021-09-24;
   }
 
   organization
@@ -65,6 +77,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -141,7 +157,7 @@ module org-openroadm-service {
     description
       "Version 1.2";
   }
-  
+
   grouping proposed-equipment-g {
     leaf propose-equipment {
       type enumeration {
@@ -174,13 +190,36 @@ module org-openroadm-service {
     uses proposed-equipment-g;
     container service-a-end {
       uses org-openroadm-common-service-types:service-endpoint;
+      container requesting-interface-properties {
+        when "../../connection-type = 'optical-tunnel'" {
+          description
+            "an optical-tunnel service creation request triggers a container
+              that includes the description of the characteristics of the
+              external optical transceiver handled by a 3rd party controller";
+        }
+        uses org-openroadm-common-service-types:external-interface-characteristics;
+      }
     }
     container service-z-end {
       uses org-openroadm-common-service-types:service-endpoint;
+      container requesting-interface-properties {
+        when "../../connection-type = 'optical-tunnel'" {
+          description
+            "an optical-tunnel service creation request triggers a container
+              that includes the description of the characteristics of the
+              external optical transceiver handled by a 3rd party controller";
+        }
+        uses org-openroadm-common-service-types:external-interface-characteristics;
+      }
     }
     uses org-openroadm-routing-constraints:routing-constraints;
     uses org-openroadm-common-service-types:service-information;
     uses org-openroadm-common-service-types:max-regeneration-options;
+    uses org-openroadm-common-service-types:existing-service-grouping {
+      refine "existing-service-attributes/reusable-existing-resources" {
+        default "all";
+      }
+    }
   }
 
   grouping service-feasibility-check-outputs {
@@ -201,6 +240,15 @@ module org-openroadm-service {
            quantity";
         uses org-openroadm-common-service-types:equipment-info;
       }
+      container expected-settings-and-performances {
+        when "(../../connection-type = 'optical-tunnel' or ../../connection-type = 'infrastructure')" {
+          description
+            "Performances and settings are provided for wavelength services
+             whether they are based on end to end services or optical-tunnels";
+        }
+        uses org-openroadm-resource:common-och-otsi-attributes;
+        uses org-openroadm-resource:path-computation-outputs;
+      }
     }
     container service-z-end {
       uses org-openroadm-common-service-types:service-endpoint;
@@ -211,17 +259,26 @@ module org-openroadm-service {
            quantity";
         uses org-openroadm-common-service-types:equipment-info;
       }
+      container expected-settings-and-performances {
+        when "(../../connection-type = 'optical-tunnel' or ../../connection-type = 'infrastructure')" {
+          description
+            "Performances and settings are provided for wavelength services
+             whether they are based on end to end services or optical-tunnels";
+        }
+        uses org-openroadm-resource:common-och-otsi-attributes;
+        uses org-openroadm-resource:path-computation-outputs;
+      }
     }
     uses org-openroadm-common-service-types:intermediate-site-container;
     container requested-service-topology {
       description
         "This corresponds to the topology of the service requested. Includes all the
-        containers: topology, backup topology, network topology, and 
-        network backup-topology";
+         containers: topology, backup topology, network topology, and
+         network backup-topology";
       container topology {
         description
           "topology corresponds to working-path which is the default path. It defines the initial path
-          to which services defined as revertive may revert to when the failure condition disappear";
+           to which services defined as revertive may revert to when the failure condition disappear";
         uses org-openroadm-topology:topology;
       }
       container backup-topology {
@@ -233,7 +290,7 @@ module org-openroadm-service {
             }
             description
               "Several backup paths may be used when backup-paths are pre-calculated.
-              Backup-path-id avoids 0 which is associated with working path in current-active-path";
+               Backup-path-id avoids 0 which is associated with working path in current-active-path";
           }
           leaf failure-case-id {
             type string;
@@ -255,7 +312,7 @@ module org-openroadm-service {
             }
             description
               "Several backup paths may be used when backup-paths are pre-calculated.
-              Backup-path-id avoids 0 which is associated with working path in current-active-path";
+               Backup-path-id avoids 0 which is associated with working path in current-active-path";
           }
           leaf failure-case-id {
             type string;
@@ -268,33 +325,39 @@ module org-openroadm-service {
     }
     list supporting-service-hierarchy {
       key "service-identifier";
-      uses org-openroadm-common-service-types:service-hierarchy;
       description
         "This lists all the supporting services and their respective hierarchy, includes the
-        proposed one";
+         proposed one";
+      uses org-openroadm-common-service-types:service-hierarchy;
     }
     uses service-path-metrics;
     uses org-openroadm-common-service-types:max-regeneration-options;
     uses org-openroadm-common-service-types:regeneration-option-list;
+    uses org-openroadm-common-service-types:existing-service-grouping {
+      refine "existing-service-attributes/reusable-existing-resources" {
+        default "all";
+      }
+    }
   }
 
   grouping service-path-metrics {
     container primary-path-metrics {
-      description 
-        "These service metrics are associated with primary 
-        service path";
+      description
+        "These service metrics are associated with primary
+         service path";
       uses service-metrics;
     }
     list backup-path-metrics {
+      key "backup-path-id";
       description
         "These service metrics are associated with the backup
-        service path";
-      key "backup-path-id";
+         service path";
       leaf backup-path-id {
-        description "Unique identifier for the backup service path";
         type uint8 {
           range "1..255";
         }
+        description
+          "Unique identifier for the backup service path";
       }
       uses service-metrics;
     }
@@ -304,23 +367,24 @@ module org-openroadm-service {
     container service-metrics {
       description
         "All the metrics associated with end-to-end service feasibility
-        This container will have all the metrics that have'max' contraint in
-        org-openroadm-routing-constraints";
-      
+         This container will have all the metrics that have'max' contraint in
+         org-openroadm-routing-constraints";
       leaf latency {
         description
-          "Provides end-to-end latency of a service-path; It can be measured or 
-          estimated";
-        type uint32;
-        units "microsecs";
+          "Provides one-way end-to-end latency (in milliseconds) of a service-path; 
+          It can be measured or estimated";
+        type decimal64 {
+          fraction-digits 3;
+        }
+        units "milliseconds";
       }
       leaf distance {
-        description
-          "Provides end-to-end distance of a service-path";
         type decimal64 {
           fraction-digits 2;
         }
         units "km";
+        description
+          "Provides end-to-end distance of a service-path";
       }
       container hop-count {
         description
@@ -344,7 +408,6 @@ module org-openroadm-service {
       }
     }
   }
-  
 
   rpc service-create {
     description
@@ -391,44 +454,44 @@ module org-openroadm-service {
 
   rpc service-create-bulk {
     description
-      "Whether this request passed initial validation and was accepted for processing. 
-      Once the request completes processing, a service-rpc-result Notification shall be 
-      sent. This is 'all' or 'nothing' operation, which means that either all services
-      are created or none of them will be created.";
+      "Whether this request passed initial validation and was accepted for processing.
+       Once the request completes processing, a service-rpc-result Notification shall be
+       sent. This is 'all' or 'nothing' operation, which means that either all services
+       are created or none of them will be created.";
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       list service-request-list {
-         key "service-name";
-         leaf service-name {
-           type string;
-           mandatory true;
-           description
-             "Identifier for the service to be created in
-              the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
-         }
-         leaf common-id {
-           type string;
-           description
-             "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
-         }
-         uses org-openroadm-common-service-types:service-order;
-         uses org-openroadm-common-service-types:routing-metric;
-         uses org-openroadm-common-service-types:service-resiliency;
-         leaf connection-type {
-           type org-openroadm-common-service-types:connection-type;
-           mandatory true;
-         }
-         uses org-openroadm-common-service-types:resource-status;
-         container service-a-end {
-           uses org-openroadm-common-service-types:service-endpoint;
-           uses org-openroadm-common-service-types:service-endpoint-project;
-         }
-         container service-z-end {
-           uses org-openroadm-common-service-types:service-endpoint;
-           uses org-openroadm-common-service-types:service-endpoint-project;
-         }
-         uses org-openroadm-routing-constraints:routing-constraints;
-         uses org-openroadm-common-service-types:service-information;
+        key "service-name";
+        leaf service-name {
+          type string;
+          mandatory true;
+          description
+            "Identifier for the service to be created in
+             the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+        }
+        leaf common-id {
+          type string;
+          description
+            "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+        }
+        uses org-openroadm-common-service-types:service-order;
+        uses org-openroadm-common-service-types:routing-metric;
+        uses org-openroadm-common-service-types:service-resiliency;
+        leaf connection-type {
+          type org-openroadm-common-service-types:connection-type;
+          mandatory true;
+        }
+        uses org-openroadm-common-service-types:resource-status;
+        container service-a-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        container service-z-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        uses org-openroadm-routing-constraints:routing-constraints;
+        uses org-openroadm-common-service-types:service-information;
       }
     }
     output {
@@ -448,32 +511,37 @@ module org-openroadm-service {
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       list service-request-list {
-         key "common-id";
-         leaf common-id {
-           type string;
-           mandatory true;
-           description
-             "To be used by the ROADM controller to identify the routing constraints 
+        key "common-id";
+        leaf common-id {
+          type string;
+          mandatory true;
+          description
+            "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
-         }
-         uses org-openroadm-common-service-types:service-order;
-         uses org-openroadm-common-service-types:routing-metric;
-         uses org-openroadm-common-service-types:service-resiliency;
-         leaf connection-type {
-           type org-openroadm-common-service-types:connection-type;
-           mandatory true;
-         }
-         uses org-openroadm-common-service-types:resource-status;
-         container service-a-end {
-           uses org-openroadm-common-service-types:service-endpoint;
-           uses org-openroadm-common-service-types:service-endpoint-project;
-         }
-         container service-z-end {
-           uses org-openroadm-common-service-types:service-endpoint;
-           uses org-openroadm-common-service-types:service-endpoint-project;
-         }
-         uses org-openroadm-routing-constraints:routing-constraints;
-         uses org-openroadm-common-service-types:service-information;
+        }
+        uses org-openroadm-common-service-types:service-order;
+        uses org-openroadm-common-service-types:routing-metric;
+        uses org-openroadm-common-service-types:service-resiliency;
+        leaf connection-type {
+          type org-openroadm-common-service-types:connection-type;
+          mandatory true;
+        }
+        uses org-openroadm-common-service-types:resource-status;
+        container service-a-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        container service-z-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        uses org-openroadm-routing-constraints:routing-constraints;
+        uses org-openroadm-common-service-types:service-information;
+        uses org-openroadm-common-service-types:existing-service-grouping {
+            refine "existing-service-attributes/reusable-existing-resources" {
+              default "all";
+            }
+        }
       }
     }
     output {
@@ -485,6 +553,11 @@ module org-openroadm-service {
           mandatory true;
         }
         uses org-openroadm-common-service-types:response-parameters;
+        uses org-openroadm-common-service-types:existing-service-grouping {
+            refine "existing-service-attributes/reusable-existing-resources" {
+              default "all";
+            }
+        }
       }
     }
   }
@@ -605,7 +678,7 @@ module org-openroadm-service {
           mandatory true;
           description
             "To be used by the ROADM controller to identify the routing constraints
-            received from planning application (PED).";
+             received from planning application (PED).";
         }
         uses org-openroadm-common-service-types:response-parameters;
         uses service-feasibility-check-outputs;
@@ -712,19 +785,47 @@ module org-openroadm-service {
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
+        container requesting-interface-properties {
+          when "../../connection-type = 'optical-tunnel'" {
+            description
+              "an optical-tunnel service creation request triggers a container
+               that includes the description of the characteristics of the
+               external optical transceiver handled by a 3rd party controller";
+          }
+          uses org-openroadm-common-service-types:external-interface-characteristics;
+        }
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
+        container requesting-interface-properties {
+          when "../../connection-type = 'optical-tunnel'" {
+            description
+              "an optical-tunnel service creation request triggers a container
+               that includes the description of the characteristics of the
+               external optical transceiver handled by a 3rd party controller";
+          }
+          uses org-openroadm-common-service-types:external-interface-characteristics;
+        }
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
       uses org-openroadm-common-service-types:routing-metric;
       uses org-openroadm-common-service-types:service-resiliency;
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:response-parameters;
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
   }
 
@@ -785,6 +886,7 @@ module org-openroadm-service {
       "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
        service-rpc-result Notification shall be sent.";
     input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
       leaf service-name {
         type string;
         mandatory true;
@@ -798,13 +900,20 @@ module org-openroadm-service {
           "New identifier for the service to be
            reconfigured in the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      leaf data-reload {
+        type boolean;
+        description 
+          "Indicates whether the data of existing service needs to be refreshed or 
+          reloaded. No reprovisioning/reconfiguration should be done to the service, 
+          only data is updated. May generate data conflict to existing service 	
+          after reload. If set true, the data of existing service will be refreshed";
+      }
       leaf common-id {
         type string;
         description
           "To be used by the ROADM controller to identify the routing
            constraints received from planning application (PED).";
       }
-      uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:service-order;
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
@@ -813,10 +922,28 @@ module org-openroadm-service {
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
+        container requesting-interface-properties {
+          when "../../connection-type = 'optical-tunnel'" {
+            description
+              "an optical-tunnel service creation request triggers a container
+                that includes the description of the characteristics of the
+                external optical transceiver handled by a 3rd party controller";
+          }
+          uses org-openroadm-common-service-types:external-interface-characteristics;
+        }
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
         uses org-openroadm-common-service-types:service-endpoint-project;
+        container requesting-interface-properties {
+          when "../../connection-type = 'optical-tunnel'" {
+            description
+              "an optical-tunnel service creation request triggers a container
+                that includes the description of the characteristics of the
+                external optical transceiver handled by a 3rd party controller";
+          }
+          uses org-openroadm-common-service-types:external-interface-characteristics;
+        }
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
@@ -824,9 +951,103 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:service-resiliency;
     }
     output {
-      uses org-openroadm-common-service-types:configuration-response-common;
+      // Augment the reconfigure response with the data-reload
+      uses org-openroadm-common-service-types:configuration-response-common {
+        augment "configuration-response-common" {
+          leaf ack-data-reload-indicator {
+            type string;
+            description
+              "This optional, meaning this will be populated only when
+              the data-reload indicator is set true";
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:response-parameters;
     }
   }
+
+  rpc service-reconfigure-bulk {
+	  description
+      "Whether bulk of requests passed initial validation and was accepted for 
+      processing. Once the request completes processing, a service-rpc-result 
+      Notification shall be sent.";
+	  input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      list service-reconfigure-list {
+        key "service-name";
+        leaf service-name {
+          type string;
+          mandatory true;
+          description
+            "Existing identifier for the service to be
+            reconfigured in the ROADM network, e.g., CLFI, CLCI, etc.";
+        }
+        leaf new-service-name {
+          type string;
+          description
+            "New identifier for the service to be
+            reconfigured in the ROADM network, e.g., CLFI, CLCI, etc.";
+        }
+        leaf data-reload {
+          type boolean;
+          description 
+            "Indicates whether the data of existing service needs to be refreshed or 
+            reloaded. No reprovisioning/reconfiguration should be done to the service, 
+            only data is updated. May generate data conflict to existing service 	
+            after reload. If set true, the data of existing service will be refreshed";
+        }
+        leaf common-id {
+          type string;
+          description
+            "To be used by the ROADM controller to identify the routing
+            constraints received from planning application (PED).";
+        }
+        uses org-openroadm-common-service-types:service-order;
+        leaf connection-type {
+          type org-openroadm-common-service-types:connection-type;
+        }
+        uses org-openroadm-common-service-types:resource-status;
+        container service-a-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        container service-z-end {
+          uses org-openroadm-common-service-types:service-endpoint;
+          uses org-openroadm-common-service-types:service-endpoint-project;
+        }
+        uses org-openroadm-routing-constraints:routing-constraints;
+        uses org-openroadm-common-service-types:service-information;
+        uses org-openroadm-common-service-types:routing-metric;
+        uses org-openroadm-common-service-types:service-resiliency;
+      }
+    }
+    output {
+		  uses org-openroadm-common-service-types:configuration-response-common {
+		    augment "configuration-response-common" {
+			    leaf ack-data-reload-indicator {
+		        type string;
+            description
+         	    "This optional, meaning this will be populated only when 
+               the data-reload indicator is set true";
+   		    }
+		    } 
+		  }
+		  list service-reconfigure-response-list {
+		    key "service-name";
+		    leaf service-name {
+			    type string;
+			    mandatory true;
+			    description
+            "Existing identifier for the service to be
+            reconfigured in the ROADM network, e.g., 	CLFI, CLCI, etc.";
+		    } 
+      }
+      uses org-openroadm-common-service-types:response-parameters;
+    }
+  }
+
+
+
 
   rpc service-reconfigure-result-notification-request {
     description
@@ -1001,6 +1222,83 @@ module org-openroadm-service {
     }
   }
 
+  rpc optical-tunnel-create {
+    description
+      "This rpc is used in a second step of service creation when the connection-type is
+          an optical-tunnel. The optical tunnel rendering implies that end terminals optical
+          interfaces such as router pluggables are tuned to the a correct wavelength and that
+          the output power is set so that control loop can operate during connection setting.
+          The rpc is invoked to confirm the optical tunnel can be established.";
+    input {
+      leaf service-name {
+        type string;
+        mandatory true;
+        description
+          "Identifier used in the second step of the optical-tunnel service creation.  
+           Identifies the service (optical tunnel between SRG PPs) to be created 
+           in the ROADM network.";
+      }
+      leaf common-id {
+        type string;
+        mandatory true;
+        description
+          "Identifier used in the first step of optical-tunnelservice creation using 
+          temp-service-create rpc. Identifies the temporary service for which resources 
+          have been reserved after a successful path computation";
+      }
+      leaf set-frequency {
+        type org-openroadm-common-optical-channel-types:frequency-THz;
+        mandatory true;
+        description
+          "Center Frequency in THz.";
+      }
+      leaf full-bandwidth-at-3dB {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        mandatory true;
+        description
+          "Signal full bandwidth at 3dB bellow the peak in GHz.";
+      }
+      leaf full-bandwidth-at-10dB {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        mandatory true;
+        description
+            "Signal full bandwidth at 10dB bellow the peak in GHz.";
+      }
+      uses org-openroadm-common-service-types:sdnc-request-header;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc optical-tunnel-request-cancel {
+    description
+      "This rpc is used to abort service creation when the connection-type is
+            an optical-tunnel, if the conditions required to set-up the end to end service
+          can not be met by the end terminals optical interfaces such as router pluggables.
+          When the rpc is invoked, any resource temporary reserved for the second step of
+          service creation shall be released : this rpc cancels service path rendering between
+          SRG PPs.";
+    input {
+      leaf service-name {
+        type string;
+        description
+          "Identifier used in the first step of service creation using service create rpc.";
+      }
+      leaf common-id {
+        type string;
+        description
+          "Identifier used in the first step of optical-tunnelservice creation using 
+           temp-service-create rpc. Identifies the temporary service for which resources 
+           have been reserved after a successful path computation";
+      } 
+      uses org-openroadm-common-service-types:sdnc-request-header;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
   rpc network-re-optimization {
     input {
       leaf service-name {
@@ -1048,6 +1346,131 @@ module org-openroadm-service {
     }
   }
 
+rpc add-openroadm-operational-modes-to-catalog {
+	    description
+	      "This rpc is used to feed the operational mode catalog with openroadm operational modes";
+	    input {
+	      uses org-openroadm-common-service-types:sdnc-request-header;
+	      container operational-mode-info {
+	    	     container grid-parameters {
+				     description
+				       "Parameters associated with global spectrum use";
+				     uses org-openroadm-operational-mode-catalog:operational-mode-grid-parameters;
+			     }
+				 container xponders-pluggables {
+					 description
+					    "Parameters associated with xponders and pluggables";
+				     list xponder-pluggable-openroadm-operational-mode {
+					        key "openroadm-operational-mode-id";
+					        description
+					          "defines the openroadm operational mode pointing to an official specification ";
+					        leaf openroadm-operational-mode-id {
+					            type string;
+					            description
+					                "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+					            }
+			                uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
+	    	         }
+				 }
+				 container roadms {
+				     description
+				       "Parameters associated with roadms";
+				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-express-parameters;
+				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-add-parameters;
+				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-drop-parameters;
+			     }
+				 container amplifiers {
+				     description
+				       "Parameters associated with amplifiers";
+				     uses org-openroadm-operational-mode-catalog:operational-mode-amplifier-parameters;
+			     }
+	      }
+	    }
+	    output {
+	      uses org-openroadm-common-service-types:configuration-response-common;
+	    }
+  }
+ 
+  rpc add-specific-operational-modes-to-catalog {
+    description
+      "This rpc is used to feed the operational mode catalog with specific operational modes for
+           \txponders or external pluggables";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      container operational-mode-info {
+        container specific-operational-modes {
+          description
+            "All specific operational modes corresponding to bookended or alien units";
+          list specific-operational-mode {
+            key "operational-mode-id";
+            description
+              "List of all declared specific operationnal modes";
+            leaf operational-mode-id {
+              type string;
+              description
+                "unique identifier which identifies the operational mode";
+            }
+            uses org-openroadm-operational-mode-catalog:operational-mode-grid-parameters;
+            uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
+          }
+        }
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+  
+  rpc service-srlg-get {
+    input {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service in the ROADM network,
+          e.g., CLFI, CLCI, etc. whose path or other risks must be evaluated by the RNC";
+      }
+      leaf SRLG-type {
+        type org-openroadm-common-types:SRLG-type;
+        description
+          "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG. If SRLG-type is not provided 
+          in input, output should include all types of SRLGs for a given service-name";
+      }
+      leaf due-date {
+        type yang:date-and-time;
+        description
+          "Due-date is required to get list of SRLGs for specific validity period. If Due-date is not 
+          provited in the input, RPC should return list of current/active SRLGS";
+      }
+    }
+    output {
+      list SRLG-list {
+        key "SRLG-Id";
+        leaf SRLG-Id {
+          type uint32;
+          description
+            "unique identifier for SRLG";
+        }
+        leaf SRLG-name {
+          type string;
+          description
+            "Name of the SRLG";
+        }
+        leaf SRLG-type {
+          type org-openroadm-common-types:SRLG-type; 
+          description
+            "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG";
+        }
+        leaf SRLG-length {
+          type decimal64 {
+            fraction-digits 2;
+          }
+          description
+            "Fiber length in desired distance unit of measure";
+        }
+      }
+    } 
+  }
+
   notification service-rpc-result {
     description
       "This Notification indicates result of service RPC";
@@ -1056,6 +1479,25 @@ module org-openroadm-service {
     }
     uses org-openroadm-common-types:rpc-response-status;
     uses org-openroadm-common-service-types:service-notification-result;
+    container path-computation-result {
+      when "../notification-type = 'path-computation-result'" {
+        description
+          "an optical-tunnel service triggers the leaf providing
+           information on the operationnal mode selected by the pce";
+      }
+      container aToZ {
+        description
+          "Describes the settings and the performances for the A to Z path";
+        uses org-openroadm-resource:common-och-otsi-attributes;
+        uses org-openroadm-resource:path-computation-outputs;
+      }
+      container zToA {
+        description
+          "Describes the settings and the performances for the Z to A path";
+        uses org-openroadm-resource:common-och-otsi-attributes;
+        uses org-openroadm-resource:path-computation-outputs;
+      }
+    }
   }
 
   notification service-traffic-flow {
@@ -1098,6 +1540,28 @@ module org-openroadm-service {
     uses org-openroadm-common-service-types:service;
   }
 
+  notification optical-tunnel-created {
+    description
+      "This Notification is used to confirm that an optical-tunnel service has been created.
+       It shall contain the created service in its entirety";
+    leaf notificationType {
+      type org-openroadm-resource-types:resource-notification-type;
+      description
+        "Whether this notification indicates a service creation, or service-reconfigure.";
+    }
+    leaf version-number {
+      type uint64;
+      description
+        "Identifier for the versioned service";
+    }
+    leaf actual-date {
+      type yang:date-and-time;
+      description
+        "Actual date and time traffic started flowing";
+    }
+    uses org-openroadm-common-service-types:service;
+  }
+  
   notification non-rpc-related-notification {
     description
       "Used to notify SDN controller that :
@@ -1194,6 +1658,37 @@ module org-openroadm-service {
         refine "service-name" {
           mandatory false;
         }
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
       }
     }
   }
@@ -1201,5 +1696,10 @@ module org-openroadm-service {
     description
       "Parameters allowing to set the controller behaviour";
     uses org-openroadm-controller-customization:controller-parameters;
+  }
+  container operational-mode-catalog {
+    description
+      "Store parameters associated with openroadm specifications and specific operational modes";
+    uses org-openroadm-operational-mode-catalog:operational-mode-catalog;
   }
 }

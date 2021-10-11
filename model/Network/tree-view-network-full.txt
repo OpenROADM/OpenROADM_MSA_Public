@@ -15,6 +15,7 @@ module: ietf-network
         |  +--rw supporting-node* [network-ref node-ref]
         |  |  +--rw network-ref    -> ../../../supporting-network/network-ref
         |  |  +--rw node-ref       -> /networks/network/node/node-id
+        |  +--rw cn:clli?                         string
         |  +--rw nt:termination-point* [tp-id]
         |  |  +--rw nt:tp-id                                       tp-id
         |  |  +--rw nt:supporting-termination-point* [network-ref node-ref tp-ref]
@@ -175,30 +176,31 @@ module: ietf-network
         |  |     +--rw otn-topo:service-format?                  org-openroadm-service-format:service-format
         |  |     +--rw otn-topo:service-rate?                    uint32
         |  |     +--rw otn-topo:other-service-format-and-rate?   string
-        |  +--rw cn:clli?                         string
         |  +--rw cnet:node-type?                  org-openroadm-network-types:openroadm-node-type
         |  +--rw cnet:node-subtype?               org-openroadm-common-node-types:node-subtypes
         |  +--rw cnet:lifecycle-state?            org-openroadm-common-state-types:lifecycle-state
         |  +--rw cnet:operational-state?          org-openroadm-common-state-types:state
         |  +--rw cnet:administrative-state?       org-openroadm-equipment-states-types:admin-states
         |  +--rw topo:srg-attributes
-        |  |  +--rw topo:srg-number?               uint16
-        |  |  +--rw topo:max-pp?                   uint32
-        |  |  +--rw topo:current-provisioned-pp?   uint32
-        |  |  +--rw topo:wavelength-duplication?   org-openroadm-common-optical-channel-types:wavelength-duplication-type
+        |  |  +--rw topo:srg-number?                    uint16
+        |  |  +--rw topo:max-pp?                        uint32
+        |  |  +--rw topo:current-provisioned-pp?        uint32
+        |  |  +--rw topo:wavelength-duplication?        org-openroadm-common-optical-channel-types:wavelength-duplication-type
+        |  |  +--rw topo:supported-operational-modes*   string
         |  |  +--rw topo:avail-freq-maps* [map-name]
         |  |  |  +--rw topo:map-name                string
         |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
         |  |  |  +--rw topo:freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
         |  |  |  +--rw topo:effective-bits?         uint16
         |  |  |  +--rw topo:freq-map?               binary
-        |  |  +--rw topo:type-variety?             string
+        |  |  +--rw topo:type-variety?                  string
         |  +--rw topo:degree-attributes
         |  |  +--rw topo:degree-number?                    uint16
         |  |  +--rw topo:max-wavelengths?                  uint32
         |  |  +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
         |  |  +--rw topo:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
         |  |  +--rw topo:egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
+        |  |  +--rw topo:supported-operational-modes*      string
         |  |  +--rw topo:avail-freq-maps* [map-name]
         |  |  |  +--rw topo:map-name                string
         |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
@@ -265,77 +267,93 @@ module: ietf-network
         |  +--rw otn-topo:xpdr-attributes
         |     +--rw otn-topo:xpdr-number?   uint16
         +--rw nt:link* [link-id]
-           +--rw nt:link-id                      link-id
-           +--rw nt:source
-           |  +--rw nt:source-node?   -> ../../../nw:node/node-id
-           |  +--rw nt:source-tp?     -> ../../../nw:node[nw:node-id=current()/../source-node]/termination-point/tp-id
-           +--rw nt:destination
-           |  +--rw nt:dest-node?   -> ../../../nw:node/node-id
-           |  +--rw nt:dest-tp?     -> ../../../nw:node[nw:node-id=current()/../dest-node]/termination-point/tp-id
-           +--rw nt:supporting-link* [network-ref link-ref]
-           |  +--rw nt:network-ref    -> ../../../nw:supporting-network/network-ref
-           |  +--rw nt:link-ref       -> /nw:networks/network[nw:network-id=current()/../network-ref]/link/link-id
-           +--rw cnet:link-type?                 org-openroadm-network-types:openroadm-link-type
-           +--rw cnet:clfi?                      string
-           +--rw cnet:opposite-link?             -> ../../nwt:link/link-id
-           +--rw cnet:link-length?               decimal64
-           +--rw cnet:link-latency?              uint32
-           +--rw cnet:TE-metric?                 uint32
-           +--rw cnet:link-concatenation* [SRLG-Id]
-           |  +--rw cnet:SRLG-Id        uint32
-           |  +--rw cnet:SRLG-length?   uint32
-           +--rw cnet:administrative-group?      uint32
-           +--rw cnet:operational-state?         org-openroadm-common-state-types:state
-           +--rw cnet:administrative-state?      org-openroadm-equipment-states-types:admin-states
-           +--rw cnet:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
-           +--rw topo:amplified?                 boolean
-           +--rw topo:OMS-attributes
-           |  +--rw topo:span
-           |  |  +--rw topo:auto-spanloss?            boolean
-           |  |  +--rw topo:spanloss-base?            org-openroadm-common-link-types:ratio-dB
-           |  |  +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
-           |  |  +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
-           |  |  +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
-           |  |  +--rw topo:link-concatenation* [SRLG-Id]
-           |  |     +--rw topo:SRLG-Id        uint32
-           |  |     +--rw topo:fiber-type?    enumeration
-           |  |     +--rw topo:SRLG-length?   uint32
-           |  |     +--rw topo:pmd?           org-openroadm-common-link-types:fiber-pmd
-           |  +--rw topo:amplified-link
-           |     +--rw topo:amplified-link* [section-elt-number]
-           |        +--rw topo:section-elt-number    uint16
-           |        +--rw topo:section-element
-           |           +--rw (topo:section-element)?
-           |              +--:(topo:ila)
-           |              |  +--rw topo:ila
-           |              |     +--rw topo:amp-type                          org-openroadm-common-amplifier-types:amplifier-types
-           |              |     +--rw topo:amp-gain-range?                   org-openroadm-common-amplifier-types:amplifier-gain-range
-           |              |     +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:gain                              org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:initially-planned-gain?           org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:tilt?                             org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:initially-planned-tilt?           org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:out-voa-att?                      org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
-           |              |     +--rw topo:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-           |              |     +--rw topo:egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-           |              |     +--rw topo:type-variety?                     string
-           |              |     +--rw topo:node-id                           org-openroadm-common-node-types:node-id-type
-           |              |     +--rw topo:administrative-state?             org-openroadm-equipment-states-types:admin-states
-           |              +--:(topo:span)
-           |                 +--rw topo:span
-           |                    +--rw topo:auto-spanloss?            boolean
-           |                    +--rw topo:spanloss-base?            org-openroadm-common-link-types:ratio-dB
-           |                    +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
-           |                    +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
-           |                    +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
-           |                    +--rw topo:link-concatenation* [SRLG-Id]
-           |                    |  +--rw topo:SRLG-Id        uint32
-           |                    |  +--rw topo:fiber-type?    enumeration
-           |                    |  +--rw topo:SRLG-length?   uint32
-           |                    |  +--rw topo:pmd?           org-openroadm-common-link-types:fiber-pmd
-           |                    +--rw topo:administrative-state?     org-openroadm-equipment-states-types:admin-states
-           +--rw otn-topo:available-bandwidth?   uint32
-           +--rw otn-topo:used-bandwidth?        uint32
-           +--rw otn-topo:ODU-protected?         boolean
-
+        |  +--rw nt:link-id                      link-id
+        |  +--rw nt:source
+        |  |  +--rw nt:source-node?   -> ../../../nw:node/node-id
+        |  |  +--rw nt:source-tp?     -> ../../../nw:node[nw:node-id=current()/../source-node]/termination-point/tp-id
+        |  +--rw nt:destination
+        |  |  +--rw nt:dest-node?   -> ../../../nw:node/node-id
+        |  |  +--rw nt:dest-tp?     -> ../../../nw:node[nw:node-id=current()/../dest-node]/termination-point/tp-id
+        |  +--rw nt:supporting-link* [network-ref link-ref]
+        |  |  +--rw nt:network-ref    -> ../../../nw:supporting-network/network-ref
+        |  |  +--rw nt:link-ref       -> /nw:networks/network[nw:network-id=current()/../network-ref]/link/link-id
+        |  +--rw cnet:link-type?                 org-openroadm-network-types:openroadm-link-type
+        |  +--rw cnet:clfi?                      string
+        |  +--rw cnet:opposite-link?             -> ../../nwt:link/link-id
+        |  +--rw cnet:link-length?               decimal64
+        |  +--rw cnet:link-latency?              uint32
+        |  +--rw cnet:TE-metric?                 uint32
+        |  +--rw cnet:link-concatenation* [SRLG-Id]
+        |  |  +--rw cnet:SRLG-Id        uint32
+        |  |  +--rw cnet:SRLG-length?   decimal64
+        |  +--rw cnet:future-SRLGs* [start-date]
+        |  |  +--rw cnet:start-date    yang:date-and-time
+        |  |  +--rw cnet:SRLG-Id*      -> /nd:networks/network/SRLG-list/SRLG-Id
+        |  +--rw cnet:administrative-group?      uint32
+        |  +--rw cnet:operational-state?         org-openroadm-common-state-types:state
+        |  +--rw cnet:administrative-state?      org-openroadm-equipment-states-types:admin-states
+        |  +--rw cnet:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
+        |  +--rw topo:amplified?                 boolean
+        |  +--rw topo:OMS-attributes
+        |  |  +--rw topo:span
+        |  |  |  +--rw topo:auto-spanloss?            boolean
+        |  |  |  +--rw topo:spanloss-base?            org-openroadm-common-link-types:ratio-dB
+        |  |  |  +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
+        |  |  |  +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
+        |  |  |  +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+        |  |  |  +--rw topo:link-concatenation* [SRLG-Id]
+        |  |  |  |  +--rw topo:SRLG-Id                        uint32
+        |  |  |  |  +--rw topo:SRLG-length?                   decimal64
+        |  |  |  |  +--rw topo:fiber-type?                    enumeration
+        |  |  |  |  +--rw topo:pmd?                           org-openroadm-common-link-types:fiber-pmd
+        |  |  |  |  +--rw topo:subject-to-high-SOP-changes?   boolean
+        |  |  |  +--rw topo:future-SRLGs* [start-date]
+        |  |  |     +--rw topo:start-date    yang:date-and-time
+        |  |  |     +--rw topo:SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
+        |  |  +--rw topo:amplified-link
+        |  |     +--rw topo:amplified-link* [section-elt-number]
+        |  |        +--rw topo:section-elt-number    uint16
+        |  |        +--rw topo:section-element
+        |  |           +--rw (topo:section-element)?
+        |  |              +--:(topo:ila)
+        |  |              |  +--rw topo:ila
+        |  |              |     +--rw topo:amp-type                          org-openroadm-common-amplifier-types:amplifier-types
+        |  |              |     +--rw topo:amp-gain-range?                   org-openroadm-common-amplifier-types:amplifier-gain-range
+        |  |              |     +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:gain                              org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:initially-planned-gain?           org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:tilt?                             org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:initially-planned-tilt?           org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:out-voa-att?                      org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
+        |  |              |     +--rw topo:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
+        |  |              |     +--rw topo:egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
+        |  |              |     +--rw topo:supported-operational-modes*      string
+        |  |              |     +--rw topo:type-variety?                     string
+        |  |              |     +--rw topo:node-id                           org-openroadm-common-node-types:node-id-type
+        |  |              |     +--rw topo:administrative-state?             org-openroadm-equipment-states-types:admin-states
+        |  |              +--:(topo:span)
+        |  |                 +--rw topo:span
+        |  |                    +--rw topo:auto-spanloss?            boolean
+        |  |                    +--rw topo:spanloss-base?            org-openroadm-common-link-types:ratio-dB
+        |  |                    +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
+        |  |                    +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
+        |  |                    +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+        |  |                    +--rw topo:link-concatenation* [SRLG-Id]
+        |  |                    |  +--rw topo:SRLG-Id                        uint32
+        |  |                    |  +--rw topo:SRLG-length?                   decimal64
+        |  |                    |  +--rw topo:fiber-type?                    enumeration
+        |  |                    |  +--rw topo:pmd?                           org-openroadm-common-link-types:fiber-pmd
+        |  |                    |  +--rw topo:subject-to-high-SOP-changes?   boolean
+        |  |                    +--rw topo:future-SRLGs* [start-date]
+        |  |                    |  +--rw topo:start-date    yang:date-and-time
+        |  |                    |  +--rw topo:SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
+        |  |                    +--rw topo:administrative-state?     org-openroadm-equipment-states-types:admin-states
+        |  +--rw otn-topo:available-bandwidth?   uint32
+        |  +--rw otn-topo:used-bandwidth?        uint32
+        |  +--rw otn-topo:ODU-protected?         boolean
+        +--rw cnet:SRLG-list* [SRLG-Id]
+           +--rw cnet:SRLG-Id        uint32
+           +--rw cnet:SRLG-name?     string
+           +--rw cnet:SRLG-type?     org-openroadm-common-types:SRLG-type
+           +--rw cnet:SRLG-length?   decimal64

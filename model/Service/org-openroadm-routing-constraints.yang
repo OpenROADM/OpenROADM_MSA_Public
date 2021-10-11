@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -110,6 +114,9 @@ module org-openroadm-routing-constraints {
     leaf-list customer-code {
       type string;
     }
+    leaf-list operational-mode {
+      type string;
+    }
     choice co-routing-or-general {
       case general {
         container diversity {
@@ -137,12 +144,12 @@ module org-openroadm-routing-constraints {
         }
         container latency {
           description
-            "Maximum latency allowed";
+            "Maximum allowed one-way latency in milliseconds";
           leaf max-latency {
             type decimal64 {
-              fraction-digits 4;
+              fraction-digits 3;
             }
-            units "ms";
+            units "milliseconds";
           }
         }
         container hop-count {

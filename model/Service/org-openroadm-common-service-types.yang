@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -32,15 +32,15 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2020-03-27;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-05-28;
+    revision-date 2021-09-24;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -52,12 +52,21 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2020-03-27;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
     revision-date 2021-05-28;
   }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2021-09-24;
+  }
+  import org-openroadm-resource {
+    prefix org-openroadm-resource;
+    revision-date 2021-09-24;
+  }
+  
 
   organization
     "Open ROADM MSA";
@@ -92,6 +101,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";
@@ -207,10 +220,6 @@ module org-openroadm-common-service-types {
        at a higher layer through service models' rpc";
   }
 
-
-  
-
-
   typedef rpc-actions {
     type enumeration {
       enum service-create {
@@ -260,6 +269,18 @@ module org-openroadm-common-service-types {
       }
       enum controller-parameters-setting {
         value 16;
+      }
+      enum optical-tunnel-create {
+          value 17;
+      }
+      enum optical-tunnel-request-cancel {
+          value 18;
+      }
+      enum fill-catalog-with-or-operational-modes {
+          value 19;
+      }
+      enum fill-catalog-with-specific-operational-modes {
+          value 20;
       }
     }
     description
@@ -331,6 +352,12 @@ module org-openroadm-common-service-types {
       enum service-restoration-result {
         value 7;
       }
+      enum successful-path-computation-resource-reserved {
+        value 8;
+      }
+      enum path-computation-failed {
+        value 9;
+      }
     }
   }
 
@@ -344,6 +371,9 @@ module org-openroadm-common-service-types {
       }
       enum roadm-line {
         value 3;
+      }
+      enum optical-tunnel {
+        value 4;
       }
     }
   }
@@ -558,12 +588,12 @@ module org-openroadm-common-service-types {
   grouping intermediate-site-container {
     description
       "Intermediate site used in the service feasibility check output.
-      This is different from the service-endpoint structure";
+       This is different from the service-endpoint structure";
     list intermediate-site {
       key "clli";
-      description 
-        "List of intermediate sites in the service feasiblity check 
-        output response";
+      description
+        "List of intermediate sites in the service feasiblity check
+         output response";
       leaf clli {
         type string;
       }
@@ -577,8 +607,8 @@ module org-openroadm-common-service-types {
         list equipment-required {
           key "equipment-identifier";
           description
-          "List of required equipment, including equipment type, state and
-           quantity";
+            "List of required equipment, including equipment type, state and
+             quantity";
           uses equipment-info;
         }
       }
@@ -651,6 +681,42 @@ module org-openroadm-common-service-types {
     }
   }
 
+  grouping external-interface-characteristics {
+    list supported-operational-modes {
+      key "preference";
+      description
+        "list of supported operational modes associated to a preference
+         for their selection by the Path Computation Engine (1 is the highest priority)
+         only one operational mode shall be associated to a preference. 2 leaves present
+         since this mode could be either specific or an openROADM operational-mode";
+      leaf preference {
+        type int16;
+        description
+          "preference/priority associated to the operational mode";
+      }
+      leaf operational-mode-id {
+        type string;
+        description
+          "the supported operational mode : either openROADM or specific ";
+      }
+    }
+    leaf min-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Minimum acceptable Frequency in THz.";
+    }
+    leaf max-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Minimum acceptable Frequency in THz.";
+    }
+    leaf min-granularity {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Minimum grid granularity in GHz.";
+    }
+  }
+
   grouping service-endpoint {
     leaf service-format {
       type org-openroadm-service-format:service-format;
@@ -670,24 +736,23 @@ module org-openroadm-common-service-types {
         "Rate of the requested service in GBps";
     }
     leaf is-split-lambda {
-      description
-        "This flag allows to specify whether to use split-lambda. It can be user controlled 
-        (or specified) or controller initiated. This is only applicable for line-service or
-        network ports";
       type boolean;
-      default false;
+      default "false";
+      description
+        "This flag allows to specify whether to use split-lambda. It can be user controlled
+         (or specified) or controller initiated. This is only applicable for line-service or
+         network ports";
     }
     leaf split-lambda-service-rate {
-        when "../is-split-lambda = 'true' and 
-              ../service-format != 'OMS' and 
-              ../service-format != 'ODU'"; 
-          description
-            "This service rate is only applicable when the split-lambda is enabled. 
-            It will help to identify how many wavelengths to use. Only applicable 
-            to the WDM layer and OTUCn services.";
-        type uint32;
+      when "../is-split-lambda = 'true' and
+            ../service-format != 'OMS' and
+            ../service-format != 'ODU'";
+      type uint32;
+      description
+        "This service rate is only applicable when the split-lambda is enabled.
+         It will help to identify how many wavelengths to use. Only applicable
+         to the WDM layer and OTUCn services.";
     }
-    
     leaf other-service-format-and-rate {
       type string;
       description
@@ -723,8 +788,8 @@ module org-openroadm-common-service-types {
       when "(../service-format='Ethernet')
             and
             (../service-rate=10)" {
-          description
-            "Applicable only to Ethernet 10G services";
+        description
+          "Applicable only to Ethernet 10G services";
       }
       type ethernet-encoding-type;
       description
@@ -734,8 +799,8 @@ module org-openroadm-common-service-types {
       when "(../service-format='Ethernet')
             and
             (../service-rate=10)" {
-          description
-            "Mapping Mode, currently only defined for Ethernet 10G services";
+        description
+          "Mapping Mode, currently only defined for Ethernet 10G services";
       }
       type mapping-mode-type;
       description
@@ -743,7 +808,7 @@ module org-openroadm-common-service-types {
     }
     leaf client-phy-code {
       type identityref {
-          base org-openroadm-common-phy-codes:client-phy-code-identity;
+        base org-openroadm-common-phy-codes:client-phy-code-identity;
       }
       description
         "Client PHY Code for the service end point.";
@@ -807,8 +872,75 @@ module org-openroadm-common-service-types {
       description
         "Label for service endpoint, defined by the user";
     }
-
     uses ethernet-subrate-attributes-grp;
+  }
+
+  typedef existing-resource-reuse-type {
+    description
+      "Used to indicate the type of resource that the existing service
+      can reuse wherever possible (best-effort)";
+    type enumeration {
+      enum regenerator {
+        description
+          "Indicates reuse regenerator";
+        value 1;
+      }
+      enum wavelength {
+        description
+          "Indicates reuse of wavelength";
+        value 2;
+      }
+      enum spectrum-portion {
+        description
+          "Indicates reuse of frequency slot(s). Reuse the exact 	
+          or partial portion of the spectrum of the original service
+          specturm";
+        value 3;
+      }
+      enum xponder {
+        description
+          "This could be a transponder/muxponder/switchponder";
+        value 4;
+      }
+      enum all {
+        description
+          "Reuse all possible options";
+          value 99;
+      }
+    }
+  }
+
+  grouping existing-service-grouping {
+    container existing-service-attributes {
+      description
+        "This consists of all the attributes related to the existing service";
+      leaf is-existing {
+        type boolean;
+        description
+          "This is set true if feasibility check is on an existing service with or 
+          without new constraints. Feasibility is done as if current service 
+          and its resources are released";
+      }
+      leaf existing-service-name {
+        when "../is-existing = 'true'";
+        type string; 
+        description
+          "Name of the existing service";
+      }
+      leaf reuse-existing-resources {
+        type boolean;
+        description
+          "If true reuse the existing equipment wherever possible";
+      }
+      leaf-list reusable-existing-resources {
+        when "../reuse-existing-resources = 'true'";
+        type existing-resource-reuse-type;
+        description
+          "List of existing resources that can be reused;
+          This list is enabled only when the reuse-existing-equipment 
+          is set true";
+      }
+    }
   }
 
   grouping sdnc-request-header {
@@ -910,11 +1042,11 @@ module org-openroadm-common-service-types {
   }
 
   grouping service-information {
-        leaf due-date {
+    leaf due-date {
       type yang:date-and-time;
       description
-        "Date and time service to be turn up. If time is not specified for a given date, 
-        default to midnight. Service turned up immediately if no due date is specified";
+        "Date and time service to be turn up. If time is not specified for a given date,
+         default to midnight. Service turned up immediately if no due date is specified";
     }
     leaf end-date {
       type yang:date-and-time;
@@ -932,8 +1064,8 @@ module org-openroadm-common-service-types {
     leaf nci-code {
       type string;
       description
-        "NCI code applied to wavelength service only. This is reported against the service, 
-        but may not get reflected in the service in the network.";
+        "NCI code applied to wavelength service only. This is reported against the service,
+         but may not get reflected in the service in the network.";
     }
     leaf secondary-nci-code {
       type string;
@@ -944,22 +1076,22 @@ module org-openroadm-common-service-types {
     leaf customer {
       type string;
       description
-        "To be included in ticket information. This is reported against the service, 
-        but may not get reflected in the service in the network.";
+        "To be included in ticket information. This is reported against the service,
+         but may not get reflected in the service in the network.";
     }
     leaf customer-contact {
       type string;
       description
-        "Customer contact information to be included in ticket information. 
-        This is reported against the service, but may not get reflected in the service 
-        in the network.";
+        "Customer contact information to be included in ticket information.
+         This is reported against the service, but may not get reflected in the service
+         in the network.";
     }
     leaf operator-contact {
       type string;
       description
-        "Operator contact information to be included in ticket information. 
-        This is reported against the service, but may not get reflected in the service 
-        in the network.";
+        "Operator contact information to be included in ticket information.
+         This is reported against the service, but may not get reflected in the service
+         in the network.";
     }
     leaf service-layer {
       type service-layer-type;
@@ -1345,9 +1477,12 @@ module org-openroadm-common-service-types {
     uses org-openroadm-routing-constraints:routing-constraints;
     uses service-information;
     leaf latency {
-      type uint32;
+      type decimal64 {
+        fraction-digits 3;
+      }
       description
-        "Latency on service";
+        "One-way latency (in milliseconds) on service";
+      units "milliseconds";
     }
     leaf-list fiber-span-srlgs {
       type string;
@@ -1453,10 +1588,10 @@ module org-openroadm-common-service-types {
 
   grouping service-port-list {
     list port {
+      key "circuit-pack-name port-name";
       description
         "List allows to output more than one piece of equipment per CLLI;
-        Port-name is unique in the context of circuit-pack";
-      key "circuit-pack-name port-name";
+         Port-name is unique in the context of circuit-pack";
       leaf circuit-pack-name {
         type string;
       }
@@ -1493,6 +1628,12 @@ module org-openroadm-common-service-types {
       leaf equipment-sub-slot {
         type string;
       }
+      leaf is-reused {
+        type boolean;
+        description
+          "This is set true if the equipment-required is being reused for
+          service roll";
+      }
     uses service-port-list;
   }
 
@@ -1515,8 +1656,8 @@ module org-openroadm-common-service-types {
     leaf service-identifier {
       type string;
       description
-        "Based on the level in the service hierarchy, this indentifier can be for the 
-        proposed or existing service";
+        "Based on the level in the service hierarchy, this indentifier can be for the
+         proposed or existing service";
     }
     leaf service-layer {
       type service-layer-type;
@@ -1528,21 +1669,87 @@ module org-openroadm-common-service-types {
       leaf clli {
         type string;
         description
-          "Based on the level in the service hierarchy, A-end CLLI of the  
-          proposed or existing service.";
+          "Based on the level in the service hierarchy, A-end CLLI of the
+           proposed or existing service.";
       }
     }
     container service-z-end {
       leaf clli {
         type string;
         description
-          "Based on the level in the service hierarchy, Z-end CLLI of the  
-          proposed or existing service.";
+          "Based on the level in the service hierarchy, Z-end CLLI of the
+           proposed or existing service.";
       }
     }
     list supporting-service {
       key "id";
       uses supporting-service;
+    }
+    container transport-assignment {
+      container mc-ttp {
+        description
+          "Media Channel Trail Termination Point (MC-TTP)";
+        uses org-openroadm-resource:mc-ttp-attributes;
+      }
+      list nmc-ctp {
+        key "id";
+        description
+          "List of Network Media Channel Connection Termination Point (NMC-CTP)";
+        leaf id {
+          type string;
+          description
+            "This used to indentify the NMC in the MC. For example split-lambda would
+            have two NMCs";
+        }
+        uses org-openroadm-resource:nmc-ctp-attributes;
+      }
+      container odu-allocation {
+        description
+          "parent odu allocation";
+        leaf trib-port-number {
+          type uint16 {
+            range "1 .. 80";
+          }
+          description
+            "Assigned tributary port number in parent OPU";
+        }
+        choice trib-slots-choice {
+          description
+            "trib slot selection";
+          case opu {
+            leaf  min-trib-slot {
+              type uint16;
+              description
+                "Minimum assigned trib slots occupied in parent OPU MSI";
+            }
+            leaf  max-trib-slot {
+              type uint16;
+              description
+                "Maximum assigned trib slots occupied in parent OPU MSI";
+            }
+          }
+          case opucn {
+            leaf opucn-min-trib-slot {
+              type org-openroadm-otn-common-types:opucn-trib-slot-def;
+              description
+                "Minimum OPUCn 5G trib slots in the form of TS #A.B (G.709)";
+            }
+            leaf opucn-max-trib-slot {
+              type org-openroadm-otn-common-types:opucn-trib-slot-def;
+              description
+                  "Maximum OPUCn 5G trib slots in the form of TS #A.B (G.709)";
+            }
+          }
+        }
+      }
+      leaf is-reused {
+        type boolean;
+        description
+          "This flag is true if the spectral assignment overlaps--in part or in full--with 
+          that of the active instance of the service. A determination whether the overlap 
+          is full or partial requires a detailed comparison of spectral assignments; it 
+          is not indicated here.";
+      }
     }
   }
 
@@ -1572,8 +1779,8 @@ module org-openroadm-common-service-types {
       when "../service-format != 'OMS' and ../service-format != 'ODU'" {
         description
           "service rate not applicable when service
-          format is roadmline or ODU; valid for OTU since service-rate has
-          already been supported for wdm layer OTU services (100 for OTU4)";
+           format is roadmline or ODU; valid for OTU since service-rate has
+           already been supported for wdm layer OTU services (100 for OTU4)";
       }
       type uint32;
       description
@@ -1583,10 +1790,10 @@ module org-openroadm-common-service-types {
       type string;
       description
         "Used when service-format is set to other in the bookend xponder use case.
-        The use of other-service-format-and-rate is not standardized in the Open ROADM MSA
-        and intended to allow the controller to support non-Open ROADM service formats.
-        This value encodes both the service format and the rate supported.
-        This field should not be specified when service format != other.";
+         The use of other-service-format-and-rate is not standardized in the Open ROADM MSA
+         and intended to allow the controller to support non-Open ROADM service formats.
+         This value encodes both the service format and the rate supported.
+         This field should not be specified when service format != other.";
     }
     leaf otu-service-rate {
       when "../service-format = 'OTU'" {
@@ -1618,21 +1825,21 @@ module org-openroadm-common-service-types {
     leaf node-id {
       type org-openroadm-common-node-types:node-id-type;
       description
-        "Node id. This is reported against the service, but may not get 
-        reflected in the service in the network.";
+        "Node id. This is reported against the service, but may not get
+         reflected in the service in the network.";
     }
   }
 
-  grouping max-regeneration-options  {
+  grouping max-regeneration-options {
     leaf max-regeneration-options {
       type uint8;
-      default 1;
+      default "1";
       description
-        "Max regeneration options, is maximum number of regeneration-option-list elements requested in 
-        service-feasibility output. RNC can return less number of regeneration-options based on it's 
-        calculation but should not return more than max-regeneration-options. The goal of this field 
-        is to avoid RNC from having performance issues.";
-    }    
+        "Max regeneration options, is maximum number of regeneration-option-list elements requested in
+         service-feasibility output. RNC can return less number of regeneration-options based on it's
+         calculation but should not return more than max-regeneration-options. The goal of this field
+         is to avoid RNC from having performance issues.";
+    }
   }
 
   grouping regeneration-option-list {
@@ -1640,7 +1847,7 @@ module org-openroadm-common-service-types {
       key "regeneration-option-rank";
       leaf regeneration-option-rank {
         type uint8;
-         description
+        description
           "Regen option rank is derived rank based on optical performance or based on other metrics.";
       }
       list regeneration-clli-list {
@@ -1648,21 +1855,20 @@ module org-openroadm-common-service-types {
         leaf sequence-id {
           type uint8;
           description
-            "Sequence id will define order of regeneration location for output path in A to Z direction.";         
+            "Sequence id will define order of regeneration location for output path in A to Z direction.";
         }
         leaf regeneration-clli {
           type string;
-           description
-            "CLLI for the site where regeneraton is located or bring proposed.";          
+          description
+            "CLLI for the site where regeneraton is located or bring proposed.";
         }
         leaf lifecycle-state {
           type org-openroadm-common-state-types:lifecycle-state;
           description
-           "Lifecycle State for regeneration CLLI indicating whether regen is already deployed or being proposed
-           for at this site.";                
+            "Lifecycle State for regeneration CLLI indicating whether regen is already deployed or being proposed
+             for at this site.";
         }
-      }  
-    }  
+      }
+    }
   }
-
 }

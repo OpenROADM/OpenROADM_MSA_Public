@@ -13,7 +13,7 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2021-03-26;
+    revision-date 2021-09-24;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -59,6 +59,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2021-09-24 {
+    description
+      "Version 10.0";
+  }
   revision 2021-03-26 {
     description
       "Version 9.0";
@@ -117,6 +121,12 @@ module org-openroadm-common-network {
         "The presence of the container node indicates Open ROADM common network";
     }
   }
+
+  augment "/nd:networks/nd:network" {
+    description
+      "Introduce new network type for the Open ROADM common network";
+    uses org-openroadm-network-types:SRLG-list;
+  }  
 
   augment "/nd:networks/nd:network/nd:node" {
     when '../nd:network-types/cnet:openroadm-common-network';
@@ -215,9 +225,9 @@ module org-openroadm-common-network {
     }
     leaf link-latency {
       type uint32;
-      units "ms";
+      units "microseconds";
       description
-        "Latency of a link";
+        "Latency of a link (microseconds)";
     }
     leaf TE-metric {
       type uint32;
@@ -225,17 +235,14 @@ module org-openroadm-common-network {
         "defines a Traffic Engineering metric which could be used for any type of link.
          Supersedes TE-metric originally defined in OMS-attributes grouping";
     }
-    list link-concatenation {
-      key "SRLG-Id";
-      leaf SRLG-Id {
-        type uint32;
-        description
-          "unique identifier for SRLG";
-      }
-      leaf SRLG-length {
-        type uint32;
-        description
-          "fiber length in meters";
+    uses org-openroadm-network-types:link-concatenation;
+    uses org-openroadm-network-types:future-SRLGs {
+      augment "future-SRLGs" {
+        leaf-list SRLG-Id {
+          type leafref {
+            path "/nd:networks/nd:network/SRLG-list/SRLG-Id";
+          }
+        }  
       }
     }
     leaf administrative-group {
