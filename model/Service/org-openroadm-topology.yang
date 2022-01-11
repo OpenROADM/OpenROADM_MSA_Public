@@ -4,7 +4,7 @@ module org-openroadm-topology {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
@@ -44,6 +44,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -186,6 +190,18 @@ module org-openroadm-topology {
     uses org-openroadm-resource:resource {
       augment "resource/resource/interface" {
         uses org-openroadm-resource:resource-reporting;
+      }
+      augment "resource/resource/circuit-pack" {
+        leaf circuit-pack-type {
+          type string;
+          description
+            "Type of circuit-pack";
+        }
+        leaf circuit-pack-product-code {
+          type string;
+          description
+            "Product code of the circuit-pack";
+        }
       }
     }
   }

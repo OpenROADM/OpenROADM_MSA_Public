@@ -1664,8 +1664,8 @@ module: org-openroadm-device
     |  |  |  +--:(amp)
     |  |  |     +---w amp-number       -> /org-openroadm-device/line-amplifier/amp-number
     |  |  +---w port-direction?        org-openroadm-common-alarm-pm-types:direction
-    |  |  +---w distance?              uint32
-    |  |  +---w resolution?            uint32
+    |  |  +---w distance?              decimal64
+    |  |  +---w resolution?            decimal64
     |  +--ro output
     |     +--ro status            rpc-status
     |     +--ro status-message?   string

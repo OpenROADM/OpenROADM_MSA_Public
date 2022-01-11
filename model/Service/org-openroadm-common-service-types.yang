@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -60,11 +60,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   
 
@@ -101,6 +101,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -666,21 +670,6 @@ module org-openroadm-common-service-types {
     }
   }
 
-  grouping service-endpoint-project {
-    description
-      "Project Identifier information for service endpoints";
-    leaf project-id {
-      type string;
-      description
-        "Project identifier for the service end point";
-    }
-    leaf project-note {
-      type string;
-      description
-        "Additional details associated with the service end point project";
-    }
-  }
-
   grouping external-interface-characteristics {
     list supported-operational-modes {
       key "preference";
@@ -873,6 +862,16 @@ module org-openroadm-common-service-types {
         "Label for service endpoint, defined by the user";
     }
     uses ethernet-subrate-attributes-grp;
+    leaf project-id {
+        type string;
+        description
+          "Project identifier for the service end point";
+     }
+     leaf project-note {
+        type string;
+        description
+          "Additional details associated with the service end point project";
+     }
   }
 
   typedef existing-resource-reuse-type {
@@ -969,6 +968,9 @@ module org-openroadm-common-service-types {
         type string;
       }
       leaf port-circuit-pack-name {
+        type string;
+      }
+      leaf port-circuit-pack-type {
         type string;
       }
       leaf port-type {
@@ -1468,11 +1470,9 @@ module org-openroadm-common-service-types {
     }
     container service-a-end {
       uses service-endpoint;
-      uses service-endpoint-project;
     }
     container service-z-end {
       uses service-endpoint;
-      uses service-endpoint-project;
     }
     uses org-openroadm-routing-constraints:routing-constraints;
     uses service-information;

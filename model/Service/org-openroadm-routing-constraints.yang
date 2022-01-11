@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -117,90 +121,85 @@ module org-openroadm-routing-constraints {
     leaf-list operational-mode {
       type string;
     }
-    choice co-routing-or-general {
-      case general {
-        container diversity {
-          uses diversity-existing-service-constraints;
-          uses diversity-constraints;
-          description
-            "Diversity constraints for single or bulk requests.
-            diversity-constraints provides more options for bulk requests";
-        }
-        container exclude {
-          uses common-constraints;
-          leaf-list supporting-service-name {
-            type string;
-            description
-              "Supporting service(s) to exclude from this route.";
-          }
-        }
-        container include {
-          uses common-constraints;
-          leaf-list supporting-service-name {
-            type string;
-            description
-              "Supporting service(s) to include in this route.";
-          }
-        }
-        container latency {
-          description
-            "Maximum allowed one-way latency in milliseconds";
-          leaf max-latency {
-            type decimal64 {
-              fraction-digits 3;
-            }
-            units "milliseconds";
-          }
-        }
-        container hop-count {
-          description
-            "Maximum hops allowed";
-          leaf max-wdm-hop-count {
-            type uint8;
-          }
-          leaf max-otn-hop-count {
-            type uint8;
-          }
-        }
-        container TE-metric {
-          description
-            "Maximum cost allowed";
-          leaf max-wdm-TE-metric {
-            type uint32;
-          }
-          leaf max-otn-TE-metric {
-            type uint32;
-          }
-        }
-        container distance {
-          description
-            "Maximum distance allowed";
-          leaf max-distance {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            units "km";
-          }
-        }
+    container diversity {
+      uses diversity-existing-service-constraints;
+      uses diversity-constraints;
+      description
+        "Diversity constraints for single or bulk requests.
+        diversity-constraints provides more options for bulk requests";
+    }
+    container exclude {
+      uses common-constraints;
+      leaf-list supporting-service-name {
+        type string;
+        description
+          "Supporting service(s) to exclude from this route.";
       }
-      case co-routing {
-        container co-routing {
-          leaf-list existing-service {
-            type string;
-            description
-              "Co-route with existing services identified by service-name 
-              or common-id";
-          }
-          leaf-list service-identifier {
-            type string;
-            description
-              "Indicates that new services that are part of the bulk service request
-              should be co-routed";
-          }
+    }
+    container include {
+      uses common-constraints;
+      leaf-list supporting-service-name {
+        type string;
+        description
+          "Supporting service(s) to include in this route.";
+      }
+    }
+    container latency {
+      description
+        "Maximum allowed one-way latency in milliseconds";
+      leaf max-latency {
+        type decimal64 {
+          fraction-digits 3;
         }
+        units "milliseconds";
+      }
+    }
+    container hop-count {
+      description
+        "Maximum hops allowed";
+      leaf max-wdm-hop-count {
+        type uint8;
+      }
+      leaf max-otn-hop-count {
+        type uint8;
+      }
+    }
+    container TE-metric {
+      description
+        "Maximum cost allowed";
+      leaf max-wdm-TE-metric {
+        type uint32;
+      }
+      leaf max-otn-TE-metric {
+        type uint32;
+      }
+    }
+    container distance {
+      description
+        "Maximum distance allowed";
+      leaf max-distance {
+        type decimal64 {
+          fraction-digits 2;
+        }
+        units "km";
+      }
+    }
+    container co-routing {
+      list service-identifier-list {
+        description
+          "Indicates that new services that are part of the bulk service request
+          should be co-routed";
+        key "service-identifier";
+        leaf service-identifier {
+          type string;
+          description
+            "This can be a service-name or a common-id";
+        }
+        uses service-applicability-g;
       }
     }
   }
+
 
   grouping common-constraints {
     leaf-list fiber-bundle {
@@ -246,12 +245,7 @@ module org-openroadm-routing-constraints {
     }
   }
 
-  grouping diversity-existing-service-constraints {
-    leaf-list existing-service {
-      type string;
-      description
-        "Diverse from existing services identified by facility CLFI";
-    }
+  grouping existing-service-applicability-g {
     container existing-service-applicability {
       leaf site {
         type boolean;
@@ -267,6 +261,47 @@ module org-openroadm-routing-constraints {
       }
       uses equipment;
     }
+  }
+
+  grouping service-applicability-g {
+    container service-applicability {
+      leaf site {
+        type boolean;
+      }
+      leaf node {
+        type boolean;
+      }
+      leaf srlg {
+        type boolean;
+      }
+      leaf link {
+        type boolean;
+      }
+      uses equipment;
+    }
+  }
+
+  grouping diversity-existing-service-constraints {
+    list service-identifier-list {
+        description
+          "Indicates that new services that are part of the bulk service request
+          should be co-routed";
+        key "service-indentifier";
+        leaf service-indentifier {
+          type string;
+          description
+            "This can be a service-name or a common-id";
+        }
+        uses service-applicability-g;
+    }
+    /*
+    leaf-list existing-service {
+      type string;
+      description
+        "Diverse from existing services identified by facility CLFI";
+    }
+    uses existing-service-applicability-g;
+    */
   }
 
   grouping diversity-constraints {
@@ -291,28 +326,5 @@ module org-openroadm-routing-constraints {
         within the group. Which means it can be either 'serial' or 'synchronous'
         but not both.";
     }
-    leaf-list service-identifier {
-      type string;
-      description
-        "This list should only be used for the new services that are being created
-        by the bulk service request. Existing services should use the existing
-        ";
-    }
-    container service-applicability {
-      leaf site {
-        type boolean;
-      }
-      leaf node {
-        type boolean;
-      }
-      leaf srlg {
-        type boolean;
-      }
-      leaf link {
-        type boolean;
-      }
-      uses equipment;
-    }
   }
-
 }
