@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -167,7 +171,9 @@ module org-openroadm-pm-types {
           "RX: IEEE 802.3-2018, sections 82.2.8 (BIP calculations), 82.2.15 (Alignment marker removal),
                                 45.2.3.46, 45.2.3.47 (MDIO counters).
            TX: IEEE 802.3-2018, sections 91.5.2.4 (Alignment marker removal),
-                                91.6.14 (BIP_error_counter_i), 45.2.1.117,.118 (MDIO counters).";
+                                91.6.14 (BIP_error_counter_i), 45.2.1.117,.118 (MDIO counters).
+           In case of mapping according to ITU-T G.709-2020 section 17.7.5.1, non-intrusive monitoring
+           follows IEEE 802.3 section 82.2.8 for mapping (RX) and de-mapping (TX).";
       }
       enum erroredSeconds {
         value 9;

@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -263,7 +267,7 @@ module org-openroadm-common-optical-channel-types {
       enum dp-qpsk {
         value 3;
         description
-          "dual-polarization binary phase-shift keying";
+          "dual-polarization quadrature phase-shift keying";
       }
       enum qam16 {
         value 4;

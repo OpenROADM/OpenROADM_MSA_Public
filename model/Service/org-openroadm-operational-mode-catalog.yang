@@ -4,7 +4,7 @@ module org-openroadm-operational-mode-catalog {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -12,7 +12,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
 
   organization
@@ -48,6 +48,10 @@ module org-openroadm-operational-mode-catalog {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10";
@@ -341,6 +345,51 @@ module org-openroadm-operational-mode-catalog {
       description
         "drop block-specification";
       uses operational-mode-common-amplifier-drop-parameters;
+      leaf min-gain {
+    	  type org-openroadm-common-link-types:ratio-dB;
+    	  description
+    		  "minimum gain of nominal gain range";
+      }
+      leaf max-gain {
+    	  type org-openroadm-common-link-types:ratio-dB;
+    	  description
+    		  "maximum gain of nominal gain range";
+      }
+      leaf max-extended-gain {
+    	  type org-openroadm-common-link-types:ratio-dB;
+    	  description
+    		  "maximum gain of extended gain range";
+      }
+      list mask-gain-ripple-vs-tilt {
+          key "lower-boundary upper-boundary";
+          description
+            "for gain ripple, provides C and D parameter : Max-gain-ripple (dB) = C*target-tilt (dB)+ D.
+        	  Tilt applies to extended gain range";
+          leaf lower-boundary {
+            type int32;
+            description
+              "defines the lower tilt boundary for which C & Dparameters apply";
+          }
+          leaf upper-boundary {
+            type int32;
+            description
+              "defines the upper tilt boundary for which C & Dparameters apply";
+          }
+          leaf C {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "C*span-loss";
+          }
+          leaf D {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "Constant";
+          }
+      }
     }
   }
 
@@ -479,7 +528,9 @@ module org-openroadm-operational-mode-catalog {
           "impairment leading to the penalty";
       }
       leaf up-to-boundary {
-        type int32;
+	    type decimal64 {
+          fraction-digits 2;
+        }
         description
           "defines the upper (for positive values) and lower (for negative values)
            limit for which the penalty value is valid";

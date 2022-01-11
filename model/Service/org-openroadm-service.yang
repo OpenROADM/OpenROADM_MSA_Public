@@ -9,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -21,27 +21,27 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-09-24;
+    revision-date 2021-12-10;
   }
 
   organization
@@ -77,6 +77,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2021-12-10 {
+    description
+      "Version 10.1";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";
@@ -437,11 +441,9 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
       }
       uses org-openroadm-routing-constraints:routing-constraints;
       uses org-openroadm-common-service-types:service-information;
@@ -484,11 +486,9 @@ module org-openroadm-service {
         uses org-openroadm-common-service-types:resource-status;
         container service-a-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         container service-z-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         uses org-openroadm-routing-constraints:routing-constraints;
         uses org-openroadm-common-service-types:service-information;
@@ -529,11 +529,9 @@ module org-openroadm-service {
         uses org-openroadm-common-service-types:resource-status;
         container service-a-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         container service-z-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         uses org-openroadm-routing-constraints:routing-constraints;
         uses org-openroadm-common-service-types:service-information;
@@ -784,7 +782,6 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
         container requesting-interface-properties {
           when "../../connection-type = 'optical-tunnel'" {
             description
@@ -797,7 +794,6 @@ module org-openroadm-service {
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
         container requesting-interface-properties {
           when "../../connection-type = 'optical-tunnel'" {
             description
@@ -921,7 +917,6 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
         container requesting-interface-properties {
           when "../../connection-type = 'optical-tunnel'" {
             description
@@ -934,7 +929,6 @@ module org-openroadm-service {
       }
       container service-z-end {
         uses org-openroadm-common-service-types:service-endpoint;
-        uses org-openroadm-common-service-types:service-endpoint-project;
         container requesting-interface-properties {
           when "../../connection-type = 'optical-tunnel'" {
             description
@@ -1009,11 +1003,9 @@ module org-openroadm-service {
         uses org-openroadm-common-service-types:resource-status;
         container service-a-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         container service-z-end {
           uses org-openroadm-common-service-types:service-endpoint;
-          uses org-openroadm-common-service-types:service-endpoint-project;
         }
         uses org-openroadm-routing-constraints:routing-constraints;
         uses org-openroadm-common-service-types:service-information;
