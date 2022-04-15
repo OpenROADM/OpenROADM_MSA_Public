@@ -17,7 +17,11 @@ module org-openroadm-network-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
+  }
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2021-05-28;
   }
 
   organization
@@ -51,6 +55,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -373,11 +381,11 @@ module org-openroadm-network-types {
     }
   }
 
-  grouping SRLG-list{
+  grouping SRLG-list {
     list SRLG-list {
       key "SRLG-Id";
-      description 
-        "List of all SRLG-Ids. Controller will be responsible to maintain completeness of SRLG-Ids by doing union of 
+      description
+        "List of all SRLG-Ids. Controller will be responsible to maintain completeness of SRLG-Ids by doing union of
          internal and external SRLG information.";
       leaf SRLG-Id {
         type uint32;
@@ -411,6 +419,46 @@ module org-openroadm-network-types {
         "Start date represents end date for currently active SRLGs. Start date will represent start date for planned SRLGs";
       leaf start-date {
         type yang:date-and-time;
+      }
+    }
+  }
+
+  grouping node-capabilities-grouping {
+    container supported-xpdr-list {
+      list supported-xpdr {
+        key "xpdr-type";
+        description
+          "list of supported xponder types";
+        leaf xpdr-type {
+          type org-openroadm-common-node-types:xpdr-node-types;
+          description
+            "Identifier for xponder-type e.g Transponder, Muxponder";
+        }
+        container supported-operational-modes {
+          list supported-operational-mode {
+            key "operational-mode-id";
+            description
+              "list of supported operational modes associated to a preference
+               for their selection by the Path Computation Engine (1 is the highest priority)
+               only one operational mode shall be associated to a preference.";
+            leaf operational-mode-id {
+              type string;
+              description
+                "the supported operational mode : either OpenROADM or specific; see service model
+                 operational-mode-catalog for additional information";
+            }
+            leaf equipment-capacity {
+              type boolean;
+              description
+                "whether or not the node has capacity for an operational-mode";
+            }
+            leaf equipment-available {
+              type boolean;
+              description
+                "whether or not equipment supporting an operational-mode is already planned or deployed";
+            }
+          }
+        }
       }
     }
   }

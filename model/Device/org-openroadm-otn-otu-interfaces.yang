@@ -4,7 +4,7 @@ module org-openroadm-otn-otu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -16,7 +16,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2021-09-24;
+    revision-date 2022-03-25;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -28,7 +28,7 @@ module org-openroadm-otn-otu-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
 
   organization
@@ -78,6 +78,10 @@ module org-openroadm-otn-otu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -194,7 +198,6 @@ module org-openroadm-otn-otu-interfaces {
         "OTUCn subrate (OTUCn-M), value of M specifies the number of active
          5 Gbit/s OPUCn tributary slots (G.709 Annex H)";
     }
-
     uses org-openroadm-common-types:fec-grouping {
       description
         "OTU FEC / Forward Error Correction";
@@ -204,6 +207,8 @@ module org-openroadm-otn-otu-interfaces {
   }
 
   grouping otu-container {
+    description
+      "OTU Container grouping";
     container otu {
       description
         "Optical Channel Transport Unit (OTU)";
@@ -211,6 +216,8 @@ module org-openroadm-otn-otu-interfaces {
       uses org-openroadm-maint-loopback:maint-loopback;
       container parent-flexo-allocation {
         presence "Parent assignment of parent FlexO instance and trib-port allocation.";
+        description
+          "Parent FlexO allocation container";
         leaf trib-port-number {
           type uint8;
           mandatory true;
@@ -226,12 +233,8 @@ module org-openroadm-otn-otu-interfaces {
              (G.709.3 Annex F (2020-12))
              G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)";
         }
-        description
-          "Parent FlexO allocation container";
       }
     }
-    description
-      "OTU Container grouping";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {

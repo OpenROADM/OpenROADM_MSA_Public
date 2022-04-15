@@ -1,0 +1,345 @@
+module org-openroadm-prot-equipment-aps {
+  namespace "http://org/openroadm/prot/equipment-aps";
+  prefix org-openroadm-prot-equipment-aps;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2022-03-25;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2022-03-25;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for device facility circuit-pack APS protection groups.
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.
+
+     Also contains code components extracted from IETF Interfaces.  These code components
+     are copyrighted and licensed as follows:
+
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+
+     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
+     extracted from this document must include Simplified BSD License text as described in
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
+     described in the Simplified BSD License.";
+
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
+
+
+  typedef prot-architecture-type {
+    type enumeration {
+      enum one-for-one {
+        value 1;
+      }
+      enum one-for-n {
+        value 2;
+      }
+    }
+    description
+      "Protection architecture, 1:1 or 1:n";
+  }
+
+
+  typedef pg-service-state-type {
+    type enumeration {
+      enum service-available {
+        value 1;
+      }
+      enum service-partially-available {
+        value 2;
+      }
+      enum service-temp-unavailable {
+        value 3;
+      }
+      enum service-unavailable {
+        value 4;
+      }
+    }
+    description
+      "Describes the service state of an equipment/circuit-pack
+       protection group.
+       service-available:
+           the defined service of the PG is fully available.
+       service-partially-available:
+           the service of the PG is partially available. The impact
+           depends on the device architecture. One typical use is
+           to indicate a reduced transmission performance of a central
+           element.
+       service-temp-unavailable:
+           the PG's service is temporarily unavailable because
+           more than one member is in a temporary failed state.
+           This state will clear autonomously.
+       service-unavailable:
+           more than one member of the PG is in a failed state and
+           the PG cannot provide full service.";
+  }
+
+
+  typedef pg-redundancy-state-type {
+    type enumeration {
+      enum redundancy-available {
+        value 1;
+      }
+      enum redundancy-not-available {
+        value 2;
+      }
+      enum configuration-incomplete {
+        value 3;
+      }
+    }
+    description
+      "Describes the overall state of redundancy in a protection group.
+       redundancy-available:
+           Redundancy is available in the PG to cover a failure of an
+           active member.
+       redundancy-not-available:
+           Redundancy is not available in the PG.
+       configuration-incomplete:
+           Configuration of redundancy is incomplete, redundancy
+           is not (yet) available.";
+  }
+
+
+  typedef pg-lockout-state-type {
+    type enumeration {
+      enum clear {
+        value 1;
+      }
+      enum locked {
+        value 2;
+      }
+    }
+    description
+      "Describes the (optional) 'lockout state' of a protection group.
+       'clear' means that none of the members are locked out.
+       'locked' means that one or more members are in a 'locked' state.";
+  }
+
+
+  typedef pg-member-state-type {
+    type enumeration {
+      enum member-ok {
+        value 1;
+      }
+      enum member-temp-failed {
+        value 2;
+      }
+      enum member-failed {
+        value 3;
+      }
+    }
+    description
+      "Describes the state of a circuit-pack as member of an
+       equipment protection group.
+       member-ok:
+           the circuit-pack is available for service
+       member-temp-failed:
+           the circuit-pack is in a temporary failed state,
+           because it has not yet been configured, is initializing,
+           its database is currently being updated, or its state
+           is under evaluation.
+           It is not available for service.
+           This state will clear autonomously.
+       member-failed:
+           the circuit pack is in a failed state and out of service.
+           The reason is indicated by alarms raised on the
+           circuit-pack itself.";
+  }
+
+
+  typedef pg-member-switch-request-type {
+    type enumeration {
+      enum no-request {
+        value 1;
+      }
+      enum manual {
+        value 2;
+      }
+      enum locked {
+        value 3;
+      }
+      enum auto {
+        value 4;
+      }
+    }
+    description
+      "Describes the switch request on a PG member.";
+  }
+
+
+  grouping circuit-pack-grps {
+    list circuit-pack-pg {
+      key "name";
+      description
+        "Circuit Pack protection group -- The current architecture of
+         equipment protection assumes that circuit-pack PGs do not overlap
+         and no configuration is needed for set up. Depending on configured
+         and available circuit-packs, the device can autonomously create and
+         delete equipment protection groups and their member circuit-packs.";
+      leaf name {
+        type string;
+        description
+          "The circuit-pack PG name";
+      }
+      leaf prot-architecture {
+        type prot-architecture-type;
+        mandatory true;
+        description
+          "Protection type, 1:1 or 1:n";
+      }
+      leaf service-state {
+        type pg-service-state-type;
+        config false;
+        mandatory true;
+        description
+          "Service State of the PG";
+      }
+      leaf redundancy-state {
+        type pg-redundancy-state-type;
+        config false;
+        mandatory true;
+        description
+          "Redundancy State of the PG";
+      }
+      leaf lockout-state {
+        type pg-lockout-state-type;
+        config false;
+        description
+          "Lockout State of the PG.
+           The PG is in 'locked' state if at least one members is locked.
+           Only present if the PG supports the lockout feature.";
+      }
+      list cp-pg-descriptor {
+        key "name";
+        description
+          "Descriptor for a single circuit-pack member of the PG";
+        leaf name {
+          type string;
+          description
+            "The name of the CP descriptor";
+        }
+        leaf pg-circuit-pack {
+          type leafref {
+            path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
+          }
+          mandatory true;
+          description
+            "Link to CP";
+        }
+        leaf member-state {
+          type pg-member-state-type;
+          config false;
+          mandatory true;
+          description
+            "Member State of the CP";
+        }
+        leaf switch-request {
+          type pg-member-switch-request-type;
+          config false;
+          mandatory true;
+          description
+            "Switch Request of the CP.";
+        }
+        leaf member-active {
+          type boolean;
+          config false;
+          mandatory true;
+          description
+            "Whether the member is currently active in the PG.";
+        }
+      }
+    }
+  }
+
+
+  rpc circuit-pack-protection-switch {
+    description
+      "Exercise a protection switch command on a pg-cp-descriptor";
+    input {
+      leaf circuit-pack-pg-name {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-equipment-aps:circuit-pack-pg/name";
+        }
+        mandatory true;
+        description
+          "Target circuit-pack PG";
+      }
+      leaf cp-pg-descriptor-name {
+        type leafref {
+          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps/org-openroadm-prot-equipment-aps:circuit-pack-pg[name=current()/../circuit-pack-pg-name]/cp-pg-descriptor/name";
+        }
+        mandatory true;
+        description
+          "Target circuit-pack descriptor";
+      }
+      leaf switch-command {
+        type enumeration {
+          enum lockout {
+            value 1;
+            description
+              "lock-out the member from active service and set switch request to 'locked'";
+          }
+          enum manual-switch {
+            value 2;
+            description
+              "remove the member from active service,
+              and if persistent, set switch request to 'manual'";
+          }
+          enum release {
+            value 3;
+            description
+              "clear persistent member switch request";
+          }
+        }
+        mandatory true;
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
+    uses circuit-pack-grps;
+  }
+
+}

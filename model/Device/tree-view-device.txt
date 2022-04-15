@@ -170,6 +170,8 @@ module: org-openroadm-de-operations
        |  |     |  +---w odu-sncp-pg-name          string
        |  |     +--:(client-sncp-pg)
        |  |     |  +---w client-sncp-pg-name       string
+       |  |     +--:(circuit-pack-pg)
+       |  |     |  +---w circuit-pack-pg-name      string
        |  |     +--:(other)
        |  |     |  +---w other-resource-id         string
        |  |     +--:(device)
@@ -223,6 +225,8 @@ module: org-openroadm-de-operations
        |     |  +--ro odu-sncp-pg-name          string
        |     +--:(client-sncp-pg)
        |     |  +--ro client-sncp-pg-name       string
+       |     +--:(circuit-pack-pg)
+       |     |  +--ro circuit-pack-pg-name      string
        |     +--:(other)
        |     |  +--ro other-resource-id         string
        |     +--:(device)
@@ -719,24 +723,35 @@ module: org-openroadm-device
      |  +--rw org-openroadm-ppp-interfaces:ppp
      |     +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
      +--rw protection-grps
+     |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
+     |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
+     |  |  +--rw org-openroadm-prot-equipment-aps:prot-architecture    prot-architecture-type
+     |  |  +--ro org-openroadm-prot-equipment-aps:service-state        pg-service-state-type
+     |  |  +--ro org-openroadm-prot-equipment-aps:redundancy-state     pg-redundancy-state-type
+     |  |  +--ro org-openroadm-prot-equipment-aps:lockout-state?       pg-lockout-state-type
+     |  |  +--rw org-openroadm-prot-equipment-aps:cp-pg-descriptor* [name]
+     |  |     +--rw org-openroadm-prot-equipment-aps:name               string
+     |  |     +--rw org-openroadm-prot-equipment-aps:pg-circuit-pack    -> /org-openroadm-device:org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |     +--ro org-openroadm-prot-equipment-aps:member-state       pg-member-state-type
+     |  |     +--ro org-openroadm-prot-equipment-aps:switch-request     pg-member-switch-request-type
+     |  |     +--ro org-openroadm-prot-equipment-aps:member-active      boolean
      |  +--rw org-openroadm-prot-otn-linear-aps:odu-sncp-pg* [name]
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:name                        string
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:level                       protection-level-type
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:prot-type?                  identityref
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:mode                        protection-mode-type
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:tcm-layer                   tcm-layer-type
-     |  |  x--rw org-openroadm-prot-otn-linear-aps:protection-trigger-level?   enumeration
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:switching-direction?        switching-direction-type
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:revertive?                  boolean
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:sd-enable?                  boolean
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:wait-to-restore?            uint8
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:level                  protection-level-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:prot-type?             identityref
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:mode                   protection-mode-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:tcm-layer              tcm-layer-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:revertive?             boolean
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:sd-enable?             boolean
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:wait-to-restore?       uint8
      |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff-timer
      |  |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff?              uint8
      |  |  |  +--rw org-openroadm-prot-otn-linear-aps:holdoff-multiplier?   uint8
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:working-if                  -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:pg-interfaces*              -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--ro org-openroadm-prot-otn-linear-aps:active-if?                  -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?              request-state-type
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:working-if             -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:pg-interfaces*         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--ro org-openroadm-prot-otn-linear-aps:active-if?             -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?         request-state-type
      |  +--rw org-openroadm-prot-otn-linear-aps:client-sncp-pg* [name]
      |     +--rw org-openroadm-prot-otn-linear-aps:name                   string
      |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
@@ -1921,6 +1936,18 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
+
+module: org-openroadm-prot-equipment-aps
+
+  rpcs:
+    +---x circuit-pack-protection-switch
+       +---w input
+       |  +---w circuit-pack-pg-name     -> /org-openroadm-device:org-openroadm-device/protection-grps/org-openroadm-prot-equipment-aps:circuit-pack-pg/name
+       |  +---w cp-pg-descriptor-name    -> /org-openroadm-device:org-openroadm-device/protection-grps/org-openroadm-prot-equipment-aps:circuit-pack-pg[name=current()/../circuit-pack-pg-name]/cp-pg-descriptor/name
+       |  +---w switch-command           enumeration
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
 
 module: org-openroadm-prot-otn-linear-aps
 

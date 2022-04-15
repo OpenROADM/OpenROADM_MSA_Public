@@ -4,7 +4,7 @@ module org-openroadm-ipv6-unicast-routing {
 
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import ietf-inet-types {
     prefix inet;
@@ -12,7 +12,7 @@ module org-openroadm-ipv6-unicast-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
 
   organization
@@ -39,6 +39,10 @@ module org-openroadm-ipv6-unicast-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -101,6 +105,8 @@ module org-openroadm-ipv6-unicast-routing {
   }
 
   grouping ipv6-uni-grp {
+    description
+      "Grouping for IPv6";
     container ipv6 {
       description
         "Configuration of a 'static' pseudo-protocol instance
@@ -138,8 +144,6 @@ module org-openroadm-ipv6-unicast-routing {
         }
       }
     }
-    description
-      "Grouping for IPv6";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-routing:static-routes" {

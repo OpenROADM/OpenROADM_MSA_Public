@@ -273,6 +273,15 @@ module: org-openroadm-network
     +--rw relay-rack?                  string
     +--rw shelf?                       string
     +--rw node-connection-status?      nt:openroadm-node-connection-status
+    +--rw node-capabilities
+    |  +--rw supported-xpdr-list
+    |     +--rw supported-xpdr* [xpdr-type]
+    |        +--rw xpdr-type                      org-openroadm-common-node-types:xpdr-node-types
+    |        +--rw supported-operational-modes
+    |           +--rw supported-operational-mode* [operational-mode-id]
+    |              +--rw operational-mode-id    string
+    |              +--rw equipment-capacity?    boolean
+    |              +--rw equipment-available?   boolean
     +--rw roadm-attributes
     |  +--rw max-degrees?       uint16
     |  +--rw max-srgs?          uint16

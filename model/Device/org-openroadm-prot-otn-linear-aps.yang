@@ -4,11 +4,11 @@ module org-openroadm-prot-otn-linear-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -341,11 +345,11 @@ module org-openroadm-prot-otn-linear-aps {
     }
     leaf sd-enable {
       type boolean;
-       default "true";
-       description
-         "Enable the signal degrade condition for protection switching.
-          When a protection group does not support SD detection,
-          setting sd-enable to true will be rejected.";
+      default "true";
+      description
+        "Enable the signal degrade condition for protection switching.
+         When a protection group does not support SD detection,
+         setting sd-enable to true will be rejected.";
     }
     leaf wait-to-restore {
       when "../revertive = 'true'";
@@ -420,8 +424,7 @@ module org-openroadm-prot-otn-linear-aps {
       leaf level {
         type protection-level-type;
         must "current() = 'path' or current() = 'line'" {
-          error-message
-            "Protection level for odu-scnp-protection must be Path or Line";
+          error-message "Protection level for odu-scnp-protection must be Path or Line";
           description
             "odu-sncp specific validation for protection-level-type";
         }
@@ -450,59 +453,6 @@ module org-openroadm-prot-otn-linear-aps {
         description
           "Sets the TCM layer for SNC/S and SNC/Ns protection.";
       }
-      leaf protection-trigger-level {
-        status deprecated;
-        type enumeration {
-          enum OTUk/ODUkA-SSF-SSD {
-            value 1;
-            description
-              "applicable to SNC/I";
-          }
-          enum ODUkP/ODUjA-SSF-SSD {
-            value 2;
-            description
-              "applicable to CL-SNCG/I";
-          }
-          enum ODUP-SSF-SSD {
-            value 3;
-            description
-              "applicable to SNC/Ne";
-          }
-          enum ODUT1 {
-            value 4;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-          enum ODUT2 {
-            value 5;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-          enum ODUT3 {
-            value 6;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-          enum ODUT4 {
-            value 7;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-          enum ODUT5 {
-            value 8;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-          enum ODUT6 {
-            value 9;
-            description
-              "applicable to SNC/Ns or SNC/S";
-          }
-        }
-        description
-          "Indicates switch trigger. Deprecated as information is redundant.";
-      }
-
       uses generic-sncp-pg;
     }
   }
@@ -515,7 +465,6 @@ module org-openroadm-prot-otn-linear-aps {
         description
           "The client-sncp-protection-group name";
       }
-
       uses generic-sncp-pg;
     }
   }
@@ -579,10 +528,10 @@ module org-openroadm-prot-otn-linear-aps {
 
   grouping protection-profile-list-grps {
     leaf-list protection-profile-name {
-      config false;
       type leafref {
         path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/org-openroadm-prot-otn-linear-aps:profile-name";
       }
+      config false;
       description
         "List of protection profiles supported by this Interface object.
          Supported by interface types ethernetCsmacd (client protection),
