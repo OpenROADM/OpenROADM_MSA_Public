@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -289,6 +293,11 @@ module org-openroadm-common-types {
         description
           "value for 10.1";
       }
+      enum 11.0 {
+        value 23;
+        description
+          "value for 11.0";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -380,13 +389,6 @@ module org-openroadm-common-types {
       "A unique FEC identification";
   }
 
-  // FEC Off (duplications for backwards compatibility)
-  identity off-fec {
-    status deprecated;
-    base fec-identity;
-    description
-      "FEC Off";
-  }
   identity off {
     base fec-identity;
     description

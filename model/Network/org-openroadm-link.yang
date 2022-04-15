@@ -25,11 +25,11 @@ module org-openroadm-link {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
 
   organization
@@ -66,6 +66,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -169,7 +173,7 @@ module org-openroadm-link {
         "ROADM span loss provided by an external system";
     }
     uses org-openroadm-network-types:link-concatenation {
-      augment link-concatenation {
+      augment "link-concatenation" {
         leaf fiber-type {
           type enumeration {
             enum smf {
@@ -220,10 +224,10 @@ module org-openroadm-link {
             "Total PMD";
         }
         leaf subject-to-high-SOP-changes {
-      	  type boolean;
-      	  description
-      		  "identifies fibers that may experience high polarization rotation rates
-      		   and which might be inadequate for some modulation format";
+          type boolean;
+          description
+            "identifies fibers that may experience high polarization rotation rates
+                \t   and which might be inadequate for some modulation format";
         }
       }
     }
@@ -233,10 +237,11 @@ module org-openroadm-link {
           type leafref {
             path "/nd:networks/nd:network/cnet:SRLG-list/cnet:SRLG-Id";
           }
-        }  
+        }
       }
     }
-  } 
+  }
+
   grouping amplified-link-attributes {
     list amplified-link {
       key "section-elt-number";

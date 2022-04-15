@@ -5,7 +5,7 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,11 +13,11 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -153,6 +157,8 @@ module org-openroadm-ethernet-interfaces {
   }
 
   grouping eth-attributes {
+    description
+      "Ethernet attributes grouping";
     leaf speed {
       type uint32;
       description
@@ -161,7 +167,6 @@ module org-openroadm-ethernet-interfaces {
          Applies to both management and transport Ethernet.
          Optional, must be specified for transport Ethernet or when auto-negotiation is disabled.";
     }
-
     uses org-openroadm-common-types:fec-grouping {
       description
         "Forward Error Correction Choices.
@@ -249,11 +254,11 @@ module org-openroadm-ethernet-interfaces {
          Applies to transport Ethernet.";
       uses org-openroadm-common-types:eth-rate-and-burst-size;
     }
-    description
-      "Ethernet attributes grouping";
   }
 
   grouping ethernet-container {
+    description
+      "Ethernet container grouping";
     container ethernet {
       description
         "Ethernet Interfaces.
@@ -262,14 +267,12 @@ module org-openroadm-ethernet-interfaces {
       uses org-openroadm-maint-testsignal:maint-testsignal;
       uses org-openroadm-maint-loopback:maint-loopback;
     }
-    description
-      "Ethernet container grouping";
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:ethernetCsmacd'";
-    uses ethernet-container;
     description
       "Augment for interface";
+    uses ethernet-container;
   }
 }

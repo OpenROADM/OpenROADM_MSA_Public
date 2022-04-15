@@ -4,7 +4,7 @@ module org-openroadm-ber-test {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-common-ber-test {
     prefix org-openroadm-common-ber-test;
@@ -48,6 +48,10 @@ module org-openroadm-ber-test {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";

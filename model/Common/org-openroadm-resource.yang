@@ -16,7 +16,7 @@ module org-openroadm-resource {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2021-09-24;
+    revision-date 2022-03-25;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -56,6 +56,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -519,6 +523,9 @@ module org-openroadm-resource {
         }
         case client-sncp-pg {
           uses org-openroadm-resource-types:client-sncp-pg-name;
+        }
+        case circuit-pack-pg {
+          uses org-openroadm-resource-types:circuit-pack-pg-name;
         }
         case other {
           uses org-openroadm-resource-types:other-resource-id;

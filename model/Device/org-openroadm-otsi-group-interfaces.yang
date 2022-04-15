@@ -4,7 +4,7 @@ module org-openroadm-otsi-group-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -66,6 +66,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -116,6 +120,8 @@ module org-openroadm-otsi-group-interfaces {
   }
 
   grouping msi-group {
+    description
+      "MSI Group grouping";
     leaf index {
       type uint16;
       description
@@ -140,8 +146,6 @@ module org-openroadm-otsi-group-interfaces {
          (G.709.3 Annex F (2020-12))
          G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)";
     }
-    description
-      "MSI Group grouping";
   }
 
   grouping otsi-group-container {
@@ -172,31 +176,31 @@ module org-openroadm-otsi-group-interfaces {
         list tx-msi {
           key "index";
           config false;
-            description
-              "The transmitted FlexO multiplexed structure
-               (G.709.3 Annex F (2020-12))
-               G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)
-               Instance id in TX MSI shall reflect programmed.";
+          description
+            "The transmitted FlexO multiplexed structure
+             (G.709.3 Annex F (2020-12))
+             G.798 15.3.5.1 (FlexO-n/OTUCni_A_So)(2021-01)
+             Instance id in TX MSI shall reflect programmed.";
           uses msi-group;
         }
         list rx-msi {
           key "index";
           config false;
-            description
-              "The accepted FlexO multiplexed structure
-               (G.709.3 Annex F (2020-12))
-               G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
-               Instance id in RX MSI shall reflect accepted.";
+          description
+            "The accepted FlexO multiplexed structure
+             (G.709.3 Annex F (2020-12))
+             G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
+             Instance id in RX MSI shall reflect accepted.";
           uses msi-group;
         }
         list exp-msi {
           key "index";
           config false;
-            description
-              "The expected FlexO multiplexed structure
-               (G.709.3 Annex F (2020-12))
-               G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
-               Instance id in EXP MSI shall reflect programmed.";
+          description
+            "The expected FlexO multiplexed structure
+             (G.709.3 Annex F (2020-12))
+             G.798 15.3.5.2 (FlexO-n/OTUCni_A_Sk)(2021-01)
+             Instance id in EXP MSI shall reflect programmed.";
           uses msi-group;
         }
       }

@@ -862,6 +862,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw odu-sncp-pg-name             string
   |     |  |  |     +--:(client-sncp-pg)
   |     |  |  |     |  +--rw client-sncp-pg-name          string
+  |     |  |  |     +--:(circuit-pack-pg)
+  |     |  |  |     |  +--rw circuit-pack-pg-name         string
   |     |  |  |     +--:(other)
   |     |  |  |     |  +--rw other-resource-id            string
   |     |  |  |     +--:(device)
@@ -964,6 +966,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw odu-sncp-pg-name             string
   |     |     |     +--:(client-sncp-pg)
   |     |     |     |  +--rw client-sncp-pg-name          string
+  |     |     |     +--:(circuit-pack-pg)
+  |     |     |     |  +--rw circuit-pack-pg-name         string
   |     |     |     +--:(other)
   |     |     |     |  +--rw other-resource-id            string
   |     |     |     +--:(device)
@@ -1070,6 +1074,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw odu-sncp-pg-name             string
   |     |     |  |     +--:(client-sncp-pg)
   |     |     |  |     |  +--rw client-sncp-pg-name          string
+  |     |     |  |     +--:(circuit-pack-pg)
+  |     |     |  |     |  +--rw circuit-pack-pg-name         string
   |     |     |  |     +--:(other)
   |     |     |  |     |  +--rw other-resource-id            string
   |     |     |  |     +--:(device)
@@ -1172,6 +1178,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw odu-sncp-pg-name             string
   |     |        |     +--:(client-sncp-pg)
   |     |        |     |  +--rw client-sncp-pg-name          string
+  |     |        |     +--:(circuit-pack-pg)
+  |     |        |     |  +--rw circuit-pack-pg-name         string
   |     |        |     +--:(other)
   |     |        |     |  +--rw other-resource-id            string
   |     |        |     +--:(device)
@@ -1738,6 +1746,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw odu-sncp-pg-name             string
   |     |  |  |     +--:(client-sncp-pg)
   |     |  |  |     |  +--rw client-sncp-pg-name          string
+  |     |  |  |     +--:(circuit-pack-pg)
+  |     |  |  |     |  +--rw circuit-pack-pg-name         string
   |     |  |  |     +--:(other)
   |     |  |  |     |  +--rw other-resource-id            string
   |     |  |  |     +--:(device)
@@ -1840,6 +1850,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw odu-sncp-pg-name             string
   |     |     |     +--:(client-sncp-pg)
   |     |     |     |  +--rw client-sncp-pg-name          string
+  |     |     |     +--:(circuit-pack-pg)
+  |     |     |     |  +--rw circuit-pack-pg-name         string
   |     |     |     +--:(other)
   |     |     |     |  +--rw other-resource-id            string
   |     |     |     +--:(device)
@@ -1946,6 +1958,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw odu-sncp-pg-name             string
   |     |     |  |     +--:(client-sncp-pg)
   |     |     |  |     |  +--rw client-sncp-pg-name          string
+  |     |     |  |     +--:(circuit-pack-pg)
+  |     |     |  |     |  +--rw circuit-pack-pg-name         string
   |     |     |  |     +--:(other)
   |     |     |  |     |  +--rw other-resource-id            string
   |     |     |  |     +--:(device)
@@ -2048,6 +2062,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw odu-sncp-pg-name             string
   |     |        |     +--:(client-sncp-pg)
   |     |        |     |  +--rw client-sncp-pg-name          string
+  |     |        |     +--:(circuit-pack-pg)
+  |     |        |     |  +--rw circuit-pack-pg-name         string
   |     |        |     +--:(other)
   |     |        |     |  +--rw other-resource-id            string
   |     |        |     +--:(device)
@@ -2639,6 +2655,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw odu-sncp-pg-name             string
   |     |  |  |     +--:(client-sncp-pg)
   |     |  |  |     |  +--rw client-sncp-pg-name          string
+  |     |  |  |     +--:(circuit-pack-pg)
+  |     |  |  |     |  +--rw circuit-pack-pg-name         string
   |     |  |  |     +--:(other)
   |     |  |  |     |  +--rw other-resource-id            string
   |     |  |  |     +--:(device)
@@ -2741,6 +2759,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw odu-sncp-pg-name             string
   |     |     |     +--:(client-sncp-pg)
   |     |     |     |  +--rw client-sncp-pg-name          string
+  |     |     |     +--:(circuit-pack-pg)
+  |     |     |     |  +--rw circuit-pack-pg-name         string
   |     |     |     +--:(other)
   |     |     |     |  +--rw other-resource-id            string
   |     |     |     +--:(device)
@@ -2847,6 +2867,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw odu-sncp-pg-name             string
   |     |     |  |     +--:(client-sncp-pg)
   |     |     |  |     |  +--rw client-sncp-pg-name          string
+  |     |     |  |     +--:(circuit-pack-pg)
+  |     |     |  |     |  +--rw circuit-pack-pg-name         string
   |     |     |  |     +--:(other)
   |     |     |  |     |  +--rw other-resource-id            string
   |     |     |  |     +--:(device)
@@ -2949,6 +2971,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw odu-sncp-pg-name             string
   |     |        |     +--:(client-sncp-pg)
   |     |        |     |  +--rw client-sncp-pg-name          string
+  |     |        |     +--:(circuit-pack-pg)
+  |     |        |     |  +--rw circuit-pack-pg-name         string
   |     |        |     +--:(other)
   |     |        |     |  +--rw other-resource-id            string
   |     |        |     +--:(device)
@@ -6015,6 +6039,8 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro odu-sncp-pg-name             string
     |     |  |  |  |     +--:(client-sncp-pg)
     |     |  |  |  |     |  +--ro client-sncp-pg-name          string
+    |     |  |  |  |     +--:(circuit-pack-pg)
+    |     |  |  |  |     |  +--ro circuit-pack-pg-name         string
     |     |  |  |  |     +--:(other)
     |     |  |  |  |     |  +--ro other-resource-id            string
     |     |  |  |  |     +--:(device)
@@ -6117,6 +6143,8 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro odu-sncp-pg-name             string
     |     |  |     |     +--:(client-sncp-pg)
     |     |  |     |     |  +--ro client-sncp-pg-name          string
+    |     |  |     |     +--:(circuit-pack-pg)
+    |     |  |     |     |  +--ro circuit-pack-pg-name         string
     |     |  |     |     +--:(other)
     |     |  |     |     |  +--ro other-resource-id            string
     |     |  |     |     +--:(device)
@@ -6223,6 +6251,8 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro odu-sncp-pg-name             string
     |     |  |     |  |     +--:(client-sncp-pg)
     |     |  |     |  |     |  +--ro client-sncp-pg-name          string
+    |     |  |     |  |     +--:(circuit-pack-pg)
+    |     |  |     |  |     |  +--ro circuit-pack-pg-name         string
     |     |  |     |  |     +--:(other)
     |     |  |     |  |     |  +--ro other-resource-id            string
     |     |  |     |  |     +--:(device)
@@ -6325,6 +6355,8 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro odu-sncp-pg-name             string
     |     |  |        |     +--:(client-sncp-pg)
     |     |  |        |     |  +--ro client-sncp-pg-name          string
+    |     |  |        |     +--:(circuit-pack-pg)
+    |     |  |        |     |  +--ro circuit-pack-pg-name         string
     |     |  |        |     +--:(other)
     |     |  |        |     |  +--ro other-resource-id            string
     |     |  |        |     +--:(device)
@@ -7424,6 +7456,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro odu-sncp-pg-name             string
     |        |  |  |  |     +--:(client-sncp-pg)
     |        |  |  |  |     |  +--ro client-sncp-pg-name          string
+    |        |  |  |  |     +--:(circuit-pack-pg)
+    |        |  |  |  |     |  +--ro circuit-pack-pg-name         string
     |        |  |  |  |     +--:(other)
     |        |  |  |  |     |  +--ro other-resource-id            string
     |        |  |  |  |     +--:(device)
@@ -7526,6 +7560,8 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro odu-sncp-pg-name             string
     |        |  |     |     +--:(client-sncp-pg)
     |        |  |     |     |  +--ro client-sncp-pg-name          string
+    |        |  |     |     +--:(circuit-pack-pg)
+    |        |  |     |     |  +--ro circuit-pack-pg-name         string
     |        |  |     |     +--:(other)
     |        |  |     |     |  +--ro other-resource-id            string
     |        |  |     |     +--:(device)
@@ -7632,6 +7668,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro odu-sncp-pg-name             string
     |        |  |     |  |     +--:(client-sncp-pg)
     |        |  |     |  |     |  +--ro client-sncp-pg-name          string
+    |        |  |     |  |     +--:(circuit-pack-pg)
+    |        |  |     |  |     |  +--ro circuit-pack-pg-name         string
     |        |  |     |  |     +--:(other)
     |        |  |     |  |     |  +--ro other-resource-id            string
     |        |  |     |  |     +--:(device)
@@ -7734,6 +7772,8 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro odu-sncp-pg-name             string
     |        |  |        |     +--:(client-sncp-pg)
     |        |  |        |     |  +--ro client-sncp-pg-name          string
+    |        |  |        |     +--:(circuit-pack-pg)
+    |        |  |        |     |  +--ro circuit-pack-pg-name         string
     |        |  |        |     +--:(other)
     |        |  |        |     |  +--ro other-resource-id            string
     |        |  |        |     +--:(device)
@@ -10674,6 +10714,8 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro odu-sncp-pg-name             string
     |  |  |  |     +--:(client-sncp-pg)
     |  |  |  |     |  +--ro client-sncp-pg-name          string
+    |  |  |  |     +--:(circuit-pack-pg)
+    |  |  |  |     |  +--ro circuit-pack-pg-name         string
     |  |  |  |     +--:(other)
     |  |  |  |     |  +--ro other-resource-id            string
     |  |  |  |     +--:(device)
@@ -10776,6 +10818,8 @@ module: org-openroadm-service
     |  |     |     |  +--ro odu-sncp-pg-name             string
     |  |     |     +--:(client-sncp-pg)
     |  |     |     |  +--ro client-sncp-pg-name          string
+    |  |     |     +--:(circuit-pack-pg)
+    |  |     |     |  +--ro circuit-pack-pg-name         string
     |  |     |     +--:(other)
     |  |     |     |  +--ro other-resource-id            string
     |  |     |     +--:(device)
@@ -10882,6 +10926,8 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro odu-sncp-pg-name             string
     |  |     |  |     +--:(client-sncp-pg)
     |  |     |  |     |  +--ro client-sncp-pg-name          string
+    |  |     |  |     +--:(circuit-pack-pg)
+    |  |     |  |     |  +--ro circuit-pack-pg-name         string
     |  |     |  |     +--:(other)
     |  |     |  |     |  +--ro other-resource-id            string
     |  |     |  |     +--:(device)
@@ -10984,6 +11030,8 @@ module: org-openroadm-service
     |  |        |     |  +--ro odu-sncp-pg-name             string
     |  |        |     +--:(client-sncp-pg)
     |  |        |     |  +--ro client-sncp-pg-name          string
+    |  |        |     +--:(circuit-pack-pg)
+    |  |        |     |  +--ro circuit-pack-pg-name         string
     |  |        |     +--:(other)
     |  |        |     |  +--ro other-resource-id            string
     |  |        |     +--:(device)
@@ -11551,6 +11599,8 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro odu-sncp-pg-name             string
     |  |  |  |     +--:(client-sncp-pg)
     |  |  |  |     |  +--ro client-sncp-pg-name          string
+    |  |  |  |     +--:(circuit-pack-pg)
+    |  |  |  |     |  +--ro circuit-pack-pg-name         string
     |  |  |  |     +--:(other)
     |  |  |  |     |  +--ro other-resource-id            string
     |  |  |  |     +--:(device)
@@ -11653,6 +11703,8 @@ module: org-openroadm-service
     |  |     |     |  +--ro odu-sncp-pg-name             string
     |  |     |     +--:(client-sncp-pg)
     |  |     |     |  +--ro client-sncp-pg-name          string
+    |  |     |     +--:(circuit-pack-pg)
+    |  |     |     |  +--ro circuit-pack-pg-name         string
     |  |     |     +--:(other)
     |  |     |     |  +--ro other-resource-id            string
     |  |     |     +--:(device)
@@ -11759,6 +11811,8 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro odu-sncp-pg-name             string
     |  |     |  |     +--:(client-sncp-pg)
     |  |     |  |     |  +--ro client-sncp-pg-name          string
+    |  |     |  |     +--:(circuit-pack-pg)
+    |  |     |  |     |  +--ro circuit-pack-pg-name         string
     |  |     |  |     +--:(other)
     |  |     |  |     |  +--ro other-resource-id            string
     |  |     |  |     +--:(device)
@@ -11861,6 +11915,8 @@ module: org-openroadm-service
     |  |        |     |  +--ro odu-sncp-pg-name             string
     |  |        |     +--:(client-sncp-pg)
     |  |        |     |  +--ro client-sncp-pg-name          string
+    |  |        |     +--:(circuit-pack-pg)
+    |  |        |     |  +--ro circuit-pack-pg-name         string
     |  |        |     +--:(other)
     |  |        |     |  +--ro other-resource-id            string
     |  |        |     +--:(device)

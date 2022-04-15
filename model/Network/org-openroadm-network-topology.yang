@@ -13,7 +13,7 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-srg {
     prefix srg;
@@ -21,11 +21,11 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
@@ -33,11 +33,11 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2021-12-10;
+    revision-date 2022-03-25;
   }
 
   organization
@@ -73,6 +73,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2022-03-25 {
+    description
+      "Version 11.0";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -157,10 +161,10 @@ module org-openroadm-network-topology {
             (../cnet:node-type = 'DEGREE' or ../cnet:node-type = 'SRG' or ../cnet:node-type = 'TPDR' or ../cnet:node-type = 'SWITCH' or
              ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'EXT-PLUGGABLE' or
              ../cnet:node-type = 'MUXPDR'))" {
-          error-message "Invalid node type for openroadm-topology";
-          description
-            "The valid node types in the ROADM topology are 'SRG', 'DEGREE',
-             'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
+        error-message "Invalid node type for openroadm-topology";
+        description
+          "The valid node types in the ROADM topology are 'SRG', 'DEGREE',
+           'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
       }
     }
   }
@@ -172,19 +176,19 @@ module org-openroadm-network-topology {
       must "/nd:network/nd:node/cnet:node-type != 'DEGREE' or (../../cnet:node-type = 'DEGREE'  and
             (../cnet:tp-type = 'DEGREE-TX-TTP' or ../cnet:tp-type = 'DEGREE-RX-TTP' or  ../cnet:tp-type = 'DEGREE-TXRX-TTP' or
             ../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'))" {
-          error-message "Invalid TP for node type 'DEGREE'";
+        error-message "Invalid TP for node type 'DEGREE'";
       }
       must "/nd:network/nd:node/cnet:node-type != 'SRG' or (../../cnet:node-type = 'SRG' and
             (../cnet:tp-type = 'SRG-TX-CP' or ../cnet:tp-type = 'SRG-RX-CP' or ../cnet:tp-type = 'SRG-TXRX-CP' or
             ../cnet:tp-type = 'SRG-RX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-TXRX-PP'))" {
-          error-message "Invalid TP for node type 'SRG'";
+        error-message "Invalid TP for node type 'SRG'";
       }
       must " (/nd:network/nd:node/cnet:node-type != 'TPDR' and ../../cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'REGEN' and
             ../../cnet:node-type != 'REGEN-UNI' and ../../cnet:node-type != 'SWITCH')
             or ((../../cnet:node-type = 'TPDR' or ../../cnet:node-type = 'MUXPDR' or ../../cnet:node-type = 'REGEN' or
             ../../cnet:node-type = 'REGEN-UNI' or ../../cnet:node-type = 'SWITCH') and
             (../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-PORT'))" {
-          error-message "Invalid TP for node type 'XPONDER'";
+        error-message "Invalid TP for node type 'XPONDER'";
       }
       must "/nd:network/nd:node/cnet:node-type != 'EXT-PLUGGABLE' or (../../cnet:node-type = 'EXT-PLUGGABLE' and ../cnet:tp-type = 'EXT-PLUGGABLE-TP')" {
         error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
@@ -198,10 +202,10 @@ module org-openroadm-network-topology {
             (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
             (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
              ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT'))" {
-          error-message "Invalid link type for openroadm-topology";
-          description
-            "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
-             'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT'";
+        error-message "Invalid link type for openroadm-topology";
+        description
+          "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
+           'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT'";
       }
     }
   }
