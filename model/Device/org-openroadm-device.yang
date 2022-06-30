@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -92,7 +92,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2021-05-28;
+    revision-date 2022-05-27;
   }
   organization
     "Open ROADM MSA";
@@ -141,6 +141,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -301,7 +305,6 @@ module org-openroadm-device {
     leaf node-type {
       type org-openroadm-common-node-types:node-types;
       config true;
-      mandatory true;
       description
         "Identifier for node-type e.g Roadm, xponder.
          Once the node-type is configured, it should not be modified.";
@@ -1043,10 +1046,10 @@ module org-openroadm-device {
         "maximum number of wavelengths";
     }
     leaf-list optical-operational-mode-profile-name {
-    	type string;
-    	config false;
-    	description
-    		"defines the supported openroadm specifications";
+        type string;
+        config false;
+        description
+            "defines the supported openroadm specifications";
     }
     list circuit-packs {
       key "index";
@@ -1101,10 +1104,10 @@ module org-openroadm-device {
         "Amplifier type";
     }
     leaf-list optical-operational-mode-profile-name {
-    	type string;
-    	config false;
-    	description
-    		"defines the supported openroadm specifications";
+        type string;
+        config false;
+        description
+            "defines the supported openroadm specifications";
     }
     leaf control-mode {
       type org-openroadm-common-amplifier-types:line-amplifier-control-mode;
@@ -1333,10 +1336,10 @@ module org-openroadm-device {
         "Srg number should be greater than zero and not greater than max-srgs";
     }
     leaf-list optical-operational-mode-profile-name {
-    	type string;
-    	config false;
-    	description
-    		"defines the supported openroadm specifications";
+        type string;
+        config false;
+        description
+            "defines the supported openroadm specifications";
     }
     leaf lifecycle-state {
       type org-openroadm-common-state-types:lifecycle-state;
@@ -1474,8 +1477,8 @@ module org-openroadm-device {
           "Shared Risk Group identifier. All ports in a circuit-pack will have same srg-id";
       }
     }
-  }  
-  
+  }
+
   grouping degree-number {
     leaf degree-number {
       type leafref {
@@ -2582,10 +2585,10 @@ module org-openroadm-device {
         config false;
         description
           "List of optical operational mode profiles which includes :
-        	_specific operational mode used for bookended applications
-        	_openroadm operational mode introduced in R10.0 to describe the 
-        	specifications a device may complies with whether it is a Xponder
-        	(port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
+            _specific operational mode used for bookended applications
+            _openroadm operational mode introduced in R10.0 to describe the
+            specifications a device may complies with whether it is a Xponder
+            (port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
         leaf profile-name {
           type string;
           description

@@ -200,10 +200,10 @@ module org-openroadm-resource {
          Selected mode can be either a specific or an openROADM operational-mode";
     }
   }
-  
+
   grouping path-computation-outputs {
-	description
-	  "Parameters resulting of path computation";
+    description
+      "Parameters resulting of path computation";
     leaf rx-estimated-osnr {
       type org-openroadm-common-link-types:ratio-dB;
       description

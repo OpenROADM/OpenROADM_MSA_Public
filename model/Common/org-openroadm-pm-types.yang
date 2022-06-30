@@ -34,7 +34,11 @@ module org-openroadm-pm-types {
       WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
-  
+
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -1571,8 +1575,8 @@ module org-openroadm-pm-types {
       enum opticalPowerOutputDrift {
         value 242;
         description
-          "The delta (dB) between the measured optical power output and expected 
-           or targeted optical power output. One use case would be the difference between the 
+          "The delta (dB) between the measured optical power output and expected
+           or targeted optical power output. One use case would be the difference between the
            measured nmc opticalPowerOutput and the target-output-power set by controller.";
       }
     }
@@ -1594,7 +1598,7 @@ module org-openroadm-pm-types {
     }
     leaf validity {
       type validity;
-      mandatory false;
+      mandatory true;
     }
   }
 

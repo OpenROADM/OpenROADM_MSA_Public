@@ -4,11 +4,11 @@ module org-openroadm-prot-equipment-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
 
   organization
@@ -58,6 +58,10 @@ module org-openroadm-prot-equipment-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";

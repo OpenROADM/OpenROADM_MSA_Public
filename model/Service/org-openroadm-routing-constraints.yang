@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -132,16 +136,39 @@ module org-openroadm-routing-constraints {
       uses common-constraints;
       leaf-list supporting-service-name {
         type string;
+        ordered-by user;
         description
           "Supporting service(s) to exclude from this route.";
       }
     }
     container include {
+      leaf is-explicit-routing {
+        type boolean;
+        description
+          "When explicit routing is set to true, include
+          constraints will consist of an end to end list (link-identifier or
+          supporting-service-name); PCE should interpret the link
+          constraints as explicitly specifying the end-end route (path) ordered from A-Z.
+          If this is true then only one include list can be passed to the controller; either the
+          'supporting-service-name' list or 'link-identifier' list";
+        default "false";
+      }
+      leaf is-include-list-ordered {
+        type boolean;
+        description
+          "The ordering applies to all lists (in common-constraints container)
+          except srlg-id list; if the value is false, the list should be
+          taken as un-ordered.";
+        default "false";
+      }
       uses common-constraints;
       leaf-list supporting-service-name {
         type string;
+        ordered-by user;
         description
-          "Supporting service(s) to include in this route.";
+          "Supporting service(s) to include in this route.
+          User ordering allows the list to be in path order if 'is-explicit-routing' or 'is-include-list-ordered'
+          is enabled true";
       }
     }
     container latency {
@@ -204,28 +231,37 @@ module org-openroadm-routing-constraints {
   grouping common-constraints {
     leaf-list fiber-bundle {
       type string;
+      ordered-by user;
     }
     leaf-list srlg-id {
       type uint32;
+      ordered-by user;
       description
         "unique identifier for SRLG";
     }
     leaf-list site {
       type string;
+      ordered-by user;
       description
         "site identifies the clli.
-         clli from the device model; clli-network-ref + clli from the network model.";
+        clli from the device model; clli-network-ref + clli from the network model.
+        User ordering allows the list to be in path order if 'is-include-list-ordered' is enabled true";
     }
     leaf-list node-id {
       type org-openroadm-common-node-types:node-id-type;
+      ordered-by user;
       description
-        "node-id from the device model; openroadm-network-ref + node-id from the network model.";
+        "node-id from the device model; openroadm-network-ref + node-id from the network model.
+        User ordering allows the list to be in path order if 'is-include-list-ordered' is enabled true";
     }
     list link-identifier {
       key "link-network-id link-id";
+      ordered-by user;
       description
         "Refers to link-id(s) from the network model.
-         The openroadm-topology-ref + link-id identifies the link in the network model.";
+        The openroadm-topology-ref + link-id identifies the link in the network model.
+        User ordering allows the list to be in path order if 'is-explicit-routing' or 'is-include-list-ordered'
+        is enabled true";
       uses org-openroadm-network-resource:network-link-name;
     }
   }
@@ -310,18 +346,18 @@ module org-openroadm-routing-constraints {
         enum serial {
           value 1;
           description
-            "Indicates that new services that are part of the bulk service request 
+            "Indicates that new services that are part of the bulk service request
             should be routed serially for diversity.";
         }
         enum synchronous {
           value 2;
           description
-            "Indicates that new services that are part of the bulk service request 
+            "Indicates that new services that are part of the bulk service request
             should be routed synchronously for diversity.";
         }
       }
-      description 
-        "This is only used when creating services using service-create-bulk. 
+      description
+        "This is only used when creating services using service-create-bulk.
         It is expected that 'diversity-type' should be same for all services,
         within the group. Which means it can be either 'serial' or 'synchronous'
         but not both.";

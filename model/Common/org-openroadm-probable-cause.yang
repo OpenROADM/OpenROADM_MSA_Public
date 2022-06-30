@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -257,9 +261,15 @@ module org-openroadm-probable-cause {
       }
       enum firmwareVersionMismatch {
         value 46;
+        description
+          "The new version of software is no longer compatible with the version
+           of firmware running on the circuit pack";
       }
       enum incompatibleFirmware {
         value 49;
+        description
+          "The device is provisioned with a feature that requires the firmware on
+           circuit pack to be updated";
       }
       enum firmwareDownloadOrActivationFailure {
         value 50;
@@ -940,15 +950,15 @@ module org-openroadm-probable-cause {
         description
           "Total Power Out Of Specification Low for multi-channel drop";
       }
-      enum "powerOutOfRangeLow" {        
-        value 292;        
+      enum "powerOutOfRangeLow" {
+        value 292;
         description
-          "Measured power is outside the supported or advertised power range";      
-      }      
-      enum "powerOutOfRangeHigh" {        
-        value 293;        
-        description          
-          "Measured power is outside the supported or advertised power range";      
+          "Measured power is outside the supported or advertised power range";
+      }
+      enum "powerOutOfRangeHigh" {
+        value 293;
+        description
+          "Measured power is outside the supported or advertised power range";
       }
       enum "remoteDefectIndication" {
         value 294;

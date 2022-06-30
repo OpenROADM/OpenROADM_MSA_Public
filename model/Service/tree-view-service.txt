@@ -277,7 +277,6 @@ module: org-openroadm-ber-test
                 +--ro ber-passed?            boolean
                 +--ro target-prefec-ber?     decimal64
                 +--ro measured-prefec-ber?   decimal64
-
 module: org-openroadm-controller-customization
 
   rpcs:
@@ -373,7 +372,6 @@ module: org-openroadm-controller-customization
           |  +--ro response-message?      string
           |  +--ro ack-final-indicator    string
           +--ro unsupported-customization-options*   string
-
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]
@@ -414,6 +412,8 @@ module: org-openroadm-service
   |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
+  |     +--rw frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
+  |     +--rw width?                       org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -524,6 +524,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |     +--rw operational-mode?    string
+  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -634,6 +640,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |     +--rw operational-mode?    string
+  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -659,6 +671,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -713,6 +727,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -1298,6 +1314,8 @@ module: org-openroadm-service
   |     +--rw administrative-state?        org-openroadm-equipment-states-types:admin-states
   |     +--ro operational-state?           org-openroadm-common-state-types:state
   |     +--rw condition?                   service-condition
+  |     +--rw frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
+  |     +--rw width?                       org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -1408,6 +1426,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |     +--rw operational-mode?    string
+  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -1518,6 +1542,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |     +--rw operational-mode?    string
+  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -1543,6 +1573,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -1597,6 +1629,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -2181,6 +2215,8 @@ module: org-openroadm-service
   |     +--rw administrative-state?           org-openroadm-equipment-states-types:admin-states
   |     +--ro operational-state?              org-openroadm-common-state-types:state
   |     +--rw condition?                      service-condition
+  |     +--rw frequency?                      org-openroadm-common-optical-channel-types:frequency-THz
+  |     +--rw width?                          org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -2291,6 +2327,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -2414,6 +2456,12 @@ module: org-openroadm-service
   |     |  |     +--rw committed-burst-size    uint16
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
+  |     |  +--rw optical-attributes
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -2452,6 +2500,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -2506,6 +2556,8 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
   |     |  +--rw include
+  |     |  |  +--rw is-explicit-routing?       boolean
+  |     |  |  +--rw is-include-list-ordered?   boolean
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
   |     |  |  +--rw site*                      string
@@ -3618,6 +3670,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -3672,6 +3726,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -3760,6 +3816,8 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
     |        |  +--ro include
+    |        |  |  +--ro is-explicit-routing?       boolean
+    |        |  |  +--ro is-include-list-ordered?   boolean
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
     |        |  |  +--ro site*                      string
@@ -3814,6 +3872,8 @@ module: org-openroadm-service
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
     |           +--ro include
+    |           |  +--ro is-explicit-routing?       boolean
+    |           |  +--ro is-include-list-ordered?   boolean
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
     |           |  +--ro site*                      string
@@ -4124,6 +4184,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -4178,6 +4240,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -4268,6 +4332,8 @@ module: org-openroadm-service
     |           |  |  |  +--ro link-id            string
     |           |  |  +--ro supporting-service-name*   string
     |           |  +--ro include
+    |           |  |  +--ro is-explicit-routing?       boolean
+    |           |  |  +--ro is-include-list-ordered?   boolean
     |           |  |  +--ro fiber-bundle*              string
     |           |  |  +--ro srlg-id*                   uint32
     |           |  |  +--ro site*                      string
@@ -4322,6 +4388,8 @@ module: org-openroadm-service
     |              |  |  +--ro link-id            string
     |              |  +--ro supporting-service-name*   string
     |              +--ro include
+    |              |  +--ro is-explicit-routing?       boolean
+    |              |  +--ro is-include-list-ordered?   boolean
     |              |  +--ro fiber-bundle*              string
     |              |  +--ro srlg-id*                   uint32
     |              |  +--ro site*                      string
@@ -4631,6 +4699,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -4685,6 +4755,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -4780,6 +4852,8 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
     |        |  |  +--ro include
+    |        |  |  |  +--ro is-explicit-routing?       boolean
+    |        |  |  |  +--ro is-include-list-ordered?   boolean
     |        |  |  |  +--ro fiber-bundle*              string
     |        |  |  |  +--ro srlg-id*                   uint32
     |        |  |  |  +--ro site*                      string
@@ -4834,6 +4908,8 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
     |        |     +--ro include
+    |        |     |  +--ro is-explicit-routing?       boolean
+    |        |     |  +--ro is-include-list-ordered?   boolean
     |        |     |  +--ro fiber-bundle*              string
     |        |     |  +--ro srlg-id*                   uint32
     |        |     |  +--ro site*                      string
@@ -5388,6 +5464,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -5442,6 +5520,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -5537,6 +5617,8 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
     |     |  |  +--ro include
+    |     |  |  |  +--ro is-explicit-routing?       boolean
+    |     |  |  |  +--ro is-include-list-ordered?   boolean
     |     |  |  |  +--ro fiber-bundle*              string
     |     |  |  |  +--ro srlg-id*                   uint32
     |     |  |  |  +--ro site*                      string
@@ -5591,6 +5673,8 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
     |     |     +--ro include
+    |     |     |  +--ro is-explicit-routing?       boolean
+    |     |     |  +--ro is-include-list-ordered?   boolean
     |     |     |  +--ro fiber-bundle*              string
     |     |     |  +--ro srlg-id*                   uint32
     |     |     |  +--ro site*                      string
@@ -6804,6 +6888,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -6858,6 +6944,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -6954,6 +7042,8 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
     |        |  |  +--ro include
+    |        |  |  |  +--ro is-explicit-routing?       boolean
+    |        |  |  |  +--ro is-include-list-ordered?   boolean
     |        |  |  |  +--ro fiber-bundle*              string
     |        |  |  |  +--ro srlg-id*                   uint32
     |        |  |  |  +--ro site*                      string
@@ -7008,6 +7098,8 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
     |        |     +--ro include
+    |        |     |  +--ro is-explicit-routing?       boolean
+    |        |     |  +--ro is-include-list-ordered?   boolean
     |        |     |  +--ro fiber-bundle*              string
     |        |     |  +--ro srlg-id*                   uint32
     |        |     |  +--ro site*                      string
@@ -8237,6 +8329,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -8291,6 +8385,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -8406,6 +8502,8 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
     |     |  |  +--ro include
+    |     |  |  |  +--ro is-explicit-routing?       boolean
+    |     |  |  |  +--ro is-include-list-ordered?   boolean
     |     |  |  |  +--ro fiber-bundle*              string
     |     |  |  |  +--ro srlg-id*                   uint32
     |     |  |  |  +--ro site*                      string
@@ -8460,6 +8558,8 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
     |     |     +--ro include
+    |     |     |  +--ro is-explicit-routing?       boolean
+    |     |     |  +--ro is-include-list-ordered?   boolean
     |     |     |  +--ro fiber-bundle*              string
     |     |     |  +--ro srlg-id*                   uint32
     |     |     |  +--ro site*                      string
@@ -8824,6 +8924,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -8878,6 +8980,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -8989,6 +9093,8 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
     |        |  +--ro include
+    |        |  |  +--ro is-explicit-routing?       boolean
+    |        |  |  +--ro is-include-list-ordered?   boolean
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
     |        |  |  +--ro site*                      string
@@ -9043,6 +9149,8 @@ module: org-openroadm-service
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
     |           +--ro include
+    |           |  +--ro is-explicit-routing?       boolean
+    |           |  +--ro is-include-list-ordered?   boolean
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
     |           |  +--ro site*                      string
@@ -9333,6 +9441,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -9387,6 +9497,8 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
     |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
     |  |     |  |  +---w site*                      string
@@ -9500,6 +9612,8 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
     |        |  +--ro include
+    |        |  |  +--ro is-explicit-routing?       boolean
+    |        |  |  +--ro is-include-list-ordered?   boolean
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
     |        |  |  +--ro site*                      string
@@ -9554,6 +9668,8 @@ module: org-openroadm-service
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
     |           +--ro include
+    |           |  +--ro is-explicit-routing?       boolean
+    |           |  +--ro is-include-list-ordered?   boolean
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
     |           |  +--ro site*                      string
@@ -9737,6 +9853,8 @@ module: org-openroadm-service
     |     |  |  |  +--ro link-id            string
     |     |  |  +--ro supporting-service-name*   string
     |     |  +--ro include
+    |     |  |  +--ro is-explicit-routing?       boolean
+    |     |  |  +--ro is-include-list-ordered?   boolean
     |     |  |  +--ro fiber-bundle*              string
     |     |  |  +--ro srlg-id*                   uint32
     |     |  |  +--ro site*                      string
@@ -9791,6 +9909,8 @@ module: org-openroadm-service
     |        |  |  +--ro link-id            string
     |        |  +--ro supporting-service-name*   string
     |        +--ro include
+    |        |  +--ro is-explicit-routing?       boolean
+    |        |  +--ro is-include-list-ordered?   boolean
     |        |  +--ro fiber-bundle*              string
     |        |  +--ro srlg-id*                   uint32
     |        |  +--ro site*                      string
@@ -9853,6 +9973,8 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
     |  |  |  +---w include
+    |  |  |  |  +---w is-explicit-routing?       boolean
+    |  |  |  |  +---w is-include-list-ordered?   boolean
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
     |  |  |  |  +---w site*                      string
@@ -9907,6 +10029,8 @@ module: org-openroadm-service
     |  |     |  |  +---w link-id            string
     |  |     |  +---w supporting-service-name*   string
     |  |     +---w include
+    |  |     |  +---w is-explicit-routing?       boolean
+    |  |     |  +---w is-include-list-ordered?   boolean
     |  |     |  +---w fiber-bundle*              string
     |  |     |  +---w srlg-id*                   uint32
     |  |     |  +---w site*                      string
@@ -9987,6 +10111,193 @@ module: org-openroadm-service
     |  |     +---w notification-url?    string
     |  |     +---w request-system-id?   string
     |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x end-terminal-performance-info-request
+    |  +---w input
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w service-a-end
+    |  |  |  +---w service-endpoint-details
+    |  |  |     +---w clli            string
+    |  |  |     +---w node-id?        org-openroadm-common-node-types:node-id-type
+    |  |  |     +---w tx-direction
+    |  |  |     |  +---w port
+    |  |  |     |     +---w port-device-name?         string
+    |  |  |     |     +---w port-circuit-pack-name?   string
+    |  |  |     |     +---w port-circuit-pack-type?   string
+    |  |  |     |     +---w port-type?                string
+    |  |  |     |     +---w port-name?                string
+    |  |  |     |     +---w port-rack?                string
+    |  |  |     |     +---w port-shelf?               string
+    |  |  |     |     +---w port-slot?                string
+    |  |  |     |     +---w port-sub-slot?            string
+    |  |  |     +---w rx-direction
+    |  |  |        +---w port
+    |  |  |           +---w port-device-name?         string
+    |  |  |           +---w port-circuit-pack-name?   string
+    |  |  |           +---w port-circuit-pack-type?   string
+    |  |  |           +---w port-type?                string
+    |  |  |           +---w port-name?                string
+    |  |  |           +---w port-rack?                string
+    |  |  |           +---w port-shelf?               string
+    |  |  |           +---w port-slot?                string
+    |  |  |           +---w port-sub-slot?            string
+    |  |  +---w service-z-end
+    |  |     +---w service-endpoint-details
+    |  |        +---w clli            string
+    |  |        +---w node-id?        org-openroadm-common-node-types:node-id-type
+    |  |        +---w tx-direction
+    |  |        |  +---w port
+    |  |        |     +---w port-device-name?         string
+    |  |        |     +---w port-circuit-pack-name?   string
+    |  |        |     +---w port-circuit-pack-type?   string
+    |  |        |     +---w port-type?                string
+    |  |        |     +---w port-name?                string
+    |  |        |     +---w port-rack?                string
+    |  |        |     +---w port-shelf?               string
+    |  |        |     +---w port-slot?                string
+    |  |        |     +---w port-sub-slot?            string
+    |  |        +---w rx-direction
+    |  |           +---w port
+    |  |              +---w port-device-name?         string
+    |  |              +---w port-circuit-pack-name?   string
+    |  |              +---w port-circuit-pack-type?   string
+    |  |              +---w port-type?                string
+    |  |              +---w port-name?                string
+    |  |              +---w port-rack?                string
+    |  |              +---w port-shelf?               string
+    |  |              +---w port-slot?                string
+    |  |              +---w port-sub-slot?            string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |     |  +--ro request-id             string
+    |     |  +--ro response-code          string
+    |     |  +--ro response-message?      string
+    |     |  +--ro ack-final-indicator    string
+    |     +--ro a-z-end-common-interface-characteristics
+    |        +--ro supported-operational-modes* [preference]
+    |        |  +--ro preference             int16
+    |        |  +--ro operational-mode-id?   string
+    |        +--ro min-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |        +--ro max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |        +--ro min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
+    +---x end-terminal-activation-request
+    |  +---w input
+    |  |  +---w end-terminal-controller-service-name?   string
+    |  |  +---w service-name?                           string
+    |  |  +---w common-id?                              string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w service-a-end
+    |  |  |  +---w service-endpoint-details
+    |  |  |  |  +---w clli            string
+    |  |  |  |  +---w node-id?        org-openroadm-common-node-types:node-id-type
+    |  |  |  |  +---w tx-direction
+    |  |  |  |  |  +---w port
+    |  |  |  |  |     +---w port-device-name?         string
+    |  |  |  |  |     +---w port-circuit-pack-name?   string
+    |  |  |  |  |     +---w port-circuit-pack-type?   string
+    |  |  |  |  |     +---w port-type?                string
+    |  |  |  |  |     +---w port-name?                string
+    |  |  |  |  |     +---w port-rack?                string
+    |  |  |  |  |     +---w port-shelf?               string
+    |  |  |  |  |     +---w port-slot?                string
+    |  |  |  |  |     +---w port-sub-slot?            string
+    |  |  |  |  +---w rx-direction
+    |  |  |  |     +---w port
+    |  |  |  |        +---w port-device-name?         string
+    |  |  |  |        +---w port-circuit-pack-name?   string
+    |  |  |  |        +---w port-circuit-pack-type?   string
+    |  |  |  |        +---w port-type?                string
+    |  |  |  |        +---w port-name?                string
+    |  |  |  |        +---w port-rack?                string
+    |  |  |  |        +---w port-shelf?               string
+    |  |  |  |        +---w port-slot?                string
+    |  |  |  |        +---w port-sub-slot?            string
+    |  |  |  +---w min-output-power?           org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w max-output-power?           org-openroadm-common-link-types:power-dBm
+    |  |  +---w service-z-end
+    |  |  |  +---w service-endpoint-details
+    |  |  |  |  +---w clli            string
+    |  |  |  |  +---w node-id?        org-openroadm-common-node-types:node-id-type
+    |  |  |  |  +---w tx-direction
+    |  |  |  |  |  +---w port
+    |  |  |  |  |     +---w port-device-name?         string
+    |  |  |  |  |     +---w port-circuit-pack-name?   string
+    |  |  |  |  |     +---w port-circuit-pack-type?   string
+    |  |  |  |  |     +---w port-type?                string
+    |  |  |  |  |     +---w port-name?                string
+    |  |  |  |  |     +---w port-rack?                string
+    |  |  |  |  |     +---w port-shelf?               string
+    |  |  |  |  |     +---w port-slot?                string
+    |  |  |  |  |     +---w port-sub-slot?            string
+    |  |  |  |  +---w rx-direction
+    |  |  |  |     +---w port
+    |  |  |  |        +---w port-device-name?         string
+    |  |  |  |        +---w port-circuit-pack-name?   string
+    |  |  |  |        +---w port-circuit-pack-type?   string
+    |  |  |  |        +---w port-type?                string
+    |  |  |  |        +---w port-name?                string
+    |  |  |  |        +---w port-rack?                string
+    |  |  |  |        +---w port-shelf?               string
+    |  |  |  |        +---w port-slot?                string
+    |  |  |  |        +---w port-sub-slot?            string
+    |  |  |  +---w min-output-power?           org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w max-output-power?           org-openroadm-common-link-types:power-dBm
+    |  |  +---w frequency?                              org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +---w width?                                  org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +---w optical-operational-mode?               string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x end-terminal-deactivation-request
+    |  +---w input
+    |  |  +---w end-terminal-controller-service-name?   string
+    |  |  +---w due-date?                               yang:date-and-time
+    |  |  +---w sdnc-request-header
+    |  |     +---w request-id?          string
+    |  |     +---w rpc-action?          rpc-actions
+    |  |     +---w notification-url?    string
+    |  |     +---w request-system-id?   string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x end-terminal-power-control
+    |  +---w input
+    |  |  +---w end-terminal-controller-service-name?   string
+    |  |  +---w service-name?                           string
+    |  |  +---w common-id?                              string
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w frequency?                              org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +---w width?                                  org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +---w optical-operational-mode?               string
+    |  |  +---w output-power-setpoint-a-end?            org-openroadm-common-link-types:power-dBm
+    |  |  +---w output-power-setpoint-z-end?            org-openroadm-common-link-types:power-dBm
+    |  +--ro output
+    |     +--ro output-power-adjustment-needed?   boolean
+    |     +--ro corrected-output-power-a-end?     org-openroadm-common-link-types:power-dBm
+    |     +--ro corrected-output-power-z-end?     org-openroadm-common-link-types:power-dBm
+    |     +--ro srg-input-power-out-of-range?     boolean
     |     +--ro configuration-response-common
     |        +--ro request-id             string
     |        +--ro response-code          string
@@ -10266,6 +10577,8 @@ module: org-openroadm-service
     |  +--ro administrative-state?        org-openroadm-equipment-states-types:admin-states
     |  +--ro operational-state?           org-openroadm-common-state-types:state
     |  +--ro condition?                   service-condition
+    |  +--ro frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
+    |  +--ro width?                       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--ro service-a-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
@@ -10376,6 +10689,12 @@ module: org-openroadm-service
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
+    |  |  +--ro optical-attributes
+    |  |     +--ro operational-mode?    string
+    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
@@ -10486,6 +10805,12 @@ module: org-openroadm-service
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
+    |  |  +--ro optical-attributes
+    |  |     +--ro operational-mode?    string
+    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -10511,6 +10836,8 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
     |  |  +--ro include
+    |  |  |  +--ro is-explicit-routing?       boolean
+    |  |  |  +--ro is-include-list-ordered?   boolean
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
     |  |  |  +--ro site*                      string
@@ -10565,6 +10892,8 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
     |  |  +--ro include
+    |  |  |  +--ro is-explicit-routing?       boolean
+    |  |  |  +--ro is-include-list-ordered?   boolean
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
     |  |  |  +--ro site*                      string
@@ -11151,6 +11480,8 @@ module: org-openroadm-service
     |  +--ro administrative-state?        org-openroadm-equipment-states-types:admin-states
     |  +--ro operational-state?           org-openroadm-common-state-types:state
     |  +--ro condition?                   service-condition
+    |  +--ro frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
+    |  +--ro width?                       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--ro service-a-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
@@ -11261,6 +11592,12 @@ module: org-openroadm-service
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
+    |  |  +--ro optical-attributes
+    |  |     +--ro operational-mode?    string
+    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
@@ -11371,6 +11708,12 @@ module: org-openroadm-service
     |  |  |     +--ro committed-burst-size    uint16
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
+    |  |  +--ro optical-attributes
+    |  |     +--ro operational-mode?    string
+    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -11396,6 +11739,8 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
     |  |  +--ro include
+    |  |  |  +--ro is-explicit-routing?       boolean
+    |  |  |  +--ro is-include-list-ordered?   boolean
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
     |  |  |  +--ro site*                      string
@@ -11450,6 +11795,8 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
     |  |  +--ro include
+    |  |  |  +--ro is-explicit-routing?       boolean
+    |  |  |  +--ro is-include-list-ordered?   boolean
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
     |  |  |  +--ro site*                      string
@@ -11995,6 +12342,16 @@ module: org-openroadm-service
     |  |        |        +--ro link-id            string
     |  |        +--ro network-resource-type    identityref
     |  +--ro is-bandwidth-locked?         boolean
+    +---n end-terminal-activation-status
+    |  +--ro end-terminal-controller-service-name?   string
+    |  +--ro service-name?                           string
+    |  +--ro common-id?                              string
+    |  +--ro status                                  rpc-status
+    |  +--ro status-message?                         string
+    |  +--ro activation-status?                      org-openroadm-common-service-types:end-terminal-activation-status-type
+    |  +--ro actual-date?                            yang:date-and-time
+    |  +--ro output-power-setpoint-a-end?            org-openroadm-common-link-types:power-dBm
+    |  +--ro output-power-setpoint-z-end?            org-openroadm-common-link-types:power-dBm
     +---n non-rpc-related-notification
        +--ro notificationType?         org-openroadm-controller-customization:non-rpc-related-notification-type
        +--ro notificationId?           string
@@ -12003,4 +12360,3 @@ module: org-openroadm-service
        +--ro impacted-resource-type?   string
        +--ro impacted-resource-id?     string
        +--ro topology-layer?           enumeration
-
