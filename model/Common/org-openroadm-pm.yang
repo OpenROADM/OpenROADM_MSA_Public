@@ -8,7 +8,7 @@ module org-openroadm-pm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-05-27;
+    revision-date 2022-09-30;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -60,6 +60,10 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";

@@ -4,7 +4,7 @@ module org-openroadm-optical-transport-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2022-05-27;
+    revision-date 2022-09-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -63,6 +63,10 @@ module org-openroadm-optical-transport-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
