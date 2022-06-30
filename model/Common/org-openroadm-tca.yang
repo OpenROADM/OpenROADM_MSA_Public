@@ -13,7 +13,7 @@ module org-openroadm-tca {
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -29,7 +29,7 @@ module org-openroadm-tca {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -69,6 +69,10 @@ module org-openroadm-tca {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -172,7 +176,7 @@ module org-openroadm-tca {
         value 2;
         description
           "enum value for baselined relative thresholding with high/low/both thresholds
-	   or single symmetrical threshold";
+       or single symmetrical threshold";
       }
     }
     description
@@ -243,27 +247,27 @@ module org-openroadm-tca {
           type string;
           config false;
           description
-	      "List of all profiles applicable to this tca resource instance.
-	       If the list is empty, all profiles can be assigned to this instance.";
+          "List of all profiles applicable to this tca resource instance.
+           If the list is empty, all profiles can be assigned to this instance.";
         }
       }
       case inherited-configuration {
         leaf tca-active-profile {
           type string;
           config false;
-	  mandatory true;
+      mandatory true;
           description
             "This tca-entry does not allow profile assignment, tca-active profile
-	     points to the profile name configured in the parent tca-entry.";
+         points to the profile name configured in the parent tca-entry.";
         }
         leaf tca-profile-rootresource {
           type instance-identifier;
           config false;
-	  mandatory true;
+      mandatory true;
           description
             "This tca-entry does not allow profile assignment, tca-profile-rootresource
-	     points to the parent tca-entry used to set up the profile for this
-	     resource instance.";
+         points to the parent tca-entry used to set up the profile for this
+         resource instance.";
         }
       }
     }
@@ -538,55 +542,55 @@ module org-openroadm-tca {
         "Single TCA profile";
       leaf tca-profile-name {
         type string;
-	mandatory true;
-	description
-	  "key name of profile instance";
+    mandatory true;
+    description
+      "key name of profile instance";
       }
       leaf tca-profile-description {
         type string;
-	mandatory true;
-	description
-	  "description of profile instance";
+    mandatory true;
+    description
+      "description of profile instance";
       }
       leaf tca-profile-access {
         type enumeration {
-	  enum read         { value 1; }
-	  enum write        { value 2; }
-	}
-	config false;
-	mandatory true;
-	description
-	  "user access rights to profile instance";
+      enum read         { value 1; }
+      enum write        { value 2; }
+    }
+    config false;
+    mandatory true;
+    description
+      "user access rights to profile instance";
       }
 
       list pm-entry {
         key "tca-resource-type tca-resource-type-extension tca-if-type tca-if-rate type extension location direction";
-	description
-	  "entry for single PM counter threshold(s)";
+    description
+      "entry for single PM counter threshold(s)";
         leaf tca-resource-type {
-	  type org-openroadm-resource-types:resource-type-enum;
-	  mandatory true;
-	  description
-	    "The PM resource type associated with the threshold(s)";
-	}
-	leaf tca-resource-type-extension {
-	  type string;
-	  mandatory true;
-	  description
-	    "The PM resource type extension when the type is not in resource-type-enum";
-	}
-	leaf tca-if-type {
-	  type tca-if-type-union;
-	  mandatory true;
-	  description
-	    "The interface type for interface resources, or tca-not-applicable";
+      type org-openroadm-resource-types:resource-type-enum;
+      mandatory true;
+      description
+        "The PM resource type associated with the threshold(s)";
+    }
+    leaf tca-resource-type-extension {
+      type string;
+      mandatory true;
+      description
+        "The PM resource type extension when the type is not in resource-type-enum";
+    }
+    leaf tca-if-type {
+      type tca-if-type-union;
+      mandatory true;
+      description
+        "The interface type for interface resources, or tca-not-applicable";
         }
-	leaf tca-if-rate {
-	  type tca-if-rate-union;
-	  mandatory true;
-	  description
-	    "The interface rate for interface resources, or tca-not-applicable";
-	}
+    leaf tca-if-rate {
+      type tca-if-rate-union;
+      mandatory true;
+      description
+        "The interface rate for interface resources, or tca-not-applicable";
+    }
         uses org-openroadm-pm-types:pm-names;
         leaf location {
           type org-openroadm-common-alarm-pm-types:location;
@@ -601,14 +605,14 @@ module org-openroadm-tca {
         leaf measurement-type {
           type measurement-enum;
           config false;
-	  default "absolute";
+      default "absolute";
           description
             "Type of the measurement list";
         }
         list measurement {
           key "granularity threshold-type";
           description
-	    "threshold value per granularity and threshold-type";
+        "threshold value per granularity and threshold-type";
           leaf granularity {
             type org-openroadm-pm-types:pm-granularity;
             description
@@ -619,19 +623,19 @@ module org-openroadm-tca {
             description
               "Threshold enum type";
           }
-	  leaf threshold-access {
+      leaf threshold-access {
             type enumeration {
-	      enum read         { value 1; }
-	      enum write        { value 2; }
-	    }
-	    config false;
-	    mandatory true;
-	    description
-	      "user access to threshold value";
-	  }
+          enum read         { value 1; }
+          enum write        { value 2; }
+        }
+        config false;
+        mandatory true;
+        description
+          "user access to threshold value";
+      }
           leaf enabled {
             type boolean;
-	    mandatory false;
+        mandatory false;
             description
               "Measurement enabled";
           }
@@ -644,7 +648,7 @@ module org-openroadm-tca {
           leaf threshold-default {
             type org-openroadm-pm-types:pm-data-type;
             config false;
-	    mandatory false;
+        mandatory false;
             description
               "Threshold default value";
           }
@@ -659,9 +663,9 @@ module org-openroadm-tca {
     input {
       leaf tca-resource-instance {
         type instance-identifier;
-	mandatory true;
-	description
-	  "Resource instance for which the baseline is being set.";
+    mandatory true;
+    description
+      "Resource instance for which the baseline is being set.";
       }
       uses org-openroadm-pm-types:pm-names;
       leaf location {

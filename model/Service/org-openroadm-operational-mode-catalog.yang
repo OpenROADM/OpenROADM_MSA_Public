@@ -12,7 +12,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
 
   organization
@@ -48,6 +48,10 @@ module org-openroadm-operational-mode-catalog {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -140,8 +144,8 @@ module org-openroadm-operational-mode-catalog {
   }
 
   grouping polynomial-fit {
-	description
-	  "polynomial fit used to model noise mask";
+    description
+      "polynomial fit used to model noise mask";
     container osnr-polynomial-fit {
         description
           "describe the osnr contribution of amplifier/roadm
@@ -176,7 +180,7 @@ module org-openroadm-operational-mode-catalog {
         }
       }
   }
-  
+
   grouping power-mask {
     description
       "describes how power shall be set according preceeding span loss";
@@ -273,9 +277,9 @@ module org-openroadm-operational-mode-catalog {
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
         }
         leaf incremental-osnr {
-        	type org-openroadm-common-link-types:ratio-dB;
-        	description
-        		"incremental osnr considering noisless input at 0dBm";
+            type org-openroadm-common-link-types:ratio-dB;
+            description
+                "incremental osnr considering noisless input at 0dBm";
         }
         uses operational-mode-roadm-base-parameters;
         uses power-mask;
@@ -350,25 +354,25 @@ module org-openroadm-operational-mode-catalog {
         "drop block-specification";
       uses operational-mode-common-amplifier-drop-parameters;
       leaf min-gain {
-    	  type org-openroadm-common-link-types:ratio-dB;
-    	  description
-    		  "minimum gain of nominal gain range";
+          type org-openroadm-common-link-types:ratio-dB;
+          description
+              "minimum gain of nominal gain range";
       }
       leaf max-gain {
-    	  type org-openroadm-common-link-types:ratio-dB;
-    	  description
-    		  "maximum gain of nominal gain range";
+          type org-openroadm-common-link-types:ratio-dB;
+          description
+              "maximum gain of nominal gain range";
       }
       leaf max-extended-gain {
-    	  type org-openroadm-common-link-types:ratio-dB;
-    	  description
-    		  "maximum gain of extended gain range";
+          type org-openroadm-common-link-types:ratio-dB;
+          description
+              "maximum gain of extended gain range";
       }
       list mask-gain-ripple-vs-tilt {
           key "lower-boundary upper-boundary";
           description
             "for gain ripple, provides C and D parameter : Max-gain-ripple (dB) = C*target-tilt (dB)+ D.
-        	  Tilt applies to extended gain range";
+              Tilt applies to extended gain range";
           leaf lower-boundary {
             type int32;
             description
@@ -494,9 +498,9 @@ module org-openroadm-operational-mode-catalog {
         "maximum supported intput-power causing either an overload or the damage of the receiver";
     }
     leaf channel-width {
-    	type org-openroadm-common-optical-channel-types:frequency-GHz;
-    	description
-    		"-20 dB channel width, required for target power calculation";
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        description
+            "-20 dB channel width, required for target power calculation";
     }
     leaf fec-type {
         type identityref {
@@ -520,19 +524,19 @@ module org-openroadm-operational-mode-catalog {
       units "dB/decade";
       description
         "Maximum Roll-off factor";
-    }    
+    }
     list penalties {
       key "parameter-and-unit up-to-boundary";
       description
         "Penalties includes contributions from different impairments including
-    	 cd, pmd, low RX Power, pdl,...";
+         cd, pmd, low RX Power, pdl,...";
       leaf parameter-and-unit {
         type impairment-type;
         description
           "impairment leading to the penalty";
       }
       leaf up-to-boundary {
-	    type decimal64 {
+        type decimal64 {
           fraction-digits 2;
         }
         description
@@ -563,9 +567,9 @@ module org-openroadm-operational-mode-catalog {
         uses operational-mode-grid-parameters;
       }
       container xponders-pluggables {
-    	  presence "Container includes mandatory nodes but may however not be present 
-    		  in the rpc used to feed the catalog (merge operation)";
-    	  description
+          presence "Container includes mandatory nodes but may however not be present
+              in the rpc used to feed the catalog (merge operation)";
+          description
               "Parameters associated with xponders and pluggables";
         list xponder-pluggable-openroadm-operational-mode {
           key "openroadm-operational-mode-id";
@@ -575,7 +579,7 @@ module org-openroadm-operational-mode-catalog {
             type string;
             description
               "openroadm operational mode which points to a specific spreadsheet of optical specifications";
-          }          
+          }
           uses operational-mode-transponder-parameters;
         }
       }
@@ -605,22 +609,22 @@ module org-openroadm-operational-mode-catalog {
             "unique identifier which identifies the operational mode";
         }
         leaf originator {
-        	type string;
-        	description
-        		"identifies the system vendor which originated associated specification";
+            type string;
+            description
+                "identifies the system vendor which originated associated specification";
         }
         leaf sponsor {
-        	type string;
-        	description
-        		"identifies the service provider which reviewed and sponsored associated specification";
+            type string;
+            description
+                "identifies the service provider which reviewed and sponsored associated specification";
         }
         uses operational-mode-grid-parameters;
         uses operational-mode-transponder-parameters;
         leaf configurable-output-power {
-        	type boolean;
-        	mandatory true;
-        	description
-        		"defines whether the output power can be set or not";
+            type boolean;
+            mandatory true;
+            description
+                "defines whether the output power can be set or not";
         }
       }
     }

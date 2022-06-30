@@ -88,16 +88,16 @@ module org-openroadm-common-node-types {
       enum none {
         value 1;
         description
-          "The none-enum indicates there is no node-subtype refinement. 
-           Standard OpenROADM node properties apply in this case. If an 
-           optional-leaf of node-subtypes is not present, the behaviour is the 
+          "The none-enum indicates there is no node-subtype refinement.
+           Standard OpenROADM node properties apply in this case. If an
+           optional-leaf of node-subtypes is not present, the behaviour is the
            same as the none-enum.";
       }
       enum edge-optical-spec {
         value 2;
         description
-          "This enum refines a ROADM node-type. It indicates that node conforms 
-           to edge optical specifications as defined in the OpenROADM MSA 
+          "This enum refines a ROADM node-type. It indicates that node conforms
+           to edge optical specifications as defined in the OpenROADM MSA
            Specification: MW-MW(Edge), MW-Wr(Edge), and Local Control (Edge).";
       }
     }

@@ -238,17 +238,17 @@ module org-openroadm-manifest-file {
     leaf-list additional-models {
       type string;
       description
-        "Used to list additional equipment models supported by the manifest file, 
+        "Used to list additional equipment models supported by the manifest file,
          the model attribute has been maintained for backward compatibility.
         ";
     }
-    leaf-list node-type {      
-      type org-openroadm-common-node-types:node-types;      
-      description        
-        "Identifier for node-type e.g Roadm, xponder.         
+    leaf-list node-type {
+      type org-openroadm-common-node-types:node-types;
+      description
+        "Identifier for node-type e.g Roadm, xponder.
          For a given vendor and model, this leaf-list lists
-         the node-types the manifest file is applicable to.        
-        ";    
+         the node-types the manifest file is applicable to.
+        ";
     }
     leaf sw-version {
       type string;

@@ -89,7 +89,6 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
-
 module: org-openroadm-database
 
   rpcs:
@@ -134,7 +133,6 @@ module: org-openroadm-database
        +--ro db-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
-
 module: org-openroadm-de-operations
 
   rpcs:
@@ -243,13 +241,12 @@ module: org-openroadm-de-operations
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
-
 module: org-openroadm-device
   +--rw org-openroadm-device
      +--rw info
      |  +--rw node-id?                            org-openroadm-common-node-types:node-id-type
      |  +--rw node-number?                        uint32
-     |  +--rw node-type                           org-openroadm-common-node-types:node-types
+     |  +--rw node-type?                          org-openroadm-common-node-types:node-types
      |  +--rw node-subtype?                       org-openroadm-common-node-types:node-subtypes
      |  +--rw clli?                               string
      |  +--ro vendor                              string
@@ -574,7 +571,7 @@ module: org-openroadm-device
      |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type              identityref
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type?             identityref
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
@@ -1715,7 +1712,6 @@ module: org-openroadm-device
        +--ro edit* []
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
-
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -1752,7 +1748,6 @@ module: org-openroadm-file-transfer
        +--ro progress
           +--ro bytes-transferred?     uint64
           +--ro percentage-complete?   uint8
-
 module: org-openroadm-fwdl
 
   rpcs:
@@ -1763,7 +1758,6 @@ module: org-openroadm-fwdl
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
-
 module: org-openroadm-key-chain
   +--rw key-chains
   |  +--rw key-chain-list* [name]
@@ -1788,7 +1782,6 @@ module: org-openroadm-key-chain
               +--ro (algorithm)?
                  +--:(md5)
                     +--ro md5?   empty
-
 module: org-openroadm-lldp
 
   notifications:
@@ -1805,7 +1798,6 @@ module: org-openroadm-lldp
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
-
 module: org-openroadm-ospf
 
   notifications:
@@ -1922,7 +1914,6 @@ module: org-openroadm-ospf
        +--ro status?                  restart-status-type
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
-
 module: org-openroadm-otn-common
 
   notifications:
@@ -1936,7 +1927,6 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
-
 module: org-openroadm-prot-equipment-aps
 
   rpcs:
@@ -1948,7 +1938,6 @@ module: org-openroadm-prot-equipment-aps
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
-
 module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
@@ -1973,7 +1962,6 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
-
 module: org-openroadm-rstp
 
   notifications:
@@ -1981,7 +1969,6 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
-
 module: org-openroadm-swdl
 
   rpcs:
@@ -2013,7 +2000,6 @@ module: org-openroadm-swdl
        +--ro sw-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
-
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -2039,4 +2025,3 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
-

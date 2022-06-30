@@ -1,12 +1,11 @@
-module: org-openroadm-clli-network
 
+module: org-openroadm-clli-network
   augment /nd:networks/nd:network/nd:network-types:
     +--rw clli-network!
   augment /nd:networks/nd:network/nd:node:
     +--rw clli?   string
 
 module: org-openroadm-common-network
-
   augment /nd:networks/nd:network/nd:network-types:
     +--rw openroadm-common-network!
        +--rw topo:openroadm-topology!
@@ -51,7 +50,6 @@ module: org-openroadm-common-network
     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
 
 module: org-openroadm-network-topology
-
   augment /nd:networks/nd:network/nd:node:
     +--rw srg-attributes
     |  +--rw srg-number?                    uint16
@@ -262,7 +260,6 @@ module: org-openroadm-network-topology
                          +--rw administrative-state?     org-openroadm-equipment-states-types:admin-states
 
 module: org-openroadm-network
-
   augment /nd:networks/nd:network/nd:node:
     +--rw software-version?            string
     +--rw openroadm-version?           org-openroadm-common-types:openroadm-version-type
@@ -308,7 +305,6 @@ module: org-openroadm-network
           +--rw end-date?     yang:date-and-time
 
 module: org-openroadm-otn-network-topology
-
   augment /nd:networks/nd:network/nd:node:
     +--rw tp-bandwidth-sharing
     |  +--rw tp-bandwidth-sharing* [tp-sharing-id]
@@ -365,4 +361,3 @@ module: org-openroadm-otn-network-topology
     +--rw available-bandwidth?   uint32
     +--rw used-bandwidth?        uint32
     +--rw ODU-protected?         boolean
-

@@ -312,7 +312,7 @@ module org-openroadm-common-optical-channel-types {
     description
       "Provision Mode Type On Optical Channel";
   }
-  
+
   grouping full-bandwidth-grouping {
     leaf full-bandwidth-at-3dB {
       type org-openroadm-common-optical-channel-types:frequency-GHz;

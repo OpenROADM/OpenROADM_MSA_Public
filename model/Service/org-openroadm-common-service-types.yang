@@ -12,7 +12,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-12-10;
+    revision-date 2022-05-27;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -56,17 +56,21 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2021-05-28;
+    revision-date 2022-05-27;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
     revision-date 2021-12-10;
   }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2019-11-29;
+  }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
     revision-date 2022-03-25;
   }
-  
+
 
   organization
     "Open ROADM MSA";
@@ -101,6 +105,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -290,6 +298,18 @@ module org-openroadm-common-service-types {
       enum fill-catalog-with-specific-operational-modes {
           value 20;
       }
+      enum end-terminal-performance-info-request {
+          value 21;
+      }
+      enum end-terminal-activation-request {
+          value 22;
+      }
+      enum end-terminal-deactivation-request {
+          value 23;
+      }
+      enum end-terminal-power-control {
+          value 24;
+      }
     }
     description
       "rpc-actions include all the rpc methods";
@@ -366,7 +386,21 @@ module org-openroadm-common-service-types {
       enum path-computation-failed {
         value 9;
       }
+      enum end-terminal-activation-status {
+          value 10;
+      }
     }
+  }
+
+  typedef end-terminal-activation-status-type {
+    type enumeration {
+       enum activated {
+         value 1;
+       }
+       enum deactivated {
+         value 2;
+       }
+     }
   }
 
   typedef connection-type {
@@ -570,6 +604,35 @@ module org-openroadm-common-service-types {
     }
     container service-z-end {
       uses service-endpoint-summary;
+    }
+  }
+
+  grouping alien-service-ends-setting-container {
+    container service-a-end {
+      uses service-endpoint-summary;
+        leaf min-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the minimum power that can be set on end-terminal network port";
+      }
+        leaf max-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the maximum power that can be set on end-terminal network port";
+      }
+    }
+    container service-z-end {
+      uses service-endpoint-summary;
+        leaf min-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the minimum power that can be set on end-terminal network port";
+      }
+      leaf max-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the maximum power that can be set on end-terminal network port";
+      }
     }
   }
 
@@ -895,7 +958,7 @@ module org-openroadm-common-service-types {
       }
       enum spectrum-portion {
         description
-          "Indicates reuse of frequency slot(s). Reuse the exact 	
+          "Indicates reuse of frequency slot(s). Reuse the exact
           or partial portion of the spectrum of the original service
           specturm";
         value 3;
@@ -920,13 +983,13 @@ module org-openroadm-common-service-types {
       leaf is-existing {
         type boolean;
         description
-          "This is set true if feasibility check is on an existing service with or 
-          without new constraints. Feasibility is done as if current service 
+          "This is set true if feasibility check is on an existing service with or
+          without new constraints. Feasibility is done as if current service
           and its resources are released";
       }
       leaf existing-service-name {
         when "../is-existing = 'true'";
-        type string; 
+        type string;
         description
           "Name of the existing service";
       }
@@ -940,7 +1003,7 @@ module org-openroadm-common-service-types {
         type existing-resource-reuse-type;
         description
           "List of existing resources that can be reused;
-          This list is enabled only when the reuse-existing-equipment 
+          This list is enabled only when the reuse-existing-equipment
           is set true";
       }
     }
@@ -1472,11 +1535,59 @@ module org-openroadm-common-service-types {
       description
         "Service Condition: Additional information about the state of the service. Only sent when applicable.";
     }
+    leaf frequency {
+       when "../connection-type = 'optical-tunnel'" {
+         description
+           "Describes the frequency used by the external optical transceiver handled by a 3rd party
+            controller for an optical-tunnel service";
+      }
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Center Frequency in THz.";
+    }
+    leaf width {
+      when "../connection-type = 'optical-tunnel'" {
+        description
+          "Describes the och/otsi width used by the external optical transceiver handled by a 3rd party
+           controller for an optical-tunnel service";
+      }
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Frequency width in GHz.";
+    }
     container service-a-end {
-      uses service-endpoint;
+        uses service-endpoint;
+        container optical-attributes {
+            when "../../connection-type = 'optical-tunnel' or ../../connection-type = 'infrastructure'" {
+              description
+                "Describes settings and expected performances that might differ from one to the other end
+                  and which apply to Xponders for an infrastructure service, and to external optical transceivers
+                handled by a 3rd party controller for an optical-tunnel service";
+            }
+            leaf operational-mode {
+                type string;
+                description
+                  "the supported operational mode : either openROADM or specific ";
+            }
+            uses org-openroadm-resource:path-computation-outputs;
+        }
     }
     container service-z-end {
       uses service-endpoint;
+      container optical-attributes {
+          when "../../connection-type = 'optical-tunnel' or ../../connection-type = 'infrastructure'" {
+            description
+                "Describes settings and expected performances that might differ from one to the other end
+                  and which apply to Xponders for an infrastructure service, and to external optical transceivers
+                handled by a 3rd party controller for an optical-tunnel service";
+          }
+          leaf operational-mode {
+              type string;
+              description
+                "the supported operational mode : either openROADM or specific ";
+          }
+          uses org-openroadm-resource:path-computation-outputs;
+      }
     }
     uses org-openroadm-routing-constraints:routing-constraints;
     uses service-information;
@@ -1749,9 +1860,9 @@ module org-openroadm-common-service-types {
       leaf is-reused {
         type boolean;
         description
-          "This flag is true if the spectral assignment overlaps--in part or in full--with 
-          that of the active instance of the service. A determination whether the overlap 
-          is full or partial requires a detailed comparison of spectral assignments; it 
+          "This flag is true if the spectral assignment overlaps--in part or in full--with
+          that of the active instance of the service. A determination whether the overlap
+          is full or partial requires a detailed comparison of spectral assignments; it
           is not indicated here.";
       }
     }

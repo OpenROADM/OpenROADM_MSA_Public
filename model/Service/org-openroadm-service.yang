@@ -9,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2021-12-10;
+    revision-date 2022-05-27;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -25,11 +25,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
@@ -37,11 +37,15 @@ module org-openroadm-service {
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2022-03-25;
+    revision-date 2022-05-27;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
     revision-date 2021-12-10;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -77,6 +81,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-05-27 {
+    description
+      "Version 11.1";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -378,13 +386,13 @@ module org-openroadm-service {
          This container will have all the metrics that have'max' contraint in
          org-openroadm-routing-constraints";
       leaf latency {
-        description
-          "Provides one-way end-to-end latency (in milliseconds) of a service-path; 
-          It can be measured or estimated";
         type decimal64 {
           fraction-digits 3;
         }
         units "milliseconds";
+        description
+            "Provides one-way end-to-end latency (in milliseconds) of a service-path;
+            It can be measured or estimated";
       }
       leaf distance {
         type decimal64 {
@@ -902,10 +910,10 @@ module org-openroadm-service {
       }
       leaf data-reload {
         type boolean;
-        description 
-          "Indicates whether the data of existing service needs to be refreshed or 
-          reloaded. No reprovisioning/reconfiguration should be done to the service, 
-          only data is updated. May generate data conflict to existing service 	
+        description
+          "Indicates whether the data of existing service needs to be refreshed or
+          reloaded. No reprovisioning/reconfiguration should be done to the service,
+          only data is updated. May generate data conflict to existing service
           after reload. If set true, the data of existing service will be refreshed";
       }
       leaf common-id {
@@ -965,11 +973,11 @@ module org-openroadm-service {
   }
 
   rpc service-reconfigure-bulk {
-	  description
-      "Whether bulk of requests passed initial validation and was accepted for 
-      processing. Once the request completes processing, a service-rpc-result 
+      description
+      "Whether bulk of requests passed initial validation and was accepted for
+      processing. Once the request completes processing, a service-rpc-result
       Notification shall be sent.";
-	  input {
+      input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       list service-reconfigure-list {
         key "service-name";
@@ -988,10 +996,10 @@ module org-openroadm-service {
         }
         leaf data-reload {
           type boolean;
-          description 
-            "Indicates whether the data of existing service needs to be refreshed or 
-            reloaded. No reprovisioning/reconfiguration should be done to the service, 
-            only data is updated. May generate data conflict to existing service 	
+          description
+            "Indicates whether the data of existing service needs to be refreshed or
+            reloaded. No reprovisioning/reconfiguration should be done to the service,
+            only data is updated. May generate data conflict to existing service
             after reload. If set true, the data of existing service will be refreshed";
         }
         leaf common-id {
@@ -1018,25 +1026,25 @@ module org-openroadm-service {
       }
     }
     output {
-		  uses org-openroadm-common-service-types:configuration-response-common {
-		    augment "configuration-response-common" {
-			    leaf ack-data-reload-indicator {
-		        type string;
+          uses org-openroadm-common-service-types:configuration-response-common {
+            augment "configuration-response-common" {
+                leaf ack-data-reload-indicator {
+                type string;
             description
-         	    "This optional, meaning this will be populated only when 
+                 "This optional, meaning this will be populated only when
                the data-reload indicator is set true";
-   		    }
-		    } 
-		  }
-		  list service-reconfigure-response-list {
-		    key "service-name";
-		    leaf service-name {
-			    type string;
-			    mandatory true;
-			    description
+               }
+            }
+          }
+          list service-reconfigure-response-list {
+            key "service-name";
+            leaf service-name {
+                type string;
+                mandatory true;
+                description
             "Existing identifier for the service to be
-            reconfigured in the ROADM network, e.g., 	CLFI, CLCI, etc.";
-		    } 
+            reconfigured in the ROADM network, e.g.,     CLFI, CLCI, etc.";
+            }
       }
       uses org-openroadm-common-service-types:response-parameters;
     }
@@ -1230,16 +1238,16 @@ module org-openroadm-service {
         type string;
         mandatory true;
         description
-          "Identifier used in the second step of the optical-tunnel service creation.  
-           Identifies the service (optical tunnel between SRG PPs) to be created 
+          "Identifier used in the second step of the optical-tunnel service creation.
+           Identifies the service (optical tunnel between SRG PPs) to be created
            in the ROADM network.";
       }
       leaf common-id {
         type string;
         mandatory true;
         description
-          "Identifier used in the first step of optical-tunnelservice creation using 
-          temp-service-create rpc. Identifies the temporary service for which resources 
+          "Identifier used in the first step of optical-tunnelservice creation using
+          temp-service-create rpc. Identifies the temporary service for which resources
           have been reserved after a successful path computation";
       }
       leaf set-frequency {
@@ -1270,11 +1278,11 @@ module org-openroadm-service {
   rpc optical-tunnel-request-cancel {
     description
       "This rpc is used to abort service creation when the connection-type is
-            an optical-tunnel, if the conditions required to set-up the end to end service
-          can not be met by the end terminals optical interfaces such as router pluggables.
-          When the rpc is invoked, any resource temporary reserved for the second step of
-          service creation shall be released : this rpc cancels service path rendering between
-          SRG PPs.";
+      an optical-tunnel, if the conditions required to set-up the end to end service
+      can not be met by the end terminals optical interfaces such as router pluggables.
+      When the rpc is invoked, any resource temporary reserved for the second step of
+      service creation shall be released : this rpc cancels service path rendering between
+      SRG PPs.";
     input {
       leaf service-name {
         type string;
@@ -1284,13 +1292,173 @@ module org-openroadm-service {
       leaf common-id {
         type string;
         description
-          "Identifier used in the first step of optical-tunnelservice creation using 
-           temp-service-create rpc. Identifies the temporary service for which resources 
+          "Identifier used in the first step of optical-tunnel service creation using
+           temp-service-create rpc. Identifies the temporary service for which resources
            have been reserved after a successful path computation";
-      } 
+      }
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
     output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc end-terminal-performance-info-request {
+    description
+      "This rpc is used to retrieve the performances of an end-terminal (pluggable/
+       alien-Xponder) from the controller which manages the end-terminal.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-service-types:service-ends-container;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      container a-z-end-common-interface-characteristics {
+        description
+          "Interface characteristics provided corresponds to the least common denominator
+           of the specifications supported at both A and Z ends";
+        uses org-openroadm-common-service-types:external-interface-characteristics;
+      }
+    }
+  }
+
+  rpc end-terminal-activation-request {
+    description
+      "This rpc is used to activate an end-terminal (pluggable/alien-Xponder)
+       managed by a third-party controller.";
+    input {
+      leaf end-terminal-controller-service-name {
+        type string;
+        description
+          "Identifier used by the by the end-terminals' controller to identify the alien
+          wavelength service (supported by an optical tunnel between SRG PPs) to be created.";
+      }
+      leaf service-name {
+        type string;
+        description
+          "Identifier used by the RNC in the second step of the optical-tunnel service
+          creation. Identifies the service (optical tunnel between SRG PPs) to be created
+          in the ROADM network.";
+      }
+      leaf common-id {
+        type string;
+        description
+            "Identifier used by the RNC in the first step of optical-tunnel service creation
+            relying on temp-service-create rpc. Identifies the temporary service for which
+            resources have been reserved after a successful path computation";
+      }
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-service-types:alien-service-ends-setting-container;
+      uses org-openroadm-resource:common-och-otsi-attributes;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc end-terminal-deactivation-request {
+    description
+      "This rpc is used to deactivate an end-terminal (pluggable/alien-Xponder)
+       managed by a third-party controller.";
+    input {
+      leaf end-terminal-controller-service-name {
+        type string;
+        description
+          "Identifier used by the by the end-terminals' controller to identify the alien
+          wavelength service associated to the interfaces to be deactivated.";
+      }
+      leaf due-date {
+        type yang:date-and-time;
+        description
+          "date and time end-terminal shall to be turned down. If missing, now.";
+      }
+      uses org-openroadm-common-service-types:sdnc-request-header;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc end-terminal-power-control {
+    description
+      "This rpc is used to forward to the RNC the output power set on the
+        end-terminal (pluggable/alien-Xponder) managed by a third-party controller
+        so that the RNC can evaluate from the power received on the SRG whether the
+        attenuation on the connecting tail is acceptable or not, and send back to the
+        requester the results of this evaluation ";
+    input {
+      leaf end-terminal-controller-service-name {
+        type string;
+        description
+          "Identifier used by the by the end-terminals' controller to identify the alien
+          wavelength service (supported by an optical tunnel between SRG PPs) to be created.";
+      }
+      leaf service-name {
+        type string;
+        description
+          "Identifier used by the RNC in the second step of the optical-tunnel service
+          creation. Identifies the service (optical tunnel between SRG PPs) to be created
+          in the ROADM network.";
+      }
+      leaf common-id {
+        type string;
+        description
+            "Identifier used by the RNC in the first step of optical-tunnel service creation
+            relying on temp-service-create rpc. Identifies the temporary service for which
+            resources have been reserved after a successful path computation";
+      }
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-resource:common-och-otsi-attributes;
+      leaf output-power-setpoint-a-end {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "output-power currently set on A-end end-terminal";
+      }
+      leaf output-power-setpoint-z-end {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "output-power currently set on Z-end end-terminal";
+      }
+    }
+    output {
+      leaf output-power-adjustment-needed {
+          type boolean;
+          description
+              "shall be set to true, if attenuation on at least one tail from one end-terminal
+              to one SRG-PP exceeds expected value, and set-output power of corresponding
+              end terminal does not allow to reach expected level on SRG-PP-RX";
+      }
+      leaf corrected-output-power-a-end {
+          when "../output-power-adjustment-needed = 'true'" {
+            description
+              "Only needed if a correction shall be applied ";
+          }
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "output-power that shall be set on the A-end. Only needed if a correction shall be
+             applied on the A-end. It is the responsibility of the RNC to calculate the correction
+             and provide an acceptable value which complies with end-terminal specifications
+             described in the corresponding operational-mode of the catalog";
+      }
+      leaf corrected-output-power-z-end {
+          when "../output-power-adjustment-needed = 'true'" {
+              description
+                "Only needed if a correction shall be applied ";
+            }
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "output-power that shall be set on the Z-end. Only needed if a correction shall be
+             applied on the Z-end. It is the responsibility of the RNC to calculate the correction
+             and provide an acceptable value which complies with end-terminal specifications
+             described in the corresponding operational-mode of the catalog";
+      }
+      leaf srg-input-power-out-of-range {
+          type boolean;
+          description
+            "If RNC does not succeed to calculate a correction to apply to output power settings
+             on end-terminal, because resulting power would be out of the range defined in the
+             operational mode of the end-terminal, this node is set to true to indicate the failure";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -1343,50 +1511,50 @@ module org-openroadm-service {
   }
 
 rpc add-openroadm-operational-modes-to-catalog {
-	    description
-	      "This rpc is used to feed the operational mode catalog with openroadm operational modes";
-	    input {
-	      uses org-openroadm-common-service-types:sdnc-request-header;
-	      container operational-mode-info {
-	    	     container grid-parameters {
-				     description
-				       "Parameters associated with global spectrum use";
-				     uses org-openroadm-operational-mode-catalog:operational-mode-grid-parameters;
-			     }
-				 container xponders-pluggables {
-					 description
-					    "Parameters associated with xponders and pluggables";
-				     list xponder-pluggable-openroadm-operational-mode {
-					        key "openroadm-operational-mode-id";
-					        description
-					          "defines the openroadm operational mode pointing to an official specification ";
-					        leaf openroadm-operational-mode-id {
-					            type string;
-					            description
-					                "openroadm operational mode which points to a specific spreadsheet of optical specifications";
-					            }
-			                uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
-	    	         }
-				 }
-				 container roadms {
-				     description
-				       "Parameters associated with roadms";
-				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-express-parameters;
-				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-add-parameters;
-				     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-drop-parameters;
-			     }
-				 container amplifiers {
-				     description
-				       "Parameters associated with amplifiers";
-				     uses org-openroadm-operational-mode-catalog:operational-mode-amplifier-parameters;
-			     }
-	      }
-	    }
-	    output {
-	      uses org-openroadm-common-service-types:configuration-response-common;
-	    }
+        description
+          "This rpc is used to feed the operational mode catalog with openroadm operational modes";
+        input {
+          uses org-openroadm-common-service-types:sdnc-request-header;
+          container operational-mode-info {
+                 container grid-parameters {
+                     description
+                       "Parameters associated with global spectrum use";
+                     uses org-openroadm-operational-mode-catalog:operational-mode-grid-parameters;
+                 }
+                 container xponders-pluggables {
+                     description
+                        "Parameters associated with xponders and pluggables";
+                     list xponder-pluggable-openroadm-operational-mode {
+                            key "openroadm-operational-mode-id";
+                            description
+                              "defines the openroadm operational mode pointing to an official specification ";
+                            leaf openroadm-operational-mode-id {
+                                type string;
+                                description
+                                    "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+                                }
+                            uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
+                     }
+                 }
+                 container roadms {
+                     description
+                       "Parameters associated with roadms";
+                     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-express-parameters;
+                     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-add-parameters;
+                     uses org-openroadm-operational-mode-catalog:operational-mode-roadm-drop-parameters;
+                 }
+                 container amplifiers {
+                     description
+                       "Parameters associated with amplifiers";
+                     uses org-openroadm-operational-mode-catalog:operational-mode-amplifier-parameters;
+                 }
+          }
+        }
+        output {
+          uses org-openroadm-common-service-types:configuration-response-common;
+        }
   }
- 
+
   rpc add-specific-operational-modes-to-catalog {
     description
       "This rpc is used to feed the operational mode catalog with specific operational modes for
@@ -1416,7 +1584,7 @@ rpc add-openroadm-operational-modes-to-catalog {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
-  
+
   rpc service-srlg-get {
     input {
       leaf service-name {
@@ -1428,13 +1596,13 @@ rpc add-openroadm-operational-modes-to-catalog {
       leaf SRLG-type {
         type org-openroadm-common-types:SRLG-type;
         description
-          "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG. If SRLG-type is not provided 
+          "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG. If SRLG-type is not provided
           in input, output should include all types of SRLGs for a given service-name";
       }
       leaf due-date {
         type yang:date-and-time;
         description
-          "Due-date is required to get list of SRLGs for specific validity period. If Due-date is not 
+          "Due-date is required to get list of SRLGs for specific validity period. If Due-date is not
           provited in the input, RPC should return list of current/active SRLGS";
       }
     }
@@ -1452,7 +1620,7 @@ rpc add-openroadm-operational-modes-to-catalog {
             "Name of the SRLG";
         }
         leaf SRLG-type {
-          type org-openroadm-common-types:SRLG-type; 
+          type org-openroadm-common-types:SRLG-type;
           description
             "Type of SRLG, Site SRLG, Node SRLG, Fiber SRLG or Link SRLG";
         }
@@ -1464,7 +1632,7 @@ rpc add-openroadm-operational-modes-to-catalog {
             "Fiber length in desired distance unit of measure";
         }
       }
-    } 
+    }
   }
 
   notification service-rpc-result {
@@ -1557,7 +1725,62 @@ rpc add-openroadm-operational-modes-to-catalog {
     }
     uses org-openroadm-common-service-types:service;
   }
-  
+
+  notification end-terminal-activation-status {
+    description
+      "This Notification is used to provide asynchronously the result of :
+        _an end-terminal-activation-request
+        _an end-terminal-deactivation-request
+       As the process to activate/deactivate end-terminals may take time";
+      leaf end-terminal-controller-service-name {
+        type string;
+        description
+          "Identifier used by the by the end-terminals' controller to identify the alien
+          wavelength service (supported by an optical tunnel between SRG PPs) to be created
+          suspended or deleted. Optional, expected in both the activation and the
+          deactivation  phase";
+      }
+      leaf service-name {
+        type string;
+        description
+          "Identifier used by the RNC in the second step of the optical-tunnel service
+          creation. Identifies the service (optical tunnel between SRG PPs) to be created
+          in the ROADM network. Optional, expected in the activation phase";
+      }
+      leaf common-id {
+        type string;
+        description
+          "Identifier used by the RNC in the first step of optical-tunnel service creation
+          relying on temp-service-create rpc. Identifies the temporary service for which
+          resources have been reserved after a successful path computation. Optional,
+          expected in the activation phase";
+      }
+      uses org-openroadm-common-types:rpc-response-status;
+      leaf activation-status {
+        type org-openroadm-common-service-types:end-terminal-activation-status-type;
+        description
+           "In case of successful operation, an end-terminal-activation-request will lead to
+            activated, whereas an end-terminal-deactivation-request will lead to deactivated.
+            In case of failure, the type of failure is indicated in status-message leaf of
+            rpc-response-status";
+      }
+      leaf actual-date {
+        type yang:date-and-time;
+        description
+          "Actual date and time traffic started flowing";
+      }
+        leaf output-power-setpoint-a-end {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "the power set on end-terminal network port";
+      }
+        leaf output-power-setpoint-z-end {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "the power set on end-terminal network port";
+      }
+  }
+
   notification non-rpc-related-notification {
     description
       "Used to notify SDN controller that :
