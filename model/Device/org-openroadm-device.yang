@@ -326,54 +326,6 @@ module org-openroadm-device {
         "Common Language Location Identifier.";
     }
     uses org-openroadm-physical-types:node-info;
-    leaf ipAddress {
-      type ietf-inet-types:ip-address;
-      description
-        "IP Address of device";
-    }
-    leaf prefix-length {
-      type uint8 {
-        range "0..128";
-      }
-      description
-        "The length of the subnet prefix";
-    }
-    leaf defaultGateway {
-      type ietf-inet-types:ip-address;
-      description
-        "Default Gateway";
-    }
-    leaf source {
-      type enumeration {
-        enum static {
-          value 1;
-        }
-        enum dhcp {
-          value 2;
-        }
-      }
-      config false;
-    }
-    leaf current-ipAddress {
-      type ietf-inet-types:ip-address;
-      config false;
-      description
-        "Current IP Address of device";
-    }
-    leaf current-prefix-length {
-      type uint8 {
-        range "0..128";
-      }
-      config false;
-      description
-        "The current length of the subnet prefix";
-    }
-    leaf current-defaultGateway {
-      type ietf-inet-types:ip-address;
-      config false;
-      description
-        "Current Default Gateway";
-    }
     leaf macAddress {
       type ietf-yang-types:mac-address;
       config false;
