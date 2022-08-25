@@ -725,27 +725,25 @@ module: org-openroadm-device
      |  |     +--rw org-openroadm-otn-otu-interfaces:trib-port-number    uint8
      |  |     +--rw org-openroadm-otn-otu-interfaces:iid*                uint8
      |  +--rw org-openroadm-otsi-group-interfaces:otsi-group
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
-     |  |  +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
-     |  |     +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
-     |  |     +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  |     +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  |     +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
-     |  |        +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |        +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |        +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |        +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  +--rw org-openroadm-ppp-interfaces:ppp
-     |     +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
+     |     +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
+     |     +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
+     |     +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
+     |        +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
+     |        +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
+     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |        +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
+     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |        +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
+     |           +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |           +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |           +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |           +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
