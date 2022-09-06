@@ -345,10 +345,14 @@ module: org-openroadm-controller-customization
        |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
        |  |  +---w link-restriction
        |  |  |  +---w restriction-scopes*   restriction-scope
-       |  |  |  +---w link-id*              string
+       |  |  |  +---w link* [link-id]
+       |  |  |     +---w link-id                  string
+       |  |  |     +---w link-restriction-type?   link-restriction-type
        |  |  +---w supporting-service-restriction
-       |  |     +---w restriction-scopes*    restriction-scope
-       |  |     +---w supporting-services*   string
+       |  |     +---w restriction-scopes*        restriction-scope
+       |  |     +---w supporting-service-list* [supporting-service]
+       |  |        +---w supporting-service                     string
+       |  |        +---w supporting-service-restriction-type?   link-restriction-type
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -3229,10 +3233,14 @@ module: org-openroadm-service
   |  |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
   |  |  +--rw link-restriction
   |  |  |  +--rw restriction-scopes*   restriction-scope
-  |  |  |  +--rw link-id*              string
+  |  |  |  +--rw link* [link-id]
+  |  |  |     +--rw link-id                  string
+  |  |  |     +--rw link-restriction-type?   link-restriction-type
   |  |  +--rw supporting-service-restriction
-  |  |     +--rw restriction-scopes*    restriction-scope
-  |  |     +--rw supporting-services*   string
+  |  |     +--rw restriction-scopes*        restriction-scope
+  |  |     +--rw supporting-service-list* [supporting-service]
+  |  |        +--rw supporting-service                     string
+  |  |        +--rw supporting-service-restriction-type?   link-restriction-type
   |  +--rw default-behaviour
   |  |  +--rw default-backup-path-number?   uint16
   |  |  +--rw reversion?                    boolean
