@@ -21,7 +21,7 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2022-03-25;
+    revision-date 2022-09-30;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
@@ -33,7 +33,7 @@ module org-openroadm-service {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2022-03-25;
+    revision-date 2022-09-30;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;

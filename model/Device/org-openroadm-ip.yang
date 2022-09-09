@@ -6,10 +6,6 @@ module org-openroadm-ip {
     prefix org-openroadm-device;
     revision-date 2022-09-30;
   }
-  import org-openroadm-interfaces {
-    prefix openROADM-if;
-    revision-date 2019-11-29;
-  }
   import ietf-inet-types {
     prefix inet;
     revision-date 2013-07-15;
@@ -585,7 +581,6 @@ module org-openroadm-ip {
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:ip'";
     description
       "Parameters for configuring IP on interfaces.
 

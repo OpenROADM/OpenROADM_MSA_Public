@@ -33,7 +33,7 @@ module org-openroadm-tca {
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
-    revision-date 2019-11-29;
+    revision-date 2022-09-30;
   }
 
   organization

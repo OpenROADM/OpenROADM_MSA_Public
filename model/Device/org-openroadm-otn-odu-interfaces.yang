@@ -9,7 +9,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2019-11-29;
+    revision-date 2022-09-30;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;

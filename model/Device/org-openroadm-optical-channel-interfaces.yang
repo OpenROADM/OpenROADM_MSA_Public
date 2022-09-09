@@ -8,7 +8,7 @@ module org-openroadm-optical-channel-interfaces {
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2019-11-29;
+    revision-date 2022-09-30;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
