@@ -13,7 +13,7 @@ module org-openroadm-controller-customization {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2022-05-27;
+    revision-date 2022-09-30;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -53,6 +53,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -266,6 +270,26 @@ module org-openroadm-controller-customization {
         description
           "Both adds/drops and through routing are forbidden for
           the associated node (or site).";
+      }
+    }
+  }
+
+  typedef link-restriction-type {
+    description
+      "Used to indicate the type of restriction for link";
+    type enumeration {
+      enum fully-restricted {
+        value 1;
+        description
+          "Link cannot be used under any circumstances.
+          This is the default option";
+
+      }
+      enum pass-through-only-allowed {
+        value 2;
+        description
+          "All the services that pass-through the link (terminate on neither end)
+          are allowed and regenerator locations are considered as pass-through";
       }
     }
   }
@@ -635,24 +659,38 @@ module org-openroadm-controller-customization {
           type restriction-scope;
           default "all";
         }
-        leaf-list link-id {
-          type string;
-          description
-            "List of links to be excluded from paths when routing.";
+        list link {
+          key "link-id";
+          leaf link-id {
+            type string;
+            description
+              "List of links to be excluded from paths when routing.";
+          }
+          leaf link-restriction-type {
+            type link-restriction-type;
+            default "fully-restricted";
+          }
         }
       }
       container supporting-service-restriction {
         leaf-list restriction-scopes {
           description
-            "Set of the resctriction scopes applicable for the supporting-services.
+            "Set of the restriction scopes applicable for the supporting-services.
             Default scope is set to all RPCs";
           type restriction-scope;
           default "all";
         }
-        leaf-list supporting-services {
-          type string;
-          description
-            "List of supporting services to be excluded from paths when routing";
+        list supporting-service-list {
+          key "supporting-service";
+          leaf supporting-service {
+            type string;
+            description
+              "List of supporting services to be excluded from paths when routing";
+          }
+          leaf supporting-service-restriction-type {
+            type link-restriction-type;
+            default "fully-restricted";
+          }
         }
       }
     }

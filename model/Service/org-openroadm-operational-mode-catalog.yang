@@ -12,7 +12,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-05-27;
+    revision-date 2022-09-30;
   }
 
   organization
@@ -48,6 +48,10 @@ module org-openroadm-operational-mode-catalog {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -287,40 +291,34 @@ module org-openroadm-operational-mode-catalog {
     }
   }
 
-  grouping operational-mode-common-amplifier-drop-parameters {
-    description
-      "includes parameters to be used for specification modeling";
-    list openroadm-operational-mode {
-      key "openroadm-operational-mode-id";
-      description
-        "defines the openroadm operational mode pointing to an official specification ";
-      leaf openroadm-operational-mode-id {
-        type string;
-        description
-          "openroadm operational mode which points to a specific spreadsheet of optical specifications";
-      }
-      uses operational-mode-roadm-base-parameters;
-      uses polynomial-fit;
-      leaf per-channel-Pout-min {
-        type org-openroadm-common-link-types:ratio-dB;
-        description
-          "Minimum output power";
-      }
-      leaf per-channel-Pout-max {
-        type org-openroadm-common-link-types:ratio-dB;
-        description
-          "Maximum output power";
-      }
-    }
-  }
-
   grouping operational-mode-roadm-drop-parameters {
     description
       "includes parameters to be used for specification modeling";
     container Drop {
       description
         "drop block-specification";
-      uses operational-mode-common-amplifier-drop-parameters;
+      list openroadm-operational-mode {
+          key "openroadm-operational-mode-id";
+          description
+            "defines the openroadm operational mode pointing to an official specification ";
+          leaf openroadm-operational-mode-id {
+            type string;
+            description
+              "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+          }
+          uses operational-mode-roadm-base-parameters;
+          uses polynomial-fit;
+          leaf per-channel-Pout-min {
+            type org-openroadm-common-link-types:ratio-dB;
+            description
+              "Minimum output power";
+          }
+          leaf per-channel-Pout-max {
+            type org-openroadm-common-link-types:ratio-dB;
+            description
+              "Maximum output power";
+          }
+      }
     }
   }
 
@@ -352,51 +350,63 @@ module org-openroadm-operational-mode-catalog {
     container Amplifier {
       description
         "drop block-specification";
-      uses operational-mode-common-amplifier-drop-parameters;
-      leaf min-gain {
-          type org-openroadm-common-link-types:ratio-dB;
+      list openroadm-operational-mode {
+         key "openroadm-operational-mode-id";
+         description
+           "defines the openroadm operational mode pointing to an official specification ";
+         leaf openroadm-operational-mode-id {
+           type string;
           description
-              "minimum gain of nominal gain range";
-      }
-      leaf max-gain {
-          type org-openroadm-common-link-types:ratio-dB;
-          description
-              "maximum gain of nominal gain range";
-      }
-      leaf max-extended-gain {
-          type org-openroadm-common-link-types:ratio-dB;
-          description
-              "maximum gain of extended gain range";
-      }
-      list mask-gain-ripple-vs-tilt {
-          key "lower-boundary upper-boundary";
-          description
-            "for gain ripple, provides C and D parameter : Max-gain-ripple (dB) = C*target-tilt (dB)+ D.
-              Tilt applies to extended gain range";
-          leaf lower-boundary {
-            type int32;
-            description
-              "defines the lower tilt boundary for which C & Dparameters apply";
-          }
-          leaf upper-boundary {
-            type int32;
-            description
-              "defines the upper tilt boundary for which C & Dparameters apply";
-          }
-          leaf C {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            description
-              "C*span-loss";
-          }
-          leaf D {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            description
-              "Constant";
-          }
+              "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+         }
+         uses operational-mode-roadm-base-parameters;
+         uses polynomial-fit;
+         uses power-mask;
+         leaf min-gain {
+           type org-openroadm-common-link-types:ratio-dB;
+           description
+             "minimum gain of nominal gain range";
+         }
+         leaf max-gain {
+           type org-openroadm-common-link-types:ratio-dB;
+           description
+             "maximum gain of nominal gain range";
+         }
+         leaf max-extended-gain {
+           type org-openroadm-common-link-types:ratio-dB;
+           description
+             "maximum gain of extended gain range";
+         }
+         list mask-gain-ripple-vs-tilt {
+           key "lower-boundary upper-boundary";
+           description
+             "for gain ripple, provides C and D parameter : Max-gain-ripple (dB) = C*target-tilt (dB)+ D.
+               Tilt applies to extended gain range";
+           leaf lower-boundary {
+             type int32;
+             description
+               "defines the lower tilt boundary for which C & Dparameters apply";
+           }
+           leaf upper-boundary {
+             type int32;
+             description
+                "defines the upper tilt boundary for which C & Dparameters apply";
+           }
+           leaf C {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             description
+               "C*span-loss";
+           }
+           leaf D {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             description
+               "Constant";
+           }
+         }
       }
     }
   }

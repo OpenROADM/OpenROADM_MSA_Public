@@ -252,13 +252,6 @@ module: org-openroadm-device
      |  +--ro vendor                              string
      |  +--ro model                               string
      |  +--ro serial-id                           string
-     |  +--rw ipAddress?                          ietf-inet-types:ip-address
-     |  +--rw prefix-length?                      uint8
-     |  +--rw defaultGateway?                     ietf-inet-types:ip-address
-     |  +--ro source?                             enumeration
-     |  +--ro current-ipAddress?                  ietf-inet-types:ip-address
-     |  +--ro current-prefix-length?              uint8
-     |  +--ro current-defaultGateway?             ietf-inet-types:ip-address
      |  +--ro macAddress?                         ietf-yang-types:mac-address
      |  +--ro softwareVersion?                    string
      |  +--ro software-build?                     string
@@ -507,26 +500,60 @@ module: org-openroadm-device
      |  +--rw org-openroadm-gcc-interfaces:gcc
      |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
      |  +--rw org-openroadm-ip:ipv4!
-     |  |  +--rw org-openroadm-ip:enabled?         boolean
-     |  |  +--rw org-openroadm-ip:forwarding?      boolean
-     |  |  +--rw org-openroadm-ip:mtu?             uint16
-     |  |  +--rw org-openroadm-ip:address-src?     enumeration
-     |  |  +--rw org-openroadm-ip:address-force?   -> /org-openroadm-device:org-openroadm-device/interface/org-openroadm-ip:ipv4/address/ip
-     |  |  +--rw org-openroadm-ip:address* [ip]
-     |  |     +--rw org-openroadm-ip:ip                     inet:ipv4-address-no-zone
-     |  |     +--rw org-openroadm-ip:preferred?             enumeration
-     |  |     +--rw (org-openroadm-ip:subnet)
-     |  |        +--:(org-openroadm-ip:prefix-length)
-     |  |        |  +--rw org-openroadm-ip:prefix-length?   uint8
-     |  |        +--:(org-openroadm-ip:netmask)
-     |  |           +--rw org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
+     |  |  +--rw org-openroadm-ip:enabled?             boolean
+     |  |  +--rw org-openroadm-ip:forwarding?          boolean
+     |  |  +--rw org-openroadm-ip:mtu?                 uint16
+     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
+     |  |  +--rw (org-openroadm-ip:address-type)?
+     |  |  |  +--:(org-openroadm-ip:numbered-address)
+     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
+     |  |  |  |     +--rw org-openroadm-ip:ip                     inet:ipv4-address-no-zone
+     |  |  |  |     +--rw (org-openroadm-ip:subnet)
+     |  |  |  |        +--:(org-openroadm-ip:prefix-length)
+     |  |  |  |        |  +--rw org-openroadm-ip:prefix-length?   uint8
+     |  |  |  |        +--:(org-openroadm-ip:netmask)
+     |  |  |  |           +--rw org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
+     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
+     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-ip:proxy-arp!
+     |  |     +--rw org-openroadm-ip:enabled?        boolean
+     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv4-subnet] {ipv4-proxy-arp-subnet}?
+     |  |        +--rw org-openroadm-ip:ipv4-subnet    inet:ipv4-prefix
+     |  +--ro org-openroadm-ip:ipv4-state!
+     |  |  +--ro org-openroadm-ip:forwarding?   boolean
+     |  |  +--ro org-openroadm-ip:mtu?          uint16
+     |  |  +--ro org-openroadm-ip:address* [ip]
+     |  |     +--ro org-openroadm-ip:ip                     inet:ipv4-address-no-zone
+     |  |     +--ro (org-openroadm-ip:subnet)
+     |  |     |  +--:(org-openroadm-ip:prefix-length)
+     |  |     |  |  +--ro org-openroadm-ip:prefix-length?   uint8
+     |  |     |  +--:(org-openroadm-ip:netmask)
+     |  |     |     +--ro org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
+     |  |     +--ro org-openroadm-ip:origin?                ip-address-origin
      |  +--rw org-openroadm-ip:ipv6!
-     |  |  +--rw org-openroadm-ip:enabled?      boolean
-     |  |  +--rw org-openroadm-ip:forwarding?   boolean
-     |  |  +--rw org-openroadm-ip:mtu?          uint32
-     |  |  +--rw org-openroadm-ip:address* [ip]
-     |  |     +--rw org-openroadm-ip:ip               inet:ipv6-address-no-zone
-     |  |     +--rw org-openroadm-ip:prefix-length    uint8
+     |  |  +--rw org-openroadm-ip:enabled?             boolean
+     |  |  +--rw org-openroadm-ip:forwarding?          boolean
+     |  |  +--rw org-openroadm-ip:mtu?                 uint32
+     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
+     |  |  +--rw (org-openroadm-ip:address-type)?
+     |  |  |  +--:(org-openroadm-ip:numbered-address)
+     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
+     |  |  |  |     +--rw org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |  |  |     +--rw org-openroadm-ip:prefix-length    uint8
+     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
+     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-ip:proxy-ndp!
+     |  |     +--rw org-openroadm-ip:enabled?        boolean
+     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv6-subnet] {ipv6-proxy-ndp-subnet}?
+     |  |        +--rw org-openroadm-ip:ipv6-subnet    inet:ipv6-prefix
+     |  +--ro org-openroadm-ip:ipv6-state!
+     |  |  +--ro org-openroadm-ip:forwarding?   boolean
+     |  |  +--ro org-openroadm-ip:mtu?          uint32
+     |  |  +--ro org-openroadm-ip:address* [ip]
+     |  |  |  +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |  |  +--ro org-openroadm-ip:prefix-length    uint8
+     |  |  +--ro org-openroadm-ip:origin?       ip-address-origin
+     |  |  +--ro org-openroadm-ip:status?       ipv6-address-status
      |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
      |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
@@ -698,27 +725,25 @@ module: org-openroadm-device
      |  |     +--rw org-openroadm-otn-otu-interfaces:trib-port-number    uint8
      |  |     +--rw org-openroadm-otn-otu-interfaces:iid*                uint8
      |  +--rw org-openroadm-otsi-group-interfaces:otsi-group
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
-     |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
-     |  |  +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
-     |  |     +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
-     |  |     +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  |     +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |     |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  |     +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
-     |  |        +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |  |        +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |  |        +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |  |        +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |  +--rw org-openroadm-ppp-interfaces:ppp
-     |     +--rw org-openroadm-ppp-interfaces:magicNumber?   boolean
+     |     +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
+     |     +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
+     |     +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
+     |        +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
+     |        +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
+     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |        +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
+     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |        +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
+     |           +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |           +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |           +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |           +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string

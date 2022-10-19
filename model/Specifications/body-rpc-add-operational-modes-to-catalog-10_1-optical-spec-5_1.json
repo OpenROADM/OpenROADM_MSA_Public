@@ -34,12 +34,10 @@
                             "min-input-power-at-RX-osnr": "-22.000",
                             "max-input-power": "1.000",
                             "channel-width": "40.00000",
-                            "fec-type": "scfec",
-                            "min-roll-off": {},
-                            "max-roll-off": {},
+                            "fec-type": "org-openroadm-common-types:scfec",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "18000.00",
                                     "penalty-value": "0.000"
                                 },
@@ -54,7 +52,7 @@
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-22.00",
                                     "penalty-value": "0.000"
                                 },
@@ -65,7 +63,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.10",
+                                    "up-to-boundary": "4.00",
                                     "penalty-value": "0.200"
                                 }
                             ]
@@ -75,11 +73,10 @@
                             "baud-rate": "31.6",
                             "line-rate": "126.3",
                             "modulation-format": "dp-qpsk",
-                            "min-TX-osnr": "36.000",
+                            "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "31.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             },
                             "output-power-range": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -95,12 +92,12 @@
                             "max-roll-off": "0.20",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "4000.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "48000.00",
                                     "penalty-value": "0.500"
                                 },
@@ -135,12 +132,12 @@
                                     "penalty-value": "0.500"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-18.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-20.00",
                                     "penalty-value": "1.000"
                                 },
@@ -151,7 +148,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.1",
+                                    "up-to-boundary": "4.0",
                                     "penalty-value": "0.200"
                                 }
                             ]
@@ -161,11 +158,10 @@
                             "baud-rate": "31.6",
                             "line-rate": "252.6",
                             "modulation-format": "dp-qam16",
-                            "min-TX-osnr": "36.000",
+                            "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "31.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             },
                             "output-power-range": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -181,12 +177,12 @@
                             "max-roll-off": "0.20",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "4000.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "24000.00",
                                     "penalty-value": "0.500"
                                 },
@@ -221,17 +217,17 @@
                                     "penalty-value": "0.500"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-16.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-18.00",
                                     "penalty-value": "1.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-20.00",
                                     "penalty-value": "2.000"
                                 },
@@ -242,7 +238,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.10",
+                                    "up-to-boundary": "4.00",
                                     "penalty-value": "0.500"
                                 }
                             ]
@@ -252,11 +248,10 @@
                             "baud-rate": "63.1",
                             "line-rate": "252.6",
                             "modulation-format": "dp-qpsk",
-                            "min-TX-osnr": "36.000",
+                            "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "31.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             },
                             "output-power-range": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -272,12 +267,12 @@
                             "max-roll-off": "0.20",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "4000.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "24000.00",
                                     "penalty-value": "0.500"
                                 },
@@ -307,12 +302,12 @@
                                     "penalty-value": "0.500"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-18.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-20.00",
                                     "penalty-value": "1.000"
                                 },
@@ -323,7 +318,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.10",
+                                    "up-to-boundary": "4.00",
                                     "penalty-value": "0.500"
                                 }
                             ]
@@ -333,11 +328,10 @@
                             "baud-rate": "63.1",
                             "line-rate": "378.8",
                             "modulation-format": "dp-qam8",
-                            "min-TX-osnr": "36.000",
+                            "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "31.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             },
                             "output-power-range": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -353,12 +347,12 @@
                             "max-roll-off": "0.20",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "4000.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "18000.00",
                                     "penalty-value": "0.500"
                                 },
@@ -388,17 +382,17 @@
                                     "penalty-value": "0.500"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-16.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-18.00",
                                     "penalty-value": "1.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-20.00",
                                     "penalty-value": "2.000"
                                 },
@@ -409,7 +403,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.10",
+                                    "up-to-boundary": "4.00",
                                     "penalty-value": "0.500"
                                 }
                             ]
@@ -419,11 +413,10 @@
                             "baud-rate": "63.1",
                             "line-rate": "505.1",
                             "modulation-format": "dp-qam16",
-                            "min-TX-osnr": "36.000",
+                            "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "31.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             },
                             "output-power-range": {
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -439,12 +432,12 @@
                             "max-roll-off": "0.20",
                             "penalties": [
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "4000.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "cd-ps/nm",
+                                    "parameter-and-unit": "CD-ps/nm",
                                     "up-to-boundary": "12000.00",
                                     "penalty-value": "0.500"
                                 },
@@ -474,17 +467,17 @@
                                     "penalty-value": "0.500"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-14.00",
                                     "penalty-value": "0.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-16.00",
                                     "penalty-value": "1.000"
                                 },
                                 {
-                                    "parameter-and-unit": "Power-dBm",
+                                    "parameter-and-unit": "power-dBm",
                                     "up-to-boundary": "-18.00",
                                     "penalty-value": "2.000"
                                 },
@@ -500,7 +493,7 @@
                                 },
                                 {
                                     "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
-                                    "up-to-boundary": "4.10",
+                                    "up-to-boundary": "4.00",
                                     "penalty-value": "0.500"
                                 }
                             ]
@@ -517,10 +510,10 @@
                             "max-introduced-dgd": "3.00",
                             "max-introduced-cd": "25.00",
                             "osnr-polynomial-fit": {
-                                "A": "-0,00059500",
-                                "B": "-0,06250000",
-                                "C": "-1,07100000",
-                                "D": "27,99000000"
+                                "A": "-0.00059520",
+                                "B": "-0.06250000",
+                                "C": "-1.07100000",
+                                "D": "27.99000000"
                             },
                             "mask-power-vs-pin": [
                                 {
@@ -604,10 +597,10 @@
                             "max-introduced-dgd": "3.00",
                             "max-introduced-cd": "25.00",
                             "osnr-polynomial-fit": {
-                                "A": "-0,00059500",
-                                "B": "-0,06250000",
-                                "C": "-1,07100000",
-                                "D": "27,99000000"
+                                "A": "-0.00059520",
+                                "B": "-0.06250000",
+                                "C": "-1.07100000",
+                                "D": "27.99000000"
                             },
                             "per-channel-Pout-min": "-22.000",
                             "per-channel-Pout-max": "1.000"
@@ -615,76 +608,59 @@
                     }
                 },
                 "amplifiers": {
-                    "Amplifier": {
-                        "openroadm-operational-mode": [
-                            {
-                                "openroadm-operational-mode-id": "MWi-standard",
-                                "per-channel-Pin-min": "-31.000",
-                                "per-channel-Pin-max": "-9.000",
-                                "max-introduced-pdl": "0.70",
-                                "max-introduced-dgd": "3.00",
-                                "max-introduced-cd": "0.00",
-                                "osnr-polynomial-fit": {
-                                    "A": "-0,00059500",
-                                    "B": "-0,06250000",
-                                    "C": "-1,07100000",
-                                    "D": "28,99000000"
-                                },
-                                "per-channel-Pout-min": "-9.000",
-                                "per-channel-Pout-max": "2.000",
-								"min-gain": "0.000",
-								"max-gain": "27.000",
-								"max-extended-gain": "31.000",
-								 "mask-gain-ripple-vs-tilt": [
-                                    {
-                                        "lower-boundary": "-4",
-                                        "upper-boundary": "-1",
-                                        "C": "-0.50",
-                                        "D": "1.00"
-                                    },
-                                    {
-                                        "lower-boundary": "-1",
-                                        "upper-boundary": "0",
-                                        "C": "0.50",
-                                        "D": "2.00"
-                                    }
-                                ]
-                            },
-                            {
-                                "openroadm-operational-mode-id": "MWi-low-noise",
-                                "per-channel-Pin-min": "-31.000",
-                                "per-channel-Pin-max": "-9.000",
-                                "max-introduced-pdl": "0.700",
-                                "max-introduced-dgd": "3.00",
-                                "max-introduced-cd": "0.00",
-                                "osnr-polynomial-fit": {
-                                    "A": "-0,00081000",
-                                    "B": "-0,06221000",
-                                    "C": "-0,58890000",
-                                    "D": "37,62000000"
-                                },
-                                "per-channel-Pout-min": "-9.000",
-                                "per-channel-Pout-max": "2.000",
-								"min-gain": "0.000",
-								"max-gain": "27.000",
-								"max-extended-gain": "31.000",
-								 "mask-gain-ripple-vs-tilt": [
-                                    {
-                                        "lower-boundary": "-4",
-                                        "upper-boundary": "-1",
-                                        "C": "-0.50",
-                                        "D": "1.00"
-                                    },
-                                    {
-                                        "lower-boundary": "-1",
-                                        "upper-boundary": "0",
-                                        "C": "0.50",
-                                        "D": "2.00"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+					"Amplifier": {
+						"min-gain": "0.000",
+						"max-gain": "27.000",
+						"max-extended-gain": "31.000",
+						"mask-gain-ripple-vs-tilt": [
+							{
+								"lower-boundary": "-4",
+								"upper-boundary": "-1",
+								"C": "-0.50",
+								"D": "1.00"
+							},
+							{
+								"lower-boundary": "-1",
+								"upper-boundary": "0",
+								"C": "0.50",
+								"D": "2.00"
+							}
+						],
+						"openroadm-operational-mode": [
+							{
+								"openroadm-operational-mode-id": "MWi-standard",
+								"per-channel-Pin-min": "-31.000",
+								"per-channel-Pin-max": "-9.000",
+								"max-introduced-pdl": "0.70",
+								"max-introduced-dgd": "3.00",
+								"max-introduced-cd": "0.00",
+								"osnr-polynomial-fit": {
+									"A": "-0.00059520",
+									"B": "-0.06250000",
+									"C": "-1.07100000",
+									"D": "28.99000000"
+								},
+								"per-channel-Pout-min": "-9.000",
+								"per-channel-Pout-max": "2.000"
+							},
+							{
+								"openroadm-operational-mode-id": "MWi-low-noise",
+								"per-channel-Pin-min": "-31.000",
+								"per-channel-Pin-max": "-9.000",
+								"max-introduced-pdl": "0.700",
+								"max-introduced-dgd": "3.00",
+								"max-introduced-cd": "0.00",
+								"osnr-polynomial-fit": {
+									"A": "-0.00081040",
+									"B": "-0.06221000",
+									"C": "-0.58890000",
+									"D": "37.62000000"
+								},
+								"per-channel-Pout-min": "-9.000",
+								"per-channel-Pout-max": "2.000"
+							}
+						]
+					}   
                 }
             }
         }

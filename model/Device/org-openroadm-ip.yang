@@ -4,11 +4,7 @@ module org-openroadm-ip {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2022-05-27;
-  }
-  import org-openroadm-interfaces {
-    prefix openROADM-if;
-    revision-date 2019-11-29;
+    revision-date 2022-09-30;
   }
   import ietf-inet-types {
     prefix inet;
@@ -43,6 +39,10 @@ module org-openroadm-ip {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -112,6 +112,11 @@ module org-openroadm-ip {
        subnet masks.";
   }
 
+  feature ipv4-proxy-arp-subnet {
+    description
+      "Indicates support for IPv4 proxy arp subnet";
+  }
+
   feature ipv6-privacy-autoconf {
     description
       "Indicates support for Privacy Extensions for Stateless Address
@@ -119,6 +124,11 @@ module org-openroadm-ip {
     reference
       "RFC 4941: Privacy Extensions for Stateless Address
                  Autoconfiguration in IPv6";
+  }
+
+  feature ipv6-proxy-ndp-subnet {
+    description
+      "Indicates support for IPv6 proxy ndp subnet";
   }
 
   typedef ip-address-origin {
@@ -186,6 +196,55 @@ module org-openroadm-ip {
       "The origin of a neighbor entry.";
   }
 
+  typedef ipv6-address-status {
+    type enumeration {
+      enum preferred {
+        description
+          "This is a valid address that can appear as the
+           destination or source address of a packet.";
+      }
+      enum deprecated {
+        description
+          "This is a valid but deprecated address that should
+           no longer be used as a source address in new
+           communications, but packets addressed to such an
+           address are processed as expected.";
+      }
+      enum invalid {
+        description
+          "This isn't a valid address, and it shouldn't appear
+           as the destination or source address of a packet.";
+      }
+      enum inaccessible {
+        description
+          "The address is not accessible because the interface
+           to which this address is assigned is not
+           operational.";
+      }
+      enum unknown {
+        description
+          "The status cannot be determined for some reason.";
+      }
+      enum tentative {
+        description
+          "The uniqueness of the address on the link is being
+           verified.  Addresses in this state should not be
+           used for general communication and should only be
+           used to determine the uniqueness of the address.";
+      }
+      enum duplicate {
+        description
+          "The address has been determined to be non-unique on
+           the link and so must not be used.";
+      }
+      enum optimistic {
+        description
+          "The address is available for use despite DAD not being
+           fully complete";
+      }
+    }
+  }
+
   grouping ip-grp {
     description
       "Grouping for ip";
@@ -232,29 +291,96 @@ module org-openroadm-ip {
         reference
           "RFC 791: Internet Protocol";
       }
-      leaf address-src {
-        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='UNNUMBERED']";
-        type enumeration {
-          enum NEM {
-            value 1;
+      leaf dhcpc-enabled {
+        type boolean;
+        default "true";
+        description
+          "DHCP Client enabled";
+      }
+      choice address-type {
+        case numbered-address {
+          list address {
+            key "ip";
+            description
+              "The list of configured IPv4 addresses on the interface.";
+            leaf ip {
+              type inet:ipv4-address-no-zone;
+              description
+                "The IPv4 address on the interface.";
+            }
+            choice subnet {
+              mandatory true;
+              description
+                "The subnet can be specified as a prefix-length, or,
+                 if the server supports non-contiguous netmasks, as
+                 a netmask.";
+              leaf prefix-length {
+                type uint8 {
+                  range "0..32";
+                }
+                description
+                  "The length of the subnet prefix.";
+              }
+              leaf netmask {
+                if-feature "ipv4-non-contiguous-netmasks";
+                type yang:dotted-quad;
+                description
+                  "The subnet specified as a netmask.";
+              }
+            }
+          }
+          description
+            "Numbered address case";
+        }
+        case unnumbered-address {
+          leaf address-src {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+            }
+            description
+              "Unnumbered address source";
           }
         }
         description
-          "The source of the shared IP address for unnumbered IP interface.";
+          "Address type choice";
       }
-      leaf address-force {
-        when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='UNNUMBERED']";
-        type leafref {
-          path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-ip:ipv4/org-openroadm-ip:address/org-openroadm-ip:ip";
-        }
-        must "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='NEM']/org-openroadm-ip:ipv4/org-openroadm-ip:address[org-openroadm-ip:ip=current()]/org-openroadm-ip:ip = current()" {
-          error-message "IP address shall be sourced from the NEM interface only";
-        }
-        must 'not (../address-src)' {
-          error-message "Both address-src & address-force cannot be configured at the same time";
-        }
+      container proxy-arp {
+        presence "Creates Proxy ARP container with its function disabled unless the
+        'enabled' leaf (which defaults to 'false') is set to 'true'";
         description
-          "The IP address to use for the unnumbered interface";
+          "Configure Proxy ARP";
+        leaf enabled {
+          type boolean;
+          default "false";
+          description
+            "Enable / Disable proxy ARP support";
+        }
+        list proxy-subnet {
+          if-feature "ipv4-proxy-arp-subnet";
+          key "ipv4-subnet";
+          leaf ipv4-subnet {
+            type inet:ipv4-prefix;
+            description
+              "The IPv4 proxy subnet on the interface";
+          }
+          description
+            "The list of IPv4 proxy subnet rules";
+        }
+      }
+    }
+    container ipv4-state {
+      presence "Data nodes for operational state of IPv4 on interfaces";
+      config false;
+      description
+        "State for the IPv4";
+      leaf forwarding {
+        type boolean;
+      }
+      leaf mtu {
+        type uint16 {
+          range "68..max";
+        }
+        units "octets";
       }
       list address {
         key "ip";
@@ -264,20 +390,6 @@ module org-openroadm-ip {
           type inet:ipv4-address-no-zone;
           description
             "The IPv4 address on the interface.";
-        }
-        leaf preferred {
-          when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface[org-openroadm-device:name='NEM']";
-          type enumeration {
-            enum true {
-              value 1;
-            }
-            enum false {
-              value 0;
-            }
-          }
-          default "false";
-          description
-            "Mark address availability for unnumbered interface use.";
         }
         choice subnet {
           mandatory true;
@@ -298,6 +410,9 @@ module org-openroadm-ip {
             description
               "The subnet specified as a netmask.";
           }
+        }
+        leaf origin {
+          type ip-address-origin;
         }
       }
     }
@@ -329,7 +444,99 @@ module org-openroadm-ip {
       }
       leaf mtu {
         type uint32 {
-          range "1280..1500";
+          range "1280..max";
+        }
+        units "octets";
+        default "1500";
+        description
+          "The size, in octets, of the largest IPv6 packet that the
+           interface will send and receive.
+
+           The server may restrict the allowed values for this leaf,
+           depending on the interface's type.
+
+           If this leaf is not configured, the operationally used MTU
+           depends on the interface's type.";
+        reference
+          "RFC 2460: Internet Protocol, Version 6 (IPv6) Specification
+                     Section 5";
+      }
+      leaf dhcpc-enabled {
+        type boolean;
+        default "true";
+        description
+          "DHCP Client enabled";
+      }
+      choice address-type {
+        case numbered-address {
+          list address {
+            key "ip";
+            description
+              "The list of configured IPv6 addresses on the interface.";
+            leaf ip {
+              type inet:ipv6-address-no-zone;
+              description
+                "The IPv6 address on the interface.";
+            }
+            leaf prefix-length {
+              type uint8 {
+                range "0..128";
+              }
+              mandatory true;
+              description
+                "The length of the subnet prefix.";
+            }
+          }
+        }
+        case unnumbered-address {
+          leaf address-src {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+            }
+            description
+              "Unnumbered address source";
+          }
+          description
+            "Unnumbered address case";
+        }
+        description
+          "Address type choice";
+      }
+      container proxy-ndp {
+        presence "Creates Proxy NDP container with its function disabled unless the
+        'enabled' leaf (which defaults to 'false') is set to 'true'";
+        description
+          "Configure Proxy NDP";
+        leaf enabled {
+          type boolean;
+          default "false";
+          description
+            "Enable / Disable proxy NDP support";
+        }
+        list proxy-subnet {
+          if-feature "ipv6-proxy-ndp-subnet";
+          key "ipv6-subnet";
+          leaf ipv6-subnet {
+            type inet:ipv6-prefix;
+            description
+              "The IPv6 proxy subnet on the interface";
+          }
+          description
+            "The list of IPv6 proxy subnet rules";
+        }
+      }
+    }
+    container ipv6-state {
+      presence "Data nodes for operational state of IPv6 on interfaces";
+      config false;
+      description
+        "State for the IPv6";
+      leaf forwarding {
+        type boolean;
+      }
+      leaf mtu {
+        type uint32 {
+          range "1280..max";
         }
         units "octets";
         default "1500";
@@ -364,11 +571,16 @@ module org-openroadm-ip {
             "The length of the subnet prefix.";
         }
       }
+      leaf origin {
+        type ip-address-origin;
+      }
+      leaf status {
+        type ipv6-address-status;
+      }
     }
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:ip'";
     description
       "Parameters for configuring IP on interfaces.
 

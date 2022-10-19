@@ -50,6 +50,10 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-09-30 {
+    description
+      "Version 12.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -96,6 +100,7 @@ module org-openroadm-interfaces {
   }
 
   identity ip {
+    status deprecated;
     base interface-type;
     description
       "IP (for APPN HPR in IP networks).";
@@ -168,6 +173,7 @@ module org-openroadm-interfaces {
   }
 
   identity ppp {
+    status deprecated;
     base interface-type;
     description
       "PPP for IP GNE.";
@@ -177,5 +183,11 @@ module org-openroadm-interfaces {
     base interface-type;
     description
       "ITU-T G.709 GCC.";
+  }
+
+  identity softwareLoopback {
+    base interface-type;
+    description
+      "Software Loopback";
   }
 }

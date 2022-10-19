@@ -344,10 +344,14 @@ module: org-openroadm-controller-customization
        |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
        |  |  +---w link-restriction
        |  |  |  +---w restriction-scopes*   restriction-scope
-       |  |  |  +---w link-id*              string
+       |  |  |  +---w link* [link-id]
+       |  |  |     +---w link-id                  string
+       |  |  |     +---w link-restriction-type?   link-restriction-type
        |  |  +---w supporting-service-restriction
-       |  |     +---w restriction-scopes*    restriction-scope
-       |  |     +---w supporting-services*   string
+       |  |     +---w restriction-scopes*        restriction-scope
+       |  |     +---w supporting-service-list* [supporting-service]
+       |  |        +---w supporting-service                     string
+       |  |        +---w supporting-service-restriction-type?   link-restriction-type
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -3227,10 +3231,14 @@ module: org-openroadm-service
   |  |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
   |  |  +--rw link-restriction
   |  |  |  +--rw restriction-scopes*   restriction-scope
-  |  |  |  +--rw link-id*              string
+  |  |  |  +--rw link* [link-id]
+  |  |  |     +--rw link-id                  string
+  |  |  |     +--rw link-restriction-type?   link-restriction-type
   |  |  +--rw supporting-service-restriction
-  |  |     +--rw restriction-scopes*    restriction-scope
-  |  |     +--rw supporting-services*   string
+  |  |     +--rw restriction-scopes*        restriction-scope
+  |  |     +--rw supporting-service-list* [supporting-service]
+  |  |        +--rw supporting-service                     string
+  |  |        +--rw supporting-service-restriction-type?   link-restriction-type
   |  +--rw default-behaviour
   |  |  +--rw default-backup-path-number?   uint16
   |  |  +--rw reversion?                    boolean
@@ -3334,27 +3342,31 @@ module: org-openroadm-service
      |  +--rw amplifiers
      |     +--rw Amplifier
      |        +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
-     |        |  +--rw openroadm-operational-mode-id    string
-     |        |  +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-     |        |  +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
-     |        |  +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
-     |        |  +--rw max-introduced-dgd?              decimal64
-     |        |  +--rw max-introduced-cd?               decimal64
-     |        |  +--rw osnr-polynomial-fit
-     |        |  |  +--rw A?   decimal64
-     |        |  |  +--rw B?   decimal64
-     |        |  |  +--rw C?   decimal64
-     |        |  |  +--rw D?   decimal64
-     |        |  +--rw per-channel-Pout-min?            org-openroadm-common-link-types:ratio-dB
-     |        |  +--rw per-channel-Pout-max?            org-openroadm-common-link-types:ratio-dB
-     |        +--rw min-gain?                     org-openroadm-common-link-types:ratio-dB
-     |        +--rw max-gain?                     org-openroadm-common-link-types:ratio-dB
-     |        +--rw max-extended-gain?            org-openroadm-common-link-types:ratio-dB
-     |        +--rw mask-gain-ripple-vs-tilt* [lower-boundary upper-boundary]
-     |           +--rw lower-boundary    int32
-     |           +--rw upper-boundary    int32
-     |           +--rw C?                decimal64
-     |           +--rw D?                decimal64
+     |           +--rw openroadm-operational-mode-id    string
+     |           +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
+     |           +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+     |           +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
+     |           +--rw max-introduced-dgd?              decimal64
+     |           +--rw max-introduced-cd?               decimal64
+     |           +--rw osnr-polynomial-fit
+     |           |  +--rw A?   decimal64
+     |           |  +--rw B?   decimal64
+     |           |  +--rw C?   decimal64
+     |           |  +--rw D?   decimal64
+     |           +--rw mask-power-vs-pin* [lower-boundary upper-boundary]
+     |           |  +--rw lower-boundary    uint32
+     |           |  +--rw upper-boundary    uint32
+     |           |  +--rw C?                decimal64
+     |           |  +--rw D?                decimal64
+     |           |  +--rw fiber-type?       enumeration
+     |           +--rw min-gain?                        org-openroadm-common-link-types:ratio-dB
+     |           +--rw max-gain?                        org-openroadm-common-link-types:ratio-dB
+     |           +--rw max-extended-gain?               org-openroadm-common-link-types:ratio-dB
+     |           +--rw mask-gain-ripple-vs-tilt* [lower-boundary upper-boundary]
+     |              +--rw lower-boundary    int32
+     |              +--rw upper-boundary    int32
+     |              +--rw C?                decimal64
+     |              +--rw D?                decimal64
      +--rw specific-operational-modes
         +--rw specific-operational-mode* [operational-mode-id]
            +--rw operational-mode-id              string
@@ -10424,27 +10436,31 @@ module: org-openroadm-service
     |  |     +---w amplifiers
     |  |        +---w Amplifier
     |  |           +---w openroadm-operational-mode* [openroadm-operational-mode-id]
-    |  |           |  +---w openroadm-operational-mode-id    string
-    |  |           |  +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w max-introduced-dgd?              decimal64
-    |  |           |  +---w max-introduced-cd?               decimal64
-    |  |           |  +---w osnr-polynomial-fit
-    |  |           |  |  +---w A?   decimal64
-    |  |           |  |  +---w B?   decimal64
-    |  |           |  |  +---w C?   decimal64
-    |  |           |  |  +---w D?   decimal64
-    |  |           |  +---w per-channel-Pout-min?            org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w per-channel-Pout-max?            org-openroadm-common-link-types:ratio-dB
-    |  |           +---w min-gain?                     org-openroadm-common-link-types:ratio-dB
-    |  |           +---w max-gain?                     org-openroadm-common-link-types:ratio-dB
-    |  |           +---w max-extended-gain?            org-openroadm-common-link-types:ratio-dB
-    |  |           +---w mask-gain-ripple-vs-tilt* [lower-boundary upper-boundary]
-    |  |              +---w lower-boundary    int32
-    |  |              +---w upper-boundary    int32
-    |  |              +---w C?                decimal64
-    |  |              +---w D?                decimal64
+    |  |              +---w openroadm-operational-mode-id    string
+    |  |              +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
+    |  |              +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+    |  |              +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
+    |  |              +---w max-introduced-dgd?              decimal64
+    |  |              +---w max-introduced-cd?               decimal64
+    |  |              +---w osnr-polynomial-fit
+    |  |              |  +---w A?   decimal64
+    |  |              |  +---w B?   decimal64
+    |  |              |  +---w C?   decimal64
+    |  |              |  +---w D?   decimal64
+    |  |              +---w mask-power-vs-pin* [lower-boundary upper-boundary]
+    |  |              |  +---w lower-boundary    uint32
+    |  |              |  +---w upper-boundary    uint32
+    |  |              |  +---w C?                decimal64
+    |  |              |  +---w D?                decimal64
+    |  |              |  +---w fiber-type?       enumeration
+    |  |              +---w min-gain?                        org-openroadm-common-link-types:ratio-dB
+    |  |              +---w max-gain?                        org-openroadm-common-link-types:ratio-dB
+    |  |              +---w max-extended-gain?               org-openroadm-common-link-types:ratio-dB
+    |  |              +---w mask-gain-ripple-vs-tilt* [lower-boundary upper-boundary]
+    |  |                 +---w lower-boundary    int32
+    |  |                 +---w upper-boundary    int32
+    |  |                 +---w C?                decimal64
+    |  |                 +---w D?                decimal64
     |  +--ro output
     |     +--ro configuration-response-common
     |        +--ro request-id             string
