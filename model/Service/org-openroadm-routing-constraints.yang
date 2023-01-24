@@ -44,6 +44,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -322,22 +326,14 @@ module org-openroadm-routing-constraints {
         description
           "Indicates that new services that are part of the bulk service request
           should be co-routed";
-        key "service-indentifier";
-        leaf service-indentifier {
+        key "service-identifier";
+        leaf service-identifier {
           type string;
           description
             "This can be a service-name or a common-id";
         }
         uses service-applicability-g;
     }
-    /*
-    leaf-list existing-service {
-      type string;
-      description
-        "Diverse from existing services identified by facility CLFI";
-    }
-    uses existing-service-applicability-g;
-    */
   }
 
   grouping diversity-constraints {

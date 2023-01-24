@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -1578,6 +1582,390 @@ module org-openroadm-pm-types {
           "The delta (dB) between the measured optical power output and expected
            or targeted optical power output. One use case would be the difference between the
            measured nmc opticalPowerOutput and the target-output-power set by controller.";
+      }
+      enum opticalPowerInputLane1 {
+        value 243;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerInputLane1Max {
+        value 244;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerInputLane1Min {
+        value 245;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerInputLane1Avg {
+        value 246;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerInputLane2 {
+        value 247;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerInputLane2Max {
+        value 248;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerInputLane2Min {
+        value 249;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerInputLane2Avg {
+        value 250;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerInputLane3 {
+        value 251;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerInputLane3Max {
+        value 252;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerInputLane3Min {
+        value 253;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerInputLane3Avg {
+        value 254;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerInputLane4 {
+        value 255;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerInputLane4Max {
+        value 256;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerInputLane4Min {
+        value 257;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerInputLane4Avg {
+        value 258;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerInputLane5 {
+        value 259;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerInputLane5Max {
+        value 260;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerInputLane5Min {
+        value 261;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerInputLane5Avg {
+        value 262;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerInputLane6 {
+        value 263;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerInputLane6Max {
+        value 264;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerInputLane6Min {
+        value 265;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerInputLane6Avg {
+        value 266;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerInputLane7 {
+        value 267;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerInputLane7Max {
+        value 268;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerInputLane7Min {
+        value 269;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerInputLane7Avg {
+        value 270;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerInputLane8 {
+        value 271;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), input power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerInputLane8Max {
+        value 272;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum input power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerInputLane8Min {
+        value 273;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum input power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerInputLane8Avg {
+        value 274;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average input power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerOutputLane1 {
+        value 275;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerOutputLane1Max {
+        value 276;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerOutputLane1Min {
+        value 277;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerOutputLane1Avg {
+        value 278;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 1.";
+      }
+      enum opticalPowerOutputLane2 {
+        value 279;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerOutputLane2Max {
+        value 280;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerOutputLane2Min {
+        value 281;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerOutputLane2Avg {
+        value 282;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 2.";
+      }
+      enum opticalPowerOutputLane3 {
+        value 283;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerOutputLane3Max {
+        value 284;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerOutputLane3Min {
+        value 285;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerOutputLane3Avg {
+        value 286;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 3.";
+      }
+      enum opticalPowerOutputLane4 {
+        value 287;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerOutputLane4Max {
+        value 288;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerOutputLane4Min {
+        value 289;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerOutputLane4Avg {
+        value 290;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 4.";
+      }
+      enum opticalPowerOutputLane5 {
+        value 291;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerOutputLane5Max {
+        value 292;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerOutputLane5Min {
+        value 293;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerOutputLane5Avg {
+        value 294;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 5.";
+      }
+      enum opticalPowerOutputLane6 {
+        value 295;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerOutputLane6Max {
+        value 296;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerOutputLane6Min {
+        value 297;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerOutputLane6Avg {
+        value 298;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 6.";
+      }
+      enum opticalPowerOutputLane7 {
+        value 299;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerOutputLane7Max {
+        value 300;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerOutputLane7Min {
+        value 301;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerOutputLane7Avg {
+        value 302;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 7.";
+      }
+      enum opticalPowerOutputLane8 {
+        value 303;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), output power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerOutputLane8Max {
+        value 304;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum output power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerOutputLane8Min {
+        value 305;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum output power
+          (dBm) measured by the pluggable for lane 8.";
+      }
+      enum opticalPowerOutputLane8Avg {
+        value 306;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
+          (dBm) measured by the pluggable for lane 8.";
       }
     }
   }

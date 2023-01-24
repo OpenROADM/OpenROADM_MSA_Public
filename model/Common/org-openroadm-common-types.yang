@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -316,6 +320,11 @@ module org-openroadm-common-types {
         description
           "value for 12.0";
       }
+      enum 12.1 {
+        value 26;
+        description
+          "value for 12.1";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -503,5 +512,55 @@ module org-openroadm-common-types {
           "Link SRLG";
       }
     }
+  }
+
+  grouping enable-laser {
+    leaf enable-laser {
+      type enumeration {
+        enum "off" {
+          value 0;
+          description
+            "Disable (turn off) the laser.";
+        }
+        enum "auto" {
+          value 1;
+          description
+            "Allows the laser to be enabled if sufficient
+             provisioning has been completed.";
+        }
+      }
+      default "auto";
+      description
+        "Sets the laser enable state for the interface. When set to
+         auto, the laser can be enabled (provided sufficient
+         provisioning has been completed). When set to off, then the
+         laser should be shut off immediately.";
+    }
+    leaf laser-status {
+      type enumeration {
+        enum "unknown" {
+          value 0;
+          description
+            "Laser status is unknown. E.g., the CPU cannot determine
+             the status of the laser due to internal communication
+             issues.";
+        }
+        enum "on" {
+          value 1;
+          description
+            "Laser status is on";
+        }
+        enum "off" {
+          value 2;
+          description
+            "Laser status is off";
+        }
+      }
+      config false;
+      description
+        "The actual status of the laser";
+    }
+    description
+      "Laser Off Capability group";
   }
 }

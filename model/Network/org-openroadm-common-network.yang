@@ -13,7 +13,7 @@ module org-openroadm-common-network {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -59,6 +59,10 @@ module org-openroadm-common-network {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -209,6 +213,35 @@ module org-openroadm-common-network {
     }
     leaf operational-state {
       type org-openroadm-common-state-types:state;
+      description
+        "Operational state. For bidirectional entity this attribute
+         represents the summary operational state for the entity. If
+         either direction is outOfService then the operational-state
+         is outOfService. If one direction is degraded and the other
+         direction is either inService or degraded, then the
+         operational state is degraded. If both directions are
+         inService then the operational-state is inService. The
+         operational state represents the functional state of an
+         entity. An operational-state of outOfService or degraded
+         should have a standing condition that relates to this
+         status.";
+    }
+    leaf operational-state-rx {
+      type org-openroadm-common-state-types:state;
+      description
+        "Operational state for the receive direction. The operational
+         state represents the functional state of an entity. An
+         operational-state of outOfService or degraded should have a
+         standing condition that relates to this status.";
+    }
+    leaf operational-state-tx {
+      type org-openroadm-common-state-types:state;
+      description
+        "Operational state for the transmit direction. The
+         operational state represents the functional state of an
+         entity. An operational-state of outOfService or degraded
+         should have a standing condition that relates to this
+         status.";
     }
     leaf administrative-state {
       type org-openroadm-equipment-states-types:admin-states;

@@ -15,6 +15,7 @@ module: ietf-network
         |  +--rw supporting-node* [network-ref node-ref]
         |  |  +--rw network-ref    -> ../../../supporting-network/network-ref
         |  |  +--rw node-ref       -> /networks/network/node/node-id
+        |  +--rw cn:clli?                         string
         |  +--rw nt:termination-point* [tp-id]
         |  |  +--rw nt:tp-id                                       tp-id
         |  |  +--rw nt:supporting-termination-point* [network-ref node-ref tp-ref]
@@ -27,6 +28,8 @@ module: ietf-network
         |  |  +--rw cnet:eqpt-srg-id?                              uint32
         |  |  +--rw cnet:lifecycle-state?                          org-openroadm-common-state-types:lifecycle-state
         |  |  +--rw cnet:operational-state?                        org-openroadm-common-state-types:state
+        |  |  +--rw cnet:operational-state-rx?                     org-openroadm-common-state-types:state
+        |  |  +--rw cnet:operational-state-tx?                     org-openroadm-common-state-types:state
         |  |  +--rw cnet:administrative-state?                     org-openroadm-equipment-states-types:admin-states
         |  |  +--rw topo:tx-ttp-attributes
         |  |  |  +--rw topo:used-wavelengths* [index]
@@ -101,6 +104,7 @@ module: ietf-network
         |  |  |  +--rw topo:modulation-format?             org-openroadm-common-optical-channel-types:modulation-format
         |  |  |  +--rw topo:optic?                         org-openroadm-common-equipment-types:optic-types
         |  |  |  +--rw topo:state?                         org-openroadm-common-state-types:state
+        |  |  |  +--rw topo:recolor?                       boolean
         |  |  |  +--rw topo:wavelength
         |  |  |  |  +--rw topo:frequency?   org-openroadm-common-optical-channel-types:frequency-THz
         |  |  |  |  +--rw topo:width?       org-openroadm-common-optical-channel-types:frequency-GHz
@@ -175,7 +179,6 @@ module: ietf-network
         |  |     +--rw otn-topo:service-format?                  org-openroadm-service-format:service-format
         |  |     +--rw otn-topo:service-rate?                    uint32
         |  |     +--rw otn-topo:other-service-format-and-rate?   string
-        |  +--rw cn:clli?                         string
         |  +--rw cnet:node-type?                  org-openroadm-network-types:openroadm-node-type
         |  +--rw cnet:node-subtype?               org-openroadm-common-node-types:node-subtypes
         |  +--rw cnet:lifecycle-state?            org-openroadm-common-state-types:lifecycle-state
@@ -210,6 +213,7 @@ module: ietf-network
         |  |  +--rw topo:type-variety?                     string
         |  +--rw topo:xpdr-attributes
         |  |  +--rw topo:xpdr-number?   uint16
+        |  |  +--rw topo:recolor?       boolean
         |  +--rw net:software-version?            string
         |  +--rw net:openroadm-version?           org-openroadm-common-types:openroadm-version-type
         |  +--rw net:vendor?                      string
@@ -223,6 +227,7 @@ module: ietf-network
         |  |  +--rw net:supported-xpdr-list
         |  |     +--rw net:supported-xpdr* [xpdr-type]
         |  |        +--rw net:xpdr-type                      org-openroadm-common-node-types:xpdr-node-types
+        |  |        +--rw net:recolor?                       boolean
         |  |        +--rw net:supported-operational-modes
         |  |           +--rw net:supported-operational-mode* [operational-mode-id]
         |  |              +--rw net:operational-mode-id    string
@@ -275,6 +280,7 @@ module: ietf-network
         |  |        +--rw otn-topo:tp-list*                            nwt:tp-id
         |  +--rw otn-topo:xpdr-attributes
         |     +--rw otn-topo:xpdr-number?   uint16
+        |     +--rw otn-topo:recolor?       boolean
         +--rw nt:link* [link-id]
         |  +--rw nt:link-id                      link-id
         |  +--rw nt:source

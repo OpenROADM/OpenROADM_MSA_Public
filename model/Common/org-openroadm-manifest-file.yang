@@ -55,6 +55,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";

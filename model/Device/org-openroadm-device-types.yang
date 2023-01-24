@@ -35,6 +35,10 @@ module org-openroadm-device-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -80,6 +84,9 @@ module org-openroadm-device-types {
       }
       enum ila-internal {
         value 9;
+      }
+      enum roadm-internal-monitor {
+        value 10;
       }
     }
   }

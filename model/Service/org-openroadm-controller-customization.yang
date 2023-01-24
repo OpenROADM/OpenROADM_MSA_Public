@@ -13,7 +13,7 @@ module org-openroadm-controller-customization {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -53,6 +53,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -568,13 +572,6 @@ module org-openroadm-controller-customization {
     }
     container global-restriction {
       container site-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the restriction scopes applicable for the site-restriction.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list site {
           key "site-id";
           description
@@ -586,16 +583,16 @@ module org-openroadm-controller-customization {
             type restriction-type;
             default "both";
           }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable for the site-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
+          }
         }
       }
       container node-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the restriction scopes applicable for the node-restriction.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list node {
           key "node-id";
           description
@@ -607,16 +604,16 @@ module org-openroadm-controller-customization {
             type restriction-type;
             default "both";
           }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable for the node-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
+          }
         }
       }
       container regeneration-site-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the restriction scopes applicable for the regeneration-restriction.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list forbidden-site {
           key "site-id";
           description
@@ -628,16 +625,16 @@ module org-openroadm-controller-customization {
             type regeneration-restriction-type;
             default "both";
           }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable for the regenrator-site-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
+          }
         }
       }
       container regeneration-node-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the restriction scopes applicable for the regeneration-restriction.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list forbidden-node {
           key "node-id";
           description
@@ -649,16 +646,16 @@ module org-openroadm-controller-customization {
             type regeneration-restriction-type;
             default "both";
           }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable for the regeneration-node-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
+          }
         }
       }
       container link-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the resctriction scopes applicable for the link-restriction.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list link {
           key "link-id";
           leaf link-id {
@@ -670,16 +667,16 @@ module org-openroadm-controller-customization {
             type link-restriction-type;
             default "fully-restricted";
           }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable for the link-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
+          }
         }
       }
       container supporting-service-restriction {
-        leaf-list restriction-scopes {
-          description
-            "Set of the restriction scopes applicable for the supporting-services.
-            Default scope is set to all RPCs";
-          type restriction-scope;
-          default "all";
-        }
         list supporting-service-list {
           key "supporting-service";
           leaf supporting-service {
@@ -690,6 +687,13 @@ module org-openroadm-controller-customization {
           leaf supporting-service-restriction-type {
             type link-restriction-type;
             default "fully-restricted";
+          }
+          leaf-list restriction-scopes {
+            description
+              "Restriction scope applicable applicable for the supporting-service-restriction.
+              Default scope is set to all RPCs";
+            type restriction-scope;
+            default "all";
           }
         }
       }
