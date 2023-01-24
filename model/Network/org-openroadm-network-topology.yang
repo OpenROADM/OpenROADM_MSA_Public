@@ -13,7 +13,7 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-srg {
     prefix srg;
@@ -21,11 +21,11 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
@@ -33,11 +33,11 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
 
   organization
@@ -73,6 +73,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -209,11 +213,13 @@ module org-openroadm-network-topology {
       must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or
             (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
             (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
-             ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT'))" {
+             ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT' or
+             ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT'))" {
         error-message "Invalid link type for openroadm-topology";
         description
           "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
-           'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT'";
+           'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT', 'REGEN-INPUT',
+           'REGEN-OUTPUT'";
       }
     }
   }
@@ -314,6 +320,11 @@ module org-openroadm-network-topology {
     container xpdr-network-attributes {
       when "../cnet:tp-type = 'XPONDER-NETWORK'";
       uses xpdr:xpdr-connection-attributes;
+      leaf recolor {
+        type boolean;
+        description
+          "Indication if the recolor is supported or not";
+      }
       uses xpdr:xpdr-port-connection-attributes;
       uses xpdr:xpdr-mode-attributes;
       uses org-openroadm-network-types:type-variety-grp;

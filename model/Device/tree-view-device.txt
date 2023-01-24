@@ -259,6 +259,7 @@ module: org-openroadm-device
      |  +--rw template?                           string
      |  +--ro current-datetime?                   ietf-yang-types:date-and-time
      |  +--rw lifecycle-state?                    org-openroadm-common-state-types:lifecycle-state
+     |  +--ro recovery-mode?                      boolean {recovery-mode-support}?
      |  +--rw geoLocation
      |  |  +--rw latitude?    decimal64
      |  |  +--rw longitude?   decimal64
@@ -407,6 +408,8 @@ module: org-openroadm-device
      |     +--rw lifecycle-state?                                   org-openroadm-common-state-types:lifecycle-state
      |     +--rw administrative-state?                              org-openroadm-equipment-states-types:admin-states
      |     +--ro operational-state                                  org-openroadm-common-state-types:state
+     |     +--ro operational-state-rx?                              org-openroadm-common-state-types:state
+     |     +--ro operational-state-tx?                              org-openroadm-common-state-types:state
      |     +--rw logical-connection-point?                          string
      |     +--ro partner-port
      |     |  +--ro circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
@@ -438,6 +441,9 @@ module: org-openroadm-device
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-link-types:power-dBm
+     |     +--rw roadm-monitor-port
+     |     |  +--ro center-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+     |     |  +--ro roadm-connection*   -> /org-openroadm-device/roadm-connections/connection-name
      |     +--ro org-openroadm-port-capability:port-capabilities
      |        +--ro org-openroadm-port-capability:supported-interface-capability* [if-cap-type]
      |           +--ro org-openroadm-port-capability:if-cap-type                              identityref
@@ -462,6 +468,8 @@ module: org-openroadm-device
      |  +--rw lifecycle-state?                                          org-openroadm-common-state-types:lifecycle-state
      |  +--rw administrative-state                                      org-openroadm-equipment-states-types:admin-states
      |  +--ro operational-state                                         org-openroadm-common-state-types:state
+     |  +--ro operational-state-rx?                                     org-openroadm-common-state-types:state
+     |  +--ro operational-state-tx?                                     org-openroadm-common-state-types:state
      |  +--rw circuit-id?                                               string
      |  +--rw supporting-circuit-pack-name?                             -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--rw supporting-port?                                          -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../supporting-circuit-pack-name]/ports/port-name
@@ -474,6 +482,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?   enumeration
      |  |  +--rw org-openroadm-eth-interfaces:duplex?                     enumeration
      |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?           enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:enable-laser?               enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:laser-status?               enumeration
      |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                 string
      |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                string
      |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?             uint32
@@ -571,6 +581,8 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-channel-interfaces:enable-laser?               enumeration
+     |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
@@ -590,6 +602,8 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:enable-laser?               enumeration
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
@@ -706,6 +720,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-n-rate?              uint16
      |  |  +--rw org-openroadm-otn-otu-interfaces:otucn-M-subrate?           uint16
      |  |  +--rw org-openroadm-otn-otu-interfaces:fec?                       identityref
+     |  |  +--rw org-openroadm-otn-otu-interfaces:enable-laser?              enumeration
+     |  |  +--ro org-openroadm-otn-otu-interfaces:laser-status?              enumeration
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-sapi?                   string
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-dapi?                   string
      |  |  +--rw org-openroadm-otn-otu-interfaces:tx-operator?               string
@@ -1682,6 +1698,43 @@ module: org-openroadm-device
     |        +--ro subSlot?             string
     |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
     |        +--ro port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+    |        +--ro is-physical          boolean
+    |        +--ro pm-capable           boolean
+    |        +--ro alarm-capable        boolean
+    +---x get-connection-port-trail-optical-pm
+    |  +---w input
+    |  |  +---w connection-name    string
+    |  +--ro output
+    |     +--ro status            rpc-status
+    |     +--ro status-message?   string
+    |     +--ro port* [circuit-pack-name port-name]
+    |     |  +--ro circuit-pack-name          -> /org-openroadm-device/circuit-packs/circuit-pack-name
+    |     |  +--ro port-name                  -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+    |     |  +--ro is-physical                boolean
+    |     |  +--ro is-aggregate-or-channel    enumeration
+    |     |  +--ro pm-retrieval-time          ietf-yang-types:date-and-time
+    |     |  +--ro pm-data* []
+    |     |     +--ro type                pm-names-enum
+    |     |     +--ro extension?          string
+    |     |     +--ro location            org-openroadm-common-alarm-pm-types:location
+    |     |     +--ro direction           org-openroadm-common-alarm-pm-types:direction
+    |     |     +--ro pmParameterValue    pm-data-type
+    |     |     +--ro pmParameterUnit?    string
+    |     |     +--ro validity            validity
+    |     |     +--ro start-time          ietf-yang-types:date-and-time
+    |     +--ro interface* [interface-name]
+    |        +--ro interface-name       -> /org-openroadm-device/interface/name
+    |        +--ro type                 identityref
+    |        +--ro pm-retrieval-time    ietf-yang-types:date-and-time
+    |        +--ro pm-data* []
+    |           +--ro type                pm-names-enum
+    |           +--ro extension?          string
+    |           +--ro location            org-openroadm-common-alarm-pm-types:location
+    |           +--ro direction           org-openroadm-common-alarm-pm-types:direction
+    |           +--ro pmParameterValue    pm-data-type
+    |           +--ro pmParameterUnit?    string
+    |           +--ro validity            validity
+    |           +--ro start-time          ietf-yang-types:date-and-time
     +---x disable-automatic-shutoff
     |  +---w input
     |  |  +---w (degree-or-amp)
@@ -1707,8 +1760,12 @@ module: org-openroadm-device
     |     +--ro status            rpc-status
     |     +--ro status-message?   string
     +---x set-current-datetime
-       +---w input
-       |  +---w current-datetime    ietf-yang-types:date-and-time
+    |  +---w input
+    |  |  +---w current-datetime    ietf-yang-types:date-and-time
+    |  +--ro output
+    |     +--ro status            rpc-status
+    |     +--ro status-message?   string
+    +---x clear-recovery-mode {recovery-mode-support}?
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string

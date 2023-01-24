@@ -323,35 +323,35 @@ module: org-openroadm-controller-customization
        |  |  +---w preferred-sites*       string
        |  +---w global-restriction
        |  |  +---w site-restriction
-       |  |  |  +---w restriction-scopes*   restriction-scope
        |  |  |  +---w site* [site-id]
-       |  |  |     +---w site-id             string
-       |  |  |     +---w restriction-type?   restriction-type
+       |  |  |     +---w site-id               string
+       |  |  |     +---w restriction-type?     restriction-type
+       |  |  |     +---w restriction-scopes*   restriction-scope
        |  |  +---w node-restriction
-       |  |  |  +---w restriction-scopes*   restriction-scope
        |  |  |  +---w node* [node-id]
-       |  |  |     +---w node-id             org-openroadm-common-node-types:node-id-type
-       |  |  |     +---w restriction-type?   restriction-type
+       |  |  |     +---w node-id               org-openroadm-common-node-types:node-id-type
+       |  |  |     +---w restriction-type?     restriction-type
+       |  |  |     +---w restriction-scopes*   restriction-scope
        |  |  +---w regeneration-site-restriction
-       |  |  |  +---w restriction-scopes*   restriction-scope
        |  |  |  +---w forbidden-site* [site-id]
        |  |  |     +---w site-id                          string
        |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
+       |  |  |     +---w restriction-scopes*              restriction-scope
        |  |  +---w regeneration-node-restriction
-       |  |  |  +---w restriction-scopes*   restriction-scope
        |  |  |  +---w forbidden-node* [node-id]
        |  |  |     +---w node-id                          org-openroadm-common-node-types:node-id-type
        |  |  |     +---w regeneration-restriction-type?   regeneration-restriction-type
+       |  |  |     +---w restriction-scopes*              restriction-scope
        |  |  +---w link-restriction
-       |  |  |  +---w restriction-scopes*   restriction-scope
        |  |  |  +---w link* [link-id]
        |  |  |     +---w link-id                  string
        |  |  |     +---w link-restriction-type?   link-restriction-type
+       |  |  |     +---w restriction-scopes*      restriction-scope
        |  |  +---w supporting-service-restriction
-       |  |     +---w restriction-scopes*        restriction-scope
        |  |     +---w supporting-service-list* [supporting-service]
        |  |        +---w supporting-service                     string
        |  |        +---w supporting-service-restriction-type?   link-restriction-type
+       |  |        +---w restriction-scopes*                    restriction-scope
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -654,8 +654,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -710,8 +710,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -1556,8 +1556,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -1612,8 +1612,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -2483,8 +2483,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -2539,8 +2539,8 @@ module: org-openroadm-service
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
   |     |  +--rw diversity
-  |     |  |  +--rw service-identifier-list* [service-indentifier]
-  |     |  |  |  +--rw service-indentifier      string
+  |     |  |  +--rw service-identifier-list* [service-identifier]
+  |     |  |  |  +--rw service-identifier       string
   |     |  |  |  +--rw service-applicability
   |     |  |  |     +--rw site?        boolean
   |     |  |  |     +--rw node?        boolean
@@ -3210,35 +3210,35 @@ module: org-openroadm-service
   |  |  +--rw preferred-sites*       string
   |  +--rw global-restriction
   |  |  +--rw site-restriction
-  |  |  |  +--rw restriction-scopes*   restriction-scope
   |  |  |  +--rw site* [site-id]
-  |  |  |     +--rw site-id             string
-  |  |  |     +--rw restriction-type?   restriction-type
+  |  |  |     +--rw site-id               string
+  |  |  |     +--rw restriction-type?     restriction-type
+  |  |  |     +--rw restriction-scopes*   restriction-scope
   |  |  +--rw node-restriction
-  |  |  |  +--rw restriction-scopes*   restriction-scope
   |  |  |  +--rw node* [node-id]
-  |  |  |     +--rw node-id             org-openroadm-common-node-types:node-id-type
-  |  |  |     +--rw restriction-type?   restriction-type
+  |  |  |     +--rw node-id               org-openroadm-common-node-types:node-id-type
+  |  |  |     +--rw restriction-type?     restriction-type
+  |  |  |     +--rw restriction-scopes*   restriction-scope
   |  |  +--rw regeneration-site-restriction
-  |  |  |  +--rw restriction-scopes*   restriction-scope
   |  |  |  +--rw forbidden-site* [site-id]
   |  |  |     +--rw site-id                          string
   |  |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
+  |  |  |     +--rw restriction-scopes*              restriction-scope
   |  |  +--rw regeneration-node-restriction
-  |  |  |  +--rw restriction-scopes*   restriction-scope
   |  |  |  +--rw forbidden-node* [node-id]
   |  |  |     +--rw node-id                          org-openroadm-common-node-types:node-id-type
   |  |  |     +--rw regeneration-restriction-type?   regeneration-restriction-type
+  |  |  |     +--rw restriction-scopes*              restriction-scope
   |  |  +--rw link-restriction
-  |  |  |  +--rw restriction-scopes*   restriction-scope
   |  |  |  +--rw link* [link-id]
   |  |  |     +--rw link-id                  string
   |  |  |     +--rw link-restriction-type?   link-restriction-type
+  |  |  |     +--rw restriction-scopes*      restriction-scope
   |  |  +--rw supporting-service-restriction
-  |  |     +--rw restriction-scopes*        restriction-scope
   |  |     +--rw supporting-service-list* [supporting-service]
   |  |        +--rw supporting-service                     string
   |  |        +--rw supporting-service-restriction-type?   link-restriction-type
+  |  |        +--rw restriction-scopes*                    restriction-scope
   |  +--rw default-behaviour
   |  |  +--rw default-backup-path-number?   uint16
   |  |  +--rw reversion?                    boolean
@@ -3661,8 +3661,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -3717,8 +3717,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -3807,8 +3807,8 @@ module: org-openroadm-service
     |        |  +--ro customer-code*      string
     |        |  +--ro operational-mode*   string
     |        |  +--ro diversity
-    |        |  |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  |  +--ro service-indentifier      string
+    |        |  |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  |  +--ro service-identifier       string
     |        |  |  |  +--ro service-applicability
     |        |  |  |     +--ro site?        boolean
     |        |  |  |     +--ro node?        boolean
@@ -3863,8 +3863,8 @@ module: org-openroadm-service
     |           +--ro customer-code*      string
     |           +--ro operational-mode*   string
     |           +--ro diversity
-    |           |  +--ro service-identifier-list* [service-indentifier]
-    |           |  |  +--ro service-indentifier      string
+    |           |  +--ro service-identifier-list* [service-identifier]
+    |           |  |  +--ro service-identifier       string
     |           |  |  +--ro service-applicability
     |           |  |     +--ro site?        boolean
     |           |  |     +--ro node?        boolean
@@ -4175,8 +4175,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -4231,8 +4231,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -4323,8 +4323,8 @@ module: org-openroadm-service
     |           |  +--ro customer-code*      string
     |           |  +--ro operational-mode*   string
     |           |  +--ro diversity
-    |           |  |  +--ro service-identifier-list* [service-indentifier]
-    |           |  |  |  +--ro service-indentifier      string
+    |           |  |  +--ro service-identifier-list* [service-identifier]
+    |           |  |  |  +--ro service-identifier       string
     |           |  |  |  +--ro service-applicability
     |           |  |  |     +--ro site?        boolean
     |           |  |  |     +--ro node?        boolean
@@ -4379,8 +4379,8 @@ module: org-openroadm-service
     |              +--ro customer-code*      string
     |              +--ro operational-mode*   string
     |              +--ro diversity
-    |              |  +--ro service-identifier-list* [service-indentifier]
-    |              |  |  +--ro service-indentifier      string
+    |              |  +--ro service-identifier-list* [service-identifier]
+    |              |  |  +--ro service-identifier       string
     |              |  |  +--ro service-applicability
     |              |  |     +--ro site?        boolean
     |              |  |     +--ro node?        boolean
@@ -4690,8 +4690,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -4746,8 +4746,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -4843,8 +4843,8 @@ module: org-openroadm-service
     |        |  |  +--ro customer-code*      string
     |        |  |  +--ro operational-mode*   string
     |        |  |  +--ro diversity
-    |        |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  |  |  +--ro service-indentifier      string
+    |        |  |  |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  |  |  +--ro service-identifier       string
     |        |  |  |  |  +--ro service-applicability
     |        |  |  |  |     +--ro site?        boolean
     |        |  |  |  |     +--ro node?        boolean
@@ -4899,8 +4899,8 @@ module: org-openroadm-service
     |        |     +--ro customer-code*      string
     |        |     +--ro operational-mode*   string
     |        |     +--ro diversity
-    |        |     |  +--ro service-identifier-list* [service-indentifier]
-    |        |     |  |  +--ro service-indentifier      string
+    |        |     |  +--ro service-identifier-list* [service-identifier]
+    |        |     |  |  +--ro service-identifier       string
     |        |     |  |  +--ro service-applicability
     |        |     |  |     +--ro site?        boolean
     |        |     |  |     +--ro node?        boolean
@@ -5455,8 +5455,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -5511,8 +5511,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -5608,8 +5608,8 @@ module: org-openroadm-service
     |     |  |  +--ro customer-code*      string
     |     |  |  +--ro operational-mode*   string
     |     |  |  +--ro diversity
-    |     |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |     |  |  |  |  +--ro service-indentifier      string
+    |     |  |  |  +--ro service-identifier-list* [service-identifier]
+    |     |  |  |  |  +--ro service-identifier       string
     |     |  |  |  |  +--ro service-applicability
     |     |  |  |  |     +--ro site?        boolean
     |     |  |  |  |     +--ro node?        boolean
@@ -5664,8 +5664,8 @@ module: org-openroadm-service
     |     |     +--ro customer-code*      string
     |     |     +--ro operational-mode*   string
     |     |     +--ro diversity
-    |     |     |  +--ro service-identifier-list* [service-indentifier]
-    |     |     |  |  +--ro service-indentifier      string
+    |     |     |  +--ro service-identifier-list* [service-identifier]
+    |     |     |  |  +--ro service-identifier       string
     |     |     |  |  +--ro service-applicability
     |     |     |  |     +--ro site?        boolean
     |     |     |  |     +--ro node?        boolean
@@ -6879,8 +6879,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -6935,8 +6935,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -7033,8 +7033,8 @@ module: org-openroadm-service
     |        |  |  +--ro customer-code*      string
     |        |  |  +--ro operational-mode*   string
     |        |  |  +--ro diversity
-    |        |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  |  |  +--ro service-indentifier      string
+    |        |  |  |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  |  |  +--ro service-identifier       string
     |        |  |  |  |  +--ro service-applicability
     |        |  |  |  |     +--ro site?        boolean
     |        |  |  |  |     +--ro node?        boolean
@@ -7089,8 +7089,8 @@ module: org-openroadm-service
     |        |     +--ro customer-code*      string
     |        |     +--ro operational-mode*   string
     |        |     +--ro diversity
-    |        |     |  +--ro service-identifier-list* [service-indentifier]
-    |        |     |  |  +--ro service-indentifier      string
+    |        |     |  +--ro service-identifier-list* [service-identifier]
+    |        |     |  |  +--ro service-identifier       string
     |        |     |  |  +--ro service-applicability
     |        |     |  |     +--ro site?        boolean
     |        |     |  |     +--ro node?        boolean
@@ -8320,8 +8320,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -8376,8 +8376,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -8493,8 +8493,8 @@ module: org-openroadm-service
     |     |  |  +--ro customer-code*      string
     |     |  |  +--ro operational-mode*   string
     |     |  |  +--ro diversity
-    |     |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |     |  |  |  |  +--ro service-indentifier      string
+    |     |  |  |  +--ro service-identifier-list* [service-identifier]
+    |     |  |  |  |  +--ro service-identifier       string
     |     |  |  |  |  +--ro service-applicability
     |     |  |  |  |     +--ro site?        boolean
     |     |  |  |  |     +--ro node?        boolean
@@ -8549,8 +8549,8 @@ module: org-openroadm-service
     |     |     +--ro customer-code*      string
     |     |     +--ro operational-mode*   string
     |     |     +--ro diversity
-    |     |     |  +--ro service-identifier-list* [service-indentifier]
-    |     |     |  |  +--ro service-indentifier      string
+    |     |     |  +--ro service-identifier-list* [service-identifier]
+    |     |     |  |  +--ro service-identifier       string
     |     |     |  |  +--ro service-applicability
     |     |     |  |     +--ro site?        boolean
     |     |     |  |     +--ro node?        boolean
@@ -8915,8 +8915,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -8971,8 +8971,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -9084,8 +9084,8 @@ module: org-openroadm-service
     |        |  +--ro customer-code*      string
     |        |  +--ro operational-mode*   string
     |        |  +--ro diversity
-    |        |  |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  |  +--ro service-indentifier      string
+    |        |  |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  |  +--ro service-identifier       string
     |        |  |  |  +--ro service-applicability
     |        |  |  |     +--ro site?        boolean
     |        |  |  |     +--ro node?        boolean
@@ -9140,8 +9140,8 @@ module: org-openroadm-service
     |           +--ro customer-code*      string
     |           +--ro operational-mode*   string
     |           +--ro diversity
-    |           |  +--ro service-identifier-list* [service-indentifier]
-    |           |  |  +--ro service-indentifier      string
+    |           |  +--ro service-identifier-list* [service-identifier]
+    |           |  |  +--ro service-identifier       string
     |           |  |  +--ro service-applicability
     |           |  |     +--ro site?        boolean
     |           |  |     +--ro node?        boolean
@@ -9432,8 +9432,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -9488,8 +9488,8 @@ module: org-openroadm-service
     |  |     |  +---w customer-code*      string
     |  |     |  +---w operational-mode*   string
     |  |     |  +---w diversity
-    |  |     |  |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  |  +---w service-indentifier      string
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
     |  |     |  |  |  +---w service-applicability
     |  |     |  |  |     +---w site?        boolean
     |  |     |  |  |     +---w node?        boolean
@@ -9603,8 +9603,8 @@ module: org-openroadm-service
     |        |  +--ro customer-code*      string
     |        |  +--ro operational-mode*   string
     |        |  +--ro diversity
-    |        |  |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  |  +--ro service-indentifier      string
+    |        |  |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  |  +--ro service-identifier       string
     |        |  |  |  +--ro service-applicability
     |        |  |  |     +--ro site?        boolean
     |        |  |  |     +--ro node?        boolean
@@ -9659,8 +9659,8 @@ module: org-openroadm-service
     |           +--ro customer-code*      string
     |           +--ro operational-mode*   string
     |           +--ro diversity
-    |           |  +--ro service-identifier-list* [service-indentifier]
-    |           |  |  +--ro service-indentifier      string
+    |           |  +--ro service-identifier-list* [service-identifier]
+    |           |  |  +--ro service-identifier       string
     |           |  |  +--ro service-applicability
     |           |  |     +--ro site?        boolean
     |           |  |     +--ro node?        boolean
@@ -9844,8 +9844,8 @@ module: org-openroadm-service
     |     |  +--ro customer-code*      string
     |     |  +--ro operational-mode*   string
     |     |  +--ro diversity
-    |     |  |  +--ro service-identifier-list* [service-indentifier]
-    |     |  |  |  +--ro service-indentifier      string
+    |     |  |  +--ro service-identifier-list* [service-identifier]
+    |     |  |  |  +--ro service-identifier       string
     |     |  |  |  +--ro service-applicability
     |     |  |  |     +--ro site?        boolean
     |     |  |  |     +--ro node?        boolean
@@ -9900,8 +9900,8 @@ module: org-openroadm-service
     |        +--ro customer-code*      string
     |        +--ro operational-mode*   string
     |        +--ro diversity
-    |        |  +--ro service-identifier-list* [service-indentifier]
-    |        |  |  +--ro service-indentifier      string
+    |        |  +--ro service-identifier-list* [service-identifier]
+    |        |  |  +--ro service-identifier       string
     |        |  |  +--ro service-applicability
     |        |  |     +--ro site?        boolean
     |        |  |     +--ro node?        boolean
@@ -9964,8 +9964,8 @@ module: org-openroadm-service
     |  |  |  +---w customer-code*      string
     |  |  |  +---w operational-mode*   string
     |  |  |  +---w diversity
-    |  |  |  |  +---w service-identifier-list* [service-indentifier]
-    |  |  |  |  |  +---w service-indentifier      string
+    |  |  |  |  +---w service-identifier-list* [service-identifier]
+    |  |  |  |  |  +---w service-identifier       string
     |  |  |  |  |  +---w service-applicability
     |  |  |  |  |     +---w site?        boolean
     |  |  |  |  |     +---w node?        boolean
@@ -10020,8 +10020,8 @@ module: org-openroadm-service
     |  |     +---w customer-code*      string
     |  |     +---w operational-mode*   string
     |  |     +---w diversity
-    |  |     |  +---w service-identifier-list* [service-indentifier]
-    |  |     |  |  +---w service-indentifier      string
+    |  |     |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  +---w service-identifier       string
     |  |     |  |  +---w service-applicability
     |  |     |  |     +---w site?        boolean
     |  |     |  |     +---w node?        boolean
@@ -10831,8 +10831,8 @@ module: org-openroadm-service
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
     |  |  +--ro diversity
-    |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |  |  |  |  +--ro service-indentifier      string
+    |  |  |  +--ro service-identifier-list* [service-identifier]
+    |  |  |  |  +--ro service-identifier       string
     |  |  |  |  +--ro service-applicability
     |  |  |  |     +--ro site?        boolean
     |  |  |  |     +--ro node?        boolean
@@ -10887,8 +10887,8 @@ module: org-openroadm-service
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
     |  |  +--ro diversity
-    |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |  |  |  |  +--ro service-indentifier      string
+    |  |  |  +--ro service-identifier-list* [service-identifier]
+    |  |  |  |  +--ro service-identifier       string
     |  |  |  |  +--ro service-applicability
     |  |  |  |     +--ro site?        boolean
     |  |  |  |     +--ro node?        boolean
@@ -11734,8 +11734,8 @@ module: org-openroadm-service
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
     |  |  +--ro diversity
-    |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |  |  |  |  +--ro service-indentifier      string
+    |  |  |  +--ro service-identifier-list* [service-identifier]
+    |  |  |  |  +--ro service-identifier       string
     |  |  |  |  +--ro service-applicability
     |  |  |  |     +--ro site?        boolean
     |  |  |  |     +--ro node?        boolean
@@ -11790,8 +11790,8 @@ module: org-openroadm-service
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
     |  |  +--ro diversity
-    |  |  |  +--ro service-identifier-list* [service-indentifier]
-    |  |  |  |  +--ro service-indentifier      string
+    |  |  |  +--ro service-identifier-list* [service-identifier]
+    |  |  |  |  +--ro service-identifier       string
     |  |  |  |  +--ro service-applicability
     |  |  |  |     +--ro site?        boolean
     |  |  |  |     +--ro node?        boolean

@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -998,7 +1002,217 @@ module org-openroadm-probable-cause {
         reference
          "ITU-T G.873.1";
       }
+    enum recoveryModeActive {
+      value 299;
+      description
+       "Raised by the device when it enters the recovery-mode due to the detection of an invalid configuration database. During recovery-mode, device preserves and freezes traffic configuration until the user explicitly clears the mode via the clear-recovery-mode RPC.";
     }
+    enum portLossOfLightLane1 {
+      value 300;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 1.";
+    }
+    enum portLossOfLightLane2 {
+      value 301;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 2.";
+    }
+    enum portLossOfLightLane3 {
+      value 302;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 3.";
+    }
+    enum portLossOfLightLane4 {
+      value 303;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 4.";
+    }
+    enum portLossOfLightLane5 {
+      value 304;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 5.";
+    }
+    enum portLossOfLightLane6 {
+      value 305;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 6.";
+    }
+    enum portLossOfLightLane7 {
+      value 306;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 7.";
+    }
+    enum portLossOfLightLane8 {
+      value 307;
+      description
+       "Applicable to multi lane interfaces. Raised when no optical power is detected on lane 8.";
+    }
+    enum powerOutOfRangeLowLane1 {
+      value 308;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 1 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane2 {
+      value 309;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 2 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane3 {
+      value 310;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 3 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane4 {
+      value 311;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 4 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane5 {
+      value 312;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 5 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane6 {
+      value 313;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 6 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane7 {
+      value 314;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 7 is below a preset threshold.";
+    }
+    enum powerOutOfRangeLowLane8 {
+      value 315;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 8 is below a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane1 {
+      value 316;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 1 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane2 {
+      value 317;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 2 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane3 {
+      value 318;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 3 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane4 {
+      value 319;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 4 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane5 {
+      value 320;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 5 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane6 {
+      value 321;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 6 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane7 {
+      value 322;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 7 is above a preset threshold.";
+    }
+    enum powerOutOfRangeHighLane8 {
+      value 323;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 8 is above a preset threshold.";
+    }
+    enum powerOutOfSpecLowLane1 {
+      value 324;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 1 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane2 {
+      value 325;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 2 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane3 {
+      value 326;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 3 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane4 {
+      value 327;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 4 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane5 {
+      value 328;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 5 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane6 {
+      value 329;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 6 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane7 {
+      value 330;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 7 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecLowLane8 {
+      value 331;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 8 is below the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane1 {
+      value 332;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 1 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane2 {
+      value 333;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 2 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane3 {
+      value 334;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 3 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane4 {
+      value 335;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 4 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane5 {
+      value 336;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 5 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane6 {
+      value 337;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 6 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane7 {
+      value 338;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 7 is above the optical specification for that lane.";
+    }
+    enum powerOutOfSpecHighLane8 {
+      value 339;
+      description
+       "Applicable to multi lane interfaces. Raised when optical power on lane 8 is above the optical specification for that lane.";
+    }
+    enum laserDisabled {
+      value 340;
+      description
+        "Laser has been manually disabled";
+    }
+  }
     description
       "probable cause group";
   }

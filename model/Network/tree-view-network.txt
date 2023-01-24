@@ -30,6 +30,8 @@ module: org-openroadm-common-network
     +--rw eqpt-srg-id?                    uint32
     +--rw lifecycle-state?                org-openroadm-common-state-types:lifecycle-state
     +--rw operational-state?              org-openroadm-common-state-types:state
+    +--rw operational-state-rx?           org-openroadm-common-state-types:state
+    +--rw operational-state-tx?           org-openroadm-common-state-types:state
     +--rw administrative-state?           org-openroadm-equipment-states-types:admin-states
   augment /nd:networks/nd:network/nwt:link:
     +--rw link-type?              org-openroadm-network-types:openroadm-link-type
@@ -80,6 +82,7 @@ module: org-openroadm-network-topology
     |  +--rw type-variety?                     string
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
+       +--rw recolor?       boolean
   augment /nd:networks/nd:network/nd:node/nwt:termination-point:
     +--rw tx-ttp-attributes
     |  +--rw used-wavelengths* [index]
@@ -154,6 +157,7 @@ module: org-openroadm-network-topology
     |  +--rw modulation-format?             org-openroadm-common-optical-channel-types:modulation-format
     |  +--rw optic?                         org-openroadm-common-equipment-types:optic-types
     |  +--rw state?                         org-openroadm-common-state-types:state
+    |  +--rw recolor?                       boolean
     |  +--rw wavelength
     |  |  +--rw frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw width?       org-openroadm-common-optical-channel-types:frequency-GHz
@@ -274,6 +278,7 @@ module: org-openroadm-network
     |  +--rw supported-xpdr-list
     |     +--rw supported-xpdr* [xpdr-type]
     |        +--rw xpdr-type                      org-openroadm-common-node-types:xpdr-node-types
+    |        +--rw recolor?                       boolean
     |        +--rw supported-operational-modes
     |           +--rw supported-operational-mode* [operational-mode-id]
     |              +--rw operational-mode-id    string
@@ -329,6 +334,7 @@ module: org-openroadm-otn-network-topology
     |        +--rw tp-list*                            nwt:tp-id
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
+       +--rw recolor?       boolean
   augment /nd:networks/nd:network/nd:node/nwt:termination-point:
     +--rw tp-supported-interfaces
     |  +--rw supported-interface-capability* [if-cap-type]

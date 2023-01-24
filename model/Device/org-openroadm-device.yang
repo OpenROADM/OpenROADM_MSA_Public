@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -48,7 +48,7 @@ module org-openroadm-device {
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
-    revision-date 2020-12-11;
+    revision-date 2022-12-09;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2022-09-30;
+    revision-date 2022-12-09;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -93,6 +93,10 @@ module org-openroadm-device {
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
     revision-date 2022-05-27;
+  }
+  import org-openroadm-pm-types {
+    prefix org-openroadm-pm-types;
+    revision-date 2022-12-09;
   }
   organization
     "Open ROADM MSA";
@@ -141,6 +145,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2022-12-09 {
+    description
+      "Version 12.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -250,6 +258,11 @@ module org-openroadm-device {
   feature ssh-idle-supervision {
     description
       "This feature indicates that the device supports SSH keep-alive and idle supervision.";
+  }
+
+  feature recovery-mode-support {
+    description
+      "The device supports the ability to detect invalid database situation and enters a recovery-mode which preserve traffic on the data plane, while waiting for the user to initiate recovery actions. The recovery action could be database restore, or in-service database rebuild via configuration replay.";
   }
 
   identity connection-direction-identity {
@@ -365,6 +378,14 @@ module org-openroadm-device {
       type org-openroadm-common-state-types:lifecycle-state;
       description
         "Lifecycle State of the device node. Whether it is planned, deployed, in maintenance, etc.";
+    }
+    leaf recovery-mode {
+      if-feature recovery-mode-support;
+      type boolean;
+      config false;
+      default "false";
+      description
+        "Identify if the device is in recovery mode (True) or not (False).";
     }
     container geoLocation {
       description
@@ -890,6 +911,32 @@ module org-openroadm-device {
       container ila-port {
         when "../port-qual='ila-external'";
         uses org-openroadm-port-types:common-port;
+      }
+      container roadm-monitor-port {
+        when "../port-qual='roadm-internal-monitor'";
+        description
+          "Represents a logical optical monitor point in the device.
+           Used to monitor optical channel power at internal
+           locations.";
+        leaf center-frequency {
+          type org-openroadm-common-optical-channel-types:frequency-THz;
+          config false;
+          description
+            "Center frequency associated with the channel being
+             monitored";
+        }
+        leaf-list roadm-connection {
+          type leafref {
+            path "/org-openroadm-device/roadm-connections/connection-name";
+          }
+          config false;
+          description
+            "The roadm-connection(s) associated with this monitor
+             port. Typically, there would be one roadm-connection
+             associated with uni-directional monitor ports and two
+             roadm-connections associated with bi-directional monitor
+             ports.";
+        }
       }
     }
   }
@@ -1530,7 +1577,6 @@ module org-openroadm-device {
       type leafref {
         path "/org-openroadm-device/interface/name";
       }
-      config false;
       description
         "Name of an interface. Unique within the context of a device.";
     }
@@ -1574,6 +1620,39 @@ module org-openroadm-device {
         type org-openroadm-common-state-types:state;
         config false;
         mandatory true;
+        description
+          "Operational state.
+           For bidirectional entity this attribute represents the
+           summary operational state for the entity. If either
+           direction is outOfService then the operational-state is
+           outOfService. If one direction is degraded and the other
+           direction is either inService or degraded, then the
+           operational state is degraded. If both directions are
+           inService then the operational-state is inService. The
+           operational state represents the functional state of an
+           entity. An operational-state of outOfService or degraded
+           should have a standing condition that relates to this
+           status.";
+      }
+      leaf operational-state-rx {
+        type org-openroadm-common-state-types:state;
+        config false;
+        description
+          "Operational state for the receive direction. The
+           operational state represents the functional state of an
+           entity. An operational-state of outOfService or degraded
+           should have a standing condition that relates to this
+           status.";
+      }
+      leaf operational-state-tx {
+        type org-openroadm-common-state-types:state;
+        config false;
+        description
+          "Operational state for the transmit direction. The
+           operational state represents the functional state of an
+           entity. An operational-state of outOfService or degraded
+           should have a standing condition that relates to this
+           status.";
       }
       leaf circuit-id {
         type string {
@@ -1698,7 +1777,36 @@ module org-openroadm-device {
       config false;
       mandatory true;
       description
-        "Operational state of a port";
+        "Operational state of a port. For bidirectional entity this
+         attribute represents the summary operational state for the
+         entity. If either direction is outOfService then the
+         operational-state is outOfService. If one direction is
+         degraded and the other direction is either inService or
+         degraded, then the operational state is degraded. If both
+         directions are inService then the operational-state is
+         inService. The operational state represents the functional
+         state of an entity. An operational-state of outOfService or
+         degraded should have a standing condition that relates to
+         this status.";
+    }
+    leaf operational-state-rx {
+      type org-openroadm-common-state-types:state;
+      config false;
+      description
+        "Operational state for the receive direction. The operational
+         state represents the functional state of an entity. An
+         operational-state of outOfService or degraded should have a
+         standing condition that relates to this status.";
+    }
+    leaf operational-state-tx {
+      type org-openroadm-common-state-types:state;
+      config false;
+      description
+        "Operational state for the transmit direction. The
+         operational state represents the functional state of an
+         entity. An operational-state of outOfService or degraded
+         should have a standing condition that relates to this
+         status.";
     }
     leaf logical-connection-point {
       type string;
@@ -2736,7 +2844,136 @@ module org-openroadm-device {
             mandatory true;
           }
         }
+        leaf is-physical {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the port is a physical port or logical port
+             (internal channel monitor port)";
+        }
+        leaf pm-capable {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the port supports PM";
+        }
+        leaf alarm-capable {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the port supports alarming";
+        }
       }
+    }
+  }
+
+  rpc get-connection-port-trail-optical-pm {
+    input {
+      leaf connection-name {
+        type string;
+        mandatory true;
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+      list port {
+        key "circuit-pack-name port-name";
+        uses port-name {
+          refine "circuit-pack-name" {
+            mandatory true;
+          }
+          refine "port-name" {
+            mandatory true;
+          }
+        }
+        leaf is-physical {
+          type boolean;
+          mandatory true;
+          description
+            "Indicates if the port is a physical port or logical port
+             (internal channel monitor port)";
+        }
+        leaf is-aggregate-or-channel {
+          type enumeration {
+            enum aggregate {
+              value 1;
+              description
+                "Total aggregate power";
+            }
+            enum channel {
+              value 2;
+              description
+                "Individual channel power";
+            }
+          }
+          mandatory true;
+          description
+            "Indicates if the port represents a total aggregate power
+             or an individual channel power.";
+        }
+        leaf pm-retrieval-time {
+          type ietf-yang-types:date-and-time;
+          mandatory true;
+          description
+            "Represents the time when the data is being read, not the
+             bin start or end time.";
+        }
+        list pm-data {
+          uses current-pm-val-group;
+        }
+      }
+      list interface {
+        key "interface-name";
+        uses interface-name {
+          refine "interface-name" {
+            mandatory true;
+          }
+        }
+        leaf type {
+          type identityref {
+            base org-openroadm-interfaces:interface-type;
+          }
+          mandatory true;
+          description
+            "The type of the interface.";
+        }
+        leaf pm-retrieval-time {
+          type ietf-yang-types:date-and-time;
+          mandatory true;
+          description
+            "Represents the time when the data is being read, not the
+             bin start or end time.";
+        }
+        list pm-data {
+          uses current-pm-val-group;
+        }
+        description
+          "List of the interfaces this port supports. This is a list
+           of names of instances in the flat instance list.
+           Implementations must provide the list of interfaces for
+           port that has interfaces provisioned on that port.";
+      }
+    }
+  }
+
+  grouping current-pm-val-group {
+    uses org-openroadm-pm-types:pm-names;
+    leaf location {
+      type org-openroadm-common-alarm-pm-types:location;
+      mandatory true;
+    }
+    leaf direction {
+      type org-openroadm-common-alarm-pm-types:direction;
+      mandatory true;
+    }
+    uses org-openroadm-pm-types:pm-measurement;
+    leaf start-time {
+      type ietf-yang-types:date-and-time;
+      mandatory true;
+      description
+        "Represents the start time of the bin (15m, 24h granularity)
+         or the start of data collection (notApplicable/untimed
+         granularity).";
     }
   }
 
@@ -2842,6 +3079,17 @@ module org-openroadm-device {
     }
     output {
       uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+  rpc clear-recovery-mode {
+    if-feature recovery-mode-support;
+    description
+      "Upon receiving this RPC, the device push the current configuration datastore contents to the
+        hardware, exits the traffic preservation mode immediately, and sets the recovery-mode attribute to
+        FALSE.";
+    output {
+       uses org-openroadm-common-types:rpc-response-status;
     }
   }
 
