@@ -265,6 +265,9 @@ module org-openroadm-network-types {
       enum REGEN-OUTPUT {
         value 9;
       }
+      enum TURNBACK-LINK {
+        value 10;
+      }
     }
   }
 

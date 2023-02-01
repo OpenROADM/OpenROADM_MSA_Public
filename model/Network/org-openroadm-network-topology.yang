@@ -218,12 +218,12 @@ module org-openroadm-network-topology {
             (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
             (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
              ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT' or
-             ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT'))" {
+             ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT' or ../cnet:link-type = 'TURNBACK-LINK'))" {
         error-message "Invalid link type for openroadm-topology";
         description
           "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
            'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT', 'REGEN-INPUT',
-           'REGEN-OUTPUT'";
+           'REGEN-OUTPUT', 'TURNBACK-LINK'";
       }
     }
   }
