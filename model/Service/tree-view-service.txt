@@ -11778,6 +11778,7 @@ module: org-openroadm-service
     |  |  +--ro co-routing
     |  |     +--ro service-identifier-list* [service-identifier]
     |  |        +--ro service-identifier       string
+    |  |        +---w version-number?   uint64
     |  |        +--ro service-applicability
     |  |           +--ro site?        boolean
     |  |           +--ro node?        boolean
@@ -11792,6 +11793,7 @@ module: org-openroadm-service
     |  |  +--ro diversity
     |  |  |  +--ro service-identifier-list* [service-identifier]
     |  |  |  |  +--ro service-identifier       string
+	|  |  |        +---w version-number?   uint64
     |  |  |  |  +--ro service-applicability
     |  |  |  |     +--ro site?        boolean
     |  |  |  |     +--ro node?        boolean

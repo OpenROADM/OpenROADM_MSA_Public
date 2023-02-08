@@ -228,6 +228,12 @@ module org-openroadm-routing-constraints {
         }
         uses service-applicability-g;
       }
+	  key "version-number";
+	   leaf version-number {
+            type uint64;
+            description
+              "common-id of the service that may be routed disjointly to the considered service in versioned-service-list";
+     }
     }
   }
 
@@ -332,6 +338,12 @@ module org-openroadm-routing-constraints {
           description
             "This can be a service-name or a common-id";
         }
+		key "version-number";
+		 leaf version-number {
+            type uint64;
+            description
+              "common-id of the service that may be routed disjointly to the considered service in versioned-service-list";
+          }
         uses service-applicability-g;
     }
   }
