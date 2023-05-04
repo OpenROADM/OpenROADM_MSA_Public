@@ -13,7 +13,7 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
@@ -21,11 +21,11 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -61,6 +61,10 @@ module org-openroadm-otn-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";

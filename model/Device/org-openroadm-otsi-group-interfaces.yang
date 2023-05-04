@@ -4,7 +4,7 @@ module org-openroadm-otsi-group-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -66,6 +66,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";
