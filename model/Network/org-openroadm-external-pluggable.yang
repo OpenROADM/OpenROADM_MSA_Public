@@ -13,7 +13,7 @@ module org-openroadm-external-pluggable {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -50,6 +50,10 @@ module org-openroadm-external-pluggable {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";

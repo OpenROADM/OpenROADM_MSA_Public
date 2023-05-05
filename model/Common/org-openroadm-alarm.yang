@@ -8,7 +8,7 @@ module org-openroadm-alarm {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2022-09-30;
+    revision-date 2023-05-26;
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;
@@ -48,6 +48,10 @@ module org-openroadm-alarm {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";

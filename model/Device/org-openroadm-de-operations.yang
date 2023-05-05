@@ -4,7 +4,7 @@ module org-openroadm-de-operations {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2022-09-30;
+    revision-date 2023-05-26;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;

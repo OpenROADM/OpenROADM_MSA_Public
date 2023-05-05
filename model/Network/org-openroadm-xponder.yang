@@ -17,7 +17,7 @@ module org-openroadm-xponder {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;

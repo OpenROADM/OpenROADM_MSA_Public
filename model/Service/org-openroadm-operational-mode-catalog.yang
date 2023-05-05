@@ -4,7 +4,7 @@ module org-openroadm-operational-mode-catalog {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
