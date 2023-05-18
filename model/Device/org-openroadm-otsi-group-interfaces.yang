@@ -1,4 +1,5 @@
 module org-openroadm-otsi-group-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/otsi-group-interfaces";
   prefix org-openroadm-otsi-group-interfaces;
 
@@ -17,6 +18,15 @@ module org-openroadm-otsi-group-interfaces {
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
     revision-date 2021-09-24;
+  }
+
+  import org-openroadm-maintenance-testsignal {
+    prefix org-openroadm-maint-testsignal;
+    revision-date 2023-05-26;
+  }
+  import org-openroadm-maintenance-loopback {
+    prefix org-openroadm-maint-loopback;
+    revision-date 2020-09-25;
   }
 
   organization
@@ -224,6 +234,8 @@ module org-openroadm-otsi-group-interfaces {
           uses msi-group;
         }
       }
+      uses org-openroadm-maint-testsignal:maint-testsignal;
+      uses org-openroadm-maint-loopback:maint-loopback;
     }
   }
 

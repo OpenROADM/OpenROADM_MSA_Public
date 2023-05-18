@@ -8,7 +8,7 @@ module org-openroadm-port-capability {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2020-12-11;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -292,6 +292,32 @@ module org-openroadm-port-capability {
               "Port name for logical-port";
           }
         }
+        container eth-capability {
+          description
+            "Ethernet optimized FlexO-xe capability";
+          list mpdr-client-restriction {
+            description
+              "Restriction rules for how the heterogenous ethernet interfaces are multiplexed
+               into network circuit-pack/port and the relation with mapped client ports.";
+            leaf network-eth-circuit-pack-name {
+              type string;
+              mandatory true;
+              description
+                "Circuit-Pack identifier. Unique within the context of a device.";
+            }
+            leaf network-eth-port-name {
+              type string;
+              mandatory true;
+              description
+                "port identifier.";
+            }
+            leaf-list muxp-eth-profile-name {
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-eth-profile/org-openroadm-device:profile-name";
+              }
+            }
+          }
+        } // eth-capability
       }
     }
   }

@@ -241,6 +241,9 @@ module org-openroadm-optical-tributary-signal-interfaces {
       presence "Explicit assigment for flexo container";
       description
         "Flexo presence container";
+      reference
+        "Applicable to Ethernet optimized non-OTN FlexO-xe (G.709.1 Amd4 draft 2023-03), and
+         OTN based mapping FlexO-x (G.709 2020-12)";
       leaf foic-type {
         type identityref {
           base org-openroadm-common-optical-channel-types:foic-identity;
@@ -276,7 +279,6 @@ module org-openroadm-optical-tributary-signal-interfaces {
       }
     }
   }
-
   grouping otsi-container {
     description
       "OTSI container group";
@@ -286,7 +288,6 @@ module org-openroadm-optical-tributary-signal-interfaces {
       uses org-openroadm-optical-tributary-signal-interfaces:otsi-attributes;
     }
   }
-
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
     when "org-openroadm-device:type = 'openROADM-if:otsi'";
     description
