@@ -40,6 +40,10 @@ module org-openroadm-port-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";
@@ -456,6 +460,24 @@ module org-openroadm-port-types {
 
   grouping roadm-port {
     uses common-port;
+  }
+
+  grouping port-features {
+    leaf is-physical {
+      type boolean;
+      description
+        "Indicates if the port is a physical port or a logical port";
+    }
+    leaf pm-capable {
+      type boolean;
+      description
+        "Indicates if the port supports PM";
+    }
+    leaf alarm-capable {
+      type boolean;
+      description
+        "Indicates if the port supports alarming";
+    }
   }
 
 }

@@ -89,7 +89,6 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
-
 module: org-openroadm-database
 
   rpcs:
@@ -407,6 +406,8 @@ module: org-openroadm-device
      |     +--ro port-direction                                     org-openroadm-common-alarm-pm-types:direction
      |     +--ro compliance-codes*                                  org-openroadm-common-phy-codes:compliance-codes-union
      |     +--ro is-physical                                        boolean
+     |     +--ro pm-capable                                         boolean
+     |     +--ro alarm-capable                                      boolean
      |     +--ro faceplate-label                                    string
      |     +--rw user-description?                                  string
      |     +--rw circuit-id?                                        string
@@ -1855,6 +1856,7 @@ module: org-openroadm-device
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
 
+
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -2062,6 +2064,7 @@ module: org-openroadm-ospf
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
 
+
 module: org-openroadm-otn-common
 
   notifications:
@@ -2076,6 +2079,7 @@ module: org-openroadm-otn-common
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
 
+
 module: org-openroadm-prot-equipment-aps
 
   rpcs:
@@ -2087,6 +2091,7 @@ module: org-openroadm-prot-equipment-aps
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 
 module: org-openroadm-prot-otn-linear-aps
 
@@ -2113,6 +2118,7 @@ module: org-openroadm-prot-otn-linear-aps
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
 
+
 module: org-openroadm-rstp
 
   notifications:
@@ -2120,6 +2126,7 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
+
 
 module: org-openroadm-swdl
 
@@ -2153,6 +2160,7 @@ module: org-openroadm-swdl
        +--ro status                         rpc-status
        +--ro status-message?                string
 
+
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -2178,4 +2186,5 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
+
 

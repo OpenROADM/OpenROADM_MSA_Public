@@ -10,6 +10,10 @@ module org-openroadm-topology {
     prefix org-openroadm-network-resource;
     revision-date 2019-11-29;
   }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+    revision-date 2023-05-26;
+  }
 
   organization
     "Open ROADM MSA";
@@ -214,6 +218,9 @@ module org-openroadm-topology {
           description
             "Product code of the circuit-pack";
         }
+      }
+      augment "resource/resource/port" {
+        uses org-openroadm-port-types:port-features;
       }
     }
   }

@@ -277,6 +277,7 @@ module: org-openroadm-ber-test
                 +--ro ber-passed?            boolean
                 +--ro target-prefec-ber?     decimal64
                 +--ro measured-prefec-ber?   decimal64
+
 module: org-openroadm-controller-customization
 
   rpcs:
@@ -376,6 +377,7 @@ module: org-openroadm-controller-customization
           |  +--ro response-message?      string
           |  +--ro ack-final-indicator    string
           +--ro unsupported-customization-options*   string
+
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]
@@ -816,8 +818,11 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
-  |     |  |  |     |     +--rw circuit-pack-name    string
-  |     |  |  |     |     +--rw port-name?           string
+  |     |  |  |     |  |  +--rw circuit-pack-name    string
+  |     |  |  |     |  |  +--rw port-name?           string
+  |     |  |  |     |  +--rw is-physical?                 boolean
+  |     |  |  |     |  +--rw pm-capable?                  boolean
+  |     |  |  |     |  +--rw alarm-capable?               boolean
   |     |  |  |     +--:(connection)
   |     |  |  |     |  +--rw connection-name              string
   |     |  |  |     +--:(physical-link)
@@ -920,8 +925,11 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-product-code?   string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
-  |     |     |     |     +--rw circuit-pack-name    string
-  |     |     |     |     +--rw port-name?           string
+  |     |     |     |  |  +--rw circuit-pack-name    string
+  |     |     |     |  |  +--rw port-name?           string
+  |     |     |     |  +--rw is-physical?                 boolean
+  |     |     |     |  +--rw pm-capable?                  boolean
+  |     |     |     |  +--rw alarm-capable?               boolean
   |     |     |     +--:(connection)
   |     |     |     |  +--rw connection-name              string
   |     |     |     +--:(physical-link)
@@ -1028,8 +1036,11 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
-  |     |     |  |     |     +--rw circuit-pack-name    string
-  |     |     |  |     |     +--rw port-name?           string
+  |     |     |  |     |  |  +--rw circuit-pack-name    string
+  |     |     |  |     |  |  +--rw port-name?           string
+  |     |     |  |     |  +--rw is-physical?                 boolean
+  |     |     |  |     |  +--rw pm-capable?                  boolean
+  |     |     |  |     |  +--rw alarm-capable?               boolean
   |     |     |  |     +--:(connection)
   |     |     |  |     |  +--rw connection-name              string
   |     |     |  |     +--:(physical-link)
@@ -1132,8 +1143,11 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-product-code?   string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
-  |     |        |     |     +--rw circuit-pack-name    string
-  |     |        |     |     +--rw port-name?           string
+  |     |        |     |  |  +--rw circuit-pack-name    string
+  |     |        |     |  |  +--rw port-name?           string
+  |     |        |     |  +--rw is-physical?                 boolean
+  |     |        |     |  +--rw pm-capable?                  boolean
+  |     |        |     |  +--rw alarm-capable?               boolean
   |     |        |     +--:(connection)
   |     |        |     |  +--rw connection-name              string
   |     |        |     +--:(physical-link)
@@ -1718,8 +1732,11 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
-  |     |  |  |     |     +--rw circuit-pack-name    string
-  |     |  |  |     |     +--rw port-name?           string
+  |     |  |  |     |  |  +--rw circuit-pack-name    string
+  |     |  |  |     |  |  +--rw port-name?           string
+  |     |  |  |     |  +--rw is-physical?                 boolean
+  |     |  |  |     |  +--rw pm-capable?                  boolean
+  |     |  |  |     |  +--rw alarm-capable?               boolean
   |     |  |  |     +--:(connection)
   |     |  |  |     |  +--rw connection-name              string
   |     |  |  |     +--:(physical-link)
@@ -1822,8 +1839,11 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-product-code?   string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
-  |     |     |     |     +--rw circuit-pack-name    string
-  |     |     |     |     +--rw port-name?           string
+  |     |     |     |  |  +--rw circuit-pack-name    string
+  |     |     |     |  |  +--rw port-name?           string
+  |     |     |     |  +--rw is-physical?                 boolean
+  |     |     |     |  +--rw pm-capable?                  boolean
+  |     |     |     |  +--rw alarm-capable?               boolean
   |     |     |     +--:(connection)
   |     |     |     |  +--rw connection-name              string
   |     |     |     +--:(physical-link)
@@ -1930,8 +1950,11 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
-  |     |     |  |     |     +--rw circuit-pack-name    string
-  |     |     |  |     |     +--rw port-name?           string
+  |     |     |  |     |  |  +--rw circuit-pack-name    string
+  |     |     |  |     |  |  +--rw port-name?           string
+  |     |     |  |     |  +--rw is-physical?                 boolean
+  |     |     |  |     |  +--rw pm-capable?                  boolean
+  |     |     |  |     |  +--rw alarm-capable?               boolean
   |     |     |  |     +--:(connection)
   |     |     |  |     |  +--rw connection-name              string
   |     |     |  |     +--:(physical-link)
@@ -2034,8 +2057,11 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-product-code?   string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
-  |     |        |     |     +--rw circuit-pack-name    string
-  |     |        |     |     +--rw port-name?           string
+  |     |        |     |  |  +--rw circuit-pack-name    string
+  |     |        |     |  |  +--rw port-name?           string
+  |     |        |     |  +--rw is-physical?                 boolean
+  |     |        |     |  +--rw pm-capable?                  boolean
+  |     |        |     |  +--rw alarm-capable?               boolean
   |     |        |     +--:(connection)
   |     |        |     |  +--rw connection-name              string
   |     |        |     +--:(physical-link)
@@ -2645,8 +2671,11 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
-  |     |  |  |     |     +--rw circuit-pack-name    string
-  |     |  |  |     |     +--rw port-name?           string
+  |     |  |  |     |  |  +--rw circuit-pack-name    string
+  |     |  |  |     |  |  +--rw port-name?           string
+  |     |  |  |     |  +--rw is-physical?                 boolean
+  |     |  |  |     |  +--rw pm-capable?                  boolean
+  |     |  |  |     |  +--rw alarm-capable?               boolean
   |     |  |  |     +--:(connection)
   |     |  |  |     |  +--rw connection-name              string
   |     |  |  |     +--:(physical-link)
@@ -2749,8 +2778,11 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-product-code?   string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
-  |     |     |     |     +--rw circuit-pack-name    string
-  |     |     |     |     +--rw port-name?           string
+  |     |     |     |  |  +--rw circuit-pack-name    string
+  |     |     |     |  |  +--rw port-name?           string
+  |     |     |     |  +--rw is-physical?                 boolean
+  |     |     |     |  +--rw pm-capable?                  boolean
+  |     |     |     |  +--rw alarm-capable?               boolean
   |     |     |     +--:(connection)
   |     |     |     |  +--rw connection-name              string
   |     |     |     +--:(physical-link)
@@ -2857,8 +2889,11 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
-  |     |     |  |     |     +--rw circuit-pack-name    string
-  |     |     |  |     |     +--rw port-name?           string
+  |     |     |  |     |  |  +--rw circuit-pack-name    string
+  |     |     |  |     |  |  +--rw port-name?           string
+  |     |     |  |     |  +--rw is-physical?                 boolean
+  |     |     |  |     |  +--rw pm-capable?                  boolean
+  |     |     |  |     |  +--rw alarm-capable?               boolean
   |     |     |  |     +--:(connection)
   |     |     |  |     |  +--rw connection-name              string
   |     |     |  |     +--:(physical-link)
@@ -2961,8 +2996,11 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-product-code?   string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
-  |     |        |     |     +--rw circuit-pack-name    string
-  |     |        |     |     +--rw port-name?           string
+  |     |        |     |  |  +--rw circuit-pack-name    string
+  |     |        |     |  |  +--rw port-name?           string
+  |     |        |     |  +--rw is-physical?                 boolean
+  |     |        |     |  +--rw pm-capable?                  boolean
+  |     |        |     |  +--rw alarm-capable?               boolean
   |     |        |     +--:(connection)
   |     |        |     |  +--rw connection-name              string
   |     |        |     +--:(physical-link)
@@ -6069,8 +6107,11 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro circuit-pack-product-code?   string
     |     |  |  |  |     +--:(port)
     |     |  |  |  |     |  +--ro port
-    |     |  |  |  |     |     +--ro circuit-pack-name    string
-    |     |  |  |  |     |     +--ro port-name?           string
+    |     |  |  |  |     |  |  +--ro circuit-pack-name    string
+    |     |  |  |  |     |  |  +--ro port-name?           string
+    |     |  |  |  |     |  +--ro is-physical?                 boolean
+    |     |  |  |  |     |  +--ro pm-capable?                  boolean
+    |     |  |  |  |     |  +--ro alarm-capable?               boolean
     |     |  |  |  |     +--:(connection)
     |     |  |  |  |     |  +--ro connection-name              string
     |     |  |  |  |     +--:(physical-link)
@@ -6173,8 +6214,11 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro circuit-pack-product-code?   string
     |     |  |     |     +--:(port)
     |     |  |     |     |  +--ro port
-    |     |  |     |     |     +--ro circuit-pack-name    string
-    |     |  |     |     |     +--ro port-name?           string
+    |     |  |     |     |  |  +--ro circuit-pack-name    string
+    |     |  |     |     |  |  +--ro port-name?           string
+    |     |  |     |     |  +--ro is-physical?                 boolean
+    |     |  |     |     |  +--ro pm-capable?                  boolean
+    |     |  |     |     |  +--ro alarm-capable?               boolean
     |     |  |     |     +--:(connection)
     |     |  |     |     |  +--ro connection-name              string
     |     |  |     |     +--:(physical-link)
@@ -6281,8 +6325,11 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro circuit-pack-product-code?   string
     |     |  |     |  |     +--:(port)
     |     |  |     |  |     |  +--ro port
-    |     |  |     |  |     |     +--ro circuit-pack-name    string
-    |     |  |     |  |     |     +--ro port-name?           string
+    |     |  |     |  |     |  |  +--ro circuit-pack-name    string
+    |     |  |     |  |     |  |  +--ro port-name?           string
+    |     |  |     |  |     |  +--ro is-physical?                 boolean
+    |     |  |     |  |     |  +--ro pm-capable?                  boolean
+    |     |  |     |  |     |  +--ro alarm-capable?               boolean
     |     |  |     |  |     +--:(connection)
     |     |  |     |  |     |  +--ro connection-name              string
     |     |  |     |  |     +--:(physical-link)
@@ -6385,8 +6432,11 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro circuit-pack-product-code?   string
     |     |  |        |     +--:(port)
     |     |  |        |     |  +--ro port
-    |     |  |        |     |     +--ro circuit-pack-name    string
-    |     |  |        |     |     +--ro port-name?           string
+    |     |  |        |     |  |  +--ro circuit-pack-name    string
+    |     |  |        |     |  |  +--ro port-name?           string
+    |     |  |        |     |  +--ro is-physical?                 boolean
+    |     |  |        |     |  +--ro pm-capable?                  boolean
+    |     |  |        |     |  +--ro alarm-capable?               boolean
     |     |  |        |     +--:(connection)
     |     |  |        |     |  +--ro connection-name              string
     |     |  |        |     +--:(physical-link)
@@ -7494,8 +7544,11 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro circuit-pack-product-code?   string
     |        |  |  |  |     +--:(port)
     |        |  |  |  |     |  +--ro port
-    |        |  |  |  |     |     +--ro circuit-pack-name    string
-    |        |  |  |  |     |     +--ro port-name?           string
+    |        |  |  |  |     |  |  +--ro circuit-pack-name    string
+    |        |  |  |  |     |  |  +--ro port-name?           string
+    |        |  |  |  |     |  +--ro is-physical?                 boolean
+    |        |  |  |  |     |  +--ro pm-capable?                  boolean
+    |        |  |  |  |     |  +--ro alarm-capable?               boolean
     |        |  |  |  |     +--:(connection)
     |        |  |  |  |     |  +--ro connection-name              string
     |        |  |  |  |     +--:(physical-link)
@@ -7598,8 +7651,11 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro circuit-pack-product-code?   string
     |        |  |     |     +--:(port)
     |        |  |     |     |  +--ro port
-    |        |  |     |     |     +--ro circuit-pack-name    string
-    |        |  |     |     |     +--ro port-name?           string
+    |        |  |     |     |  |  +--ro circuit-pack-name    string
+    |        |  |     |     |  |  +--ro port-name?           string
+    |        |  |     |     |  +--ro is-physical?                 boolean
+    |        |  |     |     |  +--ro pm-capable?                  boolean
+    |        |  |     |     |  +--ro alarm-capable?               boolean
     |        |  |     |     +--:(connection)
     |        |  |     |     |  +--ro connection-name              string
     |        |  |     |     +--:(physical-link)
@@ -7706,8 +7762,11 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro circuit-pack-product-code?   string
     |        |  |     |  |     +--:(port)
     |        |  |     |  |     |  +--ro port
-    |        |  |     |  |     |     +--ro circuit-pack-name    string
-    |        |  |     |  |     |     +--ro port-name?           string
+    |        |  |     |  |     |  |  +--ro circuit-pack-name    string
+    |        |  |     |  |     |  |  +--ro port-name?           string
+    |        |  |     |  |     |  +--ro is-physical?                 boolean
+    |        |  |     |  |     |  +--ro pm-capable?                  boolean
+    |        |  |     |  |     |  +--ro alarm-capable?               boolean
     |        |  |     |  |     +--:(connection)
     |        |  |     |  |     |  +--ro connection-name              string
     |        |  |     |  |     +--:(physical-link)
@@ -7810,8 +7869,11 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro circuit-pack-product-code?   string
     |        |  |        |     +--:(port)
     |        |  |        |     |  +--ro port
-    |        |  |        |     |     +--ro circuit-pack-name    string
-    |        |  |        |     |     +--ro port-name?           string
+    |        |  |        |     |  |  +--ro circuit-pack-name    string
+    |        |  |        |     |  |  +--ro port-name?           string
+    |        |  |        |     |  +--ro is-physical?                 boolean
+    |        |  |        |     |  +--ro pm-capable?                  boolean
+    |        |  |        |     |  +--ro alarm-capable?               boolean
     |        |  |        |     +--:(connection)
     |        |  |        |     |  +--ro connection-name              string
     |        |  |        |     +--:(physical-link)
@@ -10993,8 +11055,11 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro circuit-pack-product-code?   string
     |  |  |  |     +--:(port)
     |  |  |  |     |  +--ro port
-    |  |  |  |     |     +--ro circuit-pack-name    string
-    |  |  |  |     |     +--ro port-name?           string
+    |  |  |  |     |  |  +--ro circuit-pack-name    string
+    |  |  |  |     |  |  +--ro port-name?           string
+    |  |  |  |     |  +--ro is-physical?                 boolean
+    |  |  |  |     |  +--ro pm-capable?                  boolean
+    |  |  |  |     |  +--ro alarm-capable?               boolean
     |  |  |  |     +--:(connection)
     |  |  |  |     |  +--ro connection-name              string
     |  |  |  |     +--:(physical-link)
@@ -11097,8 +11162,11 @@ module: org-openroadm-service
     |  |     |     |  +--ro circuit-pack-product-code?   string
     |  |     |     +--:(port)
     |  |     |     |  +--ro port
-    |  |     |     |     +--ro circuit-pack-name    string
-    |  |     |     |     +--ro port-name?           string
+    |  |     |     |  |  +--ro circuit-pack-name    string
+    |  |     |     |  |  +--ro port-name?           string
+    |  |     |     |  +--ro is-physical?                 boolean
+    |  |     |     |  +--ro pm-capable?                  boolean
+    |  |     |     |  +--ro alarm-capable?               boolean
     |  |     |     +--:(connection)
     |  |     |     |  +--ro connection-name              string
     |  |     |     +--:(physical-link)
@@ -11205,8 +11273,11 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro circuit-pack-product-code?   string
     |  |     |  |     +--:(port)
     |  |     |  |     |  +--ro port
-    |  |     |  |     |     +--ro circuit-pack-name    string
-    |  |     |  |     |     +--ro port-name?           string
+    |  |     |  |     |  |  +--ro circuit-pack-name    string
+    |  |     |  |     |  |  +--ro port-name?           string
+    |  |     |  |     |  +--ro is-physical?                 boolean
+    |  |     |  |     |  +--ro pm-capable?                  boolean
+    |  |     |  |     |  +--ro alarm-capable?               boolean
     |  |     |  |     +--:(connection)
     |  |     |  |     |  +--ro connection-name              string
     |  |     |  |     +--:(physical-link)
@@ -11309,8 +11380,11 @@ module: org-openroadm-service
     |  |        |     |  +--ro circuit-pack-product-code?   string
     |  |        |     +--:(port)
     |  |        |     |  +--ro port
-    |  |        |     |     +--ro circuit-pack-name    string
-    |  |        |     |     +--ro port-name?           string
+    |  |        |     |  |  +--ro circuit-pack-name    string
+    |  |        |     |  |  +--ro port-name?           string
+    |  |        |     |  +--ro is-physical?                 boolean
+    |  |        |     |  +--ro pm-capable?                  boolean
+    |  |        |     |  +--ro alarm-capable?               boolean
     |  |        |     +--:(connection)
     |  |        |     |  +--ro connection-name              string
     |  |        |     +--:(physical-link)
@@ -11896,8 +11970,11 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro circuit-pack-product-code?   string
     |  |  |  |     +--:(port)
     |  |  |  |     |  +--ro port
-    |  |  |  |     |     +--ro circuit-pack-name    string
-    |  |  |  |     |     +--ro port-name?           string
+    |  |  |  |     |  |  +--ro circuit-pack-name    string
+    |  |  |  |     |  |  +--ro port-name?           string
+    |  |  |  |     |  +--ro is-physical?                 boolean
+    |  |  |  |     |  +--ro pm-capable?                  boolean
+    |  |  |  |     |  +--ro alarm-capable?               boolean
     |  |  |  |     +--:(connection)
     |  |  |  |     |  +--ro connection-name              string
     |  |  |  |     +--:(physical-link)
@@ -12000,8 +12077,11 @@ module: org-openroadm-service
     |  |     |     |  +--ro circuit-pack-product-code?   string
     |  |     |     +--:(port)
     |  |     |     |  +--ro port
-    |  |     |     |     +--ro circuit-pack-name    string
-    |  |     |     |     +--ro port-name?           string
+    |  |     |     |  |  +--ro circuit-pack-name    string
+    |  |     |     |  |  +--ro port-name?           string
+    |  |     |     |  +--ro is-physical?                 boolean
+    |  |     |     |  +--ro pm-capable?                  boolean
+    |  |     |     |  +--ro alarm-capable?               boolean
     |  |     |     +--:(connection)
     |  |     |     |  +--ro connection-name              string
     |  |     |     +--:(physical-link)
@@ -12108,8 +12188,11 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro circuit-pack-product-code?   string
     |  |     |  |     +--:(port)
     |  |     |  |     |  +--ro port
-    |  |     |  |     |     +--ro circuit-pack-name    string
-    |  |     |  |     |     +--ro port-name?           string
+    |  |     |  |     |  |  +--ro circuit-pack-name    string
+    |  |     |  |     |  |  +--ro port-name?           string
+    |  |     |  |     |  +--ro is-physical?                 boolean
+    |  |     |  |     |  +--ro pm-capable?                  boolean
+    |  |     |  |     |  +--ro alarm-capable?               boolean
     |  |     |  |     +--:(connection)
     |  |     |  |     |  +--ro connection-name              string
     |  |     |  |     +--:(physical-link)
@@ -12212,8 +12295,11 @@ module: org-openroadm-service
     |  |        |     |  +--ro circuit-pack-product-code?   string
     |  |        |     +--:(port)
     |  |        |     |  +--ro port
-    |  |        |     |     +--ro circuit-pack-name    string
-    |  |        |     |     +--ro port-name?           string
+    |  |        |     |  |  +--ro circuit-pack-name    string
+    |  |        |     |  |  +--ro port-name?           string
+    |  |        |     |  +--ro is-physical?                 boolean
+    |  |        |     |  +--ro pm-capable?                  boolean
+    |  |        |     |  +--ro alarm-capable?               boolean
     |  |        |     +--:(connection)
     |  |        |     |  +--ro connection-name              string
     |  |        |     +--:(physical-link)
@@ -12376,3 +12462,4 @@ module: org-openroadm-service
        +--ro impacted-resource-type?   string
        +--ro impacted-resource-id?     string
        +--ro topology-layer?           enumeration
+

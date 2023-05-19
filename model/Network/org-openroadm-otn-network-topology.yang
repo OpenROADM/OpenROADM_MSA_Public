@@ -17,7 +17,7 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
-    revision-date 2020-12-11;
+    revision-date 2023-05-26;
   }
   import org-openroadm-xponder {
     prefix xpdr;

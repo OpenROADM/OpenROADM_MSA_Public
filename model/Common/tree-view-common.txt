@@ -126,6 +126,7 @@ module: org-openroadm-alarm
        +--ro circuit-id?          string
        +--ro additional-detail?   string
        +--ro corrective-action?   string
+
 module: org-openroadm-manifest-file
   +--rw sw-manifest!
   |  +--rw vendor                  string
@@ -262,6 +263,7 @@ module: org-openroadm-manifest-file
            +--rw command-name    string
            +--rw timeout?        uint16
            +--rw is-async?       boolean
+
 module: org-openroadm-pm
   +--ro current-pm-list
   |  +--ro current-pm-entry* [pm-resource-type pm-resource-type-extension pm-resource-instance]
@@ -369,6 +371,7 @@ module: org-openroadm-pm
        +--ro pm-filename       string
        +--ro status            rpc-status
        +--ro status-message?   string
+
 module: org-openroadm-tca
   +--rw potential-tca-list
   |  +--rw tca-entry* [tca-resource-type tca-resource-type-extension tca-resource-instance]
@@ -452,6 +455,7 @@ module: org-openroadm-tca
        +--ro threshold-type                 threshold-enum
        +--ro pm-value                       org-openroadm-pm-types:pm-data-type
        +--ro raise-time                     yang:date-and-time
+
 module: org-openroadm-user-mgmt
 
   rpcs:
