@@ -277,7 +277,6 @@ module: org-openroadm-ber-test
                 +--ro ber-passed?            boolean
                 +--ro target-prefec-ber?     decimal64
                 +--ro measured-prefec-ber?   decimal64
-
 module: org-openroadm-controller-customization
 
   rpcs:
@@ -377,7 +376,6 @@ module: org-openroadm-controller-customization
           |  +--ro response-message?      string
           |  +--ro ack-final-indicator    string
           +--ro unsupported-customization-options*   string
-
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]
@@ -12462,4 +12460,3 @@ module: org-openroadm-service
        +--ro impacted-resource-type?   string
        +--ro impacted-resource-id?     string
        +--ro topology-layer?           enumeration
-
