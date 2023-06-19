@@ -1,10 +1,11 @@
 module org-openroadm-otsi-group-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/otsi-group-interfaces";
   prefix org-openroadm-otsi-group-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,11 +13,20 @@ module org-openroadm-otsi-group-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
     revision-date 2021-09-24;
+  }
+
+  import org-openroadm-maintenance-testsignal {
+    prefix org-openroadm-maint-testsignal;
+    revision-date 2023-05-26;
+  }
+  import org-openroadm-maintenance-loopback {
+    prefix org-openroadm-maint-loopback;
+    revision-date 2020-09-25;
   }
 
   organization
@@ -66,6 +76,10 @@ module org-openroadm-otsi-group-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";
@@ -220,6 +234,8 @@ module org-openroadm-otsi-group-interfaces {
           uses msi-group;
         }
       }
+      uses org-openroadm-maint-testsignal:maint-testsignal;
+      uses org-openroadm-maint-loopback:maint-loopback;
     }
   }
 

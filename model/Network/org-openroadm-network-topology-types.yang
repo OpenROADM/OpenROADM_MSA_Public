@@ -17,7 +17,7 @@ module org-openroadm-network-topology-types {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2020-12-11;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -51,6 +51,10 @@ module org-openroadm-network-topology-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2020-12-11 {
     description
       "Version 8.1";

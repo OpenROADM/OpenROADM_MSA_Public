@@ -5,7 +5,7 @@ module org-openroadm-maintenance-testsignal {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -41,6 +41,10 @@ module org-openroadm-maintenance-testsignal {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";
@@ -181,12 +185,13 @@ module org-openroadm-maintenance-testsignal {
           enum PRBS {
             value 0;
             description
-              "Unframed, inverted PN-31 pattern or PRBS31 pattern per IEEE 802.3 clause 50.3.8.2 (inverted PN-31 at line rate)";
+              "Unframed, inverted PN-31 pattern or PRBS31 pattern per IEEE 802.3
+               clause 50.3.8.2 (inverted PN-31 at line rate)";
           }
           enum PRBS31 {
             value 1;
             description
-              "PRBS31 with standard mapping per G.709";
+              "PRBS31 with standard mapping per G.709 clause 17.5.2 and G.709.1 Amd4 draft clause 10.6";
           }
           enum PRBS23 {
             value 2;

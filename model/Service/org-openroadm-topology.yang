@@ -4,11 +4,15 @@ module org-openroadm-topology {
 
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2022-09-30;
+    revision-date 2023-05-26;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
     revision-date 2019-11-29;
+  }
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -44,6 +48,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";
@@ -210,6 +218,9 @@ module org-openroadm-topology {
           description
             "Product code of the circuit-pack";
         }
+      }
+      augment "resource/resource/port" {
+        uses org-openroadm-port-types:port-features;
       }
     }
   }

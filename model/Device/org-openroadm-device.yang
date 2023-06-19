@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2020-12-11;
+    revision-date 2023-05-26;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -84,7 +84,7 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -145,6 +145,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";
@@ -945,13 +949,58 @@ module org-openroadm-device {
     }
   }
 
+  grouping eth-connection {
+    description
+      "Grouping used to define eth-connections.";
+    leaf connection-name {
+      type string;
+      description
+        "roadm-connection, eth-connection and odu-connection share the same resource-type and
+         resource definition (e.g. connection)";
+    }
+    leaf direction {
+      type enumeration {
+        enum bidirectional {
+          value 2;
+        }
+      }
+      default "bidirectional";
+      description
+        "Directionality of connection.";
+    }
+    container source {
+      leaf src-if {
+        type leafref {
+          path "/org-openroadm-device/interface/name";
+        }
+        mandatory true;
+      }
+    }
+    container destination {
+      leaf dst-if {
+        type leafref {
+          path "/org-openroadm-device/interface/name";
+        }
+        mandatory true;
+      }
+    }
+    leaf circuit-id {
+      type string {
+        length "0..45";
+      }
+      description
+        "circuit identifier/user label,
+         can be used in alarm correlation and/or connection management ";
+    }
+  }
   grouping odu-connection {
     description
       "Grouping used to define odu-connections.";
     leaf connection-name {
       type string;
       description
-        "roadm-connection and odu-connection share the same resource-type and resource definition (e.g. connection)";
+        "roadm-connection, eth-connection and odu-connection share the same resource-type and
+         resource definition (e.g. connection)";
     }
     leaf direction {
       type enumeration {
@@ -982,6 +1031,14 @@ module org-openroadm-device {
         mandatory true;
       }
     }
+    leaf circuit-id {
+      type string {
+        length "0..45";
+      }
+      description
+        "circuit identifier/user label,
+         can be used in alarm correlation and/or connection management ";
+    }
   }
 
   grouping connection {
@@ -989,6 +1046,9 @@ module org-openroadm-device {
       "Grouping used to define connections.";
     leaf connection-name {
       type string;
+      description
+        "roadm-connection, eth-connection and odu-connection share the same resource-type and
+         resource definition (e.g. connection)";
     }
     leaf opticalControlMode {
       type org-openroadm-common-link-types:optical-control-mode;
@@ -1018,6 +1078,14 @@ module org-openroadm-device {
         }
         mandatory true;
       }
+    }
+    leaf circuit-id {
+      type string {
+        length "0..45";
+      }
+      description
+        "circuit identifier/user label,
+         can be used in alarm correlation and/or connection management ";
     }
   }
 
@@ -1742,12 +1810,19 @@ module org-openroadm-device {
       description
         "A list of OpenROADM defined compliance codes supported by this port.";
     }
-    leaf is-physical {
-      type boolean;
-      config false;
-      mandatory true;
-      description
-        "is the entity physical or logical";
+    uses org-openroadm-port-types:port-features {
+      refine "is-physical" {
+        config false;
+        mandatory true;
+      }
+      refine "pm-capable" {
+        config false;
+        mandatory true;
+      }
+      refine "alarm-capable" {
+        config false;
+        mandatory true;
+      }
     }
     leaf faceplate-label {
       type string;
@@ -2107,7 +2182,6 @@ module org-openroadm-device {
         "OPU payload-type mapping OPU.";
     }
   }
-
   grouping otn-odu-mux-hierarchy-grp {
     description
       "ODU mux hierarchy base group";
@@ -2211,6 +2285,25 @@ module org-openroadm-device {
     }
     description
       "Mux group grouping";
+  }
+  grouping mux-eth-grp {
+    leaf network-flexo-trib-port-number {
+      type uint16 {
+        range "1 .. 128";
+      }
+      mandatory true;
+      description
+        "Tributary port number";
+      reference
+        "G.709.1 Amd.4 2023-03 clause 10.2.3.1";
+    }
+    leaf-list network-flexo-iid {
+      type uint16;
+      description
+        "Network FlexO instance id";
+    }
+    description
+      "Mux group grouping for Ethernet optimized FlexO";
   }
 
   grouping otsi-grp {
@@ -2424,11 +2517,16 @@ module org-openroadm-device {
         when "/org-openroadm-device/info/node-type='extplug'";
         key "extplug-number";
         uses ext-pluggable;
-    }
+      }
       list roadm-connections {
         when "/org-openroadm-device/info/node-type='rdm'";
         key "connection-name";
         uses connection;
+      }
+      list eth-connections {
+        when "/org-openroadm-device/info/node-type='xpdr'";
+        key "connection-name";
+        uses eth-connection;
       }
       list odu-connection {
         when "/org-openroadm-device/info/node-type='xpdr'";
@@ -2508,6 +2606,82 @@ module org-openroadm-device {
             type uint16;
             description
               "Identifier for this non-blocking-list. Unique within odu-switching-pool";
+          }
+          leaf interconnect-bandwidth-unit {
+            type uint32;
+            config false;
+            description
+              "Switch fabric interconnect bandwidth unit rate in bits per second.
+               Represents granularity of switch fabric";
+          }
+          leaf interconnect-bandwidth {
+            type uint32;
+            config false;
+            description
+              "Total interconnect bandwidth for a non-blocking element expressed as
+               number of inter-connect-bandwidth units";
+          }
+          list port-list {
+            key "circuit-pack-name port-name";
+            leaf circuit-pack-name {
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+              }
+              config false;
+            }
+            leaf port-name {
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/ports/port-name";
+              }
+              config false;
+              description
+                "Port name. Unique within device";
+            }
+          }
+          list pluggable-optics-holder-list {
+            key "circuit-pack-name slot-name";
+            leaf circuit-pack-name {
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+              }
+              config false;
+              description
+                "Name of parent circuit-pack";
+            }
+            leaf slot-name {
+              type leafref {
+                path "/org-openroadm-device/circuit-packs/cp-slots/slot-name";
+              }
+              config false;
+              description
+                "Name of pluggable-optics-holder";
+            }
+          }
+        }
+      }
+      list eth-switching-pools {
+        when "/org-openroadm-device/info/node-type='xpdr'";
+        key "switching-pool-number";
+        config false;
+        leaf switching-pool-number {
+          type uint16;
+          description
+            "Unique identifier for this eth-switching-pool";
+        }
+        leaf switching-pool-type {
+          type org-openroadm-switching-pool-types:switching-pool-types;
+          description
+            "Blocking/Non-Blocking";
+        }
+        list non-blocking-list {
+          key "nbl-number";
+          config false;
+          description
+            "List of ports in a non-blocking switch element";
+          leaf nbl-number {
+            type uint16;
+            description
+              "Identifier for this non-blocking-list. Unique within eth-switching-pool";
           }
           leaf interconnect-bandwidth-unit {
             type uint32;
@@ -2688,6 +2862,23 @@ module org-openroadm-device {
         }
         uses mux-grp;
       }
+      list muxp-eth-profile {
+        key "profile-name";
+        config false;
+        description
+          "Muxp profile list";
+        leaf profile-name {
+          type string;
+          description
+            "Mux profile name";
+        }
+        leaf network-eth-speed {
+          type uint32;
+          description
+            "Network ethernet speed types supported by the profile, unit mbps";
+        }
+        uses mux-eth-grp;
+      }
       list otsi-profile {
         key "profile-name";
         config false;
@@ -2848,24 +3039,16 @@ module org-openroadm-device {
             mandatory true;
           }
         }
-        leaf is-physical {
-          type boolean;
-          mandatory true;
-          description
-            "Indicates if the port is a physical port or logical port
-             (internal channel monitor port)";
-        }
-        leaf pm-capable {
-          type boolean;
-          mandatory true;
-          description
-            "Indicates if the port supports PM";
-        }
-        leaf alarm-capable {
-          type boolean;
-          mandatory true;
-          description
-            "Indicates if the port supports alarming";
+        uses org-openroadm-port-types:port-features {
+          refine "is-physical" {
+            mandatory true;
+          }
+          refine "pm-capable" {
+            mandatory true;
+          }
+          refine "alarm-capable" {
+            mandatory true;
+          }
         }
       }
     }

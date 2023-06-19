@@ -5,7 +5,7 @@ module org-openroadm-xponder {
 
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -17,7 +17,7 @@ module org-openroadm-xponder {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -61,6 +61,10 @@ module org-openroadm-xponder {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";

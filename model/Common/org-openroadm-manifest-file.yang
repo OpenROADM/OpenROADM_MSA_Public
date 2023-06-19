@@ -8,6 +8,11 @@ module org-openroadm-manifest-file {
     revision-date 2021-05-28;
   }
 
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2023-05-26;
+  }
+
   organization
     "Open ROADM MSA";
   contact
@@ -55,6 +60,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2022-12-09 {
     description
       "Version 12.1";
@@ -260,6 +269,12 @@ module org-openroadm-manifest-file {
         "This field should match the
              /org-openroadm-device/info/softwareVersion.
          This is the value in the info tree AFTER an upgrade.
+        ";
+    }
+    leaf openroadm-version {
+      type org-openroadm-common-types:openroadm-version-type;
+      description
+        "This field should indicate the expected openroadm version AFTER an upgrade.
         ";
     }
     leaf global-async-timeout {

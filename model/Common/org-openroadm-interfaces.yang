@@ -185,6 +185,12 @@ module org-openroadm-interfaces {
       "ITU-T G.709 GCC.";
   }
 
+  identity fcc {
+    base interface-type;
+    description
+      "ITU-T G.709.1 FCC.";
+  }
+
   identity softwareLoopback {
     base interface-type;
     description

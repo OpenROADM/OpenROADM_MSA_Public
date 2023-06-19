@@ -1,6 +1,6 @@
-module org-openroadm-gcc-interfaces {
-  namespace "http://org/openroadm/gcc-interfaces";
-  prefix org-openroadm-gcc-interfaces;
+module org-openroadm-fcc-interfaces {
+  namespace "http://org/openroadm/fcc-interfaces";
+  prefix org-openroadm-fcc-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
@@ -16,7 +16,7 @@ module org-openroadm-gcc-interfaces {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for device facility gcc interfaces.
+    "YANG definitions for device facility fcc interfaces.
 
      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
      All other rights reserved.
@@ -26,11 +26,11 @@ module org-openroadm-gcc-interfaces {
 
      * Redistributions of source code must retain the above copyright notice, this
        list of conditions and the following disclaimer.
-     * Redistributions in binary form must reprgccce the above copyright notice,
+     * Redistributions in binary form must reproduce the above copyright notice,
        this list of conditions and the following disclaimer in the documentation and/or
        other materials provided with the distribution.
      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
-       contributors may be used to endorse or promote prgcccts derived from this software
+       contributors may be used to endorse or promote products derived from this software
        without specific prior written permission.
 
      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
@@ -62,116 +62,26 @@ module org-openroadm-gcc-interfaces {
     description
       "Version 13.1";
   }
-  revision 2023-03-31 {
-    description
-      "Version 13.0";
-  }
-  revision 2022-12-09 {
-    description
-      "Version 12.1";
-  }
-  revision 2022-09-30 {
-    description
-      "Version 12.0";
-  }
-  revision 2022-05-27 {
-    description
-      "Version 11.1";
-  }
-  revision 2022-03-25 {
-    description
-      "Version 11.0";
-  }
-  revision 2021-12-10 {
-    description
-      "Version 10.1";
-  }
-  revision 2021-09-24 {
-    description
-      "Version 10.0";
-  }
-  revision 2021-05-28 {
-    description
-      "Version 9.1";
-  }
-  revision 2021-03-26 {
-    description
-      "Version 9.0";
-  }
-  revision 2020-12-11 {
-    description
-      "Version 8.1";
-  }
-  revision 2020-09-25 {
-    description
-      "Version 8.0";
-  }
-  revision 2020-05-29 {
-    description
-      "Version 7.1.0";
-  }
-  revision 2020-03-27 {
-    description
-      "Version 7.0.0";
-  }
-  revision 2019-11-29 {
-    description
-      "Version 6.1.0";
-  }
-  revision 2019-09-27 {
-    description
-      "Version 6.0.0";
-  }
-  revision 2019-05-31 {
-    description
-      "Version 5.1.0";
-  }
-  revision 2019-03-29 {
-    description
-      "Version 5.0.0";
-  }
-  revision 2018-11-30 {
-    description
-      "Version 4.1.0";
-  }
-  revision 2018-09-28 {
-    description
-      "Version 4.0.0";
-  }
-  revision 2018-05-30 {
-    description
-      "Version 3.1.0";
-  }
-  revision 2018-03-30 {
-    description
-      "Version 3.0";
-  }
 
-  grouping gcc-interfaces {
-    container gcc {
+  grouping fcc-interfaces {
+    container fcc {
       description
-        "GCC Channel on OTN interface.";
-      leaf gcc-channel-type {
+        "FCC (FlexO communication channel).
+         FlexO-x(e) interface is modeled on OTSi Group interface.";
+      reference
+        "G.709.1 Amd4 draft 2023-03 and OTN based mapping FlexO-x (G.709 2022-11)";
+
+      leaf fcc-channel-type {
         type enumeration {
-          enum gcc0 {
+          enum fcc0 {
             value 1;
             description
-              "OTU GCC0 channel";
+              "FCC0 channel";
           }
-          enum gcc1 {
+          enum fcc1 {
             value 2;
             description
-              "ODU GCC1 channel";
-          }
-          enum gcc2 {
-            value 3;
-            description
-              "ODU GCC2 channel";
-          }
-          enum gcc1-gcc2 {
-            value 4;
-            description
-              "Combined ODU GCC channel";
+              "FCC1 channel";
           }
         }
       }
@@ -179,7 +89,7 @@ module org-openroadm-gcc-interfaces {
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:gcc'";
-    uses gcc-interfaces;
+    when "org-openroadm-device:type = 'openROADM-if:fcc'";
+    uses fcc-interfaces;
   }
 }

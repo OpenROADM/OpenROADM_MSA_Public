@@ -126,6 +126,20 @@ module: org-openroadm-alarm
        +--ro circuit-id?          string
        +--ro additional-detail?   string
        +--ro corrective-action?   string
+module: org-openroadm-ltp-template
+  +--rw ltp-template
+     +--rw vendor                    string
+     +--rw model*                    string
+     +--rw node-type*                org-openroadm-common-node-types:node-types
+     +--rw management-information?   string
+     +--rw global-sync-timeout?      uint16
+     +--rw command-sequence* [sequence-index]
+        +--rw sequence-index       uint8
+        +--rw device-sw-version*   string
+        +--rw command* [command-index]
+           +--rw command-index        uint8
+           +--rw netconf-operation    <anydata>
+           +--rw sync-timeout?        uint16
 module: org-openroadm-manifest-file
   +--rw sw-manifest!
   |  +--rw vendor                  string
@@ -133,6 +147,7 @@ module: org-openroadm-manifest-file
   |  +--rw additional-models*      string
   |  +--rw node-type*              org-openroadm-common-node-types:node-types
   |  +--rw sw-version              string
+  |  +--rw openroadm-version?      org-openroadm-common-types:openroadm-version-type
   |  +--rw global-async-timeout?   uint16
   |  +--rw global-sync-timeout?    uint16
   |  +--rw instruction-set* [index]
@@ -180,6 +195,7 @@ module: org-openroadm-manifest-file
   |  +--rw additional-models*             string
   |  +--rw node-type*                     org-openroadm-common-node-types:node-types
   |  +--rw sw-version?                    string
+  |  +--rw openroadm-version?             org-openroadm-common-types:openroadm-version-type
   |  +--rw global-async-timeout?          uint16
   |  +--rw global-sync-timeout?           uint16
   |  +--rw db-backup-manifest-commands
@@ -205,6 +221,7 @@ module: org-openroadm-manifest-file
   |  +--rw additional-models*                     string
   |  +--rw node-type*                             org-openroadm-common-node-types:node-types
   |  +--rw sw-version?                            string
+  |  +--rw openroadm-version?                     org-openroadm-common-types:openroadm-version-type
   |  +--rw global-async-timeout?                  uint16
   |  +--rw global-sync-timeout?                   uint16
   |  +--rw is-commit-db-activate-async?           boolean
@@ -246,6 +263,7 @@ module: org-openroadm-manifest-file
      +--rw additional-models*      string
      +--rw node-type*              org-openroadm-common-node-types:node-types
      +--rw sw-version              string
+     +--rw openroadm-version?      org-openroadm-common-types:openroadm-version-type
      +--rw global-async-timeout?   uint16
      +--rw global-sync-timeout?    uint16
      +--rw timeout-values* [controller-vendor controller-model]

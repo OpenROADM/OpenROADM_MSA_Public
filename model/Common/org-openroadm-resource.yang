@@ -12,7 +12,7 @@ module org-openroadm-resource {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2021-12-10;
+    revision-date 2023-05-26;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -56,9 +56,13 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
-  revision 2022-09-30 {
+  revision 2023-05-26 {
     description
-      "Version 12.0";
+      "Version 13.1";
+  }
+  revision 2022-09-30 {
+     description
+       "Version 12.0";
   }
   revision 2022-03-25 {
     description

@@ -372,8 +372,13 @@ module: org-openroadm-device
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:logical-port
-     |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:circuit-pack-name?   string
-     |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:port-name?           string
+     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:circuit-pack-name?   string
+     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:port-name?           string
+     |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:eth-capability
+     |  |                    +--ro org-openroadm-pluggable-optics-holder-capability:mpdr-client-restriction* []
+     |  |                       +--ro org-openroadm-pluggable-optics-holder-capability:network-eth-circuit-pack-name    string
+     |  |                       +--ro org-openroadm-pluggable-optics-holder-capability:network-eth-port-name            string
+     |  |                       +--ro org-openroadm-pluggable-optics-holder-capability:muxp-eth-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-eth-profile/profile-name
      |  +--ro software-load-version?       string
      |  +--ro circuit-pack-features* []
      |  |  +--ro feature
@@ -402,6 +407,8 @@ module: org-openroadm-device
      |     +--ro port-direction                                     org-openroadm-common-alarm-pm-types:direction
      |     +--ro compliance-codes*                                  org-openroadm-common-phy-codes:compliance-codes-union
      |     +--ro is-physical                                        boolean
+     |     +--ro pm-capable                                         boolean
+     |     +--ro alarm-capable                                      boolean
      |     +--ro faceplate-label                                    string
      |     +--rw user-description?                                  string
      |     +--rw circuit-id?                                        string
@@ -459,8 +466,13 @@ module: org-openroadm-device
      |           |  |  +--ro org-openroadm-port-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
      |           |  +--ro org-openroadm-port-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |           +--ro org-openroadm-port-capability:logical-port
-     |              +--ro org-openroadm-port-capability:circuit-pack-name?   string
-     |              +--ro org-openroadm-port-capability:port-name?           string
+     |           |  +--ro org-openroadm-port-capability:circuit-pack-name?   string
+     |           |  +--ro org-openroadm-port-capability:port-name?           string
+     |           +--ro org-openroadm-port-capability:eth-capability
+     |              +--ro org-openroadm-port-capability:mpdr-client-restriction* []
+     |                 +--ro org-openroadm-port-capability:network-eth-circuit-pack-name    string
+     |                 +--ro org-openroadm-port-capability:network-eth-port-name            string
+     |                 +--ro org-openroadm-port-capability:muxp-eth-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-eth-profile/profile-name
      +--rw interface* [name]
      |  +--rw name                                                      string
      |  +--rw description?                                              string
@@ -477,19 +489,25 @@ module: org-openroadm-device
      |  +--rw common-functions
      |  |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile-name*   -> /org-openroadm-device:org-openroadm-device/protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/profile-name
      |  +--rw org-openroadm-eth-interfaces:ethernet
-     |  |  +--rw org-openroadm-eth-interfaces:speed?                      uint32
-     |  |  +--rw org-openroadm-eth-interfaces:fec?                        identityref
-     |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?   enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:duplex?                     enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?           enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:enable-laser?               enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:laser-status?               enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                 string
-     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                string
-     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?             uint32
+     |  |  +--rw org-openroadm-eth-interfaces:speed?                          uint32
+     |  |  +--rw org-openroadm-eth-interfaces:eth-function?                   eth-function-type
+     |  |  +--rw org-openroadm-eth-interfaces:fec?                            identityref
+     |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?       enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:duplex?                         enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?               enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:enable-laser?                   enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:laser-status?                   enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                     string
+     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                    string
+     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?                 uint32
      |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
      |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
      |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
+     |  |  +--ro org-openroadm-eth-interfaces:no-oam-function?                empty
+     |  |  +--ro org-openroadm-eth-interfaces:no-maint-testsignal-function?   empty
+     |  |  +--rw org-openroadm-eth-interfaces:parent-flexo-allocation!
+     |  |  |  +--rw org-openroadm-eth-interfaces:trib-port-number    uint16
+     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint16
      |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
      |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
      |  |  |  |  +---w org-openroadm-eth-interfaces:input
@@ -507,6 +525,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-eth-interfaces:maint-loopback
      |  |     +--rw org-openroadm-eth-interfaces:enabled?   boolean
      |  |     +--rw org-openroadm-eth-interfaces:type?      enumeration
+     |  +--rw org-openroadm-fcc-interfaces:fcc
+     |  |  +--rw org-openroadm-fcc-interfaces:fcc-channel-type?   enumeration
      |  +--rw org-openroadm-gcc-interfaces:gcc
      |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
      |  +--rw org-openroadm-ip:ipv4!
@@ -744,22 +764,39 @@ module: org-openroadm-device
      |     +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
      |     +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
      |     +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
-     |        +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
-     |        +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
-     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |        +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
-     |        |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |        |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |        |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |        |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |        +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
-     |           +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |           +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |           +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |           +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |     |  +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
+     |     |  +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |     |  +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |     |  +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
+     |     |     +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |     |     +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |     |     +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |     |     +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |     +--rw org-openroadm-otsi-group-interfaces:maint-testsignal
+     |     |  +---x org-openroadm-otsi-group-interfaces:clear-diagnostics
+     |     |  |  +---w org-openroadm-otsi-group-interfaces:input
+     |     |  |  |  +---w org-openroadm-otsi-group-interfaces:type?   testsig-type
+     |     |  |  +--ro org-openroadm-otsi-group-interfaces:output
+     |     |  |     +--ro org-openroadm-otsi-group-interfaces:status            org-openroadm-common-types:rpc-status
+     |     |  |     +--ro org-openroadm-otsi-group-interfaces:status-message?   string
+     |     |  +--rw org-openroadm-otsi-group-interfaces:enabled?             boolean
+     |     |  +--rw org-openroadm-otsi-group-interfaces:testPattern          enumeration
+     |     |  +--rw org-openroadm-otsi-group-interfaces:type?                testsig-type
+     |     |  +--ro org-openroadm-otsi-group-interfaces:inSync?              boolean
+     |     |  +--ro org-openroadm-otsi-group-interfaces:seconds              uint32
+     |     |  +--ro org-openroadm-otsi-group-interfaces:bitErrors?           uint32
+     |     |  +--ro org-openroadm-otsi-group-interfaces:bitErrorRate?        decimal64
+     |     +--rw org-openroadm-otsi-group-interfaces:maint-loopback
+     |        +--rw org-openroadm-otsi-group-interfaces:enabled?   boolean
+     |        +--rw org-openroadm-otsi-group-interfaces:type?      enumeration
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
@@ -1001,14 +1038,24 @@ module: org-openroadm-device
      |  +--rw source
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
      |  +--rw destination
-     |     +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  |  +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  +--rw circuit-id?            string
+     +--rw eth-connections* [connection-name]
+     |  +--rw connection-name    string
+     |  +--rw direction?         enumeration
+     |  +--rw source
+     |  |  +--rw src-if    -> /org-openroadm-device/interface/name
+     |  +--rw destination
+     |  |  +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  +--rw circuit-id?        string
      +--rw odu-connection* [connection-name]
      |  +--rw connection-name    string
      |  +--rw direction?         enumeration
      |  +--rw source
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
      |  +--rw destination
-     |     +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  |  +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  +--rw circuit-id?        string
      +--ro connection-map* [connection-map-number]
      |  +--ro connection-map-number    uint32
      |  +--ro source
@@ -1021,6 +1068,19 @@ module: org-openroadm-device
      |  +--ro switching-pool-number                    uint16
      |  +--ro switching-pool-type?                     org-openroadm-switching-pool-types:switching-pool-types
      |  +--ro odu-connection-direction-capabilities?   identityref
+     |  +--ro non-blocking-list* [nbl-number]
+     |     +--ro nbl-number                      uint16
+     |     +--ro interconnect-bandwidth-unit?    uint32
+     |     +--ro interconnect-bandwidth?         uint32
+     |     +--ro port-list* [circuit-pack-name port-name]
+     |     |  +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |     |  +--ro port-name            -> /org-openroadm-device/circuit-packs/ports/port-name
+     |     +--ro pluggable-optics-holder-list* [circuit-pack-name slot-name]
+     |        +--ro circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |        +--ro slot-name            -> /org-openroadm-device/circuit-packs/cp-slots/slot-name
+     +--ro eth-switching-pools* [switching-pool-number]
+     |  +--ro switching-pool-number    uint16
+     |  +--ro switching-pool-type?     org-openroadm-switching-pool-types:switching-pool-types
      |  +--ro non-blocking-list* [nbl-number]
      |     +--ro nbl-number                      uint16
      |     +--ro interconnect-bandwidth-unit?    uint32
@@ -1093,6 +1153,11 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+     +--ro muxp-eth-profile* [profile-name]
+     |  +--ro profile-name                      string
+     |  +--ro network-eth-speed?                uint32
+     |  +--ro network-flexo-trib-port-number    uint16
+     |  +--ro network-flexo-iid*                uint16
      +--ro otsi-profile* [profile-name]
      |  +--ro profile-name                 string
      |  +--ro otsi-rate                    identityref

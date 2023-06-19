@@ -4,7 +4,7 @@ module org-openroadm-fwdl {
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-03-31;
+    revision-date 2023-05-26;
   }
 
   organization
@@ -40,6 +40,10 @@ module org-openroadm-fwdl {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2023-03-31 {
     description
       "Version 13.0";

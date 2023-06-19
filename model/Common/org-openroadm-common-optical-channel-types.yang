@@ -35,6 +35,10 @@ module org-openroadm-common-optical-channel-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
   revision 2021-12-10 {
     description
       "Version 10.1";
@@ -79,6 +83,7 @@ module org-openroadm-common-optical-channel-types {
     description
       "Version 3.0.0";
   }
+
 
   identity optical-rate-identity {
     description
@@ -298,6 +303,11 @@ module org-openroadm-common-optical-channel-types {
         value 9;
         description
           "DC dual-polarization quadrature amplitude modulation 8";
+      }
+      enum pcs-dp-qam16 {
+        value 10;
+        description
+          "Probabilistic Constellation Shaping dual-polarization quadrature amplitude modulation 16";
       }
     }
     description

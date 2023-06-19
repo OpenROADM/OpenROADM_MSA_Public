@@ -1,0 +1,210 @@
+
+module org-openroadm-ltp-template {
+  yang-version 1.1;
+  namespace "http://org/openroadm/ltp-template";
+  prefix org-openroadm-ltp-template;
+
+  import org-openroadm-common-node-types {
+    prefix org-openroadm-common-node-types;
+    revision-date 2021-05-28;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of Light Touch Privisioning (LTP) template
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2017,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.
+
+     Also contains code components extracted from IETF netconf.  These code components
+     are copyrighted and licensed as follows:
+
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+
+     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
+     extracted from this document must include Simplified BSD License text as described in
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
+     described in the Simplified BSD License.";
+
+  revision 2023-05-26 {
+    description
+      "Version 13.1";
+  }
+
+
+  container ltp-template {
+    description
+      "The Light Touch Provisioning (LTP) template provides instructions to
+       perform initial provisioning of an OpenROADM device.
+
+       A typical application is to set up the management GCC channel
+       of a remote transponder node to achieve controller connectivity.
+
+       A template file contains one or more command sequences for provisioning
+       a device. A command sequence is a set of NETCONF commands that are
+       executed in order to provision the node.
+
+       Multiple command sequences are provided in a template file when
+       different commands are needed for different device software versions.
+
+       A single LTP template is valid for a single vendor and one or more
+       device models and node types of this vendor.
+
+       An LTP template is processed by the network management infrastructure
+       to replace variables and to create an XML version of
+       the LTP provisioning file. During on-site installation of an
+       OpenROADM device, the XML provisioning file is uploaded to the device,
+       which then executes the command sequence applicable to its
+       installed software version.
+
+       Note: Light Touch Provisioning cannot perform a software upgrade
+       of a device.
+      ";
+
+      leaf vendor {
+        type string;
+        mandatory true;
+        description
+          "This field should match the /org-openroadm-device/info/vendor.
+           It is assumed that the vendor value does not change during the
+           processing of the LTP provisioning file.
+
+           The controller agent would use the vendor and model to find the
+           correct provisioning file for an Open ROADM NE.
+          ";
+      }
+      leaf-list model {
+        type string;
+        description
+          "This field should match the /org-openroadm-device/info/model.
+           It is assumed that the model value does not change during the
+           processing of the LTP provisioning file.
+
+           The controller agent would use the vendor and model to find the
+           correct provisioning file for an Open ROADM NE.
+
+          'model' is a list to indicate applicability for multiple
+          device models of the vendor. An empty list indicates validity
+          for all models.
+          ";
+      }
+      leaf-list node-type {
+        type org-openroadm-common-node-types:node-types;
+        description
+          "Identifier for node-type e.g Roadm, xponder.
+           For a given vendor and model, this leaf-list lists
+           the node-types the LTP provisioning file is applicable to.
+           An empty list indicates validity for all node-types.
+          ";
+      }
+      leaf management-information {
+        type string;
+        description
+          "This is a free-form text field filled by the management system
+           when an LTP template is expanded for a specific site.
+           It contains informal information.
+          ";
+      }
+      leaf global-sync-timeout {
+        type uint16;
+        default "300";
+        description
+          "global-sync-timeout - time in seconds to wait for
+           a synchronous NETCONF command (edit-config or RPC)
+           to complete.
+
+           Upon timeout, the LTP agent on the device assumes failure
+           of the command sequence.
+          ";
+      }
+      list command-sequence {
+        key "sequence-index";
+        description
+          "A single command sequence of LTP provisioning commands
+           for a given SW version.
+          ";
+
+        leaf sequence-index {
+          type uint8;
+          mandatory true;
+          description
+            "The index of this command-sequence.
+            ";
+        }
+
+        leaf-list device-sw-version {
+          type string;
+          min-elements 1;
+          description
+            "The list of device SW versions to which this command-sequence applies.
+            ";
+        }
+
+        list command {
+          key "command-index";
+          description
+            "A single command of a command-sequence.
+            ";
+
+          leaf command-index {
+            type uint8;
+            mandatory true;
+            description
+              "The index of this command.";
+          }
+
+          anydata netconf-operation {
+            mandatory true;
+            description
+              "XML document for a Netconf operation, e.g. <edit-config>
+               or a <user-defined-rpc>.
+              ";
+          }
+
+          leaf sync-timeout {
+            type uint16;
+            description
+              "Time in seconds to wait for the synchronous netconf-operation
+               to complete.
+
+               Upon timeout, the LTP agent on the device assumes failure
+               of the command sequence.
+
+               If not specified for a netconf-operation, the
+               global-sync-timeout value applies.
+              ";
+          }
+        }
+      }
+    }
+}
