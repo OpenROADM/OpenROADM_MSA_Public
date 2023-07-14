@@ -658,6 +658,13 @@ module org-openroadm-service {
           "To be used by the ROADM controller to identify the routing constraints
            received from planning application (PED).";
       }
+      leaf k-paths {
+        type uint8;
+        description
+          "This is number of paths, that controller would try to return;
+          which also includes the primary (based on routing metric)";
+        default 1;
+      }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses service-feasibility-check-inputs;
     }
@@ -669,9 +676,29 @@ module org-openroadm-service {
           "To be used by the ROADM controller to identify the routing constraints
            received from planning application (PED).";
       }
+      leaf k-paths-returned {
+        type uint8;
+        description
+          "Total number of paths found/returned by the controller (<= k-paths in the input)
+          If no path is found, controller should not populate this container";
+        default 1;
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:response-parameters;
       uses service-feasibility-check-outputs;
+      list k-th-path {
+        when "../k-paths-returned > 1";
+        key "k-path-id";
+        description
+          "Information about paths (list) requested in the feasibility check input;
+          The primary path data is outside of this list; This list exists only if k > 1";
+        leaf k-path-id {
+          type string;
+          description
+            "Identification for the path";
+        }
+        uses service-feasibility-check-outputs;
+      }
     }
   }
 
@@ -696,7 +723,6 @@ module org-openroadm-service {
             "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
         }
-        uses service-feasibility-check-inputs;
       }
     }
     output {
