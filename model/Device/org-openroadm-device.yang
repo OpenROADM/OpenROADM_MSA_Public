@@ -32,7 +32,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
-    revision-date 2019-11-29;
+    revision-date 2023-09-29;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -1166,7 +1166,57 @@ module org-openroadm-device {
     }
     uses mc-capabilities-grp;
   }
-
+  grouping channel-grp {
+          list channel {
+            description
+              "List of the channels which each channel is a nmc-ctp interface and its assoicated conneciton-name. This is a list of names of instances in the flat instance list.";
+            key "index";
+            leaf index {
+              type uint32;
+            }
+            leaf nmc-ctp-if {
+              type leafref {
+                path "/org-openroadm-device/interface/name";
+              }
+              config true;
+              description
+               "The nmc-ctp interface this port supports. This is a list of names of instances in the flat instance list.  Implementations must provide the list of interfaces for port that has
+               interfaces provisioned on that port.";
+            }
+            leaf connection-name {
+              type string;
+              config true;
+              description
+                "connection name assigned to the channel.";
+            }
+            leaf circuit-id {
+              type string {
+              length "0..45";
+              }
+              description
+                "circuit identifier/user label,
+                 can be used in alarm correlation and/or connection management ";
+            }
+            leaf target-output-power {
+              type org-openroadm-common-link-types:power-dBm;
+              config true;
+              description
+                "per channel target output power launch into the egress fiber";
+            }
+            leaf actual-output-power {
+              type org-openroadm-common-link-types:power-dBm;
+              config false;
+              description
+                "actual output power of the channel as measured by the device";
+            }
+            leaf actual-dge-attenuation {
+              type org-openroadm-common-link-types:power-dBm;
+              config false;
+              description
+                 "actual dge attenuation set by the device";
+            }
+          }
+  }
   grouping amplifier {
     leaf amp-number {
       type uint8 {
@@ -1188,11 +1238,17 @@ module org-openroadm-device {
         description
             "defines the supported openroadm specifications";
     }
+    leaf dge-deployed {
+      type boolean;
+      default "false";
+      description
+        "Whether the line amplifier is currently deploying DGE. If it is, the control-mode can only be set to dge-Auto mode";
+    }
     leaf control-mode {
       type org-openroadm-common-amplifier-types:line-amplifier-control-mode;
       default "off";
       description
-        "Whether the line amplifier is currently in off or gainLoss mode. control-mode can only be set to gainLoss when target-gain, target-tilt and egress-average-channel-power are set and the OMS interfaces are provisioned. The amplifier will be turned off when the control-mode is set to off";
+       "Whether the line amplifier is currently in off or gainLoss or dge-Auto mode. Control-mode can only be set to gainLoss when target-gain, target-tilt and egress-average-channel-power are set and the OMS interfaces are provisioned. The amplifier will be turned off when the control-mode is set to off. Control-mode can only be set to dge-auto when dge-deployed is trueand the OMS interfaces are provisioned. Note that in dge-Auto mode, target-gain, target-tilt and egress-average-channel-power are ignored by the device. Instead, the attributes in the Spectrum container are used.";
     }
     leaf amp-gain-range {
       type org-openroadm-common-amplifier-types:amplifier-gain-range;
@@ -1208,7 +1264,7 @@ module org-openroadm-device {
       description
         "Target overall Amplifier Signal gain, excluding ASE, including VOA attenuation.
          Defined as optional for ODL support, but shall be considered as mandatory and provided
-         by the controller when the control-mode is set to gainLoss for amplifier setting";
+         by the controller when the control-mode is set to gainLoss for amplifier setting. Not used when control-mode is set to dge-Auto";
     }
     leaf target-tilt {
       type org-openroadm-common-link-types:ratio-dB;
@@ -1217,7 +1273,7 @@ module org-openroadm-device {
         "Target tilt configured in case of smart EDFA.
          Tilt value provided as specified in Open-ROADM-MSA-specifications spreadsheet
          Defined as optional for ODL support, but shall be considered as mandatory and provided
-         by the controller when the control-mode is set to gainLoss for amplifier setting";
+         by the controller when the control-mode is set to gainLoss for amplifier setting. Not used when control-mode is set to dge-Auto";
     }
     leaf egress-average-channel-power {
       type org-openroadm-common-link-types:power-dBm;
@@ -1225,7 +1281,7 @@ module org-openroadm-device {
       description
         "Based upon the total max power across the 4.8 THz passband.
          Defined as optional for ODL support, but shall be considered as mandatory and provided
-         by the controller when the control-mode is set to gainLoss for amplifier setting";
+         by the controller when the control-mode is set to gainLoss for amplifier setting. Not used when control-mode is set to dge-Auto";
     }
     leaf out-voa-att {
       type org-openroadm-common-link-types:ratio-dB;
@@ -1252,6 +1308,12 @@ module org-openroadm-device {
       type org-openroadm-common-state-types:lifecycle-state;
       description
         "Lifecycle State of the amplifier. Whether it is planned, deployed, in maintenance, etc.";
+    }
+    container spectrum {
+      when "../dge-deployed = 'true'";
+      description
+          "Spectrum handled by the dge";
+        uses channel-grp;
     }
   }
 

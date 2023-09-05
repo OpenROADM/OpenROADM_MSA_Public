@@ -35,6 +35,11 @@ module org-openroadm-common-amplifier-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+
+  revision 2023-09-29 {
+    description
+      "Version 14.0.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -67,6 +72,9 @@ module org-openroadm-common-amplifier-types {
       }
       enum off {
         value 3;
+      }
+      enum dge-Auto {
+        value 4;
       }
     }
     description
