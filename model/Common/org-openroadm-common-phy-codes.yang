@@ -35,6 +35,10 @@ module org-openroadm-common-phy-codes {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2022-05-27 {
     description
       "Version 11.1";
@@ -261,6 +265,9 @@ module org-openroadm-common-phy-codes {
     base client-phy-code-identity;
   }
   identity ethernet-100G-ER1-40 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400G-ER4-30 {
     base client-phy-code-identity;
   }
   identity ethernet-400G-FR4 {
