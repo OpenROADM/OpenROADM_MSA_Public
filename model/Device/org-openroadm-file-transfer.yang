@@ -228,6 +228,15 @@ module org-openroadm-file-transfer {
         description
           "status message";
       }
+      leaf free-disk-space {
+        type uint64;
+        units "bytes";
+        description
+          "The free disk space of the directory associated with the input filename.
+           The filename may target a file, a set of files, or a directory.
+           If a filename is not specified, then the free disk space is associated with
+           the FTP/SFTP directory.";
+      }
       list file {
         key "filename";
         description
@@ -239,6 +248,7 @@ module org-openroadm-file-transfer {
         }
         leaf file-size {
           type uint64;
+          units "bytes";
           mandatory true;
           description
             "output file size";

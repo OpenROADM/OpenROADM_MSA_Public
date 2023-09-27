@@ -917,6 +917,13 @@ module org-openroadm-manifest-file {
            If multiple instruction sets are provided, from-sw-version
            should always be defined.";
       }
+      leaf minimum-free-space {
+        type uint64;
+        units "bytes";
+        description
+          "The minimum free disk space that would be required in order to
+           successfully complete the software download.";
+      }
       leaf is-commit-sw-activate-async {
         type boolean;
         default "true";

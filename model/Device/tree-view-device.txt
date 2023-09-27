@@ -1878,8 +1878,9 @@ module: org-openroadm-file-transfer
     |  +---w input
     |  |  +---w filename?   string
     |  +--ro output
-    |     +--ro status            org-openroadm-common-types:rpc-status
-    |     +--ro status-message?   string
+    |     +--ro status             org-openroadm-common-types:rpc-status
+    |     +--ro status-message?    string
+    |     +--ro free-disk-space?   uint64
     |     +--ro file* [filename]
     |        +--ro filename         string
     |        +--ro file-size        uint64

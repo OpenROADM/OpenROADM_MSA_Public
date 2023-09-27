@@ -155,6 +155,7 @@ module: org-openroadm-manifest-file
   |  +--rw instruction-set* [index]
   |     +--rw index                                    uint8
   |     +--rw from-sw-version*                         string
+  |     +--rw minimum-free-space?                      uint64
   |     +--rw is-commit-sw-activate-async?             boolean
   |     +--rw cancel-validation-timer-async-timeout?   uint16
   |     +--rw cancel-validation-timer-sync-timeout?    uint16
