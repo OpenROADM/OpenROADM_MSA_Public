@@ -9,8 +9,8 @@ module: org-openroadm-common-network
 
   augment /nd:networks/nd:network/nd:network-types:
     +--rw openroadm-common-network!
-       +--rw net:openroadm-network!
        +--rw topo:openroadm-topology!
+       +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
   augment /nd:networks/nd:network:
     +--rw SRLG-list* [SRLG-Id]
