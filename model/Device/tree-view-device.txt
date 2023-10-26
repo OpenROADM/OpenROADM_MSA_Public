@@ -89,6 +89,7 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
+
 module: org-openroadm-database
 
   rpcs:
@@ -133,6 +134,7 @@ module: org-openroadm-database
        +--ro db-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-de-operations
 
   rpcs:
@@ -241,6 +243,7 @@ module: org-openroadm-de-operations
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
+
 module: org-openroadm-device
   +--rw org-openroadm-device
      +--rw info
@@ -982,6 +985,7 @@ module: org-openroadm-device
      |  +--rw amp-number                               uint8
      |  +--ro amp-type                                 org-openroadm-common-amplifier-types:amplifier-types
      |  +--ro optical-operational-mode-profile-name*   string
+     |  +--rw dge-deployed?                            boolean
      |  +--rw control-mode?                            org-openroadm-common-amplifier-types:line-amplifier-control-mode
      |  +--ro amp-gain-range?                          org-openroadm-common-amplifier-types:amplifier-gain-range
      |  +--rw target-gain?                             org-openroadm-common-link-types:ratio-dB
@@ -991,6 +995,15 @@ module: org-openroadm-device
      |  +--ro partner-amp?                             -> /org-openroadm-device/line-amplifier/amp-number
      |  +--rw ila-direction-label?                     string
      |  +--rw lifecycle-state?                         org-openroadm-common-state-types:lifecycle-state
+     |  +--rw spectrum
+     |  |  +--rw channel* [index]
+     |  |     +--rw index                     uint32
+     |  |     +--rw nmc-ctp-if?               -> /org-openroadm-device/interface/name
+     |  |     +--rw connection-name?          string
+     |  |     +--rw circuit-id?               string
+     |  |     +--rw target-output-power?      org-openroadm-common-link-types:power-dBm
+     |  |     +--ro actual-output-power?      org-openroadm-common-link-types:power-dBm
+     |  |     +--ro actual-dge-attenuation?   org-openroadm-common-link-types:power-dBm
      |  +--rw circuit-pack* [index]
      |  |  +--rw index                uint32
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
@@ -1859,6 +1872,7 @@ module: org-openroadm-device
        +--ro edit* []
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
+
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -1874,8 +1888,9 @@ module: org-openroadm-file-transfer
     |  +---w input
     |  |  +---w filename?   string
     |  +--ro output
-    |     +--ro status            org-openroadm-common-types:rpc-status
-    |     +--ro status-message?   string
+    |     +--ro status             org-openroadm-common-types:rpc-status
+    |     +--ro status-message?    string
+    |     +--ro free-disk-space?   uint64
     |     +--ro file* [filename]
     |        +--ro filename         string
     |        +--ro file-size        uint64
@@ -1895,6 +1910,7 @@ module: org-openroadm-file-transfer
        +--ro progress
           +--ro bytes-transferred?     uint64
           +--ro percentage-complete?   uint8
+
 module: org-openroadm-fwdl
 
   rpcs:
@@ -1905,6 +1921,7 @@ module: org-openroadm-fwdl
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-key-chain
   +--rw key-chains
   |  +--rw key-chain-list* [name]
@@ -1929,6 +1946,7 @@ module: org-openroadm-key-chain
               +--ro (algorithm)?
                  +--:(md5)
                     +--ro md5?   empty
+
 module: org-openroadm-lldp
 
   notifications:
@@ -1945,6 +1963,7 @@ module: org-openroadm-lldp
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
+
 module: org-openroadm-ospf
 
   notifications:
@@ -2061,6 +2080,7 @@ module: org-openroadm-ospf
        +--ro status?                  restart-status-type
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
+
 module: org-openroadm-otn-common
 
   notifications:
@@ -2074,6 +2094,7 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
+
 module: org-openroadm-prot-equipment-aps
 
   rpcs:
@@ -2085,6 +2106,7 @@ module: org-openroadm-prot-equipment-aps
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
@@ -2109,6 +2131,7 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
+
 module: org-openroadm-rstp
 
   notifications:
@@ -2116,6 +2139,7 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
+
 module: org-openroadm-swdl
 
   rpcs:
@@ -2147,6 +2171,7 @@ module: org-openroadm-swdl
        +--ro sw-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -2172,3 +2197,4 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
+
