@@ -295,7 +295,7 @@ module org-openroadm-operational-mode-catalog {
     container Add {
       description
         "add block-specification";
-      list add-openroadm-operational-mode {
+      list openroadm-operational-mode {
         key "openroadm-operational-mode-id";
         description
           "defines the openroadm operational mode pointing to an official specification ";
@@ -303,6 +303,11 @@ module org-openroadm-operational-mode-catalog {
           type string;
           description
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+        }
+        leaf max-channel-number {
+            type uint8;
+            description
+                "Max Number of channels authorized on Add-block to guaranty transponders specifications";
         }
         leaf incremental-osnr {
             type org-openroadm-common-link-types:ratio-dB;

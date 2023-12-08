@@ -3537,8 +3537,9 @@ module: org-openroadm-service
      |  |  |        +--rw D?                decimal64
      |  |  |        +--rw fiber-type?       enumeration
      |  |  +--rw Add
-     |  |  |  +--rw add-openroadm-operational-mode* [openroadm-operational-mode-id]
+     |  |  |  +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |  |     +--rw openroadm-operational-mode-id    string
+     |  |  |     +--rw max-channel-number?              uint8
      |  |  |     +--rw incremental-osnr?                org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
@@ -11408,8 +11409,9 @@ module: org-openroadm-service
     |  |     |  |        +---w D?                decimal64
     |  |     |  |        +---w fiber-type?       enumeration
     |  |     |  +---w Add
-    |  |     |  |  +---w add-openroadm-operational-mode* [openroadm-operational-mode-id]
+    |  |     |  |  +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |  |     +---w openroadm-operational-mode-id    string
+    |  |     |  |     +---w max-channel-number?              uint8
     |  |     |  |     +---w incremental-osnr?                org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
