@@ -13,6 +13,10 @@ correctly structured. To be used when RNC implements Service model 10.0.0/10.1.0
 
 __ORrelease 12_0 : corrects the amplifier yang node structure. To be used when
 the RNC implements at least Service model 12.0.0.
+
+__ORrelease 13_1 : Introduce Optical specification version 6. To be used when
+the RNC implements at least Service model 12.0.0 and Common models R13.1.0 where
+pcs-dp-qam16 enum is introduced to support PCS modulation format.
   
 After this operation, the operational modes catalog will then contain
 the translation of the [spec-release] version of OpenROADM optical specifications.
