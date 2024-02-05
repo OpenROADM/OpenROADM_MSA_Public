@@ -553,9 +553,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -682,9 +684,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -1379,9 +1383,11 @@ module: org-openroadm-service
   |              +--rw equipment-sub-slot?     string
   |              +--rw is-reused?              boolean
   |              +--rw port* [circuit-pack-name port-name]
-  |                 +--rw circuit-pack-name    string
-  |                 +--rw port-name            string
-  |                 +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |              |  +--rw circuit-pack-name    string
+  |              |  +--rw port-name            string
+  |              |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |              +--rw is-regen?               boolean
+  |              +--rw regen-purpose*          enumeration
   +--rw versioned-service-list
   |  +--rw services* [service-name version-number]
   |     +--rw version-number               uint64
@@ -2503,9 +2509,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -2632,9 +2640,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -3329,9 +3339,11 @@ module: org-openroadm-service
   |     |        +--rw equipment-sub-slot?     string
   |     |        +--rw is-reused?              boolean
   |     |        +--rw port* [circuit-pack-name port-name]
-  |     |           +--rw circuit-pack-name    string
-  |     |           +--rw port-name            string
-  |     |           +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |        |  +--rw circuit-pack-name    string
+  |     |        |  +--rw port-name            string
+  |     |        |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |        +--rw is-regen?               boolean
+  |     |        +--rw regen-purpose*          enumeration
   |     +--rw supporting-service-hierarchy* [service-identifier]
   |     |  +--rw service-identifier      string
   |     |  +--rw service-layer?          service-layer-type
@@ -6169,9 +6181,11 @@ module: org-openroadm-service
     |     |  |  +--ro equipment-sub-slot?     string
     |     |  |  +--ro is-reused?              boolean
     |     |  |  +--ro port* [circuit-pack-name port-name]
-    |     |  |     +--ro circuit-pack-name    string
-    |     |  |     +--ro port-name            string
-    |     |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  |  +--ro circuit-pack-name    string
+    |     |  |  |  +--ro port-name            string
+    |     |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  +--ro is-regen?               boolean
+    |     |  |  +--ro regen-purpose*          enumeration
     |     |  +--ro expected-settings-and-performances
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6300,9 +6314,11 @@ module: org-openroadm-service
     |     |  |  +--ro equipment-sub-slot?     string
     |     |  |  +--ro is-reused?              boolean
     |     |  |  +--ro port* [circuit-pack-name port-name]
-    |     |  |     +--ro circuit-pack-name    string
-    |     |  |     +--ro port-name            string
-    |     |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  |  +--ro circuit-pack-name    string
+    |     |  |  |  +--ro port-name            string
+    |     |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  +--ro is-regen?               boolean
+    |     |  |  +--ro regen-purpose*          enumeration
     |     |  +--ro expected-settings-and-performances
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6325,9 +6341,11 @@ module: org-openroadm-service
     |     |        +--ro equipment-sub-slot?     string
     |     |        +--ro is-reused?              boolean
     |     |        +--ro port* [circuit-pack-name port-name]
-    |     |           +--ro circuit-pack-name    string
-    |     |           +--ro port-name            string
-    |     |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |        |  +--ro circuit-pack-name    string
+    |     |        |  +--ro port-name            string
+    |     |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |        +--ro is-regen?               boolean
+    |     |        +--ro regen-purpose*          enumeration
     |     +--ro requested-service-topology
     |     |  +--ro topology
     |     |  |  +--ro aToZ* [id]
@@ -7106,9 +7124,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -7237,9 +7257,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -7262,9 +7284,11 @@ module: org-openroadm-service
     |        |        +--ro equipment-sub-slot?     string
     |        |        +--ro is-reused?              boolean
     |        |        +--ro port* [circuit-pack-name port-name]
-    |        |           +--ro circuit-pack-name    string
-    |        |           +--ro port-name            string
-    |        |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        |  +--ro circuit-pack-name    string
+    |        |        |  +--ro port-name            string
+    |        |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        +--ro is-regen?               boolean
+    |        |        +--ro regen-purpose*          enumeration
     |        +--ro requested-service-topology
     |        |  +--ro topology
     |        |  |  +--ro aToZ* [id]
@@ -8179,9 +8203,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -8310,9 +8336,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -8335,9 +8363,11 @@ module: org-openroadm-service
     |        |        +--ro equipment-sub-slot?     string
     |        |        +--ro is-reused?              boolean
     |        |        +--ro port* [circuit-pack-name port-name]
-    |        |           +--ro circuit-pack-name    string
-    |        |           +--ro port-name            string
-    |        |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        |  +--ro circuit-pack-name    string
+    |        |        |  +--ro port-name            string
+    |        |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        +--ro is-regen?               boolean
+    |        |        +--ro regen-purpose*          enumeration
     |        +--ro requested-service-topology
     |        |  +--ro topology
     |        |  |  +--ro aToZ* [id]

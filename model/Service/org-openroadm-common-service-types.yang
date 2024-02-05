@@ -1760,24 +1760,42 @@ module org-openroadm-common-service-types {
       type org-openroadm-common-state-types:lifecycle-state;
     }
     leaf equipment-rack {
-        type string;
-      }
-      leaf equipment-shelf {
-        type string;
-      }
-      leaf equipment-slot {
-        type string;
-      }
-      leaf equipment-sub-slot {
-        type string;
-      }
-      leaf is-reused {
-        type boolean;
-        description
-          "This is set true if the equipment-required is being reused for
-          service roll";
-      }
+      type string;
+    }
+    leaf equipment-shelf {
+      type string;
+    }
+    leaf equipment-slot {
+      type string;
+    }
+    leaf equipment-sub-slot {
+      type string;
+    }
+    leaf is-reused {
+      type boolean;
+      description
+        "This is set true if the equipment-required is being reused for
+        service roll";
+    }
     uses service-port-list;
+    leaf is-regen {
+      type boolean;
+      description
+        "Used to indicate if the intermediate site is a regen site or not.
+        It is used primarly in the feasibility check output";
+    }
+    leaf-list regen-purpose {
+      description
+        "Used to indicate the purpose of the regenerator";
+      type enumeration {
+        enum reach {
+          value 1;
+        }
+        enum recolor {
+          value 2;
+        }
+      }
+    }
   }
 
   grouping eventHorizon {
