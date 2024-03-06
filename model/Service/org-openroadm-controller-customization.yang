@@ -717,6 +717,35 @@ module org-openroadm-controller-customization {
           }
         }
       }
+      container srg-restriction {
+        list node-srg-restriction {
+          key "node-id";
+          leaf node-id {
+            type org-openroadm-common-node-types:node-id-type;
+            description
+              "ROADM node-id";
+          }
+          list srg-list {
+            key "srg-number";
+            leaf srg-number {
+              type uint16;
+              description
+                "SRG-number of a given ROADM";
+            }
+            leaf restriction-type {
+              type restriction-type;
+              default "both";
+            }
+            leaf-list restriction-scopes {
+              description
+                "Restriction scope applicable for the srg-restriction.
+                Default scope is set to all RPCs";
+              type restriction-scope;
+              default "all";
+            }
+          }
+        }
+      }
     }
     container default-behaviour {
       description

@@ -349,10 +349,17 @@ module: org-openroadm-controller-customization
        |  |  |     +---w link-restriction-type?   link-restriction-type
        |  |  |     +---w restriction-scopes*      restriction-scope
        |  |  +---w supporting-service-restriction
-       |  |     +---w supporting-service-list* [supporting-service]
-       |  |        +---w supporting-service                     string
-       |  |        +---w supporting-service-restriction-type?   link-restriction-type
-       |  |        +---w restriction-scopes*                    restriction-scope
+       |  |  |  +---w supporting-service-list* [supporting-service]
+       |  |  |     +---w supporting-service                     string
+       |  |  |     +---w supporting-service-restriction-type?   link-restriction-type
+       |  |  |     +---w restriction-scopes*                    restriction-scope
+       |  |  +---w srg-restriction
+       |  |     +---w node-srg-restriction* [node-id]
+       |  |        +---w node-id     org-openroadm-common-node-types:node-id-type
+       |  |        +---w srg-list* [srg-number]
+       |  |           +---w srg-number            uint16
+       |  |           +---w restriction-type?     restriction-type
+       |  |           +---w restriction-scopes*   restriction-scope
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -676,6 +683,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -732,6 +743,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -1622,6 +1637,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -1678,6 +1697,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -2593,6 +2616,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -2649,6 +2676,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -3369,10 +3400,17 @@ module: org-openroadm-service
   |  |  |     +--rw link-restriction-type?   link-restriction-type
   |  |  |     +--rw restriction-scopes*      restriction-scope
   |  |  +--rw supporting-service-restriction
-  |  |     +--rw supporting-service-list* [supporting-service]
-  |  |        +--rw supporting-service                     string
-  |  |        +--rw supporting-service-restriction-type?   link-restriction-type
-  |  |        +--rw restriction-scopes*                    restriction-scope
+  |  |  |  +--rw supporting-service-list* [supporting-service]
+  |  |  |     +--rw supporting-service                     string
+  |  |  |     +--rw supporting-service-restriction-type?   link-restriction-type
+  |  |  |     +--rw restriction-scopes*                    restriction-scope
+  |  |  +--rw srg-restriction
+  |  |     +--rw node-srg-restriction* [node-id]
+  |  |        +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |  |        +--rw srg-list* [srg-number]
+  |  |           +--rw srg-number            uint16
+  |  |           +--rw restriction-type?     restriction-type
+  |  |           +--rw restriction-scopes*   restriction-scope
   |  +--rw default-behaviour
   |  |  +--rw default-backup-path-number?   uint16
   |  |  +--rw reversion?                    boolean
@@ -3815,6 +3853,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -3871,6 +3913,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -3961,6 +4007,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -4017,6 +4067,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -4329,6 +4383,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4385,6 +4443,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4477,6 +4539,10 @@ module: org-openroadm-service
     |           |  |  |  +--ro link-network-id    string
     |           |  |  |  +--ro link-id            string
     |           |  |  +--ro supporting-service-name*   string
+    |           |  |  +--ro node-srg* [node-id]
+    |           |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |  |     +--ro srg-list* [srg-number]
+    |           |  |        +--ro srg-number    uint16
     |           |  +--ro include
     |           |  |  +--ro is-explicit-routing?       boolean
     |           |  |  +--ro is-include-list-ordered?   boolean
@@ -4533,6 +4599,10 @@ module: org-openroadm-service
     |              |  |  +--ro link-network-id    string
     |              |  |  +--ro link-id            string
     |              |  +--ro supporting-service-name*   string
+    |              |  +--ro node-srg* [node-id]
+    |              |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |              |     +--ro srg-list* [srg-number]
+    |              |        +--ro srg-number    uint16
     |              +--ro include
     |              |  +--ro is-explicit-routing?       boolean
     |              |  +--ro is-include-list-ordered?   boolean
@@ -4844,6 +4914,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4900,6 +4974,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4997,6 +5075,10 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-network-id    string
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro node-srg* [node-id]
+    |        |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |  |     +--ro srg-list* [srg-number]
+    |        |  |  |        +--ro srg-number    uint16
     |        |  |  +--ro include
     |        |  |  |  +--ro is-explicit-routing?       boolean
     |        |  |  |  +--ro is-include-list-ordered?   boolean
@@ -5053,6 +5135,10 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-network-id    string
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
+    |        |     |  +--ro node-srg* [node-id]
+    |        |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     |     +--ro srg-list* [srg-number]
+    |        |     |        +--ro srg-number    uint16
     |        |     +--ro include
     |        |     |  +--ro is-explicit-routing?       boolean
     |        |     |  +--ro is-include-list-ordered?   boolean
@@ -5610,6 +5696,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -5666,6 +5756,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -5764,6 +5858,10 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-network-id    string
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  +--ro node-srg* [node-id]
+    |     |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |  |     +--ro srg-list* [srg-number]
+    |     |  |  |        +--ro srg-number    uint16
     |     |  |  +--ro include
     |     |  |  |  +--ro is-explicit-routing?       boolean
     |     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -5820,6 +5918,10 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-network-id    string
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
+    |     |     |  +--ro node-srg* [node-id]
+    |     |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |     |     +--ro srg-list* [srg-number]
+    |     |     |        +--ro srg-number    uint16
     |     |     +--ro include
     |     |     |  +--ro is-explicit-routing?       boolean
     |     |     |  +--ro is-include-list-ordered?   boolean
@@ -7766,6 +7868,10 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-network-id    string
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro node-srg* [node-id]
+    |        |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |  |     +--ro srg-list* [srg-number]
+    |        |  |  |        +--ro srg-number    uint16
     |        |  |  +--ro include
     |        |  |  |  +--ro is-explicit-routing?       boolean
     |        |  |  |  +--ro is-include-list-ordered?   boolean
@@ -7822,6 +7928,10 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-network-id    string
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
+    |        |     |  +--ro node-srg* [node-id]
+    |        |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     |     +--ro srg-list* [srg-number]
+    |        |     |        +--ro srg-number    uint16
     |        |     +--ro include
     |        |     |  +--ro is-explicit-routing?       boolean
     |        |     |  +--ro is-include-list-ordered?   boolean
@@ -9097,6 +9207,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9153,6 +9267,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9270,6 +9388,10 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-network-id    string
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  +--ro node-srg* [node-id]
+    |     |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |  |     +--ro srg-list* [srg-number]
+    |     |  |  |        +--ro srg-number    uint16
     |     |  |  +--ro include
     |     |  |  |  +--ro is-explicit-routing?       boolean
     |     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -9326,6 +9448,10 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-network-id    string
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
+    |     |     |  +--ro node-srg* [node-id]
+    |     |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |     |     +--ro srg-list* [srg-number]
+    |     |     |        +--ro srg-number    uint16
     |     |     +--ro include
     |     |     |  +--ro is-explicit-routing?       boolean
     |     |     |  +--ro is-include-list-ordered?   boolean
@@ -9692,6 +9818,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9748,6 +9878,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9861,6 +9995,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -9917,6 +10055,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -10209,6 +10351,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -10265,6 +10411,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -10380,6 +10530,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -10436,6 +10590,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -10621,6 +10779,10 @@ module: org-openroadm-service
     |     |  |  |  +--ro link-network-id    string
     |     |  |  |  +--ro link-id            string
     |     |  |  +--ro supporting-service-name*   string
+    |     |  |  +--ro node-srg* [node-id]
+    |     |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |     +--ro srg-list* [srg-number]
+    |     |  |        +--ro srg-number    uint16
     |     |  +--ro include
     |     |  |  +--ro is-explicit-routing?       boolean
     |     |  |  +--ro is-include-list-ordered?   boolean
@@ -10677,6 +10839,10 @@ module: org-openroadm-service
     |        |  |  +--ro link-network-id    string
     |        |  |  +--ro link-id            string
     |        |  +--ro supporting-service-name*   string
+    |        |  +--ro node-srg* [node-id]
+    |        |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     +--ro srg-list* [srg-number]
+    |        |        +--ro srg-number    uint16
     |        +--ro include
     |        |  +--ro is-explicit-routing?       boolean
     |        |  +--ro is-include-list-ordered?   boolean
@@ -10741,6 +10907,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -10797,6 +10967,10 @@ module: org-openroadm-service
     |  |     |  |  +---w link-network-id    string
     |  |     |  |  +---w link-id            string
     |  |     |  +---w supporting-service-name*   string
+    |  |     |  +---w node-srg* [node-id]
+    |  |     |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |     +---w srg-list* [srg-number]
+    |  |     |        +---w srg-number    uint16
     |  |     +---w include
     |  |     |  +---w is-explicit-routing?       boolean
     |  |     |  +---w is-include-list-ordered?   boolean
@@ -11608,6 +11782,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -11664,6 +11842,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -12555,6 +12737,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -12611,6 +12797,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
