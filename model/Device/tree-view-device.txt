@@ -255,6 +255,7 @@ module: org-openroadm-device
      |  +--ro vendor                              string
      |  +--ro model                               string
      |  +--ro serial-id                           string
+     |  +--ro oamp-interface-name?                string
      |  +--ro macAddress?                         ietf-yang-types:mac-address
      |  +--ro softwareVersion?                    string
      |  +--ro software-build?                     string

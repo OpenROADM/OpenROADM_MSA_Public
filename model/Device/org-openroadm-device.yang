@@ -351,6 +351,13 @@ module org-openroadm-device {
         "Common Language Location Identifier.";
     }
     uses org-openroadm-physical-types:node-info;
+    leaf oamp-interface-name {
+      type string;
+      config false;
+      description
+        "Assign the Ethernet interface name linked to the OAMP management port,
+         typically utilized for provisioning the primary IP address of the device.";
+    }
     leaf macAddress {
       type ietf-yang-types:mac-address;
       config false;
