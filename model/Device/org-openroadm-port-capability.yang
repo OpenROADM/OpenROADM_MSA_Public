@@ -210,7 +210,14 @@ module org-openroadm-port-capability {
       }
       config false;
       description
-        "Optical operation capabilities handled through specific operation modes leaf list";
+    "Optical operational modes supported.
+
+       The optical-operational-mode is configured on the OCH and OTSI interfaces.
+       When an Open ROADM standard optical operational mode is advertised, this indicates
+       that the mode is supported and can be provisioned using the provision-mode = explicit 
+       or profile.
+       When a bookended optical operational mode is advertised, this indicates that the mode
+       is supported and can be provisioned using the provisioned-mode = profile.";
     }
   }
 

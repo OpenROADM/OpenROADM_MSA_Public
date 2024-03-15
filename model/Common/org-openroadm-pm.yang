@@ -324,7 +324,11 @@ module org-openroadm-pm {
          could be initiated while the file transfer of the previous file is still in progress.
 
          The file content should be written in xml format based on the historical-pm-list
-         yang definition and the file should be gzip compressed.";
+         yang definition and the file should be gzip compressed.
+
+         If no data is to be returned, the file content should contain only an empty XML tag:
+         <historical-pm-list/>
+         This file would then be gzip compressed.";
     }
     uses org-openroadm-common-types:rpc-response-status;
   }
