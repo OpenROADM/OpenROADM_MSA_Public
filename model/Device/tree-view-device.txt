@@ -1965,6 +1965,17 @@ module: org-openroadm-lldp
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
 
+module: org-openroadm-native-data
+
+  rpcs:
+    +---x get-native-data
+       +---w input
+       |  +---w get-request?   string
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+          +--ro get-response?     string
+
 module: org-openroadm-ospf
 
   notifications:
