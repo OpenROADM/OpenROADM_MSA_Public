@@ -4,7 +4,7 @@ module org-openroadm-otn-common {
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-01-10;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
