@@ -901,7 +901,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -1008,7 +1016,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -1119,7 +1135,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -1226,7 +1250,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -1815,7 +1847,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -1922,7 +1962,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -2033,7 +2081,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -2140,7 +2196,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -2754,7 +2818,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -2861,7 +2933,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -2972,7 +3052,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -3079,7 +3167,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -6192,7 +6288,15 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro versioned-service-name       string
     |     |  |  |  |     |  +--ro version-number               uint64
     |     |  |  |  |     +--:(temp-service)
-    |     |  |  |  |        +--ro common-id                    string
+    |     |  |  |  |     |  +--ro common-id                    string
+    |     |  |  |  |     +--:(slot)
+    |     |  |  |  |     |  +--ro slot
+    |     |  |  |  |     |     +--ro shelf-name    string
+    |     |  |  |  |     |     +--ro slot-name     string
+    |     |  |  |  |     +--:(cp-slot)
+    |     |  |  |  |        +--ro cp-slot
+    |     |  |  |  |           +--ro circuit-pack-name    string
+    |     |  |  |  |           +--ro slot-name            string
     |     |  |  |  +--ro resourceType
     |     |  |  |     +--ro type         resource-type-enum
     |     |  |  |     +--ro extension?   string
@@ -6299,7 +6403,15 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro versioned-service-name       string
     |     |  |     |     |  +--ro version-number               uint64
     |     |  |     |     +--:(temp-service)
-    |     |  |     |        +--ro common-id                    string
+    |     |  |     |     |  +--ro common-id                    string
+    |     |  |     |     +--:(slot)
+    |     |  |     |     |  +--ro slot
+    |     |  |     |     |     +--ro shelf-name    string
+    |     |  |     |     |     +--ro slot-name     string
+    |     |  |     |     +--:(cp-slot)
+    |     |  |     |        +--ro cp-slot
+    |     |  |     |           +--ro circuit-pack-name    string
+    |     |  |     |           +--ro slot-name            string
     |     |  |     +--ro resourceType
     |     |  |        +--ro type         resource-type-enum
     |     |  |        +--ro extension?   string
@@ -6410,7 +6522,15 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro versioned-service-name       string
     |     |  |     |  |     |  +--ro version-number               uint64
     |     |  |     |  |     +--:(temp-service)
-    |     |  |     |  |        +--ro common-id                    string
+    |     |  |     |  |     |  +--ro common-id                    string
+    |     |  |     |  |     +--:(slot)
+    |     |  |     |  |     |  +--ro slot
+    |     |  |     |  |     |     +--ro shelf-name    string
+    |     |  |     |  |     |     +--ro slot-name     string
+    |     |  |     |  |     +--:(cp-slot)
+    |     |  |     |  |        +--ro cp-slot
+    |     |  |     |  |           +--ro circuit-pack-name    string
+    |     |  |     |  |           +--ro slot-name            string
     |     |  |     |  +--ro resourceType
     |     |  |     |     +--ro type         resource-type-enum
     |     |  |     |     +--ro extension?   string
@@ -6517,7 +6637,15 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro versioned-service-name       string
     |     |  |        |     |  +--ro version-number               uint64
     |     |  |        |     +--:(temp-service)
-    |     |  |        |        +--ro common-id                    string
+    |     |  |        |     |  +--ro common-id                    string
+    |     |  |        |     +--:(slot)
+    |     |  |        |     |  +--ro slot
+    |     |  |        |     |     +--ro shelf-name    string
+    |     |  |        |     |     +--ro slot-name     string
+    |     |  |        |     +--:(cp-slot)
+    |     |  |        |        +--ro cp-slot
+    |     |  |        |           +--ro circuit-pack-name    string
+    |     |  |        |           +--ro slot-name            string
     |     |  |        +--ro resourceType
     |     |  |           +--ro type         resource-type-enum
     |     |  |           +--ro extension?   string
@@ -7097,7 +7225,15 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro versioned-service-name       string
     |        |  |  |  |     |  +--ro version-number               uint64
     |        |  |  |  |     +--:(temp-service)
-    |        |  |  |  |        +--ro common-id                    string
+    |        |  |  |  |     |  +--ro common-id                    string
+    |        |  |  |  |     +--:(slot)
+    |        |  |  |  |     |  +--ro slot
+    |        |  |  |  |     |     +--ro shelf-name    string
+    |        |  |  |  |     |     +--ro slot-name     string
+    |        |  |  |  |     +--:(cp-slot)
+    |        |  |  |  |        +--ro cp-slot
+    |        |  |  |  |           +--ro circuit-pack-name    string
+    |        |  |  |  |           +--ro slot-name            string
     |        |  |  |  +--ro resourceType
     |        |  |  |     +--ro type         resource-type-enum
     |        |  |  |     +--ro extension?   string
@@ -7204,7 +7340,15 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro versioned-service-name       string
     |        |  |     |     |  +--ro version-number               uint64
     |        |  |     |     +--:(temp-service)
-    |        |  |     |        +--ro common-id                    string
+    |        |  |     |     |  +--ro common-id                    string
+    |        |  |     |     +--:(slot)
+    |        |  |     |     |  +--ro slot
+    |        |  |     |     |     +--ro shelf-name    string
+    |        |  |     |     |     +--ro slot-name     string
+    |        |  |     |     +--:(cp-slot)
+    |        |  |     |        +--ro cp-slot
+    |        |  |     |           +--ro circuit-pack-name    string
+    |        |  |     |           +--ro slot-name            string
     |        |  |     +--ro resourceType
     |        |  |        +--ro type         resource-type-enum
     |        |  |        +--ro extension?   string
@@ -7315,7 +7459,15 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro versioned-service-name       string
     |        |  |     |  |     |  +--ro version-number               uint64
     |        |  |     |  |     +--:(temp-service)
-    |        |  |     |  |        +--ro common-id                    string
+    |        |  |     |  |     |  +--ro common-id                    string
+    |        |  |     |  |     +--:(slot)
+    |        |  |     |  |     |  +--ro slot
+    |        |  |     |  |     |     +--ro shelf-name    string
+    |        |  |     |  |     |     +--ro slot-name     string
+    |        |  |     |  |     +--:(cp-slot)
+    |        |  |     |  |        +--ro cp-slot
+    |        |  |     |  |           +--ro circuit-pack-name    string
+    |        |  |     |  |           +--ro slot-name            string
     |        |  |     |  +--ro resourceType
     |        |  |     |     +--ro type         resource-type-enum
     |        |  |     |     +--ro extension?   string
@@ -7422,7 +7574,15 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro versioned-service-name       string
     |        |  |        |     |  +--ro version-number               uint64
     |        |  |        |     +--:(temp-service)
-    |        |  |        |        +--ro common-id                    string
+    |        |  |        |     |  +--ro common-id                    string
+    |        |  |        |     +--:(slot)
+    |        |  |        |     |  +--ro slot
+    |        |  |        |     |     +--ro shelf-name    string
+    |        |  |        |     |     +--ro slot-name     string
+    |        |  |        |     +--:(cp-slot)
+    |        |  |        |        +--ro cp-slot
+    |        |  |        |           +--ro circuit-pack-name    string
+    |        |  |        |           +--ro slot-name            string
     |        |  |        +--ro resourceType
     |        |  |           +--ro type         resource-type-enum
     |        |  |           +--ro extension?   string
@@ -8130,7 +8290,15 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro versioned-service-name       string
     |        |  |  |  |     |  +--ro version-number               uint64
     |        |  |  |  |     +--:(temp-service)
-    |        |  |  |  |        +--ro common-id                    string
+    |        |  |  |  |     |  +--ro common-id                    string
+    |        |  |  |  |     +--:(slot)
+    |        |  |  |  |     |  +--ro slot
+    |        |  |  |  |     |     +--ro shelf-name    string
+    |        |  |  |  |     |     +--ro slot-name     string
+    |        |  |  |  |     +--:(cp-slot)
+    |        |  |  |  |        +--ro cp-slot
+    |        |  |  |  |           +--ro circuit-pack-name    string
+    |        |  |  |  |           +--ro slot-name            string
     |        |  |  |  +--ro resourceType
     |        |  |  |     +--ro type         resource-type-enum
     |        |  |  |     +--ro extension?   string
@@ -8237,7 +8405,15 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro versioned-service-name       string
     |        |  |     |     |  +--ro version-number               uint64
     |        |  |     |     +--:(temp-service)
-    |        |  |     |        +--ro common-id                    string
+    |        |  |     |     |  +--ro common-id                    string
+    |        |  |     |     +--:(slot)
+    |        |  |     |     |  +--ro slot
+    |        |  |     |     |     +--ro shelf-name    string
+    |        |  |     |     |     +--ro slot-name     string
+    |        |  |     |     +--:(cp-slot)
+    |        |  |     |        +--ro cp-slot
+    |        |  |     |           +--ro circuit-pack-name    string
+    |        |  |     |           +--ro slot-name            string
     |        |  |     +--ro resourceType
     |        |  |        +--ro type         resource-type-enum
     |        |  |        +--ro extension?   string
@@ -8348,7 +8524,15 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro versioned-service-name       string
     |        |  |     |  |     |  +--ro version-number               uint64
     |        |  |     |  |     +--:(temp-service)
-    |        |  |     |  |        +--ro common-id                    string
+    |        |  |     |  |     |  +--ro common-id                    string
+    |        |  |     |  |     +--:(slot)
+    |        |  |     |  |     |  +--ro slot
+    |        |  |     |  |     |     +--ro shelf-name    string
+    |        |  |     |  |     |     +--ro slot-name     string
+    |        |  |     |  |     +--:(cp-slot)
+    |        |  |     |  |        +--ro cp-slot
+    |        |  |     |  |           +--ro circuit-pack-name    string
+    |        |  |     |  |           +--ro slot-name            string
     |        |  |     |  +--ro resourceType
     |        |  |     |     +--ro type         resource-type-enum
     |        |  |     |     +--ro extension?   string
@@ -8455,7 +8639,15 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro versioned-service-name       string
     |        |  |        |     |  +--ro version-number               uint64
     |        |  |        |     +--:(temp-service)
-    |        |  |        |        +--ro common-id                    string
+    |        |  |        |     |  +--ro common-id                    string
+    |        |  |        |     +--:(slot)
+    |        |  |        |     |  +--ro slot
+    |        |  |        |     |     +--ro shelf-name    string
+    |        |  |        |     |     +--ro slot-name     string
+    |        |  |        |     +--:(cp-slot)
+    |        |  |        |        +--ro cp-slot
+    |        |  |        |           +--ro circuit-pack-name    string
+    |        |  |        |           +--ro slot-name            string
     |        |  |        +--ro resourceType
     |        |  |           +--ro type         resource-type-enum
     |        |  |           +--ro extension?   string
@@ -11641,7 +11833,15 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro versioned-service-name       string
     |  |  |  |     |  +--ro version-number               uint64
     |  |  |  |     +--:(temp-service)
-    |  |  |  |        +--ro common-id                    string
+    |  |  |  |     |  +--ro common-id                    string
+    |  |  |  |     +--:(slot)
+    |  |  |  |     |  +--ro slot
+    |  |  |  |     |     +--ro shelf-name    string
+    |  |  |  |     |     +--ro slot-name     string
+    |  |  |  |     +--:(cp-slot)
+    |  |  |  |        +--ro cp-slot
+    |  |  |  |           +--ro circuit-pack-name    string
+    |  |  |  |           +--ro slot-name            string
     |  |  |  +--ro resourceType
     |  |  |     +--ro type         resource-type-enum
     |  |  |     +--ro extension?   string
@@ -11748,7 +11948,15 @@ module: org-openroadm-service
     |  |     |     |  +--ro versioned-service-name       string
     |  |     |     |  +--ro version-number               uint64
     |  |     |     +--:(temp-service)
-    |  |     |        +--ro common-id                    string
+    |  |     |     |  +--ro common-id                    string
+    |  |     |     +--:(slot)
+    |  |     |     |  +--ro slot
+    |  |     |     |     +--ro shelf-name    string
+    |  |     |     |     +--ro slot-name     string
+    |  |     |     +--:(cp-slot)
+    |  |     |        +--ro cp-slot
+    |  |     |           +--ro circuit-pack-name    string
+    |  |     |           +--ro slot-name            string
     |  |     +--ro resourceType
     |  |        +--ro type         resource-type-enum
     |  |        +--ro extension?   string
@@ -11859,7 +12067,15 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro versioned-service-name       string
     |  |     |  |     |  +--ro version-number               uint64
     |  |     |  |     +--:(temp-service)
-    |  |     |  |        +--ro common-id                    string
+    |  |     |  |     |  +--ro common-id                    string
+    |  |     |  |     +--:(slot)
+    |  |     |  |     |  +--ro slot
+    |  |     |  |     |     +--ro shelf-name    string
+    |  |     |  |     |     +--ro slot-name     string
+    |  |     |  |     +--:(cp-slot)
+    |  |     |  |        +--ro cp-slot
+    |  |     |  |           +--ro circuit-pack-name    string
+    |  |     |  |           +--ro slot-name            string
     |  |     |  +--ro resourceType
     |  |     |     +--ro type         resource-type-enum
     |  |     |     +--ro extension?   string
@@ -11966,7 +12182,15 @@ module: org-openroadm-service
     |  |        |     |  +--ro versioned-service-name       string
     |  |        |     |  +--ro version-number               uint64
     |  |        |     +--:(temp-service)
-    |  |        |        +--ro common-id                    string
+    |  |        |     |  +--ro common-id                    string
+    |  |        |     +--:(slot)
+    |  |        |     |  +--ro slot
+    |  |        |     |     +--ro shelf-name    string
+    |  |        |     |     +--ro slot-name     string
+    |  |        |     +--:(cp-slot)
+    |  |        |        +--ro cp-slot
+    |  |        |           +--ro circuit-pack-name    string
+    |  |        |           +--ro slot-name            string
     |  |        +--ro resourceType
     |  |           +--ro type         resource-type-enum
     |  |           +--ro extension?   string
@@ -12556,7 +12780,15 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro versioned-service-name       string
     |  |  |  |     |  +--ro version-number               uint64
     |  |  |  |     +--:(temp-service)
-    |  |  |  |        +--ro common-id                    string
+    |  |  |  |     |  +--ro common-id                    string
+    |  |  |  |     +--:(slot)
+    |  |  |  |     |  +--ro slot
+    |  |  |  |     |     +--ro shelf-name    string
+    |  |  |  |     |     +--ro slot-name     string
+    |  |  |  |     +--:(cp-slot)
+    |  |  |  |        +--ro cp-slot
+    |  |  |  |           +--ro circuit-pack-name    string
+    |  |  |  |           +--ro slot-name            string
     |  |  |  +--ro resourceType
     |  |  |     +--ro type         resource-type-enum
     |  |  |     +--ro extension?   string
@@ -12663,7 +12895,15 @@ module: org-openroadm-service
     |  |     |     |  +--ro versioned-service-name       string
     |  |     |     |  +--ro version-number               uint64
     |  |     |     +--:(temp-service)
-    |  |     |        +--ro common-id                    string
+    |  |     |     |  +--ro common-id                    string
+    |  |     |     +--:(slot)
+    |  |     |     |  +--ro slot
+    |  |     |     |     +--ro shelf-name    string
+    |  |     |     |     +--ro slot-name     string
+    |  |     |     +--:(cp-slot)
+    |  |     |        +--ro cp-slot
+    |  |     |           +--ro circuit-pack-name    string
+    |  |     |           +--ro slot-name            string
     |  |     +--ro resourceType
     |  |        +--ro type         resource-type-enum
     |  |        +--ro extension?   string
@@ -12774,7 +13014,15 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro versioned-service-name       string
     |  |     |  |     |  +--ro version-number               uint64
     |  |     |  |     +--:(temp-service)
-    |  |     |  |        +--ro common-id                    string
+    |  |     |  |     |  +--ro common-id                    string
+    |  |     |  |     +--:(slot)
+    |  |     |  |     |  +--ro slot
+    |  |     |  |     |     +--ro shelf-name    string
+    |  |     |  |     |     +--ro slot-name     string
+    |  |     |  |     +--:(cp-slot)
+    |  |     |  |        +--ro cp-slot
+    |  |     |  |           +--ro circuit-pack-name    string
+    |  |     |  |           +--ro slot-name            string
     |  |     |  +--ro resourceType
     |  |     |     +--ro type         resource-type-enum
     |  |     |     +--ro extension?   string
@@ -12881,7 +13129,15 @@ module: org-openroadm-service
     |  |        |     |  +--ro versioned-service-name       string
     |  |        |     |  +--ro version-number               uint64
     |  |        |     +--:(temp-service)
-    |  |        |        +--ro common-id                    string
+    |  |        |     |  +--ro common-id                    string
+    |  |        |     +--:(slot)
+    |  |        |     |  +--ro slot
+    |  |        |     |     +--ro shelf-name    string
+    |  |        |     |     +--ro slot-name     string
+    |  |        |     +--:(cp-slot)
+    |  |        |        +--ro cp-slot
+    |  |        |           +--ro circuit-pack-name    string
+    |  |        |           +--ro slot-name            string
     |  |        +--ro resourceType
     |  |           +--ro type         resource-type-enum
     |  |           +--ro extension?   string

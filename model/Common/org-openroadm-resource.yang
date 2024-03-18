@@ -557,6 +557,18 @@ module org-openroadm-resource {
         case temp-service {
           uses org-openroadm-resource-types:temp-service-name;
         }
+        case slot {
+          container slot {
+            uses org-openroadm-resource-types:shelf-name;
+            uses org-openroadm-resource-types:slot-name;
+          }
+        }
+        case cp-slot {
+          container cp-slot {
+            uses org-openroadm-resource-types:circuit-pack-name;
+            uses org-openroadm-resource-types:cp-slot-name;
+          }
+        }
       }
     }
     container resourceType {
