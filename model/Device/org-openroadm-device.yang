@@ -1174,6 +1174,18 @@ module org-openroadm-device {
         }
       }
     }
+    container osc-port {
+      description
+        "osc port associated with degree.";
+      uses port-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+        refine "port-name" {
+          mandatory true;
+        }
+      }
+    }
     container otdr-port {
       description
         "otdr port associated with degree.";
