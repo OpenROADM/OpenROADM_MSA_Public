@@ -1177,14 +1177,7 @@ module org-openroadm-device {
     container osc-port {
       description
         "osc port associated with degree.";
-      uses port-name {
-        refine "circuit-pack-name" {
-          mandatory true;
-        }
-        refine "port-name" {
-          mandatory true;
-        }
-      }
+      uses port-name;
     }
     container otdr-port {
       description
@@ -2571,14 +2564,7 @@ module org-openroadm-device {
               "allows identifying ports associated with logical amp :
                TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
-          uses port-name {
-            refine "circuit-pack-name" {
-              mandatory true;
-            }
-            refine "port-name" {
-              mandatory true;
-            }
-          }
+          uses port-name;
         }
         list otdr-port {
           key "otdr-direction";
