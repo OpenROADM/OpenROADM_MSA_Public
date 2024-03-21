@@ -208,6 +208,9 @@ module org-openroadm-common-types {
       enum In-progress {
         value 3;
       }
+      enum Partial {
+        value 4;
+      }
     }
     description
       "status of RPC ";

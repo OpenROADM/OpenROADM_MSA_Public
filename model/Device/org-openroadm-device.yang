@@ -36,7 +36,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -1074,6 +1074,17 @@ module org-openroadm-device {
       default "off";
       description
         "Whether connection is currently in power or gain/loss mode";
+      reference
+        "openroadm.org: Open ROADM MSA Specification.";
+    }
+    leaf actual-control-mode {
+      type org-openroadm-common-link-types:act-optical-control-mode;
+      config false;
+      mandatory true;
+      description
+        "The actual control mode for the roadm-connection.
+         The actual control mode can be different from the provisioned opticalControlMode
+         when a rebalancing RPC is in progress (adjust-optical-power RPC).";
       reference
         "openroadm.org: Open ROADM MSA Specification.";
     }

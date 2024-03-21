@@ -1067,6 +1067,7 @@ module: org-openroadm-device
      +--rw roadm-connections* [connection-name]
      |  +--rw connection-name        string
      |  +--rw opticalControlMode?    org-openroadm-common-link-types:optical-control-mode
+     |  +--ro actual-control-mode    org-openroadm-common-link-types:act-optical-control-mode
      |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
      |  +--rw source
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
@@ -1994,6 +1995,33 @@ module: org-openroadm-native-data
           +--ro status            rpc-status
           +--ro status-message?   string
           +--ro get-response?     string
+
+module: org-openroadm-optical-rebalancing
+
+  rpcs:
+    +---x adjust-optical-power
+       +---w input
+       |  +---w (adjust-scope)?
+       |  |  +--:(roadm-connections)
+       |  |  |  +---w connection-name*    -> /org-openroadm-device:org-openroadm-device/roadm-connections/connection-name
+       |  |  +--:(ingress-oms)
+       |  |  |  +---w ingress-oms         -> /org-openroadm-device:org-openroadm-device/interface/name
+       |  |  +--:(egress-oms)
+       |  |     +---w egress-oms          -> /org-openroadm-device:org-openroadm-device/interface/name
+       |  +---w target-power-threshold?   org-openroadm-common-link-types:ratio-dB
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+
+  notifications:
+    +---n adjust-optical-power-result
+       +--ro status                extended-rpc-status
+       +--ro status-message?       string
+       +--ro failed-connections
+          +--ro failed-connection* [connection-name]
+             +--ro connection-name     string
+             +--ro failure-reason      string
+             +--ro reversion-failed    boolean
 
 module: org-openroadm-ospf
 

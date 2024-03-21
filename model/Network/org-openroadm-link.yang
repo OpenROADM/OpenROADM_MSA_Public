@@ -13,7 +13,7 @@ module org-openroadm-link {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -21,7 +21,7 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2021-09-24;
+    revision-date 2024-03-29;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;

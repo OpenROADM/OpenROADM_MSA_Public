@@ -1,0 +1,189 @@
+module org-openroadm-optical-rebalancing {
+  namespace "http://org/openroadm/optical/rebalancing";
+  prefix org-openroadm-optical-rebalancing;
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2024-03-29;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2024-03-29;
+  }
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2024-03-29;
+  }
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions of power rebalancing operations.
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.
+
+     Also contains code components extracted from IETF netconf.  These code components
+     are copyrighted and licensed as follows:
+
+     Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
+     All rights reserved.
+
+     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
+     publication of this document. Please review these documents carefully, as they
+     describe your rights and restrictions with respect to this document. Code Components
+     extracted from this document must include Simplified BSD License text as described in
+     Section 4.e of the Trust Legal Provisions and are provided without warranty as
+     described in the Simplified BSD License.";
+
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
+
+  grouping failed-connections {
+    description
+      "List of failed connections and the reasons for failure.";
+    list failed-connection {
+      description
+      "Failed connection and the reason for the failure.";
+      key connection-name;
+      leaf connection-name {
+        type string;
+        description
+          "Name of the roadm-connection.";
+      }
+      leaf failure-reason {
+        type string;
+        mandatory true;
+        description
+          "Reason for the rebalancing failure for the roadm-connection.";
+      }
+      leaf reversion-failed {
+        type boolean;
+        mandatory true;
+        description
+          "If rebalancing fails, it is expected that the roadm-connection be reverted back to its
+           previous gainLoss setting. If it was not possible to reset the service back to the
+           previous setting, this flag is set to true.";
+      }
+    }
+  }
+
+  rpc adjust-optical-power {
+    description
+      "This command will instruct the device to rebalance a set of roadm-connections.
+       The device initiates the power rebalancing for the specified connections that are
+       in the gainLoss mode. Connections that are in the off or power mode are skipped without error.
+
+       The device validates that the optical signal is good before beginning the rebalancing
+       procedure for that connection (e.g., no RX LOS, POS or POR). The device puts the
+       connections into an operational power mode without changing the provisioned opticalControlMode.
+       After a 12s soak time, the device validates that the optical signal is good at the RX and TX
+       ports and within the target-power-threshold of the target-output-power setting. If all conditions
+       are met, the device puts the connection back to gainLoss mode with the new internal settings.
+
+       If any issues are detected during or at the end of the rebalancing operation, then the device
+       reverts the connection back to the previous gainLoss setting.
+
+       The device raises the rebalancingInProgress condition while the operation is in effect and clears
+       the condition at the end of the rebalancing procedure. An adjust-optical-power-result notification
+       is sent at the end of the rebalancing procedure that provides the status and results of the procedure.
+       Connections that failed the rebalancing validations are reported in this notification along with the
+       reason for failure.";
+    input {
+      choice adjust-scope {
+        case roadm-connections {
+          leaf-list connection-name {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:roadm-connections/org-openroadm-device:connection-name";
+            }
+            description
+              "Explicit list of roadm-connections to rebalance";
+          }
+        }
+        case ingress-oms {
+          leaf ingress-oms {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+            }
+            mandatory true;
+            description
+              "Rebalance all roadm-connections that have their src-if on the ingress-oms";
+          }
+        }
+        case egress-oms {
+          leaf egress-oms {
+            type leafref {
+              path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-device:name";
+            }
+            mandatory true;
+            description
+              "Rebalance all roadm-connections that have their dst-if on the egress-oms";
+          }
+        }
+      }
+      leaf target-power-threshold {
+        type org-openroadm-common-link-types:ratio-dB;
+        default 1;
+        units dB;
+        description
+          "The transmit target power threshold for rebalancing.
+           If the difference between the actual transmit power and the provisioned target-output-power
+           is less than or equal to the target-power-threshold, then the rebalancing is successful
+           for that roadm-connection.
+           default = 1 dB";
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+    }
+  }
+
+  notification adjust-optical-power-result {
+    description
+      "An asynchronous notification of the result of the adjust-optical-power RPC.
+
+       For the response status, skipped connections are not used to determine the Successful,
+       Failed or Partial.
+
+       A service is successful if the power is rebalanced to the target-output-power within the
+       target-power-threshold. Otherwise, it is failed.
+
+       Successful will be returned if all non-skipped services were successfully rebalanced.
+       Failed will be returned if all non-skipped services were not successfully rebalanced.
+       If some non-skipped services were successful others were failed, then Partial will be returned.";
+    uses org-openroadm-common-types:extended-rpc-response-status;
+    container failed-connections {
+      description
+        "List of failed connections and the reasons for the failure.";
+      uses failed-connections;
+    }
+  }
+
+}
