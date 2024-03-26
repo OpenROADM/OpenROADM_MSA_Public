@@ -1035,8 +1035,8 @@ module: org-openroadm-device
      |  |  +--rw port-name                           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw osc-port* [port-direction]
      |  |  +--rw port-direction       org-openroadm-common-alarm-pm-types:direction
-     |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
-     |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw otdr-port* [otdr-direction]
      |     +--rw otdr-direction       string
      |     +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name

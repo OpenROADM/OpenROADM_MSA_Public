@@ -2564,7 +2564,14 @@ module org-openroadm-device {
               "allows identifying ports associated with logical amp :
                TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
-          uses port-name;
+          uses port-name {
+            refine "circuit-pack-name" {
+              mandatory true;
+            }
+            refine "port-name" {
+              mandatory true;
+            }
+          }
         }
         list otdr-port {
           key "otdr-direction";
