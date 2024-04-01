@@ -1906,7 +1906,27 @@ rpc add-openroadm-operational-modes-to-catalog {
       ";
     list services {
       key "service-name";
-      uses org-openroadm-common-service-types:service;
+      uses org-openroadm-common-service-types:service {
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
     }
   }
   container versioned-service-list {

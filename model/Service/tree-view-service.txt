@@ -538,11 +538,24 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |     +--rw operational-mode?    string
-  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  +--rw equipment-required* [equipment-identifier]
+  |     |     +--rw equipment-type?         string
+  |     |     +--rw equipment-identifier    string
+  |     |     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw equipment-rack?         string
+  |     |     +--rw equipment-shelf?        string
+  |     |     +--rw equipment-slot?         string
+  |     |     +--rw equipment-sub-slot?     string
+  |     |     +--rw is-reused?              boolean
+  |     |     +--rw port* [circuit-pack-name port-name]
+  |     |        +--rw circuit-pack-name    string
+  |     |        +--rw port-name            string
+  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -654,11 +667,24 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |     +--rw operational-mode?    string
-  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  +--rw equipment-required* [equipment-identifier]
+  |     |     +--rw equipment-type?         string
+  |     |     +--rw equipment-identifier    string
+  |     |     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw equipment-rack?         string
+  |     |     +--rw equipment-shelf?        string
+  |     |     +--rw equipment-slot?         string
+  |     |     +--rw equipment-sub-slot?     string
+  |     |     +--rw is-reused?              boolean
+  |     |     +--rw port* [circuit-pack-name port-name]
+  |     |        +--rw circuit-pack-name    string
+  |     |        +--rw port-name            string
+  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -1339,6 +1365,23 @@ module: org-openroadm-service
   |     |        |        +--rw link-id            string
   |     |        +--rw network-resource-type    identityref
   |     +--rw is-bandwidth-locked?         boolean
+  |     +--rw intermediate-site* [clli]
+  |        +--rw clli    string
+  |        +--rw node* [node-id]
+  |           +--rw node-id               org-openroadm-common-node-types:node-id-type
+  |           +--rw equipment-required* [equipment-identifier]
+  |              +--rw equipment-type?         string
+  |              +--rw equipment-identifier    string
+  |              +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |              +--rw equipment-rack?         string
+  |              +--rw equipment-shelf?        string
+  |              +--rw equipment-slot?         string
+  |              +--rw equipment-sub-slot?     string
+  |              +--rw is-reused?              boolean
+  |              +--rw port* [circuit-pack-name port-name]
+  |                 +--rw circuit-pack-name    string
+  |                 +--rw port-name            string
+  |                 +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
   +--rw versioned-service-list
   |  +--rw services* [service-name version-number]
   |     +--rw version-number               uint64
