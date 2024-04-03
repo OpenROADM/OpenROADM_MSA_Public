@@ -10,9 +10,9 @@ module org-openroadm-lldp {
     prefix org-openroadm-device;
     revision-date 2024-03-29;
   }
-  import iana-afn-safi {
-    prefix ianaaf;
-    revision-date 2013-07-04;
+  import iana-routing-types {
+    prefix iana-rt-types;
+    revision-date 2022-08-19;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -186,7 +186,7 @@ module org-openroadm-lldp {
         "remote neighbour system name";
     }
     leaf remoteMgmtAddressSubType {
-      type ianaaf:address-family;
+      type iana-rt-types:address-family;
       description
         "remote neighbour Management Address Subtype Enumeration";
     }

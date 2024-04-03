@@ -897,7 +897,7 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-lldp:if-name* [ifName]
      |  |        +--ro org-openroadm-lldp:ifName                      string
      |  |        +--ro org-openroadm-lldp:remoteSysName?              string
-     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   ianaaf:address-family
+     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   iana-rt-types:address-family
      |  |        +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
      |  |        +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
      |  |        +--ro org-openroadm-lldp:remotePortId?               string
@@ -1976,7 +1976,7 @@ module: org-openroadm-lldp
        +--ro resource?            string
        +--ro nbr-info
        |  +--ro remoteSysName?              string
-       |  +--ro remoteMgmtAddressSubType?   ianaaf:address-family
+       |  +--ro remoteMgmtAddressSubType?   iana-rt-types:address-family
        |  +--ro remoteMgmtAddress?          inet:ip-address
        |  +--ro remotePortIdSubType?        enumeration
        |  +--ro remotePortId?               string
