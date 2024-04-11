@@ -13,7 +13,7 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
@@ -21,11 +21,11 @@ module org-openroadm-otn-network-topology {
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
 
   organization
