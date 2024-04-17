@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -36,7 +36,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -145,6 +145,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";
@@ -355,6 +359,13 @@ module org-openroadm-device {
         "Common Language Location Identifier.";
     }
     uses org-openroadm-physical-types:node-info;
+    leaf oamp-interface-name {
+      type string;
+      config false;
+      description
+        "Assign the Ethernet interface name linked to the OAMP management port,
+         typically utilized for provisioning the primary IP address of the device.";
+    }
     leaf macAddress {
       type ietf-yang-types:mac-address;
       config false;
@@ -1066,6 +1077,17 @@ module org-openroadm-device {
       reference
         "openroadm.org: Open ROADM MSA Specification.";
     }
+    leaf actual-control-mode {
+      type org-openroadm-common-link-types:act-optical-control-mode;
+      config false;
+      mandatory true;
+      description
+        "The actual control mode for the roadm-connection.
+         The actual control mode can be different from the provisioned opticalControlMode
+         when a rebalancing RPC is in progress (adjust-optical-power RPC).";
+      reference
+        "openroadm.org: Open ROADM MSA Specification.";
+    }
     leaf target-output-power {
       type org-openroadm-common-link-types:power-dBm;
       description
@@ -1162,6 +1184,11 @@ module org-openroadm-device {
           mandatory true;
         }
       }
+    }
+    container osc-port {
+      description
+        "osc port associated with degree.";
+      uses port-name;
     }
     container otdr-port {
       description

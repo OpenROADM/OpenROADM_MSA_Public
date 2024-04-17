@@ -17,6 +17,11 @@ the RNC implements at least Service model 12.0.0.
 __ORrelease 13_1 : Introduce Optical specification version 6. To be used when
 the RNC implements at least Service model 12.0.0 and Common models R13.1.0 where
 pcs-dp-qam16 enum is introduced to support PCS modulation format.
+
+__ORrelease 15_0 : Use Optical specification version 6. To be used when the
+RNC implements at least Common models R13.1.0 and Service model 15.0.0 where
+max-channel-number is introduced in Catalog Add-Blocks parameters to
+differentiate MW-WR-Core-type2 from MW-WR-Core.
   
 After this operation, the operational modes catalog will then contain
 the translation of the [spec-release] version of OpenROADM optical specifications.

@@ -8,7 +8,7 @@ module org-openroadm-pm {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -16,7 +16,7 @@ module org-openroadm-pm {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -60,6 +60,10 @@ module org-openroadm-pm {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";
@@ -320,7 +324,11 @@ module org-openroadm-pm {
          could be initiated while the file transfer of the previous file is still in progress.
 
          The file content should be written in xml format based on the historical-pm-list
-         yang definition and the file should be gzip compressed.";
+         yang definition and the file should be gzip compressed.
+
+         If no data is to be returned, the file content should contain only an empty XML tag:
+         <historical-pm-list/>
+         This file would then be gzip compressed.";
     }
     uses org-openroadm-common-types:rpc-response-status;
   }

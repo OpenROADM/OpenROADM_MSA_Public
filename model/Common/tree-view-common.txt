@@ -47,7 +47,15 @@ module: org-openroadm-alarm
         |  |     |  +--ro versioned-service-name    string
         |  |     |  +--ro version-number            uint64
         |  |     +--:(temp-service)
-        |  |        +--ro common-id                 string
+        |  |     |  +--ro common-id                 string
+        |  |     +--:(slot)
+        |  |     |  +--ro slot
+        |  |     |     +--ro shelf-name    string
+        |  |     |     +--ro slot-name     string
+        |  |     +--:(cp-slot)
+        |  |        +--ro cp-slot
+        |  |           +--ro circuit-pack-name    string
+        |  |           +--ro slot-name            string
         |  +--ro resourceType
         |     +--ro type         resource-type-enum
         |     +--ro extension?   string
@@ -111,7 +119,15 @@ module: org-openroadm-alarm
        |  |     |  +--ro versioned-service-name    string
        |  |     |  +--ro version-number            uint64
        |  |     +--:(temp-service)
-       |  |        +--ro common-id                 string
+       |  |     |  +--ro common-id                 string
+       |  |     +--:(slot)
+       |  |     |  +--ro slot
+       |  |     |     +--ro shelf-name    string
+       |  |     |     +--ro slot-name     string
+       |  |     +--:(cp-slot)
+       |  |        +--ro cp-slot
+       |  |           +--ro circuit-pack-name    string
+       |  |           +--ro slot-name            string
        |  +--ro resourceType
        |     +--ro type         resource-type-enum
        |     +--ro extension?   string
@@ -363,7 +379,15 @@ module: org-openroadm-pm
     |  |  |     |  +---w versioned-service-name    string
     |  |  |     |  +---w version-number            uint64
     |  |  |     +--:(temp-service)
-    |  |  |        +---w common-id                 string
+    |  |  |     |  +---w common-id                 string
+    |  |  |     +--:(slot)
+    |  |  |     |  +---w slot
+    |  |  |     |     +---w shelf-name    string
+    |  |  |     |     +---w slot-name     string
+    |  |  |     +--:(cp-slot)
+    |  |  |        +---w cp-slot
+    |  |  |           +---w circuit-pack-name    string
+    |  |  |           +---w slot-name            string
     |  |  +---w resourceType
     |  |  |  +---w type         resource-type-enum
     |  |  |  +---w extension?   string

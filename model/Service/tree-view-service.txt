@@ -349,10 +349,17 @@ module: org-openroadm-controller-customization
        |  |  |     +---w link-restriction-type?   link-restriction-type
        |  |  |     +---w restriction-scopes*      restriction-scope
        |  |  +---w supporting-service-restriction
-       |  |     +---w supporting-service-list* [supporting-service]
-       |  |        +---w supporting-service                     string
-       |  |        +---w supporting-service-restriction-type?   link-restriction-type
-       |  |        +---w restriction-scopes*                    restriction-scope
+       |  |  |  +---w supporting-service-list* [supporting-service]
+       |  |  |     +---w supporting-service                     string
+       |  |  |     +---w supporting-service-restriction-type?   link-restriction-type
+       |  |  |     +---w restriction-scopes*                    restriction-scope
+       |  |  +---w srg-restriction
+       |  |     +---w node-srg-restriction* [node-id]
+       |  |        +---w node-id     org-openroadm-common-node-types:node-id-type
+       |  |        +---w srg-list* [srg-number]
+       |  |           +---w srg-number            uint16
+       |  |           +---w restriction-type?     restriction-type
+       |  |           +---w restriction-scopes*   restriction-scope
        |  +---w default-behaviour
        |  |  +---w default-backup-path-number?   uint16
        |  |  +---w reversion?                    boolean
@@ -531,11 +538,26 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |     +--rw operational-mode?    string
-  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  +--rw equipment-required* [equipment-identifier]
+  |     |     +--rw equipment-type?         string
+  |     |     +--rw equipment-identifier    string
+  |     |     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw equipment-rack?         string
+  |     |     +--rw equipment-shelf?        string
+  |     |     +--rw equipment-slot?         string
+  |     |     +--rw equipment-sub-slot?     string
+  |     |     +--rw is-reused?              boolean
+  |     |     +--rw port* [circuit-pack-name port-name]
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -647,11 +669,26 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |     +--rw operational-mode?    string
-  |     |     +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  +--rw equipment-required* [equipment-identifier]
+  |     |     +--rw equipment-type?         string
+  |     |     +--rw equipment-identifier    string
+  |     |     +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw equipment-rack?         string
+  |     |     +--rw equipment-shelf?        string
+  |     |     +--rw equipment-slot?         string
+  |     |     +--rw equipment-sub-slot?     string
+  |     |     +--rw is-reused?              boolean
+  |     |     +--rw port* [circuit-pack-name port-name]
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -676,6 +713,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -732,6 +773,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -901,7 +946,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -1008,7 +1061,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -1119,7 +1180,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -1226,7 +1295,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -1292,6 +1369,25 @@ module: org-openroadm-service
   |     |        |        +--rw link-id            string
   |     |        +--rw network-resource-type    identityref
   |     +--rw is-bandwidth-locked?         boolean
+  |     +--rw intermediate-site* [clli]
+  |        +--rw clli    string
+  |        +--rw node* [node-id]
+  |           +--rw node-id               org-openroadm-common-node-types:node-id-type
+  |           +--rw equipment-required* [equipment-identifier]
+  |              +--rw equipment-type?         string
+  |              +--rw equipment-identifier    string
+  |              +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+  |              +--rw equipment-rack?         string
+  |              +--rw equipment-shelf?        string
+  |              +--rw equipment-slot?         string
+  |              +--rw equipment-sub-slot?     string
+  |              +--rw is-reused?              boolean
+  |              +--rw port* [circuit-pack-name port-name]
+  |              |  +--rw circuit-pack-name    string
+  |              |  +--rw port-name            string
+  |              |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |              +--rw is-regen?               boolean
+  |              +--rw regen-purpose*          enumeration
   +--rw versioned-service-list
   |  +--rw services* [service-name version-number]
   |     +--rw version-number               uint64
@@ -1590,6 +1686,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -1646,6 +1746,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -1815,7 +1919,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -1922,7 +2034,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -2033,7 +2153,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -2140,7 +2268,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -2373,9 +2509,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
@@ -2502,9 +2640,11 @@ module: org-openroadm-service
   |     |     +--rw equipment-sub-slot?     string
   |     |     +--rw is-reused?              boolean
   |     |     +--rw port* [circuit-pack-name port-name]
-  |     |        +--rw circuit-pack-name    string
-  |     |        +--rw port-name            string
-  |     |        +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     |  +--rw circuit-pack-name    string
+  |     |     |  +--rw port-name            string
+  |     |     |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |     +--rw is-regen?               boolean
+  |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
   |     |  +--rw customer-code*      string
   |     |  +--rw operational-mode*   string
@@ -2529,6 +2669,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -2585,6 +2729,10 @@ module: org-openroadm-service
   |     |  |  |  +--rw link-network-id    string
   |     |  |  |  +--rw link-id            string
   |     |  |  +--rw supporting-service-name*   string
+  |     |  |  +--rw node-srg* [node-id]
+  |     |  |     +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |     |  |     +--rw srg-list* [srg-number]
+  |     |  |        +--rw srg-number    uint16
   |     |  +--rw include
   |     |  |  +--rw is-explicit-routing?       boolean
   |     |  |  +--rw is-include-list-ordered?   boolean
@@ -2754,7 +2902,15 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw versioned-service-name       string
   |     |  |  |     |  +--rw version-number               uint64
   |     |  |  |     +--:(temp-service)
-  |     |  |  |        +--rw common-id                    string
+  |     |  |  |     |  +--rw common-id                    string
+  |     |  |  |     +--:(slot)
+  |     |  |  |     |  +--rw slot
+  |     |  |  |     |     +--rw shelf-name    string
+  |     |  |  |     |     +--rw slot-name     string
+  |     |  |  |     +--:(cp-slot)
+  |     |  |  |        +--rw cp-slot
+  |     |  |  |           +--rw circuit-pack-name    string
+  |     |  |  |           +--rw slot-name            string
   |     |  |  +--rw resourceType
   |     |  |     +--rw type         resource-type-enum
   |     |  |     +--rw extension?   string
@@ -2861,7 +3017,15 @@ module: org-openroadm-service
   |     |     |     |  +--rw versioned-service-name       string
   |     |     |     |  +--rw version-number               uint64
   |     |     |     +--:(temp-service)
-  |     |     |        +--rw common-id                    string
+  |     |     |     |  +--rw common-id                    string
+  |     |     |     +--:(slot)
+  |     |     |     |  +--rw slot
+  |     |     |     |     +--rw shelf-name    string
+  |     |     |     |     +--rw slot-name     string
+  |     |     |     +--:(cp-slot)
+  |     |     |        +--rw cp-slot
+  |     |     |           +--rw circuit-pack-name    string
+  |     |     |           +--rw slot-name            string
   |     |     +--rw resourceType
   |     |        +--rw type         resource-type-enum
   |     |        +--rw extension?   string
@@ -2972,7 +3136,15 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw versioned-service-name       string
   |     |     |  |     |  +--rw version-number               uint64
   |     |     |  |     +--:(temp-service)
-  |     |     |  |        +--rw common-id                    string
+  |     |     |  |     |  +--rw common-id                    string
+  |     |     |  |     +--:(slot)
+  |     |     |  |     |  +--rw slot
+  |     |     |  |     |     +--rw shelf-name    string
+  |     |     |  |     |     +--rw slot-name     string
+  |     |     |  |     +--:(cp-slot)
+  |     |     |  |        +--rw cp-slot
+  |     |     |  |           +--rw circuit-pack-name    string
+  |     |     |  |           +--rw slot-name            string
   |     |     |  +--rw resourceType
   |     |     |     +--rw type         resource-type-enum
   |     |     |     +--rw extension?   string
@@ -3079,7 +3251,15 @@ module: org-openroadm-service
   |     |        |     |  +--rw versioned-service-name       string
   |     |        |     |  +--rw version-number               uint64
   |     |        |     +--:(temp-service)
-  |     |        |        +--rw common-id                    string
+  |     |        |     |  +--rw common-id                    string
+  |     |        |     +--:(slot)
+  |     |        |     |  +--rw slot
+  |     |        |     |     +--rw shelf-name    string
+  |     |        |     |     +--rw slot-name     string
+  |     |        |     +--:(cp-slot)
+  |     |        |        +--rw cp-slot
+  |     |        |           +--rw circuit-pack-name    string
+  |     |        |           +--rw slot-name            string
   |     |        +--rw resourceType
   |     |           +--rw type         resource-type-enum
   |     |           +--rw extension?   string
@@ -3159,9 +3339,11 @@ module: org-openroadm-service
   |     |        +--rw equipment-sub-slot?     string
   |     |        +--rw is-reused?              boolean
   |     |        +--rw port* [circuit-pack-name port-name]
-  |     |           +--rw circuit-pack-name    string
-  |     |           +--rw port-name            string
-  |     |           +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |        |  +--rw circuit-pack-name    string
+  |     |        |  +--rw port-name            string
+  |     |        |  +--rw lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+  |     |        +--rw is-regen?               boolean
+  |     |        +--rw regen-purpose*          enumeration
   |     +--rw supporting-service-hierarchy* [service-identifier]
   |     |  +--rw service-identifier      string
   |     |  +--rw service-layer?          service-layer-type
@@ -3273,10 +3455,17 @@ module: org-openroadm-service
   |  |  |     +--rw link-restriction-type?   link-restriction-type
   |  |  |     +--rw restriction-scopes*      restriction-scope
   |  |  +--rw supporting-service-restriction
-  |  |     +--rw supporting-service-list* [supporting-service]
-  |  |        +--rw supporting-service                     string
-  |  |        +--rw supporting-service-restriction-type?   link-restriction-type
-  |  |        +--rw restriction-scopes*                    restriction-scope
+  |  |  |  +--rw supporting-service-list* [supporting-service]
+  |  |  |     +--rw supporting-service                     string
+  |  |  |     +--rw supporting-service-restriction-type?   link-restriction-type
+  |  |  |     +--rw restriction-scopes*                    restriction-scope
+  |  |  +--rw srg-restriction
+  |  |     +--rw node-srg-restriction* [node-id]
+  |  |        +--rw node-id     org-openroadm-common-node-types:node-id-type
+  |  |        +--rw srg-list* [srg-number]
+  |  |           +--rw srg-number            uint16
+  |  |           +--rw restriction-type?     restriction-type
+  |  |           +--rw restriction-scopes*   restriction-scope
   |  +--rw default-behaviour
   |  |  +--rw default-backup-path-number?   uint16
   |  |  +--rw reversion?                    boolean
@@ -3348,8 +3537,9 @@ module: org-openroadm-service
      |  |  |        +--rw D?                decimal64
      |  |  |        +--rw fiber-type?       enumeration
      |  |  +--rw Add
-     |  |  |  +--rw add-openroadm-operational-mode* [openroadm-operational-mode-id]
+     |  |  |  +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |  |     +--rw openroadm-operational-mode-id    string
+     |  |  |     +--rw max-channel-number?              uint8
      |  |  |     +--rw incremental-osnr?                org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
@@ -3719,6 +3909,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -3775,6 +3969,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -3865,6 +4063,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -3921,6 +4123,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -4233,6 +4439,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4289,6 +4499,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4381,6 +4595,10 @@ module: org-openroadm-service
     |           |  |  |  +--ro link-network-id    string
     |           |  |  |  +--ro link-id            string
     |           |  |  +--ro supporting-service-name*   string
+    |           |  |  +--ro node-srg* [node-id]
+    |           |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |  |     +--ro srg-list* [srg-number]
+    |           |  |        +--ro srg-number    uint16
     |           |  +--ro include
     |           |  |  +--ro is-explicit-routing?       boolean
     |           |  |  +--ro is-include-list-ordered?   boolean
@@ -4437,6 +4655,10 @@ module: org-openroadm-service
     |              |  |  +--ro link-network-id    string
     |              |  |  +--ro link-id            string
     |              |  +--ro supporting-service-name*   string
+    |              |  +--ro node-srg* [node-id]
+    |              |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |              |     +--ro srg-list* [srg-number]
+    |              |        +--ro srg-number    uint16
     |              +--ro include
     |              |  +--ro is-explicit-routing?       boolean
     |              |  +--ro is-include-list-ordered?   boolean
@@ -4748,6 +4970,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4804,6 +5030,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -4901,6 +5131,10 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-network-id    string
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro node-srg* [node-id]
+    |        |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |  |     +--ro srg-list* [srg-number]
+    |        |  |  |        +--ro srg-number    uint16
     |        |  |  +--ro include
     |        |  |  |  +--ro is-explicit-routing?       boolean
     |        |  |  |  +--ro is-include-list-ordered?   boolean
@@ -4957,6 +5191,10 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-network-id    string
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
+    |        |     |  +--ro node-srg* [node-id]
+    |        |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     |     +--ro srg-list* [srg-number]
+    |        |     |        +--ro srg-number    uint16
     |        |     +--ro include
     |        |     |  +--ro is-explicit-routing?       boolean
     |        |     |  +--ro is-include-list-ordered?   boolean
@@ -5514,6 +5752,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -5570,6 +5812,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -5668,6 +5914,10 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-network-id    string
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  +--ro node-srg* [node-id]
+    |     |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |  |     +--ro srg-list* [srg-number]
+    |     |  |  |        +--ro srg-number    uint16
     |     |  |  +--ro include
     |     |  |  |  +--ro is-explicit-routing?       boolean
     |     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -5724,6 +5974,10 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-network-id    string
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
+    |     |     |  +--ro node-srg* [node-id]
+    |     |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |     |     +--ro srg-list* [srg-number]
+    |     |     |        +--ro srg-number    uint16
     |     |     +--ro include
     |     |     |  +--ro is-explicit-routing?       boolean
     |     |     |  +--ro is-include-list-ordered?   boolean
@@ -5928,9 +6182,11 @@ module: org-openroadm-service
     |     |  |  +--ro equipment-sub-slot?     string
     |     |  |  +--ro is-reused?              boolean
     |     |  |  +--ro port* [circuit-pack-name port-name]
-    |     |  |     +--ro circuit-pack-name    string
-    |     |  |     +--ro port-name            string
-    |     |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  |  +--ro circuit-pack-name    string
+    |     |  |  |  +--ro port-name            string
+    |     |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  +--ro is-regen?               boolean
+    |     |  |  +--ro regen-purpose*          enumeration
     |     |  +--ro expected-settings-and-performances
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6059,9 +6315,11 @@ module: org-openroadm-service
     |     |  |  +--ro equipment-sub-slot?     string
     |     |  |  +--ro is-reused?              boolean
     |     |  |  +--ro port* [circuit-pack-name port-name]
-    |     |  |     +--ro circuit-pack-name    string
-    |     |  |     +--ro port-name            string
-    |     |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  |  +--ro circuit-pack-name    string
+    |     |  |  |  +--ro port-name            string
+    |     |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |  |  +--ro is-regen?               boolean
+    |     |  |  +--ro regen-purpose*          enumeration
     |     |  +--ro expected-settings-and-performances
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6084,9 +6342,11 @@ module: org-openroadm-service
     |     |        +--ro equipment-sub-slot?     string
     |     |        +--ro is-reused?              boolean
     |     |        +--ro port* [circuit-pack-name port-name]
-    |     |           +--ro circuit-pack-name    string
-    |     |           +--ro port-name            string
-    |     |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |        |  +--ro circuit-pack-name    string
+    |     |        |  +--ro port-name            string
+    |     |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |     |        +--ro is-regen?               boolean
+    |     |        +--ro regen-purpose*          enumeration
     |     +--ro requested-service-topology
     |     |  +--ro topology
     |     |  |  +--ro aToZ* [id]
@@ -6192,7 +6452,15 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro versioned-service-name       string
     |     |  |  |  |     |  +--ro version-number               uint64
     |     |  |  |  |     +--:(temp-service)
-    |     |  |  |  |        +--ro common-id                    string
+    |     |  |  |  |     |  +--ro common-id                    string
+    |     |  |  |  |     +--:(slot)
+    |     |  |  |  |     |  +--ro slot
+    |     |  |  |  |     |     +--ro shelf-name    string
+    |     |  |  |  |     |     +--ro slot-name     string
+    |     |  |  |  |     +--:(cp-slot)
+    |     |  |  |  |        +--ro cp-slot
+    |     |  |  |  |           +--ro circuit-pack-name    string
+    |     |  |  |  |           +--ro slot-name            string
     |     |  |  |  +--ro resourceType
     |     |  |  |     +--ro type         resource-type-enum
     |     |  |  |     +--ro extension?   string
@@ -6299,7 +6567,15 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro versioned-service-name       string
     |     |  |     |     |  +--ro version-number               uint64
     |     |  |     |     +--:(temp-service)
-    |     |  |     |        +--ro common-id                    string
+    |     |  |     |     |  +--ro common-id                    string
+    |     |  |     |     +--:(slot)
+    |     |  |     |     |  +--ro slot
+    |     |  |     |     |     +--ro shelf-name    string
+    |     |  |     |     |     +--ro slot-name     string
+    |     |  |     |     +--:(cp-slot)
+    |     |  |     |        +--ro cp-slot
+    |     |  |     |           +--ro circuit-pack-name    string
+    |     |  |     |           +--ro slot-name            string
     |     |  |     +--ro resourceType
     |     |  |        +--ro type         resource-type-enum
     |     |  |        +--ro extension?   string
@@ -6410,7 +6686,15 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro versioned-service-name       string
     |     |  |     |  |     |  +--ro version-number               uint64
     |     |  |     |  |     +--:(temp-service)
-    |     |  |     |  |        +--ro common-id                    string
+    |     |  |     |  |     |  +--ro common-id                    string
+    |     |  |     |  |     +--:(slot)
+    |     |  |     |  |     |  +--ro slot
+    |     |  |     |  |     |     +--ro shelf-name    string
+    |     |  |     |  |     |     +--ro slot-name     string
+    |     |  |     |  |     +--:(cp-slot)
+    |     |  |     |  |        +--ro cp-slot
+    |     |  |     |  |           +--ro circuit-pack-name    string
+    |     |  |     |  |           +--ro slot-name            string
     |     |  |     |  +--ro resourceType
     |     |  |     |     +--ro type         resource-type-enum
     |     |  |     |     +--ro extension?   string
@@ -6517,7 +6801,15 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro versioned-service-name       string
     |     |  |        |     |  +--ro version-number               uint64
     |     |  |        |     +--:(temp-service)
-    |     |  |        |        +--ro common-id                    string
+    |     |  |        |     |  +--ro common-id                    string
+    |     |  |        |     +--:(slot)
+    |     |  |        |     |  +--ro slot
+    |     |  |        |     |     +--ro shelf-name    string
+    |     |  |        |     |     +--ro slot-name     string
+    |     |  |        |     +--:(cp-slot)
+    |     |  |        |        +--ro cp-slot
+    |     |  |        |           +--ro circuit-pack-name    string
+    |     |  |        |           +--ro slot-name            string
     |     |  |        +--ro resourceType
     |     |  |           +--ro type         resource-type-enum
     |     |  |           +--ro extension?   string
@@ -6833,9 +7125,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6964,9 +7258,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -6989,9 +7285,11 @@ module: org-openroadm-service
     |        |        +--ro equipment-sub-slot?     string
     |        |        +--ro is-reused?              boolean
     |        |        +--ro port* [circuit-pack-name port-name]
-    |        |           +--ro circuit-pack-name    string
-    |        |           +--ro port-name            string
-    |        |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        |  +--ro circuit-pack-name    string
+    |        |        |  +--ro port-name            string
+    |        |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        +--ro is-regen?               boolean
+    |        |        +--ro regen-purpose*          enumeration
     |        +--ro requested-service-topology
     |        |  +--ro topology
     |        |  |  +--ro aToZ* [id]
@@ -7097,7 +7395,15 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro versioned-service-name       string
     |        |  |  |  |     |  +--ro version-number               uint64
     |        |  |  |  |     +--:(temp-service)
-    |        |  |  |  |        +--ro common-id                    string
+    |        |  |  |  |     |  +--ro common-id                    string
+    |        |  |  |  |     +--:(slot)
+    |        |  |  |  |     |  +--ro slot
+    |        |  |  |  |     |     +--ro shelf-name    string
+    |        |  |  |  |     |     +--ro slot-name     string
+    |        |  |  |  |     +--:(cp-slot)
+    |        |  |  |  |        +--ro cp-slot
+    |        |  |  |  |           +--ro circuit-pack-name    string
+    |        |  |  |  |           +--ro slot-name            string
     |        |  |  |  +--ro resourceType
     |        |  |  |     +--ro type         resource-type-enum
     |        |  |  |     +--ro extension?   string
@@ -7204,7 +7510,15 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro versioned-service-name       string
     |        |  |     |     |  +--ro version-number               uint64
     |        |  |     |     +--:(temp-service)
-    |        |  |     |        +--ro common-id                    string
+    |        |  |     |     |  +--ro common-id                    string
+    |        |  |     |     +--:(slot)
+    |        |  |     |     |  +--ro slot
+    |        |  |     |     |     +--ro shelf-name    string
+    |        |  |     |     |     +--ro slot-name     string
+    |        |  |     |     +--:(cp-slot)
+    |        |  |     |        +--ro cp-slot
+    |        |  |     |           +--ro circuit-pack-name    string
+    |        |  |     |           +--ro slot-name            string
     |        |  |     +--ro resourceType
     |        |  |        +--ro type         resource-type-enum
     |        |  |        +--ro extension?   string
@@ -7315,7 +7629,15 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro versioned-service-name       string
     |        |  |     |  |     |  +--ro version-number               uint64
     |        |  |     |  |     +--:(temp-service)
-    |        |  |     |  |        +--ro common-id                    string
+    |        |  |     |  |     |  +--ro common-id                    string
+    |        |  |     |  |     +--:(slot)
+    |        |  |     |  |     |  +--ro slot
+    |        |  |     |  |     |     +--ro shelf-name    string
+    |        |  |     |  |     |     +--ro slot-name     string
+    |        |  |     |  |     +--:(cp-slot)
+    |        |  |     |  |        +--ro cp-slot
+    |        |  |     |  |           +--ro circuit-pack-name    string
+    |        |  |     |  |           +--ro slot-name            string
     |        |  |     |  +--ro resourceType
     |        |  |     |     +--ro type         resource-type-enum
     |        |  |     |     +--ro extension?   string
@@ -7422,7 +7744,15 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro versioned-service-name       string
     |        |  |        |     |  +--ro version-number               uint64
     |        |  |        |     +--:(temp-service)
-    |        |  |        |        +--ro common-id                    string
+    |        |  |        |     |  +--ro common-id                    string
+    |        |  |        |     +--:(slot)
+    |        |  |        |     |  +--ro slot
+    |        |  |        |     |     +--ro shelf-name    string
+    |        |  |        |     |     +--ro slot-name     string
+    |        |  |        |     +--:(cp-slot)
+    |        |  |        |        +--ro cp-slot
+    |        |  |        |           +--ro circuit-pack-name    string
+    |        |  |        |           +--ro slot-name            string
     |        |  |        +--ro resourceType
     |        |  |           +--ro type         resource-type-enum
     |        |  |           +--ro extension?   string
@@ -7606,6 +7936,10 @@ module: org-openroadm-service
     |        |  |  |  |  +--ro link-network-id    string
     |        |  |  |  |  +--ro link-id            string
     |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro node-srg* [node-id]
+    |        |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |  |     +--ro srg-list* [srg-number]
+    |        |  |  |        +--ro srg-number    uint16
     |        |  |  +--ro include
     |        |  |  |  +--ro is-explicit-routing?       boolean
     |        |  |  |  +--ro is-include-list-ordered?   boolean
@@ -7662,6 +7996,10 @@ module: org-openroadm-service
     |        |     |  |  +--ro link-network-id    string
     |        |     |  |  +--ro link-id            string
     |        |     |  +--ro supporting-service-name*   string
+    |        |     |  +--ro node-srg* [node-id]
+    |        |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     |     +--ro srg-list* [srg-number]
+    |        |     |        +--ro srg-number    uint16
     |        |     +--ro include
     |        |     |  +--ro is-explicit-routing?       boolean
     |        |     |  +--ro is-include-list-ordered?   boolean
@@ -7866,9 +8204,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -7997,9 +8337,11 @@ module: org-openroadm-service
     |        |  |  +--ro equipment-sub-slot?     string
     |        |  |  +--ro is-reused?              boolean
     |        |  |  +--ro port* [circuit-pack-name port-name]
-    |        |  |     +--ro circuit-pack-name    string
-    |        |  |     +--ro port-name            string
-    |        |  |     +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  |  +--ro circuit-pack-name    string
+    |        |  |  |  +--ro port-name            string
+    |        |  |  |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |  |  +--ro is-regen?               boolean
+    |        |  |  +--ro regen-purpose*          enumeration
     |        |  +--ro expected-settings-and-performances
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -8022,9 +8364,11 @@ module: org-openroadm-service
     |        |        +--ro equipment-sub-slot?     string
     |        |        +--ro is-reused?              boolean
     |        |        +--ro port* [circuit-pack-name port-name]
-    |        |           +--ro circuit-pack-name    string
-    |        |           +--ro port-name            string
-    |        |           +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        |  +--ro circuit-pack-name    string
+    |        |        |  +--ro port-name            string
+    |        |        |  +--ro lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
+    |        |        +--ro is-regen?               boolean
+    |        |        +--ro regen-purpose*          enumeration
     |        +--ro requested-service-topology
     |        |  +--ro topology
     |        |  |  +--ro aToZ* [id]
@@ -8130,7 +8474,15 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro versioned-service-name       string
     |        |  |  |  |     |  +--ro version-number               uint64
     |        |  |  |  |     +--:(temp-service)
-    |        |  |  |  |        +--ro common-id                    string
+    |        |  |  |  |     |  +--ro common-id                    string
+    |        |  |  |  |     +--:(slot)
+    |        |  |  |  |     |  +--ro slot
+    |        |  |  |  |     |     +--ro shelf-name    string
+    |        |  |  |  |     |     +--ro slot-name     string
+    |        |  |  |  |     +--:(cp-slot)
+    |        |  |  |  |        +--ro cp-slot
+    |        |  |  |  |           +--ro circuit-pack-name    string
+    |        |  |  |  |           +--ro slot-name            string
     |        |  |  |  +--ro resourceType
     |        |  |  |     +--ro type         resource-type-enum
     |        |  |  |     +--ro extension?   string
@@ -8237,7 +8589,15 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro versioned-service-name       string
     |        |  |     |     |  +--ro version-number               uint64
     |        |  |     |     +--:(temp-service)
-    |        |  |     |        +--ro common-id                    string
+    |        |  |     |     |  +--ro common-id                    string
+    |        |  |     |     +--:(slot)
+    |        |  |     |     |  +--ro slot
+    |        |  |     |     |     +--ro shelf-name    string
+    |        |  |     |     |     +--ro slot-name     string
+    |        |  |     |     +--:(cp-slot)
+    |        |  |     |        +--ro cp-slot
+    |        |  |     |           +--ro circuit-pack-name    string
+    |        |  |     |           +--ro slot-name            string
     |        |  |     +--ro resourceType
     |        |  |        +--ro type         resource-type-enum
     |        |  |        +--ro extension?   string
@@ -8348,7 +8708,15 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro versioned-service-name       string
     |        |  |     |  |     |  +--ro version-number               uint64
     |        |  |     |  |     +--:(temp-service)
-    |        |  |     |  |        +--ro common-id                    string
+    |        |  |     |  |     |  +--ro common-id                    string
+    |        |  |     |  |     +--:(slot)
+    |        |  |     |  |     |  +--ro slot
+    |        |  |     |  |     |     +--ro shelf-name    string
+    |        |  |     |  |     |     +--ro slot-name     string
+    |        |  |     |  |     +--:(cp-slot)
+    |        |  |     |  |        +--ro cp-slot
+    |        |  |     |  |           +--ro circuit-pack-name    string
+    |        |  |     |  |           +--ro slot-name            string
     |        |  |     |  +--ro resourceType
     |        |  |     |     +--ro type         resource-type-enum
     |        |  |     |     +--ro extension?   string
@@ -8455,7 +8823,15 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro versioned-service-name       string
     |        |  |        |     |  +--ro version-number               uint64
     |        |  |        |     +--:(temp-service)
-    |        |  |        |        +--ro common-id                    string
+    |        |  |        |     |  +--ro common-id                    string
+    |        |  |        |     +--:(slot)
+    |        |  |        |     |  +--ro slot
+    |        |  |        |     |     +--ro shelf-name    string
+    |        |  |        |     |     +--ro slot-name     string
+    |        |  |        |     +--:(cp-slot)
+    |        |  |        |        +--ro cp-slot
+    |        |  |        |           +--ro circuit-pack-name    string
+    |        |  |        |           +--ro slot-name            string
     |        |  |        +--ro resourceType
     |        |  |           +--ro type         resource-type-enum
     |        |  |           +--ro extension?   string
@@ -8905,6 +9281,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -8961,6 +9341,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9078,6 +9462,10 @@ module: org-openroadm-service
     |     |  |  |  |  +--ro link-network-id    string
     |     |  |  |  |  +--ro link-id            string
     |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  +--ro node-srg* [node-id]
+    |     |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |  |     +--ro srg-list* [srg-number]
+    |     |  |  |        +--ro srg-number    uint16
     |     |  |  +--ro include
     |     |  |  |  +--ro is-explicit-routing?       boolean
     |     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -9134,6 +9522,10 @@ module: org-openroadm-service
     |     |     |  |  +--ro link-network-id    string
     |     |     |  |  +--ro link-id            string
     |     |     |  +--ro supporting-service-name*   string
+    |     |     |  +--ro node-srg* [node-id]
+    |     |     |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |     |     +--ro srg-list* [srg-number]
+    |     |     |        +--ro srg-number    uint16
     |     |     +--ro include
     |     |     |  +--ro is-explicit-routing?       boolean
     |     |     |  +--ro is-include-list-ordered?   boolean
@@ -9500,6 +9892,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9556,6 +9952,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -9669,6 +10069,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -9725,6 +10129,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -10017,6 +10425,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -10073,6 +10485,10 @@ module: org-openroadm-service
     |  |     |  |  |  +---w link-network-id    string
     |  |     |  |  |  +---w link-id            string
     |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
     |  |     |  +---w include
     |  |     |  |  +---w is-explicit-routing?       boolean
     |  |     |  |  +---w is-include-list-ordered?   boolean
@@ -10188,6 +10604,10 @@ module: org-openroadm-service
     |        |  |  |  +--ro link-network-id    string
     |        |  |  |  +--ro link-id            string
     |        |  |  +--ro supporting-service-name*   string
+    |        |  |  +--ro node-srg* [node-id]
+    |        |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |  |     +--ro srg-list* [srg-number]
+    |        |  |        +--ro srg-number    uint16
     |        |  +--ro include
     |        |  |  +--ro is-explicit-routing?       boolean
     |        |  |  +--ro is-include-list-ordered?   boolean
@@ -10244,6 +10664,10 @@ module: org-openroadm-service
     |           |  |  +--ro link-network-id    string
     |           |  |  +--ro link-id            string
     |           |  +--ro supporting-service-name*   string
+    |           |  +--ro node-srg* [node-id]
+    |           |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |           |     +--ro srg-list* [srg-number]
+    |           |        +--ro srg-number    uint16
     |           +--ro include
     |           |  +--ro is-explicit-routing?       boolean
     |           |  +--ro is-include-list-ordered?   boolean
@@ -10429,6 +10853,10 @@ module: org-openroadm-service
     |     |  |  |  +--ro link-network-id    string
     |     |  |  |  +--ro link-id            string
     |     |  |  +--ro supporting-service-name*   string
+    |     |  |  +--ro node-srg* [node-id]
+    |     |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |     |  |     +--ro srg-list* [srg-number]
+    |     |  |        +--ro srg-number    uint16
     |     |  +--ro include
     |     |  |  +--ro is-explicit-routing?       boolean
     |     |  |  +--ro is-include-list-ordered?   boolean
@@ -10485,6 +10913,10 @@ module: org-openroadm-service
     |        |  |  +--ro link-network-id    string
     |        |  |  +--ro link-id            string
     |        |  +--ro supporting-service-name*   string
+    |        |  +--ro node-srg* [node-id]
+    |        |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |        |     +--ro srg-list* [srg-number]
+    |        |        +--ro srg-number    uint16
     |        +--ro include
     |        |  +--ro is-explicit-routing?       boolean
     |        |  +--ro is-include-list-ordered?   boolean
@@ -10549,6 +10981,10 @@ module: org-openroadm-service
     |  |  |  |  |  +---w link-network-id    string
     |  |  |  |  |  +---w link-id            string
     |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  +---w node-srg* [node-id]
+    |  |  |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |  |     +---w srg-list* [srg-number]
+    |  |  |  |        +---w srg-number    uint16
     |  |  |  +---w include
     |  |  |  |  +---w is-explicit-routing?       boolean
     |  |  |  |  +---w is-include-list-ordered?   boolean
@@ -10605,6 +11041,10 @@ module: org-openroadm-service
     |  |     |  |  +---w link-network-id    string
     |  |     |  |  +---w link-id            string
     |  |     |  +---w supporting-service-name*   string
+    |  |     |  +---w node-srg* [node-id]
+    |  |     |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |     +---w srg-list* [srg-number]
+    |  |     |        +---w srg-number    uint16
     |  |     +---w include
     |  |     |  +---w is-explicit-routing?       boolean
     |  |     |  +---w is-include-list-ordered?   boolean
@@ -10969,8 +11409,9 @@ module: org-openroadm-service
     |  |     |  |        +---w D?                decimal64
     |  |     |  |        +---w fiber-type?       enumeration
     |  |     |  +---w Add
-    |  |     |  |  +---w add-openroadm-operational-mode* [openroadm-operational-mode-id]
+    |  |     |  |  +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |  |     +---w openroadm-operational-mode-id    string
+    |  |     |  |     +---w max-channel-number?              uint8
     |  |     |  |     +---w incremental-osnr?                org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
@@ -11416,6 +11857,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -11472,6 +11917,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -11641,7 +12090,15 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro versioned-service-name       string
     |  |  |  |     |  +--ro version-number               uint64
     |  |  |  |     +--:(temp-service)
-    |  |  |  |        +--ro common-id                    string
+    |  |  |  |     |  +--ro common-id                    string
+    |  |  |  |     +--:(slot)
+    |  |  |  |     |  +--ro slot
+    |  |  |  |     |     +--ro shelf-name    string
+    |  |  |  |     |     +--ro slot-name     string
+    |  |  |  |     +--:(cp-slot)
+    |  |  |  |        +--ro cp-slot
+    |  |  |  |           +--ro circuit-pack-name    string
+    |  |  |  |           +--ro slot-name            string
     |  |  |  +--ro resourceType
     |  |  |     +--ro type         resource-type-enum
     |  |  |     +--ro extension?   string
@@ -11748,7 +12205,15 @@ module: org-openroadm-service
     |  |     |     |  +--ro versioned-service-name       string
     |  |     |     |  +--ro version-number               uint64
     |  |     |     +--:(temp-service)
-    |  |     |        +--ro common-id                    string
+    |  |     |     |  +--ro common-id                    string
+    |  |     |     +--:(slot)
+    |  |     |     |  +--ro slot
+    |  |     |     |     +--ro shelf-name    string
+    |  |     |     |     +--ro slot-name     string
+    |  |     |     +--:(cp-slot)
+    |  |     |        +--ro cp-slot
+    |  |     |           +--ro circuit-pack-name    string
+    |  |     |           +--ro slot-name            string
     |  |     +--ro resourceType
     |  |        +--ro type         resource-type-enum
     |  |        +--ro extension?   string
@@ -11859,7 +12324,15 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro versioned-service-name       string
     |  |     |  |     |  +--ro version-number               uint64
     |  |     |  |     +--:(temp-service)
-    |  |     |  |        +--ro common-id                    string
+    |  |     |  |     |  +--ro common-id                    string
+    |  |     |  |     +--:(slot)
+    |  |     |  |     |  +--ro slot
+    |  |     |  |     |     +--ro shelf-name    string
+    |  |     |  |     |     +--ro slot-name     string
+    |  |     |  |     +--:(cp-slot)
+    |  |     |  |        +--ro cp-slot
+    |  |     |  |           +--ro circuit-pack-name    string
+    |  |     |  |           +--ro slot-name            string
     |  |     |  +--ro resourceType
     |  |     |     +--ro type         resource-type-enum
     |  |     |     +--ro extension?   string
@@ -11966,7 +12439,15 @@ module: org-openroadm-service
     |  |        |     |  +--ro versioned-service-name       string
     |  |        |     |  +--ro version-number               uint64
     |  |        |     +--:(temp-service)
-    |  |        |        +--ro common-id                    string
+    |  |        |     |  +--ro common-id                    string
+    |  |        |     +--:(slot)
+    |  |        |     |  +--ro slot
+    |  |        |     |     +--ro shelf-name    string
+    |  |        |     |     +--ro slot-name     string
+    |  |        |     +--:(cp-slot)
+    |  |        |        +--ro cp-slot
+    |  |        |           +--ro circuit-pack-name    string
+    |  |        |           +--ro slot-name            string
     |  |        +--ro resourceType
     |  |           +--ro type         resource-type-enum
     |  |           +--ro extension?   string
@@ -12331,6 +12812,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -12387,6 +12872,10 @@ module: org-openroadm-service
     |  |  |  |  +--ro link-network-id    string
     |  |  |  |  +--ro link-id            string
     |  |  |  +--ro supporting-service-name*   string
+    |  |  |  +--ro node-srg* [node-id]
+    |  |  |     +--ro node-id     org-openroadm-common-node-types:node-id-type
+    |  |  |     +--ro srg-list* [srg-number]
+    |  |  |        +--ro srg-number    uint16
     |  |  +--ro include
     |  |  |  +--ro is-explicit-routing?       boolean
     |  |  |  +--ro is-include-list-ordered?   boolean
@@ -12556,7 +13045,15 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro versioned-service-name       string
     |  |  |  |     |  +--ro version-number               uint64
     |  |  |  |     +--:(temp-service)
-    |  |  |  |        +--ro common-id                    string
+    |  |  |  |     |  +--ro common-id                    string
+    |  |  |  |     +--:(slot)
+    |  |  |  |     |  +--ro slot
+    |  |  |  |     |     +--ro shelf-name    string
+    |  |  |  |     |     +--ro slot-name     string
+    |  |  |  |     +--:(cp-slot)
+    |  |  |  |        +--ro cp-slot
+    |  |  |  |           +--ro circuit-pack-name    string
+    |  |  |  |           +--ro slot-name            string
     |  |  |  +--ro resourceType
     |  |  |     +--ro type         resource-type-enum
     |  |  |     +--ro extension?   string
@@ -12663,7 +13160,15 @@ module: org-openroadm-service
     |  |     |     |  +--ro versioned-service-name       string
     |  |     |     |  +--ro version-number               uint64
     |  |     |     +--:(temp-service)
-    |  |     |        +--ro common-id                    string
+    |  |     |     |  +--ro common-id                    string
+    |  |     |     +--:(slot)
+    |  |     |     |  +--ro slot
+    |  |     |     |     +--ro shelf-name    string
+    |  |     |     |     +--ro slot-name     string
+    |  |     |     +--:(cp-slot)
+    |  |     |        +--ro cp-slot
+    |  |     |           +--ro circuit-pack-name    string
+    |  |     |           +--ro slot-name            string
     |  |     +--ro resourceType
     |  |        +--ro type         resource-type-enum
     |  |        +--ro extension?   string
@@ -12774,7 +13279,15 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro versioned-service-name       string
     |  |     |  |     |  +--ro version-number               uint64
     |  |     |  |     +--:(temp-service)
-    |  |     |  |        +--ro common-id                    string
+    |  |     |  |     |  +--ro common-id                    string
+    |  |     |  |     +--:(slot)
+    |  |     |  |     |  +--ro slot
+    |  |     |  |     |     +--ro shelf-name    string
+    |  |     |  |     |     +--ro slot-name     string
+    |  |     |  |     +--:(cp-slot)
+    |  |     |  |        +--ro cp-slot
+    |  |     |  |           +--ro circuit-pack-name    string
+    |  |     |  |           +--ro slot-name            string
     |  |     |  +--ro resourceType
     |  |     |     +--ro type         resource-type-enum
     |  |     |     +--ro extension?   string
@@ -12881,7 +13394,15 @@ module: org-openroadm-service
     |  |        |     |  +--ro versioned-service-name       string
     |  |        |     |  +--ro version-number               uint64
     |  |        |     +--:(temp-service)
-    |  |        |        +--ro common-id                    string
+    |  |        |     |  +--ro common-id                    string
+    |  |        |     +--:(slot)
+    |  |        |     |  +--ro slot
+    |  |        |     |     +--ro shelf-name    string
+    |  |        |     |     +--ro slot-name     string
+    |  |        |     +--:(cp-slot)
+    |  |        |        +--ro cp-slot
+    |  |        |           +--ro circuit-pack-name    string
+    |  |        |           +--ro slot-name            string
     |  |        +--ro resourceType
     |  |           +--ro type         resource-type-enum
     |  |           +--ro extension?   string

@@ -9,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2022-12-09;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -21,23 +21,23 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -45,7 +45,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
 
   organization
@@ -81,6 +81,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";
@@ -1902,7 +1906,27 @@ rpc add-openroadm-operational-modes-to-catalog {
       ";
     list services {
       key "service-name";
-      uses org-openroadm-common-service-types:service;
+      uses org-openroadm-common-service-types:service {
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
     }
   }
   container versioned-service-list {

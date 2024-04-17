@@ -184,7 +184,15 @@ module: org-openroadm-de-operations
        |  |     |  +---w versioned-service-name    string
        |  |     |  +---w version-number            uint64
        |  |     +--:(temp-service)
-       |  |        +---w common-id                 string
+       |  |     |  +---w common-id                 string
+       |  |     +--:(slot)
+       |  |     |  +---w slot
+       |  |     |     +---w shelf-name    string
+       |  |     |     +---w slot-name     string
+       |  |     +--:(cp-slot)
+       |  |        +---w cp-slot
+       |  |           +---w circuit-pack-name    string
+       |  |           +---w slot-name            string
        |  +---w resourceType
        |  |  +---w type         resource-type-enum
        |  |  +---w extension?   string
@@ -239,7 +247,15 @@ module: org-openroadm-de-operations
        |     |  +--ro versioned-service-name    string
        |     |  +--ro version-number            uint64
        |     +--:(temp-service)
-       |        +--ro common-id                 string
+       |     |  +--ro common-id                 string
+       |     +--:(slot)
+       |     |  +--ro slot
+       |     |     +--ro shelf-name    string
+       |     |     +--ro slot-name     string
+       |     +--:(cp-slot)
+       |        +--ro cp-slot
+       |           +--ro circuit-pack-name    string
+       |           +--ro slot-name            string
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
@@ -255,6 +271,7 @@ module: org-openroadm-device
      |  +--ro vendor                              string
      |  +--ro model                               string
      |  +--ro serial-id                           string
+     |  +--ro oamp-interface-name?                string
      |  +--ro macAddress?                         ietf-yang-types:mac-address
      |  +--ro softwareVersion?                    string
      |  +--ro software-build?                     string
@@ -880,7 +897,7 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-lldp:if-name* [ifName]
      |  |        +--ro org-openroadm-lldp:ifName                      string
      |  |        +--ro org-openroadm-lldp:remoteSysName?              string
-     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   ianaaf:address-family
+     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   iana-rt-types:address-family
      |  |        +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
      |  |        +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
      |  |        +--ro org-openroadm-lldp:remotePortId?               string
@@ -965,6 +982,9 @@ module: org-openroadm-device
      |  |  +--rw index                uint32
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  +--rw osc-port
+     |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw otdr-port
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
@@ -1047,6 +1067,7 @@ module: org-openroadm-device
      +--rw roadm-connections* [connection-name]
      |  +--rw connection-name        string
      |  +--rw opticalControlMode?    org-openroadm-common-link-types:optical-control-mode
+     |  +--ro actual-control-mode    org-openroadm-common-link-types:act-optical-control-mode
      |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
      |  +--rw source
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
@@ -1956,13 +1977,51 @@ module: org-openroadm-lldp
        +--ro resource?            string
        +--ro nbr-info
        |  +--ro remoteSysName?              string
-       |  +--ro remoteMgmtAddressSubType?   ianaaf:address-family
+       |  +--ro remoteMgmtAddressSubType?   iana-rt-types:address-family
        |  +--ro remoteMgmtAddress?          inet:ip-address
        |  +--ro remotePortIdSubType?        enumeration
        |  +--ro remotePortId?               string
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
+
+module: org-openroadm-native-data
+
+  rpcs:
+    +---x get-native-data
+       +---w input
+       |  +---w get-request?   string
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+          +--ro get-response?     string
+
+module: org-openroadm-optical-rebalancing
+
+  rpcs:
+    +---x adjust-optical-power
+       +---w input
+       |  +---w (adjust-scope)?
+       |  |  +--:(roadm-connections)
+       |  |  |  +---w connection-name*    -> /org-openroadm-device:org-openroadm-device/roadm-connections/connection-name
+       |  |  +--:(ingress-oms)
+       |  |  |  +---w ingress-oms         -> /org-openroadm-device:org-openroadm-device/interface/name
+       |  |  +--:(egress-oms)
+       |  |     +---w egress-oms          -> /org-openroadm-device:org-openroadm-device/interface/name
+       |  +---w target-power-threshold?   org-openroadm-common-link-types:ratio-dB
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+
+  notifications:
+    +---n adjust-optical-power-result
+       +--ro status                extended-rpc-status
+       +--ro status-message?       string
+       +--ro failed-connections
+          +--ro failed-connection* [connection-name]
+             +--ro connection-name     string
+             +--ro failure-reason      string
+             +--ro reversion-failed    boolean
 
 module: org-openroadm-ospf
 

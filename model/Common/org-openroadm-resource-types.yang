@@ -188,6 +188,16 @@ module org-openroadm-resource-types {
         description
           "circuit-pack-pg";
       }
+      enum slot {
+        value 21;
+        description
+          "shelf slot";
+      }
+      enum cp-slot {
+        value 22;
+        description
+          "circuit pack cp-slot";
+      }
     }
   }
 
@@ -409,6 +419,26 @@ module org-openroadm-resource-types {
       mandatory true;
       description
         "number of the xponder";
+    }
+  }
+
+  grouping slot-name {
+    leaf slot-name {
+      type string;
+      mandatory true;
+      description
+        "Slot-name identifier for a shelf slot. Unique within the context of a shelf.
+         Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping cp-slot-name {
+    leaf slot-name {
+      type string;
+      mandatory true;
+      description
+        "Slot-name identifier for a circuit-pack cp-slot. Unique within the context of a circut-pack.
+         Same as leafref value in model, if applicable.";
     }
   }
 }

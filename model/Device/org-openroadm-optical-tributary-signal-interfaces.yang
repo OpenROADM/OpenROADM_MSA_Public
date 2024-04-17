@@ -4,7 +4,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
 
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -12,7 +12,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
@@ -20,7 +20,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -78,6 +78,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";

@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";
@@ -204,6 +208,9 @@ module org-openroadm-common-types {
       enum In-progress {
         value 3;
       }
+      enum Partial {
+        value 4;
+      }
     }
     description
       "status of RPC ";
@@ -360,6 +367,11 @@ module org-openroadm-common-types {
         value 30;
         description
           "value for 14.1";
+      }
+      enum 15.0 {
+        value 31;
+        description
+          "value for 15.0";
       }
     }
     description

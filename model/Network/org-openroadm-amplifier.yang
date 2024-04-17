@@ -9,7 +9,7 @@ module org-openroadm-amplifier {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
 
   organization
@@ -46,6 +46,10 @@ module org-openroadm-amplifier {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2021-09-24 {
     description
       "Version 10.0";

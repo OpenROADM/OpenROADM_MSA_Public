@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2022-12-09;
+    revision-date 2024-03-29;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-12-08;
+    revision-date 2024-03-29;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -64,11 +64,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2019-11-29;
+    revision-date 2024-03-29;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2023-05-26;
+    revision-date 2024-03-29;
   }
 
 
@@ -105,6 +105,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-03-29 {
+    description
+      "Version 15.0";
+  }
   revision 2023-12-08 {
     description
       "Version 14.1";
@@ -1756,24 +1760,42 @@ module org-openroadm-common-service-types {
       type org-openroadm-common-state-types:lifecycle-state;
     }
     leaf equipment-rack {
-        type string;
-      }
-      leaf equipment-shelf {
-        type string;
-      }
-      leaf equipment-slot {
-        type string;
-      }
-      leaf equipment-sub-slot {
-        type string;
-      }
-      leaf is-reused {
-        type boolean;
-        description
-          "This is set true if the equipment-required is being reused for
-          service roll";
-      }
+      type string;
+    }
+    leaf equipment-shelf {
+      type string;
+    }
+    leaf equipment-slot {
+      type string;
+    }
+    leaf equipment-sub-slot {
+      type string;
+    }
+    leaf is-reused {
+      type boolean;
+      description
+        "This is set true if the equipment-required is being reused for
+        service roll";
+    }
     uses service-port-list;
+    leaf is-regen {
+      type boolean;
+      description
+        "Used to indicate if the intermediate site is a regen site or not.
+        It is used primarly in the feasibility check output";
+    }
+    leaf-list regen-purpose {
+      description
+        "Used to indicate the purpose of the regenerator";
+      type enumeration {
+        enum reach {
+          value 1;
+        }
+        enum recolor {
+          value 2;
+        }
+      }
+    }
   }
 
   grouping eventHorizon {
