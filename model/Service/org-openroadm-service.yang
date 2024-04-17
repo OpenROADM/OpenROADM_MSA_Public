@@ -1932,6 +1932,18 @@ rpc add-openroadm-operational-modes-to-catalog {
         }
       }
       uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
   }
   container versioned-service-list {
@@ -1944,7 +1956,39 @@ rpc add-openroadm-operational-modes-to-catalog {
       leaf version-number {
         type uint64;
       }
-      uses org-openroadm-common-service-types:service;
+      uses org-openroadm-common-service-types:service {
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
   }
   container temp-service-list {
