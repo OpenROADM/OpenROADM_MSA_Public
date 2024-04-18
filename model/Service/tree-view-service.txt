@@ -7902,7 +7902,419 @@ module: org-openroadm-service
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
     |  |  +---w service-request-list* [common-id]
-    |  |     +---w common-id    string
+    |  |     +---w common-id                      string
+    |  |     +---w connection-type?               org-openroadm-common-service-types:connection-type
+    |  |     +---w resource-status?               resource-status-type
+    |  |     +---w routing-metric
+    |  |     |  +---w wdm-hop-count?       uint8
+    |  |     |  +---w otn-hop-count?       uint8
+    |  |     |  +---w wdm-load?            uint8
+    |  |     |  +---w otn-load?            uint8
+    |  |     |  +---w latency?             uint8
+    |  |     |  +---w distance?            uint8
+    |  |     |  +---w wdm-TE-metric?       uint8
+    |  |     |  +---w adaptation-number?   uint8
+    |  |     |  +---w otn-TE-metric?       uint8
+    |  |     +---w service-resiliency
+    |  |     |  +---w resiliency?                          identityref
+    |  |     |  +---w revertive?                           boolean
+    |  |     |  +---w wait-to-restore?                     uint64
+    |  |     |  +---w holdoff-time?                        uint64
+    |  |     |  +---w pre-calculated-backup-path-number?   uint8
+    |  |     |  +---w coupled-service
+    |  |     |     +---w coupled-services* [service-index]
+    |  |     |        +---w service-index     uint16
+    |  |     |        +---w service-name?     string
+    |  |     |        +---w common-id?        string
+    |  |     |        +---w version-number?   uint64
+    |  |     +---w propose-equipment?             enumeration
+    |  |     +---w service-a-end
+    |  |     |  +---w service-format                     org-openroadm-service-format:service-format
+    |  |     |  +---w service-rate?                      uint32
+    |  |     |  +---w is-split-lambda?                   boolean
+    |  |     |  +---w split-lambda-service-rate?         uint32
+    |  |     |  +---w other-service-format-and-rate?     string
+    |  |     |  +---w otu-service-rate?                  identityref
+    |  |     |  +---w odu-service-rate?                  identityref
+    |  |     |  +---w ethernet-encoding?                 ethernet-encoding-type
+    |  |     |  +---w mapping-mode?                      mapping-mode-type
+    |  |     |  +---w client-phy-code?                   identityref
+    |  |     |  +---w otn-attributes
+    |  |     |  |  +---w parent-odu-allocation!
+    |  |     |  |  |  +---w trib-port-number          uint16
+    |  |     |  |  |  +---w (trib-slots-choice)?
+    |  |     |  |  |     +--:(opu)
+    |  |     |  |  |     |  +---w trib-slots*         uint16
+    |  |     |  |  |     +--:(opucn)
+    |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w fec?                     identityref
+    |  |     |  |  +---w tx-sapi?                 string
+    |  |     |  |  +---w tx-dapi?                 string
+    |  |     |  |  +---w tx-operator?             string
+    |  |     |  |  +---w expected-sapi?           string
+    |  |     |  |  +---w expected-dapi?           string
+    |  |     |  |  +---w tim-act-enabled?         boolean
+    |  |     |  |  +---w tim-detect-mode?         enumeration
+    |  |     |  |  +---w degm-intervals?          uint8
+    |  |     |  |  +---w degthr-percentage?       uint16
+    |  |     |  |  +---w reserved-tcm-layer*      uint8
+    |  |     |  |  +---w tcm* [layer tcm-direction]
+    |  |     |  |     +---w layer                                  uint8
+    |  |     |  |     +---w monitoring-mode?                       enumeration
+    |  |     |  |     +---w ltc-act-enabled?                       boolean
+    |  |     |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |     |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |     |  |     +---w tx-sapi?                               string
+    |  |     |  |     +---w tx-dapi?                               string
+    |  |     |  |     +---w tx-operator?                           string
+    |  |     |  |     +---w expected-sapi?                         string
+    |  |     |  |     +---w expected-dapi?                         string
+    |  |     |  |     +---w tim-act-enabled?                       boolean
+    |  |     |  |     +---w tim-detect-mode?                       enumeration
+    |  |     |  |     +---w degm-intervals?                        uint8
+    |  |     |  |     +---w degthr-percentage?                     uint16
+    |  |     |  +---w clli                               string
+    |  |     |  +---w node-id?                           org-openroadm-common-node-types:node-id-type
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
+    |  |     |  |  +---w port
+    |  |     |  |  |  +---w port-device-name?         string
+    |  |     |  |  |  +---w port-circuit-pack-name?   string
+    |  |     |  |  |  +---w port-circuit-pack-type?   string
+    |  |     |  |  |  +---w port-type?                string
+    |  |     |  |  |  +---w port-name?                string
+    |  |     |  |  |  +---w port-rack?                string
+    |  |     |  |  |  +---w port-shelf?               string
+    |  |     |  |  |  +---w port-slot?                string
+    |  |     |  |  |  +---w port-sub-slot?            string
+    |  |     |  |  +---w lgx
+    |  |     |  |  |  +---w lgx-device-name?   string
+    |  |     |  |  |  +---w lgx-port-name?     string
+    |  |     |  |  |  +---w lgx-port-rack?     string
+    |  |     |  |  |  +---w lgx-port-shelf?    string
+    |  |     |  |  +---w tail
+    |  |     |  |     +---w tail-roadm
+    |  |     |  |     |  +---w node-id?   org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w xponder-port
+    |  |     |  |     |  +---w circuit-pack-name?   string
+    |  |     |  |     |  +---w port-name?           string
+    |  |     |  |     +---w tail-roadm-port-aid?             string
+    |  |     |  |     +---w tail-roadm-port-rack-location?   string
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
+    |  |     |  |  +---w port
+    |  |     |  |  |  +---w port-device-name?         string
+    |  |     |  |  |  +---w port-circuit-pack-name?   string
+    |  |     |  |  |  +---w port-circuit-pack-type?   string
+    |  |     |  |  |  +---w port-type?                string
+    |  |     |  |  |  +---w port-name?                string
+    |  |     |  |  |  +---w port-rack?                string
+    |  |     |  |  |  +---w port-shelf?               string
+    |  |     |  |  |  +---w port-slot?                string
+    |  |     |  |  |  +---w port-sub-slot?            string
+    |  |     |  |  +---w lgx
+    |  |     |  |  |  +---w lgx-device-name?   string
+    |  |     |  |  |  +---w lgx-port-name?     string
+    |  |     |  |  |  +---w lgx-port-rack?     string
+    |  |     |  |  |  +---w lgx-port-shelf?    string
+    |  |     |  |  +---w tail
+    |  |     |  |     +---w tail-roadm
+    |  |     |  |     |  +---w node-id?   org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w xponder-port
+    |  |     |  |     |  +---w circuit-pack-name?   string
+    |  |     |  |     |  +---w port-name?           string
+    |  |     |  |     +---w tail-roadm-port-aid?             string
+    |  |     |  |     +---w tail-roadm-port-rack-location?   string
+    |  |     |  +---w optic-type?                        org-openroadm-common-equipment-types:optic-types
+    |  |     |  +---w router
+    |  |     |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w ip-address?   inet:ip-address
+    |  |     |  |  +---w url?          string
+    |  |     |  +---w user-label?                        string
+    |  |     |  +---w ethernet-attributes
+    |  |     |  |  +---w fec?               identityref
+    |  |     |  |  +---w subrate-eth-sla!
+    |  |     |  |     +---w committed-info-rate     uint32
+    |  |     |  |     +---w committed-burst-size    uint16
+    |  |     |  +---w project-id?                        string
+    |  |     |  +---w project-note?                      string
+    |  |     |  +---w requesting-interface-properties
+    |  |     |     +---w supported-operational-modes* [preference]
+    |  |     |     |  +---w preference             int16
+    |  |     |     |  +---w operational-mode-id?   string
+    |  |     |     +---w min-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +---w service-z-end
+    |  |     |  +---w service-format                     org-openroadm-service-format:service-format
+    |  |     |  +---w service-rate?                      uint32
+    |  |     |  +---w is-split-lambda?                   boolean
+    |  |     |  +---w split-lambda-service-rate?         uint32
+    |  |     |  +---w other-service-format-and-rate?     string
+    |  |     |  +---w otu-service-rate?                  identityref
+    |  |     |  +---w odu-service-rate?                  identityref
+    |  |     |  +---w ethernet-encoding?                 ethernet-encoding-type
+    |  |     |  +---w mapping-mode?                      mapping-mode-type
+    |  |     |  +---w client-phy-code?                   identityref
+    |  |     |  +---w otn-attributes
+    |  |     |  |  +---w parent-odu-allocation!
+    |  |     |  |  |  +---w trib-port-number          uint16
+    |  |     |  |  |  +---w (trib-slots-choice)?
+    |  |     |  |  |     +--:(opu)
+    |  |     |  |  |     |  +---w trib-slots*         uint16
+    |  |     |  |  |     +--:(opucn)
+    |  |     |  |  |        +---w opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
+    |  |     |  |  +---w fec?                     identityref
+    |  |     |  |  +---w tx-sapi?                 string
+    |  |     |  |  +---w tx-dapi?                 string
+    |  |     |  |  +---w tx-operator?             string
+    |  |     |  |  +---w expected-sapi?           string
+    |  |     |  |  +---w expected-dapi?           string
+    |  |     |  |  +---w tim-act-enabled?         boolean
+    |  |     |  |  +---w tim-detect-mode?         enumeration
+    |  |     |  |  +---w degm-intervals?          uint8
+    |  |     |  |  +---w degthr-percentage?       uint16
+    |  |     |  |  +---w reserved-tcm-layer*      uint8
+    |  |     |  |  +---w tcm* [layer tcm-direction]
+    |  |     |  |     +---w layer                                  uint8
+    |  |     |  |     +---w monitoring-mode?                       enumeration
+    |  |     |  |     +---w ltc-act-enabled?                       boolean
+    |  |     |  |     +---w proactive-delay-measurement-enabled?   boolean
+    |  |     |  |     +---w tcm-direction                          org-openroadm-otn-common-types:tcm-direction-enum
+    |  |     |  |     +---w tx-sapi?                               string
+    |  |     |  |     +---w tx-dapi?                               string
+    |  |     |  |     +---w tx-operator?                           string
+    |  |     |  |     +---w expected-sapi?                         string
+    |  |     |  |     +---w expected-dapi?                         string
+    |  |     |  |     +---w tim-act-enabled?                       boolean
+    |  |     |  |     +---w tim-detect-mode?                       enumeration
+    |  |     |  |     +---w degm-intervals?                        uint8
+    |  |     |  |     +---w degthr-percentage?                     uint16
+    |  |     |  +---w clli                               string
+    |  |     |  +---w node-id?                           org-openroadm-common-node-types:node-id-type
+    |  |     |  +---w tx-direction* [index]
+    |  |     |  |  +---w index    uint8
+    |  |     |  |  +---w port
+    |  |     |  |  |  +---w port-device-name?         string
+    |  |     |  |  |  +---w port-circuit-pack-name?   string
+    |  |     |  |  |  +---w port-circuit-pack-type?   string
+    |  |     |  |  |  +---w port-type?                string
+    |  |     |  |  |  +---w port-name?                string
+    |  |     |  |  |  +---w port-rack?                string
+    |  |     |  |  |  +---w port-shelf?               string
+    |  |     |  |  |  +---w port-slot?                string
+    |  |     |  |  |  +---w port-sub-slot?            string
+    |  |     |  |  +---w lgx
+    |  |     |  |  |  +---w lgx-device-name?   string
+    |  |     |  |  |  +---w lgx-port-name?     string
+    |  |     |  |  |  +---w lgx-port-rack?     string
+    |  |     |  |  |  +---w lgx-port-shelf?    string
+    |  |     |  |  +---w tail
+    |  |     |  |     +---w tail-roadm
+    |  |     |  |     |  +---w node-id?   org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w xponder-port
+    |  |     |  |     |  +---w circuit-pack-name?   string
+    |  |     |  |     |  +---w port-name?           string
+    |  |     |  |     +---w tail-roadm-port-aid?             string
+    |  |     |  |     +---w tail-roadm-port-rack-location?   string
+    |  |     |  +---w rx-direction* [index]
+    |  |     |  |  +---w index    uint8
+    |  |     |  |  +---w port
+    |  |     |  |  |  +---w port-device-name?         string
+    |  |     |  |  |  +---w port-circuit-pack-name?   string
+    |  |     |  |  |  +---w port-circuit-pack-type?   string
+    |  |     |  |  |  +---w port-type?                string
+    |  |     |  |  |  +---w port-name?                string
+    |  |     |  |  |  +---w port-rack?                string
+    |  |     |  |  |  +---w port-shelf?               string
+    |  |     |  |  |  +---w port-slot?                string
+    |  |     |  |  |  +---w port-sub-slot?            string
+    |  |     |  |  +---w lgx
+    |  |     |  |  |  +---w lgx-device-name?   string
+    |  |     |  |  |  +---w lgx-port-name?     string
+    |  |     |  |  |  +---w lgx-port-rack?     string
+    |  |     |  |  |  +---w lgx-port-shelf?    string
+    |  |     |  |  +---w tail
+    |  |     |  |     +---w tail-roadm
+    |  |     |  |     |  +---w node-id?   org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w xponder-port
+    |  |     |  |     |  +---w circuit-pack-name?   string
+    |  |     |  |     |  +---w port-name?           string
+    |  |     |  |     +---w tail-roadm-port-aid?             string
+    |  |     |  |     +---w tail-roadm-port-rack-location?   string
+    |  |     |  +---w optic-type?                        org-openroadm-common-equipment-types:optic-types
+    |  |     |  +---w router
+    |  |     |  |  +---w node-id?      org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w ip-address?   inet:ip-address
+    |  |     |  |  +---w url?          string
+    |  |     |  +---w user-label?                        string
+    |  |     |  +---w ethernet-attributes
+    |  |     |  |  +---w fec?               identityref
+    |  |     |  |  +---w subrate-eth-sla!
+    |  |     |  |     +---w committed-info-rate     uint32
+    |  |     |  |     +---w committed-burst-size    uint16
+    |  |     |  +---w project-id?                        string
+    |  |     |  +---w project-note?                      string
+    |  |     |  +---w requesting-interface-properties
+    |  |     |     +---w supported-operational-modes* [preference]
+    |  |     |     |  +---w preference             int16
+    |  |     |     |  +---w operational-mode-id?   string
+    |  |     |     +---w min-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +---w hard-constraints
+    |  |     |  +---w customer-code*      string
+    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w diversity
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
+    |  |     |  |  |  +---w service-applicability
+    |  |     |  |  |     +---w site?        boolean
+    |  |     |  |  |     +---w node?        boolean
+    |  |     |  |  |     +---w srlg?        boolean
+    |  |     |  |  |     +---w link?        boolean
+    |  |     |  |  |     +---w equipment
+    |  |     |  |  |        +---w roadm-srg?     boolean
+    |  |     |  |  |        +---w xponder-srg?   boolean
+    |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w exclude
+    |  |     |  |  +---w fiber-bundle*              string
+    |  |     |  |  +---w srlg-id*                   uint32
+    |  |     |  |  +---w site*                      string
+    |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w link-identifier* [link-network-id link-id]
+    |  |     |  |  |  +---w link-network-id    string
+    |  |     |  |  |  +---w link-id            string
+    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
+    |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
+    |  |     |  |  +---w fiber-bundle*              string
+    |  |     |  |  +---w srlg-id*                   uint32
+    |  |     |  |  +---w site*                      string
+    |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w link-identifier* [link-network-id link-id]
+    |  |     |  |  |  +---w link-network-id    string
+    |  |     |  |  |  +---w link-id            string
+    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  +---w latency
+    |  |     |  |  +---w max-latency?   decimal64
+    |  |     |  +---w hop-count
+    |  |     |  |  +---w max-wdm-hop-count?   uint8
+    |  |     |  |  +---w max-otn-hop-count?   uint8
+    |  |     |  +---w TE-metric
+    |  |     |  |  +---w max-wdm-TE-metric?   uint32
+    |  |     |  |  +---w max-otn-TE-metric?   uint32
+    |  |     |  +---w distance
+    |  |     |  |  +---w max-distance?   decimal64
+    |  |     |  +---w co-routing
+    |  |     |     +---w service-identifier-list* [service-identifier]
+    |  |     |        +---w service-identifier       string
+    |  |     |        +---w service-applicability
+    |  |     |           +---w site?        boolean
+    |  |     |           +---w node?        boolean
+    |  |     |           +---w srlg?        boolean
+    |  |     |           +---w link?        boolean
+    |  |     |           +---w equipment
+    |  |     |              +---w roadm-srg?     boolean
+    |  |     |              +---w xponder-srg?   boolean
+    |  |     +---w soft-constraints
+    |  |     |  +---w customer-code*      string
+    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w diversity
+    |  |     |  |  +---w service-identifier-list* [service-identifier]
+    |  |     |  |  |  +---w service-identifier       string
+    |  |     |  |  |  +---w service-applicability
+    |  |     |  |  |     +---w site?        boolean
+    |  |     |  |  |     +---w node?        boolean
+    |  |     |  |  |     +---w srlg?        boolean
+    |  |     |  |  |     +---w link?        boolean
+    |  |     |  |  |     +---w equipment
+    |  |     |  |  |        +---w roadm-srg?     boolean
+    |  |     |  |  |        +---w xponder-srg?   boolean
+    |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w exclude
+    |  |     |  |  +---w fiber-bundle*              string
+    |  |     |  |  +---w srlg-id*                   uint32
+    |  |     |  |  +---w site*                      string
+    |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w link-identifier* [link-network-id link-id]
+    |  |     |  |  |  +---w link-network-id    string
+    |  |     |  |  |  +---w link-id            string
+    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  +---w node-srg* [node-id]
+    |  |     |  |     +---w node-id     org-openroadm-common-node-types:node-id-type
+    |  |     |  |     +---w srg-list* [srg-number]
+    |  |     |  |        +---w srg-number    uint16
+    |  |     |  +---w include
+    |  |     |  |  +---w is-explicit-routing?       boolean
+    |  |     |  |  +---w is-include-list-ordered?   boolean
+    |  |     |  |  +---w fiber-bundle*              string
+    |  |     |  |  +---w srlg-id*                   uint32
+    |  |     |  |  +---w site*                      string
+    |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
+    |  |     |  |  +---w link-identifier* [link-network-id link-id]
+    |  |     |  |  |  +---w link-network-id    string
+    |  |     |  |  |  +---w link-id            string
+    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  +---w latency
+    |  |     |  |  +---w max-latency?   decimal64
+    |  |     |  +---w hop-count
+    |  |     |  |  +---w max-wdm-hop-count?   uint8
+    |  |     |  |  +---w max-otn-hop-count?   uint8
+    |  |     |  +---w TE-metric
+    |  |     |  |  +---w max-wdm-TE-metric?   uint32
+    |  |     |  |  +---w max-otn-TE-metric?   uint32
+    |  |     |  +---w distance
+    |  |     |  |  +---w max-distance?   decimal64
+    |  |     |  +---w co-routing
+    |  |     |     +---w service-identifier-list* [service-identifier]
+    |  |     |        +---w service-identifier       string
+    |  |     |        +---w service-applicability
+    |  |     |           +---w site?        boolean
+    |  |     |           +---w node?        boolean
+    |  |     |           +---w srlg?        boolean
+    |  |     |           +---w link?        boolean
+    |  |     |           +---w equipment
+    |  |     |              +---w roadm-srg?     boolean
+    |  |     |              +---w xponder-srg?   boolean
+    |  |     +---w due-date?                      yang:date-and-time
+    |  |     +---w end-date?                      yang:date-and-time
+    |  |     +---w eventHorizonStart?             yang:date-and-time
+    |  |     +---w eventHorizonEnd?               yang:date-and-time
+    |  |     +---w nc-code?                       string
+    |  |     +---w nci-code?                      string
+    |  |     +---w secondary-nci-code?            string
+    |  |     +---w customer?                      string
+    |  |     +---w customer-contact?              string
+    |  |     +---w operator-contact?              string
+    |  |     +---w service-layer?                 service-layer-type
+    |  |     +---w clli-network-ref?              string
+    |  |     +---w openroadm-network-ref?         string
+    |  |     +---w openroadm-topology-ref?        string
+    |  |     +---w sla-id?                        string
+    |  |     +---w bandwidth-calendaring?         boolean
+    |  |     +---w bw-calendaring-parameters
+    |  |     |  +---w bw-calendaring-coupled-services* [service-index]
+    |  |     |  |  +---w service-index     uint16
+    |  |     |  |  +---w service-name?     string
+    |  |     |  |  +---w common-id?        string
+    |  |     |  |  +---w version-number?   uint64
+    |  |     |  +---w recurrence-pattern* [recurrence-id]
+    |  |     |     +---w recurrence-id      uint32
+    |  |     |     +---w day-of-the-week*   enumeration
+    |  |     |     +---w start-time?        string
+    |  |     |     +---w end-time?          string
+    |  |     +---w max-regeneration-options?      uint8
+    |  |     +---w existing-service-attributes
+    |  |        +---w is-existing?                   boolean
+    |  |        +---w existing-service-name?         string
+    |  |        +---w reuse-existing-resources?      boolean
+    |  |        +---w reusable-existing-resources*   existing-resource-reuse-type
     |  +--ro output
     |     +--ro configuration-response-common
     |     |  +--ro request-id             string

@@ -735,6 +735,7 @@ module org-openroadm-service {
             "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
         }
+        uses service-feasibility-check-inputs;
       }
     }
     output {
