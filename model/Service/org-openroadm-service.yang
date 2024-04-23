@@ -33,7 +33,7 @@ module org-openroadm-service {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;

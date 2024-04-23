@@ -861,6 +861,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-name            string
   |     |  |  |     |  +--rw circuit-pack-type?           string
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
+  |     |  |  |     |  +--rw clei?                        string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
   |     |  |  |     |  |  +--rw circuit-pack-name    string
@@ -976,6 +977,7 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-name            string
   |     |     |     |  +--rw circuit-pack-type?           string
   |     |     |     |  +--rw circuit-pack-product-code?   string
+  |     |     |     |  +--rw clei?                        string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
   |     |     |     |  |  +--rw circuit-pack-name    string
@@ -1095,6 +1097,7 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-name            string
   |     |     |  |     |  +--rw circuit-pack-type?           string
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
+  |     |     |  |     |  +--rw clei?                        string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
   |     |     |  |     |  |  +--rw circuit-pack-name    string
@@ -1210,6 +1213,7 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-name            string
   |     |        |     |  +--rw circuit-pack-type?           string
   |     |        |     |  +--rw circuit-pack-product-code?   string
+  |     |        |     |  +--rw clei?                        string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
   |     |        |     |  |  +--rw circuit-pack-name    string
@@ -1913,6 +1917,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-name            string
   |     |  |  |     |  +--rw circuit-pack-type?           string
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
+  |     |  |  |     |  +--rw clei?                        string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
   |     |  |  |     |  |  +--rw circuit-pack-name    string
@@ -2028,6 +2033,7 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-name            string
   |     |     |     |  +--rw circuit-pack-type?           string
   |     |     |     |  +--rw circuit-pack-product-code?   string
+  |     |     |     |  +--rw clei?                        string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
   |     |     |     |  |  +--rw circuit-pack-name    string
@@ -2147,6 +2153,7 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-name            string
   |     |     |  |     |  +--rw circuit-pack-type?           string
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
+  |     |     |  |     |  +--rw clei?                        string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
   |     |     |  |     |  |  +--rw circuit-pack-name    string
@@ -2262,6 +2269,7 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-name            string
   |     |        |     |  +--rw circuit-pack-type?           string
   |     |        |     |  +--rw circuit-pack-product-code?   string
+  |     |        |     |  +--rw clei?                        string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
   |     |        |     |  |  +--rw circuit-pack-name    string
@@ -2964,6 +2972,7 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw circuit-pack-name            string
   |     |  |  |     |  +--rw circuit-pack-type?           string
   |     |  |  |     |  +--rw circuit-pack-product-code?   string
+  |     |  |  |     |  +--rw clei?                        string
   |     |  |  |     +--:(port)
   |     |  |  |     |  +--rw port
   |     |  |  |     |  |  +--rw circuit-pack-name    string
@@ -3079,6 +3088,7 @@ module: org-openroadm-service
   |     |     |     |  +--rw circuit-pack-name            string
   |     |     |     |  +--rw circuit-pack-type?           string
   |     |     |     |  +--rw circuit-pack-product-code?   string
+  |     |     |     |  +--rw clei?                        string
   |     |     |     +--:(port)
   |     |     |     |  +--rw port
   |     |     |     |  |  +--rw circuit-pack-name    string
@@ -3198,6 +3208,7 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw circuit-pack-name            string
   |     |     |  |     |  +--rw circuit-pack-type?           string
   |     |     |  |     |  +--rw circuit-pack-product-code?   string
+  |     |     |  |     |  +--rw clei?                        string
   |     |     |  |     +--:(port)
   |     |     |  |     |  +--rw port
   |     |     |  |     |  |  +--rw circuit-pack-name    string
@@ -3313,6 +3324,7 @@ module: org-openroadm-service
   |     |        |     |  +--rw circuit-pack-name            string
   |     |        |     |  +--rw circuit-pack-type?           string
   |     |        |     |  +--rw circuit-pack-product-code?   string
+  |     |        |     |  +--rw clei?                        string
   |     |        |     +--:(port)
   |     |        |     |  +--rw port
   |     |        |     |  |  +--rw circuit-pack-name    string
@@ -6514,6 +6526,7 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro circuit-pack-name            string
     |     |  |  |  |     |  +--ro circuit-pack-type?           string
     |     |  |  |  |     |  +--ro circuit-pack-product-code?   string
+    |     |  |  |  |     |  +--ro clei?                        string
     |     |  |  |  |     +--:(port)
     |     |  |  |  |     |  +--ro port
     |     |  |  |  |     |  |  +--ro circuit-pack-name    string
@@ -6629,6 +6642,7 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro circuit-pack-name            string
     |     |  |     |     |  +--ro circuit-pack-type?           string
     |     |  |     |     |  +--ro circuit-pack-product-code?   string
+    |     |  |     |     |  +--ro clei?                        string
     |     |  |     |     +--:(port)
     |     |  |     |     |  +--ro port
     |     |  |     |     |  |  +--ro circuit-pack-name    string
@@ -6748,6 +6762,7 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro circuit-pack-name            string
     |     |  |     |  |     |  +--ro circuit-pack-type?           string
     |     |  |     |  |     |  +--ro circuit-pack-product-code?   string
+    |     |  |     |  |     |  +--ro clei?                        string
     |     |  |     |  |     +--:(port)
     |     |  |     |  |     |  +--ro port
     |     |  |     |  |     |  |  +--ro circuit-pack-name    string
@@ -6863,6 +6878,7 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro circuit-pack-name            string
     |     |  |        |     |  +--ro circuit-pack-type?           string
     |     |  |        |     |  +--ro circuit-pack-product-code?   string
+    |     |  |        |     |  +--ro clei?                        string
     |     |  |        |     +--:(port)
     |     |  |        |     |  +--ro port
     |     |  |        |     |  |  +--ro circuit-pack-name    string
@@ -7457,6 +7473,7 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro circuit-pack-name            string
     |        |  |  |  |     |  +--ro circuit-pack-type?           string
     |        |  |  |  |     |  +--ro circuit-pack-product-code?   string
+    |        |  |  |  |     |  +--ro clei?                        string
     |        |  |  |  |     +--:(port)
     |        |  |  |  |     |  +--ro port
     |        |  |  |  |     |  |  +--ro circuit-pack-name    string
@@ -7572,6 +7589,7 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro circuit-pack-name            string
     |        |  |     |     |  +--ro circuit-pack-type?           string
     |        |  |     |     |  +--ro circuit-pack-product-code?   string
+    |        |  |     |     |  +--ro clei?                        string
     |        |  |     |     +--:(port)
     |        |  |     |     |  +--ro port
     |        |  |     |     |  |  +--ro circuit-pack-name    string
@@ -7691,6 +7709,7 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro circuit-pack-name            string
     |        |  |     |  |     |  +--ro circuit-pack-type?           string
     |        |  |     |  |     |  +--ro circuit-pack-product-code?   string
+    |        |  |     |  |     |  +--ro clei?                        string
     |        |  |     |  |     +--:(port)
     |        |  |     |  |     |  +--ro port
     |        |  |     |  |     |  |  +--ro circuit-pack-name    string
@@ -7806,6 +7825,7 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro circuit-pack-name            string
     |        |  |        |     |  +--ro circuit-pack-type?           string
     |        |  |        |     |  +--ro circuit-pack-product-code?   string
+    |        |  |        |     |  +--ro clei?                        string
     |        |  |        |     +--:(port)
     |        |  |        |     |  +--ro port
     |        |  |        |     |  |  +--ro circuit-pack-name    string
@@ -8948,6 +8968,7 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro circuit-pack-name            string
     |        |  |  |  |     |  +--ro circuit-pack-type?           string
     |        |  |  |  |     |  +--ro circuit-pack-product-code?   string
+    |        |  |  |  |     |  +--ro clei?                        string
     |        |  |  |  |     +--:(port)
     |        |  |  |  |     |  +--ro port
     |        |  |  |  |     |  |  +--ro circuit-pack-name    string
@@ -9063,6 +9084,7 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro circuit-pack-name            string
     |        |  |     |     |  +--ro circuit-pack-type?           string
     |        |  |     |     |  +--ro circuit-pack-product-code?   string
+    |        |  |     |     |  +--ro clei?                        string
     |        |  |     |     +--:(port)
     |        |  |     |     |  +--ro port
     |        |  |     |     |  |  +--ro circuit-pack-name    string
@@ -9182,6 +9204,7 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro circuit-pack-name            string
     |        |  |     |  |     |  +--ro circuit-pack-type?           string
     |        |  |     |  |     |  +--ro circuit-pack-product-code?   string
+    |        |  |     |  |     |  +--ro clei?                        string
     |        |  |     |  |     +--:(port)
     |        |  |     |  |     |  +--ro port
     |        |  |     |  |     |  |  +--ro circuit-pack-name    string
@@ -9297,6 +9320,7 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro circuit-pack-name            string
     |        |  |        |     |  +--ro circuit-pack-type?           string
     |        |  |        |     |  +--ro circuit-pack-product-code?   string
+    |        |  |        |     |  +--ro clei?                        string
     |        |  |        |     +--:(port)
     |        |  |        |     |  +--ro port
     |        |  |        |     |  |  +--ro circuit-pack-name    string
@@ -12564,6 +12588,7 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro circuit-pack-name            string
     |  |  |  |     |  +--ro circuit-pack-type?           string
     |  |  |  |     |  +--ro circuit-pack-product-code?   string
+    |  |  |  |     |  +--ro clei?                        string
     |  |  |  |     +--:(port)
     |  |  |  |     |  +--ro port
     |  |  |  |     |  |  +--ro circuit-pack-name    string
@@ -12679,6 +12704,7 @@ module: org-openroadm-service
     |  |     |     |  +--ro circuit-pack-name            string
     |  |     |     |  +--ro circuit-pack-type?           string
     |  |     |     |  +--ro circuit-pack-product-code?   string
+    |  |     |     |  +--ro clei?                        string
     |  |     |     +--:(port)
     |  |     |     |  +--ro port
     |  |     |     |  |  +--ro circuit-pack-name    string
@@ -12798,6 +12824,7 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro circuit-pack-name            string
     |  |     |  |     |  +--ro circuit-pack-type?           string
     |  |     |  |     |  +--ro circuit-pack-product-code?   string
+    |  |     |  |     |  +--ro clei?                        string
     |  |     |  |     +--:(port)
     |  |     |  |     |  +--ro port
     |  |     |  |     |  |  +--ro circuit-pack-name    string
@@ -12913,6 +12940,7 @@ module: org-openroadm-service
     |  |        |     |  +--ro circuit-pack-name            string
     |  |        |     |  +--ro circuit-pack-type?           string
     |  |        |     |  +--ro circuit-pack-product-code?   string
+    |  |        |     |  +--ro clei?                        string
     |  |        |     +--:(port)
     |  |        |     |  +--ro port
     |  |        |     |  |  +--ro circuit-pack-name    string
@@ -13519,6 +13547,7 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro circuit-pack-name            string
     |  |  |  |     |  +--ro circuit-pack-type?           string
     |  |  |  |     |  +--ro circuit-pack-product-code?   string
+    |  |  |  |     |  +--ro clei?                        string
     |  |  |  |     +--:(port)
     |  |  |  |     |  +--ro port
     |  |  |  |     |  |  +--ro circuit-pack-name    string
@@ -13634,6 +13663,7 @@ module: org-openroadm-service
     |  |     |     |  +--ro circuit-pack-name            string
     |  |     |     |  +--ro circuit-pack-type?           string
     |  |     |     |  +--ro circuit-pack-product-code?   string
+    |  |     |     |  +--ro clei?                        string
     |  |     |     +--:(port)
     |  |     |     |  +--ro port
     |  |     |     |  |  +--ro circuit-pack-name    string
@@ -13753,6 +13783,7 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro circuit-pack-name            string
     |  |     |  |     |  +--ro circuit-pack-type?           string
     |  |     |  |     |  +--ro circuit-pack-product-code?   string
+    |  |     |  |     |  +--ro clei?                        string
     |  |     |  |     +--:(port)
     |  |     |  |     |  +--ro port
     |  |     |  |     |  |  +--ro circuit-pack-name    string
@@ -13868,6 +13899,7 @@ module: org-openroadm-service
     |  |        |     |  +--ro circuit-pack-name            string
     |  |        |     |  +--ro circuit-pack-type?           string
     |  |        |     |  +--ro circuit-pack-product-code?   string
+    |  |        |     |  +--ro clei?                        string
     |  |        |     +--:(port)
     |  |        |     |  +--ro port
     |  |        |     |  |  +--ro circuit-pack-name    string

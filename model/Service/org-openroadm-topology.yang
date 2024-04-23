@@ -48,6 +48,10 @@ module org-openroadm-topology {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -221,6 +225,11 @@ module org-openroadm-topology {
           type string;
           description
             "Product code of the circuit-pack";
+        }
+        leaf clei {
+          type string;
+          description
+            "CLEI for this physical resource";
         }
       }
       augment "resource/resource/port" {
