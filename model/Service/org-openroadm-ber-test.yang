@@ -237,6 +237,11 @@ module org-openroadm-ber-test {
         type string;
         mandatory true;
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-ber-test:ber-test-options-container;
     }
     output {
@@ -252,6 +257,11 @@ module org-openroadm-ber-test {
       leaf service-name {
         type string;
         mandatory true;
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
       }
       uses org-openroadm-common-ber-test:complex-ber-test-options-container;
     }
