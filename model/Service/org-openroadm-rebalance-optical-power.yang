@@ -1,0 +1,271 @@
+module org-openroadm-rebalance-optical-power {
+  namespace "http://org/openroadm/rebalance-optical-power";
+  prefix org-openroadm-rebalance-optical-power;
+
+  import org-openroadm-common-service-types {
+    prefix org-openroadm-common-service-types;
+    revision-date 2024-05-31;
+  }
+  import org-openroadm-common-rebalance-optical-power {
+    prefix org-openroadm-common-rebalance-optical-power;
+    revision-date 2024-05-31;
+  }
+  import ietf-yang-types {
+    prefix yang;
+    revision-date 2013-07-15;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for optical power rebalance operations.
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
+
+  identity service-rpc-identity {
+    description
+      "Identifies the service rpc associated with this callback";
+  }
+
+  identity rebalance-optical-power-operations {
+    base service-rpc-identity;
+    description
+      "Identity for the optical power rebalance operation rpc";
+  }
+
+  typedef operation-result {
+    type string;
+  }
+
+  rpc rebalance-optical-power-uni-link {
+    description
+      "RPC for unidirectional link optical power rebalancing.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+      leaf network-id {
+        type string;
+        mandatory true;
+        description "Network-id of the OMS link. It will always be 'openroadm-topology'";
+      }
+      leaf link-id {
+        type string;
+        mandatory true;
+        description "Link-id of the uni-directional OMS link.";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc rebalance-optical-power-bi-link {
+    description
+      "RPC for bidirectional link optical power rebalancing.";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+      leaf oms-clfi {
+        type string;
+        mandatory true;
+        description "CLFI of the OMS link";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc rebalance-optical-power-service {
+    description
+      "RPC for service optical power rebalancing";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-rebalance-optical-power:service-rebalance-optical-power-operation;
+      leaf service-name {
+        type string;
+        mandatory true;
+        description "Service identifier. Unique within the context of a network.";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  grouping service-rebalance-optical-power-operation-result {
+    container service-rebalance-optical-power-results {
+      list aToZ {
+        key "optical-section-index";
+        uses org-openroadm-common-rebalance-optical-power:optical-section-result;
+      }
+      list zToA {
+        key "optical-section-index";
+        uses org-openroadm-common-rebalance-optical-power:optical-section-result;
+      }
+    }
+    uses org-openroadm-common-rebalance-optical-power:service-rebalance-optical-power-operation;
+  }
+
+  grouping link-rebalance-optical-power-operation-result {
+    container link-rebalance-optical-power-results {
+      list link {
+        key "network-id link-id";
+        leaf network-id {
+          type string;
+          mandatory true;
+          description "Network-id of the OMS link. It will always be 'openroadm-topology'";
+        }
+        leaf link-id {
+          type string;
+          mandatory true;
+          description "Link-id of the uni-directional OMS link.";
+        }
+        uses org-openroadm-common-rebalance-optical-power:result-status;
+
+        list service {
+          key "index";
+          leaf index {
+            type uint16;
+            description
+              "Local id for list ";
+          }
+          uses org-openroadm-common-service-types:service-identifiers-container;
+          uses org-openroadm-common-rebalance-optical-power:result-status;
+        }
+      }
+    }
+    uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+    leaf network-id {
+      type string;
+      description "Network-id of the OMS link. It will always be 'openroadm-topology'";
+    }
+    leaf link-id {
+      type string;
+      description "Link-id of the uni-directional OMS link.";
+    }
+    leaf oms-clfi {
+      type string;
+      description "CLFI of the OMS link";
+    }
+  }
+
+  rpc service-rebalance-optical-power-rpc-async-callback {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses org-openroadm-common-service-types:service-identifiers-container;
+      uses service-rebalance-optical-power-operation-result;
+      leaf rpc-timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the initial rpc command that invoked the test";
+      }
+      leaf timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the callback/notification.";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc link-rebalance-optical-power-rpc-async-callback {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    input {
+      uses org-openroadm-common-service-types:configuration-response-common;
+      uses link-rebalance-optical-power-operation-result;
+      leaf rpc-timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the initial rpc command that invoked the test";
+      }
+      leaf timestamp {
+        type yang:date-and-time;
+        units "seconds";
+        description
+          "timestamp of the callback/notification.";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  notification service-rebalance-optical-power-notification {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    uses org-openroadm-common-service-types:configuration-response-common;
+    uses org-openroadm-common-service-types:service-identifiers-container;
+    uses service-rebalance-optical-power-operation-result;
+    leaf rpc-timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the initial rpc command that invoked the test";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the callback/notification.";
+    }
+  }
+
+  notification link-rebalance-optical-power-notification {
+    description
+      "This is the callback notification that the controller invokes on the carrier system.";
+    uses org-openroadm-common-service-types:configuration-response-common;
+    uses link-rebalance-optical-power-operation-result;
+    leaf rpc-timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the initial rpc command that invoked the test";
+    }
+    leaf timestamp {
+      type yang:date-and-time;
+      units "seconds";
+      description
+        "timestamp of the callback/notification.";
+    }
+  }
+}

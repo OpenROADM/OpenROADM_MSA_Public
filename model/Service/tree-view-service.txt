@@ -387,6 +387,214 @@ module: org-openroadm-controller-customization
           |  +--ro ack-final-indicator    string
           +--ro unsupported-customization-options*   string
 
+module: org-openroadm-rebalance-optical-power
+
+  rpcs:
+    +---x rebalance-optical-power-uni-link
+    |  +---w input
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w link-rebalance-optical-power-options
+    |  |  |  +---w degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-check-retries?   uint16
+    |  |  |  +---w pm-polling-timeout?              uint16
+    |  |  +---w network-id                              string
+    |  |  +---w link-id                                 string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x rebalance-optical-power-bi-link
+    |  +---w input
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w link-rebalance-optical-power-options
+    |  |  |  +---w degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-check-retries?   uint16
+    |  |  |  +---w pm-polling-timeout?              uint16
+    |  |  +---w oms-clfi                                string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x rebalance-optical-power-service
+    |  +---w input
+    |  |  +---w sdnc-request-header
+    |  |  |  +---w request-id?          string
+    |  |  |  +---w rpc-action?          rpc-actions
+    |  |  |  +---w notification-url?    string
+    |  |  |  +---w request-system-id?   string
+    |  |  +---w service-rebalance-optical-power-options
+    |  |  |  +---w xpdr-roadm-opc-loop-retries?     uint16
+    |  |  |  +---w srg-rx-tight-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w srg-rx-loose-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w srg-rx-power-threshold-lb?       org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-check-retries?   uint16
+    |  |  |  +---w xpdr-rx-channel-power-min?       org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w xpdr-rx-channel-power-max?       org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w pm-polling-timeout?              uint16
+    |  |  +---w service-name                               string
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x service-rebalance-optical-power-rpc-async-callback
+    |  +---w input
+    |  |  +---w configuration-response-common
+    |  |  |  +---w request-id             string
+    |  |  |  +---w response-code          string
+    |  |  |  +---w response-message?      string
+    |  |  |  +---w ack-final-indicator    string
+    |  |  +---w service-identifiers
+    |  |  |  +---w service-name?     string
+    |  |  |  +---w common-id?        string
+    |  |  |  +---w version-number?   uint64
+    |  |  +---w service-rebalance-optical-power-results
+    |  |  |  +---w aToZ* [optical-section-index]
+    |  |  |  |  +---w optical-section-index    uint16
+    |  |  |  |  +---w status                   enumeration
+    |  |  |  |  +---w reason?                  string
+    |  |  |  +---w zToA* [optical-section-index]
+    |  |  |     +---w optical-section-index    uint16
+    |  |  |     +---w status                   enumeration
+    |  |  |     +---w reason?                  string
+    |  |  +---w service-rebalance-optical-power-options
+    |  |  |  +---w xpdr-roadm-opc-loop-retries?     uint16
+    |  |  |  +---w srg-rx-tight-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w srg-rx-loose-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w srg-rx-power-threshold-lb?       org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  +---w degree-tx-power-check-retries?   uint16
+    |  |  |  +---w xpdr-rx-channel-power-min?       org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w xpdr-rx-channel-power-max?       org-openroadm-common-link-types:power-dBm
+    |  |  |  +---w pm-polling-timeout?              uint16
+    |  |  +---w rpc-timestamp?                             yang:date-and-time
+    |  |  +---w timestamp?                                 yang:date-and-time
+    |  +--ro output
+    |     +--ro configuration-response-common
+    |        +--ro request-id             string
+    |        +--ro response-code          string
+    |        +--ro response-message?      string
+    |        +--ro ack-final-indicator    string
+    +---x link-rebalance-optical-power-rpc-async-callback
+       +---w input
+       |  +---w configuration-response-common
+       |  |  +---w request-id             string
+       |  |  +---w response-code          string
+       |  |  +---w response-message?      string
+       |  |  +---w ack-final-indicator    string
+       |  +---w link-rebalance-optical-power-results
+       |  |  +---w link* [network-id link-id]
+       |  |     +---w network-id    string
+       |  |     +---w link-id       string
+       |  |     +---w status        enumeration
+       |  |     +---w reason?       string
+       |  |     +---w service* [index]
+       |  |        +---w index                  uint16
+       |  |        +---w service-identifiers
+       |  |        |  +---w service-name?     string
+       |  |        |  +---w common-id?        string
+       |  |        |  +---w version-number?   uint64
+       |  |        +---w status                 enumeration
+       |  |        +---w reason?                string
+       |  +---w link-rebalance-optical-power-options
+       |  |  +---w degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+       |  |  +---w degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+       |  |  +---w degree-tx-power-check-retries?   uint16
+       |  |  +---w pm-polling-timeout?              uint16
+       |  +---w network-id?                             string
+       |  +---w link-id?                                string
+       |  +---w oms-clfi?                               string
+       |  +---w rpc-timestamp?                          yang:date-and-time
+       |  +---w timestamp?                              yang:date-and-time
+       +--ro output
+          +--ro configuration-response-common
+             +--ro request-id             string
+             +--ro response-code          string
+             +--ro response-message?      string
+             +--ro ack-final-indicator    string
+
+  notifications:
+    +---n service-rebalance-optical-power-notification
+    |  +--ro configuration-response-common
+    |  |  +--ro request-id             string
+    |  |  +--ro response-code          string
+    |  |  +--ro response-message?      string
+    |  |  +--ro ack-final-indicator    string
+    |  +--ro service-identifiers
+    |  |  +--ro service-name?     string
+    |  |  +--ro common-id?        string
+    |  |  +--ro version-number?   uint64
+    |  +--ro service-rebalance-optical-power-results
+    |  |  +--ro aToZ* [optical-section-index]
+    |  |  |  +--ro optical-section-index    uint16
+    |  |  |  +--ro status                   enumeration
+    |  |  |  +--ro reason?                  string
+    |  |  +--ro zToA* [optical-section-index]
+    |  |     +--ro optical-section-index    uint16
+    |  |     +--ro status                   enumeration
+    |  |     +--ro reason?                  string
+    |  +--ro service-rebalance-optical-power-options
+    |  |  +--ro xpdr-roadm-opc-loop-retries?     uint16
+    |  |  +--ro srg-rx-tight-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  +--ro srg-rx-loose-threshold?          org-openroadm-common-link-types:ratio-dB
+    |  |  +--ro srg-rx-power-threshold-lb?       org-openroadm-common-link-types:ratio-dB
+    |  |  +--ro degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+    |  |  +--ro degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+    |  |  +--ro degree-tx-power-check-retries?   uint16
+    |  |  +--ro xpdr-rx-channel-power-min?       org-openroadm-common-link-types:power-dBm
+    |  |  +--ro xpdr-rx-channel-power-max?       org-openroadm-common-link-types:power-dBm
+    |  |  +--ro pm-polling-timeout?              uint16
+    |  +--ro rpc-timestamp?                             yang:date-and-time
+    |  +--ro timestamp?                                 yang:date-and-time
+    +---n link-rebalance-optical-power-notification
+       +--ro configuration-response-common
+       |  +--ro request-id             string
+       |  +--ro response-code          string
+       |  +--ro response-message?      string
+       |  +--ro ack-final-indicator    string
+       +--ro link-rebalance-optical-power-results
+       |  +--ro link* [network-id link-id]
+       |     +--ro network-id    string
+       |     +--ro link-id       string
+       |     +--ro status        enumeration
+       |     +--ro reason?       string
+       |     +--ro service* [index]
+       |        +--ro index                  uint16
+       |        +--ro service-identifiers
+       |        |  +--ro service-name?     string
+       |        |  +--ro common-id?        string
+       |        |  +--ro version-number?   uint64
+       |        +--ro status                 enumeration
+       |        +--ro reason?                string
+       +--ro link-rebalance-optical-power-options
+       |  +--ro degree-tx-power-threshold-lb?    org-openroadm-common-link-types:ratio-dB
+       |  +--ro degree-tx-power-threshold-ub?    org-openroadm-common-link-types:ratio-dB
+       |  +--ro degree-tx-power-check-retries?   uint16
+       |  +--ro pm-polling-timeout?              uint16
+       +--ro network-id?                             string
+       +--ro link-id?                                string
+       +--ro oms-clfi?                               string
+       +--ro rpc-timestamp?                          yang:date-and-time
+       +--ro timestamp?                              yang:date-and-time
+
 module: org-openroadm-service
   +--rw service-list
   |  +--rw services* [service-name]

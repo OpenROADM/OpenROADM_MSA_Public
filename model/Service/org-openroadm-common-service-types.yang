@@ -342,6 +342,16 @@ module org-openroadm-common-service-types {
       enum end-terminal-power-control {
           value 24;
       }
+      // enum values 25 to 27 are deliberately left unused. Please do not use them
+      enum rebalance-optical-power-service {
+          value 28;
+      }
+      enum rebalance-optical-power-uni-link {
+         value 29;
+      }
+      enum rebalance-optical-power-bi-link {
+         value 30;
+      }
     }
     description
       "rpc-actions include all the rpc methods";
