@@ -1,14 +1,14 @@
-module org-openroadm-ber-test {
-  namespace "http://org/openroadm/ber-test";
-  prefix org-openroadm-ber-test;
+module org-openroadm-rebalance-optical-power {
+  namespace "http://org/openroadm/rebalance-optical-power";
+  prefix org-openroadm-rebalance-optical-power;
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
     revision-date 2024-05-31;
   }
-  import org-openroadm-common-ber-test {
-    prefix org-openroadm-common-ber-test;
-    revision-date 2020-05-29;
+  import org-openroadm-common-rebalance-optical-power {
+    prefix org-openroadm-common-rebalance-optical-power;
+    revision-date 2024-05-31;
   }
   import ietf-yang-types {
     prefix yang;
@@ -20,7 +20,7 @@ module org-openroadm-ber-test {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for ber test
+    "YANG definitions for optical power rebalance operations.
 
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
@@ -52,230 +52,142 @@ module org-openroadm-ber-test {
     description
       "Version 15.1";
   }
-  revision 2024-03-29 {
-    description
-      "Version 15.0";
-  }
-  revision 2023-12-08 {
-    description
-      "Version 14.1";
-  }
-  revision 2023-09-29 {
-    description
-      "Version 14.0";
-  }
-  revision 2023-05-26 {
-    description
-      "Version 13.1";
-  }
-  revision 2023-03-31 {
-    description
-      "Version 13.0";
-  }
-  revision 2022-12-09 {
-    description
-      "Version 12.1";
-  }
-  revision 2022-09-30 {
-    description
-      "Version 12.0";
-  }
-  revision 2022-05-27 {
-    description
-      "Version 11.1";
-  }
-  revision 2022-03-25 {
-    description
-      "Version 11.0";
-  }
-  revision 2021-12-10 {
-    description
-      "Version 10.1";
-  }
-  revision 2021-09-24 {
-    description
-      "Version 10.0";
-  }
-  revision 2021-05-28 {
-    description
-      "Version 9.1";
-  }
-  revision 2021-03-26 {
-    description
-      "Version 9.0";
-  }
-  revision 2020-12-11 {
-    description
-      "Version 8.1";
-  }
-  revision 2020-09-25 {
-    description
-      "Version 8.0";
-  }
-  revision 2020-05-29 {
-    description
-      "Version 7.1.0";
-  }
-  revision 2020-03-27 {
-    description
-      "Version 7.0.0";
-  }
-  revision 2019-11-29 {
-    description
-      "Version 6.1.0";
-  }
-  revision 2019-09-27 {
-    description
-      "Version 6.0.0";
-  }
-  revision 2019-05-31 {
-    description
-      "Version 5.1.0";
-  }
-  revision 2019-03-29 {
-    description
-      "Version 5.0.0";
-  }
-  revision 2018-11-30 {
-    description
-      "Version 4.1.0";
-  }
-  revision 2018-09-28 {
-    description
-      "Version 4.0.0";
-  }
-  revision 2018-05-30 {
-    description
-      "Version 3.1.0";
-  }
-  revision 2018-03-30 {
-    description
-      "Version 3.0.0";
-  }
 
   identity service-rpc-identity {
     description
       "Identifies the service rpc associated with this callback";
   }
 
-  identity ber-test {
+  identity rebalance-optical-power-operations {
     base service-rpc-identity;
     description
-      "Identity for the ber-test rpc";
+      "Identity for the optical power rebalance operation rpc";
   }
 
-  grouping ber-measurement {
-    leaf ber-passed {
-      type boolean;
-    }
-    leaf target-prefec-ber {
-      type decimal64 {
-        fraction-digits 4;
-      }
-    }
-    leaf measured-prefec-ber {
-      type decimal64 {
-        fraction-digits 4;
-      }
-    }
+  typedef operation-result {
+    type string;
   }
 
-  grouping ber-test-result-details-container {
-    container ber-results {
-      uses org-openroadm-common-ber-test:ber-test-options-container;
-      leaf line-rate {
-        type uint64;
-        units "seconds";
-      }
-      container a-end-ber-measurement {
-        uses ber-measurement;
-      }
-      container z-end-ber-measurement {
-        uses ber-measurement;
-      }
-    }
-  }
-
-  grouping ber-test-complex-result-details-container {
-    container ber-test-result-details {
-      list supporting-service-details {
-        key "index";
-        leaf index {
-          type uint16;
-          description
-            "Local id for list ";
-        }
-        uses org-openroadm-common-service-types:service-identifiers-container;
-        uses org-openroadm-common-service-types:service-ends-container;
-        leaf line-rate {
-          type uint64;
-          units "seconds";
-        }
-        container a-end-ber-measurement {
-          uses ber-measurement;
-        }
-        container z-end-ber-measurement {
-          uses ber-measurement;
-        }
-      }
-    }
-  }
-
-  grouping ber-test-complex-result-container {
-    container ber-results {
-      uses org-openroadm-common-ber-test:ber-test-options-container;
-      uses ber-test-complex-result-details-container;
-    }
-  }
-
-  rpc ber-test {
+  rpc rebalance-optical-power-uni-link {
     description
-      "This is the ber-test rpc. It is supported for a service in the service-list.";
+      "RPC for unidirectional link optical power rebalancing.";
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
-      leaf service-name {
+      uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+      leaf network-id {
         type string;
         mandatory true;
+        description "Network-id of the OMS link. It will always be 'openroadm-topology'";
       }
-      leaf version-number {
-        type uint8;
-        description
-          "version-number for the service";
+      leaf link-id {
+        type string;
+        mandatory true;
+        description "Link-id of the uni-directional OMS link.";
       }
-      uses org-openroadm-common-ber-test:ber-test-options-container;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
-  rpc complex-ber-test {
+  rpc rebalance-optical-power-bi-link {
     description
-      "This is the complex-ber-test rpc. It is supported for a service in the service-list.";
+      "RPC for bidirectional link optical power rebalancing.";
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
-      leaf service-name {
+      uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+      leaf oms-clfi {
         type string;
         mandatory true;
+        description "CLFI of the OMS link";
       }
-      leaf version-number {
-        type uint8;
-        description
-          "version-number for the service";
-      }
-      uses org-openroadm-common-ber-test:complex-ber-test-options-container;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
-  rpc service-rpc-ber-test-async-callback {
+  rpc rebalance-optical-power-service {
+    description
+      "RPC for service optical power rebalancing";
+    input {
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      uses org-openroadm-common-rebalance-optical-power:service-rebalance-optical-power-operation;
+      leaf service-name {
+        type string;
+        mandatory true;
+        description "Service identifier. Unique within the context of a network.";
+      }
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  grouping service-rebalance-optical-power-operation-result {
+    container service-rebalance-optical-power-results {
+      list aToZ {
+        key "optical-section-index";
+        uses org-openroadm-common-rebalance-optical-power:optical-section-result;
+      }
+      list zToA {
+        key "optical-section-index";
+        uses org-openroadm-common-rebalance-optical-power:optical-section-result;
+      }
+    }
+    uses org-openroadm-common-rebalance-optical-power:service-rebalance-optical-power-operation;
+  }
+
+  grouping link-rebalance-optical-power-operation-result {
+    container link-rebalance-optical-power-results {
+      list link {
+        key "network-id link-id";
+        leaf network-id {
+          type string;
+          mandatory true;
+          description "Network-id of the OMS link. It will always be 'openroadm-topology'";
+        }
+        leaf link-id {
+          type string;
+          mandatory true;
+          description "Link-id of the uni-directional OMS link.";
+        }
+        uses org-openroadm-common-rebalance-optical-power:result-status;
+
+        list service {
+          key "index";
+          leaf index {
+            type uint16;
+            description
+              "Local id for list ";
+          }
+          uses org-openroadm-common-service-types:service-identifiers-container;
+          uses org-openroadm-common-rebalance-optical-power:result-status;
+        }
+      }
+    }
+    uses org-openroadm-common-rebalance-optical-power:link-rebalance-optical-power-operation;
+    leaf network-id {
+      type string;
+      description "Network-id of the OMS link. It will always be 'openroadm-topology'";
+    }
+    leaf link-id {
+      type string;
+      description "Link-id of the uni-directional OMS link.";
+    }
+    leaf oms-clfi {
+      type string;
+      description "CLFI of the OMS link";
+    }
+  }
+
+  rpc service-rebalance-optical-power-rpc-async-callback {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:service-identifiers-container;
+      uses service-rebalance-optical-power-operation-result;
       leaf rpc-timestamp {
         type yang:date-and-time;
         units "seconds";
@@ -288,19 +200,18 @@ module org-openroadm-ber-test {
         description
           "timestamp of the callback/notification.";
       }
-      uses ber-test-result-details-container;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
-  rpc complex-service-rpc-ber-test-async-callback {
+  rpc link-rebalance-optical-power-rpc-async-callback {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     input {
       uses org-openroadm-common-service-types:configuration-response-common;
-      uses org-openroadm-common-service-types:service-identifiers-container;
+      uses link-rebalance-optical-power-operation-result;
       leaf rpc-timestamp {
         type yang:date-and-time;
         units "seconds";
@@ -313,18 +224,18 @@ module org-openroadm-ber-test {
         description
           "timestamp of the callback/notification.";
       }
-      uses ber-test-complex-result-container;
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
 
-  notification service-notification-ber-test {
+  notification service-rebalance-optical-power-notification {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     uses org-openroadm-common-service-types:configuration-response-common;
     uses org-openroadm-common-service-types:service-identifiers-container;
+    uses service-rebalance-optical-power-operation-result;
     leaf rpc-timestamp {
       type yang:date-and-time;
       units "seconds";
@@ -337,14 +248,13 @@ module org-openroadm-ber-test {
       description
         "timestamp of the callback/notification.";
     }
-    uses ber-test-result-details-container;
   }
 
-  notification complex-service-notification-ber-test {
+  notification link-rebalance-optical-power-notification {
     description
       "This is the callback notification that the controller invokes on the carrier system.";
     uses org-openroadm-common-service-types:configuration-response-common;
-    uses org-openroadm-common-service-types:service-identifiers-container;
+    uses link-rebalance-optical-power-operation-result;
     leaf rpc-timestamp {
       type yang:date-and-time;
       units "seconds";
@@ -357,6 +267,5 @@ module org-openroadm-ber-test {
       description
         "timestamp of the callback/notification.";
     }
-    uses ber-test-complex-result-details-container;
   }
 }

@@ -13,7 +13,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -25,19 +25,19 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -81,6 +81,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -465,6 +469,11 @@ module org-openroadm-service {
           "Identifier for the service to be created in
            the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf common-id {
         type string;
         description
@@ -490,6 +499,17 @@ module org-openroadm-service {
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service to be created in
+           the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:response-parameters;
     }
   }
@@ -510,6 +530,11 @@ module org-openroadm-service {
           description
             "Identifier for the service to be created in
              the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         leaf common-id {
           type string;
@@ -542,6 +567,11 @@ module org-openroadm-service {
           type string;
           mandatory true;
         }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
+        }
         uses org-openroadm-common-service-types:response-parameters;
       }
     }
@@ -558,6 +588,11 @@ module org-openroadm-service {
           description
             "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         uses org-openroadm-common-service-types:service-order;
         uses org-openroadm-common-service-types:routing-metric;
@@ -589,6 +624,11 @@ module org-openroadm-service {
         leaf common-id {
           type string;
           mandatory true;
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         uses org-openroadm-common-service-types:response-parameters;
         uses org-openroadm-common-service-types:existing-service-grouping {
@@ -666,6 +706,11 @@ module org-openroadm-service {
           "To be used by the ROADM controller to identify the routing constraints
            received from planning application (PED).";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf k-paths {
         type uint8;
         description
@@ -683,6 +728,11 @@ module org-openroadm-service {
         description
           "To be used by the ROADM controller to identify the routing constraints
            received from planning application (PED).";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
       }
       leaf k-paths-returned {
         type uint8;
@@ -731,6 +781,12 @@ module org-openroadm-service {
             "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
         }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
+        }
+        uses service-feasibility-check-inputs;
       }
     }
     output {
@@ -743,6 +799,11 @@ module org-openroadm-service {
           description
             "To be used by the ROADM controller to identify the routing constraints
              received from planning application (PED).";
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         uses org-openroadm-common-service-types:response-parameters;
         uses service-feasibility-check-outputs;
@@ -763,6 +824,11 @@ module org-openroadm-service {
           description
             "Identifier for the service to be deleted in
              the ROADM network, e.g., CLFI, CLCI, etc.";
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         leaf due-date {
           type yang:date-and-time;
@@ -839,6 +905,11 @@ module org-openroadm-service {
         description
           "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:service-order;
       uses org-openroadm-common-service-types:sdnc-request-header;
       leaf connection-type {
@@ -881,6 +952,16 @@ module org-openroadm-service {
       }
     }
     output {
+      leaf common-id {
+        type string;
+        description
+          "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:response-parameters;
       uses org-openroadm-common-service-types:existing-service-grouping {
@@ -897,9 +978,23 @@ module org-openroadm-service {
         type string;
         mandatory true;
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
     output {
+      leaf common-id {
+        type string;
+        mandatory true;
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -918,6 +1013,11 @@ module org-openroadm-service {
           "Identifier for the service to be rolled in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf due-date {
         type yang:date-and-time;
         description
@@ -927,6 +1027,18 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
+      leaf service-name {
+        type string;
+        mandatory true;
+        description
+          "Identifier for the service to be rolled in
+           the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -955,6 +1067,11 @@ module org-openroadm-service {
         description
           "Existing identifier for the service to be
            reconfigured in the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
       }
       leaf new-service-name {
         type string;
@@ -1022,6 +1139,18 @@ module org-openroadm-service {
           }
         }
       }
+      leaf service-name {
+        type string;
+        mandatory true;
+        description
+          "Identifier for the service to be rolled in
+           the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:response-parameters;
     }
   }
@@ -1047,6 +1176,11 @@ module org-openroadm-service {
           description
             "New identifier for the service to be
             reconfigured in the ROADM network, e.g., CLFI, CLCI, etc.";
+        }
+        leaf version-number {
+          type uint8;
+          description
+            "version-number for the service";
         }
         leaf data-reload {
           type boolean;
@@ -1099,6 +1233,11 @@ module org-openroadm-service {
             "Existing identifier for the service to be
             reconfigured in the ROADM network, e.g.,     CLFI, CLCI, etc.";
             }
+            leaf version-number {
+              type uint8;
+              description
+                "version-number for the service";
+            }
       }
       uses org-openroadm-common-service-types:response-parameters;
     }
@@ -1138,6 +1277,11 @@ module org-openroadm-service {
           "Identifier for the service to be restored in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf option {
         type enumeration {
           enum permanent {
@@ -1174,6 +1318,17 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service to be restored in
+           the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -1202,6 +1357,11 @@ module org-openroadm-service {
           "Identifier for the service to be reverted
            in the ROADM network, e.g., CLFI, CLCI, etc. ";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf due-date {
         type yang:date-and-time;
         description
@@ -1210,6 +1370,17 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
     output {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service to be reverted
+           in the ROADM network, e.g., CLFI, CLCI, etc. ";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -1238,11 +1409,27 @@ module org-openroadm-service {
           "Identifier for the service to be re-routed in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
       uses org-openroadm-common-service-types:service-resiliency;
     }
     output {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service to be re-routed in
+           the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-routing-constraints:routing-constraints;
     }
@@ -1260,10 +1447,26 @@ module org-openroadm-service {
           "Identifier for the service to be re-routed in
            the ROADM network, e.g., CLFI, CLCI, etc.";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-routing-constraints:routing-constraints;
     }
     output {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service to be re-routed in
+           the ROADM network, e.g., CLFI, CLCI, etc.";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
   }
@@ -1303,6 +1506,11 @@ module org-openroadm-service {
           "Identifier used in the first step of optical-tunnelservice creation using
           temp-service-create rpc. Identifies the temporary service for which resources
           have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
       }
       leaf set-frequency {
         type org-openroadm-common-optical-channel-types:frequency-THz;
@@ -1349,6 +1557,11 @@ module org-openroadm-service {
           "Identifier used in the first step of optical-tunnel service creation using
            temp-service-create rpc. Identifies the temporary service for which resources
            have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
@@ -1400,6 +1613,11 @@ module org-openroadm-service {
             "Identifier used by the RNC in the first step of optical-tunnel service creation
             relying on temp-service-create rpc. Identifies the temporary service for which
             resources have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service used by the RNC during the optical-tunnel service creation";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:alien-service-ends-setting-container;
@@ -1460,6 +1678,11 @@ module org-openroadm-service {
             "Identifier used by the RNC in the first step of optical-tunnel service creation
             relying on temp-service-create rpc. Identifies the temporary service for which
             resources have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service used by the RNC during the optical-tunnel service creation";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-resource:common-och-otsi-attributes;
@@ -1526,6 +1749,11 @@ module org-openroadm-service {
            e.g., CLFI, CLCI, etc. whose path is to be checked by the RNC
            for re-optimization";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       leaf a-end {
         type string;
         description
@@ -1557,6 +1785,18 @@ module org-openroadm-service {
       uses org-openroadm-common-service-types:routing-metric;
     }
     output {
+      leaf service-name {
+        type string;
+        description
+          "Identifier for the service in the ROADM network,
+           e.g., CLFI, CLCI, etc. whose path is to be checked by the RNC
+           for re-optimization";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:configuration-response-common;
       leaf optimization-candidate {
         type string;
@@ -1809,6 +2049,11 @@ rpc add-openroadm-operational-modes-to-catalog {
           resources have been reserved after a successful path computation. Optional,
           expected in the activation phase";
       }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service used by the RNC during the optical-tunnel service creation";
+      }
       uses org-openroadm-common-types:rpc-response-status;
       leaf activation-status {
         type org-openroadm-common-service-types:end-terminal-activation-status-type;
@@ -1906,6 +2151,11 @@ rpc add-openroadm-operational-modes-to-catalog {
       ";
     list services {
       key "service-name";
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:service {
         augment "service-a-end" {
           list equipment-required {
@@ -1927,6 +2177,18 @@ rpc add-openroadm-operational-modes-to-catalog {
         }
       }
       uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
   }
   container versioned-service-list {
@@ -1939,7 +2201,39 @@ rpc add-openroadm-operational-modes-to-catalog {
       leaf version-number {
         type uint64;
       }
-      uses org-openroadm-common-service-types:service;
+      uses org-openroadm-common-service-types:service {
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
     }
   }
   container temp-service-list {
@@ -1947,6 +2241,11 @@ rpc add-openroadm-operational-modes-to-catalog {
       "List of temporary services Can only be created, deleted, modified, etc. using special RPCs.";
     list services {
       key "common-id";
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the service";
+      }
       uses org-openroadm-common-service-types:service {
         refine "service-name" {
           mandatory false;

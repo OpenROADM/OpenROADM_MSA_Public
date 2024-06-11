@@ -8,7 +8,7 @@ module org-openroadm-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
 
   organization
@@ -35,6 +35,10 @@ module org-openroadm-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";

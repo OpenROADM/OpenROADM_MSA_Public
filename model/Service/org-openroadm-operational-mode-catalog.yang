@@ -12,7 +12,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
 
   organization
@@ -48,6 +48,10 @@ module org-openroadm-operational-mode-catalog {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";

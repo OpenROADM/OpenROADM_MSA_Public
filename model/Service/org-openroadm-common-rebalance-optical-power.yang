@@ -1,0 +1,178 @@
+module org-openroadm-common-rebalance-optical-power {
+  namespace "http://org/openroadm/common/rebalance-optical-power";
+  prefix org-openroadm-common-rebalance-optical-power;
+
+  import org-openroadm-common-link-types {
+    prefix org-openroadm-common-link-types;
+    revision-date 2024-03-29;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions for optical power rebalance operations that are common to the rpcs
+    and their associated callback rpcs
+
+      Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+      All other rights reserved.
+
+      Redistribution and use in source and binary forms, with or without modification,
+      are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this
+        list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice,
+        this list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+      * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+        contributors may be used to endorse or promote products derived from this software
+        without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+      AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+      IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+      NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+      OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+      WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE";
+
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
+
+  grouping service-rebalance-optical-power-operation {
+    container service-rebalance-optical-power-options {
+      leaf xpdr-roadm-opc-loop-retries {
+        type uint16;
+       description
+         "Number of times the transmit-power of the otsi/och interface on xpdr
+         network port may be readjusted to ensure power received by the SRG PP
+         is optimal";
+      }
+      leaf srg-rx-tight-threshold {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum difference between measured srg receive power and srg
+          receive power target to be considered optimal";
+      }
+      leaf srg-rx-loose-threshold {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum amount the measured srg receive power could be away from the
+          advertised minimum and maximum srg receive power range to be
+          considered acceptable";
+      }
+      leaf srg-rx-power-threshold-lb {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum (lower bound) loss allowed across a network fiber-tail, which
+          is the difference between the xpdr network transmit-power and measured
+          srg receive power, when measured srg receive power is lower than xpdr
+          network port transmit-power";
+      }
+      leaf degree-tx-power-threshold-lb {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum (lower bound) difference allowed between the channel measured
+          output power and its target-output-power if the measured output power
+          is less than the target-output-power";
+      }
+      leaf degree-tx-power-threshold-ub {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum (upper bound) difference allowed between the channel measured
+          output power and its target-output-power if the measured output power
+          is greater than the target-output-power";
+      }
+      leaf degree-tx-power-check-retries {
+        type uint16;
+        description
+          "maximum number of times the power may be measured and checked when
+          the power check on the previous measurement fails";
+      }
+      leaf xpdr-rx-channel-power-min {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "Minimum channel power an xpdr network port must receive";
+      }
+      leaf xpdr-rx-channel-power-max {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "Maximum channel power an xpdr network port must receive";
+      }
+      leaf pm-polling-timeout {
+        type uint16;
+        units "seconds";
+        description
+          "Maximum time to wait for a response when polling an NE for pm-data";
+      }
+    }
+  }
+
+  grouping link-rebalance-optical-power-operation {
+    container link-rebalance-optical-power-options {
+      leaf degree-tx-power-threshold-lb {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum (lower bound) difference allowed between the channel measured
+          output power and its target-output-power if the measured output power
+          is less than the target-output-power";
+      }
+      leaf degree-tx-power-threshold-ub {
+        type org-openroadm-common-link-types:ratio-dB;
+        description
+          "Maximum (upper bound) difference allowed between the channel measured
+          output power and its target-output-power if the measured output power
+          is greater than the target-output-power";
+      }
+      leaf degree-tx-power-check-retries {
+        type uint16;
+        description
+          "maximum number of times the power may be measured and checked when
+          the power check on the previous measurement fails";
+      }
+      leaf pm-polling-timeout {
+        type uint16;
+        units "seconds";
+        description
+          "Maximum time to wait for a response when polling an NE for pm-data";
+      }
+    }
+  }
+
+  grouping optical-section-result {
+    leaf optical-section-index {
+      type uint16;
+      description
+        "Represents the number of optical sections within the end-to-end path
+        when they are ordered from traffic source to traffic destination";
+    }
+    uses org-openroadm-common-rebalance-optical-power:result-status;
+  }
+
+  grouping result-status {
+    leaf status {
+      type enumeration {
+        enum success;
+        enum failure;
+        enum not-attempted;
+      }
+      description
+        "Success: Indicates that the action completed successfully;
+        Not-Attempted: Indicates that the operation was skipped;
+        Failure: Indicates that the operation failed.";
+      mandatory true;
+    }
+    leaf reason {
+      type string;
+      description
+        "Message indicating the reason for not-attempted or failure";
+    }
+  }
+}

@@ -16,7 +16,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-03-29;
+    revision-date 2024-05-31;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -105,6 +105,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-05-31 {
+    description
+      "Version 15.1";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -337,6 +341,16 @@ module org-openroadm-common-service-types {
       }
       enum end-terminal-power-control {
           value 24;
+      }
+      // enum values 25 to 27 are deliberately left unused. Please do not use them
+      enum rebalance-optical-power-service {
+          value 28;
+      }
+      enum rebalance-optical-power-uni-link {
+         value 29;
+      }
+      enum rebalance-optical-power-bi-link {
+         value 30;
       }
     }
     description
