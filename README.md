@@ -1,5 +1,7 @@
 OpenROADM website: http://www.openroadm.org/
-## Latest Updates: April 17 2024
+## Latest Updates: June 11 2024
+1. Release of 15.1 OpenROADM models
+## April 17 2024
 1. Release of 15.0 OpenROADM models
 2. Release of OpenROADM specifications v7.0, can be downloaded here: https://github.com/OpenROADM/OpenROADM_MSA_Public/wiki/files/20240307_open-roadm_msa_specification_ver7.0.xlsx
 3. OpenROADM whitepapers (13.1)
