@@ -22,6 +22,10 @@ module org-openroadm-resource {
     prefix org-openroadm-common-link-types;
     revision-date 2024-03-29;
   }
+  import org-openroadm-common-pluggable-types {
+    prefix org-openroadm-common-pluggable-types;
+    revision-date 2024-09-27;
+  }
 
   organization
     "Open ROADM MSA";
@@ -211,6 +215,7 @@ module org-openroadm-resource {
         "The path was calculated according to the supported operational modes.
          Selected mode can be either a specific or an openROADM operational-mode";
     }
+    uses org-openroadm-common-pluggable-types:cmis-media-id;
   }
 
   grouping path-computation-outputs {
@@ -237,6 +242,7 @@ module org-openroadm-resource {
         "minimum output-power";
     }
   }
+
 
   grouping och-attributes {
     description

@@ -70,7 +70,10 @@ module org-openroadm-common-service-types {
     prefix org-openroadm-resource;
     revision-date 2024-03-29;
   }
-
+  import org-openroadm-common-pluggable-types {
+    prefix org-openroadm-common-pluggable-types;
+    revision-date 2024-09-27;
+  }
 
   organization
     "Open ROADM MSA";
@@ -1631,6 +1634,7 @@ module org-openroadm-common-service-types {
                 description
                   "the supported operational mode : either openROADM or specific ";
             }
+            uses org-openroadm-common-pluggable-types:cmis-media-id;
             uses org-openroadm-resource:path-computation-outputs;
         }
     }
@@ -1643,11 +1647,6 @@ module org-openroadm-common-service-types {
                   and which apply to Xponders for an infrastructure service, and to external optical transceivers
                 handled by a 3rd party controller for an optical-tunnel service";
           }
-          leaf operational-mode {
-              type string;
-              description
-                "the supported operational mode : either openROADM or specific ";
-          }
           leaf frequency {
               type org-openroadm-common-optical-channel-types:frequency-THz;
               description
@@ -1658,6 +1657,12 @@ module org-openroadm-common-service-types {
             description
                 "Frequency width in GHz.";
           }
+          leaf operational-mode {
+              type string;
+              description
+                "the supported operational mode : either openROADM or specific ";
+          }
+          uses org-openroadm-common-pluggable-types:cmis-media-id;
           uses org-openroadm-resource:path-computation-outputs;
       }
     }

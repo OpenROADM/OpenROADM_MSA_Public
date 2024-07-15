@@ -596,6 +596,31 @@ module: org-openroadm-rebalance-optical-power
        +--ro timestamp?                              yang:date-and-time
 
 module: org-openroadm-service
+  +--rw application-class-table
+  |  +--rw application-classes* [application-class-name]
+  |     +--rw application-class-name    string
+  |     +--rw transport-options* [priority-id]
+  |        +--rw priority-id                uint8
+  |        +--rw operational-mode-id?       string
+  |        +--rw media-interface-id?        media-id-type
+  |        +--rw associated-oui?            org-openroadm-common-types:oui-type
+  |        +--rw associated-vendor?         string
+  |        +--rw associated-model?          string
+  |        +--rw associated-product-code?   string
+  +--rw optical-module-appsel-table
+  |  +--rw pluggable-module* [vendor product-code]
+  |     +--rw vendor                     string
+  |     +--rw model?                     string
+  |     +--rw product-code               string
+  |     +--rw oui?                       string
+  |     +--rw supporting-appsel-modes* [appsel-code]
+  |        +--rw appsel-code                      uint16
+  |        +--rw media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
+  |        +--rw host-interface-id?               org-openroadm-common-pluggable-types:host-id-type
+  |        +--rw host-lane-count?                 uint8
+  |        +--rw media-lane-count?                uint8
+  |        +--rw host-lane-assignment-options?    org-openroadm-common-pluggable-types:host-lane-assignment-type
+  |        +--rw media-lane-assignment-options?   org-openroadm-common-pluggable-types:media-lane-assignment-type
   +--rw service-list
   |  +--rw services* [service-name]
   |     +--rw version-number?                 uint8
@@ -750,13 +775,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -884,13 +911,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -1117,6 +1146,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw odu!
   |     |  |  |     |  |  +--rw rate?                       identityref
   |     |  |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -1143,6 +1174,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw otsi-group
   |     |  |  |     |     +--rw group-rate?   identityref
   |     |  |  |     |     +--rw group-id?     uint32
@@ -1233,6 +1266,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw odu!
   |     |     |     |  |  +--rw rate?                       identityref
   |     |     |     |  |  +--rw oducn-n-rate?               uint16
@@ -1259,6 +1294,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw otsi-group
   |     |     |     |     +--rw group-rate?   identityref
   |     |     |     |     +--rw group-id?     uint32
@@ -1353,6 +1390,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw odu!
   |     |     |  |     |  |  +--rw rate?                       identityref
   |     |     |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -1379,6 +1418,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw otsi-group
   |     |     |  |     |     +--rw group-rate?   identityref
   |     |     |  |     |     +--rw group-id?     uint32
@@ -1469,6 +1510,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw odu!
   |     |        |     |  |  +--rw rate?                       identityref
   |     |        |     |  |  +--rw oducn-n-rate?               uint16
@@ -1495,6 +1538,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw otsi-group
   |     |        |     |     +--rw group-rate?   identityref
   |     |        |     |     +--rw group-id?     uint32
@@ -1812,13 +1857,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -1946,13 +1993,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -2179,6 +2228,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw odu!
   |     |  |  |     |  |  +--rw rate?                       identityref
   |     |  |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -2205,6 +2256,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw otsi-group
   |     |  |  |     |     +--rw group-rate?   identityref
   |     |  |  |     |     +--rw group-id?     uint32
@@ -2295,6 +2348,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw odu!
   |     |     |     |  |  +--rw rate?                       identityref
   |     |     |     |  |  +--rw oducn-n-rate?               uint16
@@ -2321,6 +2376,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw otsi-group
   |     |     |     |     +--rw group-rate?   identityref
   |     |     |     |     +--rw group-id?     uint32
@@ -2415,6 +2472,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw odu!
   |     |     |  |     |  |  +--rw rate?                       identityref
   |     |     |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -2441,6 +2500,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw otsi-group
   |     |     |  |     |     +--rw group-rate?   identityref
   |     |     |  |     |     +--rw group-id?     uint32
@@ -2531,6 +2592,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw odu!
   |     |        |     |  |  +--rw rate?                       identityref
   |     |        |     |  |  +--rw oducn-n-rate?               uint16
@@ -2557,6 +2620,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw otsi-group
   |     |        |     |     +--rw group-rate?   identityref
   |     |        |     |     +--rw group-id?     uint32
@@ -2874,13 +2939,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -3008,13 +3075,15 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw operational-mode?    string
-  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?     string
+  |     |  |  +--rw media-interface-id?   media-id-type
+  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -3241,6 +3310,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw odu!
   |     |  |  |     |  |  +--rw rate?                       identityref
   |     |  |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -3267,6 +3338,8 @@ module: org-openroadm-service
   |     |  |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |  |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  |     |  |  +--rw optical-operational-mode?   string
+  |     |  |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |  |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |  |  |     |  +--rw otsi-group
   |     |  |  |     |     +--rw group-rate?   identityref
   |     |  |  |     |     +--rw group-id?     uint32
@@ -3357,6 +3430,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw odu!
   |     |     |     |  |  +--rw rate?                       identityref
   |     |     |     |  |  +--rw oducn-n-rate?               uint16
@@ -3383,6 +3458,8 @@ module: org-openroadm-service
   |     |     |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |     |  |  +--rw optical-operational-mode?   string
+  |     |     |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |     |  +--rw otsi-group
   |     |     |     |     +--rw group-rate?   identityref
   |     |     |     |     +--rw group-id?     uint32
@@ -3477,6 +3554,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw odu!
   |     |     |  |     |  |  +--rw rate?                       identityref
   |     |     |  |     |  |  +--rw oducn-n-rate?               uint16
@@ -3503,6 +3582,8 @@ module: org-openroadm-service
   |     |     |  |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |     |  |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |     |  |     |  |  +--rw optical-operational-mode?   string
+  |     |     |  |     |  |  +--rw media-interface-id?         media-id-type
+  |     |     |  |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |     |  |     |  +--rw otsi-group
   |     |     |  |     |     +--rw group-rate?   identityref
   |     |     |  |     |     +--rw group-id?     uint32
@@ -3593,6 +3674,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw odu!
   |     |        |     |  |  +--rw rate?                       identityref
   |     |        |     |  |  +--rw oducn-n-rate?               uint16
@@ -3619,6 +3702,8 @@ module: org-openroadm-service
   |     |        |     |  |  +--rw frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
   |     |        |     |  |  +--rw width?                      org-openroadm-common-optical-channel-types:frequency-GHz
   |     |        |     |  |  +--rw optical-operational-mode?   string
+  |     |        |     |  |  +--rw media-interface-id?         media-id-type
+  |     |        |     |  |  +--rw associated-oui?             org-openroadm-common-types:oui-type
   |     |        |     |  +--rw otsi-group
   |     |        |     |     +--rw group-rate?   identityref
   |     |        |     |     +--rw group-id?     uint32
@@ -6598,6 +6683,8 @@ module: org-openroadm-service
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |     +--ro optical-operational-mode?   string
+    |     |     +--ro media-interface-id?         media-id-type
+    |     |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -6732,6 +6819,8 @@ module: org-openroadm-service
     |     |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |     +--ro optical-operational-mode?   string
+    |     |     +--ro media-interface-id?         media-id-type
+    |     |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -6814,6 +6903,8 @@ module: org-openroadm-service
     |     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |     |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |  |  |     |  +--ro odu!
     |     |  |  |  |     |  |  +--ro rate?                       identityref
     |     |  |  |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -6840,6 +6931,8 @@ module: org-openroadm-service
     |     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |     |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |  |  |     |  +--ro otsi-group
     |     |  |  |  |     |     +--ro group-rate?   identityref
     |     |  |  |  |     |     +--ro group-id?     uint32
@@ -6930,6 +7023,8 @@ module: org-openroadm-service
     |     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |     |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |     |     |  +--ro odu!
     |     |  |     |     |  |  +--ro rate?                       identityref
     |     |  |     |     |  |  +--ro oducn-n-rate?               uint16
@@ -6956,6 +7051,8 @@ module: org-openroadm-service
     |     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |     |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |     |     |  +--ro otsi-group
     |     |  |     |     |     +--ro group-rate?   identityref
     |     |  |     |     |     +--ro group-id?     uint32
@@ -7050,6 +7147,8 @@ module: org-openroadm-service
     |     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |     |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |     |  |     |  +--ro odu!
     |     |  |     |  |     |  |  +--ro rate?                       identityref
     |     |  |     |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -7076,6 +7175,8 @@ module: org-openroadm-service
     |     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |     |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |     |  |     |  +--ro otsi-group
     |     |  |     |  |     |     +--ro group-rate?   identityref
     |     |  |     |  |     |     +--ro group-id?     uint32
@@ -7166,6 +7267,8 @@ module: org-openroadm-service
     |     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |     |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |        |     |  +--ro odu!
     |     |  |        |     |  |  +--ro rate?                       identityref
     |     |  |        |     |  |  +--ro oducn-n-rate?               uint16
@@ -7192,6 +7295,8 @@ module: org-openroadm-service
     |     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |     |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |     |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  |        |     |  +--ro otsi-group
     |     |  |        |     |     +--ro group-rate?   identityref
     |     |  |        |     |     +--ro group-id?     uint32
@@ -7547,6 +7652,8 @@ module: org-openroadm-service
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |     +--ro optical-operational-mode?   string
+    |        |     +--ro media-interface-id?         media-id-type
+    |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -7681,6 +7788,8 @@ module: org-openroadm-service
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |     +--ro optical-operational-mode?   string
+    |        |     +--ro media-interface-id?         media-id-type
+    |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -7763,6 +7872,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |  |  |     |  +--ro odu!
     |        |  |  |  |     |  |  +--ro rate?                       identityref
     |        |  |  |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -7789,6 +7900,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |  |  |     |  +--ro otsi-group
     |        |  |  |  |     |     +--ro group-rate?   identityref
     |        |  |  |  |     |     +--ro group-id?     uint32
@@ -7879,6 +7992,8 @@ module: org-openroadm-service
     |        |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |     |  +--ro odu!
     |        |  |     |     |  |  +--ro rate?                       identityref
     |        |  |     |     |  |  +--ro oducn-n-rate?               uint16
@@ -7905,6 +8020,8 @@ module: org-openroadm-service
     |        |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |     |  +--ro otsi-group
     |        |  |     |     |     +--ro group-rate?   identityref
     |        |  |     |     |     +--ro group-id?     uint32
@@ -7999,6 +8116,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |  |     |  +--ro odu!
     |        |  |     |  |     |  |  +--ro rate?                       identityref
     |        |  |     |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -8025,6 +8144,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |  |     |  +--ro otsi-group
     |        |  |     |  |     |     +--ro group-rate?   identityref
     |        |  |     |  |     |     +--ro group-id?     uint32
@@ -8115,6 +8236,8 @@ module: org-openroadm-service
     |        |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |        |     |  |  +--ro optical-operational-mode?   string
+    |        |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |        |     |  +--ro odu!
     |        |  |        |     |  |  +--ro rate?                       identityref
     |        |  |        |     |  |  +--ro oducn-n-rate?               uint16
@@ -8141,6 +8264,8 @@ module: org-openroadm-service
     |        |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |        |     |  |  +--ro optical-operational-mode?   string
+    |        |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |        |     |  +--ro otsi-group
     |        |  |        |     |     +--ro group-rate?   identityref
     |        |  |        |     |     +--ro group-id?     uint32
@@ -9048,6 +9173,8 @@ module: org-openroadm-service
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |     +--ro optical-operational-mode?   string
+    |        |     +--ro media-interface-id?         media-id-type
+    |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -9182,6 +9309,8 @@ module: org-openroadm-service
     |        |     +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |     +--ro optical-operational-mode?   string
+    |        |     +--ro media-interface-id?         media-id-type
+    |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -9264,6 +9393,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |  |  |     |  +--ro odu!
     |        |  |  |  |     |  |  +--ro rate?                       identityref
     |        |  |  |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -9290,6 +9421,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |  |  |     |  +--ro otsi-group
     |        |  |  |  |     |     +--ro group-rate?   identityref
     |        |  |  |  |     |     +--ro group-id?     uint32
@@ -9380,6 +9513,8 @@ module: org-openroadm-service
     |        |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |     |  +--ro odu!
     |        |  |     |     |  |  +--ro rate?                       identityref
     |        |  |     |     |  |  +--ro oducn-n-rate?               uint16
@@ -9406,6 +9541,8 @@ module: org-openroadm-service
     |        |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |     |  +--ro otsi-group
     |        |  |     |     |     +--ro group-rate?   identityref
     |        |  |     |     |     +--ro group-id?     uint32
@@ -9500,6 +9637,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |  |     |  +--ro odu!
     |        |  |     |  |     |  |  +--ro rate?                       identityref
     |        |  |     |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -9526,6 +9665,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |        |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |     |  |     |  +--ro otsi-group
     |        |  |     |  |     |     +--ro group-rate?   identityref
     |        |  |     |  |     |     +--ro group-id?     uint32
@@ -9616,6 +9757,8 @@ module: org-openroadm-service
     |        |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |        |     |  |  +--ro optical-operational-mode?   string
+    |        |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |        |     |  +--ro odu!
     |        |  |        |     |  |  +--ro rate?                       identityref
     |        |  |        |     |  |  +--ro oducn-n-rate?               uint16
@@ -9642,6 +9785,8 @@ module: org-openroadm-service
     |        |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        |  |        |     |  |  +--ro optical-operational-mode?   string
+    |        |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |        |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |  |        |     |  +--ro otsi-group
     |        |  |        |     |     +--ro group-rate?   identityref
     |        |  |        |     |     +--ro group-id?     uint32
@@ -12151,6 +12296,8 @@ module: org-openroadm-service
     |  |  +---w frequency?                              org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +---w width?                                  org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w optical-operational-mode?               string
+    |  |  +---w media-interface-id?                     media-id-type
+    |  |  +---w associated-oui?                         org-openroadm-common-types:oui-type
     |  +--ro output
     |     +--ro configuration-response-common
     |        +--ro request-id             string
@@ -12186,6 +12333,8 @@ module: org-openroadm-service
     |  |  +---w frequency?                              org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +---w width?                                  org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w optical-operational-mode?               string
+    |  |  +---w media-interface-id?                     media-id-type
+    |  |  +---w associated-oui?                         org-openroadm-common-types:oui-type
     |  |  +---w output-power-setpoint-a-end?            org-openroadm-common-link-types:power-dBm
     |  |  +---w output-power-setpoint-z-end?            org-openroadm-common-link-types:power-dBm
     |  +--ro output
@@ -12425,6 +12574,8 @@ module: org-openroadm-service
     |     |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |     |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |     |  +--ro optical-operational-mode?   string
+    |     |  +--ro media-interface-id?         media-id-type
+    |     |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |  +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |     |  +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -12433,6 +12584,8 @@ module: org-openroadm-service
     |        +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |        +--ro optical-operational-mode?   string
+    |        +--ro media-interface-id?         media-id-type
+    |        +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
     |        +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
@@ -12595,13 +12748,15 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?    string
-    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?     string
+    |  |     +--ro media-interface-id?   media-id-type
+    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
     |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
@@ -12714,13 +12869,15 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro operational-mode?    string
-    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?     string
+    |  |     +--ro media-interface-id?   media-id-type
+    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -12932,6 +13089,8 @@ module: org-openroadm-service
     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |  |  |     |  +--ro odu!
     |  |  |  |     |  |  +--ro rate?                       identityref
     |  |  |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -12958,6 +13117,8 @@ module: org-openroadm-service
     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |  |  |     |  +--ro otsi-group
     |  |  |  |     |     +--ro group-rate?   identityref
     |  |  |  |     |     +--ro group-id?     uint32
@@ -13048,6 +13209,8 @@ module: org-openroadm-service
     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |     |  +--ro odu!
     |  |     |     |  |  +--ro rate?                       identityref
     |  |     |     |  |  +--ro oducn-n-rate?               uint16
@@ -13074,6 +13237,8 @@ module: org-openroadm-service
     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |     |  +--ro otsi-group
     |  |     |     |     +--ro group-rate?   identityref
     |  |     |     |     +--ro group-id?     uint32
@@ -13168,6 +13333,8 @@ module: org-openroadm-service
     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |  |     |  +--ro odu!
     |  |     |  |     |  |  +--ro rate?                       identityref
     |  |     |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -13194,6 +13361,8 @@ module: org-openroadm-service
     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |  |     |  +--ro otsi-group
     |  |     |  |     |     +--ro group-rate?   identityref
     |  |     |  |     |     +--ro group-id?     uint32
@@ -13284,6 +13453,8 @@ module: org-openroadm-service
     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |        |     |  +--ro odu!
     |  |        |     |  |  +--ro rate?                       identityref
     |  |        |     |  |  +--ro oducn-n-rate?               uint16
@@ -13310,6 +13481,8 @@ module: org-openroadm-service
     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |        |     |  +--ro otsi-group
     |  |        |     |     +--ro group-rate?   identityref
     |  |        |     |     +--ro group-id?     uint32
@@ -13560,13 +13733,15 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?    string
-    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?     string
+    |  |     +--ro media-interface-id?   media-id-type
+    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
     |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
@@ -13679,13 +13854,15 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro operational-mode?    string
-    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?     string
+    |  |     +--ro media-interface-id?   media-id-type
+    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -13897,6 +14074,8 @@ module: org-openroadm-service
     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |  |  |     |  +--ro odu!
     |  |  |  |     |  |  +--ro rate?                       identityref
     |  |  |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -13923,6 +14102,8 @@ module: org-openroadm-service
     |  |  |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  |  |     |  |  +--ro optical-operational-mode?   string
+    |  |  |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |  |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |  |  |     |  +--ro otsi-group
     |  |  |  |     |     +--ro group-rate?   identityref
     |  |  |  |     |     +--ro group-id?     uint32
@@ -14013,6 +14194,8 @@ module: org-openroadm-service
     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |     |  +--ro odu!
     |  |     |     |  |  +--ro rate?                       identityref
     |  |     |     |  |  +--ro oducn-n-rate?               uint16
@@ -14039,6 +14222,8 @@ module: org-openroadm-service
     |  |     |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |     |  |  +--ro optical-operational-mode?   string
+    |  |     |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |     |  +--ro otsi-group
     |  |     |     |     +--ro group-rate?   identityref
     |  |     |     |     +--ro group-id?     uint32
@@ -14133,6 +14318,8 @@ module: org-openroadm-service
     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |  |     |  +--ro odu!
     |  |     |  |     |  |  +--ro rate?                       identityref
     |  |     |  |     |  |  +--ro oducn-n-rate?               uint16
@@ -14159,6 +14346,8 @@ module: org-openroadm-service
     |  |     |  |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |  |     |  |  +--ro optical-operational-mode?   string
+    |  |     |  |     |  |  +--ro media-interface-id?         media-id-type
+    |  |     |  |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |     |  |     |  +--ro otsi-group
     |  |     |  |     |     +--ro group-rate?   identityref
     |  |     |  |     |     +--ro group-id?     uint32
@@ -14249,6 +14438,8 @@ module: org-openroadm-service
     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |        |     |  +--ro odu!
     |  |        |     |  |  +--ro rate?                       identityref
     |  |        |     |  |  +--ro oducn-n-rate?               uint16
@@ -14275,6 +14466,8 @@ module: org-openroadm-service
     |  |        |     |  |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |  |        |     |  |  +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
     |  |        |     |  |  +--ro optical-operational-mode?   string
+    |  |        |     |  |  +--ro media-interface-id?         media-id-type
+    |  |        |     |  |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |  |        |     |  +--ro otsi-group
     |  |        |     |     +--ro group-rate?   identityref
     |  |        |     |     +--ro group-id?     uint32
