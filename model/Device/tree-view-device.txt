@@ -625,6 +625,8 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-channel-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:associated-oui?             org-openroadm-common-types:oui-type
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
      |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -647,6 +649,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:associated-oui?             org-openroadm-common-types:oui-type
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
      |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -1177,8 +1181,10 @@ module: org-openroadm-device
      |     +--ro lo-odu-proactive-DMt?              boolean
      |     +--ro lo-odu-tcm-direction-capability?   org-openroadm-common-types:tcm-direction-capability-type
      +--ro optical-operational-mode-profile* [profile-name]
-     |  +--ro profile-name      string
-     |  +--ro spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--ro profile-name          string
+     |  +--ro media-interface-id?   media-id-type
+     |  +--ro associated-oui?       org-openroadm-common-types:oui-type
+     |  +--ro spectral-width?       org-openroadm-common-optical-channel-types:frequency-GHz
      +--ro otn-capability-profile* [profile-name]
      |  +--ro profile-name                string
      |  +--ro if-protection-capability*   identityref
@@ -1811,6 +1817,25 @@ module: org-openroadm-device
     |        +--ro is-physical          boolean
     |        +--ro pm-capable           boolean
     |        +--ro alarm-capable        boolean
+    +---x get-pluggable-appsel-data
+    |  +---w input
+    |  |  +---w circuit-pack-name    string
+    |  +--ro output
+    |     +--ro status              rpc-status
+    |     +--ro status-message?     string
+    |     +--ro pluggable-module* [vendor product-code]
+    |        +--ro vendor                     string
+    |        +--ro model?                     string
+    |        +--ro product-code               string
+    |        +--ro oui?                       org-openroadm-common-types:oui-type
+    |        +--ro supporting-appsel-modes* [appsel-code]
+    |           +--ro appsel-code                      uint16
+    |           +--ro media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
+    |           +--ro host-interface-id?               org-openroadm-common-pluggable-types:host-id-type
+    |           +--ro host-lane-count?                 uint8
+    |           +--ro media-lane-count?                uint8
+    |           +--ro host-lane-assignment-options?    org-openroadm-common-pluggable-types:host-lane-assignment-type
+    |           +--ro media-lane-assignment-options?   org-openroadm-common-pluggable-types:media-lane-assignment-type
     +---x get-connection-port-trail-optical-pm
     |  +---w input
     |  |  +---w connection-name    string

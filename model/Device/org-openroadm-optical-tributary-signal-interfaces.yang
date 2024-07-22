@@ -30,6 +30,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
     prefix org-openroadm-otn-common-types;
     revision-date 2021-09-24;
   }
+  import org-openroadm-common-pluggable-types {
+    prefix org-openroadm-common-pluggable-types;
+    revision-date 2024-09-27;
+  }
 
   organization
     "Open ROADM MSA";
@@ -194,7 +198,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
          The 'profile' provision-mode is introduced in MSA 5.0 to support the bookended xponder application";
     }
     leaf otsi-rate {
-      when "../provision-mode = 'explicit'";
+      when "../provision-mode = 'explicit' or ../provision-mode = 'media-id'";
       type identityref {
         base org-openroadm-common-optical-channel-types:otsi-rate-identity;
       }
@@ -236,6 +240,11 @@ module org-openroadm-optical-tributary-signal-interfaces {
       description
         "OTSi FEC / Forward Error Correction";
     }
+    uses org-openroadm-common-pluggable-types:cmis-media-id {
+      when "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface/org-openroadm-optical-tributary-signal-interfaces:otsi/provision-mode = 'media-id'";
+      description
+        "media-interface-id and associated-oui";
+    }
     leaf optical-operational-mode {
       when "../provision-mode = 'profile'";
       type string;
@@ -269,7 +278,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
           base org-openroadm-common-optical-channel-types:foic-identity;
         }
         description
-          "Assigned flexo instance type";
+          "Assigned flexo instance type. FOIC type is not specified when the provision-mode is profile or media-id";
       }
       leaf-list iid {
         type uint8;

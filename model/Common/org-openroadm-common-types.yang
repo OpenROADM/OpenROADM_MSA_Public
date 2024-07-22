@@ -580,6 +580,16 @@ module org-openroadm-common-types {
     }
   }
 
+  typedef oui-type {
+    description
+      "The Organizationally Unique Identifier (OUI) or Company ID (CID) to
+      identify the organization defining the identification method.";
+    type string {
+      pattern "[0-9A-F]{2}(-[0-9A-F]{2}){2}";
+
+    }
+  }
+
   grouping enable-laser {
     leaf enable-laser {
       type enumeration {

@@ -318,6 +318,7 @@ module org-openroadm-common-optical-channel-types {
     type enumeration {
       enum explicit;
       enum profile;
+      enum media-id;
     }
     description
       "Provision Mode Type On Optical Channel";

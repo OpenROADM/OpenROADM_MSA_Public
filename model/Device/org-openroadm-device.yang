@@ -98,6 +98,10 @@ module org-openroadm-device {
     prefix org-openroadm-pm-types;
     revision-date 2022-12-09;
   }
+  import org-openroadm-common-pluggable-types {
+    prefix org-openroadm-common-pluggable-types;
+    revision-date 2024-09-27;
+  }
   organization
     "Open ROADM MSA";
   contact
@@ -2941,6 +2945,7 @@ module org-openroadm-device {
           description
             "Optical operational profile name";
         }
+        uses org-openroadm-common-pluggable-types:cmis-media-id;
         uses org-openroadm-optical-operational-interfaces:optical-operational-modes-grp-attr;
       }
       list otn-capability-profile {
@@ -3153,6 +3158,85 @@ module org-openroadm-device {
           }
           refine "alarm-capable" {
             mandatory true;
+          }
+        }
+      }
+    }
+  }
+
+  rpc get-pluggable-appsel-data {
+    description
+      "This RPC dumps the APPSEL data for the plugguable. The data in output is based on the CMIS
+      5.2 standard https://www.oiforum.com/wp-content/uploads/OIF-CMIS-05.2.pdf. Also includes other data
+      related to port-such as model, vendor and product-code";
+    input {
+      leaf circuit-pack-name {
+        type string;
+        mandatory true;
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+      list pluggable-module {
+        key "vendor product-code";
+        leaf vendor {
+          type string;
+          description
+            "Identifier of the supplier";
+        }
+        leaf model {
+          type string;
+          description
+            "Identifier of the supplier's equipment";
+        }
+        leaf product-code {
+          type string;
+          description
+            "Product Code for this physical resource";
+        }
+        leaf oui {
+          type org-openroadm-common-types:oui-type;
+          description
+            "IEEE Organizationally Unique Identifier (OUI)";
+        }
+        list supporting-appsel-modes {
+          key "appsel-code";
+          leaf appsel-code {
+            type uint16;
+            description
+              "APPSEL code advertised by the module (binary). Host is responsible to present this
+              indexed value";
+          }
+          leaf media-interface-id {
+            type org-openroadm-common-pluggable-types:media-id-type;
+            description
+              "Media interface IDs are defined in the SNIA SFF-8024 document. Media interface IDs are
+              embedded in the APPSEL codes used by to provision CMIS pluggable optical modules";
+          }
+          leaf host-interface-id {
+            type org-openroadm-common-pluggable-types:host-id-type;
+            description
+              "Host Electrical Interface Codes (hex)";
+          }
+          leaf host-lane-count {
+            type uint8;
+            description
+              "Number of host lanes (binary)";
+          }
+          leaf media-lane-count {
+            type uint8;
+            description
+              "Number of media lanes. For cable assemblies, this is the number of lanes in the cable (binary)";
+          }
+          leaf host-lane-assignment-options {
+            type org-openroadm-common-pluggable-types:host-lane-assignment-type;
+            description
+              "Host Lane Assignment Options (hex)";
+          }
+          leaf media-lane-assignment-options {
+            type org-openroadm-common-pluggable-types:media-lane-assignment-type;
+            description
+              "Media Lane Assignment Options (hex)";
           }
         }
       }
