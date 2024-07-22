@@ -71,7 +71,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -156,7 +157,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -246,7 +248,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -326,7 +329,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -411,7 +415,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -501,7 +506,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -581,7 +587,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -661,7 +668,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -741,7 +749,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -821,7 +830,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -906,7 +916,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -991,7 +1002,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -1076,7 +1088,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -1161,7 +1174,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -1241,7 +1255,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -1321,7 +1336,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -1406,7 +1422,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -1491,7 +1508,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -1571,7 +1589,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -1651,7 +1670,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
@@ -1736,7 +1756,8 @@
                         "min-TX-osnr": "37.000",
                         "TX-OOB-osnr": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-                            "min-OOB-osnr-multi-channel-value": "36.000"
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
                         },
                         "output-power-range": {
                             "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
