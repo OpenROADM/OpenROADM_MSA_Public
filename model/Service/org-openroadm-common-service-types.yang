@@ -1616,6 +1616,16 @@ module org-openroadm-common-service-types {
                   and which apply to Xponders for an infrastructure service, and to external optical transceivers
                 handled by a 3rd party controller for an optical-tunnel service";
             }
+            leaf frequency {
+              type org-openroadm-common-optical-channel-types:frequency-THz;
+              description
+                "Center Frequency in THz.";
+            }
+            leaf width {
+              type org-openroadm-common-optical-channel-types:frequency-GHz;
+              description
+                 "Frequency width in GHz.";
+            }
             leaf operational-mode {
                 type string;
                 description
@@ -1637,6 +1647,16 @@ module org-openroadm-common-service-types {
               type string;
               description
                 "the supported operational mode : either openROADM or specific ";
+          }
+          leaf frequency {
+              type org-openroadm-common-optical-channel-types:frequency-THz;
+              description
+                "Center Frequency in THz.";
+          }
+          leaf width {
+            type org-openroadm-common-optical-channel-types:frequency-GHz;
+            description
+                "Frequency width in GHz.";
           }
           uses org-openroadm-resource:path-computation-outputs;
       }

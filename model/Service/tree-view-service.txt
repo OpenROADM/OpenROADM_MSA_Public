@@ -750,6 +750,8 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw operational-mode?    string
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
@@ -883,6 +885,8 @@ module: org-openroadm-service
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
   |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
@@ -1808,6 +1812,8 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw operational-mode?    string
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
@@ -1941,6 +1947,8 @@ module: org-openroadm-service
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
   |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
@@ -2866,6 +2874,8 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw operational-mode?    string
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
@@ -2999,6 +3009,8 @@ module: org-openroadm-service
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
   |     |  |  +--rw operational-mode?    string
+  |     |  |  +--rw frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?               org-openroadm-common-optical-channel-types:frequency-GHz
   |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
   |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
@@ -12583,6 +12595,8 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
+    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +--ro operational-mode?    string
     |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
@@ -12701,6 +12715,8 @@ module: org-openroadm-service
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
     |  |     +--ro operational-mode?    string
+    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
@@ -13544,6 +13560,8 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
+    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +--ro operational-mode?    string
     |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
@@ -13662,6 +13680,8 @@ module: org-openroadm-service
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
     |  |     +--ro operational-mode?    string
+    |  |     +--ro frequency?           org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
     |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
