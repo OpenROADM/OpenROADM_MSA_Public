@@ -820,6 +820,12 @@ module org-openroadm-common-service-types {
   }
 
   grouping service-endpoint {
+    leaf application-class-name {
+      type string;
+      description
+        "Application class names are defined by the service-provider and are not standardized
+        by the OpenROADM MSA";
+    }
     leaf service-format {
       type org-openroadm-service-format:service-format;
       mandatory true;

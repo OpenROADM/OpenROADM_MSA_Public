@@ -1507,9 +1507,15 @@ module org-openroadm-service {
         type string;
         mandatory true;
         description
-          "Identifier used in the first step of optical-tunnelservice creation using
+          "Identifier used in the first step of optical-tunnel service creation using
           temp-service-create rpc. Identifies the temporary service for which resources
           have been reserved after a successful path computation";
+      }
+      leaf application-class-name {
+        type string;
+        description
+          "Application class names are defined by the service-provider and are not standardized
+          by the OpenROADM MSA";
       }
       leaf version-number {
         type uint8;
@@ -1941,6 +1947,12 @@ rpc add-openroadm-operational-modes-to-catalog {
     }
     uses org-openroadm-common-types:rpc-response-status;
     uses org-openroadm-common-service-types:service-notification-result;
+    leaf application-class-name {
+      type string;
+      description
+        "Application class names are defined by the service-provider and are not standardized
+        by the OpenROADM MSA";
+    }
     container path-computation-result {
       when "../notification-type = 'path-computation-result'" {
         description

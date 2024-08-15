@@ -639,6 +639,7 @@ module: org-openroadm-service
   |     +--rw frequency?                      org-openroadm-common-optical-channel-types:frequency-THz
   |     +--rw width?                          org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -770,6 +771,7 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -1695,6 +1697,7 @@ module: org-openroadm-service
   |     +--rw frequency?                      org-openroadm-common-optical-channel-types:frequency-THz
   |     +--rw width?                          org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -1826,6 +1829,7 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -2751,6 +2755,7 @@ module: org-openroadm-service
   |     +--rw frequency?                      org-openroadm-common-optical-channel-types:frequency-THz
   |     +--rw width?                          org-openroadm-common-optical-channel-types:frequency-GHz
   |     +--rw service-a-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -2882,6 +2887,7 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw service-z-end
+  |     |  +--rw application-class-name?          string
   |     |  +--rw service-format                   org-openroadm-service-format:service-format
   |     |  +--rw service-rate?                    uint32
   |     |  +--rw is-split-lambda?                 boolean
@@ -4038,6 +4044,7 @@ module: org-openroadm-service
     |  |  +---w connection-type              org-openroadm-common-service-types:connection-type
     |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
+    |  |  |  +---w application-class-name?          string
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
     |  |  |  +---w is-split-lambda?                 boolean
@@ -4148,6 +4155,7 @@ module: org-openroadm-service
     |  |  |  +---w project-id?                      string
     |  |  |  +---w project-note?                    string
     |  |  +---w service-z-end
+    |  |  |  +---w application-class-name?          string
     |  |  |  +---w service-format                   org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                    uint32
     |  |  |  +---w is-split-lambda?                 boolean
@@ -4571,6 +4579,7 @@ module: org-openroadm-service
     |  |     +---w connection-type              org-openroadm-common-service-types:connection-type
     |  |     +---w resource-status?             resource-status-type
     |  |     +---w service-a-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -4681,6 +4690,7 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w service-z-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -5104,6 +5114,7 @@ module: org-openroadm-service
     |  |     +---w connection-type                org-openroadm-common-service-types:connection-type
     |  |     +---w resource-status?               resource-status-type
     |  |     +---w service-a-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -5214,6 +5225,7 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w service-z-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -5874,6 +5886,7 @@ module: org-openroadm-service
     |  |  |        +---w version-number?   uint64
     |  |  +---w propose-equipment?             enumeration
     |  |  +---w service-a-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -5991,6 +6004,7 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w service-z-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -6443,6 +6457,7 @@ module: org-openroadm-service
     |     |     +--ro start-time?        string
     |     |     +--ro end-time?          string
     |     +--ro service-a-end
+    |     |  +--ro application-class-name?               string
     |     |  +--ro service-format                        org-openroadm-service-format:service-format
     |     |  +--ro service-rate?                         uint32
     |     |  +--ro is-split-lambda?                      boolean
@@ -6576,6 +6591,7 @@ module: org-openroadm-service
     |     |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
     |     |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
     |     +--ro service-z-end
+    |     |  +--ro application-class-name?               string
     |     |  +--ro service-format                        org-openroadm-service-format:service-format
     |     |  +--ro service-rate?                         uint32
     |     |  +--ro is-split-lambda?                      boolean
@@ -7390,6 +7406,7 @@ module: org-openroadm-service
     |        |     +--ro start-time?        string
     |        |     +--ro end-time?          string
     |        +--ro service-a-end
+    |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                         uint32
     |        |  +--ro is-split-lambda?                      boolean
@@ -7523,6 +7540,7 @@ module: org-openroadm-service
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
     |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
     |        +--ro service-z-end
+    |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                         uint32
     |        |  +--ro is-split-lambda?                      boolean
@@ -8318,6 +8336,7 @@ module: org-openroadm-service
     |  |     |        +---w version-number?   uint64
     |  |     +---w propose-equipment?             enumeration
     |  |     +---w service-a-end
+    |  |     |  +---w application-class-name?            string
     |  |     |  +---w service-format                     org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                      uint32
     |  |     |  +---w is-split-lambda?                   boolean
@@ -8435,6 +8454,7 @@ module: org-openroadm-service
     |  |     |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +---w service-z-end
+    |  |     |  +---w application-class-name?            string
     |  |     |  +---w service-format                     org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                      uint32
     |  |     |  +---w is-split-lambda?                   boolean
@@ -8887,6 +8907,7 @@ module: org-openroadm-service
     |        |     +--ro start-time?        string
     |        |     +--ro end-time?          string
     |        +--ro service-a-end
+    |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                         uint32
     |        |  +--ro is-split-lambda?                      boolean
@@ -9020,6 +9041,7 @@ module: org-openroadm-service
     |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
     |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
     |        +--ro service-z-end
+    |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
     |        |  +--ro service-rate?                         uint32
     |        |  +--ro is-split-lambda?                      boolean
@@ -9832,6 +9854,7 @@ module: org-openroadm-service
     |  |  +---w connection-type                org-openroadm-common-service-types:connection-type
     |  |  +---w resource-status?               resource-status-type
     |  |  +---w service-a-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -9949,6 +9972,7 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w service-z-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -10452,6 +10476,7 @@ module: org-openroadm-service
     |  |  +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |  +---w resource-status?             resource-status-type
     |  |  +---w service-a-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -10569,6 +10594,7 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w service-z-end
+    |  |  |  +---w application-class-name?            string
     |  |  |  +---w service-format                     org-openroadm-service-format:service-format
     |  |  |  +---w service-rate?                      uint32
     |  |  |  +---w is-split-lambda?                   boolean
@@ -11002,6 +11028,7 @@ module: org-openroadm-service
     |  |     +---w connection-type?             org-openroadm-common-service-types:connection-type
     |  |     +---w resource-status?             resource-status-type
     |  |     +---w service-a-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -11112,6 +11139,7 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w service-z-end
+    |  |     |  +---w application-class-name?          string
     |  |     |  +---w service-format                   org-openroadm-service-format:service-format
     |  |     |  +---w service-rate?                    uint32
     |  |     |  +---w is-split-lambda?                 boolean
@@ -11937,6 +11965,7 @@ module: org-openroadm-service
     |  +---w input
     |  |  +---w service-name              string
     |  |  +---w common-id                 string
+    |  |  +---w application-class-name?   string
     |  |  +---w version-number?           uint8
     |  |  +---w set-frequency             org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +---w full-bandwidth-at-3dB     org-openroadm-common-optical-channel-types:frequency-GHz
@@ -12378,6 +12407,7 @@ module: org-openroadm-service
     |  +--ro version-number?            uint64
     |  +--ro common-id?                 string
     |  +--ro actual-date?               yang:date-and-time
+    |  +--ro application-class-name?    string
     |  +--ro path-computation-result
     |     +--ro aToZ
     |     |  +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
@@ -12442,6 +12472,7 @@ module: org-openroadm-service
     |  +--ro frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
     |  +--ro width?                       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--ro service-a-end
+    |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
     |  |  +--ro is-split-lambda?                 boolean
@@ -12558,6 +12589,7 @@ module: org-openroadm-service
     |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
     |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
+    |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
     |  |  +--ro is-split-lambda?                 boolean
@@ -13401,6 +13433,7 @@ module: org-openroadm-service
     |  +--ro frequency?                   org-openroadm-common-optical-channel-types:frequency-THz
     |  +--ro width?                       org-openroadm-common-optical-channel-types:frequency-GHz
     |  +--ro service-a-end
+    |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
     |  |  +--ro is-split-lambda?                 boolean
@@ -13517,6 +13550,7 @@ module: org-openroadm-service
     |  |     +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
     |  |     +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
     |  +--ro service-z-end
+    |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |  |  +--ro service-rate?                    uint32
     |  |  +--ro is-split-lambda?                 boolean
