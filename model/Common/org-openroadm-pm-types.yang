@@ -1967,6 +1967,198 @@ module org-openroadm-pm-types {
           "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average output power
           (dBm) measured by the pluggable for lane 8.";
       }
+      enum laserBiasCurrentLane1 {
+        value 307;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 1.";
+      }
+      enum laserBiasCurrentLane1Max {
+        value 308;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 1.";
+      }
+      enum laserBiasCurrentLane1Min {
+        value 309;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 1.";
+      }
+      enum laserBiasCurrentLane1Avg {
+        value 310;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 1.";
+      }
+      enum laserBiasCurrentLane2 {
+        value 311;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 2.";
+      }
+      enum laserBiasCurrentLane2Max {
+        value 312;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 2.";
+      }
+      enum laserBiasCurrentLane2Min {
+        value 313;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 2.";
+      }
+      enum laserBiasCurrentLane2Avg {
+        value 314;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 2.";
+      }
+      enum laserBiasCurrentLane3 {
+        value 315;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 3.";
+      }
+      enum laserBiasCurrentLane3Max {
+        value 316;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 3.";
+      }
+      enum laserBiasCurrentLane3Min {
+        value 317;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 3.";
+      }
+      enum laserBiasCurrentLane3Avg {
+        value 318;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 3.";
+      }
+      enum laserBiasCurrentLane4 {
+        value 319;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 4.";
+      }
+      enum laserBiasCurrentLane4Max {
+        value 320;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 4.";
+      }
+      enum laserBiasCurrentLane4Min {
+        value 321;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 4.";
+      }
+      enum laserBiasCurrentLane4Avg {
+        value 322;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 4.";
+      }
+      enum laserBiasCurrentLane5 {
+        value 323;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 5.";
+      }
+      enum laserBiasCurrentLane5Max {
+        value 324;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 5.";
+      }
+      enum laserBiasCurrentLane5Min {
+        value 325;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 5.";
+      }
+      enum laserBiasCurrentLane5Avg {
+        value 326;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 5.";
+      }
+      enum laserBiasCurrentLane6 {
+        value 327;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 6.";
+      }
+      enum laserBiasCurrentLane6Max {
+        value 328;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 6.";
+      }
+      enum laserBiasCurrentLane6Min {
+        value 329;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 6.";
+      }
+      enum laserBiasCurrentLane6Avg {
+        value 330;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 6.";
+      }
+      enum laserBiasCurrentLane7 {
+        value 331;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 7.";
+      }
+      enum laserBiasCurrentLane7Max {
+        value 332;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 7.";
+      }
+      enum laserBiasCurrentLane7Min {
+        value 333;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 7.";
+      }
+      enum laserBiasCurrentLane7Avg {
+        value 334;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 7.";
+      }
+      enum laserBiasCurrentLane8 {
+        value 335;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), Laser Bias Current
+          (mA) measured by the pluggable for lane 8.";
+      }
+      enum laserBiasCurrentLane8Max {
+        value 336;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), maximum Laser Bias Current
+          (mA) measured by the pluggable for lane 7.";
+      }
+      enum laserBiasCurrentLane8Min {
+        value 337;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), minimum Laser Bias Current
+          (mA) measured by the pluggable for lane 8.";
+      }
+      enum laserBiasCurrentLane8Avg {
+        value 338;
+        description
+          "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
+          (mA) measured by the pluggable for lane 8.";
+      }
     }
   }
 
