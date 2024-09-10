@@ -471,15 +471,16 @@ module org-openroadm-service {
 
   rpc service-create {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent.";
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent.";
     input {
       leaf service-name {
         type string;
         mandatory true;
         description
           "Identifier for the service to be created in
-           the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+           the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not
+           get reflected in the service in the network.";
       }
       leaf version-number {
         type uint8;
@@ -489,7 +490,8 @@ module org-openroadm-service {
       leaf common-id {
         type string;
         description
-          "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+          "To be used by the ROADM controller to identify the routing constraints received from planning
+           application (PED).";
       }
       uses org-openroadm-common-service-types:service-order;
       uses org-openroadm-common-service-types:sdnc-request-header;
@@ -514,8 +516,8 @@ module org-openroadm-service {
       leaf service-name {
         type string;
         description
-          "Identifier for the service to be created in
-           the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+          "Identifier for the service to be created in the ROADM network, e.g., CLFI, CLCI, etc.
+           This is reported against the service, but may not get reflected in the service in the network.";
       }
       leaf version-number {
         type uint8;
@@ -540,8 +542,8 @@ module org-openroadm-service {
           type string;
           mandatory true;
           description
-            "Identifier for the service to be created in
-             the ROADM network, e.g., CLFI, CLCI, etc. This is reported against the service, but may not get reflected in the service in the network.";
+            "Identifier for the service to be created in the ROADM network, e.g., CLFI, CLCI, etc.
+             This is reported against the service, but may not get reflected in the service in the network.";
         }
         leaf version-number {
           type uint8;
@@ -551,7 +553,8 @@ module org-openroadm-service {
         leaf common-id {
           type string;
           description
-            "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+            "To be used by the ROADM controller to identify the routing constraints received from planning
+             application (PED).";
         }
         uses org-openroadm-common-service-types:service-order;
         uses org-openroadm-common-service-types:routing-metric;
@@ -825,8 +828,9 @@ module org-openroadm-service {
 
   rpc service-delete {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent. Once the service has been deleted, it no longer will appear in the service list";
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent. Once the service has been
+       deleted, it no longer will appear in the service list";
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       container service-delete-req-info {
@@ -915,7 +919,8 @@ module org-openroadm-service {
         type string;
         mandatory true;
         description
-          "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+          "To be used by the ROADM controller to identify the routing constraints received
+           from planning application (PED).";
       }
       leaf version-number {
         type uint8;
@@ -967,7 +972,8 @@ module org-openroadm-service {
       leaf common-id {
         type string;
         description
-          "To be used by the ROADM controller to identify the routing constraints received from planning application (PED).";
+          "To be used by the ROADM controller to identify the routing constraints received
+           from planning application (PED).";
       }
       leaf version-number {
         type uint8;
@@ -1069,8 +1075,8 @@ module org-openroadm-service {
 
   rpc service-reconfigure {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent.";
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent.";
     input {
       uses org-openroadm-common-service-types:sdnc-request-header;
       leaf service-name {
@@ -1272,8 +1278,8 @@ module org-openroadm-service {
 
   rpc service-restoration {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent.
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent.
        This rpc can be use to reroute a service according to 2 possible options :
         \t_Option1 : neither the backup-path-id nor the failure-case-id are provided, a new path shall be
            calculated according to the parameters provided (which includes metrics). If path computation
@@ -1359,8 +1365,8 @@ module org-openroadm-service {
 
   rpc service-reversion {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent.";
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent.";
     input {
       leaf service-name {
         type string;
@@ -1449,8 +1455,8 @@ module org-openroadm-service {
 
   rpc service-reroute-confirm {
     description
-      "Whether this request passed initial validation and was accepted for processing. Once the request completes processing, a
-       service-rpc-result Notification shall be sent.";
+      "Whether this request passed initial validation and was accepted for processing. Once the request
+       completes processing, a service-rpc-result Notification shall be sent.";
     input {
       leaf service-name {
         type string;
@@ -1843,7 +1849,15 @@ rpc add-openroadm-operational-modes-to-catalog {
                             leaf openroadm-operational-mode-id {
                                 type string;
                                 description
-                                    "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+                                    "openroadm operational mode which points to a specific spreadsheet of
+                                     optical specifications";
+                            }
+                            leaf media-interface-id {
+                                type org-openroadm-common-pluggable-types:media-id-type;
+                                description
+                                    "Media interface IDs are defined in the SNIA SFF-8024 document. Media
+                                     interface IDs are embedded in the APPSEL codes used by to provision
+                                     CMIS pluggable optical modules";
                             }
                             uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
                      }
@@ -1885,6 +1899,17 @@ rpc add-openroadm-operational-modes-to-catalog {
               type string;
               description
                 "unique identifier which identifies the operational mode";
+            }
+            leaf media-interface-id {
+              type org-openroadm-common-pluggable-types:media-id-type;
+            description
+              "Media interface IDs are defined in the SNIA SFF-8024 document. Media interface IDs are
+               embedded in the APPSEL codes used by to provision CMIS pluggable optical modules";
+            }
+            leaf associated-oui {
+              type org-openroadm-common-types:oui-type;
+              description
+                "IEEE Organizationally Unique Identifier (OUI)";
             }
             uses org-openroadm-operational-mode-catalog:operational-mode-grid-parameters;
             uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
@@ -2097,7 +2122,8 @@ container optical-module-appsel-table {
 
   notification service-traffic-flow {
     description
-      "This Notification indicates that traffic is flowing again on the service after an administrative action has completed";
+      "This Notification indicates that traffic is flowing again on the service after an administrative
+       action has completed";
     leaf service-name {
       type string;
       mandatory true;
@@ -2281,9 +2307,10 @@ container optical-module-appsel-table {
 
   container service-list {
     description
-      "List of service. Can only be created, deleted, modified, etc. using special RPCs. Will only contain one service with a given name.
-       Does not contain historical (deleted or rather those passed their end time) or draft services. If two services exist with the same
-       name (with non-lapping start-end times for example), this table will contain the current one. If only planned services exist for
+      "List of service. Can only be created, deleted, modified, etc. using special RPCs. Will only contain
+       one service with a given name. Does not contain historical (deleted or rather those passed their
+       end time) or draft services. If two services exist with the same name (with non-lapping start-end
+       times for example), this table will contain the current one. If only planned services exist for
        the name, the one with the earliest start time will be present
       ";
     list services {
@@ -2330,9 +2357,9 @@ container optical-module-appsel-table {
   }
   container versioned-service-list {
     description
-      "List of service, regardless of lifecycle state. Can only be created, deleted, modified, etc. using special RPCs. Can report more than one
-       version of a service, if supported by the implementation. May contain deleted services, multiple versions of the same service, as identified
-       by its name, etc.";
+      "List of service, regardless of lifecycle state. Can only be created, deleted, modified, etc.
+       using special RPCs. Can report more than one version of a service, if supported by the implementation.
+       May contain deleted services, multiple versions of the same service, as identified by its name, etc.";
     list services {
       key "service-name version-number";
       leaf version-number {
@@ -2427,6 +2454,7 @@ container optical-module-appsel-table {
     uses org-openroadm-controller-customization:controller-parameters;
   }
   container operational-mode-catalog {
+    presence "enables describing optical specifications";
     description
       "Store parameters associated with openroadm specifications and specific operational modes";
     uses org-openroadm-operational-mode-catalog:operational-mode-catalog;

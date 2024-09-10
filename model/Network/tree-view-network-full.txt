@@ -179,7 +179,6 @@ module: ietf-network
         |  |     +--rw otn-topo:service-format?                  org-openroadm-service-format:service-format
         |  |     +--rw otn-topo:service-rate?                    uint32
         |  |     +--rw otn-topo:other-service-format-and-rate?   string
-        |  +--rw cn:clli?                         string
         |  +--rw cnet:node-type?                  org-openroadm-network-types:openroadm-node-type
         |  +--rw cnet:node-subtype?               org-openroadm-common-node-types:node-subtypes
         |  +--rw cnet:lifecycle-state?            org-openroadm-common-state-types:lifecycle-state
@@ -373,4 +372,3 @@ module: ietf-network
            +--rw cnet:SRLG-name?     string
            +--rw cnet:SRLG-type?     org-openroadm-common-types:SRLG-type
            +--rw cnet:SRLG-length?   decimal64
-
