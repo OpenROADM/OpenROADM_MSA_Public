@@ -10,6 +10,10 @@ module org-openroadm-rstp {
     prefix org-openroadm-resource-types;
     revision-date 2025-01-10;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -369,6 +373,11 @@ module org-openroadm-rstp {
     container rstp {
       description
         "Open ROADM RSTP top level";
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of rstp. Whether it is planned or deployed, etc.";
+      }
       leaf max-bridge-instances {
         type uint32;
         config false;

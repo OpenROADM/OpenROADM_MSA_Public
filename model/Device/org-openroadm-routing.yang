@@ -10,6 +10,10 @@ module org-openroadm-routing {
     prefix org-openroadm-device;
     revision-date 2025-01-10;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -383,6 +387,11 @@ module org-openroadm-routing {
         key "name";
         description
           "Configuration of a routing instance.";
+        leaf lifecycle-state {
+          type org-openroadm-common-state-types:lifecycle-state;
+          description
+            "Lifecycle State of the routing instance. Whether it is planned or deployed, etc.";
+        }
         leaf name {
           type string;
           description
@@ -443,6 +452,11 @@ module org-openroadm-routing {
             description
               "Each entry contains configuration of a routing protocol
                instance.";
+            leaf lifecycle-state {
+              type org-openroadm-common-state-types:lifecycle-state;
+              description
+                "Lifecycle State of the routing protocol. Whether it is planned or deployed, etc.";
+            }
             leaf type {
               type identityref {
                 base routing-protocol;

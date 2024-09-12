@@ -10,6 +10,10 @@ module org-openroadm-prot-otn-linear-aps {
     prefix org-openroadm-common-types;
     revision-date 2025-01-10;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -445,6 +449,11 @@ module org-openroadm-prot-otn-linear-aps {
         description
           "The odu-sncp-protection-group name";
       }
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of the odu sncp protection group. Whether it is planned or deployed, etc.";
+      }
       leaf level {
         type protection-level-type;
         must "current() = 'path' or current() = 'line'" {
@@ -488,6 +497,11 @@ module org-openroadm-prot-otn-linear-aps {
         type string;
         description
           "The client-sncp-protection-group name";
+      }
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of the client sncp protection group. Whether it is planned or deployed, etc.";
       }
       uses generic-sncp-pg;
     }
