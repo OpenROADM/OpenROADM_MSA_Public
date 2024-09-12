@@ -10,6 +10,10 @@ module org-openroadm-port-capability {
     prefix org-openroadm-port-types;
     revision-date 2024-03-29;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -218,14 +222,14 @@ module org-openroadm-port-capability {
       }
       config false;
       description
-    "Optical operational modes supported.
+        "Optical operational modes supported.
 
-       The optical-operational-mode is configured on the OCH and OTSI interfaces.
-       When an Open ROADM standard optical operational mode is advertised, this indicates
-       that the mode is supported and can be provisioned using the provision-mode = explicit 
-       or profile.
-       When a bookended optical operational mode is advertised, this indicates that the mode
-       is supported and can be provisioned using the provisioned-mode = profile.";
+           The optical-operational-mode is configured on the OCH and OTSI interfaces.
+           When an Open ROADM standard optical operational mode is advertised, this indicates
+           that the mode is supported and can be provisioned using the provision-mode = explicit
+           or profile.
+           When a bookended optical operational mode is advertised, this indicates that the mode
+           is supported and can be provisioned using the provisioned-mode = profile.";
     }
   }
 
@@ -421,6 +425,11 @@ module org-openroadm-port-capability {
         key "port-sharing-id";
         leaf port-sharing-id {
           type uint16;
+        }
+        leaf lifecycle-state {
+          type org-openroadm-common-state-types:lifecycle-state;
+          description
+            "Lifecycle State of the port bandwidth sharing. Whether it is planned or deployed, etc.";
         }
         leaf provisioned-port-config {
           type uint16;

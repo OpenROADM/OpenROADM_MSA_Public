@@ -22,6 +22,10 @@ module org-openroadm-lldp {
     prefix yang;
     revision-date 2013-07-15;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -311,6 +315,11 @@ module org-openroadm-lldp {
     container lldp {
       description
         "LLDP configurable and retrievable";
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of lldp. Whether it is planned or deployed, etc.";
+      }
       container global-config {
         description
           "LLDP global configurations";

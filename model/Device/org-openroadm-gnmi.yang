@@ -15,6 +15,10 @@ module org-openroadm-gnmi {
     prefix inet;
     revision-date 2013-07-15;
   }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -156,6 +160,11 @@ module org-openroadm-gnmi {
         default "false";
         description
           "Enable/Disable gNMI.";
+      }
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of gnmi. Whether it is planned or deployed, etc.";
       }
       leaf certificate-id {
         type leafref {
