@@ -317,6 +317,7 @@ module: org-openroadm-device
      |  +--ro serial-id               string
      |  +--ro type?                   string
      |  +--ro product-code?           string
+     |  +--ro oui?                    org-openroadm-common-types:oui-type
      |  +--ro manufacture-date?       yang:date-and-time
      |  +--ro clei?                   string
      |  +--ro hardware-version?       string
@@ -344,6 +345,7 @@ module: org-openroadm-device
      |  +--ro serial-id                    string
      |  +--ro type?                        string
      |  +--ro product-code?                string
+     |  +--ro oui?                         org-openroadm-common-types:oui-type
      |  +--ro manufacture-date?            yang:date-and-time
      |  +--ro clei?                        string
      |  +--ro hardware-version?            string
@@ -855,7 +857,7 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?         request-state-type
      |  +--rw org-openroadm-prot-otn-linear-aps:client-sncp-pg* [name]
      |     +--rw org-openroadm-prot-otn-linear-aps:name                   string
-     |  |  +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
+     |     +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
      |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
      |     +--rw org-openroadm-prot-otn-linear-aps:revertive?             boolean
      |     +--rw org-openroadm-prot-otn-linear-aps:sd-enable?             boolean
@@ -891,10 +893,10 @@ module: org-openroadm-device
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv6-address
      |  +--rw org-openroadm-gnmi:gnmi
+     |  |  +--rw org-openroadm-gnmi:enabled?           boolean
      |  |  +--rw org-openroadm-gnmi:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
-     |  |  +--rw org-openroadm-gnmi:enabled?          boolean
-     |  |  +--rw org-openroadm-gnmi:certificate-id?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
-     |  |  +--rw org-openroadm-gnmi:port?             inet:port-number
+     |  |  +--rw org-openroadm-gnmi:certificate-id?    -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
+     |  |  +--rw org-openroadm-gnmi:port?              inet:port-number
      |  +--rw org-openroadm-lldp:lldp
      |  |  +--rw org-openroadm-lldp:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-lldp:global-config
@@ -915,7 +917,7 @@ module: org-openroadm-device
      |  |        +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
      |  |        +--ro org-openroadm-lldp:remoteChassisId?            string
      |  +--rw org-openroadm-rstp:rstp
-     |  |  +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+     |     +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
      |     +--ro org-openroadm-rstp:max-bridge-instances?   uint32
      |     +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
      |        +--rw org-openroadm-rstp:bridge-name    string
@@ -1244,9 +1246,9 @@ module: org-openroadm-device
      |     +--rw org-openroadm-routing:routing-protocols
      |     |  +--rw org-openroadm-routing:routing-protocol* [type name]
      |     |     +--rw org-openroadm-routing:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
-     |     |     +--rw org-openroadm-routing:type             identityref
-     |     |     +--rw org-openroadm-routing:name             string
-     |     |     +--rw org-openroadm-routing:description?     string
+     |     |     +--rw org-openroadm-routing:type               identityref
+     |     |     +--rw org-openroadm-routing:name               string
+     |     |     +--rw org-openroadm-routing:description?       string
      |     |     +--rw org-openroadm-routing:static-routes
      |     |     |  +--rw org-openroadm-ipv4-unicast-routing:ipv4
      |     |     |  |  +--rw org-openroadm-ipv4-unicast-routing:route* [destination-prefix]
@@ -1775,10 +1777,10 @@ module: org-openroadm-device
      |           +--ro org-openroadm-port-capability:port-module-type*    org-openroadm-port-types:port-module-types
      |           +--ro org-openroadm-port-capability:otsi-rate?           uint16
      +--rw org-openroadm-port-capability:provisioned-port-grp
-     |  +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
-     |     +--rw org-openroadm-port-capability:port-sharing-id            uint16
-     |     +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
-     |     +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
+        +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
+           +--rw org-openroadm-port-capability:port-sharing-id            uint16
+           +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
+           +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
 
   rpcs:
     +---x led-control
