@@ -2159,6 +2159,11 @@ module org-openroadm-pm-types {
           "Applicable to multi lane pluggable interfaces (ex: 100G LR-4), average Laser Bias Current
           (mA) measured by the pluggable for lane 8.";
       }
+      enum laserBiasCurrentAvg {
+        value 339;
+        description
+          "Average Laser Bias Current, units in mA";
+      }
     }
   }
 
