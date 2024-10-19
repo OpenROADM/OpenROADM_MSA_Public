@@ -1,5 +1,7 @@
 OpenROADM website: http://www.openroadm.org/
-## Latest Updates: June 26 2024
+## Latest Updates: Oct 18 2024
+1. Release of 16.0 OpenROADM models
+## June 26 2024
 1. Minor fix: Add the missing revision statement
 ## June 11 2024
 1. Release of 15.1 OpenROADM models
