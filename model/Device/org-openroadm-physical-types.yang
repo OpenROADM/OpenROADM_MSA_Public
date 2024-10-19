@@ -10,6 +10,10 @@ module org-openroadm-physical-types {
     prefix yang;
     revision-date 2013-07-15;
   }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2024-09-27;
+  }
 
   organization
     "Open ROADM MSA";
@@ -123,6 +127,12 @@ module org-openroadm-physical-types {
       config false;
       description
         "Product Code for this physical resource";
+    }
+    leaf oui {
+      type org-openroadm-common-types:oui-type;
+      config false;
+      description
+        "IEEE Organizationally Unique Identifier (OUI)";
     }
     leaf manufacture-date {
       type yang:date-and-time;

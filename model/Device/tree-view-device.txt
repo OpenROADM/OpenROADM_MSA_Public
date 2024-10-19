@@ -317,6 +317,7 @@ module: org-openroadm-device
      |  +--ro serial-id               string
      |  +--ro type?                   string
      |  +--ro product-code?           string
+     |  +--ro oui?                    org-openroadm-common-types:oui-type
      |  +--ro manufacture-date?       yang:date-and-time
      |  +--ro clei?                   string
      |  +--ro hardware-version?       string
@@ -344,6 +345,7 @@ module: org-openroadm-device
      |  +--ro serial-id                    string
      |  +--ro type?                        string
      |  +--ro product-code?                string
+     |  +--ro oui?                         org-openroadm-common-types:oui-type
      |  +--ro manufacture-date?            yang:date-and-time
      |  +--ro clei?                        string
      |  +--ro hardware-version?            string
@@ -625,6 +627,8 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-channel-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:associated-oui?             org-openroadm-common-types:oui-type
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
      |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -647,6 +651,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:associated-oui?             org-openroadm-common-types:oui-type
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
      |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -820,6 +826,7 @@ module: org-openroadm-device
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
+     |  |  +--rw org-openroadm-prot-equipment-aps:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-prot-equipment-aps:prot-architecture    prot-architecture-type
      |  |  +--ro org-openroadm-prot-equipment-aps:service-state        pg-service-state-type
      |  |  +--ro org-openroadm-prot-equipment-aps:redundancy-state     pg-redundancy-state-type
@@ -832,6 +839,7 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-prot-equipment-aps:member-active      boolean
      |  +--rw org-openroadm-prot-otn-linear-aps:odu-sncp-pg* [name]
      |  |  +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-prot-otn-linear-aps:level                  protection-level-type
      |  |  +--rw org-openroadm-prot-otn-linear-aps:prot-type?             identityref
      |  |  +--rw org-openroadm-prot-otn-linear-aps:mode                   protection-mode-type
@@ -849,6 +857,7 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?         request-state-type
      |  +--rw org-openroadm-prot-otn-linear-aps:client-sncp-pg* [name]
      |     +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |     +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
      |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
      |     +--rw org-openroadm-prot-otn-linear-aps:revertive?             boolean
      |     +--rw org-openroadm-prot-otn-linear-aps:sd-enable?             boolean
@@ -872,20 +881,24 @@ module: org-openroadm-device
      +--rw protocols
      |  +--rw lifecycle-state?                      org-openroadm-common-state-types:lifecycle-state
      |  +--rw org-openroadm-dhcp:ipv4-dhcp-relay
+     |  |  +--rw org-openroadm-dhcp:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-dhcp:ipv4-server-group* [server-group-name]
      |  |     +--rw org-openroadm-dhcp:server-group-name    string
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv4-address
      |  +--rw org-openroadm-dhcp:ipv6-dhcp-relay
+     |  |  +--rw org-openroadm-dhcp:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-dhcp:ipv6-server-group* [server-group-name]
      |  |     +--rw org-openroadm-dhcp:server-group-name    string
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv6-address
      |  +--rw org-openroadm-gnmi:gnmi
-     |  |  +--rw org-openroadm-gnmi:enabled?          boolean
-     |  |  +--rw org-openroadm-gnmi:certificate-id?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
-     |  |  +--rw org-openroadm-gnmi:port?             inet:port-number
+     |  |  +--rw org-openroadm-gnmi:enabled?           boolean
+     |  |  +--rw org-openroadm-gnmi:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |  |  +--rw org-openroadm-gnmi:certificate-id?    -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
+     |  |  +--rw org-openroadm-gnmi:port?              inet:port-number
      |  +--rw org-openroadm-lldp:lldp
+     |  |  +--rw org-openroadm-lldp:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-lldp:global-config
      |  |  |  +--rw org-openroadm-lldp:adminStatus?           enumeration
      |  |  |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
@@ -904,6 +917,7 @@ module: org-openroadm-device
      |  |        +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
      |  |        +--ro org-openroadm-lldp:remoteChassisId?            string
      |  +--rw org-openroadm-rstp:rstp
+     |     +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
      |     +--ro org-openroadm-rstp:max-bridge-instances?   uint32
      |     +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
      |        +--rw org-openroadm-rstp:bridge-name    string
@@ -1169,8 +1183,10 @@ module: org-openroadm-device
      |     +--ro lo-odu-proactive-DMt?              boolean
      |     +--ro lo-odu-tcm-direction-capability?   org-openroadm-common-types:tcm-direction-capability-type
      +--ro optical-operational-mode-profile* [profile-name]
-     |  +--ro profile-name      string
-     |  +--ro spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--ro profile-name          string
+     |  +--ro media-interface-id?   media-id-type
+     |  +--ro associated-oui?       org-openroadm-common-types:oui-type
+     |  +--ro spectral-width?       org-openroadm-common-optical-channel-types:frequency-GHz
      +--ro otn-capability-profile* [profile-name]
      |  +--ro profile-name                string
      |  +--ro if-protection-capability*   identityref
@@ -1219,6 +1235,7 @@ module: org-openroadm-device
      |     +--ro org-openroadm-security:information?         string
      +--rw org-openroadm-routing:routing
      |  +--rw org-openroadm-routing:routing-instance* [name]
+     |     +--rw org-openroadm-routing:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |     +--rw org-openroadm-routing:name                 string
      |     +--rw org-openroadm-routing:type?                identityref
      |     +--rw org-openroadm-routing:enabled?             boolean
@@ -1228,9 +1245,10 @@ module: org-openroadm-device
      |     |  +--rw org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--rw org-openroadm-routing:routing-protocols
      |     |  +--rw org-openroadm-routing:routing-protocol* [type name]
-     |     |     +--rw org-openroadm-routing:type             identityref
-     |     |     +--rw org-openroadm-routing:name             string
-     |     |     +--rw org-openroadm-routing:description?     string
+     |     |     +--rw org-openroadm-routing:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |     |     +--rw org-openroadm-routing:type               identityref
+     |     |     +--rw org-openroadm-routing:name               string
+     |     |     +--rw org-openroadm-routing:description?       string
      |     |     +--rw org-openroadm-routing:static-routes
      |     |     |  +--rw org-openroadm-ipv4-unicast-routing:ipv4
      |     |     |  |  +--rw org-openroadm-ipv4-unicast-routing:route* [destination-prefix]
@@ -1761,6 +1779,7 @@ module: org-openroadm-device
      +--rw org-openroadm-port-capability:provisioned-port-grp
         +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
            +--rw org-openroadm-port-capability:port-sharing-id            uint16
+           +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
            +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
 
   rpcs:
@@ -1800,6 +1819,25 @@ module: org-openroadm-device
     |        +--ro is-physical          boolean
     |        +--ro pm-capable           boolean
     |        +--ro alarm-capable        boolean
+    +---x get-pluggable-appsel-data
+    |  +---w input
+    |  |  +---w circuit-pack-name    string
+    |  +--ro output
+    |     +--ro status              rpc-status
+    |     +--ro status-message?     string
+    |     +--ro pluggable-module* [vendor product-code]
+    |        +--ro vendor                     string
+    |        +--ro model?                     string
+    |        +--ro product-code               string
+    |        +--ro oui?                       org-openroadm-common-types:oui-type
+    |        +--ro supporting-appsel-modes* [appsel-code]
+    |           +--ro appsel-code                      uint16
+    |           +--ro media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
+    |           +--ro host-interface-id?               org-openroadm-common-pluggable-types:host-id-type
+    |           +--ro host-lane-count?                 uint8
+    |           +--ro media-lane-count?                uint8
+    |           +--ro host-lane-assignment-options?    org-openroadm-common-pluggable-types:host-lane-assignment-type
+    |           +--ro media-lane-assignment-options?   org-openroadm-common-pluggable-types:media-lane-assignment-type
     +---x get-connection-port-trail-optical-pm
     |  +---w input
     |  |  +---w connection-name    string

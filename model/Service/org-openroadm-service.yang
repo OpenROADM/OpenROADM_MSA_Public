@@ -13,7 +13,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-05-31;
+    revision-date 2024-09-27;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -25,11 +25,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2024-05-31;
+    revision-date 2024-09-27;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2024-05-31;
+    revision-date 2024-09-27;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
@@ -37,7 +37,7 @@ module org-openroadm-service {
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2024-05-31;
+    revision-date 2024-09-27;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -46,6 +46,10 @@ module org-openroadm-service {
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
     revision-date 2024-03-29;
+  }
+  import org-openroadm-common-pluggable-types {
+    prefix org-openroadm-common-pluggable-types;
+    revision-date 2024-09-27;
   }
 
   organization
@@ -81,6 +85,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-09-27 {
+    description
+      "Version 16.0";
+  }
   revision 2024-05-31 {
     description
       "Version 15.1";
@@ -1503,9 +1511,15 @@ module org-openroadm-service {
         type string;
         mandatory true;
         description
-          "Identifier used in the first step of optical-tunnelservice creation using
+          "Identifier used in the first step of optical-tunnel service creation using
           temp-service-create rpc. Identifies the temporary service for which resources
           have been reserved after a successful path computation";
+      }
+      leaf application-class-name {
+        type string;
+        description
+          "Application class names are defined by the service-provider and are not standardized
+          by the OpenROADM MSA";
       }
       leaf version-number {
         type uint8;
@@ -1826,7 +1840,7 @@ rpc add-openroadm-operational-modes-to-catalog {
                                 type string;
                                 description
                                     "openroadm operational mode which points to a specific spreadsheet of optical specifications";
-                                }
+                            }
                             uses org-openroadm-operational-mode-catalog:operational-mode-transponder-parameters;
                      }
                  }
@@ -1876,6 +1890,117 @@ rpc add-openroadm-operational-modes-to-catalog {
     }
     output {
       uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  container application-class-table {
+    description
+      "Data table for the application class of pluggables";
+    list application-classes {
+      key "application-class-name";
+      leaf application-class-name {
+          type string;
+          description
+            "Application class names are defined by the service-provider and are not standardized
+            by the OpenROADM MSA";
+      }
+      list transport-options {
+        key "priority-id";
+        leaf priority-id {
+          type uint8;
+          description
+            "This is priority assigned to each operational-mode in the application-class
+            Controller should try to pick the operational-mode-id based on the perference or
+            priority. Example [1, 2, 3] 1=Higher priority, 2=next-priority, 3=last priority";
+        }
+        leaf operational-mode-id {
+            type string;
+            description
+              "unique identifier which identifies the operational mode";
+        }
+        uses org-openroadm-common-pluggable-types:cmis-media-id;
+        leaf associated-vendor {
+          type string;
+          description
+            "Associated Identifier of the supplier";
+        }
+        leaf associated-model {
+          type string;
+          description
+            "Associated Identifier of the supplier's equipment";
+        }
+        leaf associated-product-code {
+          type string;
+          description
+            "Associated Product Code for this physical resource";
+        }
+      }
+    }
+  }
+
+container optical-module-appsel-table {
+  list pluggable-module {
+      key "vendor product-code";
+      leaf vendor {
+        type string;
+        description
+          "Identifier of the supplier";
+      }
+      leaf model {
+        type string;
+        description
+          "Identifier of the supplier's equipment";
+      }
+      leaf product-code {
+        type string;
+        description
+          "Product Code for this physical resource";
+      }
+      leaf oui {
+        type string;
+        description
+          "IEEE Organizationally Unique Identifier (OUI)";
+      }
+      list supporting-appsel-modes {
+        key "appsel-code";
+        leaf appsel-code {
+          type uint16;
+          description
+            "APPSEL code advertised by the module (binary). Host is responsible to present this
+            indexed value";
+        }
+        leaf media-interface-id {
+          type org-openroadm-common-pluggable-types:media-id-type;
+          description
+            "Media interface IDs are defined in the SNIA SFF-8024 document. Media interface IDs are
+            embedded in the APPSEL codes used by to provision CMIS pluggable optical modules";
+        }
+        leaf host-interface-id {
+          type org-openroadm-common-pluggable-types:host-id-type;
+          description
+            "Host Electrical Interface Codes (hex)";
+        }
+        leaf host-lane-count {
+          type uint8;
+          description
+            "Number of host lanes (binary)";
+        }
+        leaf media-lane-count {
+          type uint8;
+          description
+            "Number of media lanes. For cable assemblies, this is the number of lanes in the cable (binary)";
+        }
+        leaf host-lane-assignment-options {
+          type org-openroadm-common-pluggable-types:host-lane-assignment-type;
+          description
+            "Host Lane Assignment Options (hex)";
+        }
+        leaf media-lane-assignment-options {
+          type org-openroadm-common-pluggable-types:media-lane-assignment-type;
+          description
+            "Media Lane Assignment Options (hex)";
+        }
+      }
     }
   }
 
@@ -1937,6 +2062,12 @@ rpc add-openroadm-operational-modes-to-catalog {
     }
     uses org-openroadm-common-types:rpc-response-status;
     uses org-openroadm-common-service-types:service-notification-result;
+    leaf application-class-name {
+      type string;
+      description
+        "Application class names are defined by the service-provider and are not standardized
+        by the OpenROADM MSA";
+    }
     container path-computation-result {
       when "../notification-type = 'path-computation-result'" {
         description
@@ -1945,13 +2076,15 @@ rpc add-openroadm-operational-modes-to-catalog {
       }
       container aToZ {
         description
-          "Describes the settings and the performances for the A to Z path";
+          "Describes the settings and the performances for the A to Z path. Receiver parameters
+          such as rx-estimated-osnr and rx-estimated-gsnr are the values on the Z-side";
         uses org-openroadm-resource:common-och-otsi-attributes;
         uses org-openroadm-resource:path-computation-outputs;
       }
       container zToA {
         description
-          "Describes the settings and the performances for the Z to A path";
+          "Describes the settings and the performances for the Z to A path. Receiver parameters
+          such as rx-estimated-osnr and rx-estimated-gsnr are the values on the A-side";
         uses org-openroadm-resource:common-och-otsi-attributes;
         uses org-openroadm-resource:path-computation-outputs;
       }
