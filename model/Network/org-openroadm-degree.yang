@@ -9,7 +9,7 @@ module org-openroadm-degree {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
 
   organization
@@ -46,6 +46,10 @@ module org-openroadm-degree {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";

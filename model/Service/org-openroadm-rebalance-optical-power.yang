@@ -4,7 +4,7 @@ module org-openroadm-rebalance-optical-power {
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-rebalance-optical-power {
     prefix org-openroadm-common-rebalance-optical-power;
@@ -48,6 +48,10 @@ module org-openroadm-rebalance-optical-power {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";
