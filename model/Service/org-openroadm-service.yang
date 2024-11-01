@@ -21,7 +21,7 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2024-03-29;
+    revision-date 2024-09-27;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
@@ -33,7 +33,7 @@ module org-openroadm-service {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2024-05-31;
+    revision-date 2024-09-27;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
@@ -41,7 +41,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2023-05-26;
+    revision-date 2024-09-27;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
