@@ -4,7 +4,7 @@ module org-openroadm-optical-operational-interfaces {
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2023-05-26;
+    revision-date 2024-09-27;
   }
 
   organization
@@ -54,6 +54,10 @@ module org-openroadm-optical-operational-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2024-09-27 {
+    description
+      "Version 16.0";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
