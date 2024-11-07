@@ -602,10 +602,10 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-ip:forwarding?   boolean
      |  |  +--ro org-openroadm-ip:mtu?          uint32
      |  |  +--ro org-openroadm-ip:address* [ip]
-     |  |  |  +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
-     |  |  |  +--ro org-openroadm-ip:prefix-length    uint8
-     |  |  +--ro org-openroadm-ip:origin?       ip-address-origin
-     |  |  +--ro org-openroadm-ip:status?       ipv6-address-status
+     |  |     +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |     +--ro org-openroadm-ip:prefix-length    uint8
+     |  |     +--ro org-openroadm-ip:origin?          ip-address-origin
+     |  |     +--ro org-openroadm-ip:status?          ipv6-address-status
      |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
      |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz

@@ -606,12 +606,12 @@ module org-openroadm-ip {
           description
             "The length of the subnet prefix.";
         }
-      }
-      leaf origin {
-        type ip-address-origin;
-      }
-      leaf status {
-        type ipv6-address-status;
+        leaf origin {
+          type ip-address-origin;
+        }
+        leaf status {
+          type ipv6-address-status;
+        }
       }
     }
   }
