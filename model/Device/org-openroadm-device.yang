@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -84,11 +84,11 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2021-09-24;
+    revision-date 2025-01-10;
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;

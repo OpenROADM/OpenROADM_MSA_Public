@@ -16,7 +16,7 @@ module org-openroadm-pm {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;

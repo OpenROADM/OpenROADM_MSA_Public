@@ -8,7 +8,7 @@ module org-openroadm-port-capability {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
 
   organization
