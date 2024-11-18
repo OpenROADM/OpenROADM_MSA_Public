@@ -164,6 +164,174 @@ module org-openroadm-common-optical-channel-types {
       "Applicable to the FlexO type defined in G.Sup58";
   }
 
+  identity R3200G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R3100G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R3000G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2900G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2800G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2700G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2600G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2500G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2400G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2300G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2200G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2100G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R2000G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1900G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1800G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1700G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1600G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1500G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1400G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1300G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1200G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1100G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R1000G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R900G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R800G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R700G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R600G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
+  identity R500G-otsi {
+    base otsi-rate-identity;
+    description
+      "Applicable instance for otsi rate identity";
+  }
+
   identity R400G-otsi {
     base otsi-rate-identity;
     description
@@ -346,5 +514,4 @@ module org-openroadm-common-optical-channel-types {
       config false;
     }
   }
-
 }

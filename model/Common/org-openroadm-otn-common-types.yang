@@ -215,6 +215,12 @@ module org-openroadm-otn-common-types {
       "ODUFlex for CBR client signals 400G (G.709 17.13.2)";
   }
 
+  identity ODUflex-cbr-800G {
+    base ODUflex-cbr-identity;
+    description
+      "ODUFlex for CBR client signals 800G (G.709 17.14)";
+  }
+
   identity ODUflex-imp {
     base odu-rate-identity;
     description
