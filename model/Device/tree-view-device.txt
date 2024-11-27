@@ -355,6 +355,9 @@ module: org-openroadm-device
      |  |  +--ro extension?   string
      |  +--rw equipment-state?             org-openroadm-equipment-states-types:states
      |  +--rw circuit-pack-mode?           string
+     |  +--rw sub-circuit-pack-mode* [index]
+     |  |  +--rw index    uint8
+     |  |  +--rw mode?    string
      |  +--rw shelf                        -> /org-openroadm-device/shelves/shelf-name
      |  +--rw slot                         string
      |  +--rw subSlot?                     string
@@ -1208,7 +1211,7 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-otsi-group-rate?          identityref
+     |  +--ro network-otsi-group-rate           identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
@@ -1757,7 +1760,6 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family    identityref
      |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
      |           +--ro org-openroadm-routing:routes
-<<<<<<< HEAD:model/Device/tree-view-device.txt
      |              +--ro org-openroadm-routing:route* []
      |                 +--ro org-openroadm-routing:route-preference?                  route-preference
      |                 +--ro org-openroadm-routing:next-hop
@@ -1773,8 +1775,6 @@ module: org-openroadm-device
      |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
      |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
      |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
-=======
->>>>>>> 102ccdf (muxp-eth-profile update):Device/tree-view-device.txt
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16
