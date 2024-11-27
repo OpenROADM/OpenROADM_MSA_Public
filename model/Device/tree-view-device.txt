@@ -512,7 +512,6 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile-name*   -> /org-openroadm-device:org-openroadm-device/protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/profile-name
      |  +--rw org-openroadm-eth-interfaces:ethernet
      |  |  +--rw org-openroadm-eth-interfaces:speed?                          uint32
-     |  |  +--rw org-openroadm-eth-interfaces:eth-function?                   eth-function-type
      |  |  +--rw org-openroadm-eth-interfaces:fec?                            identityref
      |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?       enumeration
      |  |  +--rw org-openroadm-eth-interfaces:duplex?                         enumeration
@@ -529,7 +528,7 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-eth-interfaces:no-maint-testsignal-function?   empty
      |  |  +--rw org-openroadm-eth-interfaces:parent-flexo-allocation!
      |  |  |  +--rw org-openroadm-eth-interfaces:trib-port-number    uint16
-     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint16
+     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint8
      |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
      |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
      |  |  |  |  +---w org-openroadm-eth-interfaces:input
@@ -660,6 +659,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type?             identityref
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:payload-id?            org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:flexo-mode?            string
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
@@ -1143,6 +1144,8 @@ module: org-openroadm-device
      |  +--ro profile-name                          string
      |  +--ro if-cap-type?                          identityref
      |  +--ro flexo-payload-type?                   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  +--ro eth-mixed?                            boolean
+     |  +--ro eth-speed*                            uint32
      |  +--ro (otu-rate)?
      |  |  +--:(otucn)
      |  |  |  +--ro otucn-n-rate?                   uint16
@@ -1205,9 +1208,9 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-eth-speed?                uint32
+     |  +--ro network-otsi-group-rate?          identityref
      |  +--ro network-flexo-trib-port-number    uint16
-     |  +--ro network-flexo-iid*                uint16
+     |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
      |  +--ro profile-name                 string
      |  +--ro otsi-rate                    identityref
@@ -1754,6 +1757,7 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family    identityref
      |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
      |           +--ro org-openroadm-routing:routes
+<<<<<<< HEAD:model/Device/tree-view-device.txt
      |              +--ro org-openroadm-routing:route* []
      |                 +--ro org-openroadm-routing:route-preference?                  route-preference
      |                 +--ro org-openroadm-routing:next-hop
@@ -1769,6 +1773,8 @@ module: org-openroadm-device
      |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
      |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
      |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
+=======
+>>>>>>> 102ccdf (muxp-eth-profile update):Device/tree-view-device.txt
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16

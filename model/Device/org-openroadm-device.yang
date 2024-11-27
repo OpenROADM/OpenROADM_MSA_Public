@@ -2152,6 +2152,16 @@ module org-openroadm-device {
          (G.709.3 Annex F (2020-12))
          G.798 15.3.5.1 (FlexO-n/OTUCni_A_So) source to insert PT code '0000 0010' (2021-01)";
     }
+    leaf eth-mixed {
+      type boolean;
+      description
+        "Announce whether mixed ETH interfaces are supported in NE.";
+    }
+    leaf-list eth-speed {
+      type uint32;
+      description
+        "List the supported ethernet speed. For example, in the case eth-mixed TRUE, eth-speed* = {100000, 200000, 400000, 800000}[Mbps].";
+    }
     choice otu-rate {
       description
         "To specify the supported rate in the case of OTUCn or NxOTU4";
@@ -2411,7 +2421,7 @@ module org-openroadm-device {
         "G.709.1 Amd.4 2023-03 clause 10.2.3.1";
     }
     leaf-list network-flexo-iid {
-      type uint16;
+      type uint8;
       description
         "Network FlexO instance id";
     }
@@ -2986,8 +2996,10 @@ module org-openroadm-device {
           description
             "Mux profile name";
         }
-        leaf network-eth-speed {
-          type uint32;
+        leaf network-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
           description
             "Network ethernet speed types supported by the profile, unit mbps";
         }

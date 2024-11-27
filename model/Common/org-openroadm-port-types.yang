@@ -44,7 +44,6 @@ module org-openroadm-port-types {
     description
       "Version 16.1";
   }
-
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -272,11 +271,15 @@ module org-openroadm-port-types {
     base supported-if-capability;
   }
 
+  identity if-400GE-oduflexcbr {
+    base supported-if-capability;
+  }
+
   identity if-400GE-odufleximp {
     base supported-if-capability;
   }
 
-  identity if-400GE-oduflexcbr {
+  identity if-eth {
     base supported-if-capability;
   }
 

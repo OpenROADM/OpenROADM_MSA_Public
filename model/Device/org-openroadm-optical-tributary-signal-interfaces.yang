@@ -291,6 +291,16 @@ module org-openroadm-optical-tributary-signal-interfaces {
         description
           "A list of FlexO instance identification (G.709.1 clause 9.2.3)";
       }
+      leaf payload-id {
+        type org-openroadm-otn-common-types:flexo-payload-type-def;
+        description
+          "Payload type PT (Section 9.2.6.2, G.709.1 2020-12). For example, applicable to OIF 800ZR (0x40) (ITU-T)";
+      }
+      leaf flexo-mode {
+        type string;
+        description
+          "Generic line mapping application beyond ITU-T: 1. OIF 400ZR, 2. Industry OpenZR+ MSA (400ZR+)";
+      }
       leaf-list accepted-group-id {
         type uint32;
         config false;
