@@ -89,6 +89,7 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
+
 module: org-openroadm-database
 
   rpcs:
@@ -133,6 +134,7 @@ module: org-openroadm-database
        +--ro db-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-de-operations
 
   rpcs:
@@ -241,6 +243,7 @@ module: org-openroadm-de-operations
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
+
 module: org-openroadm-device
   +--rw org-openroadm-device
      +--rw info
@@ -1308,6 +1311,8 @@ module: org-openroadm-device
      |     +--ro org-openroadm-routing:name                 string
      |     +--ro org-openroadm-routing:type?                identityref
      |     +--ro org-openroadm-routing:router-id?           yang:dotted-quad
+     |     +--ro org-openroadm-routing:interfaces
+     |     |  +--ro org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--ro org-openroadm-routing:routing-protocols
      |     |  +--ro org-openroadm-routing:routing-protocol* [type name]
      |     |     +--ro org-openroadm-routing:type    identityref
@@ -1700,6 +1705,21 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family    identityref
      |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
      |           +--ro org-openroadm-routing:routes
+     |              +--ro org-openroadm-routing:route* []
+     |                 +--ro org-openroadm-routing:route-preference?                  route-preference
+     |                 +--ro org-openroadm-routing:next-hop
+     |                 |  +--ro (org-openroadm-routing:next-hop-options)
+     |                 |     +--:(org-openroadm-routing:simple-next-hop)
+     |                 |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
+     |                 |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
+     |                 |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
+     |                 |     +--:(org-openroadm-routing:special-next-hop)
+     |                 |        +--ro org-openroadm-routing:special-next-hop?                enumeration
+     |                 +--ro org-openroadm-routing:source-protocol                    identityref
+     |                 +--ro org-openroadm-routing:active?                            empty
+     |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
+     |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
+     |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16
@@ -1859,6 +1879,7 @@ module: org-openroadm-device
        +--ro edit* []
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
+
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -1895,6 +1916,7 @@ module: org-openroadm-file-transfer
        +--ro progress
           +--ro bytes-transferred?     uint64
           +--ro percentage-complete?   uint8
+
 module: org-openroadm-fwdl
 
   rpcs:
@@ -1905,6 +1927,7 @@ module: org-openroadm-fwdl
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-key-chain
   +--rw key-chains
   |  +--rw key-chain-list* [name]
@@ -1929,6 +1952,7 @@ module: org-openroadm-key-chain
               +--ro (algorithm)?
                  +--:(md5)
                     +--ro md5?   empty
+
 module: org-openroadm-lldp
 
   notifications:
@@ -1945,6 +1969,7 @@ module: org-openroadm-lldp
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
+
 module: org-openroadm-ospf
 
   notifications:
@@ -2061,6 +2086,7 @@ module: org-openroadm-ospf
        +--ro status?                  restart-status-type
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
+
 module: org-openroadm-otn-common
 
   notifications:
@@ -2074,6 +2100,7 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
+
 module: org-openroadm-prot-equipment-aps
 
   rpcs:
@@ -2085,6 +2112,7 @@ module: org-openroadm-prot-equipment-aps
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
@@ -2109,6 +2137,7 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
+
 module: org-openroadm-rstp
 
   notifications:
@@ -2116,6 +2145,7 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
+
 module: org-openroadm-swdl
 
   rpcs:
@@ -2147,6 +2177,7 @@ module: org-openroadm-swdl
        +--ro sw-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -2172,3 +2203,4 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
+

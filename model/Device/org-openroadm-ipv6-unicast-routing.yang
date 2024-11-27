@@ -23,7 +23,7 @@ module org-openroadm-ipv6-unicast-routing {
     "This model defines Yang model for IPv6 unicast routing.
 
      This model reuses data items defined in the IETF YANG model for
-     interfaces described by RFC 8022.
+     interfaces described by draft-ietf-netmod-routing-cfg-19.
 
      Some attributes which are not required in Open ROADM MSA are removed.
      Yang file included are changed to fit into Open ROADM MSA yang structure.
@@ -172,8 +172,41 @@ module org-openroadm-ipv6-unicast-routing {
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/org-openroadm-routing:routing-protocol/org-openroadm-routing:static-routes" {
     description
-      "This augment defines the configuration of the 'static'
-       pseudo-protocol with data specific to IPv6 unicast.";
+      "This augment defines the configuration of the 'static',
+      pseudo-protocol with data specific to IPv6 unicast.";
     uses ipv6-uni-grp;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/"
+           + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
+           + "org-openroadm-routing:routes/org-openroadm-routing:route" {
+       when "../../org-openroadm-routing:address-family = 'org-openroadm-ipv6-unicast-routing:ipv6-unicast'" {
+         description
+           "This augment is valid only for IPv6 unicast.";
+       }
+       description
+         "This leaf augments an IPv6 unicast route.";
+       leaf destination-prefix {
+         type inet:ipv6-prefix;
+         description
+           "IPv6 destination prefix.";
+       }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/"
+           + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
+           + "org-openroadm-routing:routes/org-openroadm-routing:route/org-openroadm-routing:next-hop/"
+           + "org-openroadm-routing:next-hop-options/org-openroadm-routing:simple-next-hop" {
+       when "../../../org-openroadm-routing:address-family = 'org-openroadm-ipv6-unicast-routing:ipv6-unicast'" {
+         description
+           "This augment is valid only for IPv6 unicast.";
+       }
+       description
+         "This leaf augments the 'simple-next-hop' case of IPv6 unicast routes.";
+       leaf next-hop-address {
+         type inet:ipv6-address;
+         description
+           "IPv6 address of the next-hop.";
+       }
   }
 }
