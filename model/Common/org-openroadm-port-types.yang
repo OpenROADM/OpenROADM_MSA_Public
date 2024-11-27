@@ -283,6 +283,30 @@ module org-openroadm-port-types {
     base supported-if-capability;
   }
 
+  identity if-otsi-otsig-regen {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-otsig-uniregen {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-otsig-eth-regen {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-otsig-eth-uniregen {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-otsig-otuc-regen {
+    base supported-if-capability;
+  }
+
+  identity if-otsi-otsig-otuc-uniregen {
+    base supported-if-capability;
+  }
+
   identity supported-xpdr-capability {
     description
       "Base identity from which specific supported xponder are derived";

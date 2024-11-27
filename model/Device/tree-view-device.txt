@@ -353,6 +353,9 @@ module: org-openroadm-device
      |  |  +--ro extension?   string
      |  +--rw equipment-state?             org-openroadm-equipment-states-types:states
      |  +--rw circuit-pack-mode?           string
+     |  +--rw sub-circuit-pack-mode* [index]
+     |  |  +--rw index    uint8
+     |  |  +--rw mode?    string
      |  +--rw shelf                        -> /org-openroadm-device/shelves/shelf-name
      |  +--rw slot                         string
      |  +--rw subSlot?                     string
@@ -1183,7 +1186,7 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-eth-speed?                uint32
+     |  +--ro network-otsi-group-rate           identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint16
      +--ro otsi-profile* [profile-name]

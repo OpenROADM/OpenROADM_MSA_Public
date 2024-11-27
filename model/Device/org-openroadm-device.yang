@@ -807,6 +807,22 @@ module org-openroadm-device {
       description
         "Circuit-pack mode allowed. e.g. NORMAL or REGEN";
     }
+    list sub-circuit-pack-mode {
+      key "index";
+      description
+        "List of sub-circuit-pack in circuit-packs and the mode.";
+      leaf index {
+        type uint8;
+        description
+          "Sub circuit-pack index.";
+      }
+      leaf mode {
+        type string;
+        default "NORMAL";
+        description
+          "Sub circuit-pack mode allowed, e.g. NORMAL or REGEN";
+      }
+    }
     leaf shelf {
       type leafref {
         path "/org-openroadm-device/shelves/shelf-name";
@@ -2883,10 +2899,13 @@ module org-openroadm-device {
           description
             "Mux profile name";
         }
-        leaf network-eth-speed {
-          type uint32;
+        leaf network-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          mandatory true;
           description
-            "Network ethernet speed types supported by the profile, unit mbps";
+            "Network OTSIG rate types supported by the profile";
         }
         uses mux-eth-grp;
       }
