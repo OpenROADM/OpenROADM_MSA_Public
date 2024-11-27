@@ -1360,6 +1360,8 @@ module: org-openroadm-device
      |     +--ro org-openroadm-routing:name                 string
      |     +--ro org-openroadm-routing:type?                identityref
      |     +--ro org-openroadm-routing:router-id?           yang:dotted-quad
+     |     +--ro org-openroadm-routing:interfaces
+     |     |  +--ro org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--ro org-openroadm-routing:routing-protocols
      |     |  +--ro org-openroadm-routing:routing-protocol* [type name]
      |     |     +--ro org-openroadm-routing:type    identityref
@@ -1752,6 +1754,21 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family    identityref
      |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
      |           +--ro org-openroadm-routing:routes
+     |              +--ro org-openroadm-routing:route* []
+     |                 +--ro org-openroadm-routing:route-preference?                  route-preference
+     |                 +--ro org-openroadm-routing:next-hop
+     |                 |  +--ro (org-openroadm-routing:next-hop-options)
+     |                 |     +--:(org-openroadm-routing:simple-next-hop)
+     |                 |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
+     |                 |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
+     |                 |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
+     |                 |     +--:(org-openroadm-routing:special-next-hop)
+     |                 |        +--ro org-openroadm-routing:special-next-hop?                enumeration
+     |                 +--ro org-openroadm-routing:source-protocol                    identityref
+     |                 +--ro org-openroadm-routing:active?                            empty
+     |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
+     |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
+     |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16

@@ -3,11 +3,11 @@ module: ietf-network
      +--rw network* [network-id]
         +--rw network-id            network-id
         +--rw network-types
-        |  +--rw cn:clli-network!
         |  +--rw cnet:openroadm-common-network!
-        |     +--rw topo:openroadm-topology!
-        |     +--rw net:openroadm-network!
-        |     +--rw otn-topo:otn-topology!
+        |  |  +--rw net:openroadm-network!
+        |  |  +--rw topo:openroadm-topology!
+        |  |  +--rw otn-topo:otn-topology!
+        |  +--rw cn:clli-network!
         +--rw supporting-network* [network-ref]
         |  +--rw network-ref    -> /networks/network/network-id
         +--rw node* [node-id]
@@ -184,36 +184,6 @@ module: ietf-network
         |  +--rw cnet:lifecycle-state?            org-openroadm-common-state-types:lifecycle-state
         |  +--rw cnet:operational-state?          org-openroadm-common-state-types:state
         |  +--rw cnet:administrative-state?       org-openroadm-equipment-states-types:admin-states
-        |  +--rw topo:srg-attributes
-        |  |  +--rw topo:srg-number?                    uint16
-        |  |  +--rw topo:max-pp?                        uint32
-        |  |  +--rw topo:current-provisioned-pp?        uint32
-        |  |  +--rw topo:wavelength-duplication?        org-openroadm-common-optical-channel-types:wavelength-duplication-type
-        |  |  +--rw topo:supported-operational-modes*   string
-        |  |  +--rw topo:avail-freq-maps* [map-name]
-        |  |  |  +--rw topo:map-name                string
-        |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
-        |  |  |  +--rw topo:freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
-        |  |  |  +--rw topo:effective-bits?         uint16
-        |  |  |  +--rw topo:freq-map?               binary
-        |  |  +--rw topo:type-variety?                  string
-        |  +--rw topo:degree-attributes
-        |  |  +--rw topo:degree-number?                    uint16
-        |  |  +--rw topo:max-wavelengths?                  uint32
-        |  |  +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-        |  |  +--rw topo:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-        |  |  +--rw topo:egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-        |  |  +--rw topo:supported-operational-modes*      string
-        |  |  +--rw topo:avail-freq-maps* [map-name]
-        |  |  |  +--rw topo:map-name                string
-        |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
-        |  |  |  +--rw topo:freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
-        |  |  |  +--rw topo:effective-bits?         uint16
-        |  |  |  +--rw topo:freq-map?               binary
-        |  |  +--rw topo:type-variety?                     string
-        |  +--rw topo:xpdr-attributes
-        |  |  +--rw topo:xpdr-number?   uint16
-        |  |  +--rw topo:recolor?       boolean
         |  +--rw net:software-version?            string
         |  +--rw net:openroadm-version?           org-openroadm-common-types:openroadm-version-type
         |  +--rw net:vendor?                      string
@@ -257,6 +227,37 @@ module: ietf-network
         |  |     +--rw net:id            uint16
         |  |     +--rw net:start-date?   yang:date-and-time
         |  |     +--rw net:end-date?     yang:date-and-time
+        |  +--rw topo:srg-attributes
+        |  |  +--rw topo:srg-number?                    uint16
+        |  |  +--rw topo:max-pp?                        uint32
+        |  |  +--rw topo:current-provisioned-pp?        uint32
+        |  |  +--rw topo:wavelength-duplication?        org-openroadm-common-optical-channel-types:wavelength-duplication-type
+        |  |  +--rw topo:supported-operational-modes*   string
+        |  |  +--rw topo:avail-freq-maps* [map-name]
+        |  |  |  +--rw topo:map-name                string
+        |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
+        |  |  |  +--rw topo:freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+        |  |  |  +--rw topo:effective-bits?         uint16
+        |  |  |  +--rw topo:freq-map?               binary
+        |  |  +--rw topo:type-variety?                  string
+        |  +--rw topo:degree-attributes
+        |  |  +--rw topo:degree-number?                    uint16
+        |  |  +--rw topo:max-wavelengths?                  uint32
+        |  |  +--rw topo:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+        |  |  +--rw topo:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
+        |  |  +--rw topo:egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
+        |  |  +--rw topo:supported-operational-modes*      string
+        |  |  +--rw topo:avail-freq-maps* [map-name]
+        |  |  |  +--rw topo:map-name                string
+        |  |  |  +--rw topo:start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
+        |  |  |  +--rw topo:freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+        |  |  |  +--rw topo:effective-bits?         uint16
+        |  |  |  +--rw topo:freq-map?               binary
+        |  |  +--rw topo:type-variety?                     string
+        |  +--rw topo:xpdr-attributes
+        |  |  +--rw topo:xpdr-number?   uint16
+        |  |  +--rw topo:recolor?       boolean
+        |  +--rw cn:clli?                         string
         |  +--rw otn-topo:tp-bandwidth-sharing
         |  |  +--rw otn-topo:tp-bandwidth-sharing* [tp-sharing-id]
         |  |     +--rw otn-topo:tp-sharing-id         uint16
