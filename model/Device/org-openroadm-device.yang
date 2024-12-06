@@ -36,7 +36,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -1506,6 +1506,94 @@ module org-openroadm-device {
         "Lifecycle State of the physical link. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
+  grouping  srg-constraint-group {
+    leaf target-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      units "dBm per 50GHz";
+      description
+        "The provisioned target PSD to optimize the SRG/sub-SRG.  Channel target power setting is determined based on the target-input-psd and the slot-width of the channel.";
+    }
+    leaf prov-min-slot {
+      type uint32;
+      description
+        "The minimum slots for the SRG/sub-SRG. This value must be greater than
+        or equal to the advertised minimum slots for the SRG.
+        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
+    }
+    leaf prov-max-slot {
+      type uint32;
+      description
+        "The maximum slots for the SRG/sub-SRG. This value must be less than
+        or equal to the advertised maximum slots for the SRG.
+        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
+    }
+    leaf prov-max-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      units "dBm";
+      description
+        "The maximum composite power for the SRG/sub-SRG input ports.
+        This value must be less than or equal to the max-composite-input-power.
+        This attribute allows the user to further restrict the composite power into the SRG/sub-SRG.";
+    }
+    leaf prov-max-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      units "GHz";
+      description
+        "The maximum total bandwidth for the SRG/sub-SRG.
+        This value must be less than or equal to the max-total-bandwidth.
+        This attribute allows the user to further restrict the total bandwidth in and/or out of the SRG/sub-SRG.";
+    }
+    leaf min-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      config false;
+      units "dBm per 50GHz";
+      description
+        "The minimum input PSD for a channel into the SRG/sub-SRG.";
+    }
+    leaf max-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      config false;
+      units "dBm per 50GHz";
+      description
+        "The maximum input PSD for a channel into the SRG/sub-SRG.";
+    }
+    leaf max-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      units "dBm";
+      description
+        "The maximum composite (total) power that can be supported coming into the SRG/sub-SRG.
+         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+    }
+    leaf max-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
+      units "GHz";
+      description
+        "The maximum total bandwidth that can be supported coming into or going out of the SRG/sub-SRG.
+         The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+    }
+    leaf available-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      units "dBm";
+      description
+        "The remaining composite power add for the SRG/sub-SRG.
+         This value is computed as the minimum(max-composite-input-power,
+         prov-max-composite-input-power) - sum(provisioned channel input power).
+         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+    }
+    leaf available-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
+      units "GHz";
+      description
+        "The remaining total bandwidth for the SRG/sub-SRG.
+        This value is computed as the minimum(max-total-bandwidth,
+            prov-max-total-bandwidth) – sum(provisioned channel bandwidth).
+        The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+    }
+  }
 
   grouping srg {
     leaf max-add-drop-ports {
@@ -1571,6 +1659,30 @@ module org-openroadm-device {
       }
     }
     uses mc-capabilities-grp;
+    uses srg-constraint-group;
+    list subgroup {
+      key "subgroup-id";
+      description
+        "The list of SRG subgroups that make up the SRG.";
+      leaf subgroup-id {
+        type uint16;
+        description
+          "The identifier for the SRG subgroup within the SRG.";
+      }
+      list port-list {
+        key "circuit-pack-name";
+        description
+          "List of ports associated with the SRG subgroup.
+          If all ports of the circuit-pack belong to the SRG subgroup then the port-name leaf-list can be omitted.";
+        uses port-name {
+          refine "circuit-pack-name" {
+            mandatory true;
+          }
+        }
+      }
+      uses mc-capabilities-grp;
+      uses srg-constraint-group;
+    }
   }
 
   grouping xponder {

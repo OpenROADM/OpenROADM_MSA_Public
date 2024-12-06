@@ -35,6 +35,11 @@ module org-openroadm-common-link-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
+
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -116,5 +121,14 @@ module org-openroadm-common-link-types {
       "Actual Optical Control Mode: identifies specific algorithm related to power management and general optical control.";
     reference
       "openroadm.org: Open ROADM MSA Specification.";
+  }
+
+  typedef psd-dBm-50GHz {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "dBm per 50GHz";
+    description
+      "Power spectral density expressed as the dBm power in a 50GHz bandwidth.";
   }
 }

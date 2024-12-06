@@ -8,7 +8,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;

@@ -64,7 +64,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;

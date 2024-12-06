@@ -5,7 +5,7 @@ module org-openroadm-degree {
 
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
