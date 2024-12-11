@@ -125,17 +125,17 @@ module org-openroadm-operational-mode-catalog {
   grouping operational-mode-grid-parameters {
     description
       "main parameters required to describe grid usage";
-    leaf min-central-frequency {
+    leaf min-edge-frequency {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       mandatory true;
       description
-        "min supported frequency";
+        "supported spectrum min edge frequency";
     }
-    leaf max-central-frequency {
+    leaf max-edge-frequency {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       mandatory true;
       description
-        "max supported frequency";
+        "supported spectrum max edge frequency";
     }
     leaf central-frequency-granularity {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
@@ -475,6 +475,28 @@ module org-openroadm-operational-mode-catalog {
       mandatory true;
       description
         "line coding rate in Gbps";
+    }
+    leaf payload-rate-identity {
+      type identityref {
+        base org-openroadm-common-optical-channel-types:optical-rate-identity;
+      }
+      description
+        "rate identity of the wdm service";
+    }
+    leaf fec-rate {
+      type decimal64 {
+        fraction-digits 9;
+      }
+      units "Gbps";
+      description
+        "Signal bit-rate after FEC is added in Gbps";
+    }
+    leaf prefec-ber-threshold {
+      type decimal64 {
+        fraction-digits 5;
+      }
+      description
+        "PreFEC BER Threshold below which a postFEC BER value of 1E-15 can be achieved";
     }
     leaf modulation-format {
       type org-openroadm-common-optical-channel-types:modulation-format;
