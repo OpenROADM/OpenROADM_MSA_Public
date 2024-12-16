@@ -460,6 +460,7 @@ module: org-openroadm-device
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-link-types:power-dBm
+     |     |  +--rw roadm-port-mode?                enumeration
      |     +--rw transponder-port
      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
@@ -993,6 +994,8 @@ module: org-openroadm-device
      |  +--rw degree-number                            uint16
      |  +--rw lifecycle-state?                         org-openroadm-common-state-types:lifecycle-state
      |  +--ro max-wavelengths                          uint16
+     |  +--rw optical-control?                         org-openroadm-common-link-types:optical-control
+     |  +--ro tda-capable?                             boolean
      |  +--ro optical-operational-mode-profile-name*   string
      |  +--rw circuit-packs* [index]
      |  |  +--rw index                uint32
@@ -1116,6 +1119,7 @@ module: org-openroadm-device
      |  +--rw opticalControlMode?    org-openroadm-common-link-types:optical-control-mode
      |  +--ro actual-control-mode    org-openroadm-common-link-types:act-optical-control-mode
      |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+     |  +--ro connection-state?      org-openroadm-common-link-types:connection-state
      |  +--rw source
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
      |  +--rw destination

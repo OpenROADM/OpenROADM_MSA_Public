@@ -521,6 +521,29 @@ module org-openroadm-port-types {
 
   grouping roadm-port {
     uses common-port;
+    leaf roadm-port-mode {
+      type enumeration {
+        enum deg-add-drop-tda {
+          value 1;
+          description
+            "Link attached to transponder direct attach (TDA).";
+        }
+        enum deg-add-drop-srg {
+          value 2;
+          description
+            "Link attached to SRG add-drop";
+        }
+        enum deg-express {
+          value 3;
+          description
+            "Link attached to another degree WSS.";
+        }
+      }
+      description
+      "Defines ROADM port mode for dis-aggregated WSS link attachments or
+      transponder direct attach to degree (TDA). This attribute is only applicable
+      to WSS ports and must be provided when a WSS port is set to roadm-external";
+    }
   }
 
   grouping port-features {

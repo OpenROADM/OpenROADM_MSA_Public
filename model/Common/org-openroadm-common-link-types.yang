@@ -39,7 +39,6 @@ module org-openroadm-common-link-types {
     description
       "Version 16.1";
   }
-
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -116,6 +115,9 @@ module org-openroadm-common-link-types {
       enum unknown {
         value 4;
       }
+      enum automatic {
+        value 5;
+      }
     }
     description
       "Actual Optical Control Mode: identifies specific algorithm related to power management and general optical control.";
@@ -130,5 +132,32 @@ module org-openroadm-common-link-types {
     units "dBm per 50GHz";
     description
       "Power spectral density expressed as the dBm power in a 50GHz bandwidth.";
+  }
+
+  typedef connection-state {
+    type enumeration {
+      enum in-service {
+        value 1;
+      }
+      enum out-of-service {
+        value 2;
+      }
+    }
+    description
+      "The state of the connection in terms of ability to provide service.";
+  }
+
+  typedef optical-control {
+    type enumeration {
+      enum manual {
+        value 1;
+      }
+      enum automatic {
+        value 2;
+      }
+    }
+    description
+      "optical-control defines how the optical-control-mode is set on the device. It can be manually set by the controller, or
+      automatically set by the device.";
   }
 }

@@ -1125,6 +1125,15 @@ module org-openroadm-device {
       description
         "The output target power for this connection. When set, the ROADM will work to ensure that current-output-power reaches this level.";
     }
+    leaf connection-state {
+      type org-openroadm-common-link-types:connection-state;
+      config false;
+      description
+        "This describes the state of the ROADM connection in terms of power stability and ability to provide service.
+         The ROADM connection is considered to be in-service once it has reached its target-output-power level within the tolerance of
+         the device. It will be out-of-service while in the process of provisioning, disconnected, faulted, or outside the target-output-power tolerance
+         This attribute is only used when the actual-control-mode is automatic and must be provided in this case.";
+    }
     container source {
       leaf src-if {
         type leafref {
@@ -1181,6 +1190,20 @@ module org-openroadm-device {
       mandatory true;
       description
         "maximum number of wavelengths";
+    }
+    leaf optical-control {
+      type org-openroadm-common-link-types:optical-control;
+      default "manual";
+      description
+        "Defines how the optical-control-mode is set on the device. It can be manually set by the controller, or
+        automatically set by the device.";
+    }
+    leaf tda-capable {
+      type boolean;
+      config false;
+      description
+        "Has a value of true if the degree ports are capable of supporting transponder direct attach.
+        If it is not present, then it is to be assumed that the degree does not support transponder direct attach.";
     }
     leaf-list optical-operational-mode-profile-name {
         type string;
