@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -342,6 +346,13 @@ module org-openroadm-common-types {
         value 28;
         description
           "value for 13.1";
+      }
+      enum 13.1.1 {
+        value 35;
+        description
+          "value for 13.1.1. Gap in enums values is due to the  fact other versions
+          that exist between the release of 13.1 and 13.1.1. Those include 14.0 (29),
+          14.1 (30), 15.0 (31), 15.1 (32), 16.0 (33), 16.1 (34)";
       }
     }
     description
