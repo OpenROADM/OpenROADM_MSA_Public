@@ -7,9 +7,9 @@
 		    },		
             "operational-mode-info": {
                 "grid-parameters": {
-                    "min-central-frequency": "191.32500000",
-                    "max-central-frequency": "196.12500000",
-                    "central-frequency-granularity": "12.50000",
+                    "min-central-frequency": "191.35000000",
+                    "max-central-frequency": "196.10000000",
+                    "central-frequency-granularity": "6.250000",
                     "min-spacing": "37.50000"
                 },
                 "xponders-pluggables": {
@@ -20,16 +20,16 @@
                             "line-rate": "111.8",
                             "modulation-format": "dp-qpsk",
                             "min-TX-osnr": "33.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-OOB-osnr-multi-channel-value": "31.000",
                                 "min-OOB-osnr-single-channel-value": "43.000"
-                            },
-                            "output-power-range": {
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "17.000",
                             "min-input-power-at-RX-osnr": "-22.000",
                             "max-input-power": "1.000",
@@ -74,20 +74,21 @@
                             "line-rate": "126.3",
                             "modulation-format": "dp-qpsk",
                             "min-TX-osnr": "37.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000"
-                            },
-                            "output-power-range": {
+                                "min-OOB-osnr-multi-channel-value": "36.000",
+                                "min-OOB-osnr-single-channel-value": "43.000"
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "12.000",
                             "min-input-power-at-RX-osnr": "-18.000",
                             "max-input-power": "1.000",
                             "channel-width": "37.88400",
-                            "fec-type": "ofec",
+                            "fec-type": "org-openroadm-common-types:ofec",
                             "min-roll-off": "0.05",
                             "max-roll-off": "0.20",
                             "penalties": [
@@ -159,20 +160,21 @@
                             "line-rate": "252.6",
                             "modulation-format": "dp-qam16",
                             "min-TX-osnr": "37.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000"
-                            },
-                            "output-power-range": {
+                                "min-OOB-osnr-multi-channel-value": "36.000",
+                                "min-OOB-osnr-single-channel-value": "43.000"
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "20.500",
                             "min-input-power-at-RX-osnr": "-16.000",
                             "max-input-power": "1.000",
                             "channel-width": "37.88400",
-                            "fec-type": "ofec",
+                            "fec-type": "org-openroadm-common-types:ofec",
                             "min-roll-off": "0.05",
                             "max-roll-off": "0.20",
                             "penalties": [
@@ -249,20 +251,21 @@
                             "line-rate": "252.6",
                             "modulation-format": "dp-qpsk",
                             "min-TX-osnr": "37.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000"
-                            },
-                            "output-power-range": {
+                                "min-OOB-osnr-multi-channel-value": "36.000",
+                                "min-OOB-osnr-single-channel-value": "43.000"
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "17.000",
                             "min-input-power-at-RX-osnr": "-18.000",
                             "max-input-power": "1.000",
                             "channel-width": "75.72000",
-                            "fec-type": "ofec",
+                            "fec-type": "org-openroadm-common-types:ofec",
                             "min-roll-off": "0.05",
                             "max-roll-off": "0.20",
                             "penalties": [
@@ -329,20 +332,21 @@
                             "line-rate": "378.8",
                             "modulation-format": "dp-qam8",
                             "min-TX-osnr": "37.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000"
-                            },
-                            "output-power-range": {
+                                "min-OOB-osnr-multi-channel-value": "36.000",
+                                "min-OOB-osnr-single-channel-value": "43.000"
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "21.000",
                             "min-input-power-at-RX-osnr": "-16.000",
                             "max-input-power": "1.000",
                             "channel-width": "75.72000",
-                            "fec-type": "ofec",
+                            "fec-type": "org-openroadm-common-types:ofec",
                             "min-roll-off": "0.05",
                             "max-roll-off": "0.20",
                             "penalties": [
@@ -414,20 +418,21 @@
                             "line-rate": "505.1",
                             "modulation-format": "dp-qam16",
                             "min-TX-osnr": "37.000",
-                            "TX-OOB-osnr": {
+                            "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000"
-                            },
-                            "output-power-range": {
+                                "min-OOB-osnr-multi-channel-value": "36.000",
+                                "min-OOB-osnr-single-channel-value": "43.000"
+                            }],
+                            "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.000",
                                 "max-output-power": "0.000"
-                            },
+                            }],
                             "min-RX-osnr-tolerance": "24.000",
                             "min-input-power-at-RX-osnr": "-14.000",
                             "max-input-power": "1.000",
                             "channel-width": "75.72000",
-                            "fec-type": "ofec",
+                            "fec-type": "org-openroadm-common-types:ofec",
                             "min-roll-off": "0.05",
                             "max-roll-off": "0.20",
                             "penalties": [

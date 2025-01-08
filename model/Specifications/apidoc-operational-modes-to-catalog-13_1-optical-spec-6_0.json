@@ -1,0 +1,2076 @@
+{
+    "operational-mode-catalog": {
+        "openroadm-operational-modes": {
+            "grid-parameters": {
+                "min-central-frequency": "191.35000000",
+                "max-central-frequency": "196.10000000",
+                "central-frequency-granularity": "6.250000",
+                "min-spacing": "37.50000"
+            },
+            "xponders-pluggables": {
+                "xponder-pluggable-openroadm-operational-mode": [
+                    {
+                        "openroadm-operational-mode-id": "OR-W-100G-SC",
+                        "baud-rate": "28.0",
+                        "line-rate": "111.8",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "33.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "31.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "17.000",
+                        "min-input-power-at-RX-osnr": "-22.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "40.00000",
+                        "fec-type": "org-openroadm-common-types:scfec",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "18000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "6",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "30",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-22",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15",
+                                "penalty-value": "0.200"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4",
+                                "penalty-value": "0.200"
+                            }
+                        ]
+                    },
+                    {
+                        "openroadm-operational-mode-id": "OR-W-100G-oFEC-31.6Gbd",
+                        "baud-rate": "31.6",
+                        "line-rate": "126.3",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "12.000",
+                        "min-input-power-at-RX-osnr": "-18.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "37.88400",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "48000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "6",
+                                "penalty-value": "4.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "30",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-20",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15",
+                                "penalty-value": "0.200"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4",
+                                "penalty-value": "0.200"
+                            }
+                        ]
+                    },
+                    {
+                        "openroadm-operational-mode-id": "OR-W-200G-oFEC-31.6Gbd",
+                        "baud-rate": "31.6",
+                        "line-rate": "252.6",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "20.500",
+                        "min-input-power-at-RX-osnr": "-16.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "37.88400",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "6",
+                                "penalty-value": "4.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "30",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-16",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-20",
+                                "penalty-value": "2.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+                    {
+                        "openroadm-operational-mode-id": "OR-W-200G-oFEC-63.1Gbd",
+                        "baud-rate": "63.1",
+                        "line-rate": "252.6",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "16.000",
+                        "min-input-power-at-RX-osnr": "-18.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "75.72000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-20",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+                    {
+                        "openroadm-operational-mode-id": "OR-W-300G-oFEC-63.1Gbd",
+                        "baud-rate": "63.1",
+                        "line-rate": "378.8",
+                        "modulation-format": "dp-qam8",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "21.000",
+                        "min-input-power-at-RX-osnr": "-16.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "75.72000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "18000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-16.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-20.00",
+                                "penalty-value": "2.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.0",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+                    {
+                        "openroadm-operational-mode-id": "OR-W-400G-oFEC-63.1Gbd",
+                        "baud-rate": "63.1",
+                        "line-rate": "505.1",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "24.000",
+                        "min-input-power-at-RX-osnr": "-14.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "75.72000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "12000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-16.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "2.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd",
+                        "baud-rate": "124.1",
+                        "line-rate": "422.6",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "20.000",
+                        "min-input-power-at-RX-osnr": "-15.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "148.92000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-15",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd",
+                        "baud-rate": "118.2",
+                        "line-rate": "422.6",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "20.000",
+                        "min-input-power-at-RX-osnr": "-15.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "141.84000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-15",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd_type2",
+                        "baud-rate": "124.1",
+                        "line-rate": "422.6",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "20.000",
+                        "min-input-power-at-RX-osnr": "-15.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "148.92000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-15",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd_type2",
+                        "baud-rate": "118.2",
+                        "line-rate": "422.6",
+                        "modulation-format": "dp-qpsk",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "20.000",
+                        "min-input-power-at-RX-osnr": "-15.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "141.84000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "24000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-15",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd",
+                        "baud-rate": "124.1",
+                        "line-rate": "845.1",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "27.200",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "148.92000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "12000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd",
+                        "baud-rate": "118.2",
+                        "line-rate": "845.1",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "27.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "141.84000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "12000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd_type2",
+                        "baud-rate": "124.1",
+                        "line-rate": "845.1",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "27.200",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "148.92000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "12000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd_type2",
+                        "baud-rate": "118.2",
+                        "line-rate": "845.1",
+                        "modulation-format": "dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "27.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "141.84000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "12000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd",
+                        "baud-rate": "124.7",
+                        "line-rate": "633.9",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "99.999",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "149.64000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "22000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd",
+                        "baud-rate": "118.8",
+                        "line-rate": "633.9",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "99.999",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "142.56000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "22000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE",
+                        "baud-rate": "131.3",
+                        "line-rate": "845.1",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "25.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "157.60800",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "20000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM",
+                        "baud-rate": "131.4",
+                        "line-rate": "845.1",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "26.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "157.62000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "20000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd_type2",
+                        "baud-rate": "124.7",
+                        "line-rate": "633.9",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "99.999",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "149.64000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "22000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd_type2",
+                        "baud-rate": "118.8",
+                        "line-rate": "633.9",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "99.999",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "142.56000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "22000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "25.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-18.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.300"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE_type2",
+                        "baud-rate": "131.3",
+                        "line-rate": "845.1",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "25.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "157.60800",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "20000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    },
+					{
+                        "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM_type2",
+                        "baud-rate": "131.4",
+                        "line-rate": "845.1",
+                        "modulation-format": "pcs-dp-qam16",
+                        "min-TX-osnr": "37.000",
+                        "TX-OOB-osnr": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-OOB-osnr-multi-channel-value": "36.000",
+                            "min-OOB-osnr-single-channel-value": "43.000"
+                        }],
+                        "output-power-range": [{
+                            "WR-openroadm-operational-mode-id": "MW-WR-core",
+                            "min-output-power": "-5.000",
+                            "max-output-power": "0.000"
+                        }],
+                        "min-RX-osnr-tolerance": "26.000",
+                        "min-input-power-at-RX-osnr": "-11.000",
+                        "max-input-power": "1.000",
+                        "channel-width": "157.62000",
+                        "fec-type": "org-openroadm-common-types:ofec",
+                        "min-roll-off": "0.05",
+                        "max-roll-off": "0.20",
+                        "penalties": [
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "4000",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "CD-ps/nm",
+                                "up-to-boundary": "20000",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "1.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "2.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "PDL-dB",
+                                "up-to-boundary": "4.00",
+                                "penalty-value": "2.500"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "10.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "PMD-ps",
+                                "up-to-boundary": "20.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-11.00",
+                                "penalty-value": "0.000"
+                            },
+                            {
+                                "parameter-and-unit": "power-dBm",
+                                "up-to-boundary": "-14.00",
+                                "penalty-value": "1.000"
+                            },
+                            {
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "13.00",
+                                "penalty-value": "0.300"
+                            },
+							{
+                                "parameter-and-unit": "cross-talk-total-power-dB",
+                                "up-to-boundary": "15.00",
+                                "penalty-value": "0.500"
+                            },
+                            {
+                                "parameter-and-unit": "colorless-drop-adjacent-channel-crosstalk-GHz",
+                                "up-to-boundary": "4.10",
+                                "penalty-value": "0.500"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "roadms": {
+                "Express": {
+                    "openroadm-operational-mode": {
+                        "openroadm-operational-mode-id": "MW-MW-core",
+                        "per-channel-Pin-min": "-21.000",
+                        "per-channel-Pin-max": "-9.000",
+                        "max-introduced-pdl": "1.500",
+                        "max-introduced-dgd": "3.00",
+                        "max-introduced-cd": "25.00",
+                        "osnr-polynomial-fit": {
+                            "A": "-0.00059520",
+                            "B": "-0.06250000",
+                            "C": "-1.07100000",
+                            "D": "27.99000000"
+                        },
+                        "mask-power-vs-pin": [
+                            {
+                                "lower-boundary": "0",
+                                "upper-boundary": "6",
+                                "C": "1.00000000",
+                                "D": "-9.00000000",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "6",
+                                "upper-boundary": "8",
+                                "C": "-0.00000000",
+                                "D": "-3.00000000",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "8",
+                                "upper-boundary": "23",
+                                "C": "0.33333334",
+                                "D": "-5.66666667",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "23",
+                                "upper-boundary": "27",
+                                "C": "0.00000000",
+                                "D": "2.00000000",
+                                "fiber-type": "smf"
+                            }
+                        ]
+                    }
+                },
+                "Add": {
+                    "add-openroadm-operational-mode": {
+                        "openroadm-operational-mode-id": "MW-WR-core",
+                        "incremental-osnr": "33.000",
+                        "per-channel-Pin-min": "-6.000",
+                        "per-channel-Pin-max": "3.000",
+                        "max-introduced-pdl": "1.500",
+                        "max-introduced-dgd": "3.00",
+                        "max-introduced-cd": "25.00",
+                        "mask-power-vs-pin": [
+                            {
+                                "lower-boundary": "0",
+                                "upper-boundary": "6",
+                                "C": "1.00000000",
+                                "D": "-9.00000000",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "6",
+                                "upper-boundary": "8",
+                                "C": "-0.00000000",
+                                "D": "-3.00000000",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "8",
+                                "upper-boundary": "23",
+                                "C": "0.33333334",
+                                "D": "-5.66666667",
+                                "fiber-type": "smf"
+                            },
+                            {
+                                "lower-boundary": "23",
+                                "upper-boundary": "27",
+                                "C": "0.00000000",
+                                "D": "2.00000000",
+                                "fiber-type": "smf"
+                            }
+                        ]
+                    }
+                },
+                "Drop": {
+                    "openroadm-operational-mode": {
+                        "openroadm-operational-mode-id": "MW-WR-core",
+                        "per-channel-Pin-min": "-25.000",
+                        "per-channel-Pin-max": "-9.000",
+                        "max-introduced-pdl": "1.500",
+                        "max-introduced-dgd": "3.00",
+                        "max-introduced-cd": "25.00",
+                        "osnr-polynomial-fit": {
+                            "A": "-0.00059520",
+                            "B": "-0.06250000",
+                            "C": "-1.07100000",
+                            "D": "27.99000000"
+                        },
+                        "per-channel-Pout-min": "-22.000",
+                        "per-channel-Pout-max": "1.000"
+                    }
+                }
+            },
+            "amplifiers": {
+				"Amplifier": {
+					"openroadm-operational-mode": [
+						{
+							"openroadm-operational-mode-id": "MWi-standard",
+							"per-channel-Pin-min": "-31.000",
+							"per-channel-Pin-max": "-9.000",
+							"max-introduced-pdl": "0.70",
+							"max-introduced-dgd": "3.00",
+							"max-introduced-cd": "0.00",
+							"osnr-polynomial-fit": {
+								"A": "-0.00059520",
+								"B": "-0.06250000",
+								"C": "-1.07100000",
+								"D": "28.99000000"
+							},
+							"mask-power-vs-pin": [
+								{
+									"lower-boundary": "0",
+									"upper-boundary": "6",
+									"C": "1.00000000",
+									"D": "-9.00000000",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "6",
+									"upper-boundary": "8",
+									"C": "-0.00000000",
+									"D": "-3.00000000",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "8",
+									"upper-boundary": "23",
+									"C": "0.33333334",
+									"D": "-5.66666667",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "23",
+									"upper-boundary": "31",
+									"C": "0.00000000",
+									"D": "2.00000000",
+									"fiber-type": "smf"
+								}
+							],
+							"min-gain": "0.000",
+							"max-gain": "27.000",
+							"max-extended-gain": "31.000",
+							"mask-gain-ripple-vs-tilt": [
+								{
+									"lower-boundary": "-4",
+									"upper-boundary": "-1",
+									"C": "-0.50",
+									"D": "1.00"
+								},
+								{
+									"lower-boundary": "-1",
+									"upper-boundary": "0",
+									"C": "0.50",
+									"D": "2.00"
+								}
+							]
+						},
+						{
+							"openroadm-operational-mode-id": "MWi-low-noise",
+							"per-channel-Pin-min": "-31.000",
+							"per-channel-Pin-max": "-9.000",
+							"max-introduced-pdl": "0.700",
+							"max-introduced-dgd": "3.00",
+							"max-introduced-cd": "0.00",
+							"osnr-polynomial-fit": {
+								"A": "-0.00081040",
+								"B": "-0.06221000",
+								"C": "-0.58890000",
+								"D": "37.62000000"
+							},
+							"mask-power-vs-pin": [
+								{
+									"lower-boundary": "0",
+									"upper-boundary": "6",
+									"C": "1.00000000",
+									"D": "-9.00000000",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "6",
+									"upper-boundary": "8",
+									"C": "-0.00000000",
+									"D": "-3.00000000",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "8",
+									"upper-boundary": "23",
+									"C": "0.33333334",
+									"D": "-5.66666667",
+									"fiber-type": "smf"
+								},
+								{
+									"lower-boundary": "23",
+									"upper-boundary": "31",
+									"C": "0.00000000",
+									"D": "2.00000000",
+									"fiber-type": "smf"
+								}
+							],
+							"min-gain": "0.000",
+							"max-gain": "27.000",
+							"max-extended-gain": "31.000",
+							 "mask-gain-ripple-vs-tilt": [
+								{
+									"lower-boundary": "-4",
+									"upper-boundary": "-1",
+									"C": "-0.50",
+									"D": "1.00"
+								},
+								{
+									"lower-boundary": "-1",
+									"upper-boundary": "0",
+									"C": "0.50",
+									"D": "2.00"
+								}
+							]
+						}
+					]
+				}
+			}
+        }
+    }
+}
