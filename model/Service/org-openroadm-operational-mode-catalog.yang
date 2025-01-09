@@ -143,11 +143,11 @@ module org-openroadm-operational-mode-catalog {
       description
         "granularity supported for the central frequency setting";
     }
-    leaf min-spacing {
+    leaf min-channel-width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       mandatory true;
       description
-        "minimum spacing required between 2 channels";
+        "minimum media channel width";
     }
   }
 
