@@ -4,11 +4,15 @@ module org-openroadm-dhcp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import ietf-inet-types {
     prefix ietf-inet-types;
     revision-date 2013-07-15;
+  }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -45,6 +49,10 @@ module org-openroadm-dhcp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -136,6 +144,11 @@ module org-openroadm-dhcp {
 
   grouping dhcp-relay {
     container ipv4-dhcp-relay {
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of the ipv4-dhcp-relay. Whether it is planned or deployed, etc.";
+      }
       list ipv4-server-group {
         key "server-group-name";
         description
@@ -160,6 +173,11 @@ module org-openroadm-dhcp {
       }
     }
     container ipv6-dhcp-relay {
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of the ipv6-dhcp-relay. Whether it is planned or deployed, etc.";
+      }
       list ipv6-server-group {
         key "server-group-name";
         description

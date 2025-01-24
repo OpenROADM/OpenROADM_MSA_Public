@@ -4,11 +4,15 @@ module org-openroadm-prot-equipment-aps {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
+  }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -58,6 +62,10 @@ module org-openroadm-prot-equipment-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -83,7 +91,6 @@ module org-openroadm-prot-equipment-aps {
       "Version 11.0";
   }
 
-
   typedef prot-architecture-type {
     type enumeration {
       enum one-for-one {
@@ -96,7 +103,6 @@ module org-openroadm-prot-equipment-aps {
     description
       "Protection architecture, 1:1 or 1:n";
   }
-
 
   typedef pg-service-state-type {
     type enumeration {
@@ -132,7 +138,6 @@ module org-openroadm-prot-equipment-aps {
            the PG cannot provide full service.";
   }
 
-
   typedef pg-redundancy-state-type {
     type enumeration {
       enum redundancy-available {
@@ -157,7 +162,6 @@ module org-openroadm-prot-equipment-aps {
            is not (yet) available.";
   }
 
-
   typedef pg-lockout-state-type {
     type enumeration {
       enum clear {
@@ -172,7 +176,6 @@ module org-openroadm-prot-equipment-aps {
        'clear' means that none of the members are locked out.
        'locked' means that one or more members are in a 'locked' state.";
   }
-
 
   typedef pg-member-state-type {
     type enumeration {
@@ -204,7 +207,6 @@ module org-openroadm-prot-equipment-aps {
            circuit-pack itself.";
   }
 
-
   typedef pg-member-switch-request-type {
     type enumeration {
       enum no-request {
@@ -224,7 +226,6 @@ module org-openroadm-prot-equipment-aps {
       "Describes the switch request on a PG member.";
   }
 
-
   grouping circuit-pack-grps {
     list circuit-pack-pg {
       key "name";
@@ -238,6 +239,11 @@ module org-openroadm-prot-equipment-aps {
         type string;
         description
           "The circuit-pack PG name";
+      }
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of the circuit-pack protection group. Whether it is planned or deployed, etc.";
       }
       leaf prot-architecture {
         type prot-architecture-type;
@@ -309,7 +315,6 @@ module org-openroadm-prot-equipment-aps {
     }
   }
 
-
   rpc circuit-pack-protection-switch {
     description
       "Exercise a protection switch command on a pg-cp-descriptor";
@@ -341,7 +346,7 @@ module org-openroadm-prot-equipment-aps {
             value 2;
             description
               "remove the member from active service,
-              and if persistent, set switch request to 'manual'";
+               and if persistent, set switch request to 'manual'";
           }
           enum release {
             value 3;
@@ -357,9 +362,7 @@ module org-openroadm-prot-equipment-aps {
     }
   }
 
-
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:protection-grps" {
     uses circuit-pack-grps;
   }
-
 }

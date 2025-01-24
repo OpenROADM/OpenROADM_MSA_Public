@@ -5,7 +5,7 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,11 +13,11 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -187,36 +191,12 @@ module org-openroadm-ethernet-interfaces {
          Applies to both management and transport Ethernet.
          Optional, must be specified for transport Ethernet or when auto-negotiation is disabled.";
     }
-    typedef eth-function-type {
-      type enumeration {
-        enum ETH-TTP {
-          value 1;
-          description
-            "applicable to Ethernet PHY termination point";
-        }
-        enum ETH-CTP {
-          value 2;
-          description
-            "applicable to ethernet MAC switching/cross connect point";
-        }
-      }
-      description
-        "Defines the Ethernet TTP and CTP ";
-    }
-    leaf eth-function {
-      type eth-function-type;
-      default 'ETH-TTP';
-      description
-      "function of the ethernet interface";
-    }
     uses org-openroadm-common-types:fec-grouping {
-      when "./eth-function = 'ETH-TTP'";
       description
         "Forward Error Correction Choices.
          Applies to transport Ethernet. Mandatory for transport Ethernet.";
     }
     leaf egress-consequent-action {
-      when "../eth-function = 'ETH-TTP'";
       type enumeration {
         enum local-fault {
           value 1;
@@ -234,7 +214,6 @@ module org-openroadm-ethernet-interfaces {
         "Egress consequent action choices";
     }
     leaf duplex {
-      when "../eth-function = 'ETH-TTP'";
       type enumeration {
         enum half {
           value 0;
@@ -254,7 +233,6 @@ module org-openroadm-ethernet-interfaces {
          Optional, default full. Transport Ethernet only supports full.";
     }
     leaf auto-negotiation {
-      when "../eth-function = 'ETH-TTP'";
       type enumeration {
         enum enabled {
           value 1;
@@ -274,12 +252,10 @@ module org-openroadm-ethernet-interfaces {
          Optional, default enabled. Transport Ethernet only supports enabled.";
     }
     uses org-openroadm-common-types:enable-laser {
-      when "./eth-function = 'ETH-TTP'";
       description
         "Enable laser control.";
     }
     leaf curr-speed {
-      when "../eth-function = 'ETH-TTP'";
       type string;
       config false;
       description
@@ -287,7 +263,6 @@ module org-openroadm-ethernet-interfaces {
          Applies to both management and transport Ethernet.";
     }
     leaf curr-duplex {
-      when "../eth-function = 'ETH-TTP'";
       type string;
       config false;
       description
@@ -295,7 +270,6 @@ module org-openroadm-ethernet-interfaces {
          Applies to both management and transport Ethernet.";
     }
     leaf max-frame-size {
-      when "../eth-function = 'ETH-TTP'";
       type uint32;
       config false;
       description
@@ -303,7 +277,6 @@ module org-openroadm-ethernet-interfaces {
     }
     container subrate-eth-sla {
       presence "Explicit assignment of subrate ethernet allocation";
-      when "../eth-function = 'ETH-TTP'";
       description
         "SLA (Service Level Agreement) for subrate Ethernet.
          Applies to transport Ethernet.";
@@ -328,7 +301,6 @@ module org-openroadm-ethernet-interfaces {
          generation is not supported by this interface.";
     }
     container parent-flexo-allocation {
-      when "../eth-function = 'ETH-CTP'";
       presence "Explicit assignment of parent FlexO instance and trib-port allocation.";
       description
         "parent flexo-xe allocation";
@@ -342,7 +314,7 @@ module org-openroadm-ethernet-interfaces {
           "Assigned tributary port number in parent FlexO-xe";
       }
       leaf-list iid {
-        type uint16;
+        type uint8;
         min-elements 1;
         description
           "A list of FlexO instance identification (G.709.3, G.709.1 clause 9.2.3)";

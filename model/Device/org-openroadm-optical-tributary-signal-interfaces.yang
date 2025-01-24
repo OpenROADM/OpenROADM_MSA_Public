@@ -8,19 +8,19 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -28,7 +28,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2021-09-24;
+    revision-date 2025-01-10;
   }
 
   organization
@@ -78,6 +78,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -257,6 +261,16 @@ module org-openroadm-optical-tributary-signal-interfaces {
         ordered-by user;
         description
           "A list of FlexO instance identification (G.709.1 clause 9.2.3)";
+      }
+      leaf payload-id {
+        type org-openroadm-otn-common-types:flexo-payload-type-def;
+        description
+          "Payload type PT (Section 9.2.6.2, G.709.1 2020-12). For example, applicable to OIF 800ZR (0x40) (ITU-T)";
+      }
+      leaf flexo-mode {
+        type string;
+        description
+          "Generic line mapping application beyond ITU-T: 1. OIF 400ZR, 2. Industry OpenZR+ MSA (400ZR+)";
       }
       leaf-list accepted-group-id {
         type uint32;

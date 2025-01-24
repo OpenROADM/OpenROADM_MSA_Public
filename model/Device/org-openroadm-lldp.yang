@@ -8,19 +8,23 @@ module org-openroadm-lldp {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2023-05-26;
+    revision-date 2025-01-10;
   }
-  import iana-afn-safi {
-    prefix ianaaf;
-    revision-date 2013-07-04;
+  import iana-routing-types {
+    prefix iana-rt-types;
+    revision-date 2022-08-19;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-01-10;
   }
   import ietf-yang-types {
     prefix yang;
     revision-date 2013-07-15;
+  }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2019-11-29;
   }
 
   organization
@@ -56,6 +60,10 @@ module org-openroadm-lldp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-01-10 {
+    description
+      "Version 13.1.1";
+  }
   revision 2023-05-26 {
     description
       "Version 13.1";
@@ -174,7 +182,7 @@ module org-openroadm-lldp {
         "remote neighbour system name";
     }
     leaf remoteMgmtAddressSubType {
-      type ianaaf:address-family;
+      type iana-rt-types:address-family;
       description
         "remote neighbour Management Address Subtype Enumeration";
     }
@@ -291,6 +299,11 @@ module org-openroadm-lldp {
     container lldp {
       description
         "LLDP configurable and retrievable";
+      leaf lifecycle-state {
+        type org-openroadm-common-state-types:lifecycle-state;
+        description
+          "Lifecycle State of lldp. Whether it is planned or deployed, etc.";
+      }
       container global-config {
         description
           "LLDP global configurations";

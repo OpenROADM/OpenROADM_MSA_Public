@@ -89,6 +89,7 @@ module: openconfig-telemetry
                     +--ro state
                        +--ro path?             string
                        +--ro exclude-filter?   string
+
 module: org-openroadm-database
 
   rpcs:
@@ -133,6 +134,7 @@ module: org-openroadm-database
        +--ro db-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-de-operations
 
   rpcs:
@@ -182,7 +184,15 @@ module: org-openroadm-de-operations
        |  |     |  +---w versioned-service-name    string
        |  |     |  +---w version-number            uint64
        |  |     +--:(temp-service)
-       |  |        +---w common-id                 string
+       |  |     |  +---w common-id                 string
+       |  |     +--:(slot)
+       |  |     |  +---w slot
+       |  |     |     +---w shelf-name    string
+       |  |     |     +---w slot-name     string
+       |  |     +--:(cp-slot)
+       |  |        +---w cp-slot
+       |  |           +---w circuit-pack-name    string
+       |  |           +---w slot-name            string
        |  +---w resourceType
        |  |  +---w type         resource-type-enum
        |  |  +---w extension?   string
@@ -237,10 +247,19 @@ module: org-openroadm-de-operations
        |     |  +--ro versioned-service-name    string
        |     |  +--ro version-number            uint64
        |     +--:(temp-service)
-       |        +--ro common-id                 string
+       |     |  +--ro common-id                 string
+       |     +--:(slot)
+       |     |  +--ro slot
+       |     |     +--ro shelf-name    string
+       |     |     +--ro slot-name     string
+       |     +--:(cp-slot)
+       |        +--ro cp-slot
+       |           +--ro circuit-pack-name    string
+       |           +--ro slot-name            string
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
+
 module: org-openroadm-device
   +--rw org-openroadm-device
      +--rw info
@@ -252,6 +271,7 @@ module: org-openroadm-device
      |  +--ro vendor                              string
      |  +--ro model                               string
      |  +--ro serial-id                           string
+     |  +--ro oamp-interface-name?                string
      |  +--ro macAddress?                         ietf-yang-types:mac-address
      |  +--ro softwareVersion?                    string
      |  +--ro software-build?                     string
@@ -333,6 +353,9 @@ module: org-openroadm-device
      |  |  +--ro extension?   string
      |  +--rw equipment-state?             org-openroadm-equipment-states-types:states
      |  +--rw circuit-pack-mode?           string
+     |  +--rw sub-circuit-pack-mode* [index]
+     |  |  +--rw index    uint8
+     |  |  +--rw mode?    string
      |  +--rw shelf                        -> /org-openroadm-device/shelves/shelf-name
      |  +--rw slot                         string
      |  +--rw subSlot?                     string
@@ -490,7 +513,6 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile-name*   -> /org-openroadm-device:org-openroadm-device/protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/profile-name
      |  +--rw org-openroadm-eth-interfaces:ethernet
      |  |  +--rw org-openroadm-eth-interfaces:speed?                          uint32
-     |  |  +--rw org-openroadm-eth-interfaces:eth-function?                   eth-function-type
      |  |  +--rw org-openroadm-eth-interfaces:fec?                            identityref
      |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?       enumeration
      |  |  +--rw org-openroadm-eth-interfaces:duplex?                         enumeration
@@ -507,7 +529,7 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-eth-interfaces:no-maint-testsignal-function?   empty
      |  |  +--rw org-openroadm-eth-interfaces:parent-flexo-allocation!
      |  |  |  +--rw org-openroadm-eth-interfaces:trib-port-number    uint16
-     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint16
+     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint8
      |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
      |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
      |  |  |  |  +---w org-openroadm-eth-interfaces:input
@@ -580,10 +602,10 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-ip:forwarding?   boolean
      |  |  +--ro org-openroadm-ip:mtu?          uint32
      |  |  +--ro org-openroadm-ip:address* [ip]
-     |  |  |  +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
-     |  |  |  +--ro org-openroadm-ip:prefix-length    uint8
-     |  |  +--ro org-openroadm-ip:origin?       ip-address-origin
-     |  |  +--ro org-openroadm-ip:status?       ipv6-address-status
+     |  |     +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |     +--ro org-openroadm-ip:prefix-length    uint8
+     |  |     +--ro org-openroadm-ip:origin?          ip-address-origin
+     |  |     +--ro org-openroadm-ip:status?          ipv6-address-status
      |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
      |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
@@ -634,6 +656,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type?             identityref
      |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:payload-id?            org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:flexo-mode?            string
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
@@ -800,6 +824,7 @@ module: org-openroadm-device
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
+     |  |  +--rw org-openroadm-prot-equipment-aps:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-prot-equipment-aps:prot-architecture    prot-architecture-type
      |  |  +--ro org-openroadm-prot-equipment-aps:service-state        pg-service-state-type
      |  |  +--ro org-openroadm-prot-equipment-aps:redundancy-state     pg-redundancy-state-type
@@ -812,6 +837,7 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-prot-equipment-aps:member-active      boolean
      |  +--rw org-openroadm-prot-otn-linear-aps:odu-sncp-pg* [name]
      |  |  +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |  |  +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-prot-otn-linear-aps:level                  protection-level-type
      |  |  +--rw org-openroadm-prot-otn-linear-aps:prot-type?             identityref
      |  |  +--rw org-openroadm-prot-otn-linear-aps:mode                   protection-mode-type
@@ -829,6 +855,7 @@ module: org-openroadm-device
      |  |  +--ro org-openroadm-prot-otn-linear-aps:request-state?         request-state-type
      |  +--rw org-openroadm-prot-otn-linear-aps:client-sncp-pg* [name]
      |     +--rw org-openroadm-prot-otn-linear-aps:name                   string
+     |     +--rw org-openroadm-prot-otn-linear-aps:lifecycle-state?       org-openroadm-common-state-types:lifecycle-state
      |     +--rw org-openroadm-prot-otn-linear-aps:switching-direction?   switching-direction-type
      |     +--rw org-openroadm-prot-otn-linear-aps:revertive?             boolean
      |     +--rw org-openroadm-prot-otn-linear-aps:sd-enable?             boolean
@@ -852,20 +879,24 @@ module: org-openroadm-device
      +--rw protocols
      |  +--rw lifecycle-state?                      org-openroadm-common-state-types:lifecycle-state
      |  +--rw org-openroadm-dhcp:ipv4-dhcp-relay
+     |  |  +--rw org-openroadm-dhcp:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-dhcp:ipv4-server-group* [server-group-name]
      |  |     +--rw org-openroadm-dhcp:server-group-name    string
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv4-address
      |  +--rw org-openroadm-dhcp:ipv6-dhcp-relay
+     |  |  +--rw org-openroadm-dhcp:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-dhcp:ipv6-server-group* [server-group-name]
      |  |     +--rw org-openroadm-dhcp:server-group-name    string
      |  |     +--rw org-openroadm-dhcp:interface-name*      -> /org-openroadm-device:org-openroadm-device/interface/name
      |  |     +--rw org-openroadm-dhcp:server-address*      ietf-inet-types:ipv6-address
      |  +--rw org-openroadm-gnmi:gnmi
-     |  |  +--rw org-openroadm-gnmi:enabled?          boolean
-     |  |  +--rw org-openroadm-gnmi:certificate-id?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
-     |  |  +--rw org-openroadm-gnmi:port?             inet:port-number
+     |  |  +--rw org-openroadm-gnmi:enabled?           boolean
+     |  |  +--rw org-openroadm-gnmi:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |  |  +--rw org-openroadm-gnmi:certificate-id?    -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
+     |  |  +--rw org-openroadm-gnmi:port?              inet:port-number
      |  +--rw org-openroadm-lldp:lldp
+     |  |  +--rw org-openroadm-lldp:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-lldp:global-config
      |  |  |  +--rw org-openroadm-lldp:adminStatus?           enumeration
      |  |  |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
@@ -877,13 +908,14 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-lldp:if-name* [ifName]
      |  |        +--ro org-openroadm-lldp:ifName                      string
      |  |        +--ro org-openroadm-lldp:remoteSysName?              string
-     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   ianaaf:address-family
+     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   iana-rt-types:address-family
      |  |        +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
      |  |        +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
      |  |        +--ro org-openroadm-lldp:remotePortId?               string
      |  |        +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
      |  |        +--ro org-openroadm-lldp:remoteChassisId?            string
      |  +--rw org-openroadm-rstp:rstp
+     |     +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
      |     +--ro org-openroadm-rstp:max-bridge-instances?   uint32
      |     +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
      |        +--rw org-openroadm-rstp:bridge-name    string
@@ -1095,6 +1127,8 @@ module: org-openroadm-device
      |  +--ro profile-name                          string
      |  +--ro if-cap-type?                          identityref
      |  +--ro flexo-payload-type?                   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  +--ro eth-mixed?                            boolean
+     |  +--ro eth-speed*                            uint32
      |  +--ro (otu-rate)?
      |  |  +--:(otucn)
      |  |  |  +--ro otucn-n-rate?                   uint16
@@ -1155,9 +1189,9 @@ module: org-openroadm-device
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-eth-speed?                uint32
+     |  +--ro network-otsi-group-rate           identityref
      |  +--ro network-flexo-trib-port-number    uint16
-     |  +--ro network-flexo-iid*                uint16
+     |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
      |  +--ro profile-name                 string
      |  +--ro otsi-rate                    identityref
@@ -1185,6 +1219,7 @@ module: org-openroadm-device
      |     +--ro org-openroadm-security:information?         string
      +--rw org-openroadm-routing:routing
      |  +--rw org-openroadm-routing:routing-instance* [name]
+     |     +--rw org-openroadm-routing:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
      |     +--rw org-openroadm-routing:name                 string
      |     +--rw org-openroadm-routing:type?                identityref
      |     +--rw org-openroadm-routing:enabled?             boolean
@@ -1194,9 +1229,10 @@ module: org-openroadm-device
      |     |  +--rw org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--rw org-openroadm-routing:routing-protocols
      |     |  +--rw org-openroadm-routing:routing-protocol* [type name]
-     |     |     +--rw org-openroadm-routing:type             identityref
-     |     |     +--rw org-openroadm-routing:name             string
-     |     |     +--rw org-openroadm-routing:description?     string
+     |     |     +--rw org-openroadm-routing:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |     |     +--rw org-openroadm-routing:type               identityref
+     |     |     +--rw org-openroadm-routing:name               string
+     |     |     +--rw org-openroadm-routing:description?       string
      |     |     +--rw org-openroadm-routing:static-routes
      |     |     |  +--rw org-openroadm-ipv4-unicast-routing:ipv4
      |     |     |  |  +--rw org-openroadm-ipv4-unicast-routing:route* [destination-prefix]
@@ -1308,6 +1344,8 @@ module: org-openroadm-device
      |     +--ro org-openroadm-routing:name                 string
      |     +--ro org-openroadm-routing:type?                identityref
      |     +--ro org-openroadm-routing:router-id?           yang:dotted-quad
+     |     +--ro org-openroadm-routing:interfaces
+     |     |  +--ro org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--ro org-openroadm-routing:routing-protocols
      |     |  +--ro org-openroadm-routing:routing-protocol* [type name]
      |     |     +--ro org-openroadm-routing:type    identityref
@@ -1700,6 +1738,21 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family    identityref
      |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
      |           +--ro org-openroadm-routing:routes
+     |              +--ro org-openroadm-routing:route* []
+     |                 +--ro org-openroadm-routing:route-preference?                  route-preference
+     |                 +--ro org-openroadm-routing:next-hop
+     |                 |  +--ro (org-openroadm-routing:next-hop-options)
+     |                 |     +--:(org-openroadm-routing:simple-next-hop)
+     |                 |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
+     |                 |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
+     |                 |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
+     |                 |     +--:(org-openroadm-routing:special-next-hop)
+     |                 |        +--ro org-openroadm-routing:special-next-hop?                enumeration
+     |                 +--ro org-openroadm-routing:source-protocol                    identityref
+     |                 +--ro org-openroadm-routing:active?                            empty
+     |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
+     |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
+     |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16
@@ -1727,6 +1780,7 @@ module: org-openroadm-device
      +--rw org-openroadm-port-capability:provisioned-port-grp
         +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
            +--rw org-openroadm-port-capability:port-sharing-id            uint16
+           +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
            +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
 
   rpcs:
@@ -1859,6 +1913,7 @@ module: org-openroadm-device
        +--ro edit* []
           +--ro target?      instance-identifier
           +--ro operation?   ietf-nc:edit-operation-type
+
 module: org-openroadm-file-transfer
 
   rpcs:
@@ -1895,6 +1950,7 @@ module: org-openroadm-file-transfer
        +--ro progress
           +--ro bytes-transferred?     uint64
           +--ro percentage-complete?   uint8
+
 module: org-openroadm-fwdl
 
   rpcs:
@@ -1905,6 +1961,7 @@ module: org-openroadm-fwdl
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-key-chain
   +--rw key-chains
   |  +--rw key-chain-list* [name]
@@ -1929,6 +1986,7 @@ module: org-openroadm-key-chain
               +--ro (algorithm)?
                  +--:(md5)
                     +--ro md5?   empty
+
 module: org-openroadm-lldp
 
   notifications:
@@ -1938,13 +1996,14 @@ module: org-openroadm-lldp
        +--ro resource?            string
        +--ro nbr-info
        |  +--ro remoteSysName?              string
-       |  +--ro remoteMgmtAddressSubType?   ianaaf:address-family
+       |  +--ro remoteMgmtAddressSubType?   iana-rt-types:address-family
        |  +--ro remoteMgmtAddress?          inet:ip-address
        |  +--ro remotePortIdSubType?        enumeration
        |  +--ro remotePortId?               string
        |  +--ro remoteChassisIdSubType?     enumeration
        |  +--ro remoteChassisId?            string
        +--ro event-time?          yang:date-and-time
+
 module: org-openroadm-ospf
 
   notifications:
@@ -2061,6 +2120,7 @@ module: org-openroadm-ospf
        +--ro status?                  restart-status-type
        +--ro restart-interval?        uint16
        +--ro exit-reason?             restart-exit-reason-type
+
 module: org-openroadm-otn-common
 
   notifications:
@@ -2074,6 +2134,7 @@ module: org-openroadm-otn-common
           +--ro accepted-sapi?       string
           +--ro accepted-dapi?       string
           +--ro accepted-operator?   string
+
 module: org-openroadm-prot-equipment-aps
 
   rpcs:
@@ -2085,6 +2146,7 @@ module: org-openroadm-prot-equipment-aps
        +--ro output
           +--ro status            rpc-status
           +--ro status-message?   string
+
 module: org-openroadm-prot-otn-linear-aps
 
   rpcs:
@@ -2109,6 +2171,7 @@ module: org-openroadm-prot-otn-linear-aps
     +---n odu-sncp-pg-switch-event
        +--ro switch-status?      enumeration
        +--ro odu-sncp-pg-name?   string
+
 module: org-openroadm-rstp
 
   notifications:
@@ -2116,6 +2179,7 @@ module: org-openroadm-rstp
     |  +--ro node-id?   org-openroadm-common-node-types:node-id-type
     +---n rstp-new-root
        +--ro node-id?   org-openroadm-common-node-types:node-id-type
+
 module: org-openroadm-swdl
 
   rpcs:
@@ -2147,6 +2211,7 @@ module: org-openroadm-swdl
        +--ro sw-active-notification-type?   org-openroadm-common-types:activate-notification-type
        +--ro status                         rpc-status
        +--ro status-message?                string
+
 module: org-openroadm-syslog
   +--rw syslog
      +--ro local-syslog-filename    string
@@ -2172,3 +2237,4 @@ module: org-openroadm-syslog
                           +--rw facility             union
                           +--rw severity             severity
                           +--rw severity-operator?   enumeration {selector-sevop-config}?
+
