@@ -4,7 +4,7 @@
 			    "request-id": "load-OM-Catalog",
 			    "rpc-action": "fill-catalog-with-or-operational-modes",
 			    "request-system-id": "appname"
-		    },		
+		    },
             "operational-mode-info": {
                 "grid-parameters": {
                     "min-central-frequency": "191.35000000",
@@ -70,14 +70,14 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-100G-oFEC-31.6Gbd",
+                            "media-interface-id": "51",
                             "baud-rate": "31.6",
                             "line-rate": "126.3",
                             "modulation-format": "dp-qpsk",
                             "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             }],
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -156,14 +156,14 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-200G-oFEC-31.6Gbd",
+                            "media-interface-id": "52",
                             "baud-rate": "31.6",
                             "line-rate": "252.6",
                             "modulation-format": "dp-qam16",
                             "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             }],
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -247,14 +247,14 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-200G-oFEC-63.1Gbd",
+                            "media-interface-id": "54",
                             "baud-rate": "63.1",
                             "line-rate": "252.6",
                             "modulation-format": "dp-qpsk",
                             "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             }],
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -328,14 +328,14 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-300G-oFEC-63.1Gbd",
+                            "media-interface-id": "60",
                             "baud-rate": "63.1",
                             "line-rate": "378.8",
                             "modulation-format": "dp-qam8",
                             "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             }],
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -414,14 +414,14 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-63.1Gbd",
+                            "media-interface-id": "53",
                             "baud-rate": "63.1",
                             "line-rate": "505.1",
                             "modulation-format": "dp-qam16",
                             "min-TX-osnr": "37.000",
                             "TX-OOB-osnr": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
-                                "min-OOB-osnr-multi-channel-value": "36.000",
-                                "min-OOB-osnr-single-channel-value": "43.000"
+                                "min-OOB-osnr-multi-channel-value": "36.000"
                             }],
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -505,14 +505,14 @@
                         },
 						{
 							"openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd",
+							"media-interface-id": "65",
 							"baud-rate": "124.1",
 							"line-rate": "422.6",
 							"modulation-format": "dp-qpsk",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
+								"min-OOB-osnr-multi-channel-value": "36.000"
 							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -586,15 +586,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd",
+							"media-interface-id": "64",
 							"baud-rate": "118.2",
 							"line-rate": "422.6",
 							"modulation-format": "dp-qpsk",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -667,17 +667,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd_type2",
+							"media-interface-id": "65",
 							"baud-rate": "124.1",
 							"line-rate": "422.6",
 							"modulation-format": "dp-qpsk",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
 							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -748,17 +748,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd_type2",
+							"media-interface-id": "64",
 							"baud-rate": "118.2",
 							"line-rate": "422.6",
 							"modulation-format": "dp-qpsk",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
 							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -829,15 +829,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd",
+							"media-interface-id": "67",
 							"baud-rate": "124.1",
 							"line-rate": "845.1",
 							"modulation-format": "dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -915,15 +915,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd",
+							"media-interface-id": "66",
 							"baud-rate": "118.2",
 							"line-rate": "845.1",
 							"modulation-format": "dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -1001,17 +1001,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd_type2",
+							"media-interface-id": "67",
 							"baud-rate": "124.1",
 							"line-rate": "845.1",
 							"modulation-format": "dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1087,17 +1087,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd_type2",
+							"media-interface-id": "66",
 							"baud-rate": "118.2",
 							"line-rate": "845.1",
 							"modulation-format": "dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1173,15 +1173,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd",
+							"media-interface-id": "6B",
 							"baud-rate": "124.7",
 							"line-rate": "633.9",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -1254,14 +1254,14 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd",
+							"media-interface-id": "6A",
 							"baud-rate": "118.8",
 							"line-rate": "633.9",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
+								"min-OOB-osnr-multi-channel-value": "36.000"
 							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
@@ -1335,15 +1335,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE",
+							"media-interface-id": "68",
 							"baud-rate": "131.3",
 							"line-rate": "845.1",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -1421,15 +1421,15 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM",
+							"media-interface-id": "69",
 							"baud-rate": "131.4",
 							"line-rate": "845.1",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-					        }],
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
 								"WR-openroadm-operational-mode-id": "MW-WR-core",
 								"min-output-power": "-5.000",
@@ -1507,17 +1507,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd_type2",
+							"media-interface-id": "6B",
 							"baud-rate": "124.7",
 							"line-rate": "633.9",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1588,17 +1588,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd_type2",
+							"media-interface-id": "6A",
 							"baud-rate": "118.8",
 							"line-rate": "633.9",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1669,17 +1669,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE_type2",
+							"media-interface-id": "68",
 							"baud-rate": "131.3",
 							"line-rate": "845.1",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-								"min-OOB-osnr-single-channel-value": "43.000"
-						    }],
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
+							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1755,17 +1755,17 @@
 						},
 						{
 							"openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM_type2",
+							"media-interface-id": "69",
 							"baud-rate": "131.4",
 							"line-rate": "845.1",
 							"modulation-format": "pcs-dp-qam16",
 							"min-TX-osnr": "37.000",
 							"TX-OOB-osnr": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
-								"min-OOB-osnr-multi-channel-value": "36.000",
-							    "min-OOB-osnr-single-channel-value": "43.000"
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+								"min-OOB-osnr-multi-channel-value": "36.000"
 							}],
 							"output-power-range": [{
-								"WR-openroadm-operational-mode-id": "MW-WR-core",
+								"WR-openroadm-operational-mode-id": "MW-WR-core-type2",
 								"min-output-power": "-5.000",
 								"max-output-power": "0.000"
 							}],
@@ -1888,47 +1888,90 @@
                             ]
                         }
                     },
-                    "Add": {
-                        "add-openroadm-operational-mode": {
-                            "openroadm-operational-mode-id": "MW-WR-core",
-                            "incremental-osnr": "33.000",
-                            "per-channel-Pin-min": "-6.000",
-                            "per-channel-Pin-max": "3.000",
-                            "max-introduced-pdl": "1.500",
-                            "max-introduced-dgd": "3.00",
-                            "max-introduced-cd": "25.00",
-                            "mask-power-vs-pin": [
-                                {
-                                    "lower-boundary": "0",
-                                    "upper-boundary": "6",
-                                    "C": "1.00000000",
-                                    "D": "-9.00000000",
-                                    "fiber-type": "smf"
-                                },
-                                {
-                                    "lower-boundary": "6",
-                                    "upper-boundary": "8",
-                                    "C": "-0.00000000",
-                                    "D": "-3.00000000",
-                                    "fiber-type": "smf"
-                                },
-                                {
-                                    "lower-boundary": "8",
-                                    "upper-boundary": "23",
-                                    "C": "0.33333334",
-                                    "D": "-5.66666667",
-                                    "fiber-type": "smf"
-                                },
-                                {
-                                    "lower-boundary": "23",
-                                    "upper-boundary": "27",
-                                    "C": "0.00000000",
-                                    "D": "2.00000000",
-                                    "fiber-type": "smf"
-                                }
-                            ]
-                        }
-                    },
+	                "Add": {
+	                    "openroadm-operational-mode": [
+		                    {
+		                        "openroadm-operational-mode-id": "MW-WR-core",
+		                        "max-channel-number": "16",
+		                        "incremental-osnr": "33.000",
+		                        "per-channel-Pin-min": "-6.000",
+		                        "per-channel-Pin-max": "3.000",
+		                        "max-introduced-pdl": "1.500",
+		                        "max-introduced-dgd": "3.00",
+		                        "max-introduced-cd": "25.00",
+		                        "mask-power-vs-pin": [
+		                            {
+		                                "lower-boundary": "0",
+		                                "upper-boundary": "6",
+		                                "C": "1.00000000",
+		                                "D": "-9.00000000",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "6",
+		                                "upper-boundary": "8",
+		                                "C": "-0.00000000",
+		                                "D": "-3.00000000",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "8",
+		                                "upper-boundary": "23",
+		                                "C": "0.33333334",
+		                                "D": "-5.66666667",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "23",
+		                                "upper-boundary": "27",
+		                                "C": "0.00000000",
+		                                "D": "2.00000000",
+		                                "fiber-type": "smf"
+		                            }
+		                        ]
+		                    },
+		                    {
+		                        "openroadm-operational-mode-id": "MW-WR-core-type2",
+		                        "max-channel-number": "4",
+		                        "incremental-osnr": "33.000",
+		                        "per-channel-Pin-min": "-6.000",
+		                        "per-channel-Pin-max": "3.000",
+		                        "max-introduced-pdl": "1.500",
+		                        "max-introduced-dgd": "3.00",
+		                        "max-introduced-cd": "25.00",
+		                        "mask-power-vs-pin": [
+		                            {
+		                                "lower-boundary": "0",
+		                                "upper-boundary": "6",
+		                                "C": "1.00000000",
+		                                "D": "-9.00000000",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "6",
+		                                "upper-boundary": "8",
+		                                "C": "-0.00000000",
+		                                "D": "-3.00000000",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "8",
+		                                "upper-boundary": "23",
+		                                "C": "0.33333334",
+		                                "D": "-5.66666667",
+		                                "fiber-type": "smf"
+		                            },
+		                            {
+		                                "lower-boundary": "23",
+		                                "upper-boundary": "27",
+		                                "C": "0.00000000",
+		                                "D": "2.00000000",
+		                                "fiber-type": "smf"
+		                            }
+		                        ]
+		                    }
+	                    ]
+	                },
                     "Drop": {
                         "openroadm-operational-mode": {
                             "openroadm-operational-mode-id": "MW-WR-core",

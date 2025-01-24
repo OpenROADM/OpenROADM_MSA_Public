@@ -4,7 +4,7 @@ module org-openroadm-network-media-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -12,7 +12,7 @@ module org-openroadm-network-media-channel-interfaces {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
 
   organization
@@ -62,6 +62,10 @@ module org-openroadm-network-media-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";
@@ -209,6 +213,12 @@ module org-openroadm-network-media-channel-interfaces {
       refine "full-bandwidth-at-10dB" {
         config true;
       }
+    }
+    leaf mc-slot-width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config true;
+      description
+        "The MC slot width associated with the NMC. This value is only used for NMCs associated with the SRG add/drop port (i.e., NMC that are provisioned directly on the port entity).";
     }
   }
 

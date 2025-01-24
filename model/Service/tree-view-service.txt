@@ -3957,24 +3957,28 @@ module: org-openroadm-service
   |        +--rw nodes*             string
   |        +--rw logical-links*     string
   |        +--rw physical-links*    string
-  +--rw operational-mode-catalog
+  +--rw operational-mode-catalog!
      +--rw openroadm-operational-modes
      |  +--rw grid-parameters
-     |  |  +--rw min-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw max-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw min-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw max-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--rw central-frequency-granularity    org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw min-spacing                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw min-channel-width                org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw xponders-pluggables!
      |  |  +--rw xponder-pluggable-openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |     +--rw openroadm-operational-mode-id    string
+     |  |     +--rw media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
      |  |     +--rw baud-rate?                       decimal64
      |  |     +--rw line-rate                        decimal64
-     |  |     +--rw modulation-format                org-openroadm-common-optical-channel-types:modulation-format
+     |  |     +--rw payload-rate-identity?           identityref
+     |  |     +--rw fec-rate?                        decimal64
+     |  |     +--rw prefec-ber-threshold?            decimal64
+     |  |     +--rw modulation-format?               union
      |  |     +--rw min-TX-osnr                      org-openroadm-common-link-types:ratio-dB
      |  |     +--rw TX-OOB-osnr* [WR-openroadm-operational-mode-id]
      |  |     |  +--rw WR-openroadm-operational-mode-id     string
-     |  |     |  +--rw min-OOB-osnr-multi-channel-value     org-openroadm-common-link-types:ratio-dB
-     |  |     |  +--rw min-OOB-osnr-single-channel-value    org-openroadm-common-link-types:ratio-dB
+     |  |     |  +--rw min-OOB-osnr-multi-channel-value?    org-openroadm-common-link-types:ratio-dB
+     |  |     |  +--rw min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
      |  |     +--rw output-power-range* [WR-openroadm-operational-mode-id]
      |  |     |  +--rw WR-openroadm-operational-mode-id    string
      |  |     |  +--rw min-output-power                    org-openroadm-common-link-types:ratio-dB
@@ -3983,7 +3987,7 @@ module: org-openroadm-service
      |  |     +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
      |  |     +--rw max-input-power                  org-openroadm-common-link-types:ratio-dB
      |  |     +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |     +--rw fec-type?                        identityref
+     |  |     +--rw fec-type?                        union
      |  |     +--rw min-roll-off?                    decimal64
      |  |     +--rw max-roll-off?                    decimal64
      |  |     +--rw penalties* [parameter-and-unit up-to-boundary]
@@ -4072,20 +4076,25 @@ module: org-openroadm-service
      +--rw specific-operational-modes
         +--rw specific-operational-mode* [operational-mode-id]
            +--rw operational-mode-id              string
+           +--rw media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
+           +--rw associated-oui?                  org-openroadm-common-types:oui-type
            +--rw originator?                      string
            +--rw sponsor?                         string
-           +--rw min-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
-           +--rw max-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
+           +--rw min-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
+           +--rw max-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
            +--rw central-frequency-granularity    org-openroadm-common-optical-channel-types:frequency-GHz
-           +--rw min-spacing                      org-openroadm-common-optical-channel-types:frequency-GHz
+           +--rw min-channel-width                org-openroadm-common-optical-channel-types:frequency-GHz
            +--rw baud-rate?                       decimal64
            +--rw line-rate                        decimal64
-           +--rw modulation-format                org-openroadm-common-optical-channel-types:modulation-format
+           +--rw payload-rate-identity?           identityref
+           +--rw fec-rate?                        decimal64
+           +--rw prefec-ber-threshold?            decimal64
+           +--rw modulation-format?               union
            +--rw min-TX-osnr                      org-openroadm-common-link-types:ratio-dB
            +--rw TX-OOB-osnr* [WR-openroadm-operational-mode-id]
            |  +--rw WR-openroadm-operational-mode-id     string
-           |  +--rw min-OOB-osnr-multi-channel-value     org-openroadm-common-link-types:ratio-dB
-           |  +--rw min-OOB-osnr-single-channel-value    org-openroadm-common-link-types:ratio-dB
+           |  +--rw min-OOB-osnr-multi-channel-value?    org-openroadm-common-link-types:ratio-dB
+           |  +--rw min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
            +--rw output-power-range* [WR-openroadm-operational-mode-id]
            |  +--rw WR-openroadm-operational-mode-id    string
            |  +--rw min-output-power                    org-openroadm-common-link-types:ratio-dB
@@ -4094,7 +4103,7 @@ module: org-openroadm-service
            +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
            +--rw max-input-power                  org-openroadm-common-link-types:ratio-dB
            +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
-           +--rw fec-type?                        identityref
+           +--rw fec-type?                        union
            +--rw min-roll-off?                    decimal64
            +--rw max-roll-off?                    decimal64
            +--rw penalties* [parameter-and-unit up-to-boundary]
@@ -12388,21 +12397,25 @@ module: org-openroadm-service
     |  |  |  +---w request-system-id?   string
     |  |  +---w operational-mode-info
     |  |     +---w grid-parameters
-    |  |     |  +---w min-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     |  +---w max-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w min-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w max-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w central-frequency-granularity    org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     |  +---w min-spacing                      org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     |  +---w min-channel-width                org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +---w xponders-pluggables
     |  |     |  +---w xponder-pluggable-openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |     +---w openroadm-operational-mode-id    string
+    |  |     |     +---w media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
     |  |     |     +---w baud-rate?                       decimal64
     |  |     |     +---w line-rate                        decimal64
-    |  |     |     +---w modulation-format                org-openroadm-common-optical-channel-types:modulation-format
+    |  |     |     +---w payload-rate-identity?           identityref
+    |  |     |     +---w fec-rate?                        decimal64
+    |  |     |     +---w prefec-ber-threshold?            decimal64
+    |  |     |     +---w modulation-format?               union
     |  |     |     +---w min-TX-osnr                      org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w TX-OOB-osnr* [WR-openroadm-operational-mode-id]
     |  |     |     |  +---w WR-openroadm-operational-mode-id     string
-    |  |     |     |  +---w min-OOB-osnr-multi-channel-value     org-openroadm-common-link-types:ratio-dB
-    |  |     |     |  +---w min-OOB-osnr-single-channel-value    org-openroadm-common-link-types:ratio-dB
+    |  |     |     |  +---w min-OOB-osnr-multi-channel-value?    org-openroadm-common-link-types:ratio-dB
+    |  |     |     |  +---w min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w output-power-range* [WR-openroadm-operational-mode-id]
     |  |     |     |  +---w WR-openroadm-operational-mode-id    string
     |  |     |     |  +---w min-output-power                    org-openroadm-common-link-types:ratio-dB
@@ -12411,7 +12424,7 @@ module: org-openroadm-service
     |  |     |     +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w max-input-power                  org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     |     +---w fec-type?                        identityref
+    |  |     |     +---w fec-type?                        union
     |  |     |     +---w min-roll-off?                    decimal64
     |  |     |     +---w max-roll-off?                    decimal64
     |  |     |     +---w penalties* [parameter-and-unit up-to-boundary]
@@ -12514,18 +12527,23 @@ module: org-openroadm-service
     |  |     +---w specific-operational-modes
     |  |        +---w specific-operational-mode* [operational-mode-id]
     |  |           +---w operational-mode-id              string
-    |  |           +---w min-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |           +---w max-central-frequency            org-openroadm-common-optical-channel-types:frequency-THz
+    |  |           +---w media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
+    |  |           +---w associated-oui?                  org-openroadm-common-types:oui-type
+    |  |           +---w min-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
+    |  |           +---w max-edge-frequency               org-openroadm-common-optical-channel-types:frequency-THz
     |  |           +---w central-frequency-granularity    org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |           +---w min-spacing                      org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |           +---w min-channel-width                org-openroadm-common-optical-channel-types:frequency-GHz
     |  |           +---w baud-rate?                       decimal64
     |  |           +---w line-rate                        decimal64
-    |  |           +---w modulation-format                org-openroadm-common-optical-channel-types:modulation-format
+    |  |           +---w payload-rate-identity?           identityref
+    |  |           +---w fec-rate?                        decimal64
+    |  |           +---w prefec-ber-threshold?            decimal64
+    |  |           +---w modulation-format?               union
     |  |           +---w min-TX-osnr                      org-openroadm-common-link-types:ratio-dB
     |  |           +---w TX-OOB-osnr* [WR-openroadm-operational-mode-id]
     |  |           |  +---w WR-openroadm-operational-mode-id     string
-    |  |           |  +---w min-OOB-osnr-multi-channel-value     org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w min-OOB-osnr-single-channel-value    org-openroadm-common-link-types:ratio-dB
+    |  |           |  +---w min-OOB-osnr-multi-channel-value?    org-openroadm-common-link-types:ratio-dB
+    |  |           |  +---w min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
     |  |           +---w output-power-range* [WR-openroadm-operational-mode-id]
     |  |           |  +---w WR-openroadm-operational-mode-id    string
     |  |           |  +---w min-output-power                    org-openroadm-common-link-types:ratio-dB
@@ -12534,7 +12552,7 @@ module: org-openroadm-service
     |  |           +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
     |  |           +---w max-input-power                  org-openroadm-common-link-types:ratio-dB
     |  |           +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |           +---w fec-type?                        identityref
+    |  |           +---w fec-type?                        union
     |  |           +---w min-roll-off?                    decimal64
     |  |           +---w max-roll-off?                    decimal64
     |  |           +---w penalties* [parameter-and-unit up-to-boundary]

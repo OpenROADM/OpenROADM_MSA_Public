@@ -8,7 +8,7 @@ module org-openroadm-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -23,7 +23,7 @@ module org-openroadm-routing {
     "This model defines Yang model for routing.
 
      This model reuses data items defined in the IETF YANG model for
-     interfaces described by RFC 8022.
+     interfaces described by draft-ietf-netmod-routing-cfg-19.
 
      Some attributes which are not required in Open ROADM MSA are removed.
      Yang file included are changed to fit into Open ROADM MSA yang structure.
@@ -39,6 +39,10 @@ module org-openroadm-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";
@@ -334,6 +338,38 @@ module org-openroadm-routing {
       }
     }
   }
+   grouping next-hop-state-content {
+    description
+      "Generic parameters of next-hops in state data.";
+    choice next-hop-options {
+      mandatory "true";
+      description
+        "Options for next-hops in state data.
+
+         It is expected that other cases will be added through
+         augments from other modules, e.g., for ECMP or recursive
+         next-hops.";
+      case simple-next-hop {
+        description
+          "Simple next-hop is specified as an outgoing interface,
+           next-hop address or both.
+
+           Address-family-specific modules are expected to provide
+           'next-hop-address' leaf via augmentation.";
+        leaf outgoing-interface {
+          type leafref {
+            path "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/"
+               + "org-openroadm-routing:routing-instance/org-openroadm-routing:interfaces/org-openroadm-routing:interface";
+          }
+          description
+            "Name of the outgoing interface.";
+        }
+      }
+      case special-next-hop {
+        uses special-next-hop-group;
+      }
+    }
+  }
 
   grouping route-metadata {
     description
@@ -564,6 +600,17 @@ module org-openroadm-routing {
              It may be either configured or assigned algorithmically by
              the implementation.";
         }
+        container interfaces {
+          description
+            "Network layer interfaces belonging to the routing
+             instance.";
+          leaf-list interface {
+            type org-openroadm-device:interface-ref;
+            description
+              "Each entry is a reference to the name of a configured
+               network layer interface.";
+          }
+        }
         container routing-protocols {
           description
             "Container for the list of routing protocol instances.";
@@ -598,7 +645,6 @@ module org-openroadm-routing {
             "Container for RIBs.";
           list rib {
             key "name";
-            min-elements 1;
             description
               "Each entry represents a RIB identified by the 'name'
                key. All routes in a RIB MUST belong to the same address
@@ -628,6 +674,26 @@ module org-openroadm-routing {
             container routes {
               description
                 "Current content of the RIB.";
+              list route {
+                 description
+                   "A RIB route entry. This data node MUST be augmented
+                    with information specific for routes of each address
+                    family.";
+                 leaf route-preference {
+                   type route-preference;
+                   description
+                     "This route attribute, also known as administrative
+                      distance, allows for selecting the preferred route
+                      among routes with the same destination prefix. A
+                      smaller value means a more preferred route.";
+                 }
+                 container next-hop {
+                   description
+                     "Route's next-hop attribute.";
+                   uses next-hop-state-content;
+                 }
+                 uses route-metadata;
+              }
             }
           }
         }

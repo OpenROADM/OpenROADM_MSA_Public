@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -36,7 +36,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -56,7 +56,7 @@ module org-openroadm-device {
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2024-03-29;
+    revision-date 2024-12-13;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -84,7 +84,7 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -100,7 +100,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2024-09-27;
+    revision-date 2024-12-13;
   }
   organization
     "Open ROADM MSA";
@@ -149,6 +149,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";
@@ -827,6 +831,22 @@ module org-openroadm-device {
       description
         "Circuit-pack mode allowed. e.g. NORMAL or REGEN";
     }
+    list sub-circuit-pack-mode {
+      key "index";
+      description
+        "List of sub-circuit-pack in circuit-packs and the mode.";
+      leaf index {
+        type uint8;
+        description
+          "Sub circuit-pack index.";
+      }
+      leaf mode {
+        type string;
+        default "NORMAL";
+        description
+          "Sub circuit-pack mode allowed, e.g. NORMAL or REGEN";
+      }
+    }
     leaf shelf {
       type leafref {
         path "/org-openroadm-device/shelves/shelf-name";
@@ -1105,6 +1125,15 @@ module org-openroadm-device {
       description
         "The output target power for this connection. When set, the ROADM will work to ensure that current-output-power reaches this level.";
     }
+    leaf connection-state {
+      type org-openroadm-common-link-types:connection-state;
+      config false;
+      description
+        "This describes the state of the ROADM connection in terms of power stability and ability to provide service.
+         The ROADM connection is considered to be in-service once it has reached its target-output-power level within the tolerance of
+         the device. It will be out-of-service while in the process of provisioning, disconnected, faulted, or outside the target-output-power tolerance
+         This attribute is only used when the actual-control-mode is automatic and must be provided in this case.";
+    }
     container source {
       leaf src-if {
         type leafref {
@@ -1161,6 +1190,20 @@ module org-openroadm-device {
       mandatory true;
       description
         "maximum number of wavelengths";
+    }
+    leaf optical-control {
+      type org-openroadm-common-link-types:optical-control;
+      default "manual";
+      description
+        "Defines how the optical-control-mode is set on the device. It can be manually set by the controller, or
+        automatically set by the device.";
+    }
+    leaf tda-capable {
+      type boolean;
+      config false;
+      description
+        "Has a value of true if the degree ports are capable of supporting transponder direct attach.
+        If it is not present, then it is to be assumed that the degree does not support transponder direct attach.";
     }
     leaf-list optical-operational-mode-profile-name {
         type string;
@@ -1486,6 +1529,94 @@ module org-openroadm-device {
         "Lifecycle State of the physical link. Whether it is planned, deployed, in maintenance, etc.";
     }
   }
+  grouping  srg-constraint-group {
+    leaf target-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      units "dBm per 50GHz";
+      description
+        "The provisioned target PSD to optimize the SRG/sub-SRG.  Channel target power setting is determined based on the target-input-psd and the slot-width of the channel.";
+    }
+    leaf prov-min-slot {
+      type uint32;
+      description
+        "The minimum slots for the SRG/sub-SRG. This value must be greater than
+        or equal to the advertised minimum slots for the SRG.
+        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
+    }
+    leaf prov-max-slot {
+      type uint32;
+      description
+        "The maximum slots for the SRG/sub-SRG. This value must be less than
+        or equal to the advertised maximum slots for the SRG.
+        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
+    }
+    leaf prov-max-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      units "dBm";
+      description
+        "The maximum composite power for the SRG/sub-SRG input ports.
+        This value must be less than or equal to the max-composite-input-power.
+        This attribute allows the user to further restrict the composite power into the SRG/sub-SRG.";
+    }
+    leaf prov-max-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      units "GHz";
+      description
+        "The maximum total bandwidth for the SRG/sub-SRG.
+        This value must be less than or equal to the max-total-bandwidth.
+        This attribute allows the user to further restrict the total bandwidth in and/or out of the SRG/sub-SRG.";
+    }
+    leaf min-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      config false;
+      units "dBm per 50GHz";
+      description
+        "The minimum input PSD for a channel into the SRG/sub-SRG.";
+    }
+    leaf max-input-psd {
+      type org-openroadm-common-link-types:psd-dBm-50GHz;
+      config false;
+      units "dBm per 50GHz";
+      description
+        "The maximum input PSD for a channel into the SRG/sub-SRG.";
+    }
+    leaf max-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      units "dBm";
+      description
+        "The maximum composite (total) power that can be supported coming into the SRG/sub-SRG.
+         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+    }
+    leaf max-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
+      units "GHz";
+      description
+        "The maximum total bandwidth that can be supported coming into or going out of the SRG/sub-SRG.
+         The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+    }
+    leaf available-composite-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      units "dBm";
+      description
+        "The remaining composite power add for the SRG/sub-SRG.
+         This value is computed as the minimum(max-composite-input-power,
+         prov-max-composite-input-power) - sum(provisioned channel input power).
+         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+    }
+    leaf available-total-bandwidth {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
+      units "GHz";
+      description
+        "The remaining total bandwidth for the SRG/sub-SRG.
+        This value is computed as the minimum(max-total-bandwidth,
+            prov-max-total-bandwidth) – sum(provisioned channel bandwidth).
+        The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+    }
+  }
 
   grouping srg {
     leaf max-add-drop-ports {
@@ -1551,6 +1682,30 @@ module org-openroadm-device {
       }
     }
     uses mc-capabilities-grp;
+    uses srg-constraint-group;
+    list subgroup {
+      key "subgroup-id";
+      description
+        "The list of SRG subgroups that make up the SRG.";
+      leaf subgroup-id {
+        type uint16;
+        description
+          "The identifier for the SRG subgroup within the SRG.";
+      }
+      list port-list {
+        key "circuit-pack-name";
+        description
+          "List of ports associated with the SRG subgroup.
+          If all ports of the circuit-pack belong to the SRG subgroup then the port-name leaf-list can be omitted.";
+        uses port-name {
+          refine "circuit-pack-name" {
+            mandatory true;
+          }
+        }
+      }
+      uses mc-capabilities-grp;
+      uses srg-constraint-group;
+    }
   }
 
   grouping xponder {
@@ -2148,6 +2303,16 @@ module org-openroadm-device {
          (G.709.3 Annex F (2020-12))
          G.798 15.3.5.1 (FlexO-n/OTUCni_A_So) source to insert PT code '0000 0010' (2021-01)";
     }
+    leaf eth-mixed {
+      type boolean;
+      description
+        "Announce whether mixed ETH interfaces are supported in NE.";
+    }
+    leaf-list eth-speed {
+      type uint32;
+      description
+        "List the supported ethernet speed. For example, in the case eth-mixed TRUE, eth-speed* = {100000, 200000, 400000, 800000}[Mbps].";
+    }
     choice otu-rate {
       description
         "To specify the supported rate in the case of OTUCn or NxOTU4";
@@ -2407,7 +2572,7 @@ module org-openroadm-device {
         "G.709.1 Amd.4 2023-03 clause 10.2.3.1";
     }
     leaf-list network-flexo-iid {
-      type uint16;
+      type uint8;
       description
         "Network FlexO instance id";
     }
@@ -2982,10 +3147,13 @@ module org-openroadm-device {
           description
             "Mux profile name";
         }
-        leaf network-eth-speed {
-          type uint32;
+        leaf network-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          mandatory true;
           description
-            "Network ethernet speed types supported by the profile, unit mbps";
+            "Network OTSIG rate types supported by the profile";
         }
         uses mux-eth-grp;
       }

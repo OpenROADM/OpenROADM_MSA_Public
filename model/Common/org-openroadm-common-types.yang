@@ -35,6 +35,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
+  }
   revision 2024-09-27 {
     description
       "Version 16.0";
@@ -390,6 +394,11 @@ module org-openroadm-common-types {
         value 33;
         description
           "value for 16.0";
+      }
+      enum 16.1 {
+        value 34;
+        description
+          "value for 16.1";
       }
     }
     description
