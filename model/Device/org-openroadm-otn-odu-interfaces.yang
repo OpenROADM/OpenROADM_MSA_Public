@@ -5,7 +5,7 @@ module org-openroadm-otn-odu-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,7 +13,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
@@ -75,6 +75,10 @@ module org-openroadm-otn-odu-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";

@@ -4,11 +4,11 @@ module org-openroadm-pluggable-optics-holder-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-port-capability {
     prefix org-openroadm-port-capability;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
@@ -62,6 +62,10 @@ module org-openroadm-pluggable-optics-holder-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
