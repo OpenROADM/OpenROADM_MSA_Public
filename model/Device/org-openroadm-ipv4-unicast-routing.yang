@@ -4,7 +4,7 @@ module org-openroadm-ipv4-unicast-routing {
 
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2024-12-13;
+    revision-date 2025-03-10;
   }
   import ietf-inet-types {
     prefix inet;

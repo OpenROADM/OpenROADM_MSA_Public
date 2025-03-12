@@ -16,7 +16,7 @@ module org-openroadm-ospf {
   }
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2024-12-13;
+    revision-date 2025-03-10;
   }
   import org-openroadm-key-chain {
     prefix org-openroadm-key-chain;

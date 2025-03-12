@@ -1,0 +1,445 @@
+module org-openroadm-bgp {
+  yang-version 1.1;
+  namespace "http://org/openroadm/routing-bgp";
+  prefix rt-bgp;
+
+  import ietf-inet-types {
+    prefix inet;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+
+  import ietf-yang-types {
+    prefix yang;
+    revision-date 2013-07-15;
+  }
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2024-12-13;
+  }
+
+  import org-openroadm-routing {
+    prefix org-openroadm-routing;
+    revision-date 2025-03-10;
+  }
+
+  import org-openroadm-routing-policy {
+    prefix rt-pol;
+    revision-date 2025-03-10;
+  }
+
+  import org-openroadm-routing-policy-bgp {
+    prefix rt-pol-bgp;
+    revision-date 2025-03-10;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines Yang model for OSPF routing policy.
+
+     This model reuses data items defined in the IETF YANG model for
+     routing policy by RFC9067 and draft-ietf-idr-bgp-model-18.
+
+     Some attributes which are not required in Open ROADM MSA are removed.
+     Yang file included are changed to fit into Open ROADM MSA yang structure.
+
+     IETF code is subject to the following copyright and license:
+     Copyright (c) IETF Trust and the persons identified as authors of
+     the code.
+     All rights reserved.
+
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Simplified BSD License set forth in
+     Section 4.c of the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info).";
+
+
+  revision "2025-03-06" {
+    description
+      "Initial version";
+    reference "1.0.0";
+  }
+
+  identity bgp {
+    base org-openroadm-routing:routing-protocol;
+    description
+      "BGP Protocol";
+  }
+
+  grouping structure-neighbor-group-as-path-options {
+    description
+      "Structural grouping used to include AS_PATH manipulation
+       configuration and state for both BGP neighbors and peer
+       groups";
+    container as-path-options {
+      description
+        "AS_PATH manipulation parameters for the BGP neighbor or
+         group";
+      leaf allow-own-as {
+        type uint8;
+        default "0";
+        description
+          "Specify the number of occurrences of the local BGP
+           speaker's AS that can occur within the AS_PATH before it
+           is rejected as looped.";
+      }
+    }
+  }
+
+  grouping structure-neighbor-group-route-reflector {
+    description
+      "Structural grouping used to include route reflector
+       configuration and state for both BGP neighbors and peer
+       groups";
+
+    container route-reflector {
+      description
+        "Route reflector parameters for the BGP peer-group";
+      reference
+        "RFC 4456: BGP Route Reflection.";
+
+      leaf client {
+        type boolean;
+        default "false";
+        description
+          "Configure the neighbor as a route reflector client.";
+        reference
+          "RFC 4456: BGP Route Reflection: An Alternative to
+                     Full Mesh.";
+      }
+    }
+  }
+
+  grouping neighbor-group-timers {
+    description
+      "Config parameters related to timers associated with the BGP
+       peer";
+    leaf connect-retry-interval {
+      type uint16 {
+        range "1..max";
+      }
+      units "seconds";
+      default "120";
+      description
+        "Time interval (in seconds) for the ConnectRetryTimer. The
+         suggested value for this timer is 120 seconds.";
+      reference
+        "RFC 4271: A Border Gateway Protocol 4 (BGP-4),
+         Section 8.2.2.";
+    }
+
+    leaf hold-time {
+      type uint16 {
+        range "0 | 3..65535";
+      }
+      units "seconds";
+      default "90";
+      description
+        "Time interval (in seconds) for the HoldTimer established
+         with the peer.  When read as operational data (ro), the
+         value of this object is calculated by this BGP speaker,
+         using the smaller of the values in hold-time that was
+         configured (rw) in the running datastore and the Hold Time
+         received in the OPEN message.
+
+         This value must be at least three seconds
+         if it is not zero (0).
+
+         If the Hold Timer has not been established
+         with the peer this object MUST have a value
+         of zero (0).
+
+         If the configured value of hold-time object was
+         a value of (0), then when read this object MUST have a
+         value of (0) also.";
+      reference
+        "RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section 4.2,
+         RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section 10.";
+    }
+
+    leaf keepalive {
+      type uint16 {
+        range "0..21845";
+      }
+      units "seconds";
+      default "30";
+      description
+        "When used as a configuration (rw) value, this Time interval
+         (in seconds) for the KeepAlive timer configured for this BGP
+         speaker with this peer.  A reasonable maximum value for this
+         timer would be one-third of the configured hold-time.
+
+         In the absence of explicit configuration of the keepalive
+         value, operationally it SHOULD have a value of one-third of
+         the negotiated hold-time.
+
+         If the value of this object is zero (0), no periodic
+         KEEPALIVE messages are sent to the peer after the BGP
+         connection has been established.
+
+         The actual time interval for the KEEPALIVE messages is
+         indicated by operational value of keepalive.";
+      reference
+        "RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section 4.4,
+         RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section 10.";
+    }
+
+    leaf min-route-advertisement-interval {
+      type uint16 {
+        range "0..max";
+      }
+      units "seconds";
+      default "30";
+      description
+        "Time interval (in seconds) for the
+         MinRouteAdvertisementInterval timer.
+         The suggested value for this timer is 30
+         seconds for EBGP connections and 5
+         seconds for IBGP connections.";
+      reference
+        "RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section
+         9.2.1.1,
+         RFC 4271: A Border Gateway Protocol 4 (BGP-4), Section 10.";
+    }
+  }
+
+
+  grouping neighbor-group-config {
+    description
+      "Neighbor level configuration items.";
+    leaf peer-as {
+      type inet:as-number;
+      mandatory true;
+
+      description
+        "AS number of the peer.";
+    }
+
+    leaf-list send-community {
+      if-feature "rt-pol-bgp:send-communities";
+      type identityref {
+        base "rt-pol-bgp:send-community-feature";
+      }
+      description
+        "When supported, this tells the router to propagate any
+         prefixes that are attached to these community-types.";
+    }
+
+    leaf description {
+      type string;
+      description
+        "An optional textual description (intended primarily for use
+         with a peer or group";
+    }
+
+    container timers {
+      description
+        "Timers related to a BGP neighbor";
+      uses neighbor-group-timers;
+    }
+
+    container ebgp-multihop {
+      description
+        "eBGP multi-hop parameters for the BGP peer-group";
+      leaf enabled {
+        type boolean;
+        default "false";
+        description
+          "When enabled, the referenced group or neighbors are
+           permitted to be indirectly connected - including cases
+           where the TTL can be decremented between the BGP peers";
+      }
+      leaf multihop-ttl {
+        type uint8 {
+          range "1..255";
+        }
+        description
+          "Time-to-live value to use when packets are sent to the
+           referenced group or neighbors and ebgp-multihop is
+           enabled";
+      }
+    }
+
+    uses structure-neighbor-group-route-reflector;
+    uses structure-neighbor-group-as-path-options;
+
+    container apply-policy {
+      description
+        "Anchor point for routing policies in the model.
+         Import and export policies are with respect to the local
+         routing table, i.e., export (send) and import (receive),
+         depending on the context.";
+
+      leaf-list import-policy {
+        type leafref {
+          path "../../../../../../../../../" +
+               "rt-pol:routing-policy/rt-pol:policy-definitions/" +
+               "rt-pol:policy-definition/rt-pol:name";
+          require-instance true;
+        }
+        ordered-by user;
+        description
+          "List of policy names in sequence to be applied on
+           receiving redistributed routes from another routing
+           protocol or receiving a routing update in the current
+           context, e.g., for the current peer group, neighbor,
+           address family, etc.";
+      }
+
+      leaf-list export-policy {
+        type leafref {
+          path "../../../../../../../../../" +
+               "rt-pol:routing-policy/rt-pol:policy-definitions/" +
+               "rt-pol:policy-definition/rt-pol:name";
+          require-instance true;
+        }
+        ordered-by user;
+        description
+          "List of policy names in sequence to be applied on
+           redistributing routes from one routing protocol to another
+           or sending a routing update in the current context, e.g.,
+           for the current peer group, neighbor, address family,
+           etc.";
+      }
+    }
+  }
+
+  grouping bgp-top {
+    description
+      "BGP protocol augmentation of ietf-routing module
+       control-plane-protocol.";
+    container bgp {
+      description
+        "Top-level configuration for the BGP router.";
+
+      container global {
+        description
+          "Global configuration for the BGP router.";
+        leaf as {
+          type inet:as-number;
+          mandatory true;
+          description
+            "Local autonomous system number of the router.  Uses
+             the 32-bit as-number type from the model in RFC 6991.";
+        }
+
+        leaf identifier {
+          type yang:dotted-quad;
+          mandatory true;
+          description
+            "BGP Identifier of the router - an unsigned 32-bit,
+             non-zero integer that should be unique within an AS.
+             The value of the BGP Identifier for a BGP speaker is
+             determined upon startup and is the same for every local
+             interface and BGP peer.";
+          reference
+            "RFC 6286: AS-Wide Unique BGP ID for BGP-4. Section 2.1";
+        }
+
+        container distance {
+          description
+            "Administrative distances (or preferences) assigned to
+             routes received from different sources (external, and
+             internal).";
+
+          leaf external {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Administrative distances for routes learned from
+               external BGP (eBGP).";
+          }
+
+          leaf internal {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Administrative distances for routes learned from
+               internal BGP (iBGP).";
+          }
+        }
+      }
+
+      container neighbors {
+        description
+          "Configuration for BGP neighbors.";
+
+        list neighbor {
+          key "remote-address";
+          description
+            "List of BGP neighbors configured on the local system,
+             uniquely identified by remote IPv[46] address.";
+
+          leaf remote-address {
+            type inet:ip-address;
+            mandatory true;
+            description
+              "The remote IP address of this entry's BGP peer.";
+          }
+
+          leaf enabled {
+            type boolean;
+            default "true";
+            description
+              "Whether the BGP peer is enabled. In cases where the
+               enabled leaf is set to false, the local system should
+               not initiate connections to the neighbor, and should
+               not respond to TCP connections attempts from the
+               neighbor. If the state of the BGP session is
+               Established at the time that this leaf is set to
+               false, the BGP session should be ceased.
+
+               A transition from 'false' to 'true' will cause
+               the BGP Manual Start Event to be generated.
+               A transition from 'true' to 'false' will cause
+               the BGP Manual Stop Event to be generated.
+               This parameter can be used to restart BGP peer
+               connections. Care should be used in providing
+               write access to this object without adequate
+               authentication.";
+            reference
+              "RFC 4271: A Border Gateway Protocol 4 (BGP-4),
+               Section 8.1.2.";
+          }
+
+          uses neighbor-group-config;
+        }
+      }
+    }
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/" +
+          "org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/" +
+          "org-openroadm-routing:routing-protocol" {
+    when "org-openroadm-routing:type = 'bgp'" {
+      description
+        "This augment is only valid for a routing protocol instance
+         of BGP.";
+    }
+    description
+      "BGP augmentation.";
+
+    uses bgp-top;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/" +
+          "org-openroadm-routing:routing-instance/org-openroadm-routing:routing-protocols/" +
+          "org-openroadm-routing:routing-protocol" {
+    when "org-openroadm-routing:type = 'bgp'" {
+      description
+        "This augment is only valid for a routing protocol instance
+         of BGP.";
+    }
+    description
+      "BGP augmentation.";
+
+    uses bgp-top;
+  }
+}
