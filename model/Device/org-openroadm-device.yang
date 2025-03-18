@@ -32,7 +32,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
-    revision-date 2023-09-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;

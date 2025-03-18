@@ -21,7 +21,7 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2024-03-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;

@@ -36,6 +36,10 @@ module org-openroadm-common-amplifier-types {
       POSSIBILITY OF SUCH DAMAGE";
 
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2023-09-29 {
     description
       "Version 14.0.0";
@@ -75,10 +79,23 @@ module org-openroadm-common-amplifier-types {
       }
       enum dge-Auto {
         value 4;
+        description
+          "dge-Auto control mode shall be used when DGE is deployed in the ILA
+           supporting MW-MW DWDM line interface. In this mode, device software
+           shall perform automatic DGE control to achieve the channel target
+           output power configuration by the controller in the spectrum.";
+      }
+      enum auto {
+        value 5;
+        description
+          "When an ILA is in auto mode, it means the system is
+           controlling the targets of the amplifier and the
+           external controller should not be adjusting targets for the
+           amplifier";
       }
     }
     description
-      "Identifies the line amplifier control mode, either off or gain.";
+      "Identifies the line amplifier control mode, either off or gainLoss, dge-Auto, or auto.";
   }
 
   typedef amplifier-gain-range {
