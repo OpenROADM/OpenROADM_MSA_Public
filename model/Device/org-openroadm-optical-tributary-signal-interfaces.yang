@@ -34,6 +34,10 @@ module org-openroadm-optical-tributary-signal-interfaces {
     prefix org-openroadm-common-pluggable-types;
     revision-date 2025-03-28;
   }
+  import org-openroadm-otn-common {
+    prefix org-openroadm-otn-common;
+    revision-date 2022-03-25;
+  }
 
   organization
     "Open ROADM MSA";
@@ -324,6 +328,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
           "FlexO payload type extracted from PT overhead (G.798 15.3.5.2
            (FlexO-n/OTUCni_A_Sk)(2021-01))";
       }
+      uses org-openroadm-otn-common:trail-trace;
     }
   }
   grouping otsi-container {
