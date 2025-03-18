@@ -259,6 +259,7 @@ module org-openroadm-optical-channel-interfaces {
         "media-interface-id and associated-oui";
     }
     leaf optical-operational-mode {
+      when "../provision-mode = 'profile'";
       type string;
       description
         "Optical-operational-mode sets the xponder settings based on one of the operational mode capabilities as published by the device.  This attribute is mandatory when the provision-mode is set to profile.";
