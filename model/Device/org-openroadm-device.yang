@@ -60,7 +60,7 @@ module org-openroadm-device {
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2020-09-25;
+    revision-date 2025-03-28;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
