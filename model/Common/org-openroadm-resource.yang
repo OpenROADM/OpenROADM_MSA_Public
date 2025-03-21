@@ -243,13 +243,18 @@ module org-openroadm-resource {
       description
         "estimated Generalized SNR (including non linear impairments) for the path";
     }
+    leaf target-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "target output-power";
+    }
     leaf max-output-power {
-      type org-openroadm-common-link-types:ratio-dB;
+      type org-openroadm-common-link-types:power-dBm;
       description
         "maximum output-power";
     }
     leaf min-output-power {
-      type org-openroadm-common-link-types:ratio-dB;
+      type org-openroadm-common-link-types:power-dBm;
       description
         "minimum output-power";
     }

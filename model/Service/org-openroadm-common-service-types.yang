@@ -372,6 +372,51 @@ module org-openroadm-common-service-types {
       "rpc-actions include all the rpc methods";
   }
 
+  typedef payload-frame-type {
+    type enumeration {
+      enum otu {
+        value 1;
+        description "OTUk frame";
+      }
+      enum flexo-x {
+        value 2;
+        description "OTN mapped flexo frame";
+      }
+      enum flexo-xe {
+        value 3;
+        description "Ethernet optimized flexo frame";
+      }
+      enum 100ZR {
+        value 4;
+        description "100ZR frame (100GBASE-ZR)";
+      }
+      enum 400ZR {
+        value 5;
+        description "400ZR frame";
+      }
+      enum 800ZR {
+        value 6;
+        description "800ZR frame";
+      }
+      enum 100ZRplus {
+        value 7;
+        description "100ZR+ frame";
+      }
+      enum 200ZRplus {
+        value 8;
+        description "200ZR+ frame";
+      }
+      enum 300ZRplus {
+        value 9;
+        description "300ZR+ frame";
+      }
+      enum 400ZRplus {
+        value 10;
+        description "400ZR+ frame";
+      }
+    }
+  }
+
   typedef ethernet-encoding-type {
     type enumeration {
       enum 10GBASE-W {
@@ -473,6 +518,40 @@ module org-openroadm-common-service-types {
       }
       enum optical-tunnel {
         value 4;
+      }
+      enum end-terminal {
+        value 5;
+        description
+          "When xponder DCO pluggable optics on OpenROADM XPDR devices are
+           connected through non-OpenROADM ROADM devices, this connection type
+           represents that WDM service between the interface ports of those
+           optics. This connection type compliments optical-tunnel
+           connection-type.";
+      }
+      enum point-to-point-with-ecc {
+        value 6;
+        description
+          "This connection type represents a service between a pair of xponder
+           DCO pluggable optics on OpenROADM XPDR devices, where one device is
+           at a remote location and the other device is at a central office
+           location, that are directly connected to each other without ROADM
+           devices in between. Connectivity to the remote XPDR device is
+           established via an embedded communication channel, such as GCC0 or
+           FCCO, on this WDM service. This service is already
+           provisioned on both devices to establish the connectivity from the
+           controller to the remote device. A service-create request with this
+           connection-type creates a service record in the controller utilizing
+           the path already provisioned. Similarly, a service-delete request
+           removes service record from the controller database without deleting
+           the provisioning on the devices to maintain connectivity from the
+           controller to the remote device.";
+      }
+      enum point-to-point {
+        value 7;
+        description
+          "This connection type represents a service between a pair of xponder
+           DCO pluggable optics on OpenROADM XPDR devices that are directly
+           connected to each other without ROADM devices in between.";
       }
     }
   }
@@ -667,6 +746,11 @@ module org-openroadm-common-service-types {
   grouping alien-service-ends-setting-container {
     container service-a-end {
       uses service-endpoint-summary;
+        leaf target-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the target power that can be set on end-terminal network port";
+      }
         leaf min-output-power {
           type org-openroadm-common-link-types:power-dBm;
           description
@@ -680,6 +764,11 @@ module org-openroadm-common-service-types {
     }
     container service-z-end {
       uses service-endpoint-summary;
+        leaf target-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "the target power that can be set on end-terminal network port";
+      }
         leaf min-output-power {
           type org-openroadm-common-link-types:power-dBm;
           description
