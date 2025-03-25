@@ -56,7 +56,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2023-09-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;

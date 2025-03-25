@@ -92,7 +92,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2023-09-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;

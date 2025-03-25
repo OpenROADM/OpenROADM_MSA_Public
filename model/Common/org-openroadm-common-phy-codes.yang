@@ -35,6 +35,10 @@ module org-openroadm-common-phy-codes {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2023-09-29 {
     description
       "Version 14.0";
@@ -354,7 +358,6 @@ module org-openroadm-common-phy-codes {
       type identityref { base client-phy-code-identity; }
       type identityref { base compliance-code-identity; }
     }
-    default "org-openroadm-common-phy-codes:phy-code-none";
     description
       "Compliance codes supported in OpenROADM.";
   }
