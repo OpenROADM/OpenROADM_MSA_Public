@@ -237,7 +237,7 @@ module: ietf-network
         |  |  |  +--rw topo:capability
         |  |  |  |  +--rw topo:min-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
         |  |  |  |  +--rw topo:max-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
-        |  |  |  |  +--rw topo:psd-reference?                     org-openroadm-common-types:psd-reference
+        |  |  |  |  +--rw topo:psd-reference?               org-openroadm-common-types:psd-reference
         |  |  |  |  +--rw topo:max-composite-input-power?   org-openroadm-common-link-types:power-dBm
         |  |  |  |  +--rw topo:max-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
         |  |  |  +--rw topo:mc-profile* [profile-name]

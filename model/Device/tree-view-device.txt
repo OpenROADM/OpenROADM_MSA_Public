@@ -645,6 +645,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
      |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-optical-multiplex-interfaces:oms
+     |  |  +--rw org-openroadm-optical-multiplex-interfaces:oms-band?   string
      |  +--rw org-openroadm-optical-transport-interfaces:ots
      |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
      |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
