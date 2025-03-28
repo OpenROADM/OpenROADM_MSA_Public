@@ -2100,6 +2100,17 @@ module: org-openroadm-native-data
           +--ro status-message?   string
           +--ro get-response?     string
 
+module: org-openroadm-native-rpc
+
+  rpcs:
+    +---x execute-native-rpc
+       +---w input
+       |  +---w rpc-request?   string
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+          +--ro rpc-response?     string
+
 module: org-openroadm-optical-rebalancing
 
   rpcs:

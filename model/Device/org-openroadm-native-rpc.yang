@@ -1,0 +1,80 @@
+module org-openroadm-native-rpc {
+  namespace "http://org/openroadm/native/rpc";
+  prefix org-openroadm-native-rpc;
+
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2025-03-28;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "YANG definitions to retrieve vendor native data.
+
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     All other rights reserved.
+
+     Redistribution and use in source and binary forms, with or without modification,
+     are permitted provided that the following conditions are met:
+
+     * Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation and/or
+       other materials provided with the distribution.
+     * Neither the Members of the Open ROADM MSA Agreement nor the names of its
+       contributors may be used to endorse or promote products derived from this software
+       without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT ''AS IS''
+     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+     IN NO EVENT THE MEMBERS OF THE OPEN ROADM MSA  AGREEMENT BE LIABLE FOR ANY DIRECT,
+     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS OF USE, DATA,
+     OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGE.";
+
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
+
+  rpc execute-native-rpc {
+    description
+      "Execute an RPC from the vendor’s native data model.";
+    input {
+      leaf rpc-request {
+         type string;
+         description
+            "Input command to execute an RPC from the vendor’s native data model.
+             This attribute is generic and does not specify any format or details of the rpc-request input.
+
+             The vendor determines the valid rpc-request inputs that are supported by their device.
+             The vendor is free to choose any management interface
+             language (NETCONF, CLI, TL1, SNMP, etc.), format and semantics for the rpc-request.
+             It is expected that the vendor would provide documentation
+             on the valid rpc-request values through an outside mechanism.";
+      }
+    }
+    output {
+      uses org-openroadm-common-types:rpc-response-status;
+      leaf rpc-response {
+         type string;
+         description
+            "Output response containing the vendor’s native RPC response, if any.
+             This attribute is generic and does not specify the format or details of the rpc-response output.
+
+             The vendor determines the valid rpc-response outputs (if any) that are supported by their device
+             based on the rpc-request input. The vendor is free to choose any management interface
+             language (NETCONF, CLI, TL1, SNMP, etc.), format and semantics for the rpc-response.
+             It is expected that the vendor would provide documentation on the rpc-response data through an outside mechanism.";
+      }
+    }
+  }
+}
