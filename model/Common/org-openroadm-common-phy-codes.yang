@@ -71,7 +71,7 @@ module org-openroadm-common-phy-codes {
       "base identity for client phy code.";
   }
 
-  // IEEE 802.3 - 2018 PHY/PMD Names (subset)
+  // IEEE 802.3 - 2022 PHY/PMD Names (subset)
   identity ethernet-1000BASE-SX {
     base client-phy-code-identity;
   }
@@ -219,7 +219,36 @@ module org-openroadm-common-phy-codes {
   identity ethernet-400GBASE-LR8 {
     base client-phy-code-identity;
   }
-
+  identity ethernet-400GBASE-DR4-2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-DR8 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-DR8-2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-DR2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-400GBASE-DR2-2 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-DR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-FR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-LR4 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-LR1 {
+    base client-phy-code-identity;
+  }
+  identity ethernet-800GBASE-ER1 {
+    base client-phy-code-identity;
+  }
 
   // Common names not defined in IEEE 802.3
   identity ethernet-1000BASE-EX {
@@ -282,7 +311,7 @@ module org-openroadm-common-phy-codes {
   }
 
 
-  // ITU-T G.959.1 - 2018 */
+  // ITU-T G.959.1 - 2024 */
   identity otn-P1I1-1D1 {
     base client-phy-code-identity;
   }
@@ -350,6 +379,34 @@ module org-openroadm-common-phy-codes {
     base client-phy-code-identity;
   }
   identity otn-8I1-4D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-1I1-5D1F {
+    base client-phy-code-identity;
+  }
+  identity otn-1R1-5D1F {
+    base client-phy-code-identity;
+  }
+
+  // OIF https://www.oiforum.com [oiforum.com]/ [oiforum.com]
+  identity oif-400ZR {
+    base client-phy-code-identity;
+  }
+  identity oif-800ZR {
+    base client-phy-code-identity;
+  }
+
+  // OpenZR+  https://openzrplus.org [openzrplus.org]/ [openzrplus.org]
+  identity openzrplus-100ZRplus {
+    base client-phy-code-identity;
+  }
+  identity openzrplus-200ZRplus {
+    base client-phy-code-identity;
+  }
+  identity openzrplus-300ZRplus {
+    base client-phy-code-identity;
+  }
+  identity openzrplus-400ZRplus {
     base client-phy-code-identity;
   }
 
