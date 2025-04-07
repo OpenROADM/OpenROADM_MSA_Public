@@ -386,6 +386,12 @@ module org-openroadm-device {
         "Assign the Ethernet interface name linked to the OAMP management port,
          typically utilized for provisioning the primary IP address of the device.";
     }
+    leaf loopback-interface-name {
+      type string;
+      config false;
+      description
+        "A pointer to the loopback interface within the device. The loopback interface has an interface type of softwareLoopback.";
+    }
     leaf macAddress {
       type ietf-yang-types:mac-address;
       config false;
