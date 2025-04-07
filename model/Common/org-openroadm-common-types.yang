@@ -662,4 +662,13 @@ module org-openroadm-common-types {
     description
       "Laser Off Capability group";
   }
+
+  typedef bitmap-def {
+    type string {
+      length "8";
+      pattern '[0-9a-fA-F]*';
+    }
+    description
+      "Bitmap definition in hex form";
+  }
 }

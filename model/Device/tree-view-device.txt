@@ -395,6 +395,10 @@ module: org-openroadm-device
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    string
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            string
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otucn-mpdr-client-restriction* []
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-flexo-circuit-pack-name    string
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-flexo-port-name            string
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-otucn-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-otucn-profile/profile-name
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:logical-port
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:circuit-pack-name?   string
@@ -490,6 +494,10 @@ module: org-openroadm-device
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    string
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            string
      |           |  |  +--ro org-openroadm-port-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |           |  +--ro org-openroadm-port-capability:otucn-mpdr-client-restriction* []
+     |           |  |  +--ro org-openroadm-port-capability:network-flexo-circuit-pack-name    string
+     |           |  |  +--ro org-openroadm-port-capability:network-flexo-port-name            string
+     |           |  |  +--ro org-openroadm-port-capability:muxp-otucn-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-otucn-profile/profile-name
      |           |  +--ro org-openroadm-port-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |           +--ro org-openroadm-port-capability:logical-port
      |           |  +--ro org-openroadm-port-capability:circuit-pack-name?   string
@@ -1196,7 +1204,12 @@ module: org-openroadm-device
      |  |  +--:(otucn)
      |  |  |  +--ro otucn-n-rate?                   uint16
      |  |  +--:(nxotu4)
-     |  |     +--ro supported-n-otu4?               uint16
+     |  |  |  +--ro supported-n-otu4?               uint16
+     |  |  +--:(otucni)
+     |  |     +--ro otucni-mixed-rate?              boolean
+     |  |     +--ro otucni-start-ts* []
+     |  |        +--ro otucni-n-rate?   uint16
+     |  |        +--ro start-ts?        org-openroadm-common-types:bitmap-def
      |  +--ro foic-type*                            identityref
      |  +--ro otn-capability-profile-name?          -> /org-openroadm-device/otn-capability-profile/profile-name
      |  +--ro otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
@@ -1249,12 +1262,14 @@ module: org-openroadm-device
      |  +--ro odtu-type                          identityref
      |  +--ro network-odu-rate                   identityref
      |  +--ro network-oducn-n-rate?              uint16
+     |  +--ro network-min-oducn-n-rate?          uint16
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-otsi-group-rate           identityref
+     |  +--ro network-otsi-group-rate?          identityref
+     |  +--ro network-min-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
@@ -1263,6 +1278,13 @@ module: org-openroadm-device
      |  +--ro otsi-optical-mode-support* []
      |     +--ro modulation-format    org-openroadm-common-optical-channel-types:modulation-format
      |     +--ro fec                  identityref
+     +--ro muxp-otucn-profile* [profile-name]
+     |  +--ro profile-name                      string
+     |  +--ro otucn-n-rate?                     uint16
+     |  +--ro network-otsi-group-rate?          identityref
+     |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-flexo-trib-port-number    uint16
+     |  +--ro network-flexo-iid*                uint8
      +--rw rt-pol:routing-policy
      |  +--rw rt-pol:defined-sets
      |  |  +--rw rt-pol:prefix-sets

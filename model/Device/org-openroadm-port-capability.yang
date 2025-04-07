@@ -309,6 +309,28 @@ module org-openroadm-port-capability {
               }
             }
           }
+          list otucn-mpdr-client-restriction {
+            description
+              "Restriction rules for how OTUCn are multiplexed into OTSI group
+               and the relation with mapped client ports.";
+            leaf network-flexo-circuit-pack-name {
+              type string;
+              mandatory true;
+              description
+                "Circuit-Pack identifier. Unique within the context of a device.";
+            }
+            leaf network-flexo-port-name {
+              type string;
+              mandatory true;
+              description
+                "port identifier.";
+            }
+            leaf-list muxp-otucn-profile-name {
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-otucn-profile/org-openroadm-device:profile-name";
+              }
+            }
+          }
           leaf otn-odu-mux-hierarchy-profile-name {
             type leafref {
               path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:otn-odu-mux-hierarchy-profile/org-openroadm-device:profile-name";

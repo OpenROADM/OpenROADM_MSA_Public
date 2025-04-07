@@ -2337,6 +2337,28 @@ module org-openroadm-device {
             "Specify the number of N in the case of N x OTU4";
         }
       }
+      case otucni {
+        leaf otucni-mixed-rate {
+          type boolean;
+          description
+            "Announce whether mixed OTUCNi interfaces are supported in the OTSIG.";
+        }
+        list otucni-start-ts {
+          leaf otucni-n-rate {
+            type uint16;
+            description
+              "OTUCni Rate.";
+          }
+          leaf start-ts {
+            type org-openroadm-common-types:bitmap-def;
+            description
+              "In the case of mapping multiple OTUCni into a FlexO group,
+              the bitmap illustration of starting FlexO instance TS# for each member OTUCni;
+            TS starts at the boundary with consecutive TS*. The most significant bit for TS #1.
+              For interoperability, NE device shall support the starting TS number in the optical specs.";
+          }
+        }
+      }
     }
     leaf-list foic-type {
       type identityref {
@@ -2540,6 +2562,11 @@ module org-openroadm-device {
       description
         "Network ODUCn rate, eg, network-oducn-n-rate=4 for ODUC4";
     }
+    leaf network-min-oducn-n-rate {
+      type uint16;
+      description
+        "Minimum Network ODUCn rate";
+    }
     leaf network-ho-odu-trib-port-number {
       type uint16 {
         range "1 .. 80";
@@ -2717,23 +2744,23 @@ module org-openroadm-device {
             mandatory true;
             description
               "partly allows identifying ports associated with logical amp :TX for egress, RX for ingress
-               TXRX in case of bidirectional port";
+              TXRX in case of bidirectional port";
           }
           leaf tx-instance-port-direction-label {
             type string;
             config true;
             description
               "Complements ports identification. Used notably in case of bidirectional ports,
-               and/or in multi-degree amplifier nodes. Allows associating one of the directions
-               specified in ila-direction-label. Shall be consistent with ila-direction-label";
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
           leaf rx-instance-port-direction-label {
             type string;
             config true;
             description
               "Complements ports identification. Used notably in case of bidirectional ports,
-               and/or in multi-degree amplifier nodes. Allows associating one of the directions
-               specified in ila-direction-label. Shall be consistent with ila-direction-label";
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2754,7 +2781,7 @@ module org-openroadm-device {
             mandatory true;
             description
               "allows identifying ports associated with logical amp :
-               TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
+              TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2774,7 +2801,7 @@ module org-openroadm-device {
             config true;
             description
               "allows identifying associated logical amp port in which OTDR is launched:
-               corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
+              corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2890,14 +2917,14 @@ module org-openroadm-device {
             config false;
             description
               "Switch fabric interconnect bandwidth unit rate in bits per second.
-               Represents granularity of switch fabric";
+              Represents granularity of switch fabric";
           }
           leaf interconnect-bandwidth {
             type uint32;
             config false;
             description
               "Total interconnect bandwidth for a non-blocking element expressed as
-               number of inter-connect-bandwidth units";
+              number of inter-connect-bandwidth units";
           }
           list port-list {
             key "circuit-pack-name port-name";
@@ -2966,14 +2993,14 @@ module org-openroadm-device {
             config false;
             description
               "Switch fabric interconnect bandwidth unit rate in bits per second.
-               Represents granularity of switch fabric";
+              Represents granularity of switch fabric";
           }
           leaf interconnect-bandwidth {
             type uint32;
             config false;
             description
               "Total interconnect bandwidth for a non-blocking element expressed as
-               number of inter-connect-bandwidth units";
+              number of inter-connect-bandwidth units";
           }
           list port-list {
             key "circuit-pack-name port-name";
@@ -3105,10 +3132,10 @@ module org-openroadm-device {
         config false;
         description
           "List of optical operational mode profiles which includes :
-            _specific operational mode used for bookended applications
-            _openroadm operational mode introduced in R10.0 to describe the
-            specifications a device may complies with whether it is a Xponder
-            (port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
+          _specific operational mode used for bookended applications
+          _openroadm operational mode introduced in R10.0 to describe the
+          specifications a device may complies with whether it is a Xponder
+          (port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
         leaf profile-name {
           type string;
           description
@@ -3155,9 +3182,15 @@ module org-openroadm-device {
           type identityref {
             base org-openroadm-common-optical-channel-types:otsi-rate-identity;
           }
-          mandatory true;
           description
             "Network OTSIG rate types supported by the profile";
+        }
+        leaf network-min-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Minimum Network OTSIG rate types supported by the profile";
         }
         uses mux-eth-grp;
       }
@@ -3172,6 +3205,52 @@ module org-openroadm-device {
             "OTSI profile name";
         }
         uses otsi-grp;
+      }
+      grouping otucn-grp {
+        leaf otucn-n-rate {
+          type uint16;
+          description
+            "Specifies the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively.";
+        }
+        leaf network-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Network OTSIG rate types supported by the profile";
+        }
+        leaf network-min-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Minimum Network OTSIG rate types supported by the profile";
+        }
+        leaf network-flexo-trib-port-number {
+          type uint16 {
+            range "1 .. 80";
+          }
+          mandatory true;
+          description
+            "Tributary port number";
+        }
+        leaf-list network-flexo-iid {
+          type uint8;
+          description
+            "Network FlexO instance id";
+        }
+      }
+      list muxp-otucn-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTUCn profile";
+        leaf profile-name {
+          type string;
+          description
+            "OTUCn profile name";
+        }
+        uses otucn-grp;
       }
     }
   }
