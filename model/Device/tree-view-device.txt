@@ -465,7 +465,8 @@ module: org-openroadm-device
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-link-types:power-dBm
-     |     |  +--rw roadm-port-mode?                enumeration
+     |     |  +--rw roadm-port-mode?                roadm-port-mode-types
+     |     |  +--ro wss-capability-profile-name*    -> /org-openroadm-device/wss-capability-profile/profile-name
      |     +--rw transponder-port
      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
@@ -1032,6 +1033,7 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro wss-capability-profile-name*             -> /org-openroadm-device/wss-capability-profile/profile-name
      +--rw shared-risk-group* [srg-number]
      |  +--ro max-add-drop-ports                       uint16
      |  +--ro current-provisioned-add-drop-ports       uint16
@@ -1045,12 +1047,9 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
      |  +--rw target-input-psd?                        org-openroadm-common-link-types:psd-dBm-50GHz
-     |  +--rw prov-min-slot?                           uint32
-     |  +--rw prov-max-slot?                           uint32
-     |  +--rw prov-max-composite-input-power?          org-openroadm-common-link-types:power-dBm
-     |  +--rw prov-max-total-bandwidth?                org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro min-input-psd?                           org-openroadm-common-link-types:psd-dBm-50GHz
      |  +--ro max-input-psd?                           org-openroadm-common-link-types:psd-dBm-50GHz
+     |  +--rw psd-reference?                           psd-reference
      |  +--ro max-composite-input-power?               org-openroadm-common-link-types:power-dBm
      |  +--ro max-total-bandwidth?                     org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro available-composite-input-power?         org-openroadm-common-link-types:power-dBm
@@ -1062,12 +1061,9 @@ module: org-openroadm-device
      |     |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |     +--ro mc-capability-profile-name*        -> /org-openroadm-device/mc-capability-profile/profile-name
      |     +--rw target-input-psd?                  org-openroadm-common-link-types:psd-dBm-50GHz
-     |     +--rw prov-min-slot?                     uint32
-     |     +--rw prov-max-slot?                     uint32
-     |     +--rw prov-max-composite-input-power?    org-openroadm-common-link-types:power-dBm
-     |     +--rw prov-max-total-bandwidth?          org-openroadm-common-optical-channel-types:frequency-GHz
      |     +--ro min-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
      |     +--ro max-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--rw psd-reference?                     psd-reference
      |     +--ro max-composite-input-power?         org-openroadm-common-link-types:power-dBm
      |     +--ro max-total-bandwidth?               org-openroadm-common-optical-channel-types:frequency-GHz
      |     +--ro available-composite-input-power?   org-openroadm-common-link-types:power-dBm
@@ -1224,6 +1220,19 @@ module: org-openroadm-device
      |  +--ro slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro min-slots?                 uint32
      |  +--ro max-slots?                 uint32
+     +--ro wss-capability-profile* [profile-name]
+     |  +--ro profile-name                  string
+     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro roadm-port-mode*              org-openroadm-common-types:roadm-port-mode-types
+     |  +--ro psd-reference?                psd-reference
+     |  +--ro input
+     |  |  +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  +--ro output
+     |     +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
      +--ro split-lambda-profile* [profile-name]
      |  +--ro profile-name                         string
      |  +--ro logical-port
