@@ -671,4 +671,23 @@ module org-openroadm-common-types {
     description
       "Bitmap definition in hex form";
   }
+
+  typedef psd-reference {
+    type enumeration {
+      enum mc-width {
+        value 1;
+        description
+          "PSD is referenced to the Media Channel (MC) width.";
+      }
+      enum nmc-width {
+        value 2;
+        description
+          "PSD is referenced to the Network Media Channel (NMC) width.";
+      }
+    }
+    description
+      "Sets the PSD reference source for any PSD related attribute.
+       PSD can be references to the MC width (which would relate to the width in the WSS),
+       or NMC width (which would relate to the signal spectral width).";
+  }
 }
