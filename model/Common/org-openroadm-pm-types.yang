@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2022-12-09 {
     description
       "Version 12.1";
@@ -1531,12 +1535,12 @@ module org-openroadm-pm-types {
         description
           "Polarization Mode Dispersion (PMD), units in ps";
       }
-      enum polizationModeDispersionMax {
+      enum polarizationModeDispersionMax {
         value 233;
         description
           "Maximum Polarization Mode Dispersion (PMD), units in ps";
       }
-      enum polizationModeDispersionMin {
+      enum polarizationModeDispersionMin {
         value 234;
         description
           "Minimum Polarization Mode Dispersion (PMD), units in ps";

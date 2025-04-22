@@ -272,6 +272,7 @@ module: org-openroadm-device
      |  +--ro model                               string
      |  +--ro serial-id                           string
      |  +--ro oamp-interface-name?                string
+     |  +--ro loopback-interface-name?            string
      |  +--ro macAddress?                         ietf-yang-types:mac-address
      |  +--ro softwareVersion?                    string
      |  +--ro software-build?                     string
@@ -395,6 +396,10 @@ module: org-openroadm-device
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-circuit-pack-name    string
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-ho-odu-port-name            string
      |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otucn-mpdr-client-restriction* []
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-flexo-circuit-pack-name    string
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:network-flexo-port-name            string
+     |  |                 |  |  +--ro org-openroadm-pluggable-optics-holder-capability:muxp-otucn-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-otucn-profile/profile-name
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |  |                 +--ro org-openroadm-pluggable-optics-holder-capability:logical-port
      |  |                 |  +--ro org-openroadm-pluggable-optics-holder-capability:circuit-pack-name?   string
@@ -460,7 +465,8 @@ module: org-openroadm-device
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-max-tx?   org-openroadm-common-link-types:power-dBm
-     |     |  +--rw roadm-port-mode?                enumeration
+     |     |  +--rw roadm-port-mode?                roadm-port-mode-types
+     |     |  +--ro wss-capability-profile-name*    -> /org-openroadm-device/wss-capability-profile/profile-name
      |     +--rw transponder-port
      |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-link-types:power-dBm
      |     |  +--ro port-power-capability-min-tx?   org-openroadm-common-link-types:power-dBm
@@ -490,6 +496,10 @@ module: org-openroadm-device
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-circuit-pack-name    string
      |           |  |  +--ro org-openroadm-port-capability:network-ho-odu-port-name            string
      |           |  |  +--ro org-openroadm-port-capability:muxp-profile-name*                  -> /org-openroadm-device:org-openroadm-device/muxp-profile/profile-name
+     |           |  +--ro org-openroadm-port-capability:otucn-mpdr-client-restriction* []
+     |           |  |  +--ro org-openroadm-port-capability:network-flexo-circuit-pack-name    string
+     |           |  |  +--ro org-openroadm-port-capability:network-flexo-port-name            string
+     |           |  |  +--ro org-openroadm-port-capability:muxp-otucn-profile-name*           -> /org-openroadm-device:org-openroadm-device/muxp-otucn-profile/profile-name
      |           |  +--ro org-openroadm-port-capability:otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device:org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
      |           +--ro org-openroadm-port-capability:logical-port
      |           |  +--ro org-openroadm-port-capability:circuit-pack-name?   string
@@ -636,6 +646,8 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
      |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
      |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-optical-multiplex-interfaces:oms
+     |  |  +--rw org-openroadm-optical-multiplex-interfaces:oms-band?   string
      |  +--rw org-openroadm-optical-transport-interfaces:ots
      |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
      |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
@@ -669,6 +681,16 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
      |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-sapi?               string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-dapi?               string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-operator?           string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-sapi?         string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-dapi?         string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-operator?     string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-sapi?         string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-dapi?         string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-act-enabled?       boolean
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-detect-mode?       enumeration
      |  +--rw org-openroadm-otn-odu-interfaces:odu!
      |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oducn-n-rate?                          uint16
@@ -1011,6 +1033,7 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro wss-capability-profile-name*             -> /org-openroadm-device/wss-capability-profile/profile-name
      +--rw shared-risk-group* [srg-number]
      |  +--ro max-add-drop-ports                       uint16
      |  +--ro current-provisioned-add-drop-ports       uint16
@@ -1024,12 +1047,9 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--ro mc-capability-profile-name*              -> /org-openroadm-device/mc-capability-profile/profile-name
      |  +--rw target-input-psd?                        org-openroadm-common-link-types:psd-dBm-50GHz
-     |  +--rw prov-min-slot?                           uint32
-     |  +--rw prov-max-slot?                           uint32
-     |  +--rw prov-max-composite-input-power?          org-openroadm-common-link-types:power-dBm
-     |  +--rw prov-max-total-bandwidth?                org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro min-input-psd?                           org-openroadm-common-link-types:psd-dBm-50GHz
      |  +--ro max-input-psd?                           org-openroadm-common-link-types:psd-dBm-50GHz
+     |  +--rw psd-reference?                           psd-reference
      |  +--ro max-composite-input-power?               org-openroadm-common-link-types:power-dBm
      |  +--ro max-total-bandwidth?                     org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro available-composite-input-power?         org-openroadm-common-link-types:power-dBm
@@ -1041,12 +1061,9 @@ module: org-openroadm-device
      |     |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |     +--ro mc-capability-profile-name*        -> /org-openroadm-device/mc-capability-profile/profile-name
      |     +--rw target-input-psd?                  org-openroadm-common-link-types:psd-dBm-50GHz
-     |     +--rw prov-min-slot?                     uint32
-     |     +--rw prov-max-slot?                     uint32
-     |     +--rw prov-max-composite-input-power?    org-openroadm-common-link-types:power-dBm
-     |     +--rw prov-max-total-bandwidth?          org-openroadm-common-optical-channel-types:frequency-GHz
      |     +--ro min-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
      |     +--ro max-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--rw psd-reference?                     psd-reference
      |     +--ro max-composite-input-power?         org-openroadm-common-link-types:power-dBm
      |     +--ro max-total-bandwidth?               org-openroadm-common-optical-channel-types:frequency-GHz
      |     +--ro available-composite-input-power?   org-openroadm-common-link-types:power-dBm
@@ -1186,7 +1203,12 @@ module: org-openroadm-device
      |  |  +--:(otucn)
      |  |  |  +--ro otucn-n-rate?                   uint16
      |  |  +--:(nxotu4)
-     |  |     +--ro supported-n-otu4?               uint16
+     |  |  |  +--ro supported-n-otu4?               uint16
+     |  |  +--:(otucni)
+     |  |     +--ro otucni-mixed-rate?              boolean
+     |  |     +--ro otucni-start-ts* []
+     |  |        +--ro otucni-n-rate?   uint16
+     |  |        +--ro start-ts?        org-openroadm-common-types:bitmap-def
      |  +--ro foic-type*                            identityref
      |  +--ro otn-capability-profile-name?          -> /org-openroadm-device/otn-capability-profile/profile-name
      |  +--ro otn-odu-mux-hierarchy-profile-name?   -> /org-openroadm-device/otn-odu-mux-hierarchy-profile/profile-name
@@ -1198,6 +1220,19 @@ module: org-openroadm-device
      |  +--ro slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--ro min-slots?                 uint32
      |  +--ro max-slots?                 uint32
+     +--ro wss-capability-profile* [profile-name]
+     |  +--ro profile-name                  string
+     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro roadm-port-mode*              org-openroadm-common-types:roadm-port-mode-types
+     |  +--ro psd-reference?                psd-reference
+     |  +--ro input
+     |  |  +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  +--ro output
+     |     +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |     +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
      +--ro split-lambda-profile* [profile-name]
      |  +--ro profile-name                         string
      |  +--ro logical-port
@@ -1239,12 +1274,14 @@ module: org-openroadm-device
      |  +--ro odtu-type                          identityref
      |  +--ro network-odu-rate                   identityref
      |  +--ro network-oducn-n-rate?              uint16
+     |  +--ro network-min-oducn-n-rate?          uint16
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
      +--ro muxp-eth-profile* [profile-name]
      |  +--ro profile-name                      string
-     |  +--ro network-otsi-group-rate           identityref
+     |  +--ro network-otsi-group-rate?          identityref
+     |  +--ro network-min-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
@@ -1253,33 +1290,102 @@ module: org-openroadm-device
      |  +--ro otsi-optical-mode-support* []
      |     +--ro modulation-format    org-openroadm-common-optical-channel-types:modulation-format
      |     +--ro fec                  identityref
-     +--rw org-openroadm-security:security
-     |  +--rw org-openroadm-security:certificate* [certificate-id]
-     |  |  +---x org-openroadm-security:install
-     |  |  |  +---w org-openroadm-security:input
-     |  |  |  |  +---w org-openroadm-security:filename?   string
-     |  |  |  +--ro org-openroadm-security:output
-     |  |  |     +--ro org-openroadm-security:status            rpc-status
-     |  |  |     +--ro org-openroadm-security:status-message?   string
-     |  |  +--rw org-openroadm-security:certificate-id    certificate-id-type
-     |  |  +--ro org-openroadm-security:information?      string
-     |  +--rw org-openroadm-security:ca-certificate* [ca-certificate-id]
-     |     +---x org-openroadm-security:install
-     |     |  +---w org-openroadm-security:input
-     |     |  |  +---w org-openroadm-security:filename?   string
-     |     |  +--ro org-openroadm-security:output
-     |     |     +--ro org-openroadm-security:status            rpc-status
-     |     |     +--ro org-openroadm-security:status-message?   string
-     |     +--rw org-openroadm-security:ca-certificate-id    certificate-id-type
-     |     +--ro org-openroadm-security:information?         string
+     +--ro muxp-otucn-profile* [profile-name]
+     |  +--ro profile-name                      string
+     |  +--ro otucn-n-rate?                     uint16
+     |  +--ro network-otsi-group-rate?          identityref
+     |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-flexo-trib-port-number    uint16
+     |  +--ro network-flexo-iid*                uint8
+     +--rw rt-pol:routing-policy
+     |  +--rw rt-pol:defined-sets
+     |  |  +--rw rt-pol:prefix-sets
+     |  |  |  +--rw rt-pol:prefix-set* [name]
+     |  |  |     +--rw rt-pol:name      string
+     |  |  |     +--rw rt-pol:mode?     enumeration
+     |  |  |     +--rw rt-pol:prefix* [ip-prefix masklength-range]
+     |  |  |        +--rw rt-pol:ip-prefix           inet:ip-prefix
+     |  |  |        +--rw rt-pol:masklength-range    string
+     |  |  +--rw rt-pol:tag-sets
+     |  |  |  +--rw rt-pol:tag-set* [name]
+     |  |  |     +--rw rt-pol:name         string
+     |  |  |     +--rw rt-pol:tag-value*   tag-type
+     |  |  +--rw rt-pol-bgp:bgp-defined-sets
+     |  |     +--rw rt-pol-bgp:as-path-sets
+     |  |     |  +--rw rt-pol-bgp:as-path-set* [name]
+     |  |     |     +--rw rt-pol-bgp:name      string
+     |  |     |     +--rw rt-pol-bgp:member*   string
+     |  |     +--rw rt-pol-bgp:community-sets
+     |  |     |  +--rw rt-pol-bgp:community-set* [name]
+     |  |     |     +--rw rt-pol-bgp:name      string
+     |  |     |     +--rw rt-pol-bgp:member*   union
+     |  |     +--rw rt-pol-bgp:ext-community-sets
+     |  |        +--rw rt-pol-bgp:ext-community-set* [name]
+     |  |           +--rw rt-pol-bgp:name      string
+     |  |           +--rw rt-pol-bgp:member*   union
+     |  +--rw rt-pol:policy-definitions
+     |     +--rw rt-pol:policy-definition* [name]
+     |        +--rw rt-pol:name          string
+     |        +--rw rt-pol:statements
+     |           +--rw rt-pol:statement* [name]
+     |              +--rw rt-pol:name          string
+     |              +--rw rt-pol:conditions
+     |              |  +--rw rt-pol:match-prefix-set
+     |              |  |  +--rw rt-pol:prefix-set?          -> ../../../../../../../defined-sets/prefix-sets/prefix-set/name
+     |              |  |  +--rw rt-pol:match-set-options?   enumeration
+     |              |  +--rw rt-pol:match-tag-set
+     |              |  |  +--rw rt-pol:tag-set?             -> ../../../../../../../defined-sets/tag-sets/tag-set/name
+     |              |  |  +--rw rt-pol:match-set-options?   enumeration
+     |              |  +--rw rt-pol-bgp:bgp-conditions
+     |              |  |  +--rw rt-pol-bgp:match-community-set
+     |              |  |  |  +--rw rt-pol-bgp:community-set?       -> ../../../../../../../../../rt-pol:routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/name
+     |              |  |  |  +--rw rt-pol-bgp:match-set-options?   enumeration
+     |              |  |  +--rw rt-pol-bgp:match-ext-community-set
+     |              |  |  |  +--rw rt-pol-bgp:ext-community-set?          -> ../../../../../../../../../rt-pol:routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/name
+     |              |  |  |  +--rw rt-pol-bgp:ext-community-match-kind?   enumeration
+     |              |  |  |  +--rw rt-pol-bgp:match-set-options?          enumeration
+     |              |  |  +--rw rt-pol-bgp:match-as-path-set
+     |              |  |  |  +--rw rt-pol-bgp:as-path-set?         -> ../../../../../../../../../rt-pol:routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set/name
+     |              |  |  |  +--rw rt-pol-bgp:match-set-options?   enumeration
+     |              |  |  +--rw rt-pol-bgp:med-eq?                    uint32
+     |              |  |  +--rw rt-pol-bgp:origin-eq?                 rt-pol-bgp:bgp-origin-attr-type
+     |              |  +--rw rt-pol-ospf:ospf-conditions
+     |              |     +--rw rt-pol-ospf:area?   org-openroadm-ospf:area-id-type
+     |              +--rw rt-pol:actions
+     |                 +--rw rt-pol:policy-result?       policy-result-type
+     |                 +--rw rt-pol:set-tag?             tag-type
+     |                 +--rw rt-pol-bgp:bgp-actions
+     |                 |  +--rw rt-pol-bgp:set-local-pref?        uint32
+     |                 |  +--rw rt-pol-bgp:set-next-hop?          bgp-next-hop-type
+     |                 |  +--rw rt-pol-bgp:set-med?               bgp-set-med-type
+     |                 |  +--rw rt-pol-bgp:set-as-path-prepend
+     |                 |  |  +--rw rt-pol-bgp:repeat-n?   uint8
+     |                 |  |  +--rw rt-pol-bgp:asn?        inet:as-number
+     |                 |  +--rw rt-pol-bgp:set-community
+     |                 |  |  +--rw rt-pol-bgp:options?                   bgp-set-community-option-type
+     |                 |  |  +--rw (rt-pol-bgp:method)?
+     |                 |  |     +--:(rt-pol-bgp:inline)
+     |                 |  |     |  +--rw rt-pol-bgp:communities*         union
+     |                 |  |     +--:(rt-pol-bgp:reference)
+     |                 |  |        +--rw rt-pol-bgp:community-set-ref?   -> ../../../../../../../../../rt-pol:routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/name
+     |                 |  +--rw rt-pol-bgp:set-ext-community
+     |                 |     +--rw rt-pol-bgp:options?                       bgp-set-community-option-type
+     |                 |     +--rw (rt-pol-bgp:method)?
+     |                 |        +--:(rt-pol-bgp:inline)
+     |                 |        |  +--rw rt-pol-bgp:communities*             bgp-ext-community-type
+     |                 |        +--:(rt-pol-bgp:reference)
+     |                 |           +--rw rt-pol-bgp:ext-community-set-ref?   -> ../../../../../../../../../rt-pol:routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/name
+     |                 +--rw rt-pol-ospf:ospf-actions
+     |                    +--rw rt-pol-ospf:metric?        uint32
+     |                    +--rw rt-pol-ospf:metric-type?   enumeration
      +--rw org-openroadm-routing:routing
      |  +--rw org-openroadm-routing:routing-instance* [name]
-     |     +--rw org-openroadm-routing:lifecycle-state?     org-openroadm-common-state-types:lifecycle-state
-     |     +--rw org-openroadm-routing:name                 string
-     |     +--rw org-openroadm-routing:type?                identityref
-     |     +--rw org-openroadm-routing:enabled?             boolean
-     |     +--rw org-openroadm-routing:router-id?           yang:dotted-quad {router-id}?
-     |     +--rw org-openroadm-routing:description?         string
+     |     +--rw org-openroadm-routing:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+     |     +--rw org-openroadm-routing:name                    string
+     |     +--rw org-openroadm-routing:type?                   identityref
+     |     +--rw org-openroadm-routing:enabled?                boolean
+     |     +--rw org-openroadm-routing:router-id?              yang:dotted-quad {router-id}?
+     |     +--rw org-openroadm-routing:description?            string
      |     +--rw org-openroadm-routing:interfaces
      |     |  +--rw org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--rw org-openroadm-routing:routing-protocols
@@ -1313,6 +1419,35 @@ module: org-openroadm-device
      |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:special-next-hop?     enumeration
      |     |     |              +--:(org-openroadm-ipv6-unicast-routing:next-hop-address)
      |     |     |                 +--rw org-openroadm-ipv6-unicast-routing:next-hop-address?     inet:ipv6-address
+     |     |     +--rw rt-bgp:bgp
+     |     |     |  +--rw rt-bgp:global
+     |     |     |  |  +--rw rt-bgp:as            inet:as-number
+     |     |     |  |  +--rw rt-bgp:identifier    yang:dotted-quad
+     |     |     |  |  +--rw rt-bgp:distance
+     |     |     |  |     +--rw rt-bgp:external?   uint8
+     |     |     |  |     +--rw rt-bgp:internal?   uint8
+     |     |     |  +--rw rt-bgp:neighbors
+     |     |     |     +--rw rt-bgp:neighbor* [remote-address]
+     |     |     |        +--rw rt-bgp:remote-address     inet:ip-address
+     |     |     |        +--rw rt-bgp:enabled?           boolean
+     |     |     |        +--rw rt-bgp:peer-as            inet:as-number
+     |     |     |        +--rw rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
+     |     |     |        +--rw rt-bgp:description?       string
+     |     |     |        +--rw rt-bgp:timers
+     |     |     |        |  +--rw rt-bgp:connect-retry-interval?             uint16
+     |     |     |        |  +--rw rt-bgp:hold-time?                          uint16
+     |     |     |        |  +--rw rt-bgp:keepalive?                          uint16
+     |     |     |        |  +--rw rt-bgp:min-route-advertisement-interval?   uint16
+     |     |     |        +--rw rt-bgp:ebgp-multihop
+     |     |     |        |  +--rw rt-bgp:enabled?        boolean
+     |     |     |        |  +--rw rt-bgp:multihop-ttl?   uint8
+     |     |     |        +--rw rt-bgp:route-reflector
+     |     |     |        |  +--rw rt-bgp:client?   boolean
+     |     |     |        +--rw rt-bgp:as-path-options
+     |     |     |        |  +--rw rt-bgp:allow-own-as?   uint8
+     |     |     |        +--rw rt-bgp:apply-policy
+     |     |     |           +--rw rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     |     |     |           +--rw rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      |     |     +--rw org-openroadm-ospf:ospf
      |     |        +--rw org-openroadm-ospf:all-instances-inherit {instance-inheritance}?
      |     |        |  +--rw org-openroadm-ospf:area
@@ -1390,21 +1525,57 @@ module: org-openroadm-device
      |     |                    +--rw org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
      |     |                    +--rw org-openroadm-ospf:cost?   uint32
      |     +--rw org-openroadm-routing:ribs
-     |        +--rw org-openroadm-routing:rib* [name]
-     |           +--rw org-openroadm-routing:name              string
-     |           +--rw org-openroadm-routing:address-family?   identityref
-     |           +--rw org-openroadm-routing:description?      string
+     |     |  +--rw org-openroadm-routing:rib* [name]
+     |     |     +--rw org-openroadm-routing:name              string
+     |     |     +--rw org-openroadm-routing:address-family?   identityref
+     |     |     +--rw org-openroadm-routing:description?      string
+     |     +--rw org-openroadm-routing:route-redistribution
+     |        +--rw org-openroadm-routing:redistribute-route* [source-protocol destination-protocol address-family]
+     |           +--rw org-openroadm-routing:source-protocol         -> ../../../routing-protocols/routing-protocol/type
+     |           +--rw org-openroadm-routing:destination-protocol    -> ../../../routing-protocols/routing-protocol/type
+     |           +--rw org-openroadm-routing:address-family          identityref
+     |           +--rw org-openroadm-routing:metric-propagation?     boolean
+     |           +--rw org-openroadm-routing:import-policy*          -> ../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      +--ro org-openroadm-routing:routing-state
      |  +--ro org-openroadm-routing:routing-instance* [name]
-     |     +--ro org-openroadm-routing:name                 string
-     |     +--ro org-openroadm-routing:type?                identityref
-     |     +--ro org-openroadm-routing:router-id?           yang:dotted-quad
+     |     +--ro org-openroadm-routing:name                    string
+     |     +--ro org-openroadm-routing:type?                   identityref
+     |     +--ro org-openroadm-routing:router-id?              yang:dotted-quad
      |     +--ro org-openroadm-routing:interfaces
      |     |  +--ro org-openroadm-routing:interface*   org-openroadm-device:interface-ref
      |     +--ro org-openroadm-routing:routing-protocols
      |     |  +--ro org-openroadm-routing:routing-protocol* [type name]
      |     |     +--ro org-openroadm-routing:type    identityref
      |     |     +--ro org-openroadm-routing:name    string
+     |     |     +--ro rt-bgp:bgp
+     |     |     |  +--ro rt-bgp:global
+     |     |     |  |  +--ro rt-bgp:as            inet:as-number
+     |     |     |  |  +--ro rt-bgp:identifier    yang:dotted-quad
+     |     |     |  |  +--ro rt-bgp:distance
+     |     |     |  |     +--ro rt-bgp:external?   uint8
+     |     |     |  |     +--ro rt-bgp:internal?   uint8
+     |     |     |  +--ro rt-bgp:neighbors
+     |     |     |     +--ro rt-bgp:neighbor* [remote-address]
+     |     |     |        +--ro rt-bgp:remote-address     inet:ip-address
+     |     |     |        +--ro rt-bgp:enabled?           boolean
+     |     |     |        +--ro rt-bgp:peer-as            inet:as-number
+     |     |     |        +--ro rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
+     |     |     |        +--ro rt-bgp:description?       string
+     |     |     |        +--ro rt-bgp:timers
+     |     |     |        |  +--ro rt-bgp:connect-retry-interval?             uint16
+     |     |     |        |  +--ro rt-bgp:hold-time?                          uint16
+     |     |     |        |  +--ro rt-bgp:keepalive?                          uint16
+     |     |     |        |  +--ro rt-bgp:min-route-advertisement-interval?   uint16
+     |     |     |        +--ro rt-bgp:ebgp-multihop
+     |     |     |        |  +--ro rt-bgp:enabled?        boolean
+     |     |     |        |  +--ro rt-bgp:multihop-ttl?   uint8
+     |     |     |        +--ro rt-bgp:route-reflector
+     |     |     |        |  +--ro rt-bgp:client?   boolean
+     |     |     |        +--ro rt-bgp:as-path-options
+     |     |     |        |  +--ro rt-bgp:allow-own-as?   uint8
+     |     |     |        +--ro rt-bgp:apply-policy
+     |     |     |           +--ro rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     |     |     |           +--ro rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      |     |     +--ro org-openroadm-ospf:ospf
      |     |        +--ro org-openroadm-ospf:instance* [routing-instance af]
      |     |           +--ro org-openroadm-ospf:routing-instance    org-openroadm-routing:routing-instance-ref
@@ -1788,26 +1959,52 @@ module: org-openroadm-device
      |     |              +--ro org-openroadm-ospf:area* [area-id]
      |     |                 +--ro org-openroadm-ospf:area-id    area-id-type
      |     +--ro org-openroadm-routing:ribs
-     |        +--ro org-openroadm-routing:rib* [name]
-     |           +--ro org-openroadm-routing:name              string
-     |           +--ro org-openroadm-routing:address-family    identityref
-     |           +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
-     |           +--ro org-openroadm-routing:routes
-     |              +--ro org-openroadm-routing:route* []
-     |                 +--ro org-openroadm-routing:route-preference?                  route-preference
-     |                 +--ro org-openroadm-routing:next-hop
-     |                 |  +--ro (org-openroadm-routing:next-hop-options)
-     |                 |     +--:(org-openroadm-routing:simple-next-hop)
-     |                 |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
-     |                 |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
-     |                 |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
-     |                 |     +--:(org-openroadm-routing:special-next-hop)
-     |                 |        +--ro org-openroadm-routing:special-next-hop?                enumeration
-     |                 +--ro org-openroadm-routing:source-protocol                    identityref
-     |                 +--ro org-openroadm-routing:active?                            empty
-     |                 +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
-     |                 +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
-     |                 +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
+     |     |  +--ro org-openroadm-routing:rib* [name]
+     |     |     +--ro org-openroadm-routing:name              string
+     |     |     +--ro org-openroadm-routing:address-family    identityref
+     |     |     +--ro org-openroadm-routing:default-rib?      boolean {multiple-ribs}?
+     |     |     +--ro org-openroadm-routing:routes
+     |     |        +--ro org-openroadm-routing:route* []
+     |     |           +--ro org-openroadm-routing:route-preference?                  route-preference
+     |     |           +--ro org-openroadm-routing:next-hop
+     |     |           |  +--ro (org-openroadm-routing:next-hop-options)
+     |     |           |     +--:(org-openroadm-routing:simple-next-hop)
+     |     |           |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
+     |     |           |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
+     |     |           |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
+     |     |           |     +--:(org-openroadm-routing:special-next-hop)
+     |     |           |        +--ro org-openroadm-routing:special-next-hop?                enumeration
+     |     |           +--ro org-openroadm-routing:source-protocol                    identityref
+     |     |           +--ro org-openroadm-routing:active?                            empty
+     |     |           +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
+     |     |           +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
+     |     |           +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
+     |     +--ro org-openroadm-routing:route-redistribution
+     |        +--ro org-openroadm-routing:redistribute-route* [source-protocol destination-protocol address-family]
+     |           +--ro org-openroadm-routing:source-protocol         -> ../../../routing-protocols/routing-protocol/type
+     |           +--ro org-openroadm-routing:destination-protocol    -> ../../../routing-protocols/routing-protocol/type
+     |           +--ro org-openroadm-routing:address-family          identityref
+     |           +--ro org-openroadm-routing:metric-propagation?     boolean
+     |           +--ro org-openroadm-routing:import-policy*          -> ../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     +--rw org-openroadm-security:security
+     |  +--rw org-openroadm-security:certificate* [certificate-id]
+     |  |  +---x org-openroadm-security:install
+     |  |  |  +---w org-openroadm-security:input
+     |  |  |  |  +---w org-openroadm-security:filename?   string
+     |  |  |  +--ro org-openroadm-security:output
+     |  |  |     +--ro org-openroadm-security:status            rpc-status
+     |  |  |     +--ro org-openroadm-security:status-message?   string
+     |  |  +--rw org-openroadm-security:certificate-id    certificate-id-type
+     |  |  +--ro org-openroadm-security:information?      string
+     |  +--rw org-openroadm-security:ca-certificate* [ca-certificate-id]
+     |     +---x org-openroadm-security:install
+     |     |  +---w org-openroadm-security:input
+     |     |  |  +---w org-openroadm-security:filename?   string
+     |     |  +--ro org-openroadm-security:output
+     |     |     +--ro org-openroadm-security:status            rpc-status
+     |     |     +--ro org-openroadm-security:status-message?   string
+     |     +--rw org-openroadm-security:ca-certificate-id    certificate-id-type
+     |     +--ro org-openroadm-security:information?         string
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16
@@ -2089,6 +2286,17 @@ module: org-openroadm-native-data
           +--ro status            rpc-status
           +--ro status-message?   string
           +--ro get-response?     string
+
+module: org-openroadm-native-rpc
+
+  rpcs:
+    +---x execute-native-rpc
+       +---w input
+       |  +---w rpc-request?   string
+       +--ro output
+          +--ro status            rpc-status
+          +--ro status-message?   string
+          +--ro rpc-response?     string
 
 module: org-openroadm-optical-rebalancing
 

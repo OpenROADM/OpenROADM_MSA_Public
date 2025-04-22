@@ -8,11 +8,15 @@ module org-openroadm-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
     revision-date 2019-11-29;
+  }
+  import org-openroadm-routing-policy {
+    prefix rt-pol;
+    revision-date 2025-03-28;
   }
 
   organization
@@ -39,6 +43,10 @@ module org-openroadm-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
@@ -399,6 +407,68 @@ module org-openroadm-routing {
     }
   }
 
+  grouping route-redistribution-top {
+    description
+      "Redistribution grouping dictating how RIB entries are propagated
+       between routing protocols";
+
+    container route-redistribution {
+      description
+        "Policies dictating how RIB entries are propagated between
+         routing protocols";
+
+      list redistribute-route {
+        key "source-protocol destination-protocol address-family";
+
+        description
+          "A list of redistribution rule defines how routes from
+           source protocol to be leaked to another.";
+
+        leaf source-protocol {
+          type leafref {
+              path "../../../routing-protocols/routing-protocol/type";
+          }
+
+          description
+            "The source protocol of route redistribution";
+        }
+
+        leaf destination-protocol {
+          type leafref {
+              path "../../../routing-protocols/routing-protocol/type";
+          }
+
+          description
+            "The destination protocol of route redistribution";
+        }
+
+        uses address-family-group;
+
+        leaf metric-propagation {
+          type boolean;
+          default true;
+          description
+            "By default a system may reflect the metric specified in
+            the destination protocol according to that which is set in
+            the source protocol.";
+        }
+
+        leaf-list import-policy {
+          type leafref {
+            path "../../../../../" +
+                 "rt-pol:routing-policy/rt-pol:policy-definitions/" +
+                 "rt-pol:policy-definition/rt-pol:name";
+          }
+          ordered-by user;
+          description
+            "List of policy names in sequence to be applied on
+             receiving redistributed routes from another routing
+             protocol";
+        }
+      }
+    }
+  }
+
   grouping routing-grp {
     container routing {
       description
@@ -554,6 +624,7 @@ module org-openroadm-routing {
             }
           }
         }
+        uses route-redistribution-top;
       }
     }
   }
@@ -697,6 +768,7 @@ module org-openroadm-routing {
             }
           }
         }
+        uses route-redistribution-top;
       }
     }
   }

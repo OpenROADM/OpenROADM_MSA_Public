@@ -35,6 +35,10 @@ module org-openroadm-user-mgmt {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2020-09-25 {
     description
       "Version 8.0";
@@ -113,6 +117,9 @@ module org-openroadm-user-mgmt {
       leaf group {
         type enumeration {
           enum sudo;
+          enum diag {
+            description "diag users are permitted to access the root shell.";
+          }
         }
         description
           "The group to which the user is associated to.";

@@ -145,9 +145,12 @@ module: org-openroadm-alarm
 
 module: org-openroadm-ltp-template
   +--rw ltp-template
+     +--rw ltp-template-name?        string
+     +--rw ltp-template-version?     string
      +--rw vendor                    string
      +--rw model*                    string
      +--rw node-type*                org-openroadm-common-node-types:node-types
+     +--rw info-template*            string
      +--rw management-information?   string
      +--rw global-sync-timeout?      uint16
      +--rw command-sequence* [sequence-index]

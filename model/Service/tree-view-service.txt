@@ -775,15 +775,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -911,15 +912,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -1092,10 +1094,11 @@ module: org-openroadm-service
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id                     string
   |     |  |  +--rw computation-results
-  |     |  |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  |  +--rw subroute_id?           string
   |     |  |  +--rw previous_ids*          string
   |     |  |  +--rw hop-type?              enumeration
@@ -1212,10 +1215,11 @@ module: org-openroadm-service
   |     |  +--rw zToA* [id]
   |     |     +--rw id                     string
   |     |     +--rw computation-results
-  |     |     |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     +--rw subroute_id?           string
   |     |     +--rw previous_ids*          string
   |     |     +--rw hop-type?              enumeration
@@ -1336,10 +1340,11 @@ module: org-openroadm-service
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id                     string
   |     |     |  +--rw computation-results
-  |     |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     |  +--rw subroute_id?           string
   |     |     |  +--rw previous_ids*          string
   |     |     |  +--rw hop-type?              enumeration
@@ -1456,10 +1461,11 @@ module: org-openroadm-service
   |     |     +--rw zToA* [id]
   |     |        +--rw id                     string
   |     |        +--rw computation-results
-  |     |        |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |        +--rw subroute_id?           string
   |     |        +--rw previous_ids*          string
   |     |        +--rw hop-type?              enumeration
@@ -1857,15 +1863,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -1993,15 +2000,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -2174,10 +2182,11 @@ module: org-openroadm-service
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id                     string
   |     |  |  +--rw computation-results
-  |     |  |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  |  +--rw subroute_id?           string
   |     |  |  +--rw previous_ids*          string
   |     |  |  +--rw hop-type?              enumeration
@@ -2294,10 +2303,11 @@ module: org-openroadm-service
   |     |  +--rw zToA* [id]
   |     |     +--rw id                     string
   |     |     +--rw computation-results
-  |     |     |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     +--rw subroute_id?           string
   |     |     +--rw previous_ids*          string
   |     |     +--rw hop-type?              enumeration
@@ -2418,10 +2428,11 @@ module: org-openroadm-service
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id                     string
   |     |     |  +--rw computation-results
-  |     |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     |  +--rw subroute_id?           string
   |     |     |  +--rw previous_ids*          string
   |     |     |  +--rw hop-type?              enumeration
@@ -2538,10 +2549,11 @@ module: org-openroadm-service
   |     |     +--rw zToA* [id]
   |     |        +--rw id                     string
   |     |        +--rw computation-results
-  |     |        |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |        +--rw subroute_id?           string
   |     |        +--rw previous_ids*          string
   |     |        +--rw hop-type?              enumeration
@@ -2939,15 +2951,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -3075,15 +3088,16 @@ module: org-openroadm-service
   |     |  +--rw project-id?                      string
   |     |  +--rw project-note?                    string
   |     |  +--rw optical-attributes
-  |     |  |  +--rw frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-  |     |  |  +--rw width?                org-openroadm-common-optical-channel-types:frequency-GHz
-  |     |  |  +--rw operational-mode?     string
-  |     |  |  +--rw media-interface-id?   media-id-type
-  |     |  |  +--rw associated-oui?       org-openroadm-common-types:oui-type
-  |     |  |  +--rw rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw max-output-power?     org-openroadm-common-link-types:ratio-dB
-  |     |  |  +--rw min-output-power?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+  |     |  |  +--rw operational-mode?      string
+  |     |  |  +--rw media-interface-id?    media-id-type
+  |     |  |  +--rw associated-oui?        org-openroadm-common-types:oui-type
+  |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  +--rw equipment-required* [equipment-identifier]
   |     |     +--rw equipment-type?         string
   |     |     +--rw equipment-identifier    string
@@ -3256,10 +3270,11 @@ module: org-openroadm-service
   |     |  +--rw aToZ* [id]
   |     |  |  +--rw id                     string
   |     |  |  +--rw computation-results
-  |     |  |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |  |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |  |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |  |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |  |  +--rw subroute_id?           string
   |     |  |  +--rw previous_ids*          string
   |     |  |  +--rw hop-type?              enumeration
@@ -3376,10 +3391,11 @@ module: org-openroadm-service
   |     |  +--rw zToA* [id]
   |     |     +--rw id                     string
   |     |     +--rw computation-results
-  |     |     |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     +--rw subroute_id?           string
   |     |     +--rw previous_ids*          string
   |     |     +--rw hop-type?              enumeration
@@ -3500,10 +3516,11 @@ module: org-openroadm-service
   |     |     +--rw aToZ* [id]
   |     |     |  +--rw id                     string
   |     |     |  +--rw computation-results
-  |     |     |  |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |     |  |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |     |  |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |     |  |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |     |  +--rw subroute_id?           string
   |     |     |  +--rw previous_ids*          string
   |     |     |  +--rw hop-type?              enumeration
@@ -3620,10 +3637,11 @@ module: org-openroadm-service
   |     |     +--rw zToA* [id]
   |     |        +--rw id                     string
   |     |        +--rw computation-results
-  |     |        |  +--rw rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw max-output-power?    org-openroadm-common-link-types:ratio-dB
-  |     |        |  +--rw min-output-power?    org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+  |     |        |  +--rw target-output-power?   org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw max-output-power?      org-openroadm-common-link-types:power-dBm
+  |     |        |  +--rw min-output-power?      org-openroadm-common-link-types:power-dBm
   |     |        +--rw subroute_id?           string
   |     |        +--rw previous_ids*          string
   |     |        +--rw hop-type?              enumeration
@@ -3971,6 +3989,7 @@ module: org-openroadm-service
      |  |     +--rw baud-rate?                       decimal64
      |  |     +--rw line-rate                        decimal64
      |  |     +--rw payload-rate-identity?           identityref
+     |  |     +--rw payload-frame-type?              org-openroadm-common-service-types:payload-frame-type
      |  |     +--rw fec-rate?                        decimal64
      |  |     +--rw prefec-ber-threshold?            decimal64
      |  |     +--rw modulation-format?               union
@@ -3981,11 +4000,11 @@ module: org-openroadm-service
      |  |     |  +--rw min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
      |  |     +--rw output-power-range* [WR-openroadm-operational-mode-id]
      |  |     |  +--rw WR-openroadm-operational-mode-id    string
-     |  |     |  +--rw min-output-power                    org-openroadm-common-link-types:ratio-dB
-     |  |     |  +--rw max-output-power                    org-openroadm-common-link-types:ratio-dB
+     |  |     |  +--rw min-output-power                    org-openroadm-common-link-types:power-dBm
+     |  |     |  +--rw max-output-power                    org-openroadm-common-link-types:power-dBm
      |  |     +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
-     |  |     +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
-     |  |     +--rw max-input-power                  org-openroadm-common-link-types:ratio-dB
+     |  |     +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
+     |  |     +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
      |  |     +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
      |  |     +--rw fec-type?                        union
      |  |     +--rw min-roll-off?                    decimal64
@@ -3998,8 +4017,8 @@ module: org-openroadm-service
      |  |  +--rw Express
      |  |  |  +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |  |     +--rw openroadm-operational-mode-id    string
-     |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-     |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+     |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+     |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |  |  |     +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw max-introduced-dgd?              decimal64
      |  |  |     +--rw max-introduced-cd?               decimal64
@@ -4019,8 +4038,8 @@ module: org-openroadm-service
      |  |  |     +--rw openroadm-operational-mode-id    string
      |  |  |     +--rw max-channel-number?              uint8
      |  |  |     +--rw incremental-osnr?                org-openroadm-common-link-types:ratio-dB
-     |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-     |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+     |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+     |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |  |  |     +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw max-introduced-dgd?              decimal64
      |  |  |     +--rw max-introduced-cd?               decimal64
@@ -4033,8 +4052,8 @@ module: org-openroadm-service
      |  |  +--rw Drop
      |  |     +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |        +--rw openroadm-operational-mode-id    string
-     |  |        +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-     |  |        +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+     |  |        +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+     |  |        +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |  |        +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
      |  |        +--rw max-introduced-dgd?              decimal64
      |  |        +--rw max-introduced-cd?               decimal64
@@ -4043,14 +4062,14 @@ module: org-openroadm-service
      |  |        |  +--rw B?   decimal64
      |  |        |  +--rw C?   decimal64
      |  |        |  +--rw D?   decimal64
-     |  |        +--rw per-channel-Pout-min?            org-openroadm-common-link-types:ratio-dB
-     |  |        +--rw per-channel-Pout-max?            org-openroadm-common-link-types:ratio-dB
+     |  |        +--rw per-channel-Pout-min?            org-openroadm-common-link-types:power-dBm
+     |  |        +--rw per-channel-Pout-max?            org-openroadm-common-link-types:power-dBm
      |  +--rw amplifiers
      |     +--rw Amplifier
      |        +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |           +--rw openroadm-operational-mode-id    string
-     |           +--rw per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-     |           +--rw per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+     |           +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+     |           +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |           +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
      |           +--rw max-introduced-dgd?              decimal64
      |           +--rw max-introduced-cd?               decimal64
@@ -4087,6 +4106,7 @@ module: org-openroadm-service
            +--rw baud-rate?                       decimal64
            +--rw line-rate                        decimal64
            +--rw payload-rate-identity?           identityref
+           +--rw payload-frame-type?              org-openroadm-common-service-types:payload-frame-type
            +--rw fec-rate?                        decimal64
            +--rw prefec-ber-threshold?            decimal64
            +--rw modulation-format?               union
@@ -4097,11 +4117,11 @@ module: org-openroadm-service
            |  +--rw min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
            +--rw output-power-range* [WR-openroadm-operational-mode-id]
            |  +--rw WR-openroadm-operational-mode-id    string
-           |  +--rw min-output-power                    org-openroadm-common-link-types:ratio-dB
-           |  +--rw max-output-power                    org-openroadm-common-link-types:ratio-dB
+           |  +--rw min-output-power                    org-openroadm-common-link-types:power-dBm
+           |  +--rw max-output-power                    org-openroadm-common-link-types:power-dBm
            +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
-           +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
-           +--rw max-input-power                  org-openroadm-common-link-types:ratio-dB
+           +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
+           +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
            +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
            +--rw fec-type?                        union
            +--rw min-roll-off?                    decimal64
@@ -6696,8 +6716,9 @@ module: org-openroadm-service
     |     |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |     |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |     |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |     |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |     |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |     |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |     +--ro service-z-end
     |     |  +--ro application-class-name?               string
     |     |  +--ro service-format                        org-openroadm-service-format:service-format
@@ -6832,8 +6853,9 @@ module: org-openroadm-service
     |     |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |     |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |     |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |     |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |     |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |     |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |     +--ro intermediate-site* [clli]
     |     |  +--ro clli    string
     |     |  +--ro node* [node-id]
@@ -6858,10 +6880,11 @@ module: org-openroadm-service
     |     |  |  +--ro aToZ* [id]
     |     |  |  |  +--ro id                     string
     |     |  |  |  +--ro computation-results
-    |     |  |  |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |  |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |  |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |     |  |  |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |     |  |  |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |  |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |  |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |     |  |  |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |     |  |  |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |     |  |  |  +--ro subroute_id?           string
     |     |  |  |  +--ro previous_ids*          string
     |     |  |  |  +--ro hop-type?              enumeration
@@ -6978,10 +7001,11 @@ module: org-openroadm-service
     |     |  |  +--ro zToA* [id]
     |     |  |     +--ro id                     string
     |     |  |     +--ro computation-results
-    |     |  |     |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |     |  |     |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |     |  |     |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |     |  |     +--ro subroute_id?           string
     |     |  |     +--ro previous_ids*          string
     |     |  |     +--ro hop-type?              enumeration
@@ -7102,10 +7126,11 @@ module: org-openroadm-service
     |     |  |     +--ro aToZ* [id]
     |     |  |     |  +--ro id                     string
     |     |  |     |  +--ro computation-results
-    |     |  |     |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |     |  |     |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |     |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |     |  |     |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |     |  |     |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |     |  |     |  +--ro subroute_id?           string
     |     |  |     |  +--ro previous_ids*          string
     |     |  |     |  +--ro hop-type?              enumeration
@@ -7222,10 +7247,11 @@ module: org-openroadm-service
     |     |  |     +--ro zToA* [id]
     |     |  |        +--ro id                     string
     |     |  |        +--ro computation-results
-    |     |  |        |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |        |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |     |  |        |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |     |  |        |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |     |  |        |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |        |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |     |  |        |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |     |  |        |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |     |  |        |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |     |  |        +--ro subroute_id?           string
     |     |  |        +--ro previous_ids*          string
     |     |  |        +--ro hop-type?              enumeration
@@ -7665,8 +7691,9 @@ module: org-openroadm-service
     |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |        |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |        |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |        |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |        +--ro service-z-end
     |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
@@ -7801,8 +7828,9 @@ module: org-openroadm-service
     |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |        |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |        |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |        |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |        +--ro intermediate-site* [clli]
     |        |  +--ro clli    string
     |        |  +--ro node* [node-id]
@@ -7827,10 +7855,11 @@ module: org-openroadm-service
     |        |  |  +--ro aToZ* [id]
     |        |  |  |  +--ro id                     string
     |        |  |  |  +--ro computation-results
-    |        |  |  |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |  |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |  |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |  |  +--ro subroute_id?           string
     |        |  |  |  +--ro previous_ids*          string
     |        |  |  |  +--ro hop-type?              enumeration
@@ -7947,10 +7976,11 @@ module: org-openroadm-service
     |        |  |  +--ro zToA* [id]
     |        |  |     +--ro id                     string
     |        |  |     +--ro computation-results
-    |        |  |     |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |     |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |     |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |     +--ro subroute_id?           string
     |        |  |     +--ro previous_ids*          string
     |        |  |     +--ro hop-type?              enumeration
@@ -8071,10 +8101,11 @@ module: org-openroadm-service
     |        |  |     +--ro aToZ* [id]
     |        |  |     |  +--ro id                     string
     |        |  |     |  +--ro computation-results
-    |        |  |     |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |     |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |     |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |     |  +--ro subroute_id?           string
     |        |  |     |  +--ro previous_ids*          string
     |        |  |     |  +--ro hop-type?              enumeration
@@ -8191,10 +8222,11 @@ module: org-openroadm-service
     |        |  |     +--ro zToA* [id]
     |        |  |        +--ro id                     string
     |        |  |        +--ro computation-results
-    |        |  |        |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |        |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |        |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |        +--ro subroute_id?           string
     |        |  |        +--ro previous_ids*          string
     |        |  |        +--ro hop-type?              enumeration
@@ -9186,8 +9218,9 @@ module: org-openroadm-service
     |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |        |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |        |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |        |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |        +--ro service-z-end
     |        |  +--ro application-class-name?               string
     |        |  +--ro service-format                        org-openroadm-service-format:service-format
@@ -9322,8 +9355,9 @@ module: org-openroadm-service
     |        |     +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        |     +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        |     +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |        |     +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |        |     +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |        |     +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |        |     +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |        +--ro intermediate-site* [clli]
     |        |  +--ro clli    string
     |        |  +--ro node* [node-id]
@@ -9348,10 +9382,11 @@ module: org-openroadm-service
     |        |  |  +--ro aToZ* [id]
     |        |  |  |  +--ro id                     string
     |        |  |  |  +--ro computation-results
-    |        |  |  |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |  |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |  |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |  |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |  |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |  |  +--ro subroute_id?           string
     |        |  |  |  +--ro previous_ids*          string
     |        |  |  |  +--ro hop-type?              enumeration
@@ -9468,10 +9503,11 @@ module: org-openroadm-service
     |        |  |  +--ro zToA* [id]
     |        |  |     +--ro id                     string
     |        |  |     +--ro computation-results
-    |        |  |     |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |     |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |     |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |     +--ro subroute_id?           string
     |        |  |     +--ro previous_ids*          string
     |        |  |     +--ro hop-type?              enumeration
@@ -9592,10 +9628,11 @@ module: org-openroadm-service
     |        |  |     +--ro aToZ* [id]
     |        |  |     |  +--ro id                     string
     |        |  |     |  +--ro computation-results
-    |        |  |     |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |     |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |     |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |     |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |     |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |     |  +--ro subroute_id?           string
     |        |  |     |  +--ro previous_ids*          string
     |        |  |     |  +--ro hop-type?              enumeration
@@ -9712,10 +9749,11 @@ module: org-openroadm-service
     |        |  |     +--ro zToA* [id]
     |        |  |        +--ro id                     string
     |        |  |        +--ro computation-results
-    |        |  |        |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |        |  |        |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |        |  |        |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |        |  |        |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |        |  |        |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |        |  |        +--ro subroute_id?           string
     |        |  |        +--ro previous_ids*          string
     |        |  |        +--ro hop-type?              enumeration
@@ -12272,6 +12310,7 @@ module: org-openroadm-service
     |  |  |  |        +---w port-shelf?               string
     |  |  |  |        +---w port-slot?                string
     |  |  |  |        +---w port-sub-slot?            string
+    |  |  |  +---w target-output-power?        org-openroadm-common-link-types:power-dBm
     |  |  |  +---w min-output-power?           org-openroadm-common-link-types:power-dBm
     |  |  |  +---w max-output-power?           org-openroadm-common-link-types:power-dBm
     |  |  +---w service-z-end
@@ -12300,6 +12339,7 @@ module: org-openroadm-service
     |  |  |  |        +---w port-shelf?               string
     |  |  |  |        +---w port-slot?                string
     |  |  |  |        +---w port-sub-slot?            string
+    |  |  |  +---w target-output-power?        org-openroadm-common-link-types:power-dBm
     |  |  |  +---w min-output-power?           org-openroadm-common-link-types:power-dBm
     |  |  |  +---w max-output-power?           org-openroadm-common-link-types:power-dBm
     |  |  +---w frequency?                              org-openroadm-common-optical-channel-types:frequency-THz
@@ -12408,6 +12448,7 @@ module: org-openroadm-service
     |  |     |     +---w baud-rate?                       decimal64
     |  |     |     +---w line-rate                        decimal64
     |  |     |     +---w payload-rate-identity?           identityref
+    |  |     |     +---w payload-frame-type?              org-openroadm-common-service-types:payload-frame-type
     |  |     |     +---w fec-rate?                        decimal64
     |  |     |     +---w prefec-ber-threshold?            decimal64
     |  |     |     +---w modulation-format?               union
@@ -12418,11 +12459,11 @@ module: org-openroadm-service
     |  |     |     |  +---w min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w output-power-range* [WR-openroadm-operational-mode-id]
     |  |     |     |  +---w WR-openroadm-operational-mode-id    string
-    |  |     |     |  +---w min-output-power                    org-openroadm-common-link-types:ratio-dB
-    |  |     |     |  +---w max-output-power                    org-openroadm-common-link-types:ratio-dB
+    |  |     |     |  +---w min-output-power                    org-openroadm-common-link-types:power-dBm
+    |  |     |     |  +---w max-output-power                    org-openroadm-common-link-types:power-dBm
     |  |     |     +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
-    |  |     |     +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
-    |  |     |     +---w max-input-power                  org-openroadm-common-link-types:ratio-dB
+    |  |     |     +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
+    |  |     |     +---w max-input-power                  org-openroadm-common-link-types:power-dBm
     |  |     |     +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     |     +---w fec-type?                        union
     |  |     |     +---w min-roll-off?                    decimal64
@@ -12435,8 +12476,8 @@ module: org-openroadm-service
     |  |     |  +---w Express
     |  |     |  |  +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |  |     +---w openroadm-operational-mode-id    string
-    |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-    |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+    |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+    |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |     |  |     +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w max-introduced-dgd?              decimal64
     |  |     |  |     +---w max-introduced-cd?               decimal64
@@ -12456,8 +12497,8 @@ module: org-openroadm-service
     |  |     |  |     +---w openroadm-operational-mode-id    string
     |  |     |  |     +---w max-channel-number?              uint8
     |  |     |  |     +---w incremental-osnr?                org-openroadm-common-link-types:ratio-dB
-    |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-    |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+    |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+    |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |     |  |     +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w max-introduced-dgd?              decimal64
     |  |     |  |     +---w max-introduced-cd?               decimal64
@@ -12470,8 +12511,8 @@ module: org-openroadm-service
     |  |     |  +---w Drop
     |  |     |     +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |        +---w openroadm-operational-mode-id    string
-    |  |     |        +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-    |  |     |        +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+    |  |     |        +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+    |  |     |        +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |     |        +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
     |  |     |        +---w max-introduced-dgd?              decimal64
     |  |     |        +---w max-introduced-cd?               decimal64
@@ -12480,14 +12521,14 @@ module: org-openroadm-service
     |  |     |        |  +---w B?   decimal64
     |  |     |        |  +---w C?   decimal64
     |  |     |        |  +---w D?   decimal64
-    |  |     |        +---w per-channel-Pout-min?            org-openroadm-common-link-types:ratio-dB
-    |  |     |        +---w per-channel-Pout-max?            org-openroadm-common-link-types:ratio-dB
+    |  |     |        +---w per-channel-Pout-min?            org-openroadm-common-link-types:power-dBm
+    |  |     |        +---w per-channel-Pout-max?            org-openroadm-common-link-types:power-dBm
     |  |     +---w amplifiers
     |  |        +---w Amplifier
     |  |           +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |              +---w openroadm-operational-mode-id    string
-    |  |              +---w per-channel-Pin-min?             org-openroadm-common-link-types:ratio-dB
-    |  |              +---w per-channel-Pin-max?             org-openroadm-common-link-types:ratio-dB
+    |  |              +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
+    |  |              +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |              +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
     |  |              +---w max-introduced-dgd?              decimal64
     |  |              +---w max-introduced-cd?               decimal64
@@ -12536,6 +12577,7 @@ module: org-openroadm-service
     |  |           +---w baud-rate?                       decimal64
     |  |           +---w line-rate                        decimal64
     |  |           +---w payload-rate-identity?           identityref
+    |  |           +---w payload-frame-type?              org-openroadm-common-service-types:payload-frame-type
     |  |           +---w fec-rate?                        decimal64
     |  |           +---w prefec-ber-threshold?            decimal64
     |  |           +---w modulation-format?               union
@@ -12546,11 +12588,11 @@ module: org-openroadm-service
     |  |           |  +---w min-OOB-osnr-single-channel-value?   org-openroadm-common-link-types:ratio-dB
     |  |           +---w output-power-range* [WR-openroadm-operational-mode-id]
     |  |           |  +---w WR-openroadm-operational-mode-id    string
-    |  |           |  +---w min-output-power                    org-openroadm-common-link-types:ratio-dB
-    |  |           |  +---w max-output-power                    org-openroadm-common-link-types:ratio-dB
+    |  |           |  +---w min-output-power                    org-openroadm-common-link-types:power-dBm
+    |  |           |  +---w max-output-power                    org-openroadm-common-link-types:power-dBm
     |  |           +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
-    |  |           +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:ratio-dB
-    |  |           +---w max-input-power                  org-openroadm-common-link-types:ratio-dB
+    |  |           +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
+    |  |           +---w max-input-power                  org-openroadm-common-link-types:power-dBm
     |  |           +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
     |  |           +---w fec-type?                        union
     |  |           +---w min-roll-off?                    decimal64
@@ -12596,8 +12638,9 @@ module: org-openroadm-service
     |     |  +--ro associated-oui?             org-openroadm-common-types:oui-type
     |     |  +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |     |  +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |     |  +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |     |  +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |     |  +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |     |  +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |     |  +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     |     +--ro zToA
     |        +--ro frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
     |        +--ro width?                      org-openroadm-common-optical-channel-types:frequency-GHz
@@ -12606,8 +12649,9 @@ module: org-openroadm-service
     |        +--ro associated-oui?             org-openroadm-common-types:oui-type
     |        +--ro rx-estimated-osnr?          org-openroadm-common-link-types:ratio-dB
     |        +--ro rx-estimated-gsnr?          org-openroadm-common-link-types:ratio-dB
-    |        +--ro max-output-power?           org-openroadm-common-link-types:ratio-dB
-    |        +--ro min-output-power?           org-openroadm-common-link-types:ratio-dB
+    |        +--ro target-output-power?        org-openroadm-common-link-types:power-dBm
+    |        +--ro max-output-power?           org-openroadm-common-link-types:power-dBm
+    |        +--ro min-output-power?           org-openroadm-common-link-types:power-dBm
     +---n service-traffic-flow
     |  +--ro service-name      string
     |  +--ro version-number?   uint64
@@ -12766,15 +12810,16 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?     string
-    |  |     +--ro media-interface-id?   media-id-type
-    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
-    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?      string
+    |  |     +--ro media-interface-id?    media-id-type
+    |  |     +--ro associated-oui?        org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro service-z-end
     |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
@@ -12887,15 +12932,16 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?     string
-    |  |     +--ro media-interface-id?   media-id-type
-    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
-    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?      string
+    |  |     +--ro media-interface-id?    media-id-type
+    |  |     +--ro associated-oui?        org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -13053,10 +13099,11 @@ module: org-openroadm-service
     |  |  +--ro aToZ* [id]
     |  |  |  +--ro id                     string
     |  |  |  +--ro computation-results
-    |  |  |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |  |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |  |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |  |  +--ro subroute_id?           string
     |  |  |  +--ro previous_ids*          string
     |  |  |  +--ro hop-type?              enumeration
@@ -13173,10 +13220,11 @@ module: org-openroadm-service
     |  |  +--ro zToA* [id]
     |  |     +--ro id                     string
     |  |     +--ro computation-results
-    |  |     |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     +--ro subroute_id?           string
     |  |     +--ro previous_ids*          string
     |  |     +--ro hop-type?              enumeration
@@ -13297,10 +13345,11 @@ module: org-openroadm-service
     |  |     +--ro aToZ* [id]
     |  |     |  +--ro id                     string
     |  |     |  +--ro computation-results
-    |  |     |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     |  +--ro subroute_id?           string
     |  |     |  +--ro previous_ids*          string
     |  |     |  +--ro hop-type?              enumeration
@@ -13417,10 +13466,11 @@ module: org-openroadm-service
     |  |     +--ro zToA* [id]
     |  |        +--ro id                     string
     |  |        +--ro computation-results
-    |  |        |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |        |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |        |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |        +--ro subroute_id?           string
     |  |        +--ro previous_ids*          string
     |  |        +--ro hop-type?              enumeration
@@ -13751,15 +13801,16 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?     string
-    |  |     +--ro media-interface-id?   media-id-type
-    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
-    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?      string
+    |  |     +--ro media-interface-id?    media-id-type
+    |  |     +--ro associated-oui?        org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro service-z-end
     |  |  +--ro application-class-name?          string
     |  |  +--ro service-format                   org-openroadm-service-format:service-format
@@ -13872,15 +13923,16 @@ module: org-openroadm-service
     |  |  +--ro project-id?                      string
     |  |  +--ro project-note?                    string
     |  |  +--ro optical-attributes
-    |  |     +--ro frequency?            org-openroadm-common-optical-channel-types:frequency-THz
-    |  |     +--ro width?                org-openroadm-common-optical-channel-types:frequency-GHz
-    |  |     +--ro operational-mode?     string
-    |  |     +--ro media-interface-id?   media-id-type
-    |  |     +--ro associated-oui?       org-openroadm-common-types:oui-type
-    |  |     +--ro rx-estimated-osnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro rx-estimated-gsnr?    org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro max-output-power?     org-openroadm-common-link-types:ratio-dB
-    |  |     +--ro min-output-power?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro frequency?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +--ro width?                 org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |     +--ro operational-mode?      string
+    |  |     +--ro media-interface-id?    media-id-type
+    |  |     +--ro associated-oui?        org-openroadm-common-types:oui-type
+    |  |     +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro hard-constraints
     |  |  +--ro customer-code*      string
     |  |  +--ro operational-mode*   string
@@ -14038,10 +14090,11 @@ module: org-openroadm-service
     |  |  +--ro aToZ* [id]
     |  |  |  +--ro id                     string
     |  |  |  +--ro computation-results
-    |  |  |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |  |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |  |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |  |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |  |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |  |  +--ro subroute_id?           string
     |  |  |  +--ro previous_ids*          string
     |  |  |  +--ro hop-type?              enumeration
@@ -14158,10 +14211,11 @@ module: org-openroadm-service
     |  |  +--ro zToA* [id]
     |  |     +--ro id                     string
     |  |     +--ro computation-results
-    |  |     |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     +--ro subroute_id?           string
     |  |     +--ro previous_ids*          string
     |  |     +--ro hop-type?              enumeration
@@ -14282,10 +14336,11 @@ module: org-openroadm-service
     |  |     +--ro aToZ* [id]
     |  |     |  +--ro id                     string
     |  |     |  +--ro computation-results
-    |  |     |  |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |     |  |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |     |  |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |     |  |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |     |  |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     |  +--ro subroute_id?           string
     |  |     |  +--ro previous_ids*          string
     |  |     |  +--ro hop-type?              enumeration
@@ -14402,10 +14457,11 @@ module: org-openroadm-service
     |  |     +--ro zToA* [id]
     |  |        +--ro id                     string
     |  |        +--ro computation-results
-    |  |        |  +--ro rx-estimated-osnr?   org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro rx-estimated-gsnr?   org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro max-output-power?    org-openroadm-common-link-types:ratio-dB
-    |  |        |  +--ro min-output-power?    org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro rx-estimated-osnr?     org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro rx-estimated-gsnr?     org-openroadm-common-link-types:ratio-dB
+    |  |        |  +--ro target-output-power?   org-openroadm-common-link-types:power-dBm
+    |  |        |  +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
+    |  |        |  +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  |        +--ro subroute_id?           string
     |  |        +--ro previous_ids*          string
     |  |        +--ro hop-type?              enumeration

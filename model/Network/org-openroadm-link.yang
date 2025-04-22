@@ -21,15 +21,15 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2024-03-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
 
   organization
@@ -66,6 +66,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";

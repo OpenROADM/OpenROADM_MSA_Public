@@ -4,11 +4,11 @@ module org-openroadm-port-capability {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
@@ -62,6 +62,10 @@ module org-openroadm-port-capability {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
@@ -302,6 +306,28 @@ module org-openroadm-port-capability {
             leaf-list muxp-profile-name {
               type leafref {
                 path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-profile/org-openroadm-device:profile-name";
+              }
+            }
+          }
+          list otucn-mpdr-client-restriction {
+            description
+              "Restriction rules for how OTUCn are multiplexed into OTSI group
+               and the relation with mapped client ports.";
+            leaf network-flexo-circuit-pack-name {
+              type string;
+              mandatory true;
+              description
+                "Circuit-Pack identifier. Unique within the context of a device.";
+            }
+            leaf network-flexo-port-name {
+              type string;
+              mandatory true;
+              description
+                "port identifier.";
+            }
+            leaf-list muxp-otucn-profile-name {
+              type leafref {
+                path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:muxp-otucn-profile/org-openroadm-device:profile-name";
               }
             }
           }

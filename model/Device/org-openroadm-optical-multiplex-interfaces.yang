@@ -1,6 +1,6 @@
-module org-openroadm-fcc-interfaces {
-  namespace "http://org/openroadm/fcc-interfaces";
-  prefix org-openroadm-fcc-interfaces;
+module org-openroadm-optical-multiplex-interfaces {
+  namespace "http://org/openroadm/optical-multiplex-interfaces";
+  prefix org-openroadm-optical-multiplex-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
@@ -16,9 +16,9 @@ module org-openroadm-fcc-interfaces {
   contact
     "OpenROADM.org";
   description
-    "YANG definitions for device facility fcc interfaces.
+    "YANG definitions for device Optical Multiplex Section (OMS) interfaces.
 
-     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
+     Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2018,
      All other rights reserved.
 
      Redistribution and use in source and binary forms, with or without modification,
@@ -50,7 +50,7 @@ module org-openroadm-fcc-interfaces {
      Copyright (c) 2016 IETF Trust and the persons identified as the document authors.
      All rights reserved.
 
-     This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating
+     This document is subject to BCP 78 and the IETF Trust’s Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of
      publication of this document. Please review these documents carefully, as they
      describe your rights and restrictions with respect to this document. Code Components
@@ -62,62 +62,37 @@ module org-openroadm-fcc-interfaces {
     description
       "Version 17.0";
   }
-  revision 2024-12-13 {
-    description
-      "Version 16.1";
-  }
-  revision 2024-09-27 {
-    description
-      "Version 16.0";
-  }
-  revision 2024-05-31 {
-    description
-      "Version 15.1";
-  }
-  revision 2024-03-29 {
-    description
-      "Version 15.0";
-  }
-  revision 2023-12-08 {
-    description
-      "Version 14.1";
-  }
-  revision 2023-09-29 {
-    description
-      "Version 14.0";
-  }
-  revision 2023-05-26 {
-    description
-      "Version 13.1";
-  }
 
-  grouping fcc-interfaces {
-    container fcc {
-      description
-        "FCC (FlexO communication channel).
-         FlexO-x(e) interface is modeled on OTSi Group interface.";
-      reference
-        "G.709.1 Amd4 draft 2023-03 and OTN based mapping FlexO-x (G.709 2022-11)";
-
-      leaf fcc-channel-type {
-        type enumeration {
-          enum fcc0 {
-            value 1;
+  grouping oms-attributes {
+    description
+      "Optical Multiplex Section (OMS) attributes";
+        leaf oms-band {
+            type string;
+            config true;
             description
-              "FCC0 channel";
-          }
-          enum fcc1 {
-            value 2;
-            description
-              "FCC1 channel";
-          }
+                "Setting of the spectrum band for the OMS interface.
+                The string should be a profile name in the mc-capability-profile
+                list (/org-openroadm-device/mc-capability-profile/profile-name).
+                It is recommended to use the following for the profile names
+                for C-band and L-band:
+                - oms-c-band: represents the Open ROADM C-band of approximately
+                    191.325-196.125 THz
+                - oms-l-band: L-band of approximately 186.125-190.925 THz
+                Other spectrum band names and ranges may be recommended in the
+                future. If not set, the spectrum band is assumed to be the Open
+                ROADM standard C-band.";
         }
-      }
+  }
+  grouping oms-container {
+    container oms {
+      description
+        "Optical Multiplex Section (OMS)";
+      uses oms-attributes;
     }
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-device:interface" {
-    when "org-openroadm-device:type = 'openROADM-if:fcc'";
-    uses fcc-interfaces;
+    when "org-openroadm-device:type = 'openROADM-if:openROADMOpticalMultiplex'";
+    uses org-openroadm-optical-multiplex-interfaces:oms-container;
   }
 }

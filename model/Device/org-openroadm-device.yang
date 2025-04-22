@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -32,7 +32,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-amplifier-types {
     prefix org-openroadm-common-amplifier-types;
-    revision-date 2023-09-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -44,7 +44,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-device-types {
     prefix org-openroadm-device-types;
@@ -56,15 +56,15 @@ module org-openroadm-device {
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2020-09-25;
+    revision-date 2025-03-28;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -84,7 +84,7 @@ module org-openroadm-device {
   }
   import org-openroadm-optical-operational-interfaces {
     prefix org-openroadm-optical-operational-interfaces;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -92,15 +92,15 @@ module org-openroadm-device {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2023-09-29;
+    revision-date 2025-03-28;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2022-12-09;
+    revision-date 2025-03-28;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2024-12-13;
+    revision-date 2025-03-28;
   }
   organization
     "Open ROADM MSA";
@@ -149,6 +149,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
@@ -381,6 +385,12 @@ module org-openroadm-device {
       description
         "Assign the Ethernet interface name linked to the OAMP management port,
          typically utilized for provisioning the primary IP address of the device.";
+    }
+    leaf loopback-interface-name {
+      type string;
+      config false;
+      description
+        "A pointer to the loopback interface within the device. The loopback interface has an interface type of softwareLoopback.";
     }
     leaf macAddress {
       type ietf-yang-types:mac-address;
@@ -948,7 +958,8 @@ module org-openroadm-device {
       }
       container roadm-port {
         when "../port-qual='roadm-external'";
-        uses org-openroadm-port-types:roadm-port;
+        uses org-openroadm-common-types:roadm-port;
+        uses wss-capabilities-grp;
       }
       container transponder-port {
         when "../port-qual='xpdr-network' or ../port-qual='xpdr-client' or ../port-qual='switch-network' or ../port-qual='switch-client'";
@@ -1172,7 +1183,18 @@ module org-openroadm-device {
         "Media channel capabilities";
     }
   }
-
+  grouping wss-capabilities-grp {
+    description
+      "WSS capabilities grouping";
+    leaf-list wss-capability-profile-name {
+      type leafref {
+        path "/org-openroadm-device/wss-capability-profile/profile-name";
+      }
+      config false;
+      description
+        "Pointer to the WSS capabilities";
+    }
+  }
   grouping degree {
     leaf degree-number {
       type uint16;
@@ -1251,57 +1273,58 @@ module org-openroadm-device {
       uses port-name;
     }
     uses mc-capabilities-grp;
+    uses wss-capabilities-grp;
   }
   grouping channel-grp {
-          list channel {
-            description
-              "List of the channels which each channel is a nmc-ctp interface and its assoicated conneciton-name. This is a list of names of instances in the flat instance list.";
-            key "index";
-            leaf index {
-              type uint32;
-            }
-            leaf nmc-ctp-if {
-              type leafref {
-                path "/org-openroadm-device/interface/name";
-              }
-              config true;
-              description
-               "The nmc-ctp interface this port supports. This is a list of names of instances in the flat instance list.  Implementations must provide the list of interfaces for port that has
-               interfaces provisioned on that port.";
-            }
-            leaf connection-name {
-              type string;
-              config true;
-              description
-                "connection name assigned to the channel.";
-            }
-            leaf circuit-id {
-              type string {
-              length "0..45";
-              }
-              description
-                "circuit identifier/user label,
-                 can be used in alarm correlation and/or connection management ";
-            }
-            leaf target-output-power {
-              type org-openroadm-common-link-types:power-dBm;
-              config true;
-              description
-                "per channel target output power launch into the egress fiber";
-            }
-            leaf actual-output-power {
-              type org-openroadm-common-link-types:power-dBm;
-              config false;
-              description
-                "actual output power of the channel as measured by the device";
-            }
-            leaf actual-dge-attenuation {
-              type org-openroadm-common-link-types:power-dBm;
-              config false;
-              description
-                 "actual dge attenuation set by the device";
-            }
-          }
+    list channel {
+      description
+        "List of the channels which each channel is a nmc-ctp interface and its assoicated conneciton-name. This is a list of names of instances in the flat instance list.";
+      key "index";
+      leaf index {
+        type uint32;
+      }
+      leaf nmc-ctp-if {
+        type leafref {
+          path "/org-openroadm-device/interface/name";
+        }
+        config true;
+        description
+          "The nmc-ctp interface this port supports. This is a list of names of instances in the flat instance list.  Implementations must provide the list of interfaces for port that has
+          interfaces provisioned on that port.";
+      }
+      leaf connection-name {
+        type string;
+        config true;
+        description
+          "connection name assigned to the channel.";
+      }
+      leaf circuit-id {
+        type string {
+          length "0..45";
+        }
+        description
+          "circuit identifier/user label,
+          can be used in alarm correlation and/or connection management ";
+      }
+      leaf target-output-power {
+        type org-openroadm-common-link-types:power-dBm;
+        config true;
+        description
+          "per channel target output power launch into the egress fiber";
+      }
+      leaf actual-output-power {
+        type org-openroadm-common-link-types:power-dBm;
+        config false;
+        description
+          "actual output power of the channel as measured by the device";
+      }
+      leaf actual-dge-attenuation {
+        type org-openroadm-common-link-types:power-dBm;
+        config false;
+        description
+          "actual dge attenuation set by the device";
+      }
+    }
   }
   grouping amplifier {
     leaf amp-number {
@@ -1536,36 +1559,6 @@ module org-openroadm-device {
       description
         "The provisioned target PSD to optimize the SRG/sub-SRG.  Channel target power setting is determined based on the target-input-psd and the slot-width of the channel.";
     }
-    leaf prov-min-slot {
-      type uint32;
-      description
-        "The minimum slots for the SRG/sub-SRG. This value must be greater than
-        or equal to the advertised minimum slots for the SRG.
-        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
-    }
-    leaf prov-max-slot {
-      type uint32;
-      description
-        "The maximum slots for the SRG/sub-SRG. This value must be less than
-        or equal to the advertised maximum slots for the SRG.
-        The prov-min-slot and prov-max-slot are used to restrict the slot widths that the SRG/sub-SRG can support.";
-    }
-    leaf prov-max-composite-input-power {
-      type org-openroadm-common-link-types:power-dBm;
-      units "dBm";
-      description
-        "The maximum composite power for the SRG/sub-SRG input ports.
-        This value must be less than or equal to the max-composite-input-power.
-        This attribute allows the user to further restrict the composite power into the SRG/sub-SRG.";
-    }
-    leaf prov-max-total-bandwidth {
-      type org-openroadm-common-optical-channel-types:frequency-GHz;
-      units "GHz";
-      description
-        "The maximum total bandwidth for the SRG/sub-SRG.
-        This value must be less than or equal to the max-total-bandwidth.
-        This attribute allows the user to further restrict the total bandwidth in and/or out of the SRG/sub-SRG.";
-    }
     leaf min-input-psd {
       type org-openroadm-common-link-types:psd-dBm-50GHz;
       config false;
@@ -1580,6 +1573,7 @@ module org-openroadm-device {
       description
         "The maximum input PSD for a channel into the SRG/sub-SRG.";
     }
+    uses org-openroadm-common-types:psd-reference;
     leaf max-composite-input-power {
       type org-openroadm-common-link-types:power-dBm;
       config false;
@@ -2333,6 +2327,28 @@ module org-openroadm-device {
             "Specify the number of N in the case of N x OTU4";
         }
       }
+      case otucni {
+        leaf otucni-mixed-rate {
+          type boolean;
+          description
+            "Announce whether mixed OTUCNi interfaces are supported in the OTSIG.";
+        }
+        list otucni-start-ts {
+          leaf otucni-n-rate {
+            type uint16;
+            description
+              "OTUCni Rate.";
+          }
+          leaf start-ts {
+            type org-openroadm-common-types:bitmap-def;
+            description
+              "In the case of mapping multiple OTUCni into a FlexO group,
+              the bitmap illustration of starting FlexO instance TS# for each member OTUCni;
+            TS starts at the boundary with consecutive TS*. The most significant bit for TS #1.
+              For interoperability, NE device shall support the starting TS number in the optical specs.";
+          }
+        }
+      }
     }
     leaf-list foic-type {
       type identityref {
@@ -2536,6 +2552,11 @@ module org-openroadm-device {
       description
         "Network ODUCn rate, eg, network-oducn-n-rate=4 for ODUC4";
     }
+    leaf network-min-oducn-n-rate {
+      type uint16;
+      description
+        "Minimum Network ODUCn rate";
+    }
     leaf network-ho-odu-trib-port-number {
       type uint16 {
         range "1 .. 80";
@@ -2713,23 +2734,23 @@ module org-openroadm-device {
             mandatory true;
             description
               "partly allows identifying ports associated with logical amp :TX for egress, RX for ingress
-               TXRX in case of bidirectional port";
+              TXRX in case of bidirectional port";
           }
           leaf tx-instance-port-direction-label {
             type string;
             config true;
             description
               "Complements ports identification. Used notably in case of bidirectional ports,
-               and/or in multi-degree amplifier nodes. Allows associating one of the directions
-               specified in ila-direction-label. Shall be consistent with ila-direction-label";
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
           leaf rx-instance-port-direction-label {
             type string;
             config true;
             description
               "Complements ports identification. Used notably in case of bidirectional ports,
-               and/or in multi-degree amplifier nodes. Allows associating one of the directions
-               specified in ila-direction-label. Shall be consistent with ila-direction-label";
+              and/or in multi-degree amplifier nodes. Allows associating one of the directions
+                specified in ila-direction-label. Shall be consistent with ila-direction-label";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2750,7 +2771,7 @@ module org-openroadm-device {
             mandatory true;
             description
               "allows identifying ports associated with logical amp :
-               TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
+              TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2770,7 +2791,7 @@ module org-openroadm-device {
             config true;
             description
               "allows identifying associated logical amp port in which OTDR is launched:
-               corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
+              corresponds to rx-instance-port-direction-label of corresponding amplifier line-port";
           }
           uses port-name {
             refine "circuit-pack-name" {
@@ -2886,14 +2907,14 @@ module org-openroadm-device {
             config false;
             description
               "Switch fabric interconnect bandwidth unit rate in bits per second.
-               Represents granularity of switch fabric";
+              Represents granularity of switch fabric";
           }
           leaf interconnect-bandwidth {
             type uint32;
             config false;
             description
               "Total interconnect bandwidth for a non-blocking element expressed as
-               number of inter-connect-bandwidth units";
+              number of inter-connect-bandwidth units";
           }
           list port-list {
             key "circuit-pack-name port-name";
@@ -2962,14 +2983,14 @@ module org-openroadm-device {
             config false;
             description
               "Switch fabric interconnect bandwidth unit rate in bits per second.
-               Represents granularity of switch fabric";
+              Represents granularity of switch fabric";
           }
           leaf interconnect-bandwidth {
             type uint32;
             config false;
             description
               "Total interconnect bandwidth for a non-blocking element expressed as
-               number of inter-connect-bandwidth units";
+              number of inter-connect-bandwidth units";
           }
           list port-list {
             key "circuit-pack-name port-name";
@@ -3072,6 +3093,34 @@ module org-openroadm-device {
             "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
         }
       }
+      list wss-capability-profile {
+        key "profile-name";
+        config false;
+        description
+          "WSS capability profile list";
+        leaf profile-name {
+          type string;
+          description
+            "WSS capability profile name";
+        }
+        uses mc-capabilities-grp;
+        leaf-list roadm-port-mode {
+          type org-openroadm-common-types:roadm-port-mode-types;
+          description
+            "Defines the ROADM port modes associated with the wss profile";
+        }
+        uses org-openroadm-common-types:psd-reference;
+        container input {
+          description
+            "Input PSD constraints for the WSS.";
+          uses psd-capability-grp;
+        }
+        container output {
+          description
+            "Output PSD constraints for the WSS.";
+          uses psd-capability-grp;
+        }
+      }
       list split-lambda-profile {
         key "profile-name";
         config false;
@@ -3101,10 +3150,10 @@ module org-openroadm-device {
         config false;
         description
           "List of optical operational mode profiles which includes :
-            _specific operational mode used for bookended applications
-            _openroadm operational mode introduced in R10.0 to describe the
-            specifications a device may complies with whether it is a Xponder
-            (port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
+          _specific operational mode used for bookended applications
+          _openroadm operational mode introduced in R10.0 to describe the
+          specifications a device may complies with whether it is a Xponder
+          (port), Pluggable (port), degree (Node), srg (Node)or ila (Node).";
         leaf profile-name {
           type string;
           description
@@ -3151,9 +3200,15 @@ module org-openroadm-device {
           type identityref {
             base org-openroadm-common-optical-channel-types:otsi-rate-identity;
           }
-          mandatory true;
           description
             "Network OTSIG rate types supported by the profile";
+        }
+        leaf network-min-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Minimum Network OTSIG rate types supported by the profile";
         }
         uses mux-eth-grp;
       }
@@ -3168,6 +3223,74 @@ module org-openroadm-device {
             "OTSI profile name";
         }
         uses otsi-grp;
+      }
+      grouping otucn-grp {
+        leaf otucn-n-rate {
+          type uint16;
+          description
+            "Specifies the N associated with OTUCn, e.g. N = 2,3,4 for 200G/300G/400G respectively.";
+        }
+        leaf network-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Network OTSIG rate types supported by the profile";
+        }
+        leaf network-min-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Minimum Network OTSIG rate types supported by the profile";
+        }
+        leaf network-flexo-trib-port-number {
+          type uint16 {
+            range "1 .. 80";
+          }
+          mandatory true;
+          description
+            "Tributary port number";
+        }
+        leaf-list network-flexo-iid {
+          type uint8;
+          description
+            "Network FlexO instance id";
+        }
+      }
+      list muxp-otucn-profile {
+        key "profile-name";
+        config false;
+        description
+          "OTUCn profile";
+        leaf profile-name {
+          type string;
+          description
+            "OTUCn profile name";
+        }
+        uses otucn-grp;
+      }
+      grouping psd-capability-grp {
+        leaf target-psd {
+            type org-openroadm-common-link-types:psd-dBm-50GHz;
+            units "dBm per 50GHz";
+            description
+                "The target PSD to optimize.";
+        }
+        leaf min-psd {
+            type org-openroadm-common-link-types:psd-dBm-50GHz;
+            config false;
+            units "dBm per 50GHz";
+            description
+                "The minimum PSD for a channel.";
+        }
+        leaf max-psd {
+            type org-openroadm-common-link-types:psd-dBm-50GHz;
+            config false;
+            units "dBm per 50GHz";
+            description
+                "The maximum PSD for a channel.";
+        }
       }
     }
   }

@@ -45,3 +45,9 @@ RNC implements at least Common models R16.1.0 and Service model 16.1.0, where
 some parameters were added to xponder-pluggables in the catalog:
 payload-rate-identity,rw fec-rate, prefec-ber-threshold; and where min/max
 central-frequencies were changed to min/max-edge-frequencies in grid-parameters.
+
+__ORrelease 17_0 : Uses Optical specification version 6. To be used when the
+RNC implements at least Common models R16.1.0 and Service model 17.0.0, where
+payload-frame-type parameter was added to xponder-pluggables in the catalog,
+and the unit of some power related parameters were modified from ratio-dB to
+power-dBm.

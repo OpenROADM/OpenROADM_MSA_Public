@@ -2,6 +2,10 @@ module org-openroadm-common-types {
   namespace "http://org/openroadm/common-types";
   prefix org-openroadm-common-types;
 
+  import org-openroadm-port-types {
+    prefix org-openroadm-port-types;
+    revision-date 2025-03-28;
+  }
   organization
     "Open ROADM MSA";
   contact
@@ -35,6 +39,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
@@ -400,6 +408,16 @@ module org-openroadm-common-types {
         description
           "value for 16.1";
       }
+      enum 13.1.1 {
+        value 35;
+        description
+          "value for 13.1.1";
+      }
+      enum 17.0 {
+        value 36;
+        description
+          "value for 17.0";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -648,4 +666,77 @@ module org-openroadm-common-types {
     description
       "Laser Off Capability group";
   }
+
+  typedef bitmap-def {
+    type string {
+      length "8";
+      pattern '[0-9a-fA-F]*';
+    }
+    description
+      "Bitmap definition in hex form";
+  }
+
+  typedef psd-reference {
+    type enumeration {
+      enum mc-width {
+        value 1;
+        description
+          "PSD is referenced to the Media Channel (MC) width.";
+      }
+      enum nmc-width {
+        value 2;
+        description
+          "PSD is referenced to the Network Media Channel (NMC) width.";
+      }
+    }
+    description
+      "Sets the PSD reference source for any PSD related attribute.
+       PSD can be references to the MC width (which would relate to the width in the WSS),
+       or NMC width (which would relate to the signal spectral width).";
+  }
+
+  grouping psd-reference {
+    leaf psd-reference {
+      type psd-reference;
+      description
+        "Sets the PSD reference source.";
+    }
+  }
+
+  typedef roadm-port-mode-types {
+      type enumeration {
+          enum deg-add-drop-tda {
+              value 1;
+              description
+                  "Link attached to transponder direct attach (TDA).";
+          }
+          enum deg-add-drop-srg {
+              value 2;
+              description
+                  "Link attached to SRG add-drop";
+          }
+          enum deg-express {
+              value 3;
+              description
+                  "Link attached to another degree WSS.";
+          }
+      }
+      description
+          "Defines ROADM port mode for disaggregated WSS link attachments or
+          transponder direct attach to degree (TDA).";
+  }
+
+  grouping roadm-port {
+    uses org-openroadm-port-types:common-port;
+    leaf roadm-port-mode {
+      type roadm-port-mode-types;
+      description
+        "Defines ROADM port mode for disaggregated WSS link attachments or
+        transponder direct attach to degree (TDA).
+
+        This attribute is only applicable to WSS ports and must be provided
+        when a WSS port is set to roadm-external";
+    }
+  }
+
 }

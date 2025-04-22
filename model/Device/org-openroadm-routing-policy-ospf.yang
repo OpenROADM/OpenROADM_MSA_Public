@@ -1,0 +1,127 @@
+module org-openroadm-routing-policy-ospf {
+  yang-version 1.1;
+  namespace "http://org/openroadm/routing-policy-ospf";
+  prefix rt-pol-ospf;
+
+  import org-openroadm-ospf {
+    prefix org-openroadm-ospf;
+    revision-date 2025-03-28;
+  }
+
+  import org-openroadm-device {
+    prefix org-openroadm-device;
+    revision-date 2025-03-28;
+  }
+
+  import org-openroadm-routing-policy {
+    prefix rt-pol;
+    revision-date 2025-03-28;
+  }
+
+  organization
+    "Open ROADM MSA";
+  contact
+    "OpenROADM.org";
+  description
+    "This model defines Yang model for OSPF routing policy.
+
+     This model reuses data items defined in the IETF YANG model for
+     routing policy by RFC9067.
+
+     Some attributes which are not required in Open ROADM MSA are removed.
+     Yang file included are changed to fit into Open ROADM MSA yang structure.
+
+     IETF code is subject to the following copyright and license:
+     Copyright (c) IETF Trust and the persons identified as authors of
+     the code.
+     All rights reserved.
+
+     Redistribution and use in source and binary forms, with or without
+     modification, is permitted pursuant to, and subject to the license
+     terms contained in, the Simplified BSD License set forth in
+     Section 4.c of the IETF Trust's Legal Provisions Relating
+     to IETF Documents (http://trustee.ietf.org/license-info).";
+
+
+  revision 2025-03-28 {
+    description
+      "Version 17.0";
+  }
+
+  /* Condition definition */
+  grouping ospf-match-conditions {
+    description
+      "Parameters for OSPF match conditions";
+
+    container ospf-conditions {
+      description
+        "Top-level container for OSPF specific policy conditions ";
+
+      leaf area {
+        type org-openroadm-ospf:area-id-type;
+        description
+          "Match prefixes which are within a particular OSPF area";
+      }
+    }
+
+  }
+
+  grouping ospf-match-actions {
+    description
+      "Parameters for OSPF actions";
+
+    container ospf-actions {
+      description
+        "Top-level container for OSPF specific policy actions ";
+
+      leaf metric {
+        type uint32;
+        description
+          "Set the metric of the routes matching the policy to
+          the value specified by this leaf.";
+      }
+
+      leaf metric-type {
+        type enumeration {
+          enum type-1-metric {
+            description
+              "Set the external type 1 metric";
+          }
+          enum type-2-metric {
+            description
+              "Set the external type 2 metric";
+          }
+        }
+        default "type-2-metric";
+        description
+          "Specify the type of metric which is to be set by the policy";
+      }
+    }
+  }
+
+  /* augment the groupings into the routing policy model */
+  augment "/org-openroadm-device:org-openroadm-device/" +
+            "rt-pol:routing-policy/rt-pol:policy-definitions/" +
+            "rt-pol:policy-definition/rt-pol:statements/rt-pol:statement/" +
+            "rt-pol:conditions" {
+    description
+      "Add OSPF specific match conditions to the routing policy model";
+
+    uses ospf-match-conditions;
+  }
+
+  augment "/org-openroadm-device:org-openroadm-device/" +
+            "rt-pol:routing-policy/rt-pol:policy-definitions/" +
+            "rt-pol:policy-definition/rt-pol:statements/rt-pol:statement/" +
+            "rt-pol:actions" {
+    description
+      "Add OSPF specific actions to the routing policy model";
+
+    uses ospf-match-actions;
+  }
+
+}
+
+
+
+

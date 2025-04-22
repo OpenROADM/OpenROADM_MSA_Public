@@ -61,6 +61,64 @@ module: org-openroadm-network-topology
     |  +--rw current-provisioned-pp?        uint32
     |  +--rw wavelength-duplication?        org-openroadm-common-optical-channel-types:wavelength-duplication-type
     |  +--rw supported-operational-modes*   string
+    |  +--rw constraints
+    |  |  +--rw min-slot-width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw max-slot-width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw min-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  +--rw max-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  +--rw target-input-psd?                  org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  +--rw psd-reference?                     org-openroadm-common-types:psd-reference
+    |  |  +--rw port-count-limit?                  uint32
+    |  |  +--rw max-composite-input-power?         org-openroadm-common-link-types:power-dBm
+    |  |  +--rw max-total-bandwidth?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw available-composite-input-power?   org-openroadm-common-link-types:power-dBm
+    |  |  +--rw available-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw capability
+    |  |  +--rw min-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  +--rw max-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  +--rw psd-reference?               org-openroadm-common-types:psd-reference
+    |  |  +--rw max-composite-input-power?   org-openroadm-common-link-types:power-dBm
+    |  |  +--rw max-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw mc-profile* [profile-name]
+    |  |  +--rw profile-name               string
+    |  |  +--ro center-freq-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--ro min-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro max-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw min-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw max-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
+    |  +--rw subgroup* [subgroup-id]
+    |  |  +--rw subgroup-id             uint16
+    |  |  +--rw lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+    |  |  +--rw operational-state?      org-openroadm-common-state-types:state
+    |  |  +--rw administrative-state?   org-openroadm-equipment-states-types:admin-states
+    |  |  +--rw constraints
+    |  |  |  +--rw min-slot-width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw max-slot-width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw min-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  |  +--rw max-input-psd?                     org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  |  +--rw target-input-psd?                  org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  |  +--rw psd-reference?                     org-openroadm-common-types:psd-reference
+    |  |  |  +--rw port-count-limit?                  uint32
+    |  |  |  +--rw max-composite-input-power?         org-openroadm-common-link-types:power-dBm
+    |  |  |  +--rw max-total-bandwidth?               org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw available-composite-input-power?   org-openroadm-common-link-types:power-dBm
+    |  |  |  +--rw available-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw capability
+    |  |  |  +--rw min-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  |  +--rw max-input-psd?               org-openroadm-common-link-types:psd-dBm-50GHz
+    |  |  |  +--rw psd-reference?               org-openroadm-common-types:psd-reference
+    |  |  |  +--rw max-composite-input-power?   org-openroadm-common-link-types:power-dBm
+    |  |  |  +--rw max-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw mc-profile* [profile-name]
+    |  |  |  +--rw profile-name               string
+    |  |  |  +--ro center-freq-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--ro min-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro max-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw min-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw max-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw tp-list*                -> /nd:networks/network/node[nd:node-id=current()/../../../node-id]/nwt:termination-point/tp-id
     |  +--rw avail-freq-maps* [map-name]
     |  |  +--rw map-name                string
     |  |  +--rw start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz

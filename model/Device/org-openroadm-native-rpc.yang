@@ -1,6 +1,6 @@
-module org-openroadm-native-data {
-  namespace "http://org/openroadm/native/data";
-  prefix org-openroadm-native-data;
+module org-openroadm-native-rpc {
+  namespace "http://org/openroadm/native/rpc";
+  prefix org-openroadm-native-rpc;
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
@@ -44,56 +44,36 @@ module org-openroadm-native-data {
     description
       "Version 17.0";
   }
-  revision 2024-12-13 {
-    description
-      "Version 16.1";
-  }
-  revision 2024-09-27 {
-    description
-      "Version 16.0";
-  }
-  revision 2024-05-31 {
-    description
-      "Version 15.1";
-  }
-  revision 2024-03-29 {
-    description
-      "Version 15.0";
-  }
 
-  rpc get-native-data {
+  rpc execute-native-rpc {
     description
-      "Retrieve data from the vendor’s native data model.";
+      "Execute an RPC from the vendor’s native data model.";
     input {
-      leaf get-request {
+      leaf rpc-request {
          type string;
          description
-           "Input command to retrieve data from the vendor’s native data model.
-            This attribute is generic and does not specify the
-            format or details of the get-request input.
+            "Input command to execute an RPC from the vendor’s native data model.
+             This attribute is generic and does not specify any format or details of the rpc-request input.
 
-            The vendor determines the valid get-request inputs that are supported by the product.
-            The vendor is free to choose any management interface language
-            (NETCONF, CLI, TL1, SNMP, etc.), format and semantics for the get-request.
-            It is expected that the vendor would provide documentation on the valid
-            get-request values through an outside mechanism.";
+             The vendor determines the valid rpc-request inputs that are supported by their device.
+             The vendor is free to choose any management interface
+             language (NETCONF, CLI, TL1, SNMP, etc.), format and semantics for the rpc-request.
+             It is expected that the vendor would provide documentation
+             on the valid rpc-request values through an outside mechanism.";
       }
     }
     output {
       uses org-openroadm-common-types:rpc-response-status;
-      leaf get-response {
+      leaf rpc-response {
          type string;
          description
-            "Output response containing the vendor’s native data model information.
-             This attribute is generic and does not specify the
-             format or details of the get-response output.
+            "Output response containing the vendor’s native RPC response, if any.
+             This attribute is generic and does not specify the format or details of the rpc-response output.
 
-             The vendor determines the valid get-response outputs that are
-             supported by the product based on the input to the RPC.
-             The vendor is free to choose any management interface
-             language (NETCONF, CLI, TL1, SNMP, etc.), format and
-             semantics for the get-response. It is expected that the vendor
-             would provide documentation on the get-response data through an outside mechanism.";
+             The vendor determines the valid rpc-response outputs (if any) that are supported by their device
+             based on the rpc-request input. The vendor is free to choose any management interface
+             language (NETCONF, CLI, TL1, SNMP, etc.), format and semantics for the rpc-response.
+             It is expected that the vendor would provide documentation on the rpc-response data through an outside mechanism.";
       }
     }
   }
