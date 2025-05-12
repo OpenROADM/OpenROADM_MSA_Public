@@ -16,22 +16,22 @@ module org-openroadm-bgp {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   import org-openroadm-routing-policy {
     prefix rt-pol;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   import org-openroadm-routing-policy-bgp {
     prefix rt-pol-bgp;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   organization
@@ -59,6 +59,10 @@ module org-openroadm-bgp {
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";

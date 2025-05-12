@@ -4,7 +4,7 @@ module org-openroadm-network-media-channel-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -62,6 +62,10 @@ module org-openroadm-network-media-channel-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
