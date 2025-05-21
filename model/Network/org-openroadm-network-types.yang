@@ -304,6 +304,21 @@ module org-openroadm-network-types {
       enum TURNBACK-LINK {
         value 10;
       }
+      enum XPONDER-NETWORK-LINK {
+        value 11;
+        description
+          "A back-to-back network side link that connects two xponder network ports";
+      }
+      enum XPONDER-CLIENT-LINK {
+        value 12;
+        description
+          "A back-to-back client side link that connects two xponder client ports";
+      }
+      enum XPONDER-STACK-LINK {
+        value 13;
+        description
+          "A stack link that connects one xponder network port and another xponder client port";
+      }
     }
   }
 
