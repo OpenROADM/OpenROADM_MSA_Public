@@ -524,173 +524,6 @@ module: org-openroadm-device
      |  +--rw supporting-interface-list*                                -> /org-openroadm-device/interface/name
      |  +--rw common-functions
      |  |  +--ro org-openroadm-prot-otn-linear-aps:protection-profile-name*   -> /org-openroadm-device:org-openroadm-device/protection-profiles/org-openroadm-prot-otn-linear-aps:protection-profile/profile-name
-     |  +--rw org-openroadm-eth-interfaces:ethernet
-     |  |  +--rw org-openroadm-eth-interfaces:speed?                          uint32
-     |  |  +--rw org-openroadm-eth-interfaces:fec?                            identityref
-     |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?       enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:duplex?                         enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?               enumeration
-     |  |  +--rw org-openroadm-eth-interfaces:enable-laser?                   enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:laser-status?                   enumeration
-     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                     string
-     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                    string
-     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?                 uint32
-     |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
-     |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
-     |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
-     |  |  +--ro org-openroadm-eth-interfaces:no-oam-function?                empty
-     |  |  +--ro org-openroadm-eth-interfaces:no-maint-testsignal-function?   empty
-     |  |  +--rw org-openroadm-eth-interfaces:parent-flexo-allocation!
-     |  |  |  +--rw org-openroadm-eth-interfaces:trib-port-number    uint16
-     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint8
-     |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
-     |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
-     |  |  |  |  +---w org-openroadm-eth-interfaces:input
-     |  |  |  |  |  +---w org-openroadm-eth-interfaces:type?   testsig-type
-     |  |  |  |  +--ro org-openroadm-eth-interfaces:output
-     |  |  |  |     +--ro org-openroadm-eth-interfaces:status            org-openroadm-common-types:rpc-status
-     |  |  |  |     +--ro org-openroadm-eth-interfaces:status-message?   string
-     |  |  |  +--rw org-openroadm-eth-interfaces:enabled?             boolean
-     |  |  |  +--rw org-openroadm-eth-interfaces:testPattern          enumeration
-     |  |  |  +--rw org-openroadm-eth-interfaces:type?                testsig-type
-     |  |  |  +--ro org-openroadm-eth-interfaces:inSync?              boolean
-     |  |  |  +--ro org-openroadm-eth-interfaces:seconds              uint32
-     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrors?           uint32
-     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrorRate?        decimal64
-     |  |  +--rw org-openroadm-eth-interfaces:maint-loopback
-     |  |     +--rw org-openroadm-eth-interfaces:enabled?   boolean
-     |  |     +--rw org-openroadm-eth-interfaces:type?      enumeration
-     |  +--rw org-openroadm-fcc-interfaces:fcc
-     |  |  +--rw org-openroadm-fcc-interfaces:fcc-channel-type?   enumeration
-     |  +--rw org-openroadm-gcc-interfaces:gcc
-     |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
-     |  +--rw org-openroadm-ip:ipv4!
-     |  |  +--rw org-openroadm-ip:enabled?             boolean
-     |  |  +--rw org-openroadm-ip:forwarding?          boolean
-     |  |  +--rw org-openroadm-ip:mtu?                 uint16
-     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
-     |  |  +--rw (org-openroadm-ip:address-type)?
-     |  |  |  +--:(org-openroadm-ip:numbered-address)
-     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
-     |  |  |  |     +--rw org-openroadm-ip:ip                     inet:ipv4-address-no-zone
-     |  |  |  |     +--rw (org-openroadm-ip:subnet)
-     |  |  |  |        +--:(org-openroadm-ip:prefix-length)
-     |  |  |  |        |  +--rw org-openroadm-ip:prefix-length?   uint8
-     |  |  |  |        +--:(org-openroadm-ip:netmask)
-     |  |  |  |           +--rw org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
-     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
-     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--rw org-openroadm-ip:proxy-arp!
-     |  |     +--rw org-openroadm-ip:enabled?        boolean
-     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv4-subnet] {ipv4-proxy-arp-subnet}?
-     |  |        +--rw org-openroadm-ip:ipv4-subnet    inet:ipv4-prefix
-     |  +--ro org-openroadm-ip:ipv4-state!
-     |  |  +--ro org-openroadm-ip:forwarding?   boolean
-     |  |  +--ro org-openroadm-ip:mtu?          uint16
-     |  |  +--ro org-openroadm-ip:address* [ip]
-     |  |     +--ro org-openroadm-ip:ip                     inet:ipv4-address-no-zone
-     |  |     +--ro (org-openroadm-ip:subnet)
-     |  |     |  +--:(org-openroadm-ip:prefix-length)
-     |  |     |  |  +--ro org-openroadm-ip:prefix-length?   uint8
-     |  |     |  +--:(org-openroadm-ip:netmask)
-     |  |     |     +--ro org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
-     |  |     +--ro org-openroadm-ip:origin?                ip-address-origin
-     |  +--rw org-openroadm-ip:ipv6!
-     |  |  +--rw org-openroadm-ip:enabled?             boolean
-     |  |  +--rw org-openroadm-ip:forwarding?          boolean
-     |  |  +--rw org-openroadm-ip:mtu?                 uint32
-     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
-     |  |  +--rw (org-openroadm-ip:address-type)?
-     |  |  |  +--:(org-openroadm-ip:numbered-address)
-     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
-     |  |  |  |     +--rw org-openroadm-ip:ip               inet:ipv6-address-no-zone
-     |  |  |  |     +--rw org-openroadm-ip:prefix-length    uint8
-     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
-     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--rw org-openroadm-ip:proxy-ndp!
-     |  |     +--rw org-openroadm-ip:enabled?        boolean
-     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv6-subnet] {ipv6-proxy-ndp-subnet}?
-     |  |        +--rw org-openroadm-ip:ipv6-subnet    inet:ipv6-prefix
-     |  +--ro org-openroadm-ip:ipv6-state!
-     |  |  +--ro org-openroadm-ip:forwarding?   boolean
-     |  |  +--ro org-openroadm-ip:mtu?          uint32
-     |  |  +--ro org-openroadm-ip:address* [ip]
-     |  |     +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
-     |  |     +--ro org-openroadm-ip:prefix-length    uint8
-     |  |     +--ro org-openroadm-ip:origin?          ip-address-origin
-     |  |     +--ro org-openroadm-ip:status?          ipv6-address-status
-     |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
-     |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-media-channel-interfaces:center-freq?   org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-media-channel-interfaces:slot-width?    org-openroadm-common-optical-channel-types:frequency-GHz
-     |  +--rw org-openroadm-network-media-channel-interfaces:nmc-ctp
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?                org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?                    org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-3dB?    org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-10dB?   org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-network-media-channel-interfaces:mc-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
-     |  +--rw org-openroadm-optical-channel-interfaces:och
-     |  |  +--rw org-openroadm-optical-channel-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
-     |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
-     |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-optical-channel-interfaces:enable-laser?               enumeration
-     |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
-     |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
-     |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
-     |  |  +--rw org-openroadm-optical-channel-interfaces:media-interface-id?         media-id-type
-     |  |  +--rw org-openroadm-optical-channel-interfaces:associated-oui?             org-openroadm-common-types:oui-type
-     |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
-     |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
-     |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
-     |  +--rw org-openroadm-optical-multiplex-interfaces:oms
-     |  |  +--rw org-openroadm-optical-multiplex-interfaces:oms-band?   string
-     |  +--rw org-openroadm-optical-transport-interfaces:ots
-     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
-     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-transmit?               org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-     |  |  +--rw org-openroadm-optical-transport-interfaces:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-     |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-rate?                  identityref
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:enable-laser?               enumeration
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:laser-status?               enumeration
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:media-interface-id?         media-id-type
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:associated-oui?             org-openroadm-common-types:oui-type
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
-     |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type?             identityref
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:payload-id?            org-openroadm-otn-common-types:flexo-payload-type-def
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:flexo-mode?            string
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-sapi?               string
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-dapi?               string
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-operator?           string
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-sapi?         string
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-dapi?         string
-     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-operator?     string
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-sapi?         string
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-dapi?         string
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-act-enabled?       boolean
-     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-detect-mode?       enumeration
      |  +--rw org-openroadm-otn-odu-interfaces:odu!
      |  |  +--rw org-openroadm-otn-odu-interfaces:rate?                                  identityref
      |  |  +--rw org-openroadm-otn-odu-interfaces:oducn-n-rate?                          uint16
@@ -788,6 +621,12 @@ module: org-openroadm-device
      |  |     +--ro org-openroadm-otn-odu-interfaces:seconds              uint32
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrors?           uint32
      |  |     +--ro org-openroadm-otn-odu-interfaces:bitErrorRate?        decimal64
+     |  +--rw org-openroadm-network-media-channel-interfaces:nmc-ctp
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:frequency?                org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:width?                    org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-3dB?    org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:full-bandwidth-at-10dB?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-network-media-channel-interfaces:mc-slot-width?            org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw org-openroadm-otn-otu-interfaces:otu
      |  |  +--rw org-openroadm-otn-otu-interfaces:rate?                      identityref
      |  |  +--rw org-openroadm-otn-otu-interfaces:otu4-member-id?            uint16
@@ -814,43 +653,204 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-otn-otu-interfaces:parent-flexo-allocation!
      |  |     +--rw org-openroadm-otn-otu-interfaces:trib-port-number    uint8
      |  |     +--rw org-openroadm-otn-otu-interfaces:iid*                uint8
+     |  +--rw org-openroadm-ip:ipv4!
+     |  |  +--rw org-openroadm-ip:enabled?             boolean
+     |  |  +--rw org-openroadm-ip:forwarding?          boolean
+     |  |  +--rw org-openroadm-ip:mtu?                 uint16
+     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
+     |  |  +--rw (org-openroadm-ip:address-type)?
+     |  |  |  +--:(org-openroadm-ip:numbered-address)
+     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
+     |  |  |  |     +--rw org-openroadm-ip:ip                     inet:ipv4-address-no-zone
+     |  |  |  |     +--rw (org-openroadm-ip:subnet)
+     |  |  |  |        +--:(org-openroadm-ip:prefix-length)
+     |  |  |  |        |  +--rw org-openroadm-ip:prefix-length?   uint8
+     |  |  |  |        +--:(org-openroadm-ip:netmask)
+     |  |  |  |           +--rw org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
+     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
+     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-ip:proxy-arp!
+     |  |     +--rw org-openroadm-ip:enabled?        boolean
+     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv4-subnet] {ipv4-proxy-arp-subnet}?
+     |  |        +--rw org-openroadm-ip:ipv4-subnet    inet:ipv4-prefix
+     |  +--ro org-openroadm-ip:ipv4-state!
+     |  |  +--ro org-openroadm-ip:forwarding?   boolean
+     |  |  +--ro org-openroadm-ip:mtu?          uint16
+     |  |  +--ro org-openroadm-ip:address* [ip]
+     |  |     +--ro org-openroadm-ip:ip                     inet:ipv4-address-no-zone
+     |  |     +--ro (org-openroadm-ip:subnet)
+     |  |     |  +--:(org-openroadm-ip:prefix-length)
+     |  |     |  |  +--ro org-openroadm-ip:prefix-length?   uint8
+     |  |     |  +--:(org-openroadm-ip:netmask)
+     |  |     |     +--ro org-openroadm-ip:netmask?         yang:dotted-quad {ipv4-non-contiguous-netmasks}?
+     |  |     +--ro org-openroadm-ip:origin?                ip-address-origin
+     |  +--rw org-openroadm-ip:ipv6!
+     |  |  +--rw org-openroadm-ip:enabled?             boolean
+     |  |  +--rw org-openroadm-ip:forwarding?          boolean
+     |  |  +--rw org-openroadm-ip:mtu?                 uint32
+     |  |  +--rw org-openroadm-ip:dhcpc-enabled?       boolean
+     |  |  +--rw (org-openroadm-ip:address-type)?
+     |  |  |  +--:(org-openroadm-ip:numbered-address)
+     |  |  |  |  +--rw org-openroadm-ip:address* [ip]
+     |  |  |  |     +--rw org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |  |  |     +--rw org-openroadm-ip:prefix-length    uint8
+     |  |  |  +--:(org-openroadm-ip:unnumbered-address)
+     |  |  |     +--rw org-openroadm-ip:address-src?   -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-ip:proxy-ndp!
+     |  |     +--rw org-openroadm-ip:enabled?        boolean
+     |  |     +--rw org-openroadm-ip:proxy-subnet* [ipv6-subnet] {ipv6-proxy-ndp-subnet}?
+     |  |        +--rw org-openroadm-ip:ipv6-subnet    inet:ipv6-prefix
+     |  +--ro org-openroadm-ip:ipv6-state!
+     |  |  +--ro org-openroadm-ip:forwarding?   boolean
+     |  |  +--ro org-openroadm-ip:mtu?          uint32
+     |  |  +--ro org-openroadm-ip:address* [ip]
+     |  |     +--ro org-openroadm-ip:ip               inet:ipv6-address-no-zone
+     |  |     +--ro org-openroadm-ip:prefix-length    uint8
+     |  |     +--ro org-openroadm-ip:origin?          ip-address-origin
+     |  |     +--ro org-openroadm-ip:status?          ipv6-address-status
+     |  +--rw org-openroadm-gcc-interfaces:gcc
+     |  |  +--rw org-openroadm-gcc-interfaces:gcc-channel-type?   enumeration
+     |  +--rw org-openroadm-media-channel-interfaces:mc-ttp
+     |  |  +--rw org-openroadm-media-channel-interfaces:min-freq?      org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--rw org-openroadm-media-channel-interfaces:max-freq?      org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-media-channel-interfaces:center-freq?   org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-media-channel-interfaces:slot-width?    org-openroadm-common-optical-channel-types:frequency-GHz
      |  +--rw org-openroadm-otsi-group-interfaces:otsi-group
-     |     +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
-     |     +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
-     |     +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
-     |     |  +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
-     |     |  +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |     |  +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |     |  +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
-     |     |     +--ro org-openroadm-otsi-group-interfaces:index          uint16
-     |     |     +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
-     |     |     +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
-     |     |     +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
-     |     +--rw org-openroadm-otsi-group-interfaces:maint-testsignal
-     |     |  +---x org-openroadm-otsi-group-interfaces:clear-diagnostics
-     |     |  |  +---w org-openroadm-otsi-group-interfaces:input
-     |     |  |  |  +---w org-openroadm-otsi-group-interfaces:type?   testsig-type
-     |     |  |  +--ro org-openroadm-otsi-group-interfaces:output
-     |     |  |     +--ro org-openroadm-otsi-group-interfaces:status            org-openroadm-common-types:rpc-status
-     |     |  |     +--ro org-openroadm-otsi-group-interfaces:status-message?   string
-     |     |  +--rw org-openroadm-otsi-group-interfaces:enabled?             boolean
-     |     |  +--rw org-openroadm-otsi-group-interfaces:testPattern          enumeration
-     |     |  +--rw org-openroadm-otsi-group-interfaces:type?                testsig-type
-     |     |  +--ro org-openroadm-otsi-group-interfaces:inSync?              boolean
-     |     |  +--ro org-openroadm-otsi-group-interfaces:seconds              uint32
-     |     |  +--ro org-openroadm-otsi-group-interfaces:bitErrors?           uint32
-     |     |  +--ro org-openroadm-otsi-group-interfaces:bitErrorRate?        decimal64
-     |     +--rw org-openroadm-otsi-group-interfaces:maint-loopback
-     |        +--rw org-openroadm-otsi-group-interfaces:enabled?   boolean
-     |        +--rw org-openroadm-otsi-group-interfaces:type?      enumeration
+     |  |  +--rw org-openroadm-otsi-group-interfaces:group-rate?              identityref
+     |  |  +--rw org-openroadm-otsi-group-interfaces:group-id?                uint32
+     |  |  +--rw org-openroadm-otsi-group-interfaces:flexo-group-container!
+     |  |  |  +--rw org-openroadm-otsi-group-interfaces:payload-id?   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:tx-msi* [index]
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:rx-msi* [index]
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:exp-msi* [index]
+     |  |  |     +--ro org-openroadm-otsi-group-interfaces:index          uint16
+     |  |  |     +--ro org-openroadm-otsi-group-interfaces:instance-id?   uint16
+     |  |  |     +--ro org-openroadm-otsi-group-interfaces:occupation?    boolean
+     |  |  |     +--ro org-openroadm-otsi-group-interfaces:trib-port?     uint16
+     |  |  +--rw org-openroadm-otsi-group-interfaces:maint-testsignal
+     |  |  |  +---x org-openroadm-otsi-group-interfaces:clear-diagnostics
+     |  |  |  |  +---w org-openroadm-otsi-group-interfaces:input
+     |  |  |  |  |  +---w org-openroadm-otsi-group-interfaces:type?   testsig-type
+     |  |  |  |  +--ro org-openroadm-otsi-group-interfaces:output
+     |  |  |  |     +--ro org-openroadm-otsi-group-interfaces:status            org-openroadm-common-types:rpc-status
+     |  |  |  |     +--ro org-openroadm-otsi-group-interfaces:status-message?   string
+     |  |  |  +--rw org-openroadm-otsi-group-interfaces:enabled?             boolean
+     |  |  |  +--rw org-openroadm-otsi-group-interfaces:testPattern          enumeration
+     |  |  |  +--rw org-openroadm-otsi-group-interfaces:type?                testsig-type
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:inSync?              boolean
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:seconds              uint32
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:bitErrors?           uint32
+     |  |  |  +--ro org-openroadm-otsi-group-interfaces:bitErrorRate?        decimal64
+     |  |  +--rw org-openroadm-otsi-group-interfaces:maint-loopback
+     |  |     +--rw org-openroadm-otsi-group-interfaces:enabled?   boolean
+     |  |     +--rw org-openroadm-otsi-group-interfaces:type?      enumeration
+     |  +--rw org-openroadm-optical-transport-interfaces:ots
+     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
+     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-transmit?               org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
+     |  |  +--rw org-openroadm-optical-transport-interfaces:eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
+     |  +--rw org-openroadm-fcc-interfaces:fcc
+     |  |  +--rw org-openroadm-fcc-interfaces:fcc-channel-type?   enumeration
+     |  +--rw org-openroadm-eth-interfaces:ethernet
+     |  |  +--rw org-openroadm-eth-interfaces:speed?                          uint32
+     |  |  +--rw org-openroadm-eth-interfaces:fec?                            identityref
+     |  |  +--rw org-openroadm-eth-interfaces:egress-consequent-action?       enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:duplex?                         enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:auto-negotiation?               enumeration
+     |  |  +--rw org-openroadm-eth-interfaces:enable-laser?                   enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:laser-status?                   enumeration
+     |  |  +--ro org-openroadm-eth-interfaces:curr-speed?                     string
+     |  |  +--ro org-openroadm-eth-interfaces:curr-duplex?                    string
+     |  |  +--ro org-openroadm-eth-interfaces:max-frame-size?                 uint32
+     |  |  +--rw org-openroadm-eth-interfaces:subrate-eth-sla!
+     |  |  |  +--rw org-openroadm-eth-interfaces:committed-info-rate     uint32
+     |  |  |  +--rw org-openroadm-eth-interfaces:committed-burst-size    uint16
+     |  |  +--ro org-openroadm-eth-interfaces:no-oam-function?                empty
+     |  |  +--ro org-openroadm-eth-interfaces:no-maint-testsignal-function?   empty
+     |  |  +--rw org-openroadm-eth-interfaces:parent-flexo-allocation!
+     |  |  |  +--rw org-openroadm-eth-interfaces:trib-port-number    uint16
+     |  |  |  +--rw org-openroadm-eth-interfaces:iid*                uint8
+     |  |  +--rw org-openroadm-eth-interfaces:maint-testsignal
+     |  |  |  +---x org-openroadm-eth-interfaces:clear-diagnostics
+     |  |  |  |  +---w org-openroadm-eth-interfaces:input
+     |  |  |  |  |  +---w org-openroadm-eth-interfaces:type?   testsig-type
+     |  |  |  |  +--ro org-openroadm-eth-interfaces:output
+     |  |  |  |     +--ro org-openroadm-eth-interfaces:status            org-openroadm-common-types:rpc-status
+     |  |  |  |     +--ro org-openroadm-eth-interfaces:status-message?   string
+     |  |  |  +--rw org-openroadm-eth-interfaces:enabled?             boolean
+     |  |  |  +--rw org-openroadm-eth-interfaces:testPattern          enumeration
+     |  |  |  +--rw org-openroadm-eth-interfaces:type?                testsig-type
+     |  |  |  +--ro org-openroadm-eth-interfaces:inSync?              boolean
+     |  |  |  +--ro org-openroadm-eth-interfaces:seconds              uint32
+     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrors?           uint32
+     |  |  |  +--ro org-openroadm-eth-interfaces:bitErrorRate?        decimal64
+     |  |  +--rw org-openroadm-eth-interfaces:maint-loopback
+     |  |     +--rw org-openroadm-eth-interfaces:enabled?   boolean
+     |  |     +--rw org-openroadm-eth-interfaces:type?      enumeration
+     |  +--rw org-openroadm-optical-channel-interfaces:och
+     |  |  +--rw org-openroadm-optical-channel-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
+     |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-channel-interfaces:enable-laser?               enumeration
+     |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
+     |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
+     |  |  +--rw org-openroadm-optical-channel-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-channel-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:associated-oui?             org-openroadm-common-types:oui-type
+     |  |  +--rw org-openroadm-optical-channel-interfaces:optical-operational-mode?   string
+     |  |  +--ro org-openroadm-optical-channel-interfaces:operational-mode-params
+     |  |     +--ro org-openroadm-optical-channel-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:provision-mode?             org-openroadm-common-optical-channel-types:provision-mode-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-rate?                  identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:enable-laser?               enumeration
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:laser-status?               enumeration
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:transmit-power?             org-openroadm-common-link-types:power-dBm
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:fec?                        identityref
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:media-interface-id?         media-id-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:associated-oui?             org-openroadm-common-types:oui-type
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:optical-operational-mode?   string
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:operational-mode-params
+     |  |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:spectral-width?   org-openroadm-common-optical-channel-types:frequency-GHz
+     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:supported-group-if?         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:flexo!
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:foic-type?             identityref
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:iid*                   uint8
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:payload-id?            org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:flexo-mode?            string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-group-id*     uint32
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-iid*          uint8
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-payload-id*   org-openroadm-otn-common-types:flexo-payload-type-def
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-sapi?               string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-dapi?               string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tx-operator?           string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-sapi?         string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-dapi?         string
+     |  |     +--ro org-openroadm-optical-tributary-signal-interfaces:accepted-operator?     string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-sapi?         string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:expected-dapi?         string
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-act-enabled?       boolean
+     |  |     +--rw org-openroadm-optical-tributary-signal-interfaces:tim-detect-mode?       enumeration
+     |  +--rw org-openroadm-optical-multiplex-interfaces:oms
+     |     +--rw org-openroadm-optical-multiplex-interfaces:oms-band?   string
      +--rw protection-grps
      |  +--rw org-openroadm-prot-equipment-aps:circuit-pack-pg* [name]
      |  |  +--rw org-openroadm-prot-equipment-aps:name                 string
@@ -925,64 +925,64 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-gnmi:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
      |  |  +--rw org-openroadm-gnmi:certificate-id?    -> /org-openroadm-device:org-openroadm-device/org-openroadm-security:security/certificate/certificate-id
      |  |  +--rw org-openroadm-gnmi:port?              inet:port-number
-     |  +--rw org-openroadm-lldp:lldp
-     |  |  +--rw org-openroadm-lldp:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
-     |  |  +--rw org-openroadm-lldp:global-config
-     |  |  |  +--rw org-openroadm-lldp:adminStatus?           enumeration
-     |  |  |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
-     |  |  |  +--rw org-openroadm-lldp:msgTxHoldMultiplier?   uint8
-     |  |  +--rw org-openroadm-lldp:port-config* [ifName]
-     |  |  |  +--rw org-openroadm-lldp:ifName         -> /org-openroadm-device:org-openroadm-device/interface/name
-     |  |  |  +--rw org-openroadm-lldp:adminStatus?   enumeration
-     |  |  +--ro org-openroadm-lldp:nbr-list
-     |  |     +--ro org-openroadm-lldp:if-name* [ifName]
-     |  |        +--ro org-openroadm-lldp:ifName                      string
-     |  |        +--ro org-openroadm-lldp:remoteSysName?              string
-     |  |        +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   iana-rt-types:address-family
-     |  |        +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
-     |  |        +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
-     |  |        +--ro org-openroadm-lldp:remotePortId?               string
-     |  |        +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
-     |  |        +--ro org-openroadm-lldp:remoteChassisId?            string
      |  +--rw org-openroadm-rstp:rstp
-     |     +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
-     |     +--ro org-openroadm-rstp:max-bridge-instances?   uint32
-     |     +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
-     |        +--rw org-openroadm-rstp:bridge-name    string
-     |        +--rw org-openroadm-rstp:rstp-config
-     |        |  +--rw org-openroadm-rstp:bridge-priority?          uint32
-     |        |  +--rw org-openroadm-rstp:shutdown?                 empty
-     |        |  +--rw org-openroadm-rstp:hold-time?                uint32
-     |        |  +--rw org-openroadm-rstp:hello-time?               uint32
-     |        |  +--rw org-openroadm-rstp:max-age?                  uint32
-     |        |  +--rw org-openroadm-rstp:forward-delay?            uint32
-     |        |  +--rw org-openroadm-rstp:transmit-hold-count?      uint32
-     |        |  +--rw org-openroadm-rstp:rstp-bridge-port-table* [ifname]
-     |        |     +--rw org-openroadm-rstp:ifname      -> /org-openroadm-device:org-openroadm-device/interface/name
-     |        |     +--rw org-openroadm-rstp:cost?       uint32
-     |        |     +--rw org-openroadm-rstp:priority?   uint32
-     |        +--ro org-openroadm-rstp:rstp-state
-     |           +--ro org-openroadm-rstp:rstp-bridge-attr
-     |           |  +--ro org-openroadm-rstp:root-bridge-port?         uint32
-     |           |  +--ro org-openroadm-rstp:root-path-cost?           uint32
-     |           |  +--ro org-openroadm-rstp:root-bridge-priority?     uint32
-     |           |  +--ro org-openroadm-rstp:root-bridge-id?           bridge-id-type
-     |           |  +--ro org-openroadm-rstp:root-hold-time?           uint32
-     |           |  +--ro org-openroadm-rstp:root-hello-time?          uint32
-     |           |  +--ro org-openroadm-rstp:root-max-age?             uint32
-     |           |  +--ro org-openroadm-rstp:root-forward-delay?       uint32
-     |           |  +--ro org-openroadm-rstp:bridge-id?                bridge-id-type
-     |           |  +--ro org-openroadm-rstp:topo-change-count?        uint32
-     |           |  +--ro org-openroadm-rstp:time-since-topo-change?   uint32
-     |           +--ro org-openroadm-rstp:rstp-bridge-port-attr
-     |              +--ro org-openroadm-rstp:rstp-bridge-port-table* [ifname]
-     |                 +--ro org-openroadm-rstp:ifname                    string
-     |                 +--ro org-openroadm-rstp:bridge-port-state?        enumeration
-     |                 +--ro org-openroadm-rstp:bridge-port-role?         enumeration
-     |                 +--ro org-openroadm-rstp:bridge-port-id?           uint32
-     |                 +--ro org-openroadm-rstp:oper-edge-bridge-port?    empty
-     |                 +--ro org-openroadm-rstp:designated-bridge-port?   uint32
-     |                 +--ro org-openroadm-rstp:designated-bridgeid?      bridge-id-type
+     |  |  +--rw org-openroadm-rstp:lifecycle-state?        org-openroadm-common-state-types:lifecycle-state
+     |  |  +--ro org-openroadm-rstp:max-bridge-instances?   uint32
+     |  |  +--rw org-openroadm-rstp:rstp-bridge-instance* [bridge-name]
+     |  |     +--rw org-openroadm-rstp:bridge-name    string
+     |  |     +--rw org-openroadm-rstp:rstp-config
+     |  |     |  +--rw org-openroadm-rstp:bridge-priority?          uint32
+     |  |     |  +--rw org-openroadm-rstp:shutdown?                 empty
+     |  |     |  +--rw org-openroadm-rstp:hold-time?                uint32
+     |  |     |  +--rw org-openroadm-rstp:hello-time?               uint32
+     |  |     |  +--rw org-openroadm-rstp:max-age?                  uint32
+     |  |     |  +--rw org-openroadm-rstp:forward-delay?            uint32
+     |  |     |  +--rw org-openroadm-rstp:transmit-hold-count?      uint32
+     |  |     |  +--rw org-openroadm-rstp:rstp-bridge-port-table* [ifname]
+     |  |     |     +--rw org-openroadm-rstp:ifname      -> /org-openroadm-device:org-openroadm-device/interface/name
+     |  |     |     +--rw org-openroadm-rstp:cost?       uint32
+     |  |     |     +--rw org-openroadm-rstp:priority?   uint32
+     |  |     +--ro org-openroadm-rstp:rstp-state
+     |  |        +--ro org-openroadm-rstp:rstp-bridge-attr
+     |  |        |  +--ro org-openroadm-rstp:root-bridge-port?         uint32
+     |  |        |  +--ro org-openroadm-rstp:root-path-cost?           uint32
+     |  |        |  +--ro org-openroadm-rstp:root-bridge-priority?     uint32
+     |  |        |  +--ro org-openroadm-rstp:root-bridge-id?           bridge-id-type
+     |  |        |  +--ro org-openroadm-rstp:root-hold-time?           uint32
+     |  |        |  +--ro org-openroadm-rstp:root-hello-time?          uint32
+     |  |        |  +--ro org-openroadm-rstp:root-max-age?             uint32
+     |  |        |  +--ro org-openroadm-rstp:root-forward-delay?       uint32
+     |  |        |  +--ro org-openroadm-rstp:bridge-id?                bridge-id-type
+     |  |        |  +--ro org-openroadm-rstp:topo-change-count?        uint32
+     |  |        |  +--ro org-openroadm-rstp:time-since-topo-change?   uint32
+     |  |        +--ro org-openroadm-rstp:rstp-bridge-port-attr
+     |  |           +--ro org-openroadm-rstp:rstp-bridge-port-table* [ifname]
+     |  |              +--ro org-openroadm-rstp:ifname                    string
+     |  |              +--ro org-openroadm-rstp:bridge-port-state?        enumeration
+     |  |              +--ro org-openroadm-rstp:bridge-port-role?         enumeration
+     |  |              +--ro org-openroadm-rstp:bridge-port-id?           uint32
+     |  |              +--ro org-openroadm-rstp:oper-edge-bridge-port?    empty
+     |  |              +--ro org-openroadm-rstp:designated-bridge-port?   uint32
+     |  |              +--ro org-openroadm-rstp:designated-bridgeid?      bridge-id-type
+     |  +--rw org-openroadm-lldp:lldp
+     |     +--rw org-openroadm-lldp:lifecycle-state?   org-openroadm-common-state-types:lifecycle-state
+     |     +--rw org-openroadm-lldp:global-config
+     |     |  +--rw org-openroadm-lldp:adminStatus?           enumeration
+     |     |  +--rw org-openroadm-lldp:msgTxInterval?         uint16
+     |     |  +--rw org-openroadm-lldp:msgTxHoldMultiplier?   uint8
+     |     +--rw org-openroadm-lldp:port-config* [ifName]
+     |     |  +--rw org-openroadm-lldp:ifName         -> /org-openroadm-device:org-openroadm-device/interface/name
+     |     |  +--rw org-openroadm-lldp:adminStatus?   enumeration
+     |     +--ro org-openroadm-lldp:nbr-list
+     |        +--ro org-openroadm-lldp:if-name* [ifName]
+     |           +--ro org-openroadm-lldp:ifName                      string
+     |           +--ro org-openroadm-lldp:remoteSysName?              string
+     |           +--ro org-openroadm-lldp:remoteMgmtAddressSubType?   iana-rt-types:address-family
+     |           +--ro org-openroadm-lldp:remoteMgmtAddress?          inet:ip-address
+     |           +--ro org-openroadm-lldp:remotePortIdSubType?        enumeration
+     |           +--ro org-openroadm-lldp:remotePortId?               string
+     |           +--ro org-openroadm-lldp:remoteChassisIdSubType?     enumeration
+     |           +--ro org-openroadm-lldp:remoteChassisId?            string
      +--ro internal-link* [internal-link-name]
      |  +--ro internal-link-name    string
      |  +--ro source
@@ -1275,6 +1275,7 @@ module: org-openroadm-device
      |  +--ro network-odu-rate                   identityref
      |  +--ro network-oducn-n-rate?              uint16
      |  +--ro network-min-oducn-n-rate?          uint16
+     |  +--ro network-max-oducn-n-rate?          uint16
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
@@ -1282,6 +1283,7 @@ module: org-openroadm-device
      |  +--ro profile-name                      string
      |  +--ro network-otsi-group-rate?          identityref
      |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-max-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
@@ -1295,6 +1297,7 @@ module: org-openroadm-device
      |  +--ro otucn-n-rate?                     uint16
      |  +--ro network-otsi-group-rate?          identityref
      |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-max-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--rw rt-pol:routing-policy
@@ -1395,135 +1398,135 @@ module: org-openroadm-device
      |     |     +--rw org-openroadm-routing:name               string
      |     |     +--rw org-openroadm-routing:description?       string
      |     |     +--rw org-openroadm-routing:static-routes
-     |     |     |  +--rw org-openroadm-ipv4-unicast-routing:ipv4
-     |     |     |  |  +--rw org-openroadm-ipv4-unicast-routing:route* [destination-prefix]
-     |     |     |  |     +--rw org-openroadm-ipv4-unicast-routing:destination-prefix    inet:ipv4-prefix
-     |     |     |  |     +--rw org-openroadm-ipv4-unicast-routing:description?          string
-     |     |     |  |     +--rw org-openroadm-ipv4-unicast-routing:next-hop
-     |     |     |  |        +--rw (org-openroadm-ipv4-unicast-routing:next-hop-options)
-     |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:simple-next-hop)
-     |     |     |  |           |  +--rw org-openroadm-ipv4-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
-     |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:special-next-hop)
-     |     |     |  |           |  +--rw org-openroadm-ipv4-unicast-routing:special-next-hop?     enumeration
-     |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:next-hop-address)
-     |     |     |  |              +--rw org-openroadm-ipv4-unicast-routing:next-hop-address?     inet:ipv4-address
      |     |     |  +--rw org-openroadm-ipv6-unicast-routing:ipv6
-     |     |     |     +--rw org-openroadm-ipv6-unicast-routing:route* [destination-prefix]
-     |     |     |        +--rw org-openroadm-ipv6-unicast-routing:destination-prefix    inet:ipv6-prefix
-     |     |     |        +--rw org-openroadm-ipv6-unicast-routing:description?          string
-     |     |     |        +--rw org-openroadm-ipv6-unicast-routing:next-hop
-     |     |     |           +--rw (org-openroadm-ipv6-unicast-routing:next-hop-options)
-     |     |     |              +--:(org-openroadm-ipv6-unicast-routing:simple-next-hop)
-     |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
-     |     |     |              +--:(org-openroadm-ipv6-unicast-routing:special-next-hop)
-     |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:special-next-hop?     enumeration
-     |     |     |              +--:(org-openroadm-ipv6-unicast-routing:next-hop-address)
-     |     |     |                 +--rw org-openroadm-ipv6-unicast-routing:next-hop-address?     inet:ipv6-address
-     |     |     +--rw rt-bgp:bgp
-     |     |     |  +--rw rt-bgp:global
-     |     |     |  |  +--rw rt-bgp:as            inet:as-number
-     |     |     |  |  +--rw rt-bgp:identifier    yang:dotted-quad
-     |     |     |  |  +--rw rt-bgp:distance
-     |     |     |  |     +--rw rt-bgp:external?   uint8
-     |     |     |  |     +--rw rt-bgp:internal?   uint8
-     |     |     |  +--rw rt-bgp:neighbors
-     |     |     |     +--rw rt-bgp:neighbor* [remote-address]
-     |     |     |        +--rw rt-bgp:remote-address     inet:ip-address
-     |     |     |        +--rw rt-bgp:enabled?           boolean
-     |     |     |        +--rw rt-bgp:peer-as            inet:as-number
-     |     |     |        +--rw rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
-     |     |     |        +--rw rt-bgp:description?       string
-     |     |     |        +--rw rt-bgp:timers
-     |     |     |        |  +--rw rt-bgp:connect-retry-interval?             uint16
-     |     |     |        |  +--rw rt-bgp:hold-time?                          uint16
-     |     |     |        |  +--rw rt-bgp:keepalive?                          uint16
-     |     |     |        |  +--rw rt-bgp:min-route-advertisement-interval?   uint16
-     |     |     |        +--rw rt-bgp:ebgp-multihop
-     |     |     |        |  +--rw rt-bgp:enabled?        boolean
-     |     |     |        |  +--rw rt-bgp:multihop-ttl?   uint8
-     |     |     |        +--rw rt-bgp:route-reflector
-     |     |     |        |  +--rw rt-bgp:client?   boolean
-     |     |     |        +--rw rt-bgp:as-path-options
-     |     |     |        |  +--rw rt-bgp:allow-own-as?   uint8
-     |     |     |        +--rw rt-bgp:apply-policy
-     |     |     |           +--rw rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
-     |     |     |           +--rw rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     |     |     |  |  +--rw org-openroadm-ipv6-unicast-routing:route* [destination-prefix]
+     |     |     |  |     +--rw org-openroadm-ipv6-unicast-routing:destination-prefix    inet:ipv6-prefix
+     |     |     |  |     +--rw org-openroadm-ipv6-unicast-routing:description?          string
+     |     |     |  |     +--rw org-openroadm-ipv6-unicast-routing:next-hop
+     |     |     |  |        +--rw (org-openroadm-ipv6-unicast-routing:next-hop-options)
+     |     |     |  |           +--:(org-openroadm-ipv6-unicast-routing:simple-next-hop)
+     |     |     |  |           |  +--rw org-openroadm-ipv6-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
+     |     |     |  |           +--:(org-openroadm-ipv6-unicast-routing:special-next-hop)
+     |     |     |  |           |  +--rw org-openroadm-ipv6-unicast-routing:special-next-hop?     enumeration
+     |     |     |  |           +--:(org-openroadm-ipv6-unicast-routing:next-hop-address)
+     |     |     |  |              +--rw org-openroadm-ipv6-unicast-routing:next-hop-address?     inet:ipv6-address
+     |     |     |  +--rw org-openroadm-ipv4-unicast-routing:ipv4
+     |     |     |     +--rw org-openroadm-ipv4-unicast-routing:route* [destination-prefix]
+     |     |     |        +--rw org-openroadm-ipv4-unicast-routing:destination-prefix    inet:ipv4-prefix
+     |     |     |        +--rw org-openroadm-ipv4-unicast-routing:description?          string
+     |     |     |        +--rw org-openroadm-ipv4-unicast-routing:next-hop
+     |     |     |           +--rw (org-openroadm-ipv4-unicast-routing:next-hop-options)
+     |     |     |              +--:(org-openroadm-ipv4-unicast-routing:simple-next-hop)
+     |     |     |              |  +--rw org-openroadm-ipv4-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
+     |     |     |              +--:(org-openroadm-ipv4-unicast-routing:special-next-hop)
+     |     |     |              |  +--rw org-openroadm-ipv4-unicast-routing:special-next-hop?     enumeration
+     |     |     |              +--:(org-openroadm-ipv4-unicast-routing:next-hop-address)
+     |     |     |                 +--rw org-openroadm-ipv4-unicast-routing:next-hop-address?     inet:ipv4-address
      |     |     +--rw org-openroadm-ospf:ospf
-     |     |        +--rw org-openroadm-ospf:all-instances-inherit {instance-inheritance}?
-     |     |        |  +--rw org-openroadm-ospf:area
-     |     |        |  +--rw org-openroadm-ospf:interface
-     |     |        +--rw org-openroadm-ospf:operation-mode?          identityref
-     |     |        +--rw org-openroadm-ospf:instance* [routing-instance af]
-     |     |           +--rw org-openroadm-ospf:routing-instance     org-openroadm-routing:routing-instance-ref
-     |     |           +--rw org-openroadm-ospf:af                   identityref
-     |     |           +--rw org-openroadm-ospf:router-id            yang:dotted-quad {router-id}?
-     |     |           +--rw org-openroadm-ospf:admin-distance
-     |     |           |  +--rw (org-openroadm-ospf:granularity)?
-     |     |           |  |  +--:(org-openroadm-ospf:detail)
-     |     |           |  |     +--rw org-openroadm-ospf:intra-area?   uint8
-     |     |           |  |     +--rw org-openroadm-ospf:inter-area?   uint8
-     |     |           |  +--rw org-openroadm-ospf:external?           uint8
-     |     |           +--rw org-openroadm-ospf:graceful-restart {graceful-restart}?
-     |     |           |  +--rw org-openroadm-ospf:enable?                       boolean
-     |     |           |  +--rw org-openroadm-ospf:helper-enable?                boolean
-     |     |           |  +--rw org-openroadm-ospf:restart-interval?             uint16
-     |     |           |  +--rw org-openroadm-ospf:helper-strict-lsa-checking?   boolean
-     |     |           +--rw org-openroadm-ospf:auto-cost {auto-cost}?
-     |     |           |  +--rw org-openroadm-ospf:enable?                boolean
-     |     |           |  +--rw org-openroadm-ospf:reference-bandwidth?   uint32
-     |     |           +--rw org-openroadm-ospf:all-areas-inherit {area-inheritance}?
-     |     |           |  +--rw org-openroadm-ospf:area
-     |     |           |  +--rw org-openroadm-ospf:interface
-     |     |           +--rw org-openroadm-ospf:area* [area-id]
-     |     |              +--rw org-openroadm-ospf:area-id                   yang:dotted-quad
-     |     |              +--rw org-openroadm-ospf:area-type?                identityref
-     |     |              +--rw org-openroadm-ospf:summary?                  boolean
-     |     |              +--rw org-openroadm-ospf:default-cost?             uint32
-     |     |              +--rw org-openroadm-ospf:range* [prefix]
-     |     |              |  +--rw org-openroadm-ospf:prefix       inet:ip-prefix
-     |     |              |  +--rw org-openroadm-ospf:advertise?   boolean
-     |     |              |  +--rw org-openroadm-ospf:cost?        uint24
-     |     |              +--rw org-openroadm-ospf:all-interfaces-inherit {interface-inheritance}?
-     |     |              |  +--rw org-openroadm-ospf:interface
-     |     |              +--rw org-openroadm-ospf:virtual-link* [router-id]
-     |     |              |  +--rw org-openroadm-ospf:router-id              yang:dotted-quad
-     |     |              |  +--rw org-openroadm-ospf:cost?                  uint16
-     |     |              |  +--rw org-openroadm-ospf:hello-interval?        uint16
-     |     |              |  +--rw org-openroadm-ospf:dead-interval?         uint16
-     |     |              |  +--rw org-openroadm-ospf:rtrPriority?           uint8
-     |     |              |  +--rw org-openroadm-ospf:retransmit-interval?   uint16
-     |     |              |  +--rw org-openroadm-ospf:transmit-delay?        uint16
-     |     |              |  +--rw org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
-     |     |              |  +--rw org-openroadm-ospf:authentication
-     |     |              |     +--rw (org-openroadm-ospf:auth-type-selection)?
-     |     |              |        +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
-     |     |              |        |  +--rw org-openroadm-ospf:sa?          string
-     |     |              |        +--:(org-openroadm-ospf:auth-trailer-key-chain)
-     |     |              |        |  +--rw org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
-     |     |              |        +--:(org-openroadm-ospf:auth-trailer-key)
-     |     |              |           +--rw org-openroadm-ospf:key?         string
-     |     |              +--rw org-openroadm-ospf:interface* [interface]
-     |     |                 +--rw org-openroadm-ospf:interface              org-openroadm-device:interface-ref
-     |     |                 +--rw org-openroadm-ospf:network-type?          enumeration
-     |     |                 +--rw org-openroadm-ospf:passive?               boolean
-     |     |                 +--rw org-openroadm-ospf:cost?                  uint16
-     |     |                 +--rw org-openroadm-ospf:hello-interval?        uint16
-     |     |                 +--rw org-openroadm-ospf:dead-interval?         uint16
-     |     |                 +--rw org-openroadm-ospf:rtrPriority?           uint8
-     |     |                 +--rw org-openroadm-ospf:retransmit-interval?   uint16
-     |     |                 +--rw org-openroadm-ospf:transmit-delay?        uint16
-     |     |                 +--rw org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
-     |     |                 +--rw org-openroadm-ospf:authentication
-     |     |                 |  +--rw (org-openroadm-ospf:auth-type-selection)?
-     |     |                 |     +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
-     |     |                 |     |  +--rw org-openroadm-ospf:sa?          string
-     |     |                 |     +--:(org-openroadm-ospf:auth-trailer-key-chain)
-     |     |                 |     |  +--rw org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
-     |     |                 |     +--:(org-openroadm-ospf:auth-trailer-key)
-     |     |                 |        +--rw org-openroadm-ospf:key?         string
-     |     |                 +--rw org-openroadm-ospf:topology* [name] {org-openroadm-ospf:multi-topology}?
-     |     |                    +--rw org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
-     |     |                    +--rw org-openroadm-ospf:cost?   uint32
+     |     |     |  +--rw org-openroadm-ospf:all-instances-inherit {instance-inheritance}?
+     |     |     |  |  +--rw org-openroadm-ospf:area
+     |     |     |  |  +--rw org-openroadm-ospf:interface
+     |     |     |  +--rw org-openroadm-ospf:operation-mode?          identityref
+     |     |     |  +--rw org-openroadm-ospf:instance* [routing-instance af]
+     |     |     |     +--rw org-openroadm-ospf:routing-instance     org-openroadm-routing:routing-instance-ref
+     |     |     |     +--rw org-openroadm-ospf:af                   identityref
+     |     |     |     +--rw org-openroadm-ospf:router-id            yang:dotted-quad {router-id}?
+     |     |     |     +--rw org-openroadm-ospf:admin-distance
+     |     |     |     |  +--rw (org-openroadm-ospf:granularity)?
+     |     |     |     |  |  +--:(org-openroadm-ospf:detail)
+     |     |     |     |  |     +--rw org-openroadm-ospf:intra-area?   uint8
+     |     |     |     |  |     +--rw org-openroadm-ospf:inter-area?   uint8
+     |     |     |     |  +--rw org-openroadm-ospf:external?           uint8
+     |     |     |     +--rw org-openroadm-ospf:graceful-restart {graceful-restart}?
+     |     |     |     |  +--rw org-openroadm-ospf:enable?                       boolean
+     |     |     |     |  +--rw org-openroadm-ospf:helper-enable?                boolean
+     |     |     |     |  +--rw org-openroadm-ospf:restart-interval?             uint16
+     |     |     |     |  +--rw org-openroadm-ospf:helper-strict-lsa-checking?   boolean
+     |     |     |     +--rw org-openroadm-ospf:auto-cost {auto-cost}?
+     |     |     |     |  +--rw org-openroadm-ospf:enable?                boolean
+     |     |     |     |  +--rw org-openroadm-ospf:reference-bandwidth?   uint32
+     |     |     |     +--rw org-openroadm-ospf:all-areas-inherit {area-inheritance}?
+     |     |     |     |  +--rw org-openroadm-ospf:area
+     |     |     |     |  +--rw org-openroadm-ospf:interface
+     |     |     |     +--rw org-openroadm-ospf:area* [area-id]
+     |     |     |        +--rw org-openroadm-ospf:area-id                   yang:dotted-quad
+     |     |     |        +--rw org-openroadm-ospf:area-type?                identityref
+     |     |     |        +--rw org-openroadm-ospf:summary?                  boolean
+     |     |     |        +--rw org-openroadm-ospf:default-cost?             uint32
+     |     |     |        +--rw org-openroadm-ospf:range* [prefix]
+     |     |     |        |  +--rw org-openroadm-ospf:prefix       inet:ip-prefix
+     |     |     |        |  +--rw org-openroadm-ospf:advertise?   boolean
+     |     |     |        |  +--rw org-openroadm-ospf:cost?        uint24
+     |     |     |        +--rw org-openroadm-ospf:all-interfaces-inherit {interface-inheritance}?
+     |     |     |        |  +--rw org-openroadm-ospf:interface
+     |     |     |        +--rw org-openroadm-ospf:virtual-link* [router-id]
+     |     |     |        |  +--rw org-openroadm-ospf:router-id              yang:dotted-quad
+     |     |     |        |  +--rw org-openroadm-ospf:cost?                  uint16
+     |     |     |        |  +--rw org-openroadm-ospf:hello-interval?        uint16
+     |     |     |        |  +--rw org-openroadm-ospf:dead-interval?         uint16
+     |     |     |        |  +--rw org-openroadm-ospf:rtrPriority?           uint8
+     |     |     |        |  +--rw org-openroadm-ospf:retransmit-interval?   uint16
+     |     |     |        |  +--rw org-openroadm-ospf:transmit-delay?        uint16
+     |     |     |        |  +--rw org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
+     |     |     |        |  +--rw org-openroadm-ospf:authentication
+     |     |     |        |     +--rw (org-openroadm-ospf:auth-type-selection)?
+     |     |     |        |        +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
+     |     |     |        |        |  +--rw org-openroadm-ospf:sa?          string
+     |     |     |        |        +--:(org-openroadm-ospf:auth-trailer-key-chain)
+     |     |     |        |        |  +--rw org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
+     |     |     |        |        +--:(org-openroadm-ospf:auth-trailer-key)
+     |     |     |        |           +--rw org-openroadm-ospf:key?         string
+     |     |     |        +--rw org-openroadm-ospf:interface* [interface]
+     |     |     |           +--rw org-openroadm-ospf:interface              org-openroadm-device:interface-ref
+     |     |     |           +--rw org-openroadm-ospf:network-type?          enumeration
+     |     |     |           +--rw org-openroadm-ospf:passive?               boolean
+     |     |     |           +--rw org-openroadm-ospf:cost?                  uint16
+     |     |     |           +--rw org-openroadm-ospf:hello-interval?        uint16
+     |     |     |           +--rw org-openroadm-ospf:dead-interval?         uint16
+     |     |     |           +--rw org-openroadm-ospf:rtrPriority?           uint8
+     |     |     |           +--rw org-openroadm-ospf:retransmit-interval?   uint16
+     |     |     |           +--rw org-openroadm-ospf:transmit-delay?        uint16
+     |     |     |           +--rw org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
+     |     |     |           +--rw org-openroadm-ospf:authentication
+     |     |     |           |  +--rw (org-openroadm-ospf:auth-type-selection)?
+     |     |     |           |     +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
+     |     |     |           |     |  +--rw org-openroadm-ospf:sa?          string
+     |     |     |           |     +--:(org-openroadm-ospf:auth-trailer-key-chain)
+     |     |     |           |     |  +--rw org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
+     |     |     |           |     +--:(org-openroadm-ospf:auth-trailer-key)
+     |     |     |           |        +--rw org-openroadm-ospf:key?         string
+     |     |     |           +--rw org-openroadm-ospf:topology* [name] {org-openroadm-ospf:multi-topology}?
+     |     |     |              +--rw org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
+     |     |     |              +--rw org-openroadm-ospf:cost?   uint32
+     |     |     +--rw rt-bgp:bgp
+     |     |        +--rw rt-bgp:global
+     |     |        |  +--rw rt-bgp:as            inet:as-number
+     |     |        |  +--rw rt-bgp:identifier    yang:dotted-quad
+     |     |        |  +--rw rt-bgp:distance
+     |     |        |     +--rw rt-bgp:external?   uint8
+     |     |        |     +--rw rt-bgp:internal?   uint8
+     |     |        +--rw rt-bgp:neighbors
+     |     |           +--rw rt-bgp:neighbor* [remote-address]
+     |     |              +--rw rt-bgp:remote-address     inet:ip-address
+     |     |              +--rw rt-bgp:enabled?           boolean
+     |     |              +--rw rt-bgp:peer-as            inet:as-number
+     |     |              +--rw rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
+     |     |              +--rw rt-bgp:description?       string
+     |     |              +--rw rt-bgp:timers
+     |     |              |  +--rw rt-bgp:connect-retry-interval?             uint16
+     |     |              |  +--rw rt-bgp:hold-time?                          uint16
+     |     |              |  +--rw rt-bgp:keepalive?                          uint16
+     |     |              |  +--rw rt-bgp:min-route-advertisement-interval?   uint16
+     |     |              +--rw rt-bgp:ebgp-multihop
+     |     |              |  +--rw rt-bgp:enabled?        boolean
+     |     |              |  +--rw rt-bgp:multihop-ttl?   uint8
+     |     |              +--rw rt-bgp:route-reflector
+     |     |              |  +--rw rt-bgp:client?   boolean
+     |     |              +--rw rt-bgp:as-path-options
+     |     |              |  +--rw rt-bgp:allow-own-as?   uint8
+     |     |              +--rw rt-bgp:apply-policy
+     |     |                 +--rw rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     |     |                 +--rw rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      |     +--rw org-openroadm-routing:ribs
      |     |  +--rw org-openroadm-routing:rib* [name]
      |     |     +--rw org-openroadm-routing:name              string
@@ -1547,417 +1550,417 @@ module: org-openroadm-device
      |     |  +--ro org-openroadm-routing:routing-protocol* [type name]
      |     |     +--ro org-openroadm-routing:type    identityref
      |     |     +--ro org-openroadm-routing:name    string
-     |     |     +--ro rt-bgp:bgp
-     |     |     |  +--ro rt-bgp:global
-     |     |     |  |  +--ro rt-bgp:as            inet:as-number
-     |     |     |  |  +--ro rt-bgp:identifier    yang:dotted-quad
-     |     |     |  |  +--ro rt-bgp:distance
-     |     |     |  |     +--ro rt-bgp:external?   uint8
-     |     |     |  |     +--ro rt-bgp:internal?   uint8
-     |     |     |  +--ro rt-bgp:neighbors
-     |     |     |     +--ro rt-bgp:neighbor* [remote-address]
-     |     |     |        +--ro rt-bgp:remote-address     inet:ip-address
-     |     |     |        +--ro rt-bgp:enabled?           boolean
-     |     |     |        +--ro rt-bgp:peer-as            inet:as-number
-     |     |     |        +--ro rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
-     |     |     |        +--ro rt-bgp:description?       string
-     |     |     |        +--ro rt-bgp:timers
-     |     |     |        |  +--ro rt-bgp:connect-retry-interval?             uint16
-     |     |     |        |  +--ro rt-bgp:hold-time?                          uint16
-     |     |     |        |  +--ro rt-bgp:keepalive?                          uint16
-     |     |     |        |  +--ro rt-bgp:min-route-advertisement-interval?   uint16
-     |     |     |        +--ro rt-bgp:ebgp-multihop
-     |     |     |        |  +--ro rt-bgp:enabled?        boolean
-     |     |     |        |  +--ro rt-bgp:multihop-ttl?   uint8
-     |     |     |        +--ro rt-bgp:route-reflector
-     |     |     |        |  +--ro rt-bgp:client?   boolean
-     |     |     |        +--ro rt-bgp:as-path-options
-     |     |     |        |  +--ro rt-bgp:allow-own-as?   uint8
-     |     |     |        +--ro rt-bgp:apply-policy
-     |     |     |           +--ro rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
-     |     |     |           +--ro rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      |     |     +--ro org-openroadm-ospf:ospf
-     |     |        +--ro org-openroadm-ospf:instance* [routing-instance af]
-     |     |           +--ro org-openroadm-ospf:routing-instance    org-openroadm-routing:routing-instance-ref
-     |     |           +--ro org-openroadm-ospf:af                  identityref
-     |     |           +--ro org-openroadm-ospf:router-id?          yang:dotted-quad
-     |     |           +--ro org-openroadm-ospf:area* [area-id]
-     |     |           |  +--ro org-openroadm-ospf:area-id            area-id-type
-     |     |           |  +--ro org-openroadm-ospf:interface* [interface]
-     |     |           |  |  +--ro org-openroadm-ospf:interface              org-openroadm-device:interface-ref
-     |     |           |  |  +--ro org-openroadm-ospf:network-type?          enumeration
-     |     |           |  |  +--ro org-openroadm-ospf:passive?               boolean
-     |     |           |  |  +--ro org-openroadm-ospf:cost?                  uint16
-     |     |           |  |  +--ro org-openroadm-ospf:hello-interval?        uint16
-     |     |           |  |  +--ro org-openroadm-ospf:dead-interval?         uint16
-     |     |           |  |  +--ro org-openroadm-ospf:rtrPriority?           uint8
-     |     |           |  |  +--ro org-openroadm-ospf:retransmit-interval?   uint16
-     |     |           |  |  +--ro org-openroadm-ospf:transmit-delay?        uint16
-     |     |           |  |  +--ro org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
-     |     |           |  |  +--ro org-openroadm-ospf:authentication
-     |     |           |  |  |  +--ro (org-openroadm-ospf:auth-type-selection)?
-     |     |           |  |  |     +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
-     |     |           |  |  |     |  +--ro org-openroadm-ospf:sa?          string
-     |     |           |  |  |     +--:(org-openroadm-ospf:auth-trailer-key-chain)
-     |     |           |  |  |     |  +--ro org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
-     |     |           |  |  |     +--:(org-openroadm-ospf:auth-trailer-key)
-     |     |           |  |  |        +--ro org-openroadm-ospf:key?         string
-     |     |           |  |  +--ro org-openroadm-ospf:state?                 if-state-type
-     |     |           |  |  +--ro org-openroadm-ospf:hello-timer?           uint32
-     |     |           |  |  +--ro org-openroadm-ospf:wait-timer?            uint32
-     |     |           |  |  +--ro org-openroadm-ospf:dr?                    inet:ipv4-address
-     |     |           |  |  +--ro org-openroadm-ospf:bdr?                   inet:ipv4-address
-     |     |           |  |  +--ro org-openroadm-ospf:neighbor* [neighbor-id]
-     |     |           |  |  |  +--ro org-openroadm-ospf:neighbor-id    inet:ipv4-address
-     |     |           |  |  |  +--ro org-openroadm-ospf:address?       inet:ip-address
-     |     |           |  |  |  +--ro org-openroadm-ospf:dr?            inet:ipv4-address
-     |     |           |  |  |  +--ro org-openroadm-ospf:bdr?           inet:ipv4-address
-     |     |           |  |  |  +--ro org-openroadm-ospf:state?         nbr-state-type
-     |     |           |  |  +--ro org-openroadm-ospf:link-scope-lsas* [lsa-type]
-     |     |           |  |  |  +--ro org-openroadm-ospf:lsa-type          uint8
-     |     |           |  |  |  +--ro org-openroadm-ospf:link-scope-lsa* [lsa-id adv-router]
-     |     |           |  |  |     +--ro org-openroadm-ospf:lsa-id               union
-     |     |           |  |  |     +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
-     |     |           |  |  |     +--ro org-openroadm-ospf:decoded-completed?   boolean
-     |     |           |  |  |     +--ro (org-openroadm-ospf:version)?
-     |     |           |  |  |        +--:(org-openroadm-ospf:ospfv2)
-     |     |           |  |  |        |  +--ro org-openroadm-ospf:ospfv2
-     |     |           |  |  |        |     +--ro org-openroadm-ospf:header
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:option         bits
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:opaque-type    uint8
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:opaque-id      uint24
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:age            uint16
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:type           uint16
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:seq-num        uint32
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:checksum       uint16
-     |     |           |  |  |        |     |  +--ro org-openroadm-ospf:length         uint16
-     |     |           |  |  |        |     +--ro org-openroadm-ospf:body
-     |     |           |  |  |        |        +--ro org-openroadm-ospf:router
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:flags?          bits
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:link-id      union
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:link-data    union
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:type?        uint8
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |  |  |        |        |        +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |  |  |        |        |        +--ro org-openroadm-ospf:metric?   uint16
-     |     |           |  |  |        |        +--ro org-openroadm-ospf:network
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |  |  |        |        +--ro org-openroadm-ospf:summary
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |  |  |        |        |  +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |  |  |        |        |     +--ro org-openroadm-ospf:metric?   uint24
-     |     |           |  |  |        |        +--ro org-openroadm-ospf:external
-     |     |           |  |  |        |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |  |  |        |           +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |  |  |        |              +--ro org-openroadm-ospf:mt-id                 uint8
-     |     |           |  |  |        |              +--ro org-openroadm-ospf:flags?                bits
-     |     |           |  |  |        |              +--ro org-openroadm-ospf:metric?               uint24
-     |     |           |  |  |        |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
-     |     |           |  |  |        |              +--ro org-openroadm-ospf:external-route-tag?   uint32
-     |     |           |  |  |        +--:(org-openroadm-ospf:ospfv3)
-     |     |           |  |  |           +--ro org-openroadm-ospf:ospfv3
-     |     |           |  |  |              +--ro org-openroadm-ospf:header
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:lsa-id        uint32
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:age           uint16
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:type          uint16
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:seq-num       uint32
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:checksum      uint16
-     |     |           |  |  |              |  +--ro org-openroadm-ospf:length        uint16
-     |     |           |  |  |              +--ro org-openroadm-ospf:body
-     |     |           |  |  |                 +--ro org-openroadm-ospf:router
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:flags      bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:options    bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:interface-id             uint32
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:type?                    uint8
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:metric?                  uint16
-     |     |           |  |  |                 +--ro org-openroadm-ospf:network
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:options            bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |  |  |                 +--ro org-openroadm-ospf:inter-area-prefix
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:metric?           uint24
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |  |  |                 +--ro org-openroadm-ospf:inter-area-router
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:options                  bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:metric?                  uint24
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
-     |     |           |  |  |                 +--ro org-openroadm-ospf:as-external
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |  |  |                 +--ro org-openroadm-ospf:nssa
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |  |  |                 +--ro org-openroadm-ospf:link
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:options                         bits
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
-     |     |           |  |  |                 |  +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |  |  |                 |     +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |  |  |                 +--ro org-openroadm-ospf:intra-area-prefix
-     |     |           |  |  |                    +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |  |  |                    +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |  |  |                    +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
-     |     |           |  |  |                    +--ro org-openroadm-ospf:num-of-prefixes?            uint16
-     |     |           |  |  |                    +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |  |  |                       +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |  |  |                       +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |  |  |                       +--ro org-openroadm-ospf:metric?           uint24
-     |     |           |  |  +--ro org-openroadm-ospf:topology* [name] {org-openroadm-ospf:multi-topology}?
-     |     |           |  |     +--ro org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
-     |     |           |  +--ro org-openroadm-ospf:area-scope-lsas* [lsa-type]
-     |     |           |     +--ro org-openroadm-ospf:lsa-type          uint8
-     |     |           |     +--ro org-openroadm-ospf:area-scope-lsa* [lsa-id adv-router]
-     |     |           |        +--ro org-openroadm-ospf:lsa-id               union
-     |     |           |        +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
-     |     |           |        +--ro org-openroadm-ospf:decoded-completed?   boolean
-     |     |           |        +--ro (org-openroadm-ospf:version)?
-     |     |           |           +--:(org-openroadm-ospf:ospfv2)
-     |     |           |           |  +--ro org-openroadm-ospf:ospfv2
-     |     |           |           |     +--ro org-openroadm-ospf:header
-     |     |           |           |     |  +--ro org-openroadm-ospf:option         bits
-     |     |           |           |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
-     |     |           |           |     |  +--ro org-openroadm-ospf:opaque-type    uint8
-     |     |           |           |     |  +--ro org-openroadm-ospf:opaque-id      uint24
-     |     |           |           |     |  +--ro org-openroadm-ospf:age            uint16
-     |     |           |           |     |  +--ro org-openroadm-ospf:type           uint16
-     |     |           |           |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
-     |     |           |           |     |  +--ro org-openroadm-ospf:seq-num        uint32
-     |     |           |           |     |  +--ro org-openroadm-ospf:checksum       uint16
-     |     |           |           |     |  +--ro org-openroadm-ospf:length         uint16
-     |     |           |           |     +--ro org-openroadm-ospf:body
-     |     |           |           |        +--ro org-openroadm-ospf:router
-     |     |           |           |        |  +--ro org-openroadm-ospf:flags?          bits
-     |     |           |           |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
-     |     |           |           |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
-     |     |           |           |        |     +--ro org-openroadm-ospf:link-id      union
-     |     |           |           |        |     +--ro org-openroadm-ospf:link-data    union
-     |     |           |           |        |     +--ro org-openroadm-ospf:type?        uint8
-     |     |           |           |        |     +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |           |        |        +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |           |        |        +--ro org-openroadm-ospf:metric?   uint16
-     |     |           |           |        +--ro org-openroadm-ospf:network
-     |     |           |           |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
-     |     |           |           |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |           |        +--ro org-openroadm-ospf:summary
-     |     |           |           |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |           |        |  +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |           |        |     +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |           |        |     +--ro org-openroadm-ospf:metric?   uint24
-     |     |           |           |        +--ro org-openroadm-ospf:external
-     |     |           |           |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |           |           +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |           |              +--ro org-openroadm-ospf:mt-id                 uint8
-     |     |           |           |              +--ro org-openroadm-ospf:flags?                bits
-     |     |           |           |              +--ro org-openroadm-ospf:metric?               uint24
-     |     |           |           |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
-     |     |           |           |              +--ro org-openroadm-ospf:external-route-tag?   uint32
-     |     |           |           +--:(org-openroadm-ospf:ospfv3)
-     |     |           |              +--ro org-openroadm-ospf:ospfv3
-     |     |           |                 +--ro org-openroadm-ospf:header
-     |     |           |                 |  +--ro org-openroadm-ospf:lsa-id        uint32
-     |     |           |                 |  +--ro org-openroadm-ospf:age           uint16
-     |     |           |                 |  +--ro org-openroadm-ospf:type          uint16
-     |     |           |                 |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
-     |     |           |                 |  +--ro org-openroadm-ospf:seq-num       uint32
-     |     |           |                 |  +--ro org-openroadm-ospf:checksum      uint16
-     |     |           |                 |  +--ro org-openroadm-ospf:length        uint16
-     |     |           |                 +--ro org-openroadm-ospf:body
-     |     |           |                    +--ro org-openroadm-ospf:router
-     |     |           |                    |  +--ro org-openroadm-ospf:flags      bits
-     |     |           |                    |  +--ro org-openroadm-ospf:options    bits
-     |     |           |                    |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
-     |     |           |                    |     +--ro org-openroadm-ospf:interface-id             uint32
-     |     |           |                    |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
-     |     |           |                    |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
-     |     |           |                    |     +--ro org-openroadm-ospf:type?                    uint8
-     |     |           |                    |     +--ro org-openroadm-ospf:metric?                  uint16
-     |     |           |                    +--ro org-openroadm-ospf:network
-     |     |           |                    |  +--ro org-openroadm-ospf:options            bits
-     |     |           |                    |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |                    +--ro org-openroadm-ospf:inter-area-prefix
-     |     |           |                    |  +--ro org-openroadm-ospf:metric?           uint24
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                    +--ro org-openroadm-ospf:inter-area-router
-     |     |           |                    |  +--ro org-openroadm-ospf:options                  bits
-     |     |           |                    |  +--ro org-openroadm-ospf:metric?                  uint24
-     |     |           |                    |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
-     |     |           |                    +--ro org-openroadm-ospf:as-external
-     |     |           |                    |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |                    |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |                    |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |                    |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |                    |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |                    |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                    +--ro org-openroadm-ospf:nssa
-     |     |           |                    |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |                    |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |                    |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |                    |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |                    |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |                    |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                    +--ro org-openroadm-ospf:link
-     |     |           |                    |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
-     |     |           |                    |  +--ro org-openroadm-ospf:options                         bits
-     |     |           |                    |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
-     |     |           |                    |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
-     |     |           |                    |  +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |                    |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |                    |     +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                    +--ro org-openroadm-ospf:intra-area-prefix
-     |     |           |                       +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                       +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                       +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
-     |     |           |                       +--ro org-openroadm-ospf:num-of-prefixes?            uint16
-     |     |           |                       +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |                          +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |                          +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                          +--ro org-openroadm-ospf:metric?           uint24
-     |     |           +--ro org-openroadm-ospf:as-scope-lsas* [lsa-type]
-     |     |           |  +--ro org-openroadm-ospf:lsa-type        uint8
-     |     |           |  +--ro org-openroadm-ospf:as-scope-lsa* [lsa-id adv-router]
-     |     |           |     +--ro org-openroadm-ospf:lsa-id               union
-     |     |           |     +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
-     |     |           |     +--ro org-openroadm-ospf:decoded-completed?   boolean
-     |     |           |     +--ro (org-openroadm-ospf:version)?
-     |     |           |        +--:(org-openroadm-ospf:ospfv2)
-     |     |           |        |  +--ro org-openroadm-ospf:ospfv2
-     |     |           |        |     +--ro org-openroadm-ospf:header
-     |     |           |        |     |  +--ro org-openroadm-ospf:option         bits
-     |     |           |        |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
-     |     |           |        |     |  +--ro org-openroadm-ospf:opaque-type    uint8
-     |     |           |        |     |  +--ro org-openroadm-ospf:opaque-id      uint24
-     |     |           |        |     |  +--ro org-openroadm-ospf:age            uint16
-     |     |           |        |     |  +--ro org-openroadm-ospf:type           uint16
-     |     |           |        |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
-     |     |           |        |     |  +--ro org-openroadm-ospf:seq-num        uint32
-     |     |           |        |     |  +--ro org-openroadm-ospf:checksum       uint16
-     |     |           |        |     |  +--ro org-openroadm-ospf:length         uint16
-     |     |           |        |     +--ro org-openroadm-ospf:body
-     |     |           |        |        +--ro org-openroadm-ospf:router
-     |     |           |        |        |  +--ro org-openroadm-ospf:flags?          bits
-     |     |           |        |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
-     |     |           |        |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
-     |     |           |        |        |     +--ro org-openroadm-ospf:link-id      union
-     |     |           |        |        |     +--ro org-openroadm-ospf:link-data    union
-     |     |           |        |        |     +--ro org-openroadm-ospf:type?        uint8
-     |     |           |        |        |     +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |        |        |        +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |        |        |        +--ro org-openroadm-ospf:metric?   uint16
-     |     |           |        |        +--ro org-openroadm-ospf:network
-     |     |           |        |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
-     |     |           |        |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |        |        +--ro org-openroadm-ospf:summary
-     |     |           |        |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |        |        |  +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |        |        |     +--ro org-openroadm-ospf:mt-id     uint8
-     |     |           |        |        |     +--ro org-openroadm-ospf:metric?   uint24
-     |     |           |        |        +--ro org-openroadm-ospf:external
-     |     |           |        |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
-     |     |           |        |           +--ro org-openroadm-ospf:topology* [mt-id]
-     |     |           |        |              +--ro org-openroadm-ospf:mt-id                 uint8
-     |     |           |        |              +--ro org-openroadm-ospf:flags?                bits
-     |     |           |        |              +--ro org-openroadm-ospf:metric?               uint24
-     |     |           |        |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
-     |     |           |        |              +--ro org-openroadm-ospf:external-route-tag?   uint32
-     |     |           |        +--:(org-openroadm-ospf:ospfv3)
-     |     |           |           +--ro org-openroadm-ospf:ospfv3
-     |     |           |              +--ro org-openroadm-ospf:header
-     |     |           |              |  +--ro org-openroadm-ospf:lsa-id        uint32
-     |     |           |              |  +--ro org-openroadm-ospf:age           uint16
-     |     |           |              |  +--ro org-openroadm-ospf:type          uint16
-     |     |           |              |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
-     |     |           |              |  +--ro org-openroadm-ospf:seq-num       uint32
-     |     |           |              |  +--ro org-openroadm-ospf:checksum      uint16
-     |     |           |              |  +--ro org-openroadm-ospf:length        uint16
-     |     |           |              +--ro org-openroadm-ospf:body
-     |     |           |                 +--ro org-openroadm-ospf:router
-     |     |           |                 |  +--ro org-openroadm-ospf:flags      bits
-     |     |           |                 |  +--ro org-openroadm-ospf:options    bits
-     |     |           |                 |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
-     |     |           |                 |     +--ro org-openroadm-ospf:interface-id             uint32
-     |     |           |                 |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
-     |     |           |                 |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
-     |     |           |                 |     +--ro org-openroadm-ospf:type?                    uint8
-     |     |           |                 |     +--ro org-openroadm-ospf:metric?                  uint16
-     |     |           |                 +--ro org-openroadm-ospf:network
-     |     |           |                 |  +--ro org-openroadm-ospf:options            bits
-     |     |           |                 |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
-     |     |           |                 +--ro org-openroadm-ospf:inter-area-prefix
-     |     |           |                 |  +--ro org-openroadm-ospf:metric?           uint24
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                 +--ro org-openroadm-ospf:inter-area-router
-     |     |           |                 |  +--ro org-openroadm-ospf:options                  bits
-     |     |           |                 |  +--ro org-openroadm-ospf:metric?                  uint24
-     |     |           |                 |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
-     |     |           |                 +--ro org-openroadm-ospf:as-external
-     |     |           |                 |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |                 |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                 +--ro org-openroadm-ospf:nssa
-     |     |           |                 |  +--ro org-openroadm-ospf:metric?                     uint24
-     |     |           |                 |  +--ro org-openroadm-ospf:flags?                      bits
-     |     |           |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix-options              bits
-     |     |           |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
-     |     |           |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
-     |     |           |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                 +--ro org-openroadm-ospf:link
-     |     |           |                 |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
-     |     |           |                 |  +--ro org-openroadm-ospf:options                         bits
-     |     |           |                 |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
-     |     |           |                 |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
-     |     |           |                 |  +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |                 |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |                 |     +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                 +--ro org-openroadm-ospf:intra-area-prefix
-     |     |           |                    +--ro org-openroadm-ospf:referenced-ls-type?         uint16
-     |     |           |                    +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
-     |     |           |                    +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
-     |     |           |                    +--ro org-openroadm-ospf:num-of-prefixes?            uint16
-     |     |           |                    +--ro org-openroadm-ospf:prefix* [prefix]
-     |     |           |                       +--ro org-openroadm-ospf:prefix            inet:ip-prefix
-     |     |           |                       +--ro org-openroadm-ospf:prefix-options    bits
-     |     |           |                       +--ro org-openroadm-ospf:metric?           uint24
-     |     |           +--ro org-openroadm-ospf:topology* [name] {multi-topology}?
-     |     |              +--ro org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
-     |     |              +--ro org-openroadm-ospf:area* [area-id]
-     |     |                 +--ro org-openroadm-ospf:area-id    area-id-type
+     |     |     |  +--ro org-openroadm-ospf:instance* [routing-instance af]
+     |     |     |     +--ro org-openroadm-ospf:routing-instance    org-openroadm-routing:routing-instance-ref
+     |     |     |     +--ro org-openroadm-ospf:af                  identityref
+     |     |     |     +--ro org-openroadm-ospf:router-id?          yang:dotted-quad
+     |     |     |     +--ro org-openroadm-ospf:area* [area-id]
+     |     |     |     |  +--ro org-openroadm-ospf:area-id            area-id-type
+     |     |     |     |  +--ro org-openroadm-ospf:interface* [interface]
+     |     |     |     |  |  +--ro org-openroadm-ospf:interface              org-openroadm-device:interface-ref
+     |     |     |     |  |  +--ro org-openroadm-ospf:network-type?          enumeration
+     |     |     |     |  |  +--ro org-openroadm-ospf:passive?               boolean
+     |     |     |     |  |  +--ro org-openroadm-ospf:cost?                  uint16
+     |     |     |     |  |  +--ro org-openroadm-ospf:hello-interval?        uint16
+     |     |     |     |  |  +--ro org-openroadm-ospf:dead-interval?         uint16
+     |     |     |     |  |  +--ro org-openroadm-ospf:rtrPriority?           uint8
+     |     |     |     |  |  +--ro org-openroadm-ospf:retransmit-interval?   uint16
+     |     |     |     |  |  +--ro org-openroadm-ospf:transmit-delay?        uint16
+     |     |     |     |  |  +--ro org-openroadm-ospf:mtu-ignore?            boolean {mtu-ignore}?
+     |     |     |     |  |  +--ro org-openroadm-ospf:authentication
+     |     |     |     |  |  |  +--ro (org-openroadm-ospf:auth-type-selection)?
+     |     |     |     |  |  |     +--:(org-openroadm-ospf:auth-ipsec) {ospfv3-authentication-ipsec}?
+     |     |     |     |  |  |     |  +--ro org-openroadm-ospf:sa?          string
+     |     |     |     |  |  |     +--:(org-openroadm-ospf:auth-trailer-key-chain)
+     |     |     |     |  |  |     |  +--ro org-openroadm-ospf:key-chain?   org-openroadm-key-chain:key-chain-ref
+     |     |     |     |  |  |     +--:(org-openroadm-ospf:auth-trailer-key)
+     |     |     |     |  |  |        +--ro org-openroadm-ospf:key?         string
+     |     |     |     |  |  +--ro org-openroadm-ospf:state?                 if-state-type
+     |     |     |     |  |  +--ro org-openroadm-ospf:hello-timer?           uint32
+     |     |     |     |  |  +--ro org-openroadm-ospf:wait-timer?            uint32
+     |     |     |     |  |  +--ro org-openroadm-ospf:dr?                    inet:ipv4-address
+     |     |     |     |  |  +--ro org-openroadm-ospf:bdr?                   inet:ipv4-address
+     |     |     |     |  |  +--ro org-openroadm-ospf:neighbor* [neighbor-id]
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:neighbor-id    inet:ipv4-address
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:address?       inet:ip-address
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:dr?            inet:ipv4-address
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:bdr?           inet:ipv4-address
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:state?         nbr-state-type
+     |     |     |     |  |  +--ro org-openroadm-ospf:link-scope-lsas* [lsa-type]
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:lsa-type          uint8
+     |     |     |     |  |  |  +--ro org-openroadm-ospf:link-scope-lsa* [lsa-id adv-router]
+     |     |     |     |  |  |     +--ro org-openroadm-ospf:lsa-id               union
+     |     |     |     |  |  |     +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
+     |     |     |     |  |  |     +--ro org-openroadm-ospf:decoded-completed?   boolean
+     |     |     |     |  |  |     +--ro (org-openroadm-ospf:version)?
+     |     |     |     |  |  |        +--:(org-openroadm-ospf:ospfv2)
+     |     |     |     |  |  |        |  +--ro org-openroadm-ospf:ospfv2
+     |     |     |     |  |  |        |     +--ro org-openroadm-ospf:header
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:option         bits
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:opaque-type    uint8
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:opaque-id      uint24
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:age            uint16
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:type           uint16
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:seq-num        uint32
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:checksum       uint16
+     |     |     |     |  |  |        |     |  +--ro org-openroadm-ospf:length         uint16
+     |     |     |     |  |  |        |     +--ro org-openroadm-ospf:body
+     |     |     |     |  |  |        |        +--ro org-openroadm-ospf:router
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:flags?          bits
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:link-id      union
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:link-data    union
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:type?        uint8
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |  |  |        |        |        +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |  |  |        |        |        +--ro org-openroadm-ospf:metric?   uint16
+     |     |     |     |  |  |        |        +--ro org-openroadm-ospf:network
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |  |  |        |        +--ro org-openroadm-ospf:summary
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |  |  |        |        |  +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |  |  |        |        |     +--ro org-openroadm-ospf:metric?   uint24
+     |     |     |     |  |  |        |        +--ro org-openroadm-ospf:external
+     |     |     |     |  |  |        |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |  |  |        |           +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |  |  |        |              +--ro org-openroadm-ospf:mt-id                 uint8
+     |     |     |     |  |  |        |              +--ro org-openroadm-ospf:flags?                bits
+     |     |     |     |  |  |        |              +--ro org-openroadm-ospf:metric?               uint24
+     |     |     |     |  |  |        |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
+     |     |     |     |  |  |        |              +--ro org-openroadm-ospf:external-route-tag?   uint32
+     |     |     |     |  |  |        +--:(org-openroadm-ospf:ospfv3)
+     |     |     |     |  |  |           +--ro org-openroadm-ospf:ospfv3
+     |     |     |     |  |  |              +--ro org-openroadm-ospf:header
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:lsa-id        uint32
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:age           uint16
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:type          uint16
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:seq-num       uint32
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:checksum      uint16
+     |     |     |     |  |  |              |  +--ro org-openroadm-ospf:length        uint16
+     |     |     |     |  |  |              +--ro org-openroadm-ospf:body
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:router
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:flags      bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:options    bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:interface-id             uint32
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:type?                    uint8
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:metric?                  uint16
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:network
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:options            bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:inter-area-prefix
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:inter-area-router
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:options                  bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:metric?                  uint24
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:as-external
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:nssa
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:link
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:options                         bits
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
+     |     |     |     |  |  |                 |  +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |  |  |                 |     +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |  |  |                 +--ro org-openroadm-ospf:intra-area-prefix
+     |     |     |     |  |  |                    +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |  |  |                    +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |  |  |                    +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
+     |     |     |     |  |  |                    +--ro org-openroadm-ospf:num-of-prefixes?            uint16
+     |     |     |     |  |  |                    +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |  |  |                       +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |  |  |                       +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |  |  |                       +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     |  |  +--ro org-openroadm-ospf:topology* [name] {org-openroadm-ospf:multi-topology}?
+     |     |     |     |  |     +--ro org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
+     |     |     |     |  +--ro org-openroadm-ospf:area-scope-lsas* [lsa-type]
+     |     |     |     |     +--ro org-openroadm-ospf:lsa-type          uint8
+     |     |     |     |     +--ro org-openroadm-ospf:area-scope-lsa* [lsa-id adv-router]
+     |     |     |     |        +--ro org-openroadm-ospf:lsa-id               union
+     |     |     |     |        +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
+     |     |     |     |        +--ro org-openroadm-ospf:decoded-completed?   boolean
+     |     |     |     |        +--ro (org-openroadm-ospf:version)?
+     |     |     |     |           +--:(org-openroadm-ospf:ospfv2)
+     |     |     |     |           |  +--ro org-openroadm-ospf:ospfv2
+     |     |     |     |           |     +--ro org-openroadm-ospf:header
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:option         bits
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:opaque-type    uint8
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:opaque-id      uint24
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:age            uint16
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:type           uint16
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:seq-num        uint32
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:checksum       uint16
+     |     |     |     |           |     |  +--ro org-openroadm-ospf:length         uint16
+     |     |     |     |           |     +--ro org-openroadm-ospf:body
+     |     |     |     |           |        +--ro org-openroadm-ospf:router
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:flags?          bits
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:link-id      union
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:link-data    union
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:type?        uint8
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |           |        |        +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |           |        |        +--ro org-openroadm-ospf:metric?   uint16
+     |     |     |     |           |        +--ro org-openroadm-ospf:network
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |           |        +--ro org-openroadm-ospf:summary
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |           |        |  +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |           |        |     +--ro org-openroadm-ospf:metric?   uint24
+     |     |     |     |           |        +--ro org-openroadm-ospf:external
+     |     |     |     |           |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |           |           +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |           |              +--ro org-openroadm-ospf:mt-id                 uint8
+     |     |     |     |           |              +--ro org-openroadm-ospf:flags?                bits
+     |     |     |     |           |              +--ro org-openroadm-ospf:metric?               uint24
+     |     |     |     |           |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
+     |     |     |     |           |              +--ro org-openroadm-ospf:external-route-tag?   uint32
+     |     |     |     |           +--:(org-openroadm-ospf:ospfv3)
+     |     |     |     |              +--ro org-openroadm-ospf:ospfv3
+     |     |     |     |                 +--ro org-openroadm-ospf:header
+     |     |     |     |                 |  +--ro org-openroadm-ospf:lsa-id        uint32
+     |     |     |     |                 |  +--ro org-openroadm-ospf:age           uint16
+     |     |     |     |                 |  +--ro org-openroadm-ospf:type          uint16
+     |     |     |     |                 |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
+     |     |     |     |                 |  +--ro org-openroadm-ospf:seq-num       uint32
+     |     |     |     |                 |  +--ro org-openroadm-ospf:checksum      uint16
+     |     |     |     |                 |  +--ro org-openroadm-ospf:length        uint16
+     |     |     |     |                 +--ro org-openroadm-ospf:body
+     |     |     |     |                    +--ro org-openroadm-ospf:router
+     |     |     |     |                    |  +--ro org-openroadm-ospf:flags      bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:options    bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
+     |     |     |     |                    |     +--ro org-openroadm-ospf:interface-id             uint32
+     |     |     |     |                    |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
+     |     |     |     |                    |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
+     |     |     |     |                    |     +--ro org-openroadm-ospf:type?                    uint8
+     |     |     |     |                    |     +--ro org-openroadm-ospf:metric?                  uint16
+     |     |     |     |                    +--ro org-openroadm-ospf:network
+     |     |     |     |                    |  +--ro org-openroadm-ospf:options            bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |                    +--ro org-openroadm-ospf:inter-area-prefix
+     |     |     |     |                    |  +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                    +--ro org-openroadm-ospf:inter-area-router
+     |     |     |     |                    |  +--ro org-openroadm-ospf:options                  bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:metric?                  uint24
+     |     |     |     |                    |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
+     |     |     |     |                    +--ro org-openroadm-ospf:as-external
+     |     |     |     |                    |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |                    |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |                    |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |                    |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                    +--ro org-openroadm-ospf:nssa
+     |     |     |     |                    |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |                    |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |                    |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |                    |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                    +--ro org-openroadm-ospf:link
+     |     |     |     |                    |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
+     |     |     |     |                    |  +--ro org-openroadm-ospf:options                         bits
+     |     |     |     |                    |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
+     |     |     |     |                    |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
+     |     |     |     |                    |  +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |                    |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |                    |     +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                    +--ro org-openroadm-ospf:intra-area-prefix
+     |     |     |     |                       +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                       +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                       +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
+     |     |     |     |                       +--ro org-openroadm-ospf:num-of-prefixes?            uint16
+     |     |     |     |                       +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |                          +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |                          +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                          +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     +--ro org-openroadm-ospf:as-scope-lsas* [lsa-type]
+     |     |     |     |  +--ro org-openroadm-ospf:lsa-type        uint8
+     |     |     |     |  +--ro org-openroadm-ospf:as-scope-lsa* [lsa-id adv-router]
+     |     |     |     |     +--ro org-openroadm-ospf:lsa-id               union
+     |     |     |     |     +--ro org-openroadm-ospf:adv-router           inet:ipv4-address
+     |     |     |     |     +--ro org-openroadm-ospf:decoded-completed?   boolean
+     |     |     |     |     +--ro (org-openroadm-ospf:version)?
+     |     |     |     |        +--:(org-openroadm-ospf:ospfv2)
+     |     |     |     |        |  +--ro org-openroadm-ospf:ospfv2
+     |     |     |     |        |     +--ro org-openroadm-ospf:header
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:option         bits
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:lsa-id         inet:ipv4-address
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:opaque-type    uint8
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:opaque-id      uint24
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:age            uint16
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:type           uint16
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:adv-router     yang:dotted-quad
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:seq-num        uint32
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:checksum       uint16
+     |     |     |     |        |     |  +--ro org-openroadm-ospf:length         uint16
+     |     |     |     |        |     +--ro org-openroadm-ospf:body
+     |     |     |     |        |        +--ro org-openroadm-ospf:router
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:flags?          bits
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:num-of-links?   uint16
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:link* [link-id link-data]
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:link-id      union
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:link-data    union
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:type?        uint8
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |        |        |        +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |        |        |        +--ro org-openroadm-ospf:metric?   uint16
+     |     |     |     |        |        +--ro org-openroadm-ospf:network
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:network-mask?      inet:ipv4-address
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |        |        +--ro org-openroadm-ospf:summary
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |        |        |  +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:mt-id     uint8
+     |     |     |     |        |        |     +--ro org-openroadm-ospf:metric?   uint24
+     |     |     |     |        |        +--ro org-openroadm-ospf:external
+     |     |     |     |        |           +--ro org-openroadm-ospf:network-mask?   inet:ipv4-address
+     |     |     |     |        |           +--ro org-openroadm-ospf:topology* [mt-id]
+     |     |     |     |        |              +--ro org-openroadm-ospf:mt-id                 uint8
+     |     |     |     |        |              +--ro org-openroadm-ospf:flags?                bits
+     |     |     |     |        |              +--ro org-openroadm-ospf:metric?               uint24
+     |     |     |     |        |              +--ro org-openroadm-ospf:forwarding-address?   inet:ipv4-address
+     |     |     |     |        |              +--ro org-openroadm-ospf:external-route-tag?   uint32
+     |     |     |     |        +--:(org-openroadm-ospf:ospfv3)
+     |     |     |     |           +--ro org-openroadm-ospf:ospfv3
+     |     |     |     |              +--ro org-openroadm-ospf:header
+     |     |     |     |              |  +--ro org-openroadm-ospf:lsa-id        uint32
+     |     |     |     |              |  +--ro org-openroadm-ospf:age           uint16
+     |     |     |     |              |  +--ro org-openroadm-ospf:type          uint16
+     |     |     |     |              |  +--ro org-openroadm-ospf:adv-router    yang:dotted-quad
+     |     |     |     |              |  +--ro org-openroadm-ospf:seq-num       uint32
+     |     |     |     |              |  +--ro org-openroadm-ospf:checksum      uint16
+     |     |     |     |              |  +--ro org-openroadm-ospf:length        uint16
+     |     |     |     |              +--ro org-openroadm-ospf:body
+     |     |     |     |                 +--ro org-openroadm-ospf:router
+     |     |     |     |                 |  +--ro org-openroadm-ospf:flags      bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:options    bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:link* [interface-id neighbor-interface-id neighbor-router-id]
+     |     |     |     |                 |     +--ro org-openroadm-ospf:interface-id             uint32
+     |     |     |     |                 |     +--ro org-openroadm-ospf:neighbor-interface-id    uint32
+     |     |     |     |                 |     +--ro org-openroadm-ospf:neighbor-router-id       yang:dotted-quad
+     |     |     |     |                 |     +--ro org-openroadm-ospf:type?                    uint8
+     |     |     |     |                 |     +--ro org-openroadm-ospf:metric?                  uint16
+     |     |     |     |                 +--ro org-openroadm-ospf:network
+     |     |     |     |                 |  +--ro org-openroadm-ospf:options            bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:attached-router*   yang:dotted-quad
+     |     |     |     |                 +--ro org-openroadm-ospf:inter-area-prefix
+     |     |     |     |                 |  +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix?           inet:ip-prefix
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                 +--ro org-openroadm-ospf:inter-area-router
+     |     |     |     |                 |  +--ro org-openroadm-ospf:options                  bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:metric?                  uint24
+     |     |     |     |                 |  +--ro org-openroadm-ospf:destination-router-id?   yang:dotted-quad
+     |     |     |     |                 +--ro org-openroadm-ospf:as-external
+     |     |     |     |                 |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |                 |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                 +--ro org-openroadm-ospf:nssa
+     |     |     |     |                 |  +--ro org-openroadm-ospf:metric?                     uint24
+     |     |     |     |                 |  +--ro org-openroadm-ospf:flags?                      bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix?                     inet:ip-prefix
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix-options              bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:forwarding-address?         inet:ipv6-address
+     |     |     |     |                 |  +--ro org-openroadm-ospf:external-route-tag?         uint32
+     |     |     |     |                 |  +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                 +--ro org-openroadm-ospf:link
+     |     |     |     |                 |  +--ro org-openroadm-ospf:rtr-priority?                   uint8
+     |     |     |     |                 |  +--ro org-openroadm-ospf:options                         bits
+     |     |     |     |                 |  +--ro org-openroadm-ospf:link-local-interface-address?   inet:ipv6-address
+     |     |     |     |                 |  +--ro org-openroadm-ospf:num-of-prefixes?                uint32
+     |     |     |     |                 |  +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |                 |     +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |                 |     +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                 +--ro org-openroadm-ospf:intra-area-prefix
+     |     |     |     |                    +--ro org-openroadm-ospf:referenced-ls-type?         uint16
+     |     |     |     |                    +--ro org-openroadm-ospf:referenced-link-state-id?   uint32
+     |     |     |     |                    +--ro org-openroadm-ospf:referenced-adv-router?      inet:ipv4-address
+     |     |     |     |                    +--ro org-openroadm-ospf:num-of-prefixes?            uint16
+     |     |     |     |                    +--ro org-openroadm-ospf:prefix* [prefix]
+     |     |     |     |                       +--ro org-openroadm-ospf:prefix            inet:ip-prefix
+     |     |     |     |                       +--ro org-openroadm-ospf:prefix-options    bits
+     |     |     |     |                       +--ro org-openroadm-ospf:metric?           uint24
+     |     |     |     +--ro org-openroadm-ospf:topology* [name] {multi-topology}?
+     |     |     |        +--ro org-openroadm-ospf:name    -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/ribs/rib/name
+     |     |     |        +--ro org-openroadm-ospf:area* [area-id]
+     |     |     |           +--ro org-openroadm-ospf:area-id    area-id-type
+     |     |     +--ro rt-bgp:bgp
+     |     |        +--ro rt-bgp:global
+     |     |        |  +--ro rt-bgp:as            inet:as-number
+     |     |        |  +--ro rt-bgp:identifier    yang:dotted-quad
+     |     |        |  +--ro rt-bgp:distance
+     |     |        |     +--ro rt-bgp:external?   uint8
+     |     |        |     +--ro rt-bgp:internal?   uint8
+     |     |        +--ro rt-bgp:neighbors
+     |     |           +--ro rt-bgp:neighbor* [remote-address]
+     |     |              +--ro rt-bgp:remote-address     inet:ip-address
+     |     |              +--ro rt-bgp:enabled?           boolean
+     |     |              +--ro rt-bgp:peer-as            inet:as-number
+     |     |              +--ro rt-bgp:send-community*    identityref {rt-pol-bgp:send-communities}?
+     |     |              +--ro rt-bgp:description?       string
+     |     |              +--ro rt-bgp:timers
+     |     |              |  +--ro rt-bgp:connect-retry-interval?             uint16
+     |     |              |  +--ro rt-bgp:hold-time?                          uint16
+     |     |              |  +--ro rt-bgp:keepalive?                          uint16
+     |     |              |  +--ro rt-bgp:min-route-advertisement-interval?   uint16
+     |     |              +--ro rt-bgp:ebgp-multihop
+     |     |              |  +--ro rt-bgp:enabled?        boolean
+     |     |              |  +--ro rt-bgp:multihop-ttl?   uint8
+     |     |              +--ro rt-bgp:route-reflector
+     |     |              |  +--ro rt-bgp:client?   boolean
+     |     |              +--ro rt-bgp:as-path-options
+     |     |              |  +--ro rt-bgp:allow-own-as?   uint8
+     |     |              +--ro rt-bgp:apply-policy
+     |     |                 +--ro rt-bgp:import-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
+     |     |                 +--ro rt-bgp:export-policy*   -> ../../../../../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
      |     +--ro org-openroadm-routing:ribs
      |     |  +--ro org-openroadm-routing:rib* [name]
      |     |     +--ro org-openroadm-routing:name              string
@@ -1970,15 +1973,15 @@ module: org-openroadm-device
      |     |           |  +--ro (org-openroadm-routing:next-hop-options)
      |     |           |     +--:(org-openroadm-routing:simple-next-hop)
      |     |           |     |  +--ro org-openroadm-routing:outgoing-interface?              -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/routing-instance/interfaces/interface
-     |     |           |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
      |     |           |     |  +--ro org-openroadm-ipv6-unicast-routing:next-hop-address?   inet:ipv6-address
+     |     |           |     |  +--ro org-openroadm-ipv4-unicast-routing:next-hop-address?   inet:ipv4-address
      |     |           |     +--:(org-openroadm-routing:special-next-hop)
      |     |           |        +--ro org-openroadm-routing:special-next-hop?                enumeration
      |     |           +--ro org-openroadm-routing:source-protocol                    identityref
      |     |           +--ro org-openroadm-routing:active?                            empty
      |     |           +--ro org-openroadm-routing:last-updated?                      yang:date-and-time
-     |     |           +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
      |     |           +--ro org-openroadm-ipv6-unicast-routing:destination-prefix?   inet:ipv6-prefix
+     |     |           +--ro org-openroadm-ipv4-unicast-routing:destination-prefix?   inet:ipv4-prefix
      |     +--ro org-openroadm-routing:route-redistribution
      |        +--ro org-openroadm-routing:redistribute-route* [source-protocol destination-protocol address-family]
      |           +--ro org-openroadm-routing:source-protocol         -> ../../../routing-protocols/routing-protocol/type
@@ -1986,25 +1989,6 @@ module: org-openroadm-device
      |           +--ro org-openroadm-routing:address-family          identityref
      |           +--ro org-openroadm-routing:metric-propagation?     boolean
      |           +--ro org-openroadm-routing:import-policy*          -> ../../../../../rt-pol:routing-policy/policy-definitions/policy-definition/name
-     +--rw org-openroadm-security:security
-     |  +--rw org-openroadm-security:certificate* [certificate-id]
-     |  |  +---x org-openroadm-security:install
-     |  |  |  +---w org-openroadm-security:input
-     |  |  |  |  +---w org-openroadm-security:filename?   string
-     |  |  |  +--ro org-openroadm-security:output
-     |  |  |     +--ro org-openroadm-security:status            rpc-status
-     |  |  |     +--ro org-openroadm-security:status-message?   string
-     |  |  +--rw org-openroadm-security:certificate-id    certificate-id-type
-     |  |  +--ro org-openroadm-security:information?      string
-     |  +--rw org-openroadm-security:ca-certificate* [ca-certificate-id]
-     |     +---x org-openroadm-security:install
-     |     |  +---w org-openroadm-security:input
-     |     |  |  +---w org-openroadm-security:filename?   string
-     |     |  +--ro org-openroadm-security:output
-     |     |     +--ro org-openroadm-security:status            rpc-status
-     |     |     +--ro org-openroadm-security:status-message?   string
-     |     +--rw org-openroadm-security:ca-certificate-id    certificate-id-type
-     |     +--ro org-openroadm-security:information?         string
      +--ro org-openroadm-port-capability:port-group-restriction
      |  +--ro org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
      |     +--ro org-openroadm-port-capability:port-sharing-id                 uint16
@@ -2030,10 +2014,29 @@ module: org-openroadm-device
      |           +--ro org-openroadm-port-capability:port-module-type*    org-openroadm-port-types:port-module-types
      |           +--ro org-openroadm-port-capability:otsi-rate?           uint16
      +--rw org-openroadm-port-capability:provisioned-port-grp
-        +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
-           +--rw org-openroadm-port-capability:port-sharing-id            uint16
-           +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
-           +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
+     |  +--rw org-openroadm-port-capability:port-bandwidth-sharing* [port-sharing-id]
+     |     +--rw org-openroadm-port-capability:port-sharing-id            uint16
+     |     +--rw org-openroadm-port-capability:lifecycle-state?           org-openroadm-common-state-types:lifecycle-state
+     |     +--rw org-openroadm-port-capability:provisioned-port-config?   uint16
+     +--rw org-openroadm-security:security
+        +--rw org-openroadm-security:certificate* [certificate-id]
+        |  +---x org-openroadm-security:install
+        |  |  +---w org-openroadm-security:input
+        |  |  |  +---w org-openroadm-security:filename?   string
+        |  |  +--ro org-openroadm-security:output
+        |  |     +--ro org-openroadm-security:status            rpc-status
+        |  |     +--ro org-openroadm-security:status-message?   string
+        |  +--rw org-openroadm-security:certificate-id    certificate-id-type
+        |  +--ro org-openroadm-security:information?      string
+        +--rw org-openroadm-security:ca-certificate* [ca-certificate-id]
+           +---x org-openroadm-security:install
+           |  +---w org-openroadm-security:input
+           |  |  +---w org-openroadm-security:filename?   string
+           |  +--ro org-openroadm-security:output
+           |     +--ro org-openroadm-security:status            rpc-status
+           |     +--ro org-openroadm-security:status-message?   string
+           +--rw org-openroadm-security:ca-certificate-id    certificate-id-type
+           +--ro org-openroadm-security:information?         string
 
   rpcs:
     +---x led-control

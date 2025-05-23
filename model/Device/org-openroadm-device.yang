@@ -2561,6 +2561,11 @@ module org-openroadm-device {
       description
         "Minimum Network ODUCn rate";
     }
+    leaf network-max-oducn-n-rate {
+      type uint16;
+      description
+        "Maximum Network ODUCn rate";
+    }
     leaf network-ho-odu-trib-port-number {
       type uint16 {
         range "1 .. 80";
@@ -3214,6 +3219,13 @@ module org-openroadm-device {
           description
             "Minimum Network OTSIG rate types supported by the profile";
         }
+        leaf network-max-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Maximum Network OTSIG rate types supported by the profile";
+        }
         uses mux-eth-grp;
       }
       list otsi-profile {
@@ -3247,6 +3259,13 @@ module org-openroadm-device {
           }
           description
             "Minimum Network OTSIG rate types supported by the profile";
+        }
+        leaf network-max-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Maximum Network OTSIG rate types supported by the profile";
         }
         leaf network-flexo-trib-port-number {
           type uint16 {
