@@ -12,7 +12,7 @@ module org-openroadm-alarm {
   }
   import org-openroadm-probable-cause {
     prefix org-openroadm-probable-cause;
-    revision-date 2024-03-29;
+    revision-date 2025-05-30;
   }
 
   organization
