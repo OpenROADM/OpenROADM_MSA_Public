@@ -35,6 +35,10 @@ module org-openroadm-user-mgmt {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
@@ -124,6 +128,13 @@ module org-openroadm-user-mgmt {
         description
           "The group to which the user is associated to.";
       }
+    }
+    leaf system-user {
+      type leafref {
+        path "../user/name";
+      }
+      description
+        "Indicates the system user which cannot be deleted.";
     }
   }
 
