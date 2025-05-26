@@ -335,6 +335,22 @@ module org-openroadm-device {
        configured interfaces.";
   }
 
+  typedef scan-type {
+    type enumeration {
+      enum safety {
+        description
+          "This is a safety scan to ensure the proper turnup of
+           a link with raman.  Multiple scans may be run to test
+           the fiber plant.  This type of scan will not produce
+           an OTDR file.";
+      }
+    }
+    description
+      "The type of scan to run.  The distances and resolutions involved
+       in the scan type are implied by the type and not explicitly
+       provided";
+  }
+
   grouping create-tech-info-group {
     leaf shelf-id {
       type leafref {
@@ -3736,19 +3752,33 @@ module org-openroadm-device {
       leaf port-direction {
         type org-openroadm-common-alarm-pm-types:direction;
       }
-      leaf distance {
-        type decimal64 {
-          fraction-digits 2;
-        }
+      choice distance-or-type {
         description
-          "Units are in meters (m)";
-      }
-      leaf resolution {
-        type decimal64 {
-          fraction-digits 2;
+          "Scan type provided via an explicit distance and resolution
+           or a type field that summarizes the type(s) of scan to run";
+        case distance {
+          leaf distance {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "Units are in meters (m)";
+          }
+          leaf resolution {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "Units for (sampling) resolution are in meters (m)";
+          }
         }
-        description
-          "Units for (sampling) resolution are in meters (m)";
+        case type {
+          leaf type {
+            type scan-type;
+            description
+              "Type of scan to run.";
+          }
+        }
       }
     }
     output {
