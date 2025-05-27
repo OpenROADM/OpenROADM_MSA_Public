@@ -16,7 +16,7 @@ module org-openroadm-resource {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
@@ -599,6 +599,21 @@ module org-openroadm-resource {
             uses org-openroadm-resource-types:circuit-pack-name;
             uses org-openroadm-resource-types:cp-slot-name;
           }
+        }
+        case ospf-neighbor {
+          container ospf-neighbor {
+            uses org-openroadm-resource-types:comms-neighbor;
+            uses org-openroadm-resource-types:ospf-neighbor-name;
+          }
+        }
+        case bgp-neighbor {
+          container bgp-neighbor {
+            uses org-openroadm-resource-types:comms-neighbor;
+            uses org-openroadm-resource-types:bgp-neighbor-name;
+          }
+        }
+        case user {
+          uses org-openroadm-resource-types:user-name;
         }
       }
     }

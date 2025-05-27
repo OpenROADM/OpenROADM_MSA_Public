@@ -17,7 +17,7 @@ module org-openroadm-tca {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
