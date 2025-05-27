@@ -238,7 +238,6 @@ module org-openroadm-optical-tributary-signal-interfaces {
       description
         "Frequency width in GHz.";
     }
-    uses org-openroadm-common-optical-channel-types:full-bandwidth-grouping;
     uses org-openroadm-common-types:enable-laser;
     leaf modulation-format {
       when "../provision-mode = 'explicit'";

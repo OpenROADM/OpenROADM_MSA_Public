@@ -364,6 +364,7 @@ module: org-openroadm-device
      |  +--rw slot                         string
      |  +--rw subSlot?                     string
      |  +--ro is-pluggable-optics          boolean
+     |  +--ro compliance-codes*            org-openroadm-common-phy-codes:compliance-codes-union
      |  +--ro is-physical                  boolean
      |  +--ro is-passive                   boolean
      |  +--ro faceplate-label              string
@@ -436,7 +437,6 @@ module: org-openroadm-device
      |     +--rw port-qual?                                         org-openroadm-device-types:port-qual
      |     +--ro port-wavelength-type?                              org-openroadm-port-types:port-wavelength-types
      |     +--ro port-direction                                     org-openroadm-common-alarm-pm-types:direction
-     |     +--ro compliance-codes*                                  org-openroadm-common-phy-codes:compliance-codes-union
      |     +--ro is-physical                                        boolean
      |     +--ro pm-capable                                         boolean
      |     +--ro alarm-capable                                      boolean
@@ -636,8 +636,6 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
      |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-channel-interfaces:enable-laser?               enumeration
      |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
@@ -661,8 +659,6 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:enable-laser?               enumeration
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
@@ -1288,11 +1284,8 @@ module: org-openroadm-device
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
-     |  +--ro profile-name                 string
-     |  +--ro otsi-rate                    identityref
-     |  +--ro otsi-optical-mode-support* []
-     |     +--ro modulation-format    org-openroadm-common-optical-channel-types:modulation-format
-     |     +--ro fec                  identityref
+     |  +--ro profile-name    string
+     |  +--ro otsi-rate       identityref
      +--ro muxp-otucn-profile* [profile-name]
      |  +--ro profile-name                      string
      |  +--ro otucn-n-rate?                     uint16

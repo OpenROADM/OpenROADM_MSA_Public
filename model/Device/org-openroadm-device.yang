@@ -898,6 +898,12 @@ module org-openroadm-device {
       description
         "True if circuitpack is pluggable optics";
     }
+    leaf-list compliance-codes {
+      type org-openroadm-common-phy-codes:compliance-codes-union;
+      config false;
+      description
+        "A list of OpenROADM defined compliance codes supported by this circuit-pack.";
+    }
     leaf is-physical {
       type boolean;
       config false;
@@ -2082,12 +2088,6 @@ module org-openroadm-device {
       description
         "Whether port is uni (tx/rx) or bi-directional and";
     }
-    leaf-list compliance-codes {
-      type org-openroadm-common-phy-codes:compliance-codes-union;
-      config false;
-      description
-        "A list of OpenROADM defined compliance codes supported by this port.";
-    }
     uses org-openroadm-port-types:port-features {
       refine "is-physical" {
         config false;
@@ -2634,25 +2634,6 @@ module org-openroadm-device {
       mandatory true;
       description
         "OTSi rate";
-    }
-    list otsi-optical-mode-support {
-      config false;
-      description
-        "List of supported optical mode attributes";
-      leaf modulation-format {
-        type org-openroadm-common-optical-channel-types:modulation-format;
-        mandatory true;
-        description
-          "OTSi modulation formats supported by the profile";
-      }
-      leaf fec {
-        type identityref {
-          base org-openroadm-common-types:fec-identity;
-        }
-        mandatory true;
-        description
-          "OTSi FEC types supported by the profile";
-      }
     }
     description
       "OTSi group grouping";
