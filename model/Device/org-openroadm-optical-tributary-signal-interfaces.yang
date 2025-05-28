@@ -310,7 +310,11 @@ module org-openroadm-optical-tributary-signal-interfaces {
       leaf flexo-mode {
         type string;
         description
-          "Generic line mapping application beyond ITU-T: 1. OIF 400ZR, 2. Industry OpenZR+ MSA (400ZR+)";
+          "Generic line mapping application:
+           'flexo-x' for OTN mapped FlexO-x,
+           'flexo-xe' for Ethernet optimized FlexO-xe,
+           'oifzr' OIF (eg, 400ZR, 800ZR),
+           'openzr+' for Industry OpenZR+ MSA (eg, 400ZR+)";
       }
       leaf-list accepted-group-id {
         type uint32;

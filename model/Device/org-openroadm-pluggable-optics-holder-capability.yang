@@ -12,7 +12,7 @@ module org-openroadm-pluggable-optics-holder-capability {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   organization

@@ -12,7 +12,7 @@ module org-openroadm-topology {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   organization

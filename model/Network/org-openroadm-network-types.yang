@@ -13,7 +13,7 @@ module org-openroadm-network-types {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
