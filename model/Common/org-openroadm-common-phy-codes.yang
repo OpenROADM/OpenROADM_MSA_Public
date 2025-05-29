@@ -76,6 +76,9 @@ module org-openroadm-common-phy-codes {
   }
 
   // IEEE 802.3 - 2022 PHY/PMD Names (subset)
+  identity ethernet-100BASE-FX {
+    base client-phy-code-identity;
+  }
   identity ethernet-1000BASE-SX {
     base client-phy-code-identity;
   }

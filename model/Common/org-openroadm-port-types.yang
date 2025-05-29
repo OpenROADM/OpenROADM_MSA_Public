@@ -130,6 +130,10 @@ module org-openroadm-port-types {
     base supported-if-capability;
   }
 
+  identity if-100ME {
+    base supported-if-capability;
+  }
+
   identity if-OMS {
     base supported-if-capability;
   }
