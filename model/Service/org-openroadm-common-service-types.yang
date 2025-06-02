@@ -48,7 +48,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-service-format {
     prefix org-openroadm-service-format;
-    revision-date 2019-11-29;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;

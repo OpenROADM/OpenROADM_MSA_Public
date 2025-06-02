@@ -35,6 +35,10 @@ module org-openroadm-service-format {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -72,6 +76,27 @@ module org-openroadm-service-format {
         description
           "Used in bookending use case when service-format is not standardized by the Open ROADM MSA.
            When set to other, the specific service format/rate is specified by other-service-format-and-rate";
+      }
+      enum flexo {
+        value 9;
+        description
+          "The 'flexo' service-format is a base enumeration for 'flexo-x' and
+           'flexo-xe' service-formats. When 'flexo' is specified as
+           service-format for a service request, the controller can assign an
+           xponder operational-mode that utilizes either 'flexo-x' or 'flexo-xe'
+           payload-frame-types.";
+      }
+      enum flexo-x {
+        value 10;
+      }
+      enum flexo-xe {
+        value 11;
+      }
+      enum OIFZR {
+        value 12;
+      }
+      enum OpenZRplus {
+        value 13;
       }
     }
   }
