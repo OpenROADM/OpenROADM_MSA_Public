@@ -1,5 +1,7 @@
 OpenROADM website: http://www.openroadm.org/
-## Latest Updates: April 22 2025
+## Latest Updates June 30 2025:
+1. Release 17.1.0
+# April 22 2025
 1. Release Optical Specifications **[v8.0.1](https://github.com/OpenROADM/OpenROADM_MSA_Public/wiki/files/20250327_open-roadm_msa_specification_ver8.0.1.xlsx)**
 2. Release 17.0.0 
 ## Jan 24 2025
