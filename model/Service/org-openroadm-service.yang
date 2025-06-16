@@ -9,7 +9,7 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2024-03-29;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;

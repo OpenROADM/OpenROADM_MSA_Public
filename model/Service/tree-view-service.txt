@@ -938,8 +938,8 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -952,6 +952,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -973,9 +983,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -998,8 +1017,8 @@ module: org-openroadm-service
   |     |              +--rw roadm-srg?     boolean
   |     |              +--rw xponder-srg?   boolean
   |     +--rw soft-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -1012,6 +1031,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -1033,9 +1062,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -2094,8 +2132,8 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -2108,6 +2146,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -2129,9 +2177,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -2154,8 +2211,8 @@ module: org-openroadm-service
   |     |              +--rw roadm-srg?     boolean
   |     |              +--rw xponder-srg?   boolean
   |     +--rw soft-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -2168,6 +2225,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -2189,9 +2256,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -3250,8 +3326,8 @@ module: org-openroadm-service
   |     |     +--rw is-regen?               boolean
   |     |     +--rw regen-purpose*          enumeration
   |     +--rw hard-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -3264,6 +3340,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -3285,9 +3371,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -3310,8 +3405,8 @@ module: org-openroadm-service
   |     |              +--rw roadm-srg?     boolean
   |     |              +--rw xponder-srg?   boolean
   |     +--rw soft-constraints
-  |     |  +--rw customer-code*      string
-  |     |  +--rw operational-mode*   string
+  |     |  +--rw customer-code*                string
+  |     |  +--rw operational-mode*             string
   |     |  +--rw diversity
   |     |  |  +--rw service-identifier-list* [service-identifier]
   |     |  |  |  +--rw service-identifier       string
@@ -3324,6 +3419,16 @@ module: org-openroadm-service
   |     |  |  |        +--rw roadm-srg?     boolean
   |     |  |  |        +--rw xponder-srg?   boolean
   |     |  |  +--rw diversity-type?            enumeration
+  |     |  +--rw transport-constraint-a-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  +--rw transport-constraint-z-end
+  |     |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |     +--rw index                 uint8
+  |     |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw exclude
   |     |  |  +--rw fiber-bundle*              string
   |     |  |  +--rw srlg-id*                   uint32
@@ -3345,9 +3450,18 @@ module: org-openroadm-service
   |     |  |  +--rw site*                      string
   |     |  |  +--rw node-id*                   org-openroadm-common-node-types:node-id-type
   |     |  |  +--rw link-identifier* [link-network-id link-id]
-  |     |  |  |  +--rw link-network-id    string
-  |     |  |  |  +--rw link-id            string
-  |     |  |  +--rw supporting-service-name*   string
+  |     |  |  |  +--rw link-network-id                string
+  |     |  |  |  +--rw link-id                        string
+  |     |  |  |  +--rw spectrum-portion-constraint* [index]
+  |     |  |  |     +--rw index                 uint8
+  |     |  |  |     +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  |     +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |  +--rw supporting-service* [supporting-service-name]
+  |     |  |     +--rw supporting-service-name        string
+  |     |  |     +--rw spectrum-portion-constraint* [index]
+  |     |  |        +--rw index                 uint8
+  |     |  |        +--rw min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+  |     |  |        +--rw max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
   |     |  +--rw latency
   |     |  |  +--rw max-latency?   decimal64
   |     |  +--rw hop-count
@@ -4596,8 +4710,8 @@ module: org-openroadm-service
     |  |  |  +---w project-id?                      string
     |  |  |  +---w project-note?                    string
     |  |  +---w hard-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -4610,6 +4724,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -4631,9 +4755,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -4656,8 +4789,8 @@ module: org-openroadm-service
     |  |  |              +---w roadm-srg?     boolean
     |  |  |              +---w xponder-srg?   boolean
     |  |  +---w soft-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -4670,6 +4803,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -4691,9 +4834,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -4752,8 +4904,8 @@ module: org-openroadm-service
     |     +--ro version-number?                  uint8
     |     +--ro response-parameters
     |        +--ro hard-constraints
-    |        |  +--ro customer-code*      string
-    |        |  +--ro operational-mode*   string
+    |        |  +--ro customer-code*                string
+    |        |  +--ro operational-mode*             string
     |        |  +--ro diversity
     |        |  |  +--ro service-identifier-list* [service-identifier]
     |        |  |  |  +--ro service-identifier       string
@@ -4766,6 +4918,16 @@ module: org-openroadm-service
     |        |  |  |        +--ro roadm-srg?     boolean
     |        |  |  |        +--ro xponder-srg?   boolean
     |        |  |  +--ro diversity-type?            enumeration
+    |        |  +--ro transport-constraint-a-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  +--ro transport-constraint-z-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro exclude
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
@@ -4787,9 +4949,18 @@ module: org-openroadm-service
     |        |  |  +--ro site*                      string
     |        |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  |  +--ro link-network-id    string
-    |        |  |  |  +--ro link-id            string
-    |        |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro link-network-id                string
+    |        |  |  |  +--ro link-id                        string
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  +--ro supporting-service* [supporting-service-name]
+    |        |  |     +--ro supporting-service-name        string
+    |        |  |     +--ro spectrum-portion-constraint* [index]
+    |        |  |        +--ro index                 uint8
+    |        |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro latency
     |        |  |  +--ro max-latency?   decimal64
     |        |  +--ro hop-count
@@ -4812,8 +4983,8 @@ module: org-openroadm-service
     |        |              +--ro roadm-srg?     boolean
     |        |              +--ro xponder-srg?   boolean
     |        +--ro soft-constraints
-    |           +--ro customer-code*      string
-    |           +--ro operational-mode*   string
+    |           +--ro customer-code*                string
+    |           +--ro operational-mode*             string
     |           +--ro diversity
     |           |  +--ro service-identifier-list* [service-identifier]
     |           |  |  +--ro service-identifier       string
@@ -4826,6 +4997,16 @@ module: org-openroadm-service
     |           |  |        +--ro roadm-srg?     boolean
     |           |  |        +--ro xponder-srg?   boolean
     |           |  +--ro diversity-type?            enumeration
+    |           +--ro transport-constraint-a-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           +--ro transport-constraint-z-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro exclude
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
@@ -4847,9 +5028,18 @@ module: org-openroadm-service
     |           |  +--ro site*                      string
     |           |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |           |  +--ro link-identifier* [link-network-id link-id]
-    |           |  |  +--ro link-network-id    string
-    |           |  |  +--ro link-id            string
-    |           |  +--ro supporting-service-name*   string
+    |           |  |  +--ro link-network-id                string
+    |           |  |  +--ro link-id                        string
+    |           |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |     +--ro index                 uint8
+    |           |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  +--ro supporting-service* [supporting-service-name]
+    |           |     +--ro supporting-service-name        string
+    |           |     +--ro spectrum-portion-constraint* [index]
+    |           |        +--ro index                 uint8
+    |           |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro latency
     |           |  +--ro max-latency?   decimal64
     |           +--ro hop-count
@@ -5131,8 +5321,8 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w hard-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -5145,6 +5335,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -5166,9 +5366,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -5191,8 +5400,8 @@ module: org-openroadm-service
     |  |     |              +---w roadm-srg?     boolean
     |  |     |              +---w xponder-srg?   boolean
     |  |     +---w soft-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -5205,6 +5414,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -5226,9 +5445,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -5288,8 +5516,8 @@ module: org-openroadm-service
     |        +--ro version-number?        uint8
     |        +--ro response-parameters
     |           +--ro hard-constraints
-    |           |  +--ro customer-code*      string
-    |           |  +--ro operational-mode*   string
+    |           |  +--ro customer-code*                string
+    |           |  +--ro operational-mode*             string
     |           |  +--ro diversity
     |           |  |  +--ro service-identifier-list* [service-identifier]
     |           |  |  |  +--ro service-identifier       string
@@ -5302,6 +5530,16 @@ module: org-openroadm-service
     |           |  |  |        +--ro roadm-srg?     boolean
     |           |  |  |        +--ro xponder-srg?   boolean
     |           |  |  +--ro diversity-type?            enumeration
+    |           |  +--ro transport-constraint-a-end
+    |           |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |     +--ro index                 uint8
+    |           |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  +--ro transport-constraint-z-end
+    |           |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |     +--ro index                 uint8
+    |           |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           |  +--ro exclude
     |           |  |  +--ro fiber-bundle*              string
     |           |  |  +--ro srlg-id*                   uint32
@@ -5323,9 +5561,18 @@ module: org-openroadm-service
     |           |  |  +--ro site*                      string
     |           |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |           |  |  +--ro link-identifier* [link-network-id link-id]
-    |           |  |  |  +--ro link-network-id    string
-    |           |  |  |  +--ro link-id            string
-    |           |  |  +--ro supporting-service-name*   string
+    |           |  |  |  +--ro link-network-id                string
+    |           |  |  |  +--ro link-id                        string
+    |           |  |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |  |     +--ro index                 uint8
+    |           |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |  +--ro supporting-service* [supporting-service-name]
+    |           |  |     +--ro supporting-service-name        string
+    |           |  |     +--ro spectrum-portion-constraint* [index]
+    |           |  |        +--ro index                 uint8
+    |           |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           |  +--ro latency
     |           |  |  +--ro max-latency?   decimal64
     |           |  +--ro hop-count
@@ -5348,8 +5595,8 @@ module: org-openroadm-service
     |           |              +--ro roadm-srg?     boolean
     |           |              +--ro xponder-srg?   boolean
     |           +--ro soft-constraints
-    |              +--ro customer-code*      string
-    |              +--ro operational-mode*   string
+    |              +--ro customer-code*                string
+    |              +--ro operational-mode*             string
     |              +--ro diversity
     |              |  +--ro service-identifier-list* [service-identifier]
     |              |  |  +--ro service-identifier       string
@@ -5362,6 +5609,16 @@ module: org-openroadm-service
     |              |  |        +--ro roadm-srg?     boolean
     |              |  |        +--ro xponder-srg?   boolean
     |              |  +--ro diversity-type?            enumeration
+    |              +--ro transport-constraint-a-end
+    |              |  +--ro spectrum-portion-constraint* [index]
+    |              |     +--ro index                 uint8
+    |              |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              +--ro transport-constraint-z-end
+    |              |  +--ro spectrum-portion-constraint* [index]
+    |              |     +--ro index                 uint8
+    |              |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |              +--ro exclude
     |              |  +--ro fiber-bundle*              string
     |              |  +--ro srlg-id*                   uint32
@@ -5383,9 +5640,18 @@ module: org-openroadm-service
     |              |  +--ro site*                      string
     |              |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |              |  +--ro link-identifier* [link-network-id link-id]
-    |              |  |  +--ro link-network-id    string
-    |              |  |  +--ro link-id            string
-    |              |  +--ro supporting-service-name*   string
+    |              |  |  +--ro link-network-id                string
+    |              |  |  +--ro link-id                        string
+    |              |  |  +--ro spectrum-portion-constraint* [index]
+    |              |  |     +--ro index                 uint8
+    |              |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              |  +--ro supporting-service* [supporting-service-name]
+    |              |     +--ro supporting-service-name        string
+    |              |     +--ro spectrum-portion-constraint* [index]
+    |              |        +--ro index                 uint8
+    |              |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |              |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |              +--ro latency
     |              |  +--ro max-latency?   decimal64
     |              +--ro hop-count
@@ -5666,8 +5932,8 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w hard-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -5680,6 +5946,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -5701,9 +5977,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -5726,8 +6011,8 @@ module: org-openroadm-service
     |  |     |              +---w roadm-srg?     boolean
     |  |     |              +---w xponder-srg?   boolean
     |  |     +---w soft-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -5740,6 +6025,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -5761,9 +6056,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -5828,8 +6132,8 @@ module: org-openroadm-service
     |        +--ro version-number?                uint8
     |        +--ro response-parameters
     |        |  +--ro hard-constraints
-    |        |  |  +--ro customer-code*      string
-    |        |  |  +--ro operational-mode*   string
+    |        |  |  +--ro customer-code*                string
+    |        |  |  +--ro operational-mode*             string
     |        |  |  +--ro diversity
     |        |  |  |  +--ro service-identifier-list* [service-identifier]
     |        |  |  |  |  +--ro service-identifier       string
@@ -5842,6 +6146,16 @@ module: org-openroadm-service
     |        |  |  |  |        +--ro roadm-srg?     boolean
     |        |  |  |  |        +--ro xponder-srg?   boolean
     |        |  |  |  +--ro diversity-type?            enumeration
+    |        |  |  +--ro transport-constraint-a-end
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  +--ro transport-constraint-z-end
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  +--ro exclude
     |        |  |  |  +--ro fiber-bundle*              string
     |        |  |  |  +--ro srlg-id*                   uint32
@@ -5863,9 +6177,18 @@ module: org-openroadm-service
     |        |  |  |  +--ro site*                      string
     |        |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  |  |  +--ro link-network-id    string
-    |        |  |  |  |  +--ro link-id            string
-    |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  |  +--ro link-network-id                string
+    |        |  |  |  |  +--ro link-id                        string
+    |        |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |  |     +--ro index                 uint8
+    |        |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |  +--ro supporting-service* [supporting-service-name]
+    |        |  |  |     +--ro supporting-service-name        string
+    |        |  |  |     +--ro spectrum-portion-constraint* [index]
+    |        |  |  |        +--ro index                 uint8
+    |        |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  +--ro latency
     |        |  |  |  +--ro max-latency?   decimal64
     |        |  |  +--ro hop-count
@@ -5888,8 +6211,8 @@ module: org-openroadm-service
     |        |  |              +--ro roadm-srg?     boolean
     |        |  |              +--ro xponder-srg?   boolean
     |        |  +--ro soft-constraints
-    |        |     +--ro customer-code*      string
-    |        |     +--ro operational-mode*   string
+    |        |     +--ro customer-code*                string
+    |        |     +--ro operational-mode*             string
     |        |     +--ro diversity
     |        |     |  +--ro service-identifier-list* [service-identifier]
     |        |     |  |  +--ro service-identifier       string
@@ -5902,6 +6225,16 @@ module: org-openroadm-service
     |        |     |  |        +--ro roadm-srg?     boolean
     |        |     |  |        +--ro xponder-srg?   boolean
     |        |     |  +--ro diversity-type?            enumeration
+    |        |     +--ro transport-constraint-a-end
+    |        |     |  +--ro spectrum-portion-constraint* [index]
+    |        |     |     +--ro index                 uint8
+    |        |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     +--ro transport-constraint-z-end
+    |        |     |  +--ro spectrum-portion-constraint* [index]
+    |        |     |     +--ro index                 uint8
+    |        |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro exclude
     |        |     |  +--ro fiber-bundle*              string
     |        |     |  +--ro srlg-id*                   uint32
@@ -5923,9 +6256,18 @@ module: org-openroadm-service
     |        |     |  +--ro site*                      string
     |        |     |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |     |  +--ro link-identifier* [link-network-id link-id]
-    |        |     |  |  +--ro link-network-id    string
-    |        |     |  |  +--ro link-id            string
-    |        |     |  +--ro supporting-service-name*   string
+    |        |     |  |  +--ro link-network-id                string
+    |        |     |  |  +--ro link-id                        string
+    |        |     |  |  +--ro spectrum-portion-constraint* [index]
+    |        |     |  |     +--ro index                 uint8
+    |        |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |  +--ro supporting-service* [supporting-service-name]
+    |        |     |     +--ro supporting-service-name        string
+    |        |     |     +--ro spectrum-portion-constraint* [index]
+    |        |     |        +--ro index                 uint8
+    |        |     |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro latency
     |        |     |  +--ro max-latency?   decimal64
     |        |     +--ro hop-count
@@ -6453,8 +6795,8 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w hard-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -6467,6 +6809,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -6488,9 +6840,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -6513,8 +6874,8 @@ module: org-openroadm-service
     |  |  |              +---w roadm-srg?     boolean
     |  |  |              +---w xponder-srg?   boolean
     |  |  +---w soft-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -6527,6 +6888,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -6548,9 +6919,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -6616,8 +6996,8 @@ module: org-openroadm-service
     |     |  +--ro ack-final-indicator    string
     |     +--ro response-parameters
     |     |  +--ro hard-constraints
-    |     |  |  +--ro customer-code*      string
-    |     |  |  +--ro operational-mode*   string
+    |     |  |  +--ro customer-code*                string
+    |     |  |  +--ro operational-mode*             string
     |     |  |  +--ro diversity
     |     |  |  |  +--ro service-identifier-list* [service-identifier]
     |     |  |  |  |  +--ro service-identifier       string
@@ -6630,6 +7010,16 @@ module: org-openroadm-service
     |     |  |  |  |        +--ro roadm-srg?     boolean
     |     |  |  |  |        +--ro xponder-srg?   boolean
     |     |  |  |  +--ro diversity-type?            enumeration
+    |     |  |  +--ro transport-constraint-a-end
+    |     |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |     +--ro index                 uint8
+    |     |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  +--ro transport-constraint-z-end
+    |     |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |     +--ro index                 uint8
+    |     |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  +--ro exclude
     |     |  |  |  +--ro fiber-bundle*              string
     |     |  |  |  +--ro srlg-id*                   uint32
@@ -6651,9 +7041,18 @@ module: org-openroadm-service
     |     |  |  |  +--ro site*                      string
     |     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |     |  |  |  |  +--ro link-network-id    string
-    |     |  |  |  |  +--ro link-id            string
-    |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  |  +--ro link-network-id                string
+    |     |  |  |  |  +--ro link-id                        string
+    |     |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |  |     +--ro index                 uint8
+    |     |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |  +--ro supporting-service* [supporting-service-name]
+    |     |  |  |     +--ro supporting-service-name        string
+    |     |  |  |     +--ro spectrum-portion-constraint* [index]
+    |     |  |  |        +--ro index                 uint8
+    |     |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  +--ro latency
     |     |  |  |  +--ro max-latency?   decimal64
     |     |  |  +--ro hop-count
@@ -6676,8 +7075,8 @@ module: org-openroadm-service
     |     |  |              +--ro roadm-srg?     boolean
     |     |  |              +--ro xponder-srg?   boolean
     |     |  +--ro soft-constraints
-    |     |     +--ro customer-code*      string
-    |     |     +--ro operational-mode*   string
+    |     |     +--ro customer-code*                string
+    |     |     +--ro operational-mode*             string
     |     |     +--ro diversity
     |     |     |  +--ro service-identifier-list* [service-identifier]
     |     |     |  |  +--ro service-identifier       string
@@ -6690,6 +7089,16 @@ module: org-openroadm-service
     |     |     |  |        +--ro roadm-srg?     boolean
     |     |     |  |        +--ro xponder-srg?   boolean
     |     |     |  +--ro diversity-type?            enumeration
+    |     |     +--ro transport-constraint-a-end
+    |     |     |  +--ro spectrum-portion-constraint* [index]
+    |     |     |     +--ro index                 uint8
+    |     |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     +--ro transport-constraint-z-end
+    |     |     |  +--ro spectrum-portion-constraint* [index]
+    |     |     |     +--ro index                 uint8
+    |     |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro exclude
     |     |     |  +--ro fiber-bundle*              string
     |     |     |  +--ro srlg-id*                   uint32
@@ -6711,9 +7120,18 @@ module: org-openroadm-service
     |     |     |  +--ro site*                      string
     |     |     |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |     |     |  +--ro link-identifier* [link-network-id link-id]
-    |     |     |  |  +--ro link-network-id    string
-    |     |     |  |  +--ro link-id            string
-    |     |     |  +--ro supporting-service-name*   string
+    |     |     |  |  +--ro link-network-id                string
+    |     |     |  |  +--ro link-id                        string
+    |     |     |  |  +--ro spectrum-portion-constraint* [index]
+    |     |     |  |     +--ro index                 uint8
+    |     |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  +--ro supporting-service* [supporting-service-name]
+    |     |     |     +--ro supporting-service-name        string
+    |     |     |     +--ro spectrum-portion-constraint* [index]
+    |     |     |        +--ro index                 uint8
+    |     |     |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro latency
     |     |     |  +--ro max-latency?   decimal64
     |     |     +--ro hop-count
@@ -9106,8 +9524,8 @@ module: org-openroadm-service
     |  |     |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |     +---w hard-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -9120,6 +9538,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -9141,9 +9569,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -9166,8 +9603,8 @@ module: org-openroadm-service
     |  |     |              +---w roadm-srg?     boolean
     |  |     |              +---w xponder-srg?   boolean
     |  |     +---w soft-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -9180,6 +9617,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -9201,9 +9648,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -9269,8 +9725,8 @@ module: org-openroadm-service
     |        +--ro version-number?                 uint8
     |        +--ro response-parameters
     |        |  +--ro hard-constraints
-    |        |  |  +--ro customer-code*      string
-    |        |  |  +--ro operational-mode*   string
+    |        |  |  +--ro customer-code*                string
+    |        |  |  +--ro operational-mode*             string
     |        |  |  +--ro diversity
     |        |  |  |  +--ro service-identifier-list* [service-identifier]
     |        |  |  |  |  +--ro service-identifier       string
@@ -9283,6 +9739,16 @@ module: org-openroadm-service
     |        |  |  |  |        +--ro roadm-srg?     boolean
     |        |  |  |  |        +--ro xponder-srg?   boolean
     |        |  |  |  +--ro diversity-type?            enumeration
+    |        |  |  +--ro transport-constraint-a-end
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  +--ro transport-constraint-z-end
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  +--ro exclude
     |        |  |  |  +--ro fiber-bundle*              string
     |        |  |  |  +--ro srlg-id*                   uint32
@@ -9304,9 +9770,18 @@ module: org-openroadm-service
     |        |  |  |  +--ro site*                      string
     |        |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  |  |  +--ro link-network-id    string
-    |        |  |  |  |  +--ro link-id            string
-    |        |  |  |  +--ro supporting-service-name*   string
+    |        |  |  |  |  +--ro link-network-id                string
+    |        |  |  |  |  +--ro link-id                        string
+    |        |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |  |     +--ro index                 uint8
+    |        |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |  +--ro supporting-service* [supporting-service-name]
+    |        |  |  |     +--ro supporting-service-name        string
+    |        |  |  |     +--ro spectrum-portion-constraint* [index]
+    |        |  |  |        +--ro index                 uint8
+    |        |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |  +--ro latency
     |        |  |  |  +--ro max-latency?   decimal64
     |        |  |  +--ro hop-count
@@ -9329,8 +9804,8 @@ module: org-openroadm-service
     |        |  |              +--ro roadm-srg?     boolean
     |        |  |              +--ro xponder-srg?   boolean
     |        |  +--ro soft-constraints
-    |        |     +--ro customer-code*      string
-    |        |     +--ro operational-mode*   string
+    |        |     +--ro customer-code*                string
+    |        |     +--ro operational-mode*             string
     |        |     +--ro diversity
     |        |     |  +--ro service-identifier-list* [service-identifier]
     |        |     |  |  +--ro service-identifier       string
@@ -9343,6 +9818,16 @@ module: org-openroadm-service
     |        |     |  |        +--ro roadm-srg?     boolean
     |        |     |  |        +--ro xponder-srg?   boolean
     |        |     |  +--ro diversity-type?            enumeration
+    |        |     +--ro transport-constraint-a-end
+    |        |     |  +--ro spectrum-portion-constraint* [index]
+    |        |     |     +--ro index                 uint8
+    |        |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     +--ro transport-constraint-z-end
+    |        |     |  +--ro spectrum-portion-constraint* [index]
+    |        |     |     +--ro index                 uint8
+    |        |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro exclude
     |        |     |  +--ro fiber-bundle*              string
     |        |     |  +--ro srlg-id*                   uint32
@@ -9364,9 +9849,18 @@ module: org-openroadm-service
     |        |     |  +--ro site*                      string
     |        |     |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |     |  +--ro link-identifier* [link-network-id link-id]
-    |        |     |  |  +--ro link-network-id    string
-    |        |     |  |  +--ro link-id            string
-    |        |     |  +--ro supporting-service-name*   string
+    |        |     |  |  +--ro link-network-id                string
+    |        |     |  |  +--ro link-id                        string
+    |        |     |  |  +--ro spectrum-portion-constraint* [index]
+    |        |     |  |     +--ro index                 uint8
+    |        |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |  +--ro supporting-service* [supporting-service-name]
+    |        |     |     +--ro supporting-service-name        string
+    |        |     |     +--ro spectrum-portion-constraint* [index]
+    |        |     |        +--ro index                 uint8
+    |        |     |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |     +--ro latency
     |        |     |  +--ro max-latency?   decimal64
     |        |     +--ro hop-count
@@ -10725,8 +11219,8 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w hard-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -10739,6 +11233,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -10760,9 +11264,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -10785,8 +11298,8 @@ module: org-openroadm-service
     |  |  |              +---w roadm-srg?     boolean
     |  |  |              +---w xponder-srg?   boolean
     |  |  +---w soft-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -10799,6 +11312,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -10820,9 +11343,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -10908,8 +11440,8 @@ module: org-openroadm-service
     |     |  +--ro ack-final-indicator    string
     |     +--ro response-parameters
     |     |  +--ro hard-constraints
-    |     |  |  +--ro customer-code*      string
-    |     |  |  +--ro operational-mode*   string
+    |     |  |  +--ro customer-code*                string
+    |     |  |  +--ro operational-mode*             string
     |     |  |  +--ro diversity
     |     |  |  |  +--ro service-identifier-list* [service-identifier]
     |     |  |  |  |  +--ro service-identifier       string
@@ -10922,6 +11454,16 @@ module: org-openroadm-service
     |     |  |  |  |        +--ro roadm-srg?     boolean
     |     |  |  |  |        +--ro xponder-srg?   boolean
     |     |  |  |  +--ro diversity-type?            enumeration
+    |     |  |  +--ro transport-constraint-a-end
+    |     |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |     +--ro index                 uint8
+    |     |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  +--ro transport-constraint-z-end
+    |     |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |     +--ro index                 uint8
+    |     |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  +--ro exclude
     |     |  |  |  +--ro fiber-bundle*              string
     |     |  |  |  +--ro srlg-id*                   uint32
@@ -10943,9 +11485,18 @@ module: org-openroadm-service
     |     |  |  |  +--ro site*                      string
     |     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |     |  |  |  |  +--ro link-network-id    string
-    |     |  |  |  |  +--ro link-id            string
-    |     |  |  |  +--ro supporting-service-name*   string
+    |     |  |  |  |  +--ro link-network-id                string
+    |     |  |  |  |  +--ro link-id                        string
+    |     |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |  |     +--ro index                 uint8
+    |     |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |  +--ro supporting-service* [supporting-service-name]
+    |     |  |  |     +--ro supporting-service-name        string
+    |     |  |  |     +--ro spectrum-portion-constraint* [index]
+    |     |  |  |        +--ro index                 uint8
+    |     |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |  +--ro latency
     |     |  |  |  +--ro max-latency?   decimal64
     |     |  |  +--ro hop-count
@@ -10968,8 +11519,8 @@ module: org-openroadm-service
     |     |  |              +--ro roadm-srg?     boolean
     |     |  |              +--ro xponder-srg?   boolean
     |     |  +--ro soft-constraints
-    |     |     +--ro customer-code*      string
-    |     |     +--ro operational-mode*   string
+    |     |     +--ro customer-code*                string
+    |     |     +--ro operational-mode*             string
     |     |     +--ro diversity
     |     |     |  +--ro service-identifier-list* [service-identifier]
     |     |     |  |  +--ro service-identifier       string
@@ -10982,6 +11533,16 @@ module: org-openroadm-service
     |     |     |  |        +--ro roadm-srg?     boolean
     |     |     |  |        +--ro xponder-srg?   boolean
     |     |     |  +--ro diversity-type?            enumeration
+    |     |     +--ro transport-constraint-a-end
+    |     |     |  +--ro spectrum-portion-constraint* [index]
+    |     |     |     +--ro index                 uint8
+    |     |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     +--ro transport-constraint-z-end
+    |     |     |  +--ro spectrum-portion-constraint* [index]
+    |     |     |     +--ro index                 uint8
+    |     |     |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro exclude
     |     |     |  +--ro fiber-bundle*              string
     |     |     |  +--ro srlg-id*                   uint32
@@ -11003,9 +11564,18 @@ module: org-openroadm-service
     |     |     |  +--ro site*                      string
     |     |     |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |     |     |  +--ro link-identifier* [link-network-id link-id]
-    |     |     |  |  +--ro link-network-id    string
-    |     |     |  |  +--ro link-id            string
-    |     |     |  +--ro supporting-service-name*   string
+    |     |     |  |  +--ro link-network-id                string
+    |     |     |  |  +--ro link-id                        string
+    |     |     |  |  +--ro spectrum-portion-constraint* [index]
+    |     |     |  |     +--ro index                 uint8
+    |     |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |  +--ro supporting-service* [supporting-service-name]
+    |     |     |     +--ro supporting-service-name        string
+    |     |     |     +--ro spectrum-portion-constraint* [index]
+    |     |     |        +--ro index                 uint8
+    |     |     |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |     |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |     +--ro latency
     |     |     |  +--ro max-latency?   decimal64
     |     |     +--ro hop-count
@@ -11347,8 +11917,8 @@ module: org-openroadm-service
     |  |  |     +---w max-frequency?                 org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |     +---w min-granularity?               org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +---w hard-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -11361,6 +11931,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -11382,9 +11962,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -11407,8 +11996,8 @@ module: org-openroadm-service
     |  |  |              +---w roadm-srg?     boolean
     |  |  |              +---w xponder-srg?   boolean
     |  |  +---w soft-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -11421,6 +12010,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -11442,9 +12041,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -11526,8 +12134,8 @@ module: org-openroadm-service
     |     +--ro version-number?                  uint8
     |     +--ro response-parameters
     |        +--ro hard-constraints
-    |        |  +--ro customer-code*      string
-    |        |  +--ro operational-mode*   string
+    |        |  +--ro customer-code*                string
+    |        |  +--ro operational-mode*             string
     |        |  +--ro diversity
     |        |  |  +--ro service-identifier-list* [service-identifier]
     |        |  |  |  +--ro service-identifier       string
@@ -11540,6 +12148,16 @@ module: org-openroadm-service
     |        |  |  |        +--ro roadm-srg?     boolean
     |        |  |  |        +--ro xponder-srg?   boolean
     |        |  |  +--ro diversity-type?            enumeration
+    |        |  +--ro transport-constraint-a-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  +--ro transport-constraint-z-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro exclude
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
@@ -11561,9 +12179,18 @@ module: org-openroadm-service
     |        |  |  +--ro site*                      string
     |        |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  |  +--ro link-network-id    string
-    |        |  |  |  +--ro link-id            string
-    |        |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro link-network-id                string
+    |        |  |  |  +--ro link-id                        string
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  +--ro supporting-service* [supporting-service-name]
+    |        |  |     +--ro supporting-service-name        string
+    |        |  |     +--ro spectrum-portion-constraint* [index]
+    |        |  |        +--ro index                 uint8
+    |        |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro latency
     |        |  |  +--ro max-latency?   decimal64
     |        |  +--ro hop-count
@@ -11586,8 +12213,8 @@ module: org-openroadm-service
     |        |              +--ro roadm-srg?     boolean
     |        |              +--ro xponder-srg?   boolean
     |        +--ro soft-constraints
-    |           +--ro customer-code*      string
-    |           +--ro operational-mode*   string
+    |           +--ro customer-code*                string
+    |           +--ro operational-mode*             string
     |           +--ro diversity
     |           |  +--ro service-identifier-list* [service-identifier]
     |           |  |  +--ro service-identifier       string
@@ -11600,6 +12227,16 @@ module: org-openroadm-service
     |           |  |        +--ro roadm-srg?     boolean
     |           |  |        +--ro xponder-srg?   boolean
     |           |  +--ro diversity-type?            enumeration
+    |           +--ro transport-constraint-a-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           +--ro transport-constraint-z-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro exclude
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
@@ -11621,9 +12258,18 @@ module: org-openroadm-service
     |           |  +--ro site*                      string
     |           |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |           |  +--ro link-identifier* [link-network-id link-id]
-    |           |  |  +--ro link-network-id    string
-    |           |  |  +--ro link-id            string
-    |           |  +--ro supporting-service-name*   string
+    |           |  |  +--ro link-network-id                string
+    |           |  |  +--ro link-id                        string
+    |           |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |     +--ro index                 uint8
+    |           |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  +--ro supporting-service* [supporting-service-name]
+    |           |     +--ro supporting-service-name        string
+    |           |     +--ro spectrum-portion-constraint* [index]
+    |           |        +--ro index                 uint8
+    |           |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro latency
     |           |  +--ro max-latency?   decimal64
     |           +--ro hop-count
@@ -11885,8 +12531,8 @@ module: org-openroadm-service
     |  |     |  +---w project-id?                      string
     |  |     |  +---w project-note?                    string
     |  |     +---w hard-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -11899,6 +12545,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -11920,9 +12576,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -11945,8 +12610,8 @@ module: org-openroadm-service
     |  |     |              +---w roadm-srg?     boolean
     |  |     |              +---w xponder-srg?   boolean
     |  |     +---w soft-constraints
-    |  |     |  +---w customer-code*      string
-    |  |     |  +---w operational-mode*   string
+    |  |     |  +---w customer-code*                string
+    |  |     |  +---w operational-mode*             string
     |  |     |  +---w diversity
     |  |     |  |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  |  +---w service-identifier       string
@@ -11959,6 +12624,16 @@ module: org-openroadm-service
     |  |     |  |  |        +---w roadm-srg?     boolean
     |  |     |  |  |        +---w xponder-srg?   boolean
     |  |     |  |  +---w diversity-type?            enumeration
+    |  |     |  +---w transport-constraint-a-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w transport-constraint-z-end
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w exclude
     |  |     |  |  +---w fiber-bundle*              string
     |  |     |  |  +---w srlg-id*                   uint32
@@ -11980,9 +12655,18 @@ module: org-openroadm-service
     |  |     |  |  +---w site*                      string
     |  |     |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  |  +---w link-network-id    string
-    |  |     |  |  |  +---w link-id            string
-    |  |     |  |  +---w supporting-service-name*   string
+    |  |     |  |  |  +---w link-network-id                string
+    |  |     |  |  |  +---w link-id                        string
+    |  |     |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |  |     +---w index                 uint8
+    |  |     |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |  +---w supporting-service* [supporting-service-name]
+    |  |     |  |     +---w supporting-service-name        string
+    |  |     |  |     +---w spectrum-portion-constraint* [index]
+    |  |     |  |        +---w index                 uint8
+    |  |     |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     |  +---w latency
     |  |     |  |  +---w max-latency?   decimal64
     |  |     |  +---w hop-count
@@ -12065,8 +12749,8 @@ module: org-openroadm-service
     |     |  +--ro version-number?   uint8
     |     +--ro response-parameters
     |        +--ro hard-constraints
-    |        |  +--ro customer-code*      string
-    |        |  +--ro operational-mode*   string
+    |        |  +--ro customer-code*                string
+    |        |  +--ro operational-mode*             string
     |        |  +--ro diversity
     |        |  |  +--ro service-identifier-list* [service-identifier]
     |        |  |  |  +--ro service-identifier       string
@@ -12079,6 +12763,16 @@ module: org-openroadm-service
     |        |  |  |        +--ro roadm-srg?     boolean
     |        |  |  |        +--ro xponder-srg?   boolean
     |        |  |  +--ro diversity-type?            enumeration
+    |        |  +--ro transport-constraint-a-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  +--ro transport-constraint-z-end
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro exclude
     |        |  |  +--ro fiber-bundle*              string
     |        |  |  +--ro srlg-id*                   uint32
@@ -12100,9 +12794,18 @@ module: org-openroadm-service
     |        |  |  +--ro site*                      string
     |        |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  |  +--ro link-network-id    string
-    |        |  |  |  +--ro link-id            string
-    |        |  |  +--ro supporting-service-name*   string
+    |        |  |  |  +--ro link-network-id                string
+    |        |  |  |  +--ro link-id                        string
+    |        |  |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |  |     +--ro index                 uint8
+    |        |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |  +--ro supporting-service* [supporting-service-name]
+    |        |  |     +--ro supporting-service-name        string
+    |        |  |     +--ro spectrum-portion-constraint* [index]
+    |        |  |        +--ro index                 uint8
+    |        |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        |  +--ro latency
     |        |  |  +--ro max-latency?   decimal64
     |        |  +--ro hop-count
@@ -12125,8 +12828,8 @@ module: org-openroadm-service
     |        |              +--ro roadm-srg?     boolean
     |        |              +--ro xponder-srg?   boolean
     |        +--ro soft-constraints
-    |           +--ro customer-code*      string
-    |           +--ro operational-mode*   string
+    |           +--ro customer-code*                string
+    |           +--ro operational-mode*             string
     |           +--ro diversity
     |           |  +--ro service-identifier-list* [service-identifier]
     |           |  |  +--ro service-identifier       string
@@ -12139,6 +12842,16 @@ module: org-openroadm-service
     |           |  |        +--ro roadm-srg?     boolean
     |           |  |        +--ro xponder-srg?   boolean
     |           |  +--ro diversity-type?            enumeration
+    |           +--ro transport-constraint-a-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           +--ro transport-constraint-z-end
+    |           |  +--ro spectrum-portion-constraint* [index]
+    |           |     +--ro index                 uint8
+    |           |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro exclude
     |           |  +--ro fiber-bundle*              string
     |           |  +--ro srlg-id*                   uint32
@@ -12160,9 +12873,18 @@ module: org-openroadm-service
     |           |  +--ro site*                      string
     |           |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |           |  +--ro link-identifier* [link-network-id link-id]
-    |           |  |  +--ro link-network-id    string
-    |           |  |  +--ro link-id            string
-    |           |  +--ro supporting-service-name*   string
+    |           |  |  +--ro link-network-id                string
+    |           |  |  +--ro link-id                        string
+    |           |  |  +--ro spectrum-portion-constraint* [index]
+    |           |  |     +--ro index                 uint8
+    |           |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |  +--ro supporting-service* [supporting-service-name]
+    |           |     +--ro supporting-service-name        string
+    |           |     +--ro spectrum-portion-constraint* [index]
+    |           |        +--ro index                 uint8
+    |           |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |           |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |           +--ro latency
     |           |  +--ro max-latency?   decimal64
     |           +--ro hop-count
@@ -12323,8 +13045,8 @@ module: org-openroadm-service
     |     |  +--ro response-message?      string
     |     |  +--ro ack-final-indicator    string
     |     +--ro hard-constraints
-    |     |  +--ro customer-code*      string
-    |     |  +--ro operational-mode*   string
+    |     |  +--ro customer-code*                string
+    |     |  +--ro operational-mode*             string
     |     |  +--ro diversity
     |     |  |  +--ro service-identifier-list* [service-identifier]
     |     |  |  |  +--ro service-identifier       string
@@ -12337,6 +13059,16 @@ module: org-openroadm-service
     |     |  |  |        +--ro roadm-srg?     boolean
     |     |  |  |        +--ro xponder-srg?   boolean
     |     |  |  +--ro diversity-type?            enumeration
+    |     |  +--ro transport-constraint-a-end
+    |     |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |     +--ro index                 uint8
+    |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  +--ro transport-constraint-z-end
+    |     |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |     +--ro index                 uint8
+    |     |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  +--ro exclude
     |     |  |  +--ro fiber-bundle*              string
     |     |  |  +--ro srlg-id*                   uint32
@@ -12358,9 +13090,18 @@ module: org-openroadm-service
     |     |  |  +--ro site*                      string
     |     |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |     |  |  +--ro link-identifier* [link-network-id link-id]
-    |     |  |  |  +--ro link-network-id    string
-    |     |  |  |  +--ro link-id            string
-    |     |  |  +--ro supporting-service-name*   string
+    |     |  |  |  +--ro link-network-id                string
+    |     |  |  |  +--ro link-id                        string
+    |     |  |  |  +--ro spectrum-portion-constraint* [index]
+    |     |  |  |     +--ro index                 uint8
+    |     |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |  +--ro supporting-service* [supporting-service-name]
+    |     |  |     +--ro supporting-service-name        string
+    |     |  |     +--ro spectrum-portion-constraint* [index]
+    |     |  |        +--ro index                 uint8
+    |     |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |     |  +--ro latency
     |     |  |  +--ro max-latency?   decimal64
     |     |  +--ro hop-count
@@ -12383,8 +13124,8 @@ module: org-openroadm-service
     |     |              +--ro roadm-srg?     boolean
     |     |              +--ro xponder-srg?   boolean
     |     +--ro soft-constraints
-    |        +--ro customer-code*      string
-    |        +--ro operational-mode*   string
+    |        +--ro customer-code*                string
+    |        +--ro operational-mode*             string
     |        +--ro diversity
     |        |  +--ro service-identifier-list* [service-identifier]
     |        |  |  +--ro service-identifier       string
@@ -12397,6 +13138,16 @@ module: org-openroadm-service
     |        |  |        +--ro roadm-srg?     boolean
     |        |  |        +--ro xponder-srg?   boolean
     |        |  +--ro diversity-type?            enumeration
+    |        +--ro transport-constraint-a-end
+    |        |  +--ro spectrum-portion-constraint* [index]
+    |        |     +--ro index                 uint8
+    |        |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        +--ro transport-constraint-z-end
+    |        |  +--ro spectrum-portion-constraint* [index]
+    |        |     +--ro index                 uint8
+    |        |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        +--ro exclude
     |        |  +--ro fiber-bundle*              string
     |        |  +--ro srlg-id*                   uint32
@@ -12418,9 +13169,18 @@ module: org-openroadm-service
     |        |  +--ro site*                      string
     |        |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |        |  +--ro link-identifier* [link-network-id link-id]
-    |        |  |  +--ro link-network-id    string
-    |        |  |  +--ro link-id            string
-    |        |  +--ro supporting-service-name*   string
+    |        |  |  +--ro link-network-id                string
+    |        |  |  +--ro link-id                        string
+    |        |  |  +--ro spectrum-portion-constraint* [index]
+    |        |  |     +--ro index                 uint8
+    |        |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  +--ro supporting-service* [supporting-service-name]
+    |        |     +--ro supporting-service-name        string
+    |        |     +--ro spectrum-portion-constraint* [index]
+    |        |        +--ro index                 uint8
+    |        |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |        |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |        +--ro latency
     |        |  +--ro max-latency?   decimal64
     |        +--ro hop-count
@@ -12452,8 +13212,8 @@ module: org-openroadm-service
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
     |  |  +---w hard-constraints
-    |  |  |  +---w customer-code*      string
-    |  |  |  +---w operational-mode*   string
+    |  |  |  +---w customer-code*                string
+    |  |  |  +---w operational-mode*             string
     |  |  |  +---w diversity
     |  |  |  |  +---w service-identifier-list* [service-identifier]
     |  |  |  |  |  +---w service-identifier       string
@@ -12466,6 +13226,16 @@ module: org-openroadm-service
     |  |  |  |  |        +---w roadm-srg?     boolean
     |  |  |  |  |        +---w xponder-srg?   boolean
     |  |  |  |  +---w diversity-type?            enumeration
+    |  |  |  +---w transport-constraint-a-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +---w transport-constraint-z-end
+    |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |     +---w index                 uint8
+    |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w exclude
     |  |  |  |  +---w fiber-bundle*              string
     |  |  |  |  +---w srlg-id*                   uint32
@@ -12487,9 +13257,18 @@ module: org-openroadm-service
     |  |  |  |  +---w site*                      string
     |  |  |  |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  |  +---w link-identifier* [link-network-id link-id]
-    |  |  |  |  |  +---w link-network-id    string
-    |  |  |  |  |  +---w link-id            string
-    |  |  |  |  +---w supporting-service-name*   string
+    |  |  |  |  |  +---w link-network-id                string
+    |  |  |  |  |  +---w link-id                        string
+    |  |  |  |  |  +---w spectrum-portion-constraint* [index]
+    |  |  |  |  |     +---w index                 uint8
+    |  |  |  |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |  +---w supporting-service* [supporting-service-name]
+    |  |  |  |     +---w supporting-service-name        string
+    |  |  |  |     +---w spectrum-portion-constraint* [index]
+    |  |  |  |        +---w index                 uint8
+    |  |  |  |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  |  +---w latency
     |  |  |  |  +---w max-latency?   decimal64
     |  |  |  +---w hop-count
@@ -12512,8 +13291,8 @@ module: org-openroadm-service
     |  |  |              +---w roadm-srg?     boolean
     |  |  |              +---w xponder-srg?   boolean
     |  |  +---w soft-constraints
-    |  |     +---w customer-code*      string
-    |  |     +---w operational-mode*   string
+    |  |     +---w customer-code*                string
+    |  |     +---w operational-mode*             string
     |  |     +---w diversity
     |  |     |  +---w service-identifier-list* [service-identifier]
     |  |     |  |  +---w service-identifier       string
@@ -12526,6 +13305,16 @@ module: org-openroadm-service
     |  |     |  |        +---w roadm-srg?     boolean
     |  |     |  |        +---w xponder-srg?   boolean
     |  |     |  +---w diversity-type?            enumeration
+    |  |     +---w transport-constraint-a-end
+    |  |     |  +---w spectrum-portion-constraint* [index]
+    |  |     |     +---w index                 uint8
+    |  |     |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     +---w transport-constraint-z-end
+    |  |     |  +---w spectrum-portion-constraint* [index]
+    |  |     |     +---w index                 uint8
+    |  |     |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     +---w exclude
     |  |     |  +---w fiber-bundle*              string
     |  |     |  +---w srlg-id*                   uint32
@@ -12547,9 +13336,18 @@ module: org-openroadm-service
     |  |     |  +---w site*                      string
     |  |     |  +---w node-id*                   org-openroadm-common-node-types:node-id-type
     |  |     |  +---w link-identifier* [link-network-id link-id]
-    |  |     |  |  +---w link-network-id    string
-    |  |     |  |  +---w link-id            string
-    |  |     |  +---w supporting-service-name*   string
+    |  |     |  |  +---w link-network-id                string
+    |  |     |  |  +---w link-id                        string
+    |  |     |  |  +---w spectrum-portion-constraint* [index]
+    |  |     |  |     +---w index                 uint8
+    |  |     |  |     +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  |     +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |  +---w supporting-service* [supporting-service-name]
+    |  |     |     +---w supporting-service-name        string
+    |  |     |     +---w spectrum-portion-constraint* [index]
+    |  |     |        +---w index                 uint8
+    |  |     |        +---w min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |     |        +---w max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |     +---w latency
     |  |     |  +---w max-latency?   decimal64
     |  |     +---w hop-count
@@ -13374,8 +14172,8 @@ module: org-openroadm-service
     |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro hard-constraints
-    |  |  +--ro customer-code*      string
-    |  |  +--ro operational-mode*   string
+    |  |  +--ro customer-code*                string
+    |  |  +--ro operational-mode*             string
     |  |  +--ro diversity
     |  |  |  +--ro service-identifier-list* [service-identifier]
     |  |  |  |  +--ro service-identifier       string
@@ -13388,6 +14186,16 @@ module: org-openroadm-service
     |  |  |  |        +--ro roadm-srg?     boolean
     |  |  |  |        +--ro xponder-srg?   boolean
     |  |  |  +--ro diversity-type?            enumeration
+    |  |  +--ro transport-constraint-a-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro transport-constraint-z-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro exclude
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
@@ -13409,9 +14217,18 @@ module: org-openroadm-service
     |  |  |  +--ro site*                      string
     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |  |  |  |  +--ro link-network-id    string
-    |  |  |  |  +--ro link-id            string
-    |  |  |  +--ro supporting-service-name*   string
+    |  |  |  |  +--ro link-network-id                string
+    |  |  |  |  +--ro link-id                        string
+    |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |  |     +--ro index                 uint8
+    |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro supporting-service* [supporting-service-name]
+    |  |  |     +--ro supporting-service-name        string
+    |  |  |     +--ro spectrum-portion-constraint* [index]
+    |  |  |        +--ro index                 uint8
+    |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro latency
     |  |  |  +--ro max-latency?   decimal64
     |  |  +--ro hop-count
@@ -13434,8 +14251,8 @@ module: org-openroadm-service
     |  |              +--ro roadm-srg?     boolean
     |  |              +--ro xponder-srg?   boolean
     |  +--ro soft-constraints
-    |  |  +--ro customer-code*      string
-    |  |  +--ro operational-mode*   string
+    |  |  +--ro customer-code*                string
+    |  |  +--ro operational-mode*             string
     |  |  +--ro diversity
     |  |  |  +--ro service-identifier-list* [service-identifier]
     |  |  |  |  +--ro service-identifier       string
@@ -13448,6 +14265,16 @@ module: org-openroadm-service
     |  |  |  |        +--ro roadm-srg?     boolean
     |  |  |  |        +--ro xponder-srg?   boolean
     |  |  |  +--ro diversity-type?            enumeration
+    |  |  +--ro transport-constraint-a-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro transport-constraint-z-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro exclude
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
@@ -13469,9 +14296,18 @@ module: org-openroadm-service
     |  |  |  +--ro site*                      string
     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |  |  |  |  +--ro link-network-id    string
-    |  |  |  |  +--ro link-id            string
-    |  |  |  +--ro supporting-service-name*   string
+    |  |  |  |  +--ro link-network-id                string
+    |  |  |  |  +--ro link-id                        string
+    |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |  |     +--ro index                 uint8
+    |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro supporting-service* [supporting-service-name]
+    |  |  |     +--ro supporting-service-name        string
+    |  |  |     +--ro spectrum-portion-constraint* [index]
+    |  |  |        +--ro index                 uint8
+    |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro latency
     |  |  |  +--ro max-latency?   decimal64
     |  |  +--ro hop-count
@@ -14433,8 +15269,8 @@ module: org-openroadm-service
     |  |     +--ro max-output-power?      org-openroadm-common-link-types:power-dBm
     |  |     +--ro min-output-power?      org-openroadm-common-link-types:power-dBm
     |  +--ro hard-constraints
-    |  |  +--ro customer-code*      string
-    |  |  +--ro operational-mode*   string
+    |  |  +--ro customer-code*                string
+    |  |  +--ro operational-mode*             string
     |  |  +--ro diversity
     |  |  |  +--ro service-identifier-list* [service-identifier]
     |  |  |  |  +--ro service-identifier       string
@@ -14447,6 +15283,16 @@ module: org-openroadm-service
     |  |  |  |        +--ro roadm-srg?     boolean
     |  |  |  |        +--ro xponder-srg?   boolean
     |  |  |  +--ro diversity-type?            enumeration
+    |  |  +--ro transport-constraint-a-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro transport-constraint-z-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro exclude
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
@@ -14468,9 +15314,18 @@ module: org-openroadm-service
     |  |  |  +--ro site*                      string
     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |  |  |  |  +--ro link-network-id    string
-    |  |  |  |  +--ro link-id            string
-    |  |  |  +--ro supporting-service-name*   string
+    |  |  |  |  +--ro link-network-id                string
+    |  |  |  |  +--ro link-id                        string
+    |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |  |     +--ro index                 uint8
+    |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro supporting-service* [supporting-service-name]
+    |  |  |     +--ro supporting-service-name        string
+    |  |  |     +--ro spectrum-portion-constraint* [index]
+    |  |  |        +--ro index                 uint8
+    |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro latency
     |  |  |  +--ro max-latency?   decimal64
     |  |  +--ro hop-count
@@ -14493,8 +15348,8 @@ module: org-openroadm-service
     |  |              +--ro roadm-srg?     boolean
     |  |              +--ro xponder-srg?   boolean
     |  +--ro soft-constraints
-    |  |  +--ro customer-code*      string
-    |  |  +--ro operational-mode*   string
+    |  |  +--ro customer-code*                string
+    |  |  +--ro operational-mode*             string
     |  |  +--ro diversity
     |  |  |  +--ro service-identifier-list* [service-identifier]
     |  |  |  |  +--ro service-identifier       string
@@ -14507,6 +15362,16 @@ module: org-openroadm-service
     |  |  |  |        +--ro roadm-srg?     boolean
     |  |  |  |        +--ro xponder-srg?   boolean
     |  |  |  +--ro diversity-type?            enumeration
+    |  |  +--ro transport-constraint-a-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  +--ro transport-constraint-z-end
+    |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |     +--ro index                 uint8
+    |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro exclude
     |  |  |  +--ro fiber-bundle*              string
     |  |  |  +--ro srlg-id*                   uint32
@@ -14528,9 +15393,18 @@ module: org-openroadm-service
     |  |  |  +--ro site*                      string
     |  |  |  +--ro node-id*                   org-openroadm-common-node-types:node-id-type
     |  |  |  +--ro link-identifier* [link-network-id link-id]
-    |  |  |  |  +--ro link-network-id    string
-    |  |  |  |  +--ro link-id            string
-    |  |  |  +--ro supporting-service-name*   string
+    |  |  |  |  +--ro link-network-id                string
+    |  |  |  |  +--ro link-id                        string
+    |  |  |  |  +--ro spectrum-portion-constraint* [index]
+    |  |  |  |     +--ro index                 uint8
+    |  |  |  |     +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  |     +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |  +--ro supporting-service* [supporting-service-name]
+    |  |  |     +--ro supporting-service-name        string
+    |  |  |     +--ro spectrum-portion-constraint* [index]
+    |  |  |        +--ro index                 uint8
+    |  |  |        +--ro min-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
+    |  |  |        +--ro max-edge-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--ro latency
     |  |  |  +--ro max-latency?   decimal64
     |  |  +--ro hop-count
