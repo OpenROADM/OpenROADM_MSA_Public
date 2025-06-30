@@ -190,9 +190,26 @@ module: org-openroadm-de-operations
        |  |     |     +---w shelf-name    string
        |  |     |     +---w slot-name     string
        |  |     +--:(cp-slot)
-       |  |        +---w cp-slot
-       |  |           +---w circuit-pack-name    string
-       |  |           +---w slot-name            string
+       |  |     |  +---w cp-slot
+       |  |     |     +---w circuit-pack-name    string
+       |  |     |     +---w slot-name            string
+       |  |     +--:(ospf-neighbor)
+       |  |     |  +---w ospf-neighbor
+       |  |     |     +---w routing-instance         string
+       |  |     |     +---w routing-protocol-type    string
+       |  |     |     +---w routing-protocol-name    string
+       |  |     |     +---w ospf-routing-instance    string
+       |  |     |     +---w ospf-address-family      string
+       |  |     |     +---w ospf-area-id             string
+       |  |     |     +---w ospf-interface           string
+       |  |     +--:(bgp-neighbor)
+       |  |     |  +---w bgp-neighbor
+       |  |     |     +---w routing-instance         string
+       |  |     |     +---w routing-protocol-type    string
+       |  |     |     +---w routing-protocol-name    string
+       |  |     |     +---w remote-address           string
+       |  |     +--:(user)
+       |  |        +---w user                      string
        |  +---w resourceType
        |  |  +---w type         resource-type-enum
        |  |  +---w extension?   string
@@ -253,9 +270,26 @@ module: org-openroadm-de-operations
        |     |     +--ro shelf-name    string
        |     |     +--ro slot-name     string
        |     +--:(cp-slot)
-       |        +--ro cp-slot
-       |           +--ro circuit-pack-name    string
-       |           +--ro slot-name            string
+       |     |  +--ro cp-slot
+       |     |     +--ro circuit-pack-name    string
+       |     |     +--ro slot-name            string
+       |     +--:(ospf-neighbor)
+       |     |  +--ro ospf-neighbor
+       |     |     +--ro routing-instance         string
+       |     |     +--ro routing-protocol-type    string
+       |     |     +--ro routing-protocol-name    string
+       |     |     +--ro ospf-routing-instance    string
+       |     |     +--ro ospf-address-family      string
+       |     |     +--ro ospf-area-id             string
+       |     |     +--ro ospf-interface           string
+       |     +--:(bgp-neighbor)
+       |     |  +--ro bgp-neighbor
+       |     |     +--ro routing-instance         string
+       |     |     +--ro routing-protocol-type    string
+       |     |     +--ro routing-protocol-name    string
+       |     |     +--ro remote-address           string
+       |     +--:(user)
+       |        +--ro user                      string
        +--ro resourceType
           +--ro type         resource-type-enum
           +--ro extension?   string
@@ -295,9 +329,10 @@ module: org-openroadm-device
      |  +--ro max-num-bin-24hour-historical-pm?   uint16
      +--rw users
      |  +--rw user* [name]
-     |     +--rw name        username-type
-     |     +--rw password?   password-type
-     |     +--rw group?      enumeration
+     |  |  +--rw name        username-type
+     |  |  +--rw password?   password-type
+     |  |  +--rw group?      enumeration
+     |  +--rw system-user?   -> ../user/name
      +--ro pending-sw
      |  +--ro sw-version?             string
      |  +--ro sw-validation-timer?    string
@@ -363,6 +398,7 @@ module: org-openroadm-device
      |  +--rw slot                         string
      |  +--rw subSlot?                     string
      |  +--ro is-pluggable-optics          boolean
+     |  +--ro compliance-codes*            org-openroadm-common-phy-codes:compliance-codes-union
      |  +--ro is-physical                  boolean
      |  +--ro is-passive                   boolean
      |  +--ro faceplate-label              string
@@ -435,7 +471,6 @@ module: org-openroadm-device
      |     +--rw port-qual?                                         org-openroadm-device-types:port-qual
      |     +--ro port-wavelength-type?                              org-openroadm-port-types:port-wavelength-types
      |     +--ro port-direction                                     org-openroadm-common-alarm-pm-types:direction
-     |     +--ro compliance-codes*                                  org-openroadm-common-phy-codes:compliance-codes-union
      |     +--ro is-physical                                        boolean
      |     +--ro pm-capable                                         boolean
      |     +--ro alarm-capable                                      boolean
@@ -635,8 +670,6 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-channel-interfaces:rate?                       identityref
      |  |  +--rw org-openroadm-optical-channel-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-channel-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-channel-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-channel-interfaces:enable-laser?               enumeration
      |  |  +--ro org-openroadm-optical-channel-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-channel-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
@@ -660,8 +693,6 @@ module: org-openroadm-device
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:otsi-member-id?             uint16
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:frequency?                  org-openroadm-common-optical-channel-types:frequency-THz
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:width?                      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-3dB?      org-openroadm-common-optical-channel-types:frequency-GHz
-     |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:full-bandwidth-at-10dB?     org-openroadm-common-optical-channel-types:frequency-GHz
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:enable-laser?               enumeration
      |  |  +--ro org-openroadm-optical-tributary-signal-interfaces:laser-status?               enumeration
      |  |  +--rw org-openroadm-optical-tributary-signal-interfaces:modulation-format?          org-openroadm-common-optical-channel-types:modulation-format
@@ -1275,6 +1306,7 @@ module: org-openroadm-device
      |  +--ro network-odu-rate                   identityref
      |  +--ro network-oducn-n-rate?              uint16
      |  +--ro network-min-oducn-n-rate?          uint16
+     |  +--ro network-max-oducn-n-rate?          uint16
      |  +--ro network-ho-odu-trib-port-number    uint16
      |  +--ro network-ho-odu-trib-slots*         uint16
      |  +--ro network-ho-odu-opucn-trib-slots*   org-openroadm-otn-common-types:opucn-trib-slot-def
@@ -1282,19 +1314,18 @@ module: org-openroadm-device
      |  +--ro profile-name                      string
      |  +--ro network-otsi-group-rate?          identityref
      |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-max-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--ro otsi-profile* [profile-name]
-     |  +--ro profile-name                 string
-     |  +--ro otsi-rate                    identityref
-     |  +--ro otsi-optical-mode-support* []
-     |     +--ro modulation-format    org-openroadm-common-optical-channel-types:modulation-format
-     |     +--ro fec                  identityref
+     |  +--ro profile-name    string
+     |  +--ro otsi-rate       identityref
      +--ro muxp-otucn-profile* [profile-name]
      |  +--ro profile-name                      string
      |  +--ro otucn-n-rate?                     uint16
      |  +--ro network-otsi-group-rate?          identityref
      |  +--ro network-min-otsi-group-rate?      identityref
+     |  +--ro network-max-otsi-group-rate?      identityref
      |  +--ro network-flexo-trib-port-number    uint16
      |  +--ro network-flexo-iid*                uint8
      +--rw rt-pol:routing-policy
@@ -2144,8 +2175,12 @@ module: org-openroadm-device
     |  |  |  +--:(amp)
     |  |  |     +---w amp-number       -> /org-openroadm-device/line-amplifier/amp-number
     |  |  +---w port-direction?        org-openroadm-common-alarm-pm-types:direction
-    |  |  +---w distance?              decimal64
-    |  |  +---w resolution?            decimal64
+    |  |  +---w (distance-or-type)?
+    |  |     +--:(distance)
+    |  |     |  +---w distance?        decimal64
+    |  |     |  +---w resolution?      decimal64
+    |  |     +--:(type)
+    |  |        +---w type?            scan-type
     |  +--ro output
     |     +--ro status            rpc-status
     |     +--ro status-message?   string

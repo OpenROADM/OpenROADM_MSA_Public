@@ -13,11 +13,11 @@ module org-openroadm-network-types {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -55,6 +55,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
@@ -299,6 +303,21 @@ module org-openroadm-network-types {
       }
       enum TURNBACK-LINK {
         value 10;
+      }
+      enum XPONDER-NETWORK-LINK {
+        value 11;
+        description
+          "A back-to-back network side link that connects two xponder network ports";
+      }
+      enum XPONDER-CLIENT-LINK {
+        value 12;
+        description
+          "A back-to-back client side link that connects two xponder client ports";
+      }
+      enum XPONDER-STACK-LINK {
+        value 13;
+        description
+          "A stack link that connects one xponder network port and another xponder client port";
       }
     }
   }

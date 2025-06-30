@@ -13,31 +13,31 @@ module org-openroadm-service {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-05-30;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -49,7 +49,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   organization
@@ -85,6 +85,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";

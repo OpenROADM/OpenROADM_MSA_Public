@@ -40,6 +40,10 @@ module org-openroadm-resource-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2022-03-25 {
     description
       "Version 11.0";
@@ -197,6 +201,21 @@ module org-openroadm-resource-types {
         value 22;
         description
           "circuit pack cp-slot";
+      }
+      enum ospf-neighbor {
+        value 23;
+        description
+          "OSPF neighbor";
+      }
+      enum bgp-neighbor {
+        value 24;
+        description
+          "OSPF neighbor";
+      }
+      enum user {
+        value 25;
+        description
+          "user";
       }
     }
   }
@@ -439,6 +458,71 @@ module org-openroadm-resource-types {
       description
         "Slot-name identifier for a circuit-pack cp-slot. Unique within the context of a circut-pack.
          Same as leafref value in model, if applicable.";
+    }
+  }
+
+  grouping comms-neighbor {
+    leaf routing-instance {
+      type string;
+      mandatory true;
+      description
+        "Routing instance for a neighbor";
+    }
+    leaf routing-protocol-type {
+      type string;
+      mandatory true;
+      description
+        "Routing protocol type";
+    }
+    leaf routing-protocol-name {
+      type string;
+      mandatory true;
+      description
+        "Routing protocol name";
+    }
+  }
+
+  grouping bgp-neighbor-name {
+    leaf remote-address {
+      type string;
+      mandatory true;
+      description
+        "BGP remote address for the neighbor";
+    }
+  }
+
+  grouping ospf-neighbor-name {
+    leaf ospf-routing-instance {
+      type string;
+      mandatory true;
+      description
+        "OSPF routing instance";
+    }
+    leaf ospf-address-family {
+      type string;
+      mandatory true;
+      description
+        "OSPF Address family";
+    }
+    leaf ospf-area-id {
+      type string;
+      mandatory true;
+      description
+        "OSPF Area ID";
+    }
+    leaf ospf-interface {
+      type string;
+      mandatory true;
+      description
+        "OSPF interface name";
+    }
+  }
+  grouping user-name {
+    leaf user {
+      type string;
+      mandatory true;
+      description
+        "User name";
     }
   }
 }

@@ -53,9 +53,26 @@ module: org-openroadm-alarm
         |  |     |     +--ro shelf-name    string
         |  |     |     +--ro slot-name     string
         |  |     +--:(cp-slot)
-        |  |        +--ro cp-slot
-        |  |           +--ro circuit-pack-name    string
-        |  |           +--ro slot-name            string
+        |  |     |  +--ro cp-slot
+        |  |     |     +--ro circuit-pack-name    string
+        |  |     |     +--ro slot-name            string
+        |  |     +--:(ospf-neighbor)
+        |  |     |  +--ro ospf-neighbor
+        |  |     |     +--ro routing-instance         string
+        |  |     |     +--ro routing-protocol-type    string
+        |  |     |     +--ro routing-protocol-name    string
+        |  |     |     +--ro ospf-routing-instance    string
+        |  |     |     +--ro ospf-address-family      string
+        |  |     |     +--ro ospf-area-id             string
+        |  |     |     +--ro ospf-interface           string
+        |  |     +--:(bgp-neighbor)
+        |  |     |  +--ro bgp-neighbor
+        |  |     |     +--ro routing-instance         string
+        |  |     |     +--ro routing-protocol-type    string
+        |  |     |     +--ro routing-protocol-name    string
+        |  |     |     +--ro remote-address           string
+        |  |     +--:(user)
+        |  |        +--ro user                      string
         |  +--ro resourceType
         |     +--ro type         resource-type-enum
         |     +--ro extension?   string
@@ -125,9 +142,26 @@ module: org-openroadm-alarm
        |  |     |     +--ro shelf-name    string
        |  |     |     +--ro slot-name     string
        |  |     +--:(cp-slot)
-       |  |        +--ro cp-slot
-       |  |           +--ro circuit-pack-name    string
-       |  |           +--ro slot-name            string
+       |  |     |  +--ro cp-slot
+       |  |     |     +--ro circuit-pack-name    string
+       |  |     |     +--ro slot-name            string
+       |  |     +--:(ospf-neighbor)
+       |  |     |  +--ro ospf-neighbor
+       |  |     |     +--ro routing-instance         string
+       |  |     |     +--ro routing-protocol-type    string
+       |  |     |     +--ro routing-protocol-name    string
+       |  |     |     +--ro ospf-routing-instance    string
+       |  |     |     +--ro ospf-address-family      string
+       |  |     |     +--ro ospf-area-id             string
+       |  |     |     +--ro ospf-interface           string
+       |  |     +--:(bgp-neighbor)
+       |  |     |  +--ro bgp-neighbor
+       |  |     |     +--ro routing-instance         string
+       |  |     |     +--ro routing-protocol-type    string
+       |  |     |     +--ro routing-protocol-name    string
+       |  |     |     +--ro remote-address           string
+       |  |     +--:(user)
+       |  |        +--ro user                      string
        |  +--ro resourceType
        |     +--ro type         resource-type-enum
        |     +--ro extension?   string
@@ -388,9 +422,26 @@ module: org-openroadm-pm
     |  |  |     |     +---w shelf-name    string
     |  |  |     |     +---w slot-name     string
     |  |  |     +--:(cp-slot)
-    |  |  |        +---w cp-slot
-    |  |  |           +---w circuit-pack-name    string
-    |  |  |           +---w slot-name            string
+    |  |  |     |  +---w cp-slot
+    |  |  |     |     +---w circuit-pack-name    string
+    |  |  |     |     +---w slot-name            string
+    |  |  |     +--:(ospf-neighbor)
+    |  |  |     |  +---w ospf-neighbor
+    |  |  |     |     +---w routing-instance         string
+    |  |  |     |     +---w routing-protocol-type    string
+    |  |  |     |     +---w routing-protocol-name    string
+    |  |  |     |     +---w ospf-routing-instance    string
+    |  |  |     |     +---w ospf-address-family      string
+    |  |  |     |     +---w ospf-area-id             string
+    |  |  |     |     +---w ospf-interface           string
+    |  |  |     +--:(bgp-neighbor)
+    |  |  |     |  +---w bgp-neighbor
+    |  |  |     |     +---w routing-instance         string
+    |  |  |     |     +---w routing-protocol-type    string
+    |  |  |     |     +---w routing-protocol-name    string
+    |  |  |     |     +---w remote-address           string
+    |  |  |     +--:(user)
+    |  |  |        +---w user                      string
     |  |  +---w resourceType
     |  |  |  +---w type         resource-type-enum
     |  |  |  +---w extension?   string

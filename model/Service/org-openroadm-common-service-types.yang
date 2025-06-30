@@ -16,7 +16,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -32,7 +32,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-05-30;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -48,7 +48,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-service-format {
     prefix org-openroadm-service-format;
-    revision-date 2019-11-29;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
@@ -56,7 +56,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -68,11 +68,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
 
   organization
@@ -108,6 +108,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";

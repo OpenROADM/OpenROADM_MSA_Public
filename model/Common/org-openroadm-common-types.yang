@@ -4,7 +4,7 @@ module org-openroadm-common-types {
 
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   organization
     "Open ROADM MSA";
@@ -39,6 +39,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
@@ -417,6 +421,11 @@ module org-openroadm-common-types {
         value 36;
         description
           "value for 17.0";
+      }
+      enum 17.1.0 {
+        value 37;
+        description
+          "value for 17.1.0";
       }
     }
     description

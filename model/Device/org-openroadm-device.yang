@@ -16,7 +16,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-common-alarm-pm-types {
     prefix org-openroadm-common-alarm-pm-types;
@@ -52,19 +52,19 @@ module org-openroadm-device {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2022-03-25;
+    revision-date 2025-05-30;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-user-mgmt {
     prefix org-openroadm-user-mgmt;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
@@ -72,7 +72,7 @@ module org-openroadm-device {
   }
   import org-openroadm-swdl {
     prefix org-openroadm-swdl;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -92,7 +92,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
@@ -100,7 +100,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-03-28;
+    revision-date 2025-05-30;
   }
   organization
     "Open ROADM MSA";
@@ -149,6 +149,10 @@ module org-openroadm-device {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
@@ -329,6 +333,22 @@ module org-openroadm-device {
     description
       "This type is used by data models that need to reference
        configured interfaces.";
+  }
+
+  typedef scan-type {
+    type enumeration {
+      enum safety {
+        description
+          "This is a safety scan to ensure the proper turnup of
+           a link with raman.  Multiple scans may be run to test
+           the fiber plant.  This type of scan will not produce
+           an OTDR file.";
+      }
+    }
+    description
+      "The type of scan to run.  The distances and resolutions involved
+       in the scan type are implied by the type and not explicitly
+       provided";
   }
 
   grouping create-tech-info-group {
@@ -877,6 +897,12 @@ module org-openroadm-device {
       mandatory true;
       description
         "True if circuitpack is pluggable optics";
+    }
+    leaf-list compliance-codes {
+      type org-openroadm-common-phy-codes:compliance-codes-union;
+      config false;
+      description
+        "A list of OpenROADM defined compliance codes supported by this circuit-pack.";
     }
     leaf is-physical {
       type boolean;
@@ -2062,12 +2088,6 @@ module org-openroadm-device {
       description
         "Whether port is uni (tx/rx) or bi-directional and";
     }
-    leaf-list compliance-codes {
-      type org-openroadm-common-phy-codes:compliance-codes-union;
-      config false;
-      description
-        "A list of OpenROADM defined compliance codes supported by this port.";
-    }
     uses org-openroadm-port-types:port-features {
       refine "is-physical" {
         config false;
@@ -2557,6 +2577,11 @@ module org-openroadm-device {
       description
         "Minimum Network ODUCn rate";
     }
+    leaf network-max-oducn-n-rate {
+      type uint16;
+      description
+        "Maximum Network ODUCn rate";
+    }
     leaf network-ho-odu-trib-port-number {
       type uint16 {
         range "1 .. 80";
@@ -2609,25 +2634,6 @@ module org-openroadm-device {
       mandatory true;
       description
         "OTSi rate";
-    }
-    list otsi-optical-mode-support {
-      config false;
-      description
-        "List of supported optical mode attributes";
-      leaf modulation-format {
-        type org-openroadm-common-optical-channel-types:modulation-format;
-        mandatory true;
-        description
-          "OTSi modulation formats supported by the profile";
-      }
-      leaf fec {
-        type identityref {
-          base org-openroadm-common-types:fec-identity;
-        }
-        mandatory true;
-        description
-          "OTSi FEC types supported by the profile";
-      }
     }
     description
       "OTSi group grouping";
@@ -3210,6 +3216,13 @@ module org-openroadm-device {
           description
             "Minimum Network OTSIG rate types supported by the profile";
         }
+        leaf network-max-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Maximum Network OTSIG rate types supported by the profile";
+        }
         uses mux-eth-grp;
       }
       list otsi-profile {
@@ -3243,6 +3256,13 @@ module org-openroadm-device {
           }
           description
             "Minimum Network OTSIG rate types supported by the profile";
+        }
+        leaf network-max-otsi-group-rate {
+          type identityref {
+            base org-openroadm-common-optical-channel-types:otsi-rate-identity;
+          }
+          description
+            "Maximum Network OTSIG rate types supported by the profile";
         }
         leaf network-flexo-trib-port-number {
           type uint16 {
@@ -3713,19 +3733,33 @@ module org-openroadm-device {
       leaf port-direction {
         type org-openroadm-common-alarm-pm-types:direction;
       }
-      leaf distance {
-        type decimal64 {
-          fraction-digits 2;
-        }
+      choice distance-or-type {
         description
-          "Units are in meters (m)";
-      }
-      leaf resolution {
-        type decimal64 {
-          fraction-digits 2;
+          "Scan type provided via an explicit distance and resolution
+           or a type field that summarizes the type(s) of scan to run";
+        case distance {
+          leaf distance {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "Units are in meters (m)";
+          }
+          leaf resolution {
+            type decimal64 {
+              fraction-digits 2;
+            }
+            description
+              "Units for (sampling) resolution are in meters (m)";
+          }
         }
-        description
-          "Units for (sampling) resolution are in meters (m)";
+        case type {
+          leaf type {
+            type scan-type;
+            description
+              "Type of scan to run.";
+          }
+        }
       }
     }
     output {
