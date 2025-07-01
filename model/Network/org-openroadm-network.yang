@@ -214,8 +214,8 @@ module org-openroadm-network {
 
   deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
-      must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network) or
-            (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-network and
+      must "(not (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/net:openroadm-network)) or
+            (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/net:openroadm-network and
             (../cnet:node-type = 'ROADM' or ../cnet:node-type = 'XPONDER' or ../cnet:node-type = 'EXT-PLUGGABLE'))" {
         error-message "Invalid node type for openroadm-network";
         description
