@@ -6190,6 +6190,7 @@ module: org-openroadm-service
     |  |  |  +---w rpc-action?          rpc-actions
     |  |  |  +---w notification-url?    string
     |  |  |  +---w request-system-id?   string
+    |  |  +---w show-resource-availability?    boolean
     |  |  +---w connection-type?               org-openroadm-common-service-types:connection-type
     |  |  +---w resource-status?               resource-status-type
     |  |  +---w routing-metric
@@ -7706,8 +7707,8 @@ module: org-openroadm-service
     |     |  +--ro service-z-end
     |     |  |  +--ro clli?   string
     |     |  +--ro supporting-service* [id]
-    |     |  |  +--ro service-identifier?   string
-    |     |  |  +--ro id                    string
+    |     |  |  +--ro service-identifier?          string
+    |     |  |  +--ro id                           string
     |     |  |  +--ro service-a-end
     |     |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |     |  |  |  +--ro service-rate?                    uint32
@@ -7717,13 +7718,20 @@ module: org-openroadm-service
     |     |  |  |  +--ro clli?                            string
     |     |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  |  +--ro service-z-end
-    |     |  |     +--ro service-format                   org-openroadm-service-format:service-format
-    |     |  |     +--ro service-rate?                    uint32
-    |     |  |     +--ro other-service-format-and-rate?   string
-    |     |  |     +--ro otu-service-rate?                identityref
-    |     |  |     +--ro odu-service-rate?                identityref
-    |     |  |     +--ro clli?                            string
-    |     |  |     +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |     |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
+    |     |  |  |  +--ro service-rate?                    uint32
+    |     |  |  |  +--ro other-service-format-and-rate?   string
+    |     |  |  |  +--ro otu-service-rate?                identityref
+    |     |  |  |  +--ro odu-service-rate?                identityref
+    |     |  |  |  +--ro clli?                            string
+    |     |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |     |  |  +--ro wdm-resource-availability
+    |     |  |     +--ro available-freq-map* [map-name]
+    |     |  |        +--ro map-name                string
+    |     |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
+    |     |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |     |  |        +--ro effective-bits?         uint16
+    |     |  |        +--ro freq-map?               binary
     |     |  +--ro transport-assignment
     |     |     +--ro mc-ttp
     |     |     |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
@@ -8749,8 +8757,8 @@ module: org-openroadm-service
     |        |  +--ro service-z-end
     |        |  |  +--ro clli?   string
     |        |  +--ro supporting-service* [id]
-    |        |  |  +--ro service-identifier?   string
-    |        |  |  +--ro id                    string
+    |        |  |  +--ro service-identifier?          string
+    |        |  |  +--ro id                           string
     |        |  |  +--ro service-a-end
     |        |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |        |  |  |  +--ro service-rate?                    uint32
@@ -8760,13 +8768,20 @@ module: org-openroadm-service
     |        |  |  |  +--ro clli?                            string
     |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro service-z-end
-    |        |  |     +--ro service-format                   org-openroadm-service-format:service-format
-    |        |  |     +--ro service-rate?                    uint32
-    |        |  |     +--ro other-service-format-and-rate?   string
-    |        |  |     +--ro otu-service-rate?                identityref
-    |        |  |     +--ro odu-service-rate?                identityref
-    |        |  |     +--ro clli?                            string
-    |        |  |     +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |        |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
+    |        |  |  |  +--ro service-rate?                    uint32
+    |        |  |  |  +--ro other-service-format-and-rate?   string
+    |        |  |  |  +--ro otu-service-rate?                identityref
+    |        |  |  |  +--ro odu-service-rate?                identityref
+    |        |  |  |  +--ro clli?                            string
+    |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |        |  |  +--ro wdm-resource-availability
+    |        |  |     +--ro available-freq-map* [map-name]
+    |        |  |        +--ro map-name                string
+    |        |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |        |  |        +--ro effective-bits?         uint16
+    |        |  |        +--ro freq-map?               binary
     |        |  +--ro transport-assignment
     |        |     +--ro mc-ttp
     |        |     |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz
@@ -8828,6 +8843,7 @@ module: org-openroadm-service
     |  |  +---w service-request-list* [common-id]
     |  |     +---w common-id                      string
     |  |     +---w version-number?                uint8
+    |  |     +---w show-resource-availability?    boolean
     |  |     +---w connection-type?               org-openroadm-common-service-types:connection-type
     |  |     +---w resource-status?               resource-status-type
     |  |     +---w routing-metric
@@ -10344,8 +10360,8 @@ module: org-openroadm-service
     |        |  +--ro service-z-end
     |        |  |  +--ro clli?   string
     |        |  +--ro supporting-service* [id]
-    |        |  |  +--ro service-identifier?   string
-    |        |  |  +--ro id                    string
+    |        |  |  +--ro service-identifier?          string
+    |        |  |  +--ro id                           string
     |        |  |  +--ro service-a-end
     |        |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
     |        |  |  |  +--ro service-rate?                    uint32
@@ -10355,13 +10371,20 @@ module: org-openroadm-service
     |        |  |  |  +--ro clli?                            string
     |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro service-z-end
-    |        |  |     +--ro service-format                   org-openroadm-service-format:service-format
-    |        |  |     +--ro service-rate?                    uint32
-    |        |  |     +--ro other-service-format-and-rate?   string
-    |        |  |     +--ro otu-service-rate?                identityref
-    |        |  |     +--ro odu-service-rate?                identityref
-    |        |  |     +--ro clli?                            string
-    |        |  |     +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |        |  |  |  +--ro service-format                   org-openroadm-service-format:service-format
+    |        |  |  |  +--ro service-rate?                    uint32
+    |        |  |  |  +--ro other-service-format-and-rate?   string
+    |        |  |  |  +--ro otu-service-rate?                identityref
+    |        |  |  |  +--ro odu-service-rate?                identityref
+    |        |  |  |  +--ro clli?                            string
+    |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
+    |        |  |  +--ro wdm-resource-availability
+    |        |  |     +--ro available-freq-map* [map-name]
+    |        |  |        +--ro map-name                string
+    |        |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
+    |        |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+    |        |  |        +--ro effective-bits?         uint16
+    |        |  |        +--ro freq-map?               binary
     |        |  +--ro transport-assignment
     |        |     +--ro mc-ttp
     |        |     |  +--rw min-freq?   org-openroadm-common-optical-channel-types:frequency-THz

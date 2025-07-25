@@ -253,6 +253,13 @@ module org-openroadm-service {
   }
 
   grouping service-feasibility-check-inputs {
+    leaf show-resource-availability {
+        type boolean;
+        description
+          "Whether or not the controller should return the resource availability (available
+          frequency bitmap along each OMS link tranversed) on the path";
+        default "false";
+    }
     leaf connection-type {
       type org-openroadm-common-service-types:connection-type;
     }
@@ -400,7 +407,20 @@ module org-openroadm-service {
       description
         "This lists all the supporting services and their respective hierarchy, includes the
          proposed one";
-      uses org-openroadm-common-service-types:service-hierarchy;
+      uses org-openroadm-common-service-types:service-hierarchy {
+          description
+            "This container is augmented to include the available frequency bitmap
+             on each supporting service when requested in the input";
+          augment supporting-service {
+            container wdm-resource-availability {
+              description
+                "This container holds the available frequency resources for each OMS link,
+                the service traverses. This is provided only if requested in the input
+                (show-resource-availability) is set to true";
+              uses org-openroadm-topology:available-freq-map;
+            }
+          }
+      }
     }
     uses service-path-metrics;
     uses org-openroadm-common-service-types:max-regeneration-options;

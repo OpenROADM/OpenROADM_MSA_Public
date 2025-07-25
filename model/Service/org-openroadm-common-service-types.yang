@@ -1997,6 +1997,9 @@ module org-openroadm-common-service-types {
       }
     }
     list supporting-service {
+      description
+        "List of supporting services (sometimes can be referred to as OMS links). Available
+        freq bit-map indicates the frequency slots that are available for this service.";
       key "id";
       uses supporting-service;
     }
