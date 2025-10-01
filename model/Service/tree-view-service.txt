@@ -4320,6 +4320,8 @@ module: org-openroadm-service
      |  |     |  +--rw WR-openroadm-operational-mode-id    string
      |  |     |  +--rw min-output-power                    org-openroadm-common-link-types:power-dBm
      |  |     |  +--rw max-output-power                    org-openroadm-common-link-types:power-dBm
+     |  |     |  +--rw min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
+     |  |     |  +--rw max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
      |  |     +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
      |  |     +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
      |  |     +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
@@ -4437,6 +4439,8 @@ module: org-openroadm-service
            |  +--rw WR-openroadm-operational-mode-id    string
            |  +--rw min-output-power                    org-openroadm-common-link-types:power-dBm
            |  +--rw max-output-power                    org-openroadm-common-link-types:power-dBm
+           |  +--rw min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
+           |  +--rw max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
            +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
            +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
            +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
@@ -13690,6 +13694,8 @@ module: org-openroadm-service
     |  |     |     |  +---w WR-openroadm-operational-mode-id    string
     |  |     |     |  +---w min-output-power                    org-openroadm-common-link-types:power-dBm
     |  |     |     |  +---w max-output-power                    org-openroadm-common-link-types:power-dBm
+    |  |     |     |  +---w min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
+    |  |     |     |  +---w max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |     |     +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
     |  |     |     +---w max-input-power                  org-openroadm-common-link-types:power-dBm
@@ -13819,6 +13825,8 @@ module: org-openroadm-service
     |  |           |  +---w WR-openroadm-operational-mode-id    string
     |  |           |  +---w min-output-power                    org-openroadm-common-link-types:power-dBm
     |  |           |  +---w max-output-power                    org-openroadm-common-link-types:power-dBm
+    |  |           |  +---w min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
+    |  |           |  +---w max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |           +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
     |  |           +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
     |  |           +---w max-input-power                  org-openroadm-common-link-types:power-dBm
