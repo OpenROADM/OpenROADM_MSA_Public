@@ -12,11 +12,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2024-03-29;
+    revision-date 2025-09-26;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-equipment-types {
     prefix org-openroadm-common-equipment-types;
@@ -40,7 +40,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
@@ -68,11 +68,11 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
 
   organization
@@ -108,6 +108,10 @@ module org-openroadm-common-service-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-09-26 {
+    description
+      "Version 18.0.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -1993,6 +1997,9 @@ module org-openroadm-common-service-types {
       }
     }
     list supporting-service {
+      description
+        "List of supporting services (sometimes can be referred to as OMS links). Available
+        freq bit-map indicates the frequency slots that are available for this service.";
       key "id";
       uses supporting-service;
     }

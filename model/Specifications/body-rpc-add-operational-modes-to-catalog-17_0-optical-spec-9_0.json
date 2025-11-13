@@ -538,15 +538,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "dp-qpsk",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+                            "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "17.400",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
@@ -623,15 +637,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "dp-qpsk",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "17.200",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
@@ -708,15 +736,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "dp-qpsk",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "17.400",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
@@ -793,15 +835,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "dp-qpsk",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "17.200",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
@@ -878,15 +934,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "27.200",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -968,15 +1038,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "27.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1058,15 +1142,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "27.200",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1148,15 +1246,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "27.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1238,15 +1350,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "22.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1323,15 +1449,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "21.800",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1408,15 +1548,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "25.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1498,15 +1652,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "26.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1588,15 +1756,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "22.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1673,15 +1855,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "21.800",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1758,15 +1954,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-xe",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "25.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -1848,15 +2058,29 @@
 	                        "payload-frame-type": "org-openroadm-common-service-types:flexo-x",
 	                        "modulation-format": "pcs-dp-qam16",
 	                        "min-TX-osnr": "37.000",
-	                        "TX-OOB-osnr": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-OOB-osnr-multi-channel-value": "36.000"
-	                        }],
-	                        "output-power-range": [{
-	                            "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
-	                            "min-output-power": "-5.00",
-	                            "max-output-power": "0.00"
-	                        }],
+	                        "TX-OOB-osnr": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-OOB-osnr-multi-channel-value": "36.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-OOB-osnr-multi-channel-value": "44.000"
+                                }
+                            ],
+                            "output-power-range": [
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                },
+                                {
+                                    "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                    "min-output-power": "-5.000",
+                                    "max-output-power": "0.000"
+                                }
+                                
+                            ],
 	                        "min-RX-osnr-tolerance": "26.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
@@ -2042,7 +2266,7 @@
 		                                "D": "-3.00000000",
 		                                "fiber-type": "smf"
 		                            },
-		                            {
+		                            { 
 		                                "lower-boundary": "8",
 		                                "upper-boundary": "23",
 		                                "C": "0.33333334",
@@ -2057,7 +2281,47 @@
 		                                "fiber-type": "smf"
 		                            }
 		                        ]
-		                    }
+		                    },
+                            {
+                                "openroadm-operational-mode-id": "MW-WR-core-TDA",
+                                "max-channel-number": "32",
+                                "incremental-osnr": "35.000",
+                                "per-channel-Pin-min": "-6.00",
+                                "per-channel-Pin-max": "3.00",
+                                "max-introduced-pdl": "1.500",
+                                "max-introduced-dgd": "3.00",
+                                "max-introduced-cd": "25.00",
+                                "mask-power-vs-pin": [
+                                    {
+                                        "lower-boundary": "0",
+                                        "upper-boundary": "6",
+                                        "C": "1.00000000",
+                                        "D": "-9.00000000",
+                                        "fiber-type": "smf"
+                                    },
+                                    {
+                                        "lower-boundary": "6",
+                                        "upper-boundary": "8",
+                                        "C": "-0.00000000",
+                                        "D": "-3.00000000",
+                                        "fiber-type": "smf"
+                                    },
+                                    {
+                                        "lower-boundary": "8",
+                                        "upper-boundary": "23",
+                                        "C": "0.33333334",
+                                        "D": "-5.66666667",
+                                        "fiber-type": "smf"
+                                    },
+                                    {
+                                        "lower-boundary": "23",
+                                        "upper-boundary": "27",
+                                        "C": "0.00000000",
+                                        "D": "2.00000000",
+                                        "fiber-type": "smf"
+                                    }
+                                ]
+                            }
 	                    ]
 	                },
                     "Drop": {

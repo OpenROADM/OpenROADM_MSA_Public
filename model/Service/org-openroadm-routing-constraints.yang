@@ -10,6 +10,10 @@ module org-openroadm-routing-constraints {
     prefix org-openroadm-network-resource;
     revision-date 2019-11-29;
   }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2025-03-28;
+  }
 
   organization
     "Open ROADM MSA";
@@ -44,6 +48,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-09-26 {
+    description
+      "Version 18.0.0";
+  }
   revision 2024-03-29 {
     description
       "Version 15.0";
@@ -140,6 +148,18 @@ module org-openroadm-routing-constraints {
         "Diversity constraints for single or bulk requests.
         diversity-constraints provides more options for bulk requests";
     }
+    container transport-constraint-a-end {
+      description
+        "Transport constraints includes constraints such as frequency band, slot-wdith etc.
+        This refers to the constraints at the A-end of the service.";
+      uses spectrum-constraints-g;
+    }
+    container transport-constraint-z-end {
+      description
+        "Transport constraints includes constraints such as frequency band, slot-wdith etc.
+        This refers to the constraints at the Z-end of the service.";
+      uses spectrum-constraints-g;
+    }
     container exclude {
       uses common-constraints;
       leaf-list supporting-service-name {
@@ -183,14 +203,21 @@ module org-openroadm-routing-constraints {
           taken as un-ordered.";
         default "false";
       }
-      uses common-constraints;
-      leaf-list supporting-service-name {
-        type string;
-        ordered-by user;
-        description
-          "Supporting service(s) to include in this route.
-          User ordering allows the list to be in path order if 'is-explicit-routing' or 'is-include-list-ordered'
-          is enabled true";
+      uses common-constraints {
+        augment  link-identifier {
+          uses spectrum-constraints-g;
+        }
+      }
+      list supporting-service {
+        key "supporting-service-name";
+        leaf supporting-service-name {
+          type string;
+          description
+            "Supporting service(s) to include in this route or sometimes referred to as
+            OMS links along the route. This is different from the supporting-service-name leaf-list in exclude
+            constraints. This list allows to specify spectrum constraints on each of the supporting services.";
+        }
+        uses spectrum-constraints-g;
       }
     }
     container latency {
@@ -249,7 +276,40 @@ module org-openroadm-routing-constraints {
     }
   }
 
-
+  grouping spectrum-constraints-g {
+      description
+        "Indicates the band(s) of spectrum constraints, during the spectrum assignment step of
+        path-computation";
+      list spectrum-portion-constraint {
+        description
+          "List of bands used for spectrum-selection";
+        key "index";
+        leaf index {
+          type uint8;
+          description
+            "Index for the portion range. Range should be >= slot-width of the channel.
+            For example, a 100Gbps channel with 50 GHz slot width needs to use specific
+            range of spectrum, then max_edge_freq - min_edge_freq >= 50 GHz, if both values are
+            specified. For case when one (min-edge or max-edge) is not specified, please refer
+            to the description on the individual leafs below. ";
+        }
+        leaf min-edge-frequency {
+          type org-openroadm-common-optical-channel-types:frequency-THz;
+          description
+            "If present, this parameter states the lowest frequency to start
+            filling the spectrum, or a spectrum portion if max-edge-frequency
+            is also defined.";
+        }
+        leaf max-edge-frequency {
+          type org-openroadm-common-optical-channel-types:frequency-THz;
+          description
+            "If present and associated with a min-edge frequency, this parameter
+            states the upper frequency boundary to fill the spectrum portion.
+            If present, in the absence of a min-edge frequency, this parameter
+            states the highest frequency to start filling the spectrum.";
+        }
+      }
+    }
   grouping common-constraints {
     leaf-list fiber-bundle {
       type string;

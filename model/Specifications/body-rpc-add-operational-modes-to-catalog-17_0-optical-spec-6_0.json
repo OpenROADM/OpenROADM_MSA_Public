@@ -547,7 +547,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "20.000",
+	                        "min-RX-osnr-tolerance": "17.400",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "148.92000",
@@ -632,7 +632,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "20.000",
+	                        "min-RX-osnr-tolerance": "17.200",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "141.84000",
@@ -717,7 +717,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "20.000",
+	                        "min-RX-osnr-tolerance": "17.400",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "148.92000",
@@ -802,7 +802,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "20.000",
+	                        "min-RX-osnr-tolerance": "17.200",
 	                        "min-input-power-at-RX-osnr": "-15.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "141.84000",
@@ -1247,7 +1247,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "99.999",
+	                        "min-RX-osnr-tolerance": "22.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "149.64000",
@@ -1332,7 +1332,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "99.999",
+	                        "min-RX-osnr-tolerance": "21.800",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "142.56000",
@@ -1417,7 +1417,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "25.000",
+	                        "min-RX-osnr-tolerance": "25.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "157.60800",
@@ -1507,7 +1507,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "26.000",
+	                        "min-RX-osnr-tolerance": "26.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "157.62000",
@@ -1597,7 +1597,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "99.999",
+	                        "min-RX-osnr-tolerance": "22.000",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "149.64000",
@@ -1682,7 +1682,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "99.999",
+	                        "min-RX-osnr-tolerance": "21.800",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "142.56000",
@@ -1767,7 +1767,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "25.000",
+	                        "min-RX-osnr-tolerance": "25.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "157.60800",
@@ -1857,7 +1857,7 @@
 	                            "min-output-power": "-5.00",
 	                            "max-output-power": "0.00"
 	                        }],
-	                        "min-RX-osnr-tolerance": "26.000",
+	                        "min-RX-osnr-tolerance": "26.100",
 	                        "min-input-power-at-RX-osnr": "-11.00",
 	                        "max-input-power": "1.00",
 	                        "channel-width": "157.62000",

@@ -9,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2024-03-29;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -21,23 +21,23 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -49,7 +49,7 @@ module org-openroadm-service {
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
 
   organization
@@ -85,6 +85,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-09-26 {
+    description
+      "Version 18.0.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -249,6 +253,13 @@ module org-openroadm-service {
   }
 
   grouping service-feasibility-check-inputs {
+    leaf show-resource-availability {
+        type boolean;
+        description
+          "Whether or not the controller should return the resource availability (available
+          frequency bitmap along each OMS link tranversed) on the path";
+        default "false";
+    }
     leaf connection-type {
       type org-openroadm-common-service-types:connection-type;
     }
@@ -396,7 +407,20 @@ module org-openroadm-service {
       description
         "This lists all the supporting services and their respective hierarchy, includes the
          proposed one";
-      uses org-openroadm-common-service-types:service-hierarchy;
+      uses org-openroadm-common-service-types:service-hierarchy {
+          description
+            "This container is augmented to include the available frequency bitmap
+             on each supporting service when requested in the input";
+          augment supporting-service {
+            container wdm-resource-availability {
+              description
+                "This container holds the available frequency resources for each OMS link,
+                the service traverses. This is provided only if requested in the input
+                (show-resource-availability) is set to true";
+              uses org-openroadm-topology:available-freq-map;
+            }
+          }
+      }
     }
     uses service-path-metrics;
     uses org-openroadm-common-service-types:max-regeneration-options;

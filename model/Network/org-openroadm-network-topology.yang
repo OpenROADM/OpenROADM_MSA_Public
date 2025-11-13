@@ -13,19 +13,19 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
@@ -33,11 +33,11 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2025-05-30;
+    revision-date 2025-09-26;
   }
 
   organization
@@ -73,6 +73,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-09-26 {
+    description
+      "Version 18.0.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -208,8 +212,8 @@ module org-openroadm-network-topology {
 
   deviation "/nd:networks/nd:network/nd:node/cnet:node-type" {
     deviate add {
-      must "(not /nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or
-            (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
+      must "(not (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology)) or
+            (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology and
             (../cnet:node-type = 'DEGREE' or ../cnet:node-type = 'SRG' or ../cnet:node-type = 'TPDR' or ../cnet:node-type = 'SWITCH' or
              ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'EXT-PLUGGABLE' or
              ../cnet:node-type = 'MUXPDR'))" {
@@ -225,24 +229,24 @@ module org-openroadm-network-topology {
     description
       "Defines which TP types can be instantiated on which Node types";
     deviate add {
-      must "/nd:network/nd:node/cnet:node-type != 'DEGREE' or (../../cnet:node-type = 'DEGREE'  and
+      must "/nd:networks/nd:network/nd:node/cnet:node-type != 'DEGREE' or (../../cnet:node-type = 'DEGREE'  and
             (../cnet:tp-type = 'DEGREE-TX-TTP' or ../cnet:tp-type = 'DEGREE-RX-TTP' or  ../cnet:tp-type = 'DEGREE-TXRX-TTP' or
             ../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'))" {
         error-message "Invalid TP for node type 'DEGREE'";
       }
-      must "/nd:network/nd:node/cnet:node-type != 'SRG' or (../../cnet:node-type = 'SRG' and
+      must "/nd:networks/nd:network/nd:node/cnet:node-type != 'SRG' or (../../cnet:node-type = 'SRG' and
             (../cnet:tp-type = 'SRG-TX-CP' or ../cnet:tp-type = 'SRG-RX-CP' or ../cnet:tp-type = 'SRG-TXRX-CP' or
             ../cnet:tp-type = 'SRG-RX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-TXRX-PP'))" {
         error-message "Invalid TP for node type 'SRG'";
       }
-      must " (/nd:network/nd:node/cnet:node-type != 'TPDR' and ../../cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'REGEN' and
+      must " (/nd:networks/nd:network/nd:node/cnet:node-type != 'TPDR' and ../../cnet:node-type != 'MUXPDR' and ../../cnet:node-type != 'REGEN' and
             ../../cnet:node-type != 'REGEN-UNI' and ../../cnet:node-type != 'SWITCH')
             or ((../../cnet:node-type = 'TPDR' or ../../cnet:node-type = 'MUXPDR' or ../../cnet:node-type = 'REGEN' or
             ../../cnet:node-type = 'REGEN-UNI' or ../../cnet:node-type = 'SWITCH') and
             (../cnet:tp-type = 'XPONDER-NETWORK' or ../cnet:tp-type = 'XPONDER-CLIENT' or ../cnet:tp-type = 'XPONDER-PORT'))" {
         error-message "Invalid TP for node type 'XPONDER'";
       }
-      must "/nd:network/nd:node/cnet:node-type != 'EXT-PLUGGABLE' or (../../cnet:node-type = 'EXT-PLUGGABLE' and ../cnet:tp-type = 'EXT-PLUGGABLE-TP')" {
+      must "/nd:networks/nd:network/nd:node/cnet:node-type != 'EXT-PLUGGABLE' or (../../cnet:node-type = 'EXT-PLUGGABLE' and ../cnet:tp-type = 'EXT-PLUGGABLE-TP')" {
         error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
       }
     }
@@ -250,8 +254,8 @@ module org-openroadm-network-topology {
 
   deviation "/nd:networks/nd:network/nwt:link/cnet:link-type" {
     deviate add {
-      must "(not /nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology) or
-            (/nd:network/nd:network-types/cnet:openroadm-common-network/openroadm-topology and
+      must "(not (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology)) or
+            (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology and
             (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
              ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT' or
              ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT' or ../cnet:link-type = 'TURNBACK-LINK'))" {
