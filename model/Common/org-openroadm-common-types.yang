@@ -39,6 +39,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2025-09-26 {
     description
       "Version 18.0.0";
@@ -435,6 +439,11 @@ module org-openroadm-common-types {
         value 38;
         description
           "value for 18.0.0";
+      }
+      enum 18.1.0 {
+        value 39;
+        description
+          "value for 18.1.0";
       }
     }
     description
