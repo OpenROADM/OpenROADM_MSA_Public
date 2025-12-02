@@ -302,7 +302,10 @@ module org-openroadm-routing-constraints {
           description
             "If present, this parameter states the lowest frequency to start
             filling the spectrum, or a spectrum portion if max-edge-frequency
-            is also defined.";
+            is also defined. In other words all the frequencies above this value (including the
+            value specified) to max-edge-frequency (if defined).
+            min-edge-frequency <= f <= max-edge-frequency (if defined); or
+            f >= min-edge-frequency (if max-edge-frequency is not defined).";
         }
         leaf max-edge-frequency {
           type org-openroadm-common-optical-channel-types:frequency-THz;
@@ -310,7 +313,9 @@ module org-openroadm-routing-constraints {
             "If present and associated with a min-edge frequency, this parameter
             states the upper frequency boundary to fill the spectrum portion.
             If present, in the absence of a min-edge frequency, this parameter
-            states the highest frequency to start filling the spectrum.";
+            states the highest frequency to start filling the spectrum.
+            min-edge-frequency <= f <= max-edge-frequency (if min-edge-frequency is defined); or
+            f <= max-edge-frequency (if min-edge-frequency is not defined).";
         }
       }
     }
