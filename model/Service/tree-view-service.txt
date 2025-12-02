@@ -8148,7 +8148,7 @@ module: org-openroadm-service
     |     |  |  |  +--ro clli?                            string
     |     |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |     |  |  +--ro wdm-resource-availability
-    |     |  |     +--ro available-freq-map* [map-name]
+    |     |  |     +--ro avail-freq-maps* [map-name]
     |     |  |        +--ro map-name                string
     |     |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
     |     |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -9198,7 +9198,7 @@ module: org-openroadm-service
     |        |  |  |  +--ro clli?                            string
     |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro wdm-resource-availability
-    |        |  |     +--ro available-freq-map* [map-name]
+    |        |  |     +--ro avail-freq-maps* [map-name]
     |        |  |        +--ro map-name                string
     |        |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -10877,7 +10877,7 @@ module: org-openroadm-service
     |        |  |  |  +--ro clli?                            string
     |        |  |  |  +--ro node-id?                         org-openroadm-common-node-types:node-id-type
     |        |  |  +--ro wdm-resource-availability
-    |        |  |     +--ro available-freq-map* [map-name]
+    |        |  |     +--ro avail-freq-maps* [map-name]
     |        |  |        +--ro map-name                string
     |        |  |        +--ro start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
     |        |  |        +--ro freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz

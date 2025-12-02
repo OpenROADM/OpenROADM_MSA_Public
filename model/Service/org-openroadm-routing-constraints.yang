@@ -8,7 +8,7 @@ module org-openroadm-routing-constraints {
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
-    revision-date 2019-11-29;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -48,6 +48,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2025-09-26 {
     description
       "Version 18.0.0";
