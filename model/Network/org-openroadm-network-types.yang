@@ -224,6 +224,9 @@ module org-openroadm-network-types {
       enum SWITCH {
         value 17;
       }
+      enum ILA {
+        value 18;
+      }
     }
   }
 

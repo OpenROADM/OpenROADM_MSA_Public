@@ -305,6 +305,11 @@ module: org-openroadm-network-topology
                    |     +--rw type-variety?                     string
                    |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
                    |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
+                   |     +--rw amp-number?                       uint8
+                   |     +--rw dge-deployed?                     boolean
+                   |     +--rw supporting-node* [network-ref node-ref]
+                   |        +--rw network-ref    -> ../../../../../../../../nd:supporting-network/network-ref
+                   |        +--rw node-ref       -> /nd:networks/network/node/node-id
                    +--:(span)
                       +--rw span
                          +--rw auto-spanloss?            boolean

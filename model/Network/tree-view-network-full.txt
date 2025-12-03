@@ -405,6 +405,11 @@ module: ietf-network
         |  |              |     +--rw topo:type-variety?                     string
         |  |              |     +--rw topo:node-id                           org-openroadm-common-node-types:node-id-type
         |  |              |     +--rw topo:administrative-state?             org-openroadm-equipment-states-types:admin-states
+        |  |              |     +--rw topo:amp-number?                       uint8
+        |  |              |     +--rw topo:dge-deployed?                     boolean
+        |  |              |     +--rw topo:supporting-node* [network-ref node-ref]
+        |  |              |        +--rw topo:network-ref    -> ../../../../../../../../nd:supporting-network/network-ref
+        |  |              |        +--rw topo:node-ref       -> /nd:networks/network/node/node-id
         |  |              +--:(topo:span)
         |  |                 +--rw topo:span
         |  |                    +--rw topo:auto-spanloss?            boolean

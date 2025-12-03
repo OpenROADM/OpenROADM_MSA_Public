@@ -327,6 +327,43 @@ module org-openroadm-link {
               leaf administrative-state {
                 type org-openroadm-equipment-states-types:admin-states;
               }
+              leaf amp-number {
+                type uint8 {
+                  range "1..128";
+                }
+                description
+                  "Unique identifier/number for the amplifier entry which corresponds to a logical amplifier";
+              }
+              leaf dge-deployed {
+                type boolean;
+                default "false";
+                description
+                  "Whether the line amplifier is DGE deployed";
+              }
+              list supporting-node {
+                key "network-ref node-ref";
+                description
+                  "Represents another node that is in an underlay network
+                      \t   and that supports this node.  Used to represent layering
+                      \t   structure.";
+                leaf network-ref {
+                  type leafref {
+                    path "../../../../../../../../nd:supporting-network/nd:network-ref";
+                    require-instance false;
+                  }
+                  description
+                    "References the underlay network of which the
+                      \t     underlay node is a part.";
+                }
+                leaf node-ref {
+                  type leafref {
+                    path "/nd:networks/nd:network/nd:node/nd:node-id";
+                    require-instance false;
+                  }
+                  description
+                    "References the underlay node itself.";
+                }
+              }
             }
           }
           case span {
