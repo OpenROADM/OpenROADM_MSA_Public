@@ -374,6 +374,7 @@ module: ietf-network
         |  |  |  +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
         |  |  |  +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
         |  |  |  +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+        |  |  |  +--rw topo:max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
         |  |  |  +--rw topo:link-concatenation* [SRLG-Id]
         |  |  |  |  +--rw topo:SRLG-Id                        uint32
         |  |  |  |  +--rw topo:SRLG-length?                   decimal64
@@ -417,6 +418,7 @@ module: ietf-network
         |  |                    +--rw topo:spanloss-current?         org-openroadm-common-link-types:ratio-dB
         |  |                    +--rw topo:spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
         |  |                    +--rw topo:engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+        |  |                    +--rw topo:max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
         |  |                    +--rw topo:link-concatenation* [SRLG-Id]
         |  |                    |  +--rw topo:SRLG-Id                        uint32
         |  |                    |  +--rw topo:SRLG-length?                   decimal64

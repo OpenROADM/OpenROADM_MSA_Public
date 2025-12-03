@@ -232,6 +232,11 @@ module org-openroadm-link {
       description
         "ROADM span loss provided by an external system";
     }
+    leaf max-spanloss-allowed {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Maximum ROADM span loss allowed";
+    }
     uses org-openroadm-network-types:link-concatenation {
       augment "link-concatenation" {
         leaf fiber-type {
