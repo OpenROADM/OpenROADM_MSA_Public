@@ -264,7 +264,7 @@ module org-openroadm-ber-test {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name";
       }
       uses org-openroadm-common-ber-test:ber-test-options-container;
     }
@@ -285,7 +285,7 @@ module org-openroadm-ber-test {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name";
       }
       uses org-openroadm-common-ber-test:complex-ber-test-options-container;
     }
