@@ -2,6 +2,10 @@ module org-openroadm-network-resource {
   namespace "http://org/openroadm/network-resource";
   prefix org-openroadm-network-resource;
 
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2025-03-28;
+  }
   organization
     "Open ROADM MSA";
   contact
@@ -35,6 +39,10 @@ module org-openroadm-network-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -121,6 +129,40 @@ module org-openroadm-network-resource {
       mandatory true;
       description
         "link-id from the network model.";
+    }
+  }
+
+  grouping available-freq-map {
+    list avail-freq-maps {
+      key "map-name";
+      description
+        "Available spectrum information";
+      leaf map-name {
+        type string;
+        description
+          "Identifier of the map. For C-band, recommend map-name = 'cband'";
+      }
+      leaf start-edge-freq {
+        type org-openroadm-common-optical-channel-types:frequency-THz;
+        description
+          "Starting edge frequency (min frequency) for the frequency map. For C-band, the recommendation is start-edge-freq = 191.325 THz";
+      }
+      leaf freq-map-granularity {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        description
+          "frequency granularity of each bit in the bitmap.  For C-band, the recommendation is freq-map-granularity = 6.25 GHz";
+      }
+      leaf effective-bits {
+        type uint16;
+        description
+          "Number of effective bits in the frequency bitmap.  Note the freq-map bitmap will be padded with 0 for byte alignment.";
+      }
+      leaf freq-map {
+        type binary;
+        description
+          "Frequency bitmap.  Setting the value of the binary bit to 1 indicates that the corresponding spectrum is available and
+           setting to 0 indicates the corresponding spectrum is unavailable (used or unsupported).";
+      }
     }
   }
 }

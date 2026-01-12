@@ -13,19 +13,19 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
@@ -33,11 +33,15 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
+  }
+  import org-openroadm-network-resource {
+    prefix org-openroadm-network-resource;
+    revision-date 2025-12-12;
   }
 
   organization
@@ -73,6 +77,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2025-09-26 {
     description
       "Version 18.0.0";
@@ -288,7 +296,7 @@ module org-openroadm-network-topology {
       description
         "Topology-related attributes for SRG nodes";
       uses srg:srg-node-attributes;
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
       uses org-openroadm-network-types:type-variety-grp;
     }
     container degree-attributes {
@@ -296,7 +304,7 @@ module org-openroadm-network-topology {
       description
         "Topology-related attributes for degree nodes";
       uses dgr:degree-node-attributes;
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
       uses org-openroadm-network-types:type-variety-grp;
     }
     container xpdr-attributes {
@@ -319,7 +327,7 @@ module org-openroadm-network-topology {
         "There must be only one TP of type DEGREE-TX-TTP in any given
          degree node";
       uses dgr:degree-used-wavelengths;
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
     }
     container rx-ttp-attributes {
       when "../cnet:tp-type = 'DEGREE-RX-TTP'";
@@ -327,11 +335,11 @@ module org-openroadm-network-topology {
         "There must be only one TP of type DEGREE-RX-TTP in any given
          degree node";
       uses dgr:degree-used-wavelengths;
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
     }
     container ctp-attributes {
       when "../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'";
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
     }
     container cp-attributes {
       when "../cnet:tp-type = 'SRG-TX-CP' or ../cnet:tp-type = 'SRG-RX-CP' or ../cnet:tp-type = 'SRG-TXRX-CP'";
@@ -339,7 +347,7 @@ module org-openroadm-network-topology {
         "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid
          index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this
          will hold list of used spectra";
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
     }
     container pp-attributes {
       when "../cnet:tp-type = 'SRG-TXRX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-RX-PP' ";
@@ -351,7 +359,7 @@ module org-openroadm-network-topology {
         key "index";
         uses org-openroadm-network-types:wavelengths;
       }
-      uses org-openroadm-network-types:available-freq-map;
+      uses org-openroadm-network-resource:available-freq-map;
     }
     container xpdr-client-attributes {
       when "../../cnet:node-type = 'TPDR' and ../cnet:tp-type = 'XPONDER-CLIENT'";

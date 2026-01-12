@@ -274,6 +274,7 @@ module: org-openroadm-network-topology
        |  +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
        |  +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
        |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+       |  +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
        |  +--rw link-concatenation* [SRLG-Id]
        |  |  +--rw SRLG-Id                        uint32
        |  |  +--rw SRLG-length?                   decimal64
@@ -305,6 +306,11 @@ module: org-openroadm-network-topology
                    |     +--rw type-variety?                     string
                    |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
                    |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
+                   |     +--rw amp-number?                       uint8
+                   |     +--rw dge-deployed?                     boolean
+                   |     +--rw supporting-node* [network-ref node-ref]
+                   |        +--rw network-ref    -> ../../../../../../../../nd:supporting-network/network-ref
+                   |        +--rw node-ref       -> /nd:networks/network/node/node-id
                    +--:(span)
                       +--rw span
                          +--rw auto-spanloss?            boolean
@@ -312,6 +318,7 @@ module: org-openroadm-network-topology
                          +--rw spanloss-current?         org-openroadm-common-link-types:ratio-dB
                          +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
                          +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
+                         +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
                          +--rw link-concatenation* [SRLG-Id]
                          |  +--rw SRLG-Id                        uint32
                          |  +--rw SRLG-length?                   decimal64

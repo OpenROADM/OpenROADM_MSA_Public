@@ -25,11 +25,11 @@ module org-openroadm-link {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
 
   organization
@@ -66,6 +66,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2025-09-26 {
     description
       "Version 18.0.0";
@@ -228,6 +232,11 @@ module org-openroadm-link {
       description
         "ROADM span loss provided by an external system";
     }
+    leaf max-spanloss-allowed {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Maximum ROADM span loss allowed";
+    }
     uses org-openroadm-network-types:link-concatenation {
       augment "link-concatenation" {
         leaf fiber-type {
@@ -322,6 +331,43 @@ module org-openroadm-link {
               }
               leaf administrative-state {
                 type org-openroadm-equipment-states-types:admin-states;
+              }
+              leaf amp-number {
+                type uint8 {
+                  range "1..128";
+                }
+                description
+                  "Unique identifier/number for the amplifier entry which corresponds to a logical amplifier";
+              }
+              leaf dge-deployed {
+                type boolean;
+                default "false";
+                description
+                  "Whether the line amplifier is DGE deployed";
+              }
+              list supporting-node {
+                key "network-ref node-ref";
+                description
+                  "Represents another node that is in an underlay network
+                      \t   and that supports this node.  Used to represent layering
+                      \t   structure.";
+                leaf network-ref {
+                  type leafref {
+                    path "../../../../../../../../nd:supporting-network/nd:network-ref";
+                    require-instance false;
+                  }
+                  description
+                    "References the underlay network of which the
+                      \t     underlay node is a part.";
+                }
+                leaf node-ref {
+                  type leafref {
+                    path "/nd:networks/nd:network/nd:node/nd:node-id";
+                    require-instance false;
+                  }
+                  description
+                    "References the underlay node itself.";
+                }
               }
             }
           }

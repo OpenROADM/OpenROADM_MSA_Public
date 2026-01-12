@@ -9,11 +9,11 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
@@ -21,23 +21,23 @@ module org-openroadm-service {
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
@@ -49,7 +49,11 @@ module org-openroadm-service {
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2025-09-26;
+    revision-date 2025-12-12;
+  }
+  import org-openroadm-network-resource {
+    prefix org-openroadm-network-resource;
+    revision-date 2025-12-12;
   }
 
   organization
@@ -85,6 +89,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2025-12-12 {
+    description
+      "Version 18.1.0";
+  }
   revision 2025-09-26 {
     description
       "Version 18.0.0";
@@ -417,7 +425,7 @@ module org-openroadm-service {
                 "This container holds the available frequency resources for each OMS link,
                 the service traverses. This is provided only if requested in the input
                 (show-resource-availability) is set to true";
-              uses org-openroadm-topology:available-freq-map;
+              uses org-openroadm-network-resource:available-freq-map;
             }
           }
       }
@@ -517,7 +525,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name";
       }
       leaf common-id {
         type string;
@@ -554,7 +562,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name, echoed from the input.";
       }
       uses org-openroadm-common-service-types:response-parameters;
     }
@@ -580,7 +588,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version number(s) for the given service name(s).";
         }
         leaf common-id {
           type string;
@@ -617,7 +625,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version number(s) for the given service name(s), echoed from the input.";
         }
         uses org-openroadm-common-service-types:response-parameters;
       }
@@ -639,7 +647,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version-number(s) for the given common-id(s)";
         }
         uses org-openroadm-common-service-types:service-order;
         uses org-openroadm-common-service-types:routing-metric;
@@ -675,7 +683,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version-number(s) for the given common-id(s),  echoed from the input.";
         }
         uses org-openroadm-common-service-types:response-parameters;
         uses org-openroadm-common-service-types:existing-service-grouping {
@@ -756,7 +764,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name";
       }
       leaf k-paths {
         type uint8;
@@ -779,7 +787,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name, echoed back from the input.";
       }
       leaf k-paths-returned {
         type uint8;
@@ -831,7 +839,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version number(s) for the given service name(s).";
         }
         uses service-feasibility-check-inputs;
       }
@@ -850,7 +858,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version number(s) for the given service name(s), echoed back from the input.";
         }
         uses org-openroadm-common-service-types:response-parameters;
         uses service-feasibility-check-outputs;
@@ -876,7 +884,7 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version number for the given service name";
         }
         leaf due-date {
           type yang:date-and-time;
@@ -957,7 +965,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given common-id";
       }
       uses org-openroadm-common-service-types:service-order;
       uses org-openroadm-common-service-types:sdnc-request-header;
@@ -1010,7 +1018,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the given common-id, echoed from the input.";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-common-service-types:response-parameters;
@@ -1031,7 +1039,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given common-id";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
@@ -1043,7 +1051,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given common-id";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
@@ -1066,7 +1074,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after roll is successfully completed.
+          Example: service-name with version 1 to service-name with version 2 after the roll.
+          Then version-number in service-roll input should be 2";
       }
       leaf due-date {
         type yang:date-and-time;
@@ -1087,7 +1097,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "If the service-roll is successful, version-number for the service echoes the version-number
+          provided in the input. If the service-roll is not successful,
+          the output includes the version-number of the service prior to the RPC request";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
@@ -1121,7 +1133,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after reconfigure is successfully completed.
+          Example: service-name with version 1 to service-name with version 2 after the reconfigure.
+          Then version-number in service-reconfigure input should be 2";
       }
       leaf new-service-name {
         type string;
@@ -1199,7 +1213,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "If the service-reconfigure is successful, version-number for the service echoes the version-number
+          provided in the input. If the service-reconfigure is not successful,
+          the output includes the version-number of the service prior to the RPC request.";
       }
       uses org-openroadm-common-service-types:response-parameters;
     }
@@ -1230,7 +1246,9 @@ module org-openroadm-service {
         leaf version-number {
           type uint8;
           description
-            "version-number for the service";
+            "version-number(s) for the service after reconfigure is successfully completed.
+            Example: service-name with version 1 to service-name with version 2 after the reconfigure.
+            Then version-number(s) in service-reconfigure input should be 2";
         }
         leaf data-reload {
           type boolean;
@@ -1286,7 +1304,9 @@ module org-openroadm-service {
             leaf version-number {
               type uint8;
               description
-                "version-number for the service";
+                "If the service-reconfigure is successful, version-number(s) for the service echoes the version-number(s)
+                provided in the input. If the service-reconfigure is not successful,
+                the output includes the version-number(s) of the service prior to the RPC request";
             }
       }
       uses org-openroadm-common-service-types:response-parameters;
@@ -1330,7 +1350,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service to be restored";
       }
       leaf option {
         type enumeration {
@@ -1377,7 +1397,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service to be restored";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
@@ -1410,7 +1430,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after reversion is successfully completed.
+          Example: service-name with version 1 to service-name with version 2 after the reversion.
+          Then version-number in service-reversion input should be 2";
       }
       leaf due-date {
         type yang:date-and-time;
@@ -1429,7 +1451,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "If the service-reversion is successful, version-number for the service echoes the version-number
+          provided in the input. If the service-reversion is not successful,
+          the output includes the version-number of the service prior to the RPC request";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
@@ -1462,7 +1486,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after reroute is successfully completed.
+          Example: service-name with version 1 to service-name with version 2 after the reroute.
+          Then version-number in service-reroute input should be 2";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-common-service-types:routing-metric;
@@ -1478,7 +1504,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "If the service-reroute is successful, version-number for the service echoes the version-number
+          provided in the input. If the service-reroute is not successful,
+          the output includes the version-number of the service prior to the RPC request";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
       uses org-openroadm-routing-constraints:routing-constraints;
@@ -1500,7 +1528,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after the reroute.";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
       uses org-openroadm-routing-constraints:routing-constraints;
@@ -1515,7 +1543,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "The output provides the version number of the rerouted service.
+          This RPC is executed after the service has been rerouted, confirming the change,
+          so the version number in the output corresponds to the updated, rerouted service";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
     }
@@ -1566,7 +1596,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the optical-tunnel";
       }
       leaf set-frequency {
         type org-openroadm-common-optical-channel-types:frequency-THz;
@@ -1617,7 +1647,7 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the optical-tunnel";
       }
       uses org-openroadm-common-service-types:sdnc-request-header;
     }
@@ -1808,7 +1838,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the service after re-optimization is successfully completed.
+          Example: service-name with version 1 to service-name with version 2 after the re-optimization.
+          Then version-number in network-re-optimization input should be 2";
       }
       leaf a-end {
         type string;
@@ -1851,7 +1883,9 @@ module org-openroadm-service {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "If the network-re-optimization is successful, version-number for the service echoes the version-number
+          provided in the input. If the network-re-optimization is not successful,
+          the output includes the version-number of the service prior to the RPC request.";
       }
       uses org-openroadm-common-service-types:configuration-response-common;
       leaf optimization-candidate {
@@ -2350,7 +2384,7 @@ container optical-module-appsel-table {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version number for the given service name";
       }
       uses org-openroadm-common-service-types:service {
         augment "service-a-end" {
@@ -2396,6 +2430,8 @@ container optical-module-appsel-table {
       key "service-name version-number";
       leaf version-number {
         type uint64;
+        description
+          "version number for the given service name";
       }
       uses org-openroadm-common-service-types:service {
         augment "service-a-end" {
@@ -2440,7 +2476,7 @@ container optical-module-appsel-table {
       leaf version-number {
         type uint8;
         description
-          "version-number for the service";
+          "version-number for the given common-id";
       }
       uses org-openroadm-common-service-types:service {
         refine "service-name" {
