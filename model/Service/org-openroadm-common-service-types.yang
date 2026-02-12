@@ -36,7 +36,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2021-09-24;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
@@ -52,7 +52,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2021-09-24;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;

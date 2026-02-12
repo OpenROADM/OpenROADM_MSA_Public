@@ -28,7 +28,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2021-09-24;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
