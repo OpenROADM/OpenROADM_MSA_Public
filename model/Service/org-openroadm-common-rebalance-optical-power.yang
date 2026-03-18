@@ -4,7 +4,7 @@ module org-openroadm-common-rebalance-optical-power {
 
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
 
   organization
@@ -13,7 +13,7 @@ module org-openroadm-common-rebalance-optical-power {
     "OpenROADM.org";
   description
     "YANG definitions for optical power rebalance operations that are common to the rpcs
-    and their associated callback rpcs
+     and their associated callback rpcs
 
       Copyright of the Members of the Open ROADM MSA Agreement dated (c) 2016,
       All other rights reserved.
@@ -41,6 +41,10 @@ module org-openroadm-common-rebalance-optical-power {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-05-29 {
+    description
+      "Version 19.1.0";
+  }
   revision 2024-05-31 {
     description
       "Version 15.1";
@@ -50,51 +54,51 @@ module org-openroadm-common-rebalance-optical-power {
     container service-rebalance-optical-power-options {
       leaf xpdr-roadm-opc-loop-retries {
         type uint16;
-       description
-         "Number of times the transmit-power of the otsi/och interface on xpdr
-         network port may be readjusted to ensure power received by the SRG PP
-         is optimal";
+        description
+          "Number of times the transmit-power of the otsi/och interface on xpdr
+           network port may be readjusted to ensure power received by the SRG PP
+           is optimal";
       }
       leaf srg-rx-tight-threshold {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum difference between measured srg receive power and srg
-          receive power target to be considered optimal";
+           receive power target to be considered optimal";
       }
       leaf srg-rx-loose-threshold {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum amount the measured srg receive power could be away from the
-          advertised minimum and maximum srg receive power range to be
-          considered acceptable";
+           advertised minimum and maximum srg receive power range to be
+           considered acceptable";
       }
       leaf srg-rx-power-threshold-lb {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum (lower bound) loss allowed across a network fiber-tail, which
-          is the difference between the xpdr network transmit-power and measured
-          srg receive power, when measured srg receive power is lower than xpdr
-          network port transmit-power";
+           is the difference between the xpdr network transmit-power and measured
+           srg receive power, when measured srg receive power is lower than xpdr
+           network port transmit-power";
       }
       leaf degree-tx-power-threshold-lb {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum (lower bound) difference allowed between the channel measured
-          output power and its target-output-power if the measured output power
-          is less than the target-output-power";
+           output power and its target-output-power if the measured output power
+           is less than the target-output-power";
       }
       leaf degree-tx-power-threshold-ub {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum (upper bound) difference allowed between the channel measured
-          output power and its target-output-power if the measured output power
-          is greater than the target-output-power";
+           output power and its target-output-power if the measured output power
+           is greater than the target-output-power";
       }
       leaf degree-tx-power-check-retries {
         type uint16;
         description
           "maximum number of times the power may be measured and checked when
-          the power check on the previous measurement fails";
+           the power check on the previous measurement fails";
       }
       leaf xpdr-rx-channel-power-min {
         type org-openroadm-common-link-types:power-dBm;
@@ -121,21 +125,21 @@ module org-openroadm-common-rebalance-optical-power {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum (lower bound) difference allowed between the channel measured
-          output power and its target-output-power if the measured output power
-          is less than the target-output-power";
+           output power and its target-output-power if the measured output power
+           is less than the target-output-power";
       }
       leaf degree-tx-power-threshold-ub {
         type org-openroadm-common-link-types:ratio-dB;
         description
           "Maximum (upper bound) difference allowed between the channel measured
-          output power and its target-output-power if the measured output power
-          is greater than the target-output-power";
+           output power and its target-output-power if the measured output power
+           is greater than the target-output-power";
       }
       leaf degree-tx-power-check-retries {
         type uint16;
         description
           "maximum number of times the power may be measured and checked when
-          the power check on the previous measurement fails";
+           the power check on the previous measurement fails";
       }
       leaf pm-polling-timeout {
         type uint16;
@@ -151,7 +155,7 @@ module org-openroadm-common-rebalance-optical-power {
       type uint16;
       description
         "Represents the number of optical sections within the end-to-end path
-        when they are ordered from traffic source to traffic destination";
+         when they are ordered from traffic source to traffic destination";
     }
     uses org-openroadm-common-rebalance-optical-power:result-status;
   }
@@ -163,11 +167,11 @@ module org-openroadm-common-rebalance-optical-power {
         enum failure;
         enum not-attempted;
       }
+      mandatory true;
       description
         "Success: Indicates that the action completed successfully;
-        Not-Attempted: Indicates that the operation was skipped;
-        Failure: Indicates that the operation failed.";
-      mandatory true;
+         Not-Attempted: Indicates that the operation was skipped;
+         Failure: Indicates that the operation failed.";
     }
     leaf reason {
       type string;

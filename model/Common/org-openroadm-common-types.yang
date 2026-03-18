@@ -4,7 +4,7 @@ module org-openroadm-common-types {
 
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
   organization
     "Open ROADM MSA";
@@ -660,6 +660,21 @@ module org-openroadm-common-types {
     }
   }
 
+  typedef scaling-type {
+    type enumeration {
+      enum psd {
+        description
+          "OSNR will be adjusted based on the psd-reference";
+      }
+      enum fixed {
+        description
+          "OSNR is fixed regardless of channel slot width";
+      }
+    }
+    description
+      "Scaling type for OSNR adjustments: psd or fixed";
+  }
+
   typedef oui-type {
     description
       "The Organizationally Unique Identifier (OUI) or Company ID (CID) to
@@ -668,6 +683,53 @@ module org-openroadm-common-types {
       pattern "[0-9A-F]{2}(-[0-9A-F]{2}){2}";
 
     }
+  }
+
+  typedef fiber-type {
+    type enumeration {
+      enum smf {
+        value 0;
+        description
+          "Single Mode Fiber";
+      }
+      enum eleaf {
+        value 1;
+        description
+          "ELEAF";
+      }
+      enum oleaf {
+        value 2;
+        description
+          "OLEAF";
+      }
+      enum dsf {
+        value 3;
+        description
+          "DSF";
+      }
+      enum truewave {
+        value 4;
+        description
+          "TRUEWAVE Reduced Slope";
+      }
+      enum truewavec {
+        value 5;
+        description
+          "TRUEWAVE Classic";
+      }
+      enum nz-dsf {
+        value 6;
+        description
+          "NZ-DSF";
+      }
+      enum ull {
+        value 7;
+        description
+          "Ultra Low Loss (ULL)";
+      }
+    }
+    description
+      "fiber type";
   }
 
   grouping enable-laser {

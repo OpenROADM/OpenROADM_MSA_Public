@@ -17,7 +17,7 @@ module org-openroadm-srg {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;

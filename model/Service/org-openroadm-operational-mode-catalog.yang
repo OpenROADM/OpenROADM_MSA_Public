@@ -8,7 +8,7 @@ module org-openroadm-operational-mode-catalog {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
@@ -150,6 +150,21 @@ module org-openroadm-operational-mode-catalog {
       "definition of impairment type and unit used in penaty list";
   }
 
+  typedef roadm-add-drop-port-type-enum {
+    type enumeration {
+      enum TDA {
+        description
+          "Transponder Direct Attach";
+      }
+      enum SRG {
+        description
+          "Shared Risk Group";
+      }
+    }
+    description
+      "Type enumeration for Add/Drop ROADM attachment configurations";
+  }
+
   grouping operational-mode-grid-parameters {
     description
       "main parameters required to describe grid usage";
@@ -192,64 +207,40 @@ module org-openroadm-operational-mode-catalog {
       description
         "maximum output power";
     }
-    leaf max-introduced-pdl {
-      type org-openroadm-common-link-types:ratio-dB;
-      description
-        "polarization dependent gain/loss";
-    }
-    leaf max-introduced-dgd {
-      type decimal64 {
-        fraction-digits 2;
-      }
-      units "ps/nm";
-      description
-        "Maximum diferential group delay";
-    }
-    leaf max-introduced-cd {
-      type decimal64 {
-        fraction-digits 2;
-      }
-      units "ps";
-      description
-        "Maximum introduced chromatic dispersion";
-    }
+    uses impairment-parameters;
   }
 
   grouping polynomial-fit {
     description
-      "polynomial fit used to model noise mask";
-    container osnr-polynomial-fit {
+      "Polynomial fit coefficients for noise contribution modeling.
+       Y (dB/0.1nm) = A*Pin^3+B*Pin^2+C*Pin+D, where Pin is the span-loss in dB";
+    leaf A {
+      type decimal64 {
+        fraction-digits 8;
+      }
       description
-        "describe the osnr contribution of amplifier/roadm
-         OSNR (dB/0.1nm) = A*Pin^3+B*Pin^2+C*Pin+D, Pin (dBm) ";
-      leaf A {
-        type decimal64 {
-          fraction-digits 8;
-        }
-        description
-          "A*Pin^3";
+        "A*Pin^3";
+    }
+    leaf B {
+      type decimal64 {
+        fraction-digits 8;
       }
-      leaf B {
-        type decimal64 {
-          fraction-digits 8;
-        }
-        description
-          "B*Pin^2";
+      description
+        "B*Pin^2";
+    }
+    leaf C {
+      type decimal64 {
+        fraction-digits 8;
       }
-      leaf C {
-        type decimal64 {
-          fraction-digits 8;
-        }
-        description
-          "C*Pin";
+      description
+        "C*Pin";
+    }
+    leaf D {
+      type decimal64 {
+        fraction-digits 8;
       }
-      leaf D {
-        type decimal64 {
-          fraction-digits 8;
-        }
-        description
-          "Constant";
-      }
+      description
+        "Constant";
     }
   }
 
@@ -285,51 +276,196 @@ module org-openroadm-operational-mode-catalog {
           "Constant";
       }
       leaf fiber-type {
-        type enumeration {
-          enum smf {
-            value 0;
-            description
-              "Single Mode Fiber";
-          }
-          enum eleaf {
-            value 1;
-            description
-              "ELEAF";
-          }
-          enum oleaf {
-            value 2;
-            description
-              "OLEAF";
-          }
-          enum dsf {
-            value 3;
-            description
-              "DSF";
-          }
-          enum truewave {
-            value 4;
-            description
-              "TRUEWAVE Reduced Slope";
-          }
-          enum truewavec {
-            value 5;
-            description
-              "TRUEWAVE Classic";
-          }
-          enum nz-dsf {
-            value 6;
-            description
-              "NZ-DSF";
-          }
-          enum ull {
-            value 7;
-            description
-              "Ultra Low Loss (ULL)";
-          }
-        }
+        type org-openroadm-common-types:fiber-type;
         description
           "enumeration of the different existing fiber type";
       }
+    }
+  }
+
+  grouping impairment-parameters {
+    description
+      "Optical transmission impairment parameters";
+    leaf max-introduced-pdl {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Maximum polarization dependent gain/loss";
+    }
+    leaf max-introduced-dgd {
+      type org-openroadm-common-link-types:time-ps;
+      description
+        "Maximum diferential group delay";
+    }
+    leaf max-introduced-cd {
+      type org-openroadm-common-link-types:chromatic-dispersion-ps-per-nm;
+      description
+        "Maximum introduced chromatic dispersion";
+    }
+  }
+
+  grouping pre-amp-side-impairments {
+    description
+      "Pre-amplifier side impairment parameters";
+    container pre-amp-side-impairments {
+      description
+        "Impairment parameters on the pre-amplifier side";
+      uses impairment-parameters;
+    }
+  }
+
+  grouping post-amp-side-impairments {
+    description
+      "Post-amplifier side impairment parameters";
+    container post-amp-side-impairments {
+      description
+        "Impairment parameters on the post-amplifier side";
+      uses impairment-parameters;
+    }
+  }
+
+  grouping passband-coefficient-params {
+    description
+      "Passband coefficient parameters for a given amplifier side. Describes filter shape for WSS passband.";
+    leaf bandwidth-otf {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Bandwidth optical transfer function";
+    }
+    leaf bandwidth-offset {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Bandwidth offset";
+    }
+  }
+
+  grouping pre-amp-side-passband-coefficients-by-frequency-range {
+    description
+      "Describes filter shape for WSS passband by spectrum-range for the pre-amp-side";
+    list pre-amp-side-passband-coefficients-by-frequency-range {
+      key "min-edge-frequency max-edge-frequency";
+      description
+        "Passband coefficient parameters on the pre-amplifier side by spectrum-range";
+      uses org-openroadm-common-service-types:frequency-range-key;
+      uses passband-coefficient-params;
+    }
+  }
+
+  grouping post-amp-side-passband-coefficients-by-frequency-range {
+    description
+      "Describes filter shape for WSS passband by spectrum-range for the post-amp-side";
+    list post-amp-side-passband-coefficients-by-frequency-range {
+      key "min-edge-frequency max-edge-frequency";
+      description
+        "Passband coefficient parameters on the post-amplifier side by spectrum-range";
+      uses org-openroadm-common-service-types:frequency-range-key;
+      uses passband-coefficient-params;
+    }
+  }
+
+  grouping osnr-performance-parameters {
+    description
+      "OSNR performance parameters for typical and worst case scenarios";
+    container osnr-typical {
+      description
+        "OSNR typical; OSNR (dB/12.5GHz)@slot-width-base = A*SL^3+B*SL^2+C*SL+D, SL as in span-loss (dB)";
+      uses polynomial-fit;
+    }
+    container osnr-worst {
+      description
+        "OSNR worst; OSNR (dB/12.5GHz)@slot-width-base = A*SL^3+B*SL^2+C*SL+D, SL as in span-loss (dB)";
+      uses polynomial-fit;
+    }
+  }
+
+  grouping gsnr-performance-parameters {
+    description
+      "GSNR performance parameters for typical and worst case scenarios";
+    container gsnr-typical {
+      description
+        "GSNR typical; GSNR (dB/coeffSBW)@slot-width-base = A*SL^3+B*SL^2+C*SL+D, SL as in span-loss (dB), coeffSBW=10*Log10(baud-rate-base/12.5)";
+      uses polynomial-fit;
+    }
+    container gsnr-worst {
+      description
+        "GSNR worst; GSNR (dB/coeffSBW)@slot-width-base = A*SL^3+B*SL^2+C*SL+D, SL as in span-loss (dB), coeffSBW=10*Log10(baud-rate-base/12.5)";
+      uses polynomial-fit;
+    }
+  }
+
+  grouping polynomial-fit-assumptions {
+    description
+      "Common assumptions used for polynomial fit curves";
+    leaf psd-bandwidth-base {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "This should be channel-width-base or slot-width-base based on the psd-reference.";
+    }
+    leaf baud-rate-base {
+      type org-openroadm-common-link-types:baud-rate-Gbauds;
+      description
+        "Baud rate assumed for the GSNR curves. Used to scale for NLI contribution";
+    }
+  }
+
+  grouping gsnr-polynomial-fit-by-span-loss-range {
+    list gsnr-polynomial-fit-by-span-loss-range {
+      key "min-span-loss max-span-loss";
+      description
+        "GSNR contribution of the degree/amplifier by span-loss range in the ingress or receive direction from an OTS span";
+      uses org-openroadm-common-service-types:span-loss-range-key;
+      uses gsnr-performance-parameters;
+    }
+  }
+
+  grouping pre-amp-osnr-polynomial-fit-by-span-loss-range {
+    list pre-amp-osnr-polynomial-fit-by-span-loss-range {
+      key "min-span-loss max-span-loss";
+      description
+        "Pre-amplifier OSNR contribution by span-loss range in the ingress or receive direction from an OTS span";
+      uses org-openroadm-common-service-types:span-loss-range-key;
+      uses osnr-performance-parameters;
+    }
+  }
+
+  grouping osnr-polynomial-fit-by-span-loss-range {
+    list osnr-polynomial-fit-by-span-loss-range {
+      key "min-span-loss max-span-loss";
+      description
+        "OSNR contribution of the degree/amplifier by span-loss range in the ingress or receive direction from an OTS span";
+      uses org-openroadm-common-service-types:span-loss-range-key;
+      uses osnr-performance-parameters;
+    }
+  }
+
+  grouping roadm-gosnr-by-loss-coefficient-range {
+    description
+      "GOSNR contribution by loss coefficient range for roadms";
+    list gosnr-by-loss-coefficient-range {
+      key "min-loss-coefficient max-loss-coefficient";
+      uses org-openroadm-common-service-types:loss-coefficient-range-key;
+      leaf loss-coefficient-base {
+        type org-openroadm-common-link-types:signal-loss-dB-per-km;
+        description
+          "fiber loss coefficient assumed for the GSNR curves. Used to scale for NLI contribution for spans with other fiber loss coefficients";
+      }
+      uses pre-amp-osnr-polynomial-fit-by-span-loss-range;
+      uses gsnr-polynomial-fit-by-span-loss-range;
+    }
+  }
+
+  grouping amplifier-gosnr-by-loss-coefficient-range {
+    description
+      "GOSNR contribution by loss coefficient range for amplifiers";
+    list gosnr-by-loss-coefficient-range {
+      key "min-loss-coefficient max-loss-coefficient";
+      uses org-openroadm-common-service-types:loss-coefficient-range-key;
+      leaf loss-coefficient-base {
+        type org-openroadm-common-link-types:signal-loss-dB-per-km;
+        description
+          "fiber loss coefficient assumed for the GSNR curves. Used to scale for NLI contribution for spans with other fiber loss coefficients";
+      }
+      uses osnr-polynomial-fit-by-span-loss-range;
+      uses gsnr-polynomial-fit-by-span-loss-range;
     }
   }
 
@@ -390,7 +526,11 @@ module org-openroadm-operational-mode-catalog {
             "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
         }
         uses operational-mode-roadm-base-parameters;
-        uses polynomial-fit;
+        container osnr-polynomial-fit {
+          description
+            "OSNR polynomial fit parameters";
+          uses polynomial-fit;
+        }
         leaf per-channel-Pout-min {
           type org-openroadm-common-link-types:power-dBm;
           description
@@ -426,7 +566,11 @@ module org-openroadm-operational-mode-catalog {
             "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
         }
         uses operational-mode-roadm-base-parameters;
-        uses polynomial-fit;
+        container osnr-polynomial-fit {
+          description
+            "OSNR polynomial fit parameters";
+          uses polynomial-fit;
+        }
         uses power-mask;
       }
     }
@@ -453,7 +597,11 @@ module org-openroadm-operational-mode-catalog {
             "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
         }
         uses operational-mode-roadm-base-parameters;
-        uses polynomial-fit;
+        container osnr-polynomial-fit {
+          description
+            "OSNR polynomial fit parameters";
+          uses polynomial-fit;
+        }
         uses power-mask;
         leaf min-gain {
           type org-openroadm-common-link-types:ratio-dB;
@@ -508,12 +656,7 @@ module org-openroadm-operational-mode-catalog {
     description
       "describes parameters used to qualify xponders line performances";
     leaf baud-rate {
-      type decimal64 {
-        fraction-digits 1;
-      }
-      units "Gbauds";
-      description
-        "baud-rate in Gbauds";
+      type org-openroadm-common-link-types:baud-rate-Gbauds;
     }
     leaf line-rate {
       type decimal64 {
@@ -708,6 +851,293 @@ module org-openroadm-operational-mode-catalog {
     }
   }
 
+  grouping specific-operational-mode-roadm-express-parameters {
+    description
+      "Parameters for Express path in specific operational modes";
+    container Express {
+      description
+        "Express path specifications";
+      list specific-operational-mode {
+        key "operational-mode-id";
+        description
+          "List of all declared specific operational modes for express roadms";
+        leaf operational-mode-id {
+          type string;
+          description
+            "Identifier of the express roadm operational mode.";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
+        leaf type {
+          type enumeration {
+            enum internal-express;
+            enum openwss-express;
+          }
+          description
+            "Enumeration that indicates the type of express: Internal Express vs OpenWSS Express";
+        }
+        leaf psd-reference {
+          type org-openroadm-common-types:psd-reference;
+          description
+            "Enumeration defined in the MSA Common model org-openroadm-common-types.yang file. Its values are either mc-width or nmc-width. mc-width indicates that the OLS managed power based on slot-width. If nmc-width, it indicates the OLS manages power based on the spectral width of the signal";
+        }
+        uses pre-amp-side-impairments;
+        uses post-amp-side-impairments;
+        list gosnr-by-fiber-type {
+          key "fiber-type";
+          description
+            "GOSNR contribution of the degree by fiber-type";
+          leaf fiber-type {
+            type org-openroadm-common-types:fiber-type;
+          }
+          uses polynomial-fit-assumptions;
+          list gosnr-by-frequency-range {
+            key "min-edge-frequency max-edge-frequency";
+            description
+              "GONSR contribution of the degree for a given fiber-type by spectrum range";
+            uses org-openroadm-common-service-types:frequency-range-key;
+            leaf post-amp-osnr-typical {
+              type org-openroadm-common-link-types:ratio-dB;
+              description
+                "Typical OSNR contribution of the degree in the egress or transmit direction into OTS span";
+            }
+            leaf post-amp-osnr-worst {
+              type org-openroadm-common-link-types:ratio-dB;
+              description
+                "Worst case OSNR contribution of the degree in the egress or transmit direction into OTS span";
+            }
+            uses roadm-gosnr-by-loss-coefficient-range;
+          }
+        }
+        uses pre-amp-side-passband-coefficients-by-frequency-range;
+        uses post-amp-side-passband-coefficients-by-frequency-range;
+      }
+    }
+  }
+
+  grouping specific-operational-mode-roadm-add-parameters {
+    description
+      "Parameters for Add path in specific operational modes";
+    container Add {
+      description
+        "Add path specifications";
+      list specific-operational-mode {
+        key "operational-mode-id";
+        description
+          "List of all declared specific operational modes for add roadms";
+        leaf operational-mode-id {
+          type string;
+          description
+            "Identifier of the add roadm operational mode.";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
+        leaf type {
+          type roadm-add-drop-port-type-enum;
+          description
+            "Enumeration that indicates the type of add:TDA or SRG";
+        }
+        leaf psd-reference {
+          type org-openroadm-common-types:psd-reference;
+          description
+            "Enumeration defined in the MSA Common model org-openroadm-common-types.yang file. Its values are either mc-width or nmc-width. mc-width indicates that the OLS managed power based on slot-width. If nmc-width, it indicates the OLS manages power based on the spectral width of the signal";
+        }
+        uses post-amp-side-impairments;
+        list add-path-osnr-by-frequency-range {
+          key "min-edge-frequency max-edge-frequency";
+          description
+            "OSNR contribution by spectrum range of the entire add path including SRG where applicable in the egress or transmit direction into OTS span";
+          uses org-openroadm-common-service-types:frequency-range-key;
+          leaf psd-bandwidth-base {
+            type org-openroadm-common-optical-channel-types:frequency-GHz;
+            description
+              "This should be channel-width-base or slot-width-base based on the psd-reference.";
+          }
+          list add-path-osnr-by-add-input-range {
+            key "add-input-psd-down-to-boundary";
+            description
+              "OSNR contribution of the entire add path including SRG where applicable in the egress or transmit direction into OTS span";
+            leaf add-input-psd-down-to-boundary {
+              type org-openroadm-common-link-types:power-dBm;
+              description
+                "The lowest allowable PSD for a channel at the Add port that still meets the OSNR for this range.";
+            }
+            leaf scaling {
+              type org-openroadm-common-types:scaling-type;
+              description
+                "Scaling type: psd or fixed. If the value is psd, OSNR will be adjusted based on the channel slot width";
+            }
+            leaf osnr-typical {
+              type org-openroadm-common-link-types:ratio-dB;
+              description
+                "OSNR typical; OSNR (dB/12.5GHz)@slot-width-base";
+            }
+            leaf osnr-worst {
+              type org-openroadm-common-link-types:ratio-dB;
+              description
+                "OSNR worst; OSNR (dB/12.5GHz)@slot-width-base";
+            }
+          }
+        }
+        uses post-amp-side-passband-coefficients-by-frequency-range;
+      }
+    }
+  }
+
+  grouping specific-operational-mode-roadm-drop-parameters {
+    description
+      "Parameters for Drop path in specific operational modes";
+    container Drop {
+      description
+        "Drop path specifications";
+      list specific-operational-mode {
+        key "operational-mode-id";
+        description
+          "List of all declared specific operational modes for drop roadms";
+        leaf operational-mode-id {
+          type string;
+          description
+            "Identifier of the drop roadm operational mode.";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
+        leaf type {
+          type roadm-add-drop-port-type-enum;
+          description
+            "Enumeration that indicates the type of drop: SRG vs TDA";
+        }
+        leaf psd-reference {
+          type org-openroadm-common-types:psd-reference;
+          description
+            "Enumeration defined in the MSA Common model org-openroadm-common-types.yang file. Its values are either mc-width or nmc-width. mc-width indicates that the OLS managed power based on slot-width. If nmc-width, it indicates the OLS manages power based on the spectral width of the signal";
+        }
+        uses pre-amp-side-impairments;
+        list gosnr-by-fiber-type {
+          key "fiber-type";
+          description
+            "GOSNR contribution by fiber-type of the entire drop path including SRG where applicable in the ingress or receive direction from OTS span";
+          leaf fiber-type {
+            type org-openroadm-common-types:fiber-type;
+          }
+          uses polynomial-fit-assumptions;
+          list gosnr-by-frequency-range {
+            key "min-edge-frequency max-edge-frequency";
+            description
+              "GOSNR contribution by fiber-type and spectrum range of the entire drop path including SRG where applicable in the ingress or receive direction from OTS span";
+            uses org-openroadm-common-service-types:frequency-range-key;
+            uses roadm-gosnr-by-loss-coefficient-range;
+          }
+        }
+        uses pre-amp-side-passband-coefficients-by-frequency-range;
+        list channel-drop-power-by-slot-width-range {
+          key "min-slot-width max-slot-width";
+          description
+            "Channel power dropped out of the ROADM to the TRPN by slot-width range";
+          uses org-openroadm-common-service-types:slot-width-range-key;
+          list channel-drop-power-by-span-loss-range {
+            key "min-span-loss max-span-loss";
+            description
+              "Channel power dropped out of the ROADM to the TRPN by slot-width range and span-loss range";
+            uses org-openroadm-common-service-types:span-loss-range-key;
+            leaf power-value {
+              type org-openroadm-common-link-types:power-dBm;
+              description
+                "Power value for the given slot-width and span-loss range";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping specific-operational-mode-amplifier-parameters {
+    description
+      "Parameters for Amplifier path in specific operational modes";
+    container Amplifier {
+      description
+        "Amplifier path specifications";
+      list specific-operational-mode {
+        key "operational-mode-id";
+        description
+          "List of all declared specific operational modes for amplifier roadms";
+        leaf operational-mode-id {
+          type string;
+          description
+            "Identifier of the amplifier operational mode.";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
+        leaf psd-reference {
+          type org-openroadm-common-types:psd-reference;
+          description
+            "Enumeration defined in the MSA Common model org-openroadm-common-types.yang file. Its values are either mc-width or nmc-width. mc-width indicates that the OLS managed power based on slot-width. If nmc-width, it indicates the OLS manages power based on the spectral width of the signal";
+        }
+        uses impairment-parameters;
+        list gosnr-by-fiber-type {
+          key "fiber-type";
+          description
+            "GOSNR contribution of the amplifier by fiber-type";
+          leaf fiber-type {
+            type org-openroadm-common-types:fiber-type;
+          }
+          uses polynomial-fit-assumptions;
+          list gosnr-by-frequency-range {
+            key "min-edge-frequency max-edge-frequency";
+            description
+              "GONSR contribution of the amplifier for a given fiber-type by spectrum range";
+            uses org-openroadm-common-service-types:frequency-range-key;
+            uses amplifier-gosnr-by-loss-coefficient-range;
+          }
+        }
+        container gain-ripple {
+          list gain-ripple-vs-cascade-number {
+            key "cascade-number";
+            description
+              "Ripples are defined up to an acceptable number of ILA cascades.";
+            leaf cascade-number {
+              type uint32;
+              description
+                "ILA cascade number";
+            }
+            container positive-ripple-excursion {
+              leaf value-at-start-node {
+                type org-openroadm-common-link-types:ratio-dB;
+              }
+              leaf value-at-end-node {
+                type org-openroadm-common-link-types:ratio-dB;
+              }
+            }
+            container negative-ripple-excursion {
+              leaf value-at-start-node {
+                type org-openroadm-common-link-types:ratio-dB;
+              }
+              leaf value-at-end-node {
+                type org-openroadm-common-link-types:ratio-dB;
+              }
+            }
+          }
+          leaf maximum-ripple-compensation {
+            type org-openroadm-common-link-types:ratio-dB;
+            description
+              "maximum accumulated ripple that can be compensated by an ILA with DGE";
+          }
+        }
+      }
+    }
+  }
+
   grouping operational-mode-catalog {
     description
       "this catalog is used to store data related to operational modes and related specifications
@@ -767,48 +1197,69 @@ module org-openroadm-operational-mode-catalog {
     container specific-operational-modes {
       description
         "All specific operational modes corresponding to bookended or alien units";
-      list specific-operational-mode {
-        key "operational-mode-id";
+      container xponders {
+        presence "Container includes mandatory nodes but may however not be present
+                  in the rpc used to feed the catalog (merge operation)";
+        list specific-operational-mode {
+          key "operational-mode-id";
+          description
+            "List of all declared specific operationnal modes";
+          leaf operational-mode-id {
+            type string;
+            description
+              "Identifier of the operational mode. In case only media-interface-id is provided by the
+               equipment manufacturer, the operational-mode-id shall reflect the media-interface-id
+               and the associated-oui so that if several manufacturer use the same media-interface-id,
+               it is still possible to distinguish them through separate keys. Operational-mode-id shall
+               respect the following format: <media-interface-id>-<associated-oui>";
+          }
+          leaf revision-date {
+            type org-openroadm-common-types:date;
+            description
+              "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+          }
+          leaf media-interface-id {
+            type org-openroadm-common-pluggable-types:media-id-type;
+            description
+              "Media interface IDs are defined in the SNIA SFF-8024 document. Media interface IDs are
+               embedded in the APPSEL codes used by to provision CMIS pluggable optical modules";
+          }
+          leaf associated-oui {
+            type org-openroadm-common-types:oui-type;
+            description
+              "IEEE Organizationally Unique Identifier (OUI)";
+          }
+          leaf originator {
+            type string;
+            description
+              "identifies the system vendor which originated associated specification";
+          }
+          leaf sponsor {
+            type string;
+            description
+              "identifies the service provider which reviewed and sponsored associated specification";
+          }
+          uses operational-mode-grid-parameters;
+          uses operational-mode-transponder-parameters;
+          leaf configurable-output-power {
+            type boolean;
+            mandatory true;
+            description
+              "defines whether the output power can be set or not";
+          }
+        }
+      }
+      container roadms {
         description
-          "List of all declared specific operationnal modes";
-        leaf operational-mode-id {
-          type string;
-          description
-            "Identifier of the operational mode. In case only media-interface-id is provided by the
-             equipment manufacturer, the operational-mode-id shall reflect the media-interface-id
-             and the associated-oui so that if several manufacturer use the same media-interface-id,
-             it is still possible to distinguish them through separate keys. Operational-mode-id shall
-             respect the following format: <media-interface-id>-<associated-oui>";
-        }
-        leaf media-interface-id {
-          type org-openroadm-common-pluggable-types:media-id-type;
-          description
-            "Media interface IDs are defined in the SNIA SFF-8024 document. Media interface IDs are
-             embedded in the APPSEL codes used by to provision CMIS pluggable optical modules";
-        }
-        leaf associated-oui {
-          type org-openroadm-common-types:oui-type;
-          description
-            "IEEE Organizationally Unique Identifier (OUI)";
-        }
-        leaf originator {
-          type string;
-          description
-            "identifies the system vendor which originated associated specification";
-        }
-        leaf sponsor {
-          type string;
-          description
-            "identifies the service provider which reviewed and sponsored associated specification";
-        }
-        uses operational-mode-grid-parameters;
-        uses operational-mode-transponder-parameters;
-        leaf configurable-output-power {
-          type boolean;
-          mandatory true;
-          description
-            "defines whether the output power can be set or not";
-        }
+          "Parameters associated with roadms";
+        uses specific-operational-mode-roadm-express-parameters;
+        uses specific-operational-mode-roadm-add-parameters;
+        uses specific-operational-mode-roadm-drop-parameters;
+      }
+      container amplifiers {
+        description
+          "Parameters associated with amplifiers";
+        uses specific-operational-mode-amplifier-parameters;
       }
     }
   }

@@ -521,6 +521,7 @@ module org-openroadm-resource-types {
         "OSPF interface name";
     }
   }
+
   grouping user-name {
     leaf user {
       type string;

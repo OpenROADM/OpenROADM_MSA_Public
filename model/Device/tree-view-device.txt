@@ -682,7 +682,7 @@ module: org-openroadm-device
      |  +--rw org-openroadm-optical-multiplex-interfaces:oms
      |  |  +--rw org-openroadm-optical-multiplex-interfaces:oms-band?   string
      |  +--rw org-openroadm-optical-transport-interfaces:ots
-     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       enumeration
+     |  |  +--rw org-openroadm-optical-transport-interfaces:fiber-type?                       org-openroadm-common-types:fiber-type
      |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-receive?                org-openroadm-common-link-types:ratio-dB
      |  |  +--rw org-openroadm-optical-transport-interfaces:span-loss-transmit?               org-openroadm-common-link-types:ratio-dB
      |  |  +--rw org-openroadm-optical-transport-interfaces:ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB

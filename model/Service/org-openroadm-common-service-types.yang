@@ -64,7 +64,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
@@ -2199,6 +2199,50 @@ module org-openroadm-common-service-types {
              for at this site.";
         }
       }
+    }
+  }
+
+  grouping frequency-range-key {
+    description
+      "Frequency range definition with min and max edge frequencies as direct leafs for use as list keys";
+    leaf min-edge-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+    }
+    leaf max-edge-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+    }
+  }
+
+  grouping span-loss-range-key {
+    description
+      "Span loss range definition with minimum and maximum span loss as direct leafs for use as list keys";
+    leaf min-span-loss {
+      type org-openroadm-common-link-types:ratio-dB;
+    }
+    leaf max-span-loss {
+      type org-openroadm-common-link-types:ratio-dB;
+    }
+  }
+
+  grouping slot-width-range-key {
+    description
+      "Slot width range definition with minimum and maximum slot width as direct leafs for use as list keys";
+    leaf min-slot-width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+    }
+    leaf max-slot-width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+    }
+  }
+
+  grouping loss-coefficient-range-key {
+    description
+      "Loss coefficient range definition with minimum and maximum loss coefficient as direct leafs for use as list keys";
+    leaf min-loss-coefficient {
+      type org-openroadm-common-link-types:signal-loss-dB-per-km;
+    }
+    leaf max-loss-coefficient {
+      type org-openroadm-common-link-types:signal-loss-dB-per-km;
     }
   }
 }

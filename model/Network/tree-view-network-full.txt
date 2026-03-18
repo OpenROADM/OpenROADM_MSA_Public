@@ -308,7 +308,7 @@ module: org-openroadm-network-topology
        |  |  +--rw index                          uint32
        |  |  +--rw SRLG-Id?                       uint32
        |  |  +--rw SRLG-length?                   decimal64
-       |  |  +--rw fiber-type?                    enumeration
+       |  |  +--rw fiber-type?                    org-openroadm-common-types:fiber-type
        |  |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
        |  |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
        |  |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
@@ -356,7 +356,7 @@ module: org-openroadm-network-topology
                          |  +--rw index                          uint32
                          |  +--rw SRLG-Id?                       uint32
                          |  +--rw SRLG-length?                   decimal64
-                         |  +--rw fiber-type?                    enumeration
+                         |  +--rw fiber-type?                    org-openroadm-common-types:fiber-type
                          |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
                          |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
                          |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope

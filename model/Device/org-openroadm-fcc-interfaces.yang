@@ -118,7 +118,6 @@ module org-openroadm-fcc-interfaces {
          FlexO-x(e) interface is modeled on OTSi Group interface.";
       reference
         "G.709.1 Amd4 draft 2023-03 and OTN based mapping FlexO-x (G.709 2022-11)";
-
       leaf fcc-channel-type {
         type enumeration {
           enum fcc0 {

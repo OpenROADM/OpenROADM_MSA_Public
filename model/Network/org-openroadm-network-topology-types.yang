@@ -17,7 +17,7 @@ module org-openroadm-network-topology-types {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;

@@ -86,23 +86,24 @@ module org-openroadm-optical-multiplex-interfaces {
   grouping oms-attributes {
     description
       "Optical Multiplex Section (OMS) attributes";
-        leaf oms-band {
-            type string;
-            config true;
-            description
-                "Setting of the spectrum band for the OMS interface.
-                The string should be a profile name in the mc-capability-profile
-                list (/org-openroadm-device/mc-capability-profile/profile-name).
-                It is recommended to use the following for the profile names
-                for C-band and L-band:
-                - oms-c-band: represents the Open ROADM C-band of approximately
-                    191.325-196.125 THz
-                - oms-l-band: L-band of approximately 186.125-190.925 THz
-                Other spectrum band names and ranges may be recommended in the
-                future. If not set, the spectrum band is assumed to be the Open
-                ROADM standard C-band.";
-        }
+    leaf oms-band {
+      type string;
+      config true;
+      description
+        "Setting of the spectrum band for the OMS interface.
+         The string should be a profile name in the mc-capability-profile
+         list (/org-openroadm-device/mc-capability-profile/profile-name).
+         It is recommended to use the following for the profile names
+         for C-band and L-band:
+         - oms-c-band: represents the Open ROADM C-band of approximately
+            191.325-196.125 THz
+         - oms-l-band: L-band of approximately 186.125-190.925 THz
+         Other spectrum band names and ranges may be recommended in the
+         future. If not set, the spectrum band is assumed to be the Open
+         ROADM standard C-band.";
+    }
   }
+
   grouping oms-container {
     container oms {
       description

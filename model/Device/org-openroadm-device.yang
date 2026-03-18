@@ -36,7 +36,7 @@ module org-openroadm-device {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
@@ -64,7 +64,7 @@ module org-openroadm-device {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;

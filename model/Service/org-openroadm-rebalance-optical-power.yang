@@ -8,7 +8,7 @@ module org-openroadm-rebalance-optical-power {
   }
   import org-openroadm-common-rebalance-optical-power {
     prefix org-openroadm-common-rebalance-optical-power;
-    revision-date 2024-05-31;
+    revision-date 2026-05-29;
   }
   import ietf-yang-types {
     prefix yang;

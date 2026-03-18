@@ -12,7 +12,7 @@ module org-openroadm-topology {
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
 
   organization
@@ -187,10 +187,10 @@ module org-openroadm-topology {
         description
           "Unique identifier for this topology component within this service";
       }
-        container computation-results {
-          description
-            "parameters resulting of path computation";
-          uses org-openroadm-resource:path-computation-outputs;
+      container computation-results {
+        description
+          "parameters resulting of path computation";
+        uses org-openroadm-resource:path-computation-outputs;
       }
       uses route_info;
       uses hop;
@@ -202,10 +202,10 @@ module org-openroadm-topology {
         description
           "Unique identifier for this topology component within this service";
       }
-        container computation-results {
-          description
-            "parameters resulting of path computation";
-          uses org-openroadm-resource:path-computation-outputs;
+      container computation-results {
+        description
+          "parameters resulting of path computation";
+        uses org-openroadm-resource:path-computation-outputs;
       }
       uses route_info;
       uses hop;
@@ -213,19 +213,19 @@ module org-openroadm-topology {
   }
 
   grouping route_info {
-      leaf subroute_id {
-        type string;
-        description
-          "Unique identifier for the subroute or segment of the topology";
-      }
-      leaf-list previous_ids {
-        type string;
-        description
-          "Pointer to the previous id or set of ids that allows reconstruction
-           of the end-to-end route from the segments. Can be omitted if the
-           previous-id = current-id – 1 (if id is a number-based string) or if
-           each subroute is already representing an end-to-end route.";
-      }
+    leaf subroute_id {
+      type string;
+      description
+        "Unique identifier for the subroute or segment of the topology";
+    }
+    leaf-list previous_ids {
+      type string;
+      description
+        "Pointer to the previous id or set of ids that allows reconstruction
+         of the end-to-end route from the segments. Can be omitted if the
+         previous-id = current-id – 1 (if id is a number-based string) or if
+         each subroute is already representing an end-to-end route.";
+    }
   }
 
   grouping hop {

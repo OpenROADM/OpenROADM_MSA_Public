@@ -12,7 +12,11 @@ module org-openroadm-optical-transport-interfaces {
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
+  }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2026-05-29;
   }
 
   organization
@@ -220,48 +224,7 @@ module org-openroadm-optical-transport-interfaces {
     description
       "Optical Transport Section (OTS) attributes";
     leaf fiber-type {
-      type enumeration {
-        enum smf {
-          value 0;
-          description
-            "Single Mode Fiber";
-        }
-        enum eleaf {
-          value 1;
-          description
-            "ELEAF";
-        }
-        enum oleaf {
-          value 2;
-          description
-            "OLEAF";
-        }
-        enum dsf {
-          value 3;
-          description
-            "DSF";
-        }
-        enum truewave {
-          value 4;
-          description
-            "TRUEWAVE Reduced Slope";
-        }
-        enum truewavec {
-          value 5;
-          description
-            "TRUEWAVE Classic";
-        }
-        enum nz-dsf {
-          value 6;
-          description
-            "NZ-DSF";
-        }
-        enum ull {
-          value 7;
-          description
-            "Ultra Low Loss (ULL)";
-        }
-      }
+      type org-openroadm-common-types:fiber-type;
       default "smf";
       description
         "fiber type
