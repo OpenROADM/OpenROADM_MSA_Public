@@ -343,7 +343,14 @@ module org-openroadm-ethernet-interfaces {
     container parent-flexo-allocation {
       presence "Explicit assignment of parent FlexO instance and trib-port allocation.";
       description
-        "parent flexo-xe allocation";
+        "This container is specified when the Ethernet interface is built on an
+         OTSIG. The supporting interface shall indicate the OTSIG interface.
+         The NE shall model an Ethernet on the OTSIG for all configurations
+         including transponder, muxponder and switchponder. The trib-port-number
+         and iid list shall be provided for all configurations.
+         Flexo-xe alarms such as multiplexStructureIdentifierMismatch,
+         clientSignalFailDefect and lockedDefect shall be
+         reported against the associated Ethernet interface supported by the OTSIG";
 
       leaf trib-port-number {
         type uint16 {

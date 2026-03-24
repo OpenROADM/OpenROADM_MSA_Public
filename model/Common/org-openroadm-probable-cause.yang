@@ -40,6 +40,10 @@ module org-openroadm-probable-cause {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-03-27 {
+    description
+      "Version 19.0.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -186,7 +190,7 @@ module org-openroadm-probable-cause {
         description
           "Locked defect (LCK)";
         reference
-          "G.798";
+          "G.798 6.2.6.9";
       }
       enum trailTraceIdentifierMismatch {
         value 11;
@@ -245,6 +249,10 @@ module org-openroadm-probable-cause {
       }
       enum linkDown {
         value 28;
+        description
+          "Ethernet link down";
+        reference
+          "IEEE 802.3 2022 Clause 22";
       }
       enum equipmentFault {
         value 29;
@@ -343,6 +351,10 @@ module org-openroadm-probable-cause {
       }
       enum clientSignalFailDefect {
         value 68;
+        description
+          "Client Signal Fail defect (CSF)";
+        reference
+          "G.798 6.2.6.10";
       }
       enum highBER {
         value 123;
@@ -798,7 +810,9 @@ module org-openroadm-probable-cause {
       enum multiplexStructureIdentifierMismatch {
         value 261;
         description
-          "G798 : 6.2.9 (dMSIM)";
+          "Multiplex Structure Identifier Mismatch (MSIM)";
+        reference
+          "G.798 6.2.9";
       }
       enum lossOfOmfIndication {
         value 262;
