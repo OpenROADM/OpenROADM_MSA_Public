@@ -4,7 +4,7 @@ module org-openroadm-common-types {
 
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   organization
     "Open ROADM MSA";
