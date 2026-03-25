@@ -8,7 +8,7 @@ module org-openroadm-rstp {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;

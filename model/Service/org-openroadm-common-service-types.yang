@@ -32,7 +32,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;

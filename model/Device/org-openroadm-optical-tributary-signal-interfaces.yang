@@ -36,7 +36,7 @@ module org-openroadm-optical-tributary-signal-interfaces {
   }
   import org-openroadm-otn-common {
     prefix org-openroadm-otn-common;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
 
   organization

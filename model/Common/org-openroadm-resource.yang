@@ -16,7 +16,7 @@ module org-openroadm-resource {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;

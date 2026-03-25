@@ -52,7 +52,7 @@ module org-openroadm-device {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   import org-openroadm-physical-types {
     prefix org-openroadm-physical-types;
@@ -2264,52 +2264,6 @@ module org-openroadm-device {
   identity flexo-modulation-format-identity {
     description
       "Flexo modulation format identification";
-  }
-
-  grouping flexo-grp {
-    description
-      "Flexo group";
-    leaf circuit-pack-name {
-      type leafref {
-        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:circuit-pack-name";
-      }
-      description
-        "Circuit-Pack identifier. Unique within the context of a device.";
-    }
-    leaf port-name {
-      type leafref {
-        path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs/org-openroadm-device:ports/org-openroadm-device:port-name";
-      }
-      description
-        "Port index identifier. Unique within the context of a circuit-pack.";
-    }
-
-    leaf otsi-rate {
-      type identityref {
-        base org-openroadm-common-optical-channel-types:otsi-rate-identity;
-      }
-      mandatory true;
-      description
-        "Flexo rate";
-    }
-    leaf otsi-modulation-format {
-      type identityref {
-        base flexo-modulation-format-identity;
-      }
-      description
-        "Flexo modulation format";
-    }
-    leaf otsi-width {
-      type uint16;
-      description
-        "OTSI width";
-    }
-    leaf operational-mode-id {
-      type string;
-      mandatory true;
-      description
-        "Optical profile operational mode identifier";
-    }
   }
 
   grouping otsigroup-capability-grp {
