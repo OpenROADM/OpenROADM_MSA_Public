@@ -1595,21 +1595,21 @@ module org-openroadm-device {
       type org-openroadm-common-link-types:psd-dBm-50GHz;
       units "dBm per 50GHz";
       description
-        "The provisioned target PSD to optimize the SRG/sub-SRG.  Channel target power setting is determined based on the target-input-psd and the slot-width of the channel.";
+        "The desired input power spectral density (PSD) for a channel added to the SRG/sub-SRG. The type of channel (MC or NMC) depends on psd-reference.";
     }
     leaf min-input-psd {
       type org-openroadm-common-link-types:psd-dBm-50GHz;
       config false;
       units "dBm per 50GHz";
       description
-        "The minimum input PSD for a channel into the SRG/sub-SRG.";
+        "The minimum allowable input power spectral density (PSD) for a channel added to the SRG/sub-SRG. The type of channel (MC or NMC) depends on psd-reference.";
     }
     leaf max-input-psd {
       type org-openroadm-common-link-types:psd-dBm-50GHz;
       config false;
       units "dBm per 50GHz";
       description
-        "The maximum input PSD for a channel into the SRG/sub-SRG.";
+        "The maximum allowable input power spectral density (PSD) for a channel added to the SRG/sub-SRG. The type of channel (MC or NMC) depends on psd-reference.";
     }
     uses org-openroadm-common-types:psd-reference;
     leaf max-composite-input-power {
@@ -1617,36 +1617,32 @@ module org-openroadm-device {
       config false;
       units "dBm";
       description
-        "The maximum composite (total) power that can be supported coming into the SRG/sub-SRG.
-         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+        "The maximum total power of all channels (summed together) added to the SRG/sub-SRG that is allowable. This limit is intended to prevent saturating amplifiers within the SRG/sub-SRG.
+         It is used to define the limits of the Add side of the device. The channel type (MC or NMC) depends on the value of psd-reference.";
     }
     leaf max-total-bandwidth {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       config false;
       units "GHz";
       description
-        "The maximum total bandwidth that can be supported coming into or going out of the SRG/sub-SRG.
-         The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+        "The allowable total bandwidth of all channels (summed together) through the SRG/sub-SRG. This can be used for general limits other than those from the Add side amplifier saturation.
+         These are generally caused by the Drop side amplifier limitations. The channel type (MC or NMC) depends on the value of psd-reference.";
     }
     leaf available-composite-input-power {
       type org-openroadm-common-link-types:power-dBm;
       config false;
       units "dBm";
       description
-        "The remaining composite power add for the SRG/sub-SRG.
-         This value is computed as the minimum(max-composite-input-power,
-         prov-max-composite-input-power) - sum(provisioned channel input power).
-         The power of each channel is based on the MC slot-width that would be used with this channel and the target-input-psd.";
+        "The remaining composite power that can be added for the SRG/sub-SRG. This value is computed as the max-composite-input-power – sum of the provisioned input powers of
+         all channels currently on the SRG/sub-SRG. The channel type (MC or NMC) depends on the value of psd-reference.";
     }
     leaf available-total-bandwidth {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       config false;
       units "GHz";
       description
-        "The remaining total bandwidth for the SRG/sub-SRG.
-        This value is computed as the minimum(max-total-bandwidth,
-            prov-max-total-bandwidth) – sum(provisioned channel bandwidth).
-        The bandwidth of each channel is based on the MC slot-width that would be used with this channel.";
+        "The remaining total bandwidth that can be added for the SRG/sub-SRG. This value is computed as the max-total-bandwidth – sum of the bandwidths of
+         all channels currently on the SRG/sub-SRG. The channel type (MC or NMC) depends on the value of psd-reference.";
     }
   }
 

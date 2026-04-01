@@ -735,7 +735,8 @@ module org-openroadm-common-types {
     leaf psd-reference {
       type psd-reference;
       description
-        "Sets the PSD reference source.";
+        "The desired channel type (media channel or network media channel) over which to apply power spectral density calculation. Acceptable values are: mc-width or nmc-width.
+         The value of psd-reference should be set to Media Channel for OpenROADM standard devices. It can be set to either value for OLS style deployments.";
     }
   }
 
