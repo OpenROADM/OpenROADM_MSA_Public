@@ -1,5 +1,9 @@
 OpenROADM website: http://www.openroadm.org/
-## Latest Updates Jan 12 2026:
+
+## Latest Updates May 5 2026:
+1. Release 19.0.0
+2. Release OpenROADM MSA use-case architectural evolution **[v1.6](https://github.com/OpenROADM/OpenROADM_MSA_Public/wiki/files/OpenROADM_MSA_usecases_v1.6.pdf)**. Refer to the wiki page for more details.
+# Jan 12 2026
 1. Release 18.1.0
 # Nov 13 2025:
 1. Release 18.0.0

@@ -4,15 +4,15 @@ module org-openroadm-otn-common {
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2021-09-24;
+    revision-date 2024-12-13;
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2021-09-24;
+    revision-date 2024-12-13;
   }
 
   organization
@@ -62,9 +62,17 @@ module org-openroadm-otn-common {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-03-27 {
+    description
+      "Version 19.0.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
+  }
+  revision 2024-12-13 {
+    description
+      "Version 16.1";
   }
   revision 2022-03-25 {
     description

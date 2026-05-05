@@ -5,7 +5,7 @@ module org-openroadm-ethernet-interfaces {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2025-12-12;
+    revision-date 2026-03-27;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
@@ -13,11 +13,11 @@ module org-openroadm-ethernet-interfaces {
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2025-12-12;
+    revision-date 2026-03-27;
   }
   import org-openroadm-maintenance-testsignal {
     prefix org-openroadm-maint-testsignal;
-    revision-date 2025-12-12;
+    revision-date 2026-03-27;
   }
   import org-openroadm-maintenance-loopback {
     prefix org-openroadm-maint-loopback;
@@ -71,6 +71,10 @@ module org-openroadm-ethernet-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-03-27 {
+    description
+      "Version 19.0.0";
+  }
   revision 2025-12-12 {
     description
       "Version 18.1.0";
@@ -339,7 +343,14 @@ module org-openroadm-ethernet-interfaces {
     container parent-flexo-allocation {
       presence "Explicit assignment of parent FlexO instance and trib-port allocation.";
       description
-        "parent flexo-xe allocation";
+        "This container is specified when the Ethernet interface is built on an
+         OTSIG. The supporting interface shall indicate the OTSIG interface.
+         The NE shall model an Ethernet on the OTSIG for all configurations
+         including transponder, muxponder and switchponder. The trib-port-number
+         and iid list shall be provided for all configurations.
+         Flexo-xe alarms such as multiplexStructureIdentifierMismatch,
+         clientSignalFailDefect and lockedDefect shall be
+         reported against the associated Ethernet interface supported by the OTSIG";
 
       leaf trib-port-number {
         type uint16 {

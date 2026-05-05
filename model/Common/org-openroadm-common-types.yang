@@ -4,7 +4,7 @@ module org-openroadm-common-types {
 
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2025-05-30;
+    revision-date 2026-03-27;
   }
   organization
     "Open ROADM MSA";
@@ -39,6 +39,10 @@ module org-openroadm-common-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-03-27 {
+    description
+      "Version 19.0.0";
+  }
   revision 2025-12-12 {
     description
       "Version 18.1.0";
@@ -445,6 +449,11 @@ module org-openroadm-common-types {
         description
           "value for 18.1.0";
       }
+      enum 19.0.0 {
+        value 40;
+        description
+          "value for 19.0.0";
+      }
     }
     description
       "OpenROADM version enum type";
@@ -726,7 +735,8 @@ module org-openroadm-common-types {
     leaf psd-reference {
       type psd-reference;
       description
-        "Sets the PSD reference source.";
+        "The desired channel type (media channel or network media channel) over which to apply power spectral density calculation. Acceptable values are: mc-width or nmc-width.
+         The value of psd-reference should be set to Media Channel for OpenROADM standard devices. It can be set to either value for OLS style deployments.";
     }
   }
 
