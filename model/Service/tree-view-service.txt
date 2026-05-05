@@ -347,14 +347,22 @@ module: org-openroadm-controller-customization
        |  |  |     +---w restriction-scopes*              restriction-scope
        |  |  +---w link-restriction
        |  |  |  +---w link* [link-id]
-       |  |  |     +---w link-id                  string
-       |  |  |     +---w link-restriction-type?   link-restriction-type
-       |  |  |     +---w restriction-scopes*      restriction-scope
+       |  |  |     +---w link-id                                string
+       |  |  |     +---w link-restriction-type?                 link-restriction-type
+       |  |  |     +---w restriction-scopes*                    restriction-scope
+       |  |  |     +---w slot-width-service-rate-restriction* [index]
+       |  |  |        +---w index                       uint16
+       |  |  |        +---w slot-width-restriction?     org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  |        +---w service-rate-restriction?   uint16
        |  |  +---w supporting-service-restriction
        |  |  |  +---w supporting-service-list* [supporting-service]
        |  |  |     +---w supporting-service                     string
        |  |  |     +---w supporting-service-restriction-type?   link-restriction-type
        |  |  |     +---w restriction-scopes*                    restriction-scope
+       |  |  |     +---w slot-width-service-rate-restriction* [index]
+       |  |  |        +---w index                       uint16
+       |  |  |        +---w slot-width-restriction?     org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  |        +---w service-rate-restriction?   uint16
        |  |  +---w srg-restriction
        |  |     +---w node-srg-restriction* [node-id]
        |  |        +---w node-id     org-openroadm-common-node-types:node-id-type
@@ -4261,14 +4269,22 @@ module: org-openroadm-service
   |  |  |     +--rw restriction-scopes*              restriction-scope
   |  |  +--rw link-restriction
   |  |  |  +--rw link* [link-id]
-  |  |  |     +--rw link-id                  string
-  |  |  |     +--rw link-restriction-type?   link-restriction-type
-  |  |  |     +--rw restriction-scopes*      restriction-scope
+  |  |  |     +--rw link-id                                string
+  |  |  |     +--rw link-restriction-type?                 link-restriction-type
+  |  |  |     +--rw restriction-scopes*                    restriction-scope
+  |  |  |     +--rw slot-width-service-rate-restriction* [index]
+  |  |  |        +--rw index                       uint16
+  |  |  |        +--rw slot-width-restriction?     org-openroadm-common-optical-channel-types:frequency-GHz
+  |  |  |        +--rw service-rate-restriction?   uint16
   |  |  +--rw supporting-service-restriction
   |  |  |  +--rw supporting-service-list* [supporting-service]
   |  |  |     +--rw supporting-service                     string
   |  |  |     +--rw supporting-service-restriction-type?   link-restriction-type
   |  |  |     +--rw restriction-scopes*                    restriction-scope
+  |  |  |     +--rw slot-width-service-rate-restriction* [index]
+  |  |  |        +--rw index                       uint16
+  |  |  |        +--rw slot-width-restriction?     org-openroadm-common-optical-channel-types:frequency-GHz
+  |  |  |        +--rw service-rate-restriction?   uint16
   |  |  +--rw srg-restriction
   |  |     +--rw node-srg-restriction* [node-id]
   |  |        +--rw node-id     org-openroadm-common-node-types:node-id-type
