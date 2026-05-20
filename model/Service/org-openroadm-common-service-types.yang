@@ -52,7 +52,7 @@ module org-openroadm-common-service-types {
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
   import org-openroadm-common-phy-codes {
     prefix org-openroadm-common-phy-codes;

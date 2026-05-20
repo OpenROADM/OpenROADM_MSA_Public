@@ -288,6 +288,15 @@ module org-openroadm-network-types {
       enum DEGREE-TXRX-CTP {
         value 16;
       }
+      enum DEGREE-TXRX-PP {
+        value 17;
+      }
+      enum DEGREE-RX-PP {
+        value 18;
+      }
+      enum DEGREE-TX-PP {
+        value 19;
+      }
     }
   }
 

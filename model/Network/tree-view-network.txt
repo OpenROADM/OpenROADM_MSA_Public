@@ -10,6 +10,26 @@ module: org-openroadm-common-network
   augment /nd:networks/nd:network/nd:network-types:
     +--rw openroadm-common-network!
        +--rw topo:openroadm-topology!
+       |  +--rw topo:mc-capability-profile* [profile-name]
+       |  |  +--rw topo:profile-name               string
+       |  |  +--rw topo:center-freq-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  +--rw topo:min-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  +--rw topo:max-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  +--rw topo:slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  +--rw topo:min-slots?                 uint32
+       |  |  +--rw topo:max-slots?                 uint32
+       |  +--rw topo:wss-capability-profile* [profile-name]
+       |     +--rw topo:profile-name                  string
+       |     +--rw topo:input
+       |     |  +--rw topo:target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     +--rw topo:output
+       |     |  +--rw topo:target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     +--rw topo:mc-capability-profile-name*   -> ../../mc-capability-profile/profile-name
+       |     +--rw topo:psd-reference?                psd-reference
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
   augment /nd:networks/nd:network:
@@ -133,6 +153,14 @@ module: org-openroadm-network-topology
     |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
     |  +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
     |  +--rw supported-operational-modes*      string
+    |  +--rw tda-group* [tda-group-id]
+    |  |  +--rw tda-group-id         uint16
+    |  |  +--rw group-constraints* [index]
+    |  |  |  +--rw index               uint16
+    |  |  |  +--rw wss-profile-name*   -> ../../../../../nd:network-types/cnet:openroadm-common-network/openroadm-topology/wss-capability-profile/profile-name
+    |  |  |  +--rw min-slot-width?     org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw max-slot-width?     org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw tp-list*             -> /nd:networks/network/node[nd:node-id=current()/../../../node-id]/nwt:termination-point/tp-id
     |  +--rw avail-freq-maps* [map-name]
     |  |  +--rw map-name                string
     |  |  +--rw start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz

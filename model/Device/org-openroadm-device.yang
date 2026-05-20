@@ -102,6 +102,10 @@ module org-openroadm-device {
     prefix org-openroadm-common-pluggable-types;
     revision-date 2026-05-29;
   }
+  import org-openroadm-common-attributes {
+    prefix org-openroadm-common-attributes;
+    revision-date 2026-05-29;
+  }
   organization
     "Open ROADM MSA";
   contact
@@ -3070,62 +3074,14 @@ module org-openroadm-device {
         config false;
         description
           "Media channel capability profile list";
-        leaf profile-name {
-          type string;
-          description
-            "Media channel profile name";
-        }
-        leaf center-freq-granularity {
-          type org-openroadm-common-optical-channel-types:frequency-GHz;
-          default "50";
-          config false;
-          description
-            "Granularity of allowed center frequencies.  The base frequency for this computation is 193.1 THz (G.694.1)";
-        }
-        leaf min-edge-freq {
-          type org-openroadm-common-optical-channel-types:frequency-THz;
-          config false;
-          description
-            "Minimum edge frequency";
-        }
-        leaf max-edge-freq {
-          type org-openroadm-common-optical-channel-types:frequency-THz;
-          config false;
-          description
-            "Maximum edge frequency";
-        }
-        leaf slot-width-granularity {
-          type org-openroadm-common-optical-channel-types:frequency-GHz;
-          default "50";
-          config false;
-          description
-            "Width of a slot measured in GHz.";
-        }
-        leaf min-slots {
-          type uint32;
-          default "1";
-          config false;
-          description
-            "Minimum number of slots permitted to be joined together to form a media channel.  Must be less than or equal to the max-slots";
-        }
-        leaf max-slots {
-          type uint32;
-          default "1";
-          config false;
-          description
-            "Maximum number of slots permitted to be joined together to form a media channel.  Must be greater than or equal to the min-slots";
-        }
+        uses org-openroadm-common-attributes:mc-capability-profile-grp;
       }
       list wss-capability-profile {
         key "profile-name";
         config false;
         description
           "WSS capability profile list";
-        leaf profile-name {
-          type string;
-          description
-            "WSS capability profile name";
-        }
+        uses org-openroadm-common-attributes:wss-capability-profile-grp;
         uses mc-capabilities-grp;
         leaf-list roadm-port-mode {
           type org-openroadm-common-types:roadm-port-mode-types;
@@ -3133,16 +3089,6 @@ module org-openroadm-device {
             "Defines the ROADM port modes associated with the wss profile";
         }
         uses org-openroadm-common-types:psd-reference;
-        container input {
-          description
-            "Input PSD constraints for the WSS.";
-          uses psd-capability-grp;
-        }
-        container output {
-          description
-            "Output PSD constraints for the WSS.";
-          uses psd-capability-grp;
-        }
       }
       list split-lambda-profile {
         key "profile-name";
@@ -3306,28 +3252,6 @@ module org-openroadm-device {
             "OTUCn profile name";
         }
         uses otucn-grp;
-      }
-      grouping psd-capability-grp {
-        leaf target-psd {
-            type org-openroadm-common-link-types:psd-dBm-50GHz;
-            units "dBm per 50GHz";
-            description
-                "The target PSD to optimize.";
-        }
-        leaf min-psd {
-            type org-openroadm-common-link-types:psd-dBm-50GHz;
-            config false;
-            units "dBm per 50GHz";
-            description
-                "The minimum PSD for a channel.";
-        }
-        leaf max-psd {
-            type org-openroadm-common-link-types:psd-dBm-50GHz;
-            config false;
-            units "dBm per 50GHz";
-            description
-                "The maximum PSD for a channel.";
-        }
       }
     }
   }

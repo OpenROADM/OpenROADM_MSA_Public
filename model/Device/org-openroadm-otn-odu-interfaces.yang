@@ -25,7 +25,7 @@ module org-openroadm-otn-odu-interfaces {
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2024-12-13;
+    revision-date 2026-05-29;
   }
 
   organization

@@ -1262,17 +1262,17 @@ module: org-openroadm-device
      |  +--ro max-slots?                 uint32
      +--ro wss-capability-profile* [profile-name]
      |  +--ro profile-name                  string
-     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
-     |  +--ro roadm-port-mode*              org-openroadm-common-types:roadm-port-mode-types
-     |  +--ro psd-reference?                psd-reference
      |  +--ro input
      |  |  +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
      |  |  +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
      |  |  +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
      |  +--ro output
-     |     +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
-     |     +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
-     |     +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  |  +--ro max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
+     |  +--ro roadm-port-mode*              org-openroadm-common-types:roadm-port-mode-types
+     |  +--ro psd-reference?                psd-reference
      +--ro split-lambda-profile* [profile-name]
      |  +--ro profile-name                         string
      |  +--ro logical-port

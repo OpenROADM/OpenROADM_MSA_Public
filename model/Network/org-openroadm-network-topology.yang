@@ -43,6 +43,10 @@ module org-openroadm-network-topology {
     prefix org-openroadm-network-resource;
     revision-date 2025-12-12;
   }
+  import org-openroadm-network-topology-types {
+    prefix org-openroadm-network-topology-types;
+    revision-date 2026-05-29;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -247,7 +251,8 @@ module org-openroadm-network-topology {
     deviate add {
       must "/nd:networks/nd:network/nd:node/cnet:node-type != 'DEGREE' or (../../cnet:node-type = 'DEGREE'  and
             (../cnet:tp-type = 'DEGREE-TX-TTP' or ../cnet:tp-type = 'DEGREE-RX-TTP' or  ../cnet:tp-type = 'DEGREE-TXRX-TTP' or
-            ../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP'))" {
+            ../cnet:tp-type = 'DEGREE-TX-CTP' or ../cnet:tp-type = 'DEGREE-RX-CTP' or ../cnet:tp-type = 'DEGREE-TXRX-CTP' or
+            ../cnet:tp-type = 'DEGREE-TX-PP' or ../cnet:tp-type = 'DEGREE-RX-PP' or ../cnet:tp-type = 'DEGREE-TXRX-PP'))" {
         error-message "Invalid TP for node type 'DEGREE'";
       }
       must "/nd:networks/nd:network/nd:node/cnet:node-type != 'SRG' or (../../cnet:node-type = 'SRG' and
@@ -290,6 +295,8 @@ module org-openroadm-network-topology {
        `     network topology";
     container openroadm-topology {
       presence "indicates optical network topology for Open ROADMs";
+      uses org-openroadm-network-topology-types:mc-capability-profile-grp;
+      uses org-openroadm-network-topology-types:wss-capability-profile-grp;
     }
   }
 
@@ -358,7 +365,8 @@ module org-openroadm-network-topology {
       uses org-openroadm-network-resource:available-freq-map;
     }
     container pp-attributes {
-      when "../cnet:tp-type = 'SRG-TXRX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-RX-PP' ";
+      when "../cnet:tp-type = 'SRG-TXRX-PP' or ../cnet:tp-type = 'SRG-TX-PP' or ../cnet:tp-type = 'SRG-RX-PP' or
+      ../cnet:tp-type = 'DEGREE-TXRX-PP' or ../cnet:tp-type = 'DEGREE-TX-PP' or ../cnet:tp-type = 'DEGREE-RX-PP'";
       description
         "This list is created to accommodate fixed grid (1.2.1) as well as flex grid (2.0 above). In case of fixed grid
          index number will refer to one of the 96 WL defined in the wavelength map file. In case of flex grid this

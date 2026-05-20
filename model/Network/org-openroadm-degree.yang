@@ -11,6 +11,22 @@ module org-openroadm-degree {
     prefix org-openroadm-network-types;
     revision-date 2026-05-29;
   }
+  import ietf-network {
+    prefix nd;
+    revision-date 2018-02-26;
+  }
+  import ietf-network-topology {
+    prefix nwt;
+    revision-date 2018-02-26;
+  }
+  import org-openroadm-common-optical-channel-types {
+    prefix org-openroadm-common-optical-channel-types;
+    revision-date 2025-03-28;
+  }
+  import org-openroadm-common-network {
+    prefix cnet;
+    revision-date 2026-05-29;
+  }
 
   organization
     "Open ROADM MSA";
@@ -206,6 +222,32 @@ module org-openroadm-degree {
     }
   }
 
+  grouping group-constraints {
+    list group-constraints {
+      key "index";
+      leaf index {
+        type uint16;
+      }
+      leaf-list wss-profile-name {
+        type leafref {
+          path "../../../../../nd:network-types/cnet:openroadm-common-network/openroadm-topology/wss-capability-profile/profile-name";
+        }
+        description
+          "Pointer to the WSS capabilities";
+      }
+      leaf min-slot-width {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        description
+          "The minimum slot width in frequency-GHz";
+      }
+      leaf max-slot-width {
+        type org-openroadm-common-optical-channel-types:frequency-GHz;
+        description
+          "The maximum slot width in frequency-GHz";
+      }
+    }
+  }
+
   grouping degree-node-attributes {
     description
       "Defines the group of degree attributes";
@@ -240,6 +282,22 @@ module org-openroadm-degree {
       config true;
       description
         "defines the supported openroadm specifications";
+    }
+    list tda-group {
+      key "tda-group-id";
+      description "The list of TDA group with contraints";
+      leaf tda-group-id {
+        type uint16;
+        description "The identifier for the TDA group";
+      }
+      uses group-constraints;
+      leaf-list tp-list {
+        type leafref {
+          path "/nd:networks/nd:network/nd:node[nd:node-id=current()/../../../nd:node-id]/nwt:termination-point/nwt:tp-id";
+          require-instance false;
+        }
+        description "The list of termination-point refs following TDA port-pair naming associated with the TDA group";
+      }
     }
   }
 }

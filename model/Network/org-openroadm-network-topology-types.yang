@@ -19,6 +19,14 @@ module org-openroadm-network-topology-types {
     prefix org-openroadm-port-types;
     revision-date 2026-03-27;
   }
+  import org-openroadm-common-types {
+    prefix org-openroadm-common-types;
+    revision-date 2026-05-29;
+  }
+  import org-openroadm-common-attributes {
+    prefix org-openroadm-common-attributes;
+    revision-date 2026-05-29;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -51,6 +59,10 @@ module org-openroadm-network-topology-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-05-29 {
+    description
+      "Version 19.1.0";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -194,6 +206,76 @@ module org-openroadm-network-topology-types {
         "Used to reference a node.
          Nodes are identified relative to the network they are
          contained in.";
+    }
+  }
+
+  grouping mc-capability-profile-grp {
+    list mc-capability-profile {
+      key "profile-name";
+      description
+        "Media channel capability profile list";
+      uses org-openroadm-common-attributes:mc-capability-profile-grp {
+        refine "profile-name" {
+          config true;
+        }
+        refine "center-freq-granularity" {
+          config true;
+        }
+        refine "min-edge-freq" {
+          config true;
+        }
+        refine "max-edge-freq" {
+          config true;
+        }
+        refine "slot-width-granularity" {
+          config true;
+        }
+        refine "min-slots" {
+          config true;
+        }
+        refine "max-slots" {
+          config true;
+        }
+      }
+    }
+  }
+
+  grouping wss-capability-profile-grp {
+    list wss-capability-profile {
+      key "profile-name";
+      description
+        "WSS capability profile list";
+      uses org-openroadm-common-attributes:wss-capability-profile-grp {
+        refine "profile-name" {
+          config true;
+        }
+        refine "input/target-psd" {
+          config true;
+        }
+        refine "input/min-psd" {
+          config true;
+        }
+        refine "input/max-psd" {
+          config true;
+        }
+        refine "output/target-psd" {
+          config true;
+        }
+        refine "output/min-psd" {
+          config true;
+        }
+        refine "output/max-psd" {
+          config true;
+        }
+      }
+      leaf-list mc-capability-profile-name {
+        type leafref {
+          path "../../mc-capability-profile/profile-name";
+        }
+        description
+          "Media channel capabilities";
+      }
+      uses org-openroadm-common-types:psd-reference;
     }
   }
 }
