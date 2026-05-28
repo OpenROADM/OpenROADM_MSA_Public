@@ -24,7 +24,7 @@ module org-openroadm-pm {
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2025-03-28;
+    revision-date 2026-05-29;
   }
 
   organization

@@ -13,7 +13,7 @@ module org-openroadm-tca {
   }
   import org-openroadm-pm-types {
     prefix org-openroadm-pm-types;
-    revision-date 2025-03-28;
+    revision-date 2026-05-29;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
