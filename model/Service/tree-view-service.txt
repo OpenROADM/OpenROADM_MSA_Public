@@ -4303,6 +4303,7 @@ module: org-openroadm-service
      |  +--rw xponders-pluggables!
      |  |  +--rw xponder-pluggable-openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |     +--rw openroadm-operational-mode-id    string
+     |  |     +--rw revision-date?                   org-openroadm-common-types:date
      |  |     +--rw media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
      |  |     +--rw baud-rate?                       decimal64
      |  |     +--rw line-rate                        decimal64
@@ -4323,6 +4324,7 @@ module: org-openroadm-service
      |  |     |  +--rw min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
      |  |     |  +--rw max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
      |  |     +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
+     |  |     +--rw min-RX-esnr-tolerance?           org-openroadm-common-link-types:ratio-dB
      |  |     +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
      |  |     +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
      |  |     +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -4337,6 +4339,7 @@ module: org-openroadm-service
      |  |  +--rw Express
      |  |  |  +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |  |     +--rw openroadm-operational-mode-id    string
+     |  |  |     +--rw revision-date?                   org-openroadm-common-types:date
      |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
      |  |  |     +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |  |  |     +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -4356,6 +4359,7 @@ module: org-openroadm-service
      |  |  +--rw Add
      |  |  |  +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |  |     +--rw openroadm-operational-mode-id    string
+     |  |  |     +--rw revision-date?                   org-openroadm-common-types:date
      |  |  |     +--rw max-channel-number?              uint8
      |  |  |     +--rw incremental-osnr?                org-openroadm-common-link-types:ratio-dB
      |  |  |     +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
@@ -4372,6 +4376,7 @@ module: org-openroadm-service
      |  |  +--rw Drop
      |  |     +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |  |        +--rw openroadm-operational-mode-id    string
+     |  |        +--rw revision-date?                   org-openroadm-common-types:date
      |  |        +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
      |  |        +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |  |        +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -4388,6 +4393,7 @@ module: org-openroadm-service
      |     +--rw Amplifier
      |        +--rw openroadm-operational-mode* [openroadm-operational-mode-id]
      |           +--rw openroadm-operational-mode-id    string
+     |           +--rw revision-date?                   org-openroadm-common-types:date
      |           +--rw per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
      |           +--rw per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
      |           +--rw max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -4442,6 +4448,7 @@ module: org-openroadm-service
            |  +--rw min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
            |  +--rw max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
            +--rw min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
+           +--rw min-RX-esnr-tolerance?           org-openroadm-common-link-types:ratio-dB
            +--rw min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
            +--rw max-input-power                  org-openroadm-common-link-types:power-dBm
            +--rw channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -13677,6 +13684,7 @@ module: org-openroadm-service
     |  |     +---w xponders-pluggables
     |  |     |  +---w xponder-pluggable-openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |     +---w openroadm-operational-mode-id    string
+    |  |     |     +---w revision-date?                   org-openroadm-common-types:date
     |  |     |     +---w media-interface-id?              org-openroadm-common-pluggable-types:media-id-type
     |  |     |     +---w baud-rate?                       decimal64
     |  |     |     +---w line-rate                        decimal64
@@ -13697,6 +13705,7 @@ module: org-openroadm-service
     |  |     |     |  +---w min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |     |     |  +---w max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |     |     +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
+    |  |     |     +---w min-RX-esnr-tolerance?           org-openroadm-common-link-types:ratio-dB
     |  |     |     +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
     |  |     |     +---w max-input-power                  org-openroadm-common-link-types:power-dBm
     |  |     |     +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz
@@ -13711,6 +13720,7 @@ module: org-openroadm-service
     |  |     |  +---w Express
     |  |     |  |  +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |  |     +---w openroadm-operational-mode-id    string
+    |  |     |  |     +---w revision-date?                   org-openroadm-common-types:date
     |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
     |  |     |  |     +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |     |  |     +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -13730,6 +13740,7 @@ module: org-openroadm-service
     |  |     |  +---w Add
     |  |     |  |  +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |  |     +---w openroadm-operational-mode-id    string
+    |  |     |  |     +---w revision-date?                   org-openroadm-common-types:date
     |  |     |  |     +---w max-channel-number?              uint8
     |  |     |  |     +---w incremental-osnr?                org-openroadm-common-link-types:ratio-dB
     |  |     |  |     +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
@@ -13746,6 +13757,7 @@ module: org-openroadm-service
     |  |     |  +---w Drop
     |  |     |     +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |     |        +---w openroadm-operational-mode-id    string
+    |  |     |        +---w revision-date?                   org-openroadm-common-types:date
     |  |     |        +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
     |  |     |        +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |     |        +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -13762,6 +13774,7 @@ module: org-openroadm-service
     |  |        +---w Amplifier
     |  |           +---w openroadm-operational-mode* [openroadm-operational-mode-id]
     |  |              +---w openroadm-operational-mode-id    string
+    |  |              +---w revision-date?                   org-openroadm-common-types:date
     |  |              +---w per-channel-Pin-min?             org-openroadm-common-link-types:power-dBm
     |  |              +---w per-channel-Pin-max?             org-openroadm-common-link-types:power-dBm
     |  |              +---w max-introduced-pdl?              org-openroadm-common-link-types:ratio-dB
@@ -13828,6 +13841,7 @@ module: org-openroadm-service
     |  |           |  +---w min-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |           |  +---w max-provisionable-output-power?     org-openroadm-common-link-types:power-dBm
     |  |           +---w min-RX-osnr-tolerance            org-openroadm-common-link-types:ratio-dB
+    |  |           +---w min-RX-esnr-tolerance?           org-openroadm-common-link-types:ratio-dB
     |  |           +---w min-input-power-at-RX-osnr       org-openroadm-common-link-types:power-dBm
     |  |           +---w max-input-power                  org-openroadm-common-link-types:power-dBm
     |  |           +---w channel-width?                   org-openroadm-common-optical-channel-types:frequency-GHz

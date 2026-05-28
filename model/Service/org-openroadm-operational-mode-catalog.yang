@@ -348,6 +348,11 @@ module org-openroadm-operational-mode-catalog {
           description
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
         }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
         leaf max-channel-number {
           type uint8;
           description
@@ -378,6 +383,11 @@ module org-openroadm-operational-mode-catalog {
           type string;
           description
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
         }
         uses operational-mode-roadm-base-parameters;
         uses polynomial-fit;
@@ -410,6 +420,11 @@ module org-openroadm-operational-mode-catalog {
           description
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
         }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
+        }
         uses operational-mode-roadm-base-parameters;
         uses polynomial-fit;
         uses power-mask;
@@ -431,6 +446,11 @@ module org-openroadm-operational-mode-catalog {
           type string;
           description
             "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+        }
+        leaf revision-date {
+          type org-openroadm-common-types:date;
+          description
+            "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
         }
         uses operational-mode-roadm-base-parameters;
         uses polynomial-fit;
@@ -716,6 +736,11 @@ module org-openroadm-operational-mode-catalog {
             type string;
             description
               "openroadm operational mode which points to a specific spreadsheet of optical specifications";
+          }
+          leaf revision-date {
+            type org-openroadm-common-types:date;
+            description
+              "Optional revision date for the operational mode catalog entry in YYYY-MM-DD format.";
           }
           leaf media-interface-id {
             type org-openroadm-common-pluggable-types:media-id-type;
