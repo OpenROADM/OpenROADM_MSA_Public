@@ -1291,9 +1291,21 @@ module org-openroadm-device {
     list connection-ports {
       key "index";
       description
-        "Port associated with degree: One if bi-directional; two if uni-directional";
+        "Port associated with degree.
+         Two entries if the ports are uni-directional (port-direction = tx, rx).
+         For bi-directional ports, there can be one entry (port-direction = bidirectional)
+         or two entries (port-direction = tx, rx with the same port-name).";
       leaf index {
         type uint32;
+        description
+          "Index for the connection-ports.
+           When two entries, it is suggested that index 1 for
+           port-direction tx and index 2 for port-direction rx.";
+      }
+      leaf port-direction {
+        type org-openroadm-common-alarm-pm-types:direction;
+        description
+          "Direction of the port.";
       }
       uses port-name {
         refine "circuit-pack-name" {
@@ -1308,6 +1320,25 @@ module org-openroadm-device {
       description
         "osc port associated with degree.";
       uses port-name;
+    }
+    list ots-port {
+      key "port-direction";
+      description
+        "OTS port(s) associated with degree.";
+      leaf port-direction {
+        type org-openroadm-common-alarm-pm-types:direction;
+        description
+          "Direction of the OTS port. tx and rx should be used for unidirectional OTS ports.
+          Either tx and rx, or bidirectional can be used for bidirectional OTS ports.";
+      }
+      uses port-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+        refine "port-name" {
+          mandatory true;
+        }
+      }
     }
     container otdr-port {
       description
@@ -2744,6 +2775,26 @@ module org-openroadm-device {
             description
               "allows identifying ports associated with logical amp :
               TX for OSC circuit-pack IN RX for OSC circuit-pack OUT";
+          }
+          uses port-name {
+            refine "circuit-pack-name" {
+              mandatory true;
+            }
+            refine "port-name" {
+              mandatory true;
+            }
+          }
+        }
+        list ots-port {
+          key "port-direction";
+          description
+            "OTS ports associated with the line amplifier.";
+          leaf port-direction {
+            type org-openroadm-common-alarm-pm-types:direction;
+            description
+              "Direction of the OTS port. tx and rx should be used for
+              unidirectional OTS ports and bidirectional OTS ports.
+              notApplicable and bidirectional should not be used for line amplifier port-direction.";
           }
           uses port-name {
             refine "circuit-pack-name" {

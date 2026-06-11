@@ -1055,11 +1055,16 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  +--rw connection-ports* [index]
      |  |  +--rw index                uint32
+     |  |  +--rw port-direction?      org-openroadm-common-alarm-pm-types:direction
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw osc-port
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  +--rw ots-port* [port-direction]
+     |  |  +--rw port-direction       org-openroadm-common-alarm-pm-types:direction
+     |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw otdr-port
      |  |  +--rw circuit-pack-name?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
@@ -1132,6 +1137,10 @@ module: org-openroadm-device
      |  |  +--rw circuit-pack-name                   -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name                           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
      |  +--rw osc-port* [port-direction]
+     |  |  +--rw port-direction       org-openroadm-common-alarm-pm-types:direction
+     |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  +--rw ots-port* [port-direction]
      |  |  +--rw port-direction       org-openroadm-common-alarm-pm-types:direction
      |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
      |  |  +--rw port-name            -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
