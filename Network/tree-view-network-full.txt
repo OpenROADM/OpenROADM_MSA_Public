@@ -938,6 +938,7 @@ module: ietf-network
         |  |                    |  +--rw topo:start-date    yang:date-and-time
         |  |                    |  +--rw topo:SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
         |  |                    +--rw topo:administrative-state?     org-openroadm-equipment-states-types:admin-states
+        |  |                    +--rw topo:operational-state?        org-openroadm-equipment-states-types:states
         |  +--rw otn-topo:available-bandwidth?   uint32
         |  +--rw otn-topo:used-bandwidth?        uint32
         |  +--rw otn-topo:ODU-protected?         boolean
@@ -948,9 +949,12 @@ module: ietf-network
            +--rw cnet:SRLG-length?   decimal64
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f0fe1ffa (Support fiber-aging-margin on span)
 =======
 >>>>>>> fb79b121 (new link-concatenation key and span measurement)
 =======
 >>>>>>> fb79b121 (new link-concatenation key and span measurement)
+=======
+>>>>>>> ebc2d26f (Support operational-state for amplified element span)
 

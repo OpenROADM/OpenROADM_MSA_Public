@@ -406,6 +406,9 @@ module org-openroadm-link {
               leaf administrative-state {
                 type org-openroadm-equipment-states-types:admin-states;
               }
+              leaf operational-state {
+                type org-openroadm-equipment-states-types:states;
+              }
             }
           }
         }

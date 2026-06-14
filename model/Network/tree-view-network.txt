@@ -366,6 +366,7 @@ module: org-openroadm-network-topology
                          |  +--rw start-date    yang:date-and-time
                          |  +--rw SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
                          +--rw administrative-state?     org-openroadm-equipment-states-types:admin-states
+                         +--rw operational-state?        org-openroadm-equipment-states-types:states
 
 module: org-openroadm-network
 
