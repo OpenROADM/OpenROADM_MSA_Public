@@ -309,7 +309,7 @@ module: org-openroadm-controller-customization
        |  |        +---w non-authorized-customer*               string
        |  |        +---w dedicated-signal-bandwidth-multiple?   uint8
        |  +---w margins
-       |  |  +---w minimum-fiber-attenuation-bol-margin?       org-openroadm-common-link-types:ratio-dB
+       |  |  +---w fiber-aging-margin?                         org-openroadm-common-link-types:ratio-dB
        |  |  +---w threshold-observed-vs-design-attenuation?   org-openroadm-common-link-types:ratio-dB
        |  |  +---w threshold-observed-vs-design-margin?        org-openroadm-common-link-types:ratio-dB
        |  |  +---w minimum-osnr-margins* [margin-id]
@@ -4223,7 +4223,7 @@ module: org-openroadm-service
   |  |        +--rw non-authorized-customer*               string
   |  |        +--rw dedicated-signal-bandwidth-multiple?   uint8
   |  +--rw margins
-  |  |  +--rw minimum-fiber-attenuation-bol-margin?       org-openroadm-common-link-types:ratio-dB
+  |  |  +--rw fiber-aging-margin?                         org-openroadm-common-link-types:ratio-dB
   |  |  +--rw threshold-observed-vs-design-attenuation?   org-openroadm-common-link-types:ratio-dB
   |  |  +--rw threshold-observed-vs-design-margin?        org-openroadm-common-link-types:ratio-dB
   |  |  +--rw minimum-osnr-margins* [margin-id]

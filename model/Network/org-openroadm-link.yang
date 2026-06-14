@@ -21,7 +21,7 @@ module org-openroadm-link {
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2025-03-28;
+    revision-date 2026-05-29;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
@@ -244,6 +244,12 @@ module org-openroadm-link {
       type org-openroadm-common-link-types:ratio-dB;
       description
         "Maximum ROADM span loss allowed";
+    }
+    leaf fiber-aging-margin {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Fiber Aging margin to combine both repair loss and aging margins for a span set during link planning.
+         It can be different values for every span and used during reach calculations";
     }
     uses org-openroadm-network-types:link-concatenation {
       augment "link-concatenation" {

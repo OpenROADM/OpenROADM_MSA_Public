@@ -516,15 +516,16 @@ module org-openroadm-controller-customization {
     container margins {
       description
         "defines all margins operator may want to specify";
-      leaf minimum-fiber-attenuation-bol-margin {
+      leaf fiber-aging-margin {
         type org-openroadm-common-link-types:ratio-dB;
         description
-          "Minimum fiber-attenuation margin to be considered for path calculation
-           at begining of life. The path calculation shall be made considering on
+          "Fiber-aging margin set globally to be considered for path computation to account for
+           fiber aging and repairs throughout the life of the span during link planning.
+           The path calculation shall be made considering on
            each link the engineered-spanloss (provided by an external sytem)
            _The RNC shall raise an ALARM to the northbound Controller through
            an insufficient-margin-crossing-alarm as soon as:
-           (span-loss-base + minimum-fiber-attenuation-bol-margin) - engineered-spanloss >
+           (span-loss-base + fiber-aging-margin) - engineered-spanloss >
            threshold-observed-vs-design-margin
            _The RNC shall raise a WARNING to the northbound Controller through
            an exceeded-attenuation-crossing-warning as soon as : (engineered-spanloss

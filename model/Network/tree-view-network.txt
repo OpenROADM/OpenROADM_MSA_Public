@@ -147,12 +147,11 @@ module: org-openroadm-network-topology
     |  |  +--rw freq-map?               binary
     |  +--rw type-variety?                  string
     +--rw degree-attributes
-    |  +--rw degree-number?                    uint16
-    |  +--rw max-wavelengths?                  uint32
-    |  +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-    |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-    |  +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-    |  +--rw supported-operational-modes*      string
+    |  +--rw degree-number?                  uint16
+    |  +--rw max-wavelengths?                uint32
+    |  +--rw eol-max-load-pIn?               org-openroadm-common-link-types:power-dBm
+    |  +--rw egress-average-channel-power?   org-openroadm-common-link-types:power-dBm
+    |  +--rw supported-operational-modes*    string
     |  +--rw tda-group* [tda-group-id]
     |  |  +--rw tda-group-id         uint16
     |  |  +--rw group-constraints* [index]
@@ -167,7 +166,7 @@ module: org-openroadm-network-topology
     |  |  +--rw freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +--rw effective-bits?         uint16
     |  |  +--rw freq-map?               binary
-    |  +--rw type-variety?                     string
+    |  +--rw type-variety?                   string
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
        +--rw recolor?       boolean
@@ -303,6 +302,7 @@ module: org-openroadm-network-topology
        |  +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
        |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
        |  +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
+       |  +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
        |  +--rw link-concatenation* [SRLG-Id]
        |  |  +--rw SRLG-Id                        uint32
        |  |  +--rw SRLG-length?                   decimal64
@@ -319,23 +319,22 @@ module: org-openroadm-network-topology
                 +--rw (section-element)?
                    +--:(ila)
                    |  +--rw ila
-                   |     +--rw amp-type                          org-openroadm-common-amplifier-types:amplifier-types
-                   |     +--rw amp-gain-range?                   org-openroadm-common-amplifier-types:amplifier-gain-range
-                   |     +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-                   |     +--rw gain                              org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-gain?           org-openroadm-common-link-types:ratio-dB
-                   |     +--rw tilt?                             org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-tilt?           org-openroadm-common-link-types:ratio-dB
-                   |     +--rw out-voa-att?                      org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
-                   |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-                   |     +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-                   |     +--rw supported-operational-modes*      string
-                   |     +--rw type-variety?                     string
-                   |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
-                   |     +--rw amp-number?                       uint8
-                   |     +--rw dge-deployed?                     boolean
+                   |     +--rw amp-type                         org-openroadm-common-amplifier-types:amplifier-types
+                   |     +--rw amp-gain-range?                  org-openroadm-common-amplifier-types:amplifier-gain-range
+                   |     +--rw gain                             org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-gain?          org-openroadm-common-link-types:ratio-dB
+                   |     +--rw tilt?                            org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-tilt?          org-openroadm-common-link-types:ratio-dB
+                   |     +--rw out-voa-att?                     org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-out-voa-att?   org-openroadm-common-link-types:ratio-dB
+                   |     +--rw eol-max-load-pIn?                org-openroadm-common-link-types:power-dBm
+                   |     +--rw egress-average-channel-power?    org-openroadm-common-link-types:power-dBm
+                   |     +--rw supported-operational-modes*     string
+                   |     +--rw type-variety?                    string
+                   |     +--rw node-id                          org-openroadm-common-node-types:node-id-type
+                   |     +--rw administrative-state?            org-openroadm-equipment-states-types:admin-states
+                   |     +--rw amp-number?                      uint8
+                   |     +--rw dge-deployed?                    boolean
                    |     +--rw supporting-node* [network-ref node-ref]
                    |        +--rw network-ref    -> ../../../../../../../../nd:supporting-network/network-ref
                    |        +--rw node-ref       -> /nd:networks/network/node/node-id
@@ -347,6 +346,7 @@ module: org-openroadm-network-topology
                          +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
                          +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
                          +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
+                         +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
                          +--rw link-concatenation* [SRLG-Id]
                          |  +--rw SRLG-Id                        uint32
                          |  +--rw SRLG-length?                   decimal64

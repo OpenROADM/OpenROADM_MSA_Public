@@ -259,12 +259,6 @@ module org-openroadm-degree {
       description
         "maximum # of wavelengths";
     }
-    leaf ingress-span-loss-aging-margin {
-      type org-openroadm-common-link-types:ratio-dB;
-      config true;
-      description
-        "Span-loss margin extracted from corresponding device OTS interface container, optional";
-    }
     leaf eol-max-load-pIn {
       type org-openroadm-common-link-types:power-dBm;
       config true;
