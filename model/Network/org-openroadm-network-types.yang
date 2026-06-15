@@ -435,7 +435,12 @@ module org-openroadm-network-types {
 
   grouping link-concatenation {
     list link-concatenation {
-      key "SRLG-Id";
+      key "index";
+      leaf index {
+        type uint32;
+        description
+          "Index of the link concatenation";
+      }
       leaf SRLG-Id {
         type uint32;
         description

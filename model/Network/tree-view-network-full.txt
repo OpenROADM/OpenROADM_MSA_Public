@@ -61,8 +61,9 @@ module: org-openroadm-common-network
     +--rw link-length?            decimal64
     +--rw link-latency?           uint32
     +--rw TE-metric?              uint32
-    +--rw link-concatenation* [SRLG-Id]
-    |  +--rw SRLG-Id        uint32
+    +--rw link-concatenation* [index]
+    |  +--rw index          uint32
+    |  +--rw SRLG-Id?       uint32
     |  +--rw SRLG-length?   decimal64
     +--rw future-SRLGs* [start-date]
     |  +--rw start-date    yang:date-and-time
@@ -303,11 +304,15 @@ module: org-openroadm-network-topology
        |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
        |  +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
        |  +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
-       |  +--rw link-concatenation* [SRLG-Id]
-       |  |  +--rw SRLG-Id                        uint32
+       |  +--rw link-concatenation* [index]
+       |  |  +--rw index                          uint32
+       |  |  +--rw SRLG-Id?                       uint32
        |  |  +--rw SRLG-length?                   decimal64
        |  |  +--rw fiber-type?                    enumeration
        |  |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+       |  |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
+       |  |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
+       |  |  +--rw cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
        |  |  +--rw subject-to-high-SOP-changes?   boolean
        |  +--rw future-SRLGs* [start-date]
        |     +--rw start-date    yang:date-and-time
@@ -347,11 +352,15 @@ module: org-openroadm-network-topology
                          +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
                          +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
                          +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
-                         +--rw link-concatenation* [SRLG-Id]
-                         |  +--rw SRLG-Id                        uint32
+                         +--rw link-concatenation* [index]
+                         |  +--rw index                          uint32
+                         |  +--rw SRLG-Id?                       uint32
                          |  +--rw SRLG-length?                   decimal64
                          |  +--rw fiber-type?                    enumeration
                          |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+                         |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
+                         |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
+                         |  +--rw cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
                          |  +--rw subject-to-high-SOP-changes?   boolean
                          +--rw future-SRLGs* [start-date]
                          |  +--rw start-date    yang:date-and-time

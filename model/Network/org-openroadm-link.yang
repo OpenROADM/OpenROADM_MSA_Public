@@ -302,6 +302,21 @@ module org-openroadm-link {
           description
             "Total PMD";
         }
+        leaf cd {
+          type org-openroadm-common-link-types:fiber-cd;
+          description
+            "Chromatic Dispersion expressed in ps/nm";
+        }
+        leaf cd-slope {
+          type org-openroadm-common-link-types:fiber-cd-slope;
+          description
+            "Chromatic Dispersion slope expressed in ps/nm*2";
+        }
+        leaf cd-measuring-wavelength {
+          type org-openroadm-common-link-types:fiber-cd-measuring-wavelength;
+          description
+            "Measuring wavelength for chromatic dispersion expressed in nm.";
+        }
         leaf subject-to-high-SOP-changes {
           type boolean;
           description
