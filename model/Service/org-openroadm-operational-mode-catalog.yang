@@ -610,11 +610,20 @@ module org-openroadm-operational-mode-catalog {
       description
         "Defined in 0.1 nm @ 193.6 Thz bandwidth";
     }
+    leaf min-RX-esnr-tolerance {
+      type org-openroadm-common-link-types:ratio-dB;
+      mandatory false;
+      description
+        "Minimum required electrical SNR (eSNR) at the receiver for the
+        specified transmission mode, units in dB. eSNR is a post-DSP quality
+        metric derived from the received electrical signal; the reference
+        bandwidth is modulation/DSP dependent (not 0.1 nm used for OSNR).";
+    }
     leaf min-input-power-at-RX-osnr {
       type org-openroadm-common-link-types:power-dBm;
       mandatory true;
       description
-        "minimum input-power for given osnr tolerance";
+        "minimum input-power for given osnr and esnr tolerance";
     }
     leaf max-input-power {
       type org-openroadm-common-link-types:power-dBm;

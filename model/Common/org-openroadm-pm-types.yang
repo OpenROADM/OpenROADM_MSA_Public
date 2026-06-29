@@ -2222,6 +2222,25 @@ module org-openroadm-pm-types {
         description
           "Minimum Measured Loss, units in dB";
       }
+      enum electricalSignalToNoiseRatio {
+        value 348;
+        description
+          "Electrical Signal To Noise Ratio (eSNR), units in dB. Represents the
+          post-DSP signal quality metric derived from the received electrical
+          signal, units in dB";
+      }
+      enum electricalSignalToNoiseRatioMax {
+        value 349;
+        description
+          "Maximum Electrical Signal To Noise Ratio (eSNR): the highest eSNR
+          value observed during the measurement interval, units in dB";
+      }
+      enum electricalSignalToNoiseRatioMin {
+        value 350;
+        description
+          "Minimum Electrical Signal To Noise Ratio (eSNR): the lowest eSNR
+          value observed during the measurement interval, units in dB";
+      }
     }
   }
 
