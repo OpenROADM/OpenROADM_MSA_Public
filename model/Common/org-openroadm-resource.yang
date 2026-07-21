@@ -679,6 +679,13 @@ module org-openroadm-resource {
             }
           }
         }
+        case fxc {
+          uses org-openroadm-resource-types:fxc-number {
+            refine "fxc-number" {
+              mandatory true;
+            }
+          }
+        }
         case service {
           uses org-openroadm-resource-types:service-name;
         }

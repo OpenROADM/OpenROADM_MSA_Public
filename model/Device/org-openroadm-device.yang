@@ -1059,6 +1059,45 @@ module org-openroadm-device {
              ports.";
         }
       }
+      container fxc-port {
+        when "../port-qual='fxc-port'";
+        uses org-openroadm-port-types:common-port-rx;
+        container voa {
+          config true;
+          description
+            "Variable attenuator settings.";
+          leaf voa-mode {
+            type enumeration {
+              enum none {
+                value 1;
+                description
+                  "no VOA is applied. voa-value does not need to be specified.";
+              }
+              enum absolute {
+                value 2;
+                description
+                  "VOA is dynamically controlled for target output power. voa-value should be expressed in power-dBm.";
+              }
+              enum relative {
+                value 3;
+                description
+                  "Fixed attenuation value is applied to VOA. i.e. The ratio of input power to output power remains constant. voa-value should be expressed in ratio-dB.";
+              }
+              enum maximum {
+                value 4;
+                description
+                  "The maximum attenuation specified for the equipment is applied. voa-value does not need to be specified.";
+              }
+            }
+          }
+          leaf voa-value {
+            type union {
+              type org-openroadm-common-link-types:ratio-dB;
+              type org-openroadm-common-link-types:power-dBm;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -1153,7 +1192,45 @@ module org-openroadm-device {
          can be used in alarm correlation and/or connection management ";
     }
   }
-
+ grouping fiber-connection {
+    description
+      "Grouping used to define fiber-connection.";
+      leaf connection-name {
+        type string;
+      }
+      container source {
+        leaf src-circuit-pack {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+          }
+        }
+        leaf src-port {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../src-circuit-pack]/ports/port-name";
+          }
+        }
+      }
+      container destination {
+        leaf dst-circuit-pack {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs/circuit-pack-name";
+          }
+        }
+        leaf dst-port {
+          type leafref {
+            path "/org-openroadm-device/circuit-packs[circuit-pack-name=current()/../dst-circuit-pack]/ports/port-name";
+          }
+        }
+      }
+      leaf circuit-id {
+        type string {
+          length "0..45";
+        }
+        description
+          "circuit identifier/user label,
+           can be used in alarm correlation and/or connection management ";
+      }
+    }
   grouping connection {
     description
       "Grouping used to define connections.";
@@ -1784,6 +1861,91 @@ module org-openroadm-device {
       }
       uses mc-capabilities-grp;
       uses srg-constraint-group;
+    }
+  }
+
+  grouping fxc-grp {
+    description
+      "State data and configuration of an FXC";
+    leaf fxc-number {
+      type uint16;
+      description
+        "FXC number should be greater than zero and not greater than max-fxc";
+    }
+    leaf fxc-name {
+      type string;
+      config true;
+      mandatory false;
+      description
+        "FXC name";
+    }
+
+    container insertion-loss {
+      config false;
+      leaf insertion-loss-typical {
+        type org-openroadm-common-link-types:ratio-dB;
+      }
+      leaf insertion-loss-max {
+        type org-openroadm-common-link-types:ratio-dB;
+      }
+    }
+    container input-ports {
+      list input-port {
+        key "name";
+        leaf name {
+          type string;
+        }
+        uses fxc-port;
+      }
+    }
+    container output-ports {
+      list output-port {
+        key "name";
+        leaf name {
+          type string;
+        }
+        uses fxc-port;
+      }
+    }
+    list circuit-packs {
+      key "index";
+      description
+        "list for Cards associated with an fxc";
+      leaf index {
+        type uint32;
+      }
+      uses circuit-pack-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+      }
+    }
+    uses mc-capabilities-grp;
+  }
+
+  grouping fxc-port {
+    container port-name {
+      config true;
+      description
+        "Mapping to physical port.";
+      uses port-name {
+        refine "circuit-pack-name" {
+          mandatory true;
+        }
+        refine "port-name" {
+          mandatory true;
+        }
+      }
+    }
+  }
+
+  grouping fxc-number {
+    leaf fxc-number {
+      type leafref {
+        path "/org-openroadm-device/fxc/fxc-number";
+      }
+      description
+        "Fxc identifier. Unique within the context of a device.";
     }
   }
 
@@ -2668,6 +2830,12 @@ module org-openroadm-device {
           description
             "Max. number of SRGs in an add/drop group";
         }
+        leaf max-fxcs {
+          type uint16;
+          config false;
+          description
+            "Max. number of fxcs supported by device";
+        }
         leaf max-num-bin-15min-historical-pm {
           type uint16;
           config false;
@@ -2723,6 +2891,11 @@ module org-openroadm-device {
         when "/org-openroadm-device/info/node-type='rdm'";
         key "srg-number";
         uses srg;
+      }
+      list fxc {
+        when "/org-openroadm-device/info/node-type='fxc'";
+        key "fxc-number";
+        uses fxc-grp;
       }
       list line-amplifier {
         when "/org-openroadm-device/info/node-type='ila'";
@@ -2866,6 +3039,11 @@ module org-openroadm-device {
         when "/org-openroadm-device/info/node-type='xpdr'";
         key "connection-name";
         uses odu-connection;
+      }
+      list fiber-connections {
+        when "/org-openroadm-device/info/node-type='fxc'";
+        key "connection-name";
+        uses fiber-connection;
       }
       list connection-map {
         key "connection-map-number";

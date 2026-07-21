@@ -329,6 +329,9 @@ module: ietf-network
         |  +--rw topo:xpdr-attributes
         |  |  +--rw topo:xpdr-number?   uint16
         |  |  +--rw topo:recolor?       boolean
+        |  +--rw topo:fxc-attributes
+        |  |  +--rw topo:fxc-number?               uint16
+        |  |  +--rw topo:insertion-loss-typical?   org-openroadm-common-link-types:ratio-dB
         |  +--rw net:software-version?            string
         |  +--rw net:openroadm-version?           org-openroadm-common-types:openroadm-version-type
         |  +--rw net:vendor?                      string
@@ -362,6 +365,9 @@ module: ietf-network
         |  |     +--rw net:client-equipment?      string
         |  |     +--rw net:client-equipment-id?   string
         |  |     +--rw net:clfi?                  string
+        |  +--rw net:fxc-attributes
+        |  |  +--rw net:max-fxcs?       uint16
+        |  |  +--rw net:current-fxcs?   uint16
         |  +--rw net:plan-due-dates
         |  |  +--rw net:due-dates* [id]
         |  |     +--rw net:id            uint16
@@ -500,7 +506,7 @@ module: ietf-network
         |  |                    |  +--rw topo:start-date    yang:date-and-time
         |  |                    |  +--rw topo:SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
         |  |                    +--rw topo:administrative-state?     org-openroadm-equipment-states-types:admin-states
-        |  |                    +--rw topo:operational-state?        org-openroadm-equipment-states-types:states
+        |  |                    +--rw topo:operational-state?        org-openroadm-common-state-types:state
         |  +--rw otn-topo:available-bandwidth?   uint32
         |  +--rw otn-topo:used-bandwidth?        uint32
         |  +--rw otn-topo:ODU-protected?         boolean

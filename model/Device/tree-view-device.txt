@@ -162,6 +162,8 @@ module: org-openroadm-de-operations
        |  |     |  +---w srg-number                uint16
        |  |     +--:(degree)
        |  |     |  +---w degree-number             uint16
+       |  |     +--:(fxc)
+       |  |     |  +---w fxc-number                uint16
        |  |     +--:(service)
        |  |     |  +---w service-name              string
        |  |     +--:(interface)
@@ -242,6 +244,8 @@ module: org-openroadm-de-operations
        |     |  +--ro srg-number                uint16
        |     +--:(degree)
        |     |  +--ro degree-number             uint16
+       |     +--:(fxc)
+       |     |  +--ro fxc-number                uint16
        |     +--:(service)
        |     |  +--ro service-name              string
        |     +--:(interface)
@@ -325,6 +329,7 @@ module: org-openroadm-device
      |  |  +--rw client-alive-max-count?   uint32 {ssh-idle-supervision}?
      |  +--ro max-degrees?                        uint16
      |  +--ro max-srgs?                           uint16
+     |  +--ro max-fxcs?                           uint16
      |  +--ro max-num-bin-15min-historical-pm?    uint16
      |  +--ro max-num-bin-24hour-historical-pm?   uint16
      +--rw users
@@ -518,6 +523,12 @@ module: org-openroadm-device
      |     +--rw roadm-monitor-port
      |     |  +--ro center-frequency?   org-openroadm-common-optical-channel-types:frequency-THz
      |     |  +--ro roadm-connection*   -> /org-openroadm-device/roadm-connections/connection-name
+     |     +--rw fxc-port
+     |     |  +--ro port-power-capability-min-rx?   org-openroadm-common-link-types:power-dBm
+     |     |  +--ro port-power-capability-max-rx?   org-openroadm-common-link-types:power-dBm
+     |     |  +--rw voa
+     |     |     +--rw voa-mode?    enumeration
+     |     |     +--rw voa-value?   union
      |     +--ro org-openroadm-port-capability:port-capabilities
      |        +--ro org-openroadm-port-capability:supported-interface-capability* [if-cap-type]
      |           +--ro org-openroadm-port-capability:if-cap-type                              identityref
@@ -1104,6 +1115,28 @@ module: org-openroadm-device
      |     +--ro max-total-bandwidth?               org-openroadm-common-optical-channel-types:frequency-GHz
      |     +--ro available-composite-input-power?   org-openroadm-common-link-types:power-dBm
      |     +--ro available-total-bandwidth?         org-openroadm-common-optical-channel-types:frequency-GHz
+     +--rw fxc* [fxc-number]
+     |  +--rw fxc-number                    uint16
+     |  +--rw fxc-name?                     string
+     |  +--ro insertion-loss
+     |  |  +--ro insertion-loss-typical?   org-openroadm-common-link-types:ratio-dB
+     |  |  +--ro insertion-loss-max?       org-openroadm-common-link-types:ratio-dB
+     |  +--rw input-ports
+     |  |  +--rw input-port* [name]
+     |  |     +--rw name         string
+     |  |     +--rw port-name
+     |  |        +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |        +--rw port-name            -> /org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  +--rw output-ports
+     |  |  +--rw output-port* [name]
+     |  |     +--rw name         string
+     |  |     +--rw port-name
+     |  |        +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |        +--rw port-name            -> /org-openroadm-device/circuit-packs[org-openroadm-device:circuit-pack-name=current()/../circuit-pack-name]/ports/port-name
+     |  +--rw circuit-packs* [index]
+     |  |  +--rw index                uint32
+     |  |  +--rw circuit-pack-name    -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  +--ro mc-capability-profile-name*   -> /org-openroadm-device/mc-capability-profile/profile-name
      +--rw line-amplifier* [amp-number]
      |  +--rw amp-number                               uint8
      |  +--ro amp-type                                 org-openroadm-common-amplifier-types:amplifier-types
@@ -1197,6 +1230,15 @@ module: org-openroadm-device
      |  |  +--rw src-if    -> /org-openroadm-device/interface/name
      |  +--rw destination
      |  |  +--rw dst-if    -> /org-openroadm-device/interface/name
+     |  +--rw circuit-id?        string
+     +--rw fiber-connections* [connection-name]
+     |  +--rw connection-name    string
+     |  +--rw source
+     |  |  +--rw src-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw src-port?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../src-circuit-pack]/ports/port-name
+     |  +--rw destination
+     |  |  +--rw dst-circuit-pack?   -> /org-openroadm-device/circuit-packs/circuit-pack-name
+     |  |  +--rw dst-port?           -> /org-openroadm-device/circuit-packs[circuit-pack-name=current()/../dst-circuit-pack]/ports/port-name
      |  +--rw circuit-id?        string
      +--ro connection-map* [connection-map-number]
      |  +--ro connection-map-number    uint32

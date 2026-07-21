@@ -1176,6 +1176,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw srg-number                   uint16
   |     |  |  |     +--:(degree)
   |     |  |  |     |  +--rw degree-number                uint16
+  |     |  |  |     +--:(fxc)
+  |     |  |  |     |  +--rw fxc-number                   uint16
   |     |  |  |     +--:(service)
   |     |  |  |     |  +--rw service-name                 string
   |     |  |  |     +--:(interface)
@@ -1314,6 +1316,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw srg-number                   uint16
   |     |     |     +--:(degree)
   |     |     |     |  +--rw degree-number                uint16
+  |     |     |     +--:(fxc)
+  |     |     |     |  +--rw fxc-number                   uint16
   |     |     |     +--:(service)
   |     |     |     |  +--rw service-name                 string
   |     |     |     +--:(interface)
@@ -1456,6 +1460,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw srg-number                   uint16
   |     |     |  |     +--:(degree)
   |     |     |  |     |  +--rw degree-number                uint16
+  |     |     |  |     +--:(fxc)
+  |     |     |  |     |  +--rw fxc-number                   uint16
   |     |     |  |     +--:(service)
   |     |     |  |     |  +--rw service-name                 string
   |     |     |  |     +--:(interface)
@@ -1594,6 +1600,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw srg-number                   uint16
   |     |        |     +--:(degree)
   |     |        |     |  +--rw degree-number                uint16
+  |     |        |     +--:(fxc)
+  |     |        |     |  +--rw fxc-number                   uint16
   |     |        |     +--:(service)
   |     |        |     |  +--rw service-name                 string
   |     |        |     +--:(interface)
@@ -2370,6 +2378,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw srg-number                   uint16
   |     |  |  |     +--:(degree)
   |     |  |  |     |  +--rw degree-number                uint16
+  |     |  |  |     +--:(fxc)
+  |     |  |  |     |  +--rw fxc-number                   uint16
   |     |  |  |     +--:(service)
   |     |  |  |     |  +--rw service-name                 string
   |     |  |  |     +--:(interface)
@@ -2508,6 +2518,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw srg-number                   uint16
   |     |     |     +--:(degree)
   |     |     |     |  +--rw degree-number                uint16
+  |     |     |     +--:(fxc)
+  |     |     |     |  +--rw fxc-number                   uint16
   |     |     |     +--:(service)
   |     |     |     |  +--rw service-name                 string
   |     |     |     +--:(interface)
@@ -2650,6 +2662,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw srg-number                   uint16
   |     |     |  |     +--:(degree)
   |     |     |  |     |  +--rw degree-number                uint16
+  |     |     |  |     +--:(fxc)
+  |     |     |  |     |  +--rw fxc-number                   uint16
   |     |     |  |     +--:(service)
   |     |     |  |     |  +--rw service-name                 string
   |     |     |  |     +--:(interface)
@@ -2788,6 +2802,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw srg-number                   uint16
   |     |        |     +--:(degree)
   |     |        |     |  +--rw degree-number                uint16
+  |     |        |     +--:(fxc)
+  |     |        |     |  +--rw fxc-number                   uint16
   |     |        |     +--:(service)
   |     |        |     |  +--rw service-name                 string
   |     |        |     +--:(interface)
@@ -3564,6 +3580,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw srg-number                   uint16
   |     |  |  |     +--:(degree)
   |     |  |  |     |  +--rw degree-number                uint16
+  |     |  |  |     +--:(fxc)
+  |     |  |  |     |  +--rw fxc-number                   uint16
   |     |  |  |     +--:(service)
   |     |  |  |     |  +--rw service-name                 string
   |     |  |  |     +--:(interface)
@@ -3702,6 +3720,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw srg-number                   uint16
   |     |     |     +--:(degree)
   |     |     |     |  +--rw degree-number                uint16
+  |     |     |     +--:(fxc)
+  |     |     |     |  +--rw fxc-number                   uint16
   |     |     |     +--:(service)
   |     |     |     |  +--rw service-name                 string
   |     |     |     +--:(interface)
@@ -3844,6 +3864,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw srg-number                   uint16
   |     |     |  |     +--:(degree)
   |     |     |  |     |  +--rw degree-number                uint16
+  |     |     |  |     +--:(fxc)
+  |     |     |  |     |  +--rw fxc-number                   uint16
   |     |     |  |     +--:(service)
   |     |     |  |     |  +--rw service-name                 string
   |     |     |  |     +--:(interface)
@@ -3982,6 +4004,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw srg-number                   uint16
   |     |        |     +--:(degree)
   |     |        |     |  +--rw degree-number                uint16
+  |     |        |     +--:(fxc)
+  |     |        |     |  +--rw fxc-number                   uint16
   |     |        |     +--:(service)
   |     |        |     |  +--rw service-name                 string
   |     |        |     +--:(interface)
@@ -4758,6 +4782,8 @@ module: org-openroadm-service
   |     |  |  |     |  +--rw srg-number                   uint16
   |     |  |  |     +--:(degree)
   |     |  |  |     |  +--rw degree-number                uint16
+  |     |  |  |     +--:(fxc)
+  |     |  |  |     |  +--rw fxc-number                   uint16
   |     |  |  |     +--:(service)
   |     |  |  |     |  +--rw service-name                 string
   |     |  |  |     +--:(interface)
@@ -4896,6 +4922,8 @@ module: org-openroadm-service
   |     |     |     |  +--rw srg-number                   uint16
   |     |     |     +--:(degree)
   |     |     |     |  +--rw degree-number                uint16
+  |     |     |     +--:(fxc)
+  |     |     |     |  +--rw fxc-number                   uint16
   |     |     |     +--:(service)
   |     |     |     |  +--rw service-name                 string
   |     |     |     +--:(interface)
@@ -5038,6 +5066,8 @@ module: org-openroadm-service
   |     |     |  |     |  +--rw srg-number                   uint16
   |     |     |  |     +--:(degree)
   |     |     |  |     |  +--rw degree-number                uint16
+  |     |     |  |     +--:(fxc)
+  |     |     |  |     |  +--rw fxc-number                   uint16
   |     |     |  |     +--:(service)
   |     |     |  |     |  +--rw service-name                 string
   |     |     |  |     +--:(interface)
@@ -5176,6 +5206,8 @@ module: org-openroadm-service
   |     |        |     |  +--rw srg-number                   uint16
   |     |        |     +--:(degree)
   |     |        |     |  +--rw degree-number                uint16
+  |     |        |     +--:(fxc)
+  |     |        |     |  +--rw fxc-number                   uint16
   |     |        |     +--:(service)
   |     |        |     |  +--rw service-name                 string
   |     |        |     +--:(interface)
@@ -9056,6 +9088,8 @@ module: org-openroadm-service
     |     |  |  |  |     |  +--ro srg-number                   uint16
     |     |  |  |  |     +--:(degree)
     |     |  |  |  |     |  +--ro degree-number                uint16
+    |     |  |  |  |     +--:(fxc)
+    |     |  |  |  |     |  +--ro fxc-number                   uint16
     |     |  |  |  |     +--:(service)
     |     |  |  |  |     |  +--ro service-name                 string
     |     |  |  |  |     +--:(interface)
@@ -9194,6 +9228,8 @@ module: org-openroadm-service
     |     |  |     |     |  +--ro srg-number                   uint16
     |     |  |     |     +--:(degree)
     |     |  |     |     |  +--ro degree-number                uint16
+    |     |  |     |     +--:(fxc)
+    |     |  |     |     |  +--ro fxc-number                   uint16
     |     |  |     |     +--:(service)
     |     |  |     |     |  +--ro service-name                 string
     |     |  |     |     +--:(interface)
@@ -9336,6 +9372,8 @@ module: org-openroadm-service
     |     |  |     |  |     |  +--ro srg-number                   uint16
     |     |  |     |  |     +--:(degree)
     |     |  |     |  |     |  +--ro degree-number                uint16
+    |     |  |     |  |     +--:(fxc)
+    |     |  |     |  |     |  +--ro fxc-number                   uint16
     |     |  |     |  |     +--:(service)
     |     |  |     |  |     |  +--ro service-name                 string
     |     |  |     |  |     +--:(interface)
@@ -9474,6 +9512,8 @@ module: org-openroadm-service
     |     |  |        |     |  +--ro srg-number                   uint16
     |     |  |        |     +--:(degree)
     |     |  |        |     |  +--ro degree-number                uint16
+    |     |  |        |     +--:(fxc)
+    |     |  |        |     |  +--ro fxc-number                   uint16
     |     |  |        |     +--:(service)
     |     |  |        |     |  +--ro service-name                 string
     |     |  |        |     +--:(interface)
@@ -10106,6 +10146,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro srg-number                   uint16
     |        |  |  |  |     +--:(degree)
     |        |  |  |  |     |  +--ro degree-number                uint16
+    |        |  |  |  |     +--:(fxc)
+    |        |  |  |  |     |  +--ro fxc-number                   uint16
     |        |  |  |  |     +--:(service)
     |        |  |  |  |     |  +--ro service-name                 string
     |        |  |  |  |     +--:(interface)
@@ -10244,6 +10286,8 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro srg-number                   uint16
     |        |  |     |     +--:(degree)
     |        |  |     |     |  +--ro degree-number                uint16
+    |        |  |     |     +--:(fxc)
+    |        |  |     |     |  +--ro fxc-number                   uint16
     |        |  |     |     +--:(service)
     |        |  |     |     |  +--ro service-name                 string
     |        |  |     |     +--:(interface)
@@ -10386,6 +10430,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro srg-number                   uint16
     |        |  |     |  |     +--:(degree)
     |        |  |     |  |     |  +--ro degree-number                uint16
+    |        |  |     |  |     +--:(fxc)
+    |        |  |     |  |     |  +--ro fxc-number                   uint16
     |        |  |     |  |     +--:(service)
     |        |  |     |  |     |  +--ro service-name                 string
     |        |  |     |  |     +--:(interface)
@@ -10524,6 +10570,8 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro srg-number                   uint16
     |        |  |        |     +--:(degree)
     |        |  |        |     |  +--ro degree-number                uint16
+    |        |  |        |     +--:(fxc)
+    |        |  |        |     |  +--ro fxc-number                   uint16
     |        |  |        |     +--:(service)
     |        |  |        |     |  +--ro service-name                 string
     |        |  |        |     +--:(interface)
@@ -11785,6 +11833,8 @@ module: org-openroadm-service
     |        |  |  |  |     |  +--ro srg-number                   uint16
     |        |  |  |  |     +--:(degree)
     |        |  |  |  |     |  +--ro degree-number                uint16
+    |        |  |  |  |     +--:(fxc)
+    |        |  |  |  |     |  +--ro fxc-number                   uint16
     |        |  |  |  |     +--:(service)
     |        |  |  |  |     |  +--ro service-name                 string
     |        |  |  |  |     +--:(interface)
@@ -11923,6 +11973,8 @@ module: org-openroadm-service
     |        |  |     |     |  +--ro srg-number                   uint16
     |        |  |     |     +--:(degree)
     |        |  |     |     |  +--ro degree-number                uint16
+    |        |  |     |     +--:(fxc)
+    |        |  |     |     |  +--ro fxc-number                   uint16
     |        |  |     |     +--:(service)
     |        |  |     |     |  +--ro service-name                 string
     |        |  |     |     +--:(interface)
@@ -12065,6 +12117,8 @@ module: org-openroadm-service
     |        |  |     |  |     |  +--ro srg-number                   uint16
     |        |  |     |  |     +--:(degree)
     |        |  |     |  |     |  +--ro degree-number                uint16
+    |        |  |     |  |     +--:(fxc)
+    |        |  |     |  |     |  +--ro fxc-number                   uint16
     |        |  |     |  |     +--:(service)
     |        |  |     |  |     |  +--ro service-name                 string
     |        |  |     |  |     +--:(interface)
@@ -12203,6 +12257,8 @@ module: org-openroadm-service
     |        |  |        |     |  +--ro srg-number                   uint16
     |        |  |        |     +--:(degree)
     |        |  |        |     |  +--ro degree-number                uint16
+    |        |  |        |     +--:(fxc)
+    |        |  |        |     |  +--ro fxc-number                   uint16
     |        |  |        |     +--:(service)
     |        |  |        |     |  +--ro service-name                 string
     |        |  |        |     +--:(interface)
@@ -15630,7 +15686,7 @@ module: org-openroadm-service
     |        +--ro response-code          string
     |        +--ro response-message?      string
     |        +--ro ack-final-indicator    string
-    +---x service-srlg-get
+    x---x service-srlg-get
        +---w input
        |  +---w service-name?   string
        |  +---w SRLG-type?      org-openroadm-common-types:SRLG-type
@@ -16248,6 +16304,8 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro srg-number                   uint16
     |  |  |  |     +--:(degree)
     |  |  |  |     |  +--ro degree-number                uint16
+    |  |  |  |     +--:(fxc)
+    |  |  |  |     |  +--ro fxc-number                   uint16
     |  |  |  |     +--:(service)
     |  |  |  |     |  +--ro service-name                 string
     |  |  |  |     +--:(interface)
@@ -16386,6 +16444,8 @@ module: org-openroadm-service
     |  |     |     |  +--ro srg-number                   uint16
     |  |     |     +--:(degree)
     |  |     |     |  +--ro degree-number                uint16
+    |  |     |     +--:(fxc)
+    |  |     |     |  +--ro fxc-number                   uint16
     |  |     |     +--:(service)
     |  |     |     |  +--ro service-name                 string
     |  |     |     +--:(interface)
@@ -16528,6 +16588,8 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro srg-number                   uint16
     |  |     |  |     +--:(degree)
     |  |     |  |     |  +--ro degree-number                uint16
+    |  |     |  |     +--:(fxc)
+    |  |     |  |     |  +--ro fxc-number                   uint16
     |  |     |  |     +--:(service)
     |  |     |  |     |  +--ro service-name                 string
     |  |     |  |     +--:(interface)
@@ -16666,6 +16728,8 @@ module: org-openroadm-service
     |  |        |     |  +--ro srg-number                   uint16
     |  |        |     +--:(degree)
     |  |        |     |  +--ro degree-number                uint16
+    |  |        |     +--:(fxc)
+    |  |        |     |  +--ro fxc-number                   uint16
     |  |        |     +--:(service)
     |  |        |     |  +--ro service-name                 string
     |  |        |     +--:(interface)
@@ -17345,6 +17409,8 @@ module: org-openroadm-service
     |  |  |  |     |  +--ro srg-number                   uint16
     |  |  |  |     +--:(degree)
     |  |  |  |     |  +--ro degree-number                uint16
+    |  |  |  |     +--:(fxc)
+    |  |  |  |     |  +--ro fxc-number                   uint16
     |  |  |  |     +--:(service)
     |  |  |  |     |  +--ro service-name                 string
     |  |  |  |     +--:(interface)
@@ -17483,6 +17549,8 @@ module: org-openroadm-service
     |  |     |     |  +--ro srg-number                   uint16
     |  |     |     +--:(degree)
     |  |     |     |  +--ro degree-number                uint16
+    |  |     |     +--:(fxc)
+    |  |     |     |  +--ro fxc-number                   uint16
     |  |     |     +--:(service)
     |  |     |     |  +--ro service-name                 string
     |  |     |     +--:(interface)
@@ -17625,6 +17693,8 @@ module: org-openroadm-service
     |  |     |  |     |  +--ro srg-number                   uint16
     |  |     |  |     +--:(degree)
     |  |     |  |     |  +--ro degree-number                uint16
+    |  |     |  |     +--:(fxc)
+    |  |     |  |     |  +--ro fxc-number                   uint16
     |  |     |  |     +--:(service)
     |  |     |  |     |  +--ro service-name                 string
     |  |     |  |     +--:(interface)
@@ -17763,6 +17833,8 @@ module: org-openroadm-service
     |  |        |     |  +--ro srg-number                   uint16
     |  |        |     +--:(degree)
     |  |        |     |  +--ro degree-number                uint16
+    |  |        |     +--:(fxc)
+    |  |        |     |  +--ro fxc-number                   uint16
     |  |        |     +--:(service)
     |  |        |     |  +--ro service-name                 string
     |  |        |     +--:(interface)

@@ -93,6 +93,9 @@ module org-openroadm-device-types {
       enum roadm-internal-monitor {
         value 10;
       }
+      enum fxc-port {
+        value 11;
+      }
     }
   }
 

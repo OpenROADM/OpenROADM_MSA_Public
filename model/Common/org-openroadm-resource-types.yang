@@ -226,6 +226,11 @@ module org-openroadm-resource-types {
         description
           "user";
       }
+      enum fxc {
+        value 26;
+        description
+          "fiber cross connect";
+      }
     }
   }
 
@@ -533,6 +538,15 @@ module org-openroadm-resource-types {
       mandatory true;
       description
         "User name";
+    }
+  }
+
+  grouping fxc-number {
+    leaf fxc-number {
+      type uint16;
+      mandatory true;
+      description
+        "FXC identifier.";
     }
   }
 }

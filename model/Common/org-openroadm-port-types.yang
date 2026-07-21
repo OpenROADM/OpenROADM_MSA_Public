@@ -564,6 +564,23 @@ module org-openroadm-port-types {
     }
   }
 
+  grouping common-port-rx {
+    leaf port-power-capability-min-rx {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      description
+        "Based on port capabilities, the minimum power in the system spec for this port to
+         provide optimum function in rx direction";
+    }
+    leaf port-power-capability-max-rx {
+      type org-openroadm-common-link-types:power-dBm;
+      config false;
+      description
+        "Based on port capabilities, the maximum power in the system spec for this port to
+         provide optimum function in rx direction.";
+    }
+  }
+
   grouping port-features {
     leaf is-physical {
       type boolean;

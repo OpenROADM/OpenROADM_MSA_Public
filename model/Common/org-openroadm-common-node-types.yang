@@ -79,13 +79,17 @@ module org-openroadm-common-node-types {
       enum extplug {
         value 4;
       }
+      enum fxc {
+        value 5;
+      }
     }
     description
       "Identifier for node type
        1. rdm for ROADM
        2. xpdr for Transponder, Regen
        3. ila for in-line amplifier
-       4. extplug for external pluggable";
+       4. extplug for external pluggable
+       5. fxc for fiber cross connect (fxc) device";
   }
 
   typedef node-subtypes {

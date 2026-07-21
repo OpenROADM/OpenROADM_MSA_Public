@@ -35,6 +35,10 @@ module org-openroadm-network {
     prefix cnet;
     revision-date 2026-09-25;
   }
+  import org-openroadm-fxc {
+    prefix fxc;
+    revision-date 2026-07-21;
+  }
 
   organization
     "OPEN ROADM MSA";
@@ -232,10 +236,10 @@ module org-openroadm-network {
     deviate add {
       must "(not (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/net:openroadm-network)) or
             (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/net:openroadm-network and
-            (../cnet:node-type = 'ROADM' or ../cnet:node-type = 'XPONDER' or ../cnet:node-type = 'EXT-PLUGGABLE'))" {
+            (../cnet:node-type = 'ROADM' or ../cnet:node-type = 'XPONDER' or ../cnet:node-type = 'EXT-PLUGGABLE' or ../cnet:node-type = 'FXC'))" {
         error-message "Invalid node type for openroadm-network";
         description
-          "The valid node types in the ROADM network are XPONDER, EXT-PLUGGABLE and ROADM.";
+          "The valid node types in the ROADM network are XPONDER, EXT-PLUGGABLE, FXC and ROADM.";
       }
     }
   }
@@ -313,6 +317,10 @@ module org-openroadm-network {
     container pluggable-attributes {
       when "../cnet:node-type = 'EXT-PLUGGABLE'";
       uses plg:pluggable-node-attributes;
+    }
+    container fxc-attributes {
+      when "../cnet:node-type = 'FXC'";
+      uses fxc:fxc-node-attributes;
     }
     container plan-due-dates {
       uses nt:node-due-date-list;

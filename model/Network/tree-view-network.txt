@@ -169,8 +169,11 @@ module: org-openroadm-network-topology
     |  |  +--rw freq-map?               binary
     |  +--rw type-variety?                   string
     +--rw xpdr-attributes
-       +--rw xpdr-number?   uint16
-       +--rw recolor?       boolean
+    |  +--rw xpdr-number?   uint16
+    |  +--rw recolor?       boolean
+    +--rw fxc-attributes
+       +--rw fxc-number?               uint16
+       +--rw insertion-loss-typical?   org-openroadm-common-link-types:ratio-dB
   augment /nd:networks/nd:network/nd:node/nwt:termination-point:
     +--rw tx-ttp-attributes
     |  +--rw used-wavelengths* [index]
@@ -408,6 +411,9 @@ module: org-openroadm-network
     |     +--rw client-equipment?      string
     |     +--rw client-equipment-id?   string
     |     +--rw clfi?                  string
+    +--rw fxc-attributes
+    |  +--rw max-fxcs?       uint16
+    |  +--rw current-fxcs?   uint16
     +--rw plan-due-dates
     |  +--rw due-dates* [id]
     |     +--rw id            uint16
