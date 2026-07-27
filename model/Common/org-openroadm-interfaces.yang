@@ -100,8 +100,8 @@ module org-openroadm-interfaces {
   }
 
   identity ip {
-    status deprecated;
     base interface-type;
+    status deprecated;
     description
       "IP (for APPN HPR in IP networks).";
   }
@@ -173,8 +173,8 @@ module org-openroadm-interfaces {
   }
 
   identity ppp {
-    status deprecated;
     base interface-type;
+    status deprecated;
     description
       "PPP for IP GNE.";
   }

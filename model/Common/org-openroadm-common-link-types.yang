@@ -35,6 +35,10 @@ module org-openroadm-common-link-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-05-29 {
+    description
+      "Version 19.1.0";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";
@@ -78,9 +82,45 @@ module org-openroadm-common-link-types {
     type decimal64 {
       fraction-digits 2;
     }
-    units "ps/(km[1/2])";
+    units "ps";
     description
-      "Polarization Mode Dispersion expressed in ps/km(1/2).";
+      "Measured Polarization Mode Dispersion value expressed in ps.";
+  }
+
+  typedef time-ps {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "ps";
+    description
+      "Time value expressed in picoseconds.";
+  }
+
+  typedef chromatic-dispersion-ps-per-nm {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "ps/nm";
+    description
+      "Chromatic dispersion coefficient expressed in picoseconds per nanometer.";
+  }
+
+  typedef signal-loss-dB-per-km {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "dB/km";
+    description
+      "Attenuation coefficient expressed in decibels per kilometer";
+  }
+
+  typedef baud-rate-Gbauds {
+    type decimal64 {
+      fraction-digits 1;
+    }
+    units "Gbauds";
+    description
+      "baud-rate in Gbauds";
   }
 
   typedef optical-control-mode {
@@ -158,6 +198,33 @@ module org-openroadm-common-link-types {
     }
     description
       "optical-control defines how the optical-control-mode is set on the device. It can be manually set by the controller, or
-      automatically set by the device.";
+       automatically set by the device.";
+  }
+
+  typedef fiber-cd {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "ps/nm";
+    description
+      "Chromatic Dispersion expressed in ps/nm";
+  }
+
+  typedef fiber-cd-slope {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "ps/nm*2";
+    description
+      "Chromatic Dispersion slope expressed in ps/nm*2";
+  }
+
+  typedef fiber-cd-measuring-wavelength {
+    type decimal64 {
+      fraction-digits 2;
+    }
+    units "nm";
+    description
+      "Measuring wavelength for chromatic dispersion expressed in nm.";
   }
 }

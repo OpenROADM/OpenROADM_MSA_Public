@@ -10,6 +10,26 @@ module: org-openroadm-common-network
   augment /nd:networks/nd:network/nd:network-types:
     +--rw openroadm-common-network!
        +--rw topo:openroadm-topology!
+       |  +--rw topo:mc-capability-profile* [profile-name]
+       |  |  +--rw topo:profile-name               string
+       |  |  +--rw topo:center-freq-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  +--rw topo:min-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  +--rw topo:max-edge-freq?             org-openroadm-common-optical-channel-types:frequency-THz
+       |  |  +--rw topo:slot-width-granularity?    org-openroadm-common-optical-channel-types:frequency-GHz
+       |  |  +--rw topo:min-slots?                 uint32
+       |  |  +--rw topo:max-slots?                 uint32
+       |  +--rw topo:wss-capability-profile* [profile-name]
+       |     +--rw topo:profile-name                  string
+       |     +--rw topo:input
+       |     |  +--rw topo:target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     +--rw topo:output
+       |     |  +--rw topo:target-psd?   org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:min-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     |  +--rw topo:max-psd?      org-openroadm-common-link-types:psd-dBm-50GHz
+       |     +--rw topo:mc-capability-profile-name*   -> ../../mc-capability-profile/profile-name
+       |     +--rw topo:psd-reference?                psd-reference
        +--rw net:openroadm-network!
        +--rw otn-topo:otn-topology!
   augment /nd:networks/nd:network:
@@ -41,8 +61,9 @@ module: org-openroadm-common-network
     +--rw link-length?            decimal64
     +--rw link-latency?           uint32
     +--rw TE-metric?              uint32
-    +--rw link-concatenation* [SRLG-Id]
-    |  +--rw SRLG-Id        uint32
+    +--rw link-concatenation* [index]
+    |  +--rw index          uint32
+    |  +--rw SRLG-Id?       uint32
     |  +--rw SRLG-length?   decimal64
     +--rw future-SRLGs* [start-date]
     |  +--rw start-date    yang:date-and-time
@@ -127,19 +148,26 @@ module: org-openroadm-network-topology
     |  |  +--rw freq-map?               binary
     |  +--rw type-variety?                  string
     +--rw degree-attributes
-    |  +--rw degree-number?                    uint16
-    |  +--rw max-wavelengths?                  uint32
-    |  +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-    |  +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-    |  +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-    |  +--rw supported-operational-modes*      string
+    |  +--rw degree-number?                  uint16
+    |  +--rw max-wavelengths?                uint32
+    |  +--rw eol-max-load-pIn?               org-openroadm-common-link-types:power-dBm
+    |  +--rw egress-average-channel-power?   org-openroadm-common-link-types:power-dBm
+    |  +--rw supported-operational-modes*    string
+    |  +--rw tda-group* [tda-group-id]
+    |  |  +--rw tda-group-id         uint16
+    |  |  +--rw group-constraints* [index]
+    |  |  |  +--rw index               uint16
+    |  |  |  +--rw wss-profile-name*   -> ../../../../../nd:network-types/cnet:openroadm-common-network/openroadm-topology/wss-capability-profile/profile-name
+    |  |  |  +--rw min-slot-width?     org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  |  +--rw max-slot-width?     org-openroadm-common-optical-channel-types:frequency-GHz
+    |  |  +--rw tp-list*             -> /nd:networks/network/node[nd:node-id=current()/../../../node-id]/nwt:termination-point/tp-id
     |  +--rw avail-freq-maps* [map-name]
     |  |  +--rw map-name                string
     |  |  +--rw start-edge-freq?        org-openroadm-common-optical-channel-types:frequency-THz
     |  |  +--rw freq-map-granularity?   org-openroadm-common-optical-channel-types:frequency-GHz
     |  |  +--rw effective-bits?         uint16
     |  |  +--rw freq-map?               binary
-    |  +--rw type-variety?                     string
+    |  +--rw type-variety?                   string
     +--rw xpdr-attributes
        +--rw xpdr-number?   uint16
        +--rw recolor?       boolean
@@ -275,11 +303,16 @@ module: org-openroadm-network-topology
        |  +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
        |  +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
        |  +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
-       |  +--rw link-concatenation* [SRLG-Id]
-       |  |  +--rw SRLG-Id                        uint32
+       |  +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
+       |  +--rw link-concatenation* [index]
+       |  |  +--rw index                          uint32
+       |  |  +--rw SRLG-Id?                       uint32
        |  |  +--rw SRLG-length?                   decimal64
-       |  |  +--rw fiber-type?                    enumeration
+       |  |  +--rw fiber-type?                    org-openroadm-common-types:fiber-type
        |  |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+       |  |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
+       |  |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
+       |  |  +--rw cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
        |  |  +--rw subject-to-high-SOP-changes?   boolean
        |  +--rw future-SRLGs* [start-date]
        |     +--rw start-date    yang:date-and-time
@@ -291,23 +324,22 @@ module: org-openroadm-network-topology
                 +--rw (section-element)?
                    +--:(ila)
                    |  +--rw ila
-                   |     +--rw amp-type                          org-openroadm-common-amplifier-types:amplifier-types
-                   |     +--rw amp-gain-range?                   org-openroadm-common-amplifier-types:amplifier-gain-range
-                   |     +--rw ingress-span-loss-aging-margin?   org-openroadm-common-link-types:ratio-dB
-                   |     +--rw gain                              org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-gain?           org-openroadm-common-link-types:ratio-dB
-                   |     +--rw tilt?                             org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-tilt?           org-openroadm-common-link-types:ratio-dB
-                   |     +--rw out-voa-att?                      org-openroadm-common-link-types:ratio-dB
-                   |     +--rw initially-planned-out-voa-att?    org-openroadm-common-link-types:ratio-dB
-                   |     +--rw eol-max-load-pIn?                 org-openroadm-common-link-types:power-dBm
-                   |     +--rw egress-average-channel-power?     org-openroadm-common-link-types:power-dBm
-                   |     +--rw supported-operational-modes*      string
-                   |     +--rw type-variety?                     string
-                   |     +--rw node-id                           org-openroadm-common-node-types:node-id-type
-                   |     +--rw administrative-state?             org-openroadm-equipment-states-types:admin-states
-                   |     +--rw amp-number?                       uint8
-                   |     +--rw dge-deployed?                     boolean
+                   |     +--rw amp-type                         org-openroadm-common-amplifier-types:amplifier-types
+                   |     +--rw amp-gain-range?                  org-openroadm-common-amplifier-types:amplifier-gain-range
+                   |     +--rw gain                             org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-gain?          org-openroadm-common-link-types:ratio-dB
+                   |     +--rw tilt?                            org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-tilt?          org-openroadm-common-link-types:ratio-dB
+                   |     +--rw out-voa-att?                     org-openroadm-common-link-types:ratio-dB
+                   |     +--rw initially-planned-out-voa-att?   org-openroadm-common-link-types:ratio-dB
+                   |     +--rw eol-max-load-pIn?                org-openroadm-common-link-types:power-dBm
+                   |     +--rw egress-average-channel-power?    org-openroadm-common-link-types:power-dBm
+                   |     +--rw supported-operational-modes*     string
+                   |     +--rw type-variety?                    string
+                   |     +--rw node-id                          org-openroadm-common-node-types:node-id-type
+                   |     +--rw administrative-state?            org-openroadm-equipment-states-types:admin-states
+                   |     +--rw amp-number?                      uint8
+                   |     +--rw dge-deployed?                    boolean
                    |     +--rw supporting-node* [network-ref node-ref]
                    |        +--rw network-ref    -> ../../../../../../../../nd:supporting-network/network-ref
                    |        +--rw node-ref       -> /nd:networks/network/node/node-id
@@ -319,16 +351,22 @@ module: org-openroadm-network-topology
                          +--rw spanloss-last-measured?   org-openroadm-common-link-types:ratio-dB
                          +--rw engineered-spanloss?      org-openroadm-common-link-types:ratio-dB
                          +--rw max-spanloss-allowed?     org-openroadm-common-link-types:ratio-dB
-                         +--rw link-concatenation* [SRLG-Id]
-                         |  +--rw SRLG-Id                        uint32
+                         +--rw fiber-aging-margin?       org-openroadm-common-link-types:ratio-dB
+                         +--rw link-concatenation* [index]
+                         |  +--rw index                          uint32
+                         |  +--rw SRLG-Id?                       uint32
                          |  +--rw SRLG-length?                   decimal64
-                         |  +--rw fiber-type?                    enumeration
+                         |  +--rw fiber-type?                    org-openroadm-common-types:fiber-type
                          |  +--rw pmd?                           org-openroadm-common-link-types:fiber-pmd
+                         |  +--rw cd?                            org-openroadm-common-link-types:fiber-cd
+                         |  +--rw cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
+                         |  +--rw cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
                          |  +--rw subject-to-high-SOP-changes?   boolean
                          +--rw future-SRLGs* [start-date]
                          |  +--rw start-date    yang:date-and-time
                          |  +--rw SRLG-Id*      -> /nd:networks/network/cnet:SRLG-list/SRLG-Id
                          +--rw administrative-state?     org-openroadm-equipment-states-types:admin-states
+                         +--rw operational-state?        org-openroadm-equipment-states-types:states
 
 module: org-openroadm-network
 

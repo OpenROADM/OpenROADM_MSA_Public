@@ -509,7 +509,7 @@
                     "Express": {
                         "openroadm-operational-mode": {
                             "openroadm-operational-mode-id": "MW-MW-core",
-                            "per-channel-Pin-min": "-21.000",
+                            "per-channel-Pin-min": "-25.000",
                             "per-channel-Pin-max": "-9.000",
                             "max-introduced-pdl": "1.500",
                             "max-introduced-dgd": "3.00",

@@ -38,8 +38,8 @@ implemented/deployed release.
 __ORrelease 16_1 : Removed from Specifications directory, as not identified as an
 implemented/deployed release.
 
-__ORrelease 17_0 : Uses Optical specification version 6 / 9. To be used when the
-RNC implements at least Common models R16.1.0 and Service model 17.0.0, where
+__ORrelease 17_1 : Uses Optical specification version 6 / 9. To be used when the
+RNC implements at least Common models R16.1.0 and Service model 17.1.0, where
 payload-frame-type parameter was added to xponder-pluggables in the catalog,
 and the unit of some power related parameters were modified from ratio-dB to
 power-dBm. Includes modification added in Service model 16.0.0, where
@@ -57,3 +57,7 @@ __ORrelease 18_0 : Uses Optical specification version 9. To be used when the
 RNC implements at least Common models R18.0.0 and Service model 18.0.0, where
 min and max provisionable-output-power parameter were added to xponder-pluggables
 in the catalog.
+
+__ORrelease 19_1 : Uses Optical specification version 9. To be used when the
+RNC implements at least Common models R19.1.0 and Service model 19.1.0, where
+revision-date were added to any openroadm operational modes in the catalog.

@@ -1,11 +1,6 @@
 {
-	"input": {
-		    "sdnc-request-header": {
-			    "request-id": "load-OM-Catalog",
-			    "rpc-action": "fill-catalog-with-or-operational-modes",
-			    "request-system-id": "appname"
-		    },
-            "operational-mode-info": {
+	"operational-mode-catalog": {
+            "openroadm-operational-modes": {
                 "grid-parameters": {
                     "min-edge-frequency": "191.32500000",
                     "max-edge-frequency": "196.12500000",
@@ -1933,7 +1928,7 @@
                     "Express": {
                         "openroadm-operational-mode": {
                             "openroadm-operational-mode-id": "MW-MW-core",
-                            "per-channel-Pin-min": "-21.00",
+                            "per-channel-Pin-min": "-25.00",
                             "per-channel-Pin-max": "-9.00",
                             "max-introduced-pdl": "1.500",
                             "max-introduced-dgd": "3.00",

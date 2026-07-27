@@ -11,6 +11,7 @@
                     "xponder-pluggable-openroadm-operational-mode": [
                         {
                             "openroadm-operational-mode-id": "OR-W-100G-SC",
+							"revision-date": "2026-05-29",
                             "baud-rate": "28.0",
                             "line-rate": "111.8",
                             "fec-rate": "111.809973568",
@@ -71,6 +72,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-100G-oFEC-31.6Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "51",
                             "baud-rate": "31.6",
                             "line-rate": "126.3",
@@ -163,6 +165,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-200G-oFEC-31.6Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "52",
                             "baud-rate": "31.6",
                             "line-rate": "252.6",
@@ -260,6 +263,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-200G-oFEC-63.1Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "54",
                             "baud-rate": "63.1",
                             "line-rate": "252.6",
@@ -347,6 +351,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-300G-oFEC-63.1Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "60",
                             "baud-rate": "63.1",
                             "line-rate": "378.8",
@@ -439,6 +444,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-63.1Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "53",
                             "baud-rate": "63.1",
                             "line-rate": "505.1",
@@ -536,6 +542,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "65",
                             "baud-rate": "124.1",
                             "line-rate": "422.6",
@@ -639,6 +646,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "64",
                             "baud-rate": "118.2",
                             "line-rate": "422.6",
@@ -742,6 +750,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-124Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "65",
                             "baud-rate": "124.1",
                             "line-rate": "422.6",
@@ -845,6 +854,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-400G-oFEC-118Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "64",
                             "baud-rate": "118.2",
                             "line-rate": "422.6",
@@ -948,6 +958,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "67",
                             "baud-rate": "124.1",
                             "line-rate": "845.1",
@@ -1056,6 +1067,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "66",
                             "baud-rate": "118.2",
                             "line-rate": "845.1",
@@ -1164,6 +1176,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-124Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "67",
                             "baud-rate": "124.1",
                             "line-rate": "845.1",
@@ -1272,6 +1285,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-118Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "66",
                             "baud-rate": "118.2",
                             "line-rate": "845.1",
@@ -1380,6 +1394,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "6B",
                             "baud-rate": "124.7",
                             "line-rate": "633.9",
@@ -1483,6 +1498,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "6A",
                             "baud-rate": "118.8",
                             "line-rate": "633.9",
@@ -1586,6 +1602,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "68",
                             "baud-rate": "131.3",
                             "line-rate": "845.1",
@@ -1694,6 +1711,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "69",
                             "baud-rate": "131.4",
                             "line-rate": "845.1",
@@ -1802,6 +1820,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-600G-oFEC-124Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "6B",
                             "baud-rate": "124.7",
                             "line-rate": "633.9",
@@ -1905,6 +1924,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-600G-oFEC-118Gbd_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "6A",
                             "baud-rate": "118.8",
                             "line-rate": "633.9",
@@ -2008,6 +2028,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdE_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "68",
                             "baud-rate": "131.3",
                             "line-rate": "845.1",
@@ -2116,6 +2137,7 @@
                         },
                         {
                             "openroadm-operational-mode-id": "OR-W-800G-oFEC-131GbdM_type2",
+							"revision-date": "2026-05-29",
                             "media-interface-id": "69",
                             "baud-rate": "131.4",
                             "line-rate": "845.1",
@@ -2228,6 +2250,7 @@
                     "Express": {
                         "openroadm-operational-mode": {
                             "openroadm-operational-mode-id": "MW-MW-core",
+							"revision-date": "2026-05-29",
                             "per-channel-Pin-min": "-25.00",
                             "per-channel-Pin-max": "-9.00",
                             "max-introduced-pdl": "1.500",
@@ -2245,28 +2268,28 @@
                                     "upper-boundary": "6",
                                     "C": "1.00000000",
                                     "D": "-9.00000000",
-                                    "fiber-type": "smf"
+                                    "fiber-type": "org-openroadm-common-types:smf"
                                 },
                                 {
                                     "lower-boundary": "6",
                                     "upper-boundary": "8",
                                     "C": "-0.00000000",
                                     "D": "-3.00000000",
-                                    "fiber-type": "smf"
+                                    "fiber-type": "org-openroadm-common-types:smf"
                                 },
                                 {
                                     "lower-boundary": "8",
                                     "upper-boundary": "23",
                                     "C": "0.33333334",
                                     "D": "-5.66666667",
-                                    "fiber-type": "smf"
+                                    "fiber-type": "org-openroadm-common-types:smf"
                                 },
                                 {
                                     "lower-boundary": "23",
                                     "upper-boundary": "27",
                                     "C": "0.00000000",
                                     "D": "2.00000000",
-                                    "fiber-type": "smf"
+                                    "fiber-type": "org-openroadm-common-types:smf"
                                 }
                             ]
                         }
@@ -2275,6 +2298,7 @@
                         "openroadm-operational-mode": [
                             {
                                 "openroadm-operational-mode-id": "MW-WR-core",
+								"revision-date": "2026-05-29",
                                 "max-channel-number": "16",
                                 "incremental-osnr": "33.000",
                                 "per-channel-Pin-min": "-6.00",
@@ -2288,33 +2312,34 @@
                                         "upper-boundary": "6",
                                         "C": "1.00000000",
                                         "D": "-9.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "6",
                                         "upper-boundary": "8",
                                         "C": "-0.00000000",
                                         "D": "-3.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "8",
                                         "upper-boundary": "23",
                                         "C": "0.33333334",
                                         "D": "-5.66666667",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "23",
                                         "upper-boundary": "27",
                                         "C": "0.00000000",
                                         "D": "2.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     }
                                 ]
                             },
                             {
                                 "openroadm-operational-mode-id": "MW-WR-core-type2",
+								"revision-date": "2026-05-29",
                                 "max-channel-number": "4",
                                 "incremental-osnr": "33.000",
                                 "per-channel-Pin-min": "-6.00",
@@ -2328,33 +2353,34 @@
                                         "upper-boundary": "6",
                                         "C": "1.00000000",
                                         "D": "-9.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "6",
                                         "upper-boundary": "8",
                                         "C": "-0.00000000",
                                         "D": "-3.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "8",
                                         "upper-boundary": "23",
                                         "C": "0.33333334",
                                         "D": "-5.66666667",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "23",
                                         "upper-boundary": "27",
                                         "C": "0.00000000",
                                         "D": "2.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     }
                                 ]
                             },
                             {
                                 "openroadm-operational-mode-id": "MW-WR-core-TDA",
+								"revision-date": "2026-05-29",
                                 "max-channel-number": "32",
                                 "incremental-osnr": "35.000",
                                 "per-channel-Pin-min": "-6.00",
@@ -2368,28 +2394,28 @@
                                         "upper-boundary": "6",
                                         "C": "1.00000000",
                                         "D": "-9.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "6",
                                         "upper-boundary": "8",
                                         "C": "-0.00000000",
                                         "D": "-3.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "8",
                                         "upper-boundary": "23",
                                         "C": "0.33333334",
                                         "D": "-5.66666667",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "23",
                                         "upper-boundary": "27",
                                         "C": "0.00000000",
                                         "D": "2.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     }
                                 ]
                             }
@@ -2398,6 +2424,7 @@
                     "Drop": {
                         "openroadm-operational-mode": {
                             "openroadm-operational-mode-id": "MW-WR-core",
+							"revision-date": "2026-05-29",
                             "per-channel-Pin-min": "-25.00",
                             "per-channel-Pin-max": "-9.00",
                             "max-introduced-pdl": "1.500",
@@ -2419,6 +2446,7 @@
                         "openroadm-operational-mode": [
                             {
                                 "openroadm-operational-mode-id": "MWi-standard",
+								"revision-date": "2026-05-29",
                                 "per-channel-Pin-min": "-31.00",
                                 "per-channel-Pin-max": "-9.00",
                                 "max-introduced-pdl": "0.70",
@@ -2436,28 +2464,28 @@
                                         "upper-boundary": "6",
                                         "C": "1.00000000",
                                         "D": "-9.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "6",
                                         "upper-boundary": "8",
                                         "C": "-0.00000000",
                                         "D": "-3.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "8",
                                         "upper-boundary": "23",
                                         "C": "0.33333334",
                                         "D": "-5.66666667",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "23",
                                         "upper-boundary": "31",
                                         "C": "0.00000000",
                                         "D": "2.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     }
                                 ],
                                 "min-gain": "0.000",
@@ -2480,6 +2508,7 @@
                             },
                             {
                                 "openroadm-operational-mode-id": "MWi-low-noise",
+								"revision-date": "2026-05-29",
                                 "per-channel-Pin-min": "-31.00",
                                 "per-channel-Pin-max": "-9.00",
                                 "max-introduced-pdl": "0.700",
@@ -2497,28 +2526,28 @@
                                         "upper-boundary": "6",
                                         "C": "1.00000000",
                                         "D": "-9.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "6",
                                         "upper-boundary": "8",
                                         "C": "-0.00000000",
                                         "D": "-3.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "8",
                                         "upper-boundary": "23",
                                         "C": "0.33333334",
                                         "D": "-5.66666667",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     },
                                     {
                                         "lower-boundary": "23",
                                         "upper-boundary": "31",
                                         "C": "0.00000000",
                                         "D": "2.00000000",
-                                        "fiber-type": "smf"
+                                        "fiber-type": "org-openroadm-common-types:smf"
                                     }
                                 ],
                                 "min-gain": "0.000",

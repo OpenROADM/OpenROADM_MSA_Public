@@ -122,7 +122,8 @@ module org-openroadm-user-mgmt {
         type enumeration {
           enum sudo;
           enum diag {
-            description "diag users are permitted to access the root shell.";
+            description
+              "diag users are permitted to access the root shell.";
           }
         }
         description

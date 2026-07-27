@@ -35,6 +35,10 @@ module org-openroadm-pm-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-05-29 {
+    description
+      "Version 19.1.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";
@@ -2167,6 +2171,75 @@ module org-openroadm-pm-types {
         value 339;
         description
           "Average Laser Bias Current, units in mA";
+      }
+      enum spanLoss {
+        value 340;
+        description
+          "The span loss along a fiber span, units in dB.
+          Span loss is defined as the optical loss of the fiber span after
+          removing the effects of Raman amplification (if present). It is derived
+          from the measured loss by compensating for any Raman gain present
+          in the span, such that the resulting value represents the true
+          fiber loss.";
+      }
+      enum spanLossAvg {
+        value 341;
+        description
+          "Average Span Loss, units in dB";
+      }
+      enum spanLossMax {
+        value 342;
+        description
+          "Maximum Span Loss, units in dB";
+      }
+      enum spanLossMin {
+        value 343;
+        description
+          "Minimum Span Loss, units in dB";
+      }
+      enum measuredLoss {
+        value 344;
+        description
+          "The measured optical loss along a fiber span, units in dB.
+          Measured loss is defined as the simple difference between
+          the upstream (transmit) and downstream (receive) measured optical power.
+          This value reflects raw power measurements only
+          and does not compensate for or remove the effects of Raman
+          amplification within the span.";
+      }
+      enum measuredLossAvg {
+        value 345;
+        description
+          "Average Measured Loss, units in dB";
+      }
+      enum measuredLossMax {
+        value 346;
+        description
+          "Maximum Measured Loss, units in dB";
+      }
+      enum measuredLossMin {
+        value 347;
+        description
+          "Minimum Measured Loss, units in dB";
+      }
+      enum electricalSignalToNoiseRatio {
+        value 348;
+        description
+          "Electrical Signal To Noise Ratio (eSNR), units in dB. Represents the
+          post-DSP signal quality metric derived from the received electrical
+          signal, units in dB";
+      }
+      enum electricalSignalToNoiseRatioMax {
+        value 349;
+        description
+          "Maximum Electrical Signal To Noise Ratio (eSNR): the highest eSNR
+          value observed during the measurement interval, units in dB";
+      }
+      enum electricalSignalToNoiseRatioMin {
+        value 350;
+        description
+          "Minimum Electrical Signal To Noise Ratio (eSNR): the lowest eSNR
+          value observed during the measurement interval, units in dB";
       }
     }
   }

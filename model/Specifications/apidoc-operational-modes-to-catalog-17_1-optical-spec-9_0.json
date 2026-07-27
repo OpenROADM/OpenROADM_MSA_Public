@@ -1,6 +1,6 @@
 {
-    "operational-mode-catalog": {
-           "openroadm-operational-modes": {
+   "operational-mode-catalog": {
+            "openroadm-operational-modes": {
                 "grid-parameters": {
                     "min-edge-frequency": "191.32500000",
                     "max-edge-frequency": "196.12500000",
@@ -27,9 +27,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "17.000",
                             "min-input-power-at-RX-osnr": "-22.00",
@@ -87,9 +85,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "12.000",
                             "min-input-power-at-RX-osnr": "-18.00",
@@ -179,9 +175,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "20.500",
                             "min-input-power-at-RX-osnr": "-16.00",
@@ -276,9 +270,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "16.000",
                             "min-input-power-at-RX-osnr": "-18.00",
@@ -363,9 +355,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "21.000",
                             "min-input-power-at-RX-osnr": "-16.00",
@@ -455,9 +445,7 @@
                             "output-power-range": [{
                                 "WR-openroadm-operational-mode-id": "MW-WR-core",
                                 "min-output-power": "-5.00",
-                                "max-output-power": "0.00",
-	                            "min-provisionable-output-power": "-6.50",
-	                            "max-provisionable-output-power": "1.50"
+                                "max-output-power": "0.00"
                             }],
                             "min-RX-osnr-tolerance": "24.000",
                             "min-input-power-at-RX-osnr": "-14.00",
@@ -559,16 +547,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -662,16 +646,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -765,16 +745,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -868,16 +844,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -971,16 +943,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1079,16 +1047,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1187,16 +1151,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1295,16 +1255,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1403,16 +1359,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1506,16 +1458,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1609,16 +1557,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1717,16 +1661,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1825,16 +1765,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -1928,16 +1864,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -2031,16 +1963,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],
@@ -2139,16 +2067,12 @@
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-type2",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 },
                                 {
                                     "WR-openroadm-operational-mode-id": "MW-WR-core-TDA",
                                     "min-output-power": "-5.000",
-                                    "max-output-power": "0.000",
-	                                "min-provisionable-output-power": "-6.00",
-	                                "max-provisionable-output-power": "1.00"
+                                    "max-output-power": "0.000"
                                 }
                                 
                             ],

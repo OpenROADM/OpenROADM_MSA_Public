@@ -96,7 +96,6 @@ module org-openroadm-common-optical-channel-types {
       "Version 3.0.0";
   }
 
-
   identity optical-rate-identity {
     description
       "base for otsi and och idenity";
@@ -503,18 +502,19 @@ module org-openroadm-common-optical-channel-types {
     description
       "Provision Mode Type On Optical Channel";
   }
+
   grouping full-bandwidth-grouping {
     leaf full-bandwidth-at-3dB {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
       description
         "Signal full bandwidth at 3dB below the peak. Information used to model signal’s spectral shape.";
-      config false;
     }
     leaf full-bandwidth-at-10dB {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
+      config false;
       description
         "Signal full bandwidth at 10dB below the peak. Information used to model signal’s spectral shape.";
-      config false;
     }
   }
 }

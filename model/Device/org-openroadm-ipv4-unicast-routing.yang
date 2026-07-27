@@ -4,7 +4,7 @@ module org-openroadm-ipv4-unicast-routing {
 
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
   import ietf-inet-types {
     prefix inet;
@@ -12,7 +12,7 @@ module org-openroadm-ipv4-unicast-routing {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-03-27;
+    revision-date 2026-05-29;
   }
 
   organization
@@ -39,6 +39,10 @@ module org-openroadm-ipv4-unicast-routing {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2026-05-29 {
+    description
+      "Version 19.1.0";
+  }
   revision 2026-03-27 {
     description
       "Version 19.0.0";
@@ -167,6 +171,7 @@ module org-openroadm-ipv4-unicast-routing {
     description
       "This identity represents the IPv4 unicast address family.";
   }
+
   grouping ipv4-uni-grp {
     description
       "Grouping for IPv4";
@@ -217,37 +222,36 @@ module org-openroadm-ipv4-unicast-routing {
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/"
-           + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
-           + "org-openroadm-routing:routes/org-openroadm-routing:route" {
-       when "../../org-openroadm-routing:address-family = 'org-openroadm-ipv4-unicast-routing:ipv4-unicast'" {
-         description
-           "This augment is valid only for IPv4 unicast.";
-       }
-       description
-         "This leaf augments an IPv4 unicast route.";
-       leaf destination-prefix {
-         type inet:ipv4-prefix;
-         description
-           "IPv4 destination prefix.";
-       }
+        + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
+        + "org-openroadm-routing:routes/org-openroadm-routing:route" {
+    when "../../org-openroadm-routing:address-family = 'org-openroadm-ipv4-unicast-routing:ipv4-unicast'" {
+      description
+        "This augment is valid only for IPv4 unicast.";
+    }
+    description
+      "This leaf augments an IPv4 unicast route.";
+    leaf destination-prefix {
+      type inet:ipv4-prefix;
+      description
+        "IPv4 destination prefix.";
+    }
   }
 
   augment "/org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing-state/"
-           + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
-           + "org-openroadm-routing:routes/org-openroadm-routing:route/org-openroadm-routing:next-hop/"
-           + "org-openroadm-routing:next-hop-options/org-openroadm-routing:simple-next-hop" {
-       when "../../../org-openroadm-routing:address-family = 'org-openroadm-ipv4-unicast-routing:ipv4-unicast'" {
-         description
-           "This augment is valid only for IPv4 unicast.";
-       }
-       description
-         "This leaf augments the 'simple-next-hop' case of IPv4 unicast
-          routes.";
-       leaf next-hop-address {
-         type inet:ipv4-address;
-         description
-           "IPv4 address of the next-hop.";
-       }
+        + "org-openroadm-routing:routing-instance/org-openroadm-routing:ribs/org-openroadm-routing:rib/"
+        + "org-openroadm-routing:routes/org-openroadm-routing:route/org-openroadm-routing:next-hop/"
+        + "org-openroadm-routing:next-hop-options/org-openroadm-routing:simple-next-hop" {
+    when "../../../org-openroadm-routing:address-family = 'org-openroadm-ipv4-unicast-routing:ipv4-unicast'" {
+      description
+        "This augment is valid only for IPv4 unicast.";
+    }
+    description
+      "This leaf augments the 'simple-next-hop' case of IPv4 unicast
+       routes.";
+    leaf next-hop-address {
+      type inet:ipv4-address;
+      description
+        "IPv4 address of the next-hop.";
+    }
   }
-
 }

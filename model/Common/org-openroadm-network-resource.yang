@@ -6,6 +6,7 @@ module org-openroadm-network-resource {
     prefix org-openroadm-common-optical-channel-types;
     revision-date 2025-03-28;
   }
+
   organization
     "Open ROADM MSA";
   contact
