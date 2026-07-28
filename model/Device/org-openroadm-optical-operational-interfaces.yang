@@ -1,10 +1,11 @@
 module org-openroadm-optical-operational-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/optical-operational-interfaces";
   prefix org-openroadm-optical-operational-interfaces;
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -54,6 +55,10 @@ module org-openroadm-optical-operational-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";

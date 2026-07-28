@@ -5,11 +5,11 @@ module org-openroadm-gnmi {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-security {
     prefix org-openroadm-security;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import ietf-inet-types {
     prefix inet;
@@ -17,7 +17,7 @@ module org-openroadm-gnmi {
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2019-11-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -53,6 +53,10 @@ module org-openroadm-gnmi {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

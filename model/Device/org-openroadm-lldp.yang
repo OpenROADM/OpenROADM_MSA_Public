@@ -1,4 +1,5 @@
 module org-openroadm-lldp {
+  yang-version 1.1;
   namespace "http://org/openroadm/lldp";
   prefix org-openroadm-lldp;
 
@@ -8,7 +9,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import iana-routing-types {
     prefix iana-rt-types;
@@ -16,7 +17,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2026-03-27;
+    revision-date 2026-09-25;
   }
   import ietf-yang-types {
     prefix yang;
@@ -24,7 +25,7 @@ module org-openroadm-lldp {
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2019-11-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -60,6 +61,10 @@ module org-openroadm-lldp {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

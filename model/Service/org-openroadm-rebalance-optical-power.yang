@@ -1,14 +1,15 @@
 module org-openroadm-rebalance-optical-power {
+  yang-version 1.1;
   namespace "http://org/openroadm/rebalance-optical-power";
   prefix org-openroadm-rebalance-optical-power;
 
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-rebalance-optical-power {
     prefix org-openroadm-common-rebalance-optical-power;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import ietf-yang-types {
     prefix yang;
@@ -48,6 +49,10 @@ module org-openroadm-rebalance-optical-power {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

@@ -1,14 +1,15 @@
 module org-openroadm-fcc-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/fcc-interfaces";
   prefix org-openroadm-fcc-interfaces;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-interfaces {
     prefix openROADM-if;
-    revision-date 2022-09-30;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -58,6 +59,10 @@ module org-openroadm-fcc-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

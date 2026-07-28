@@ -13,39 +13,39 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
-    revision-date 2025-12-12;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -81,6 +81,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

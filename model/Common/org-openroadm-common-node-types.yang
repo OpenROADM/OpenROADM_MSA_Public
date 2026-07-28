@@ -1,4 +1,5 @@
 module org-openroadm-common-node-types {
+  yang-version 1.1;
   namespace "http://org/openroadm/common-node-types";
   prefix org-openroadm-common-node-types;
 
@@ -35,6 +36,10 @@ module org-openroadm-common-node-types {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2021-05-28 {
     description
       "Version 9.1";

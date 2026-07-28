@@ -1,4 +1,5 @@
 module org-openroadm-ospf {
+  yang-version 1.1;
   namespace "http://org/openroadm/ospf";
   prefix org-openroadm-ospf;
 
@@ -12,15 +13,15 @@ module org-openroadm-ospf {
   }
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-routing {
     prefix org-openroadm-routing;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-key-chain {
     prefix org-openroadm-key-chain;
-    revision-date 2019-11-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -47,6 +48,10 @@ module org-openroadm-ospf {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -675,7 +680,7 @@ module org-openroadm-ospf {
         description
           "Options for expressing authentication setting";
         case auth-ipsec {
-          when "../../../../../org-openroadm-routing:type = 'ospfv3'" {
+          when "../../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
             description
               "Applied to OSPFv3 only";
           }
@@ -1412,7 +1417,7 @@ module org-openroadm-ospf {
         uses ospfv2-lsa;
       }
       container ospfv3 {
-        when "../../../../../../../org-openroadm-routing:type = 'ospfv3'" {
+        when "../../../../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
           description
             "Applied to OSPFv3 only";
         }
@@ -1440,7 +1445,7 @@ module org-openroadm-ospf {
         uses ospfv2-lsa;
       }
       container ospfv3 {
-        when "../../../../../../org-openroadm-routing:type = 'ospfv3'" {
+        when "../../../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
           description
             "Applied to OSPFv3 only";
         }
@@ -1468,7 +1473,7 @@ module org-openroadm-ospf {
         uses ospfv2-lsa;
       }
       container ospfv3 {
-        when "../../../../../org-openroadm-routing:type = 'ospfv3'" {
+        when "../../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
           description
             "Applied to OSPFv3 only";
         }
@@ -1537,7 +1542,7 @@ module org-openroadm-ospf {
         "Area type.";
     }
     leaf summary {
-      when "../area-type = 'stub' or ../area-type = 'nssa'" {
+      when "../area-type = 'org-openroadm-ospf:stub' or ../area-type = 'org-openroadm-ospf:nssa'" {
         description
           "Summary generation valid for stub/NSSA area.";
       }
@@ -1547,7 +1552,7 @@ module org-openroadm-ospf {
          NSSA area.";
     }
     leaf default-cost {
-      when "../area-type = 'stub' or ../area-type = 'nssa'" {
+      when "../area-type = 'org-openroadm-ospf:stub' or ../area-type = 'org-openroadm-ospf:nssa'" {
         description
           "Default cost for LSA advertised into stub or
            NSSA area.";
@@ -2357,7 +2362,7 @@ module org-openroadm-ospf {
             }
           }
           list virtual-link {
-            when "../area-id != '0' and ../area-type = 'normal'" {
+            when "../area-id != '0' and ../area-type = 'org-openroadm-ospf:normal'" {
               description
                 "Transit area must be non-backbone normal area.";
             }
@@ -2501,7 +2506,7 @@ module org-openroadm-ospf {
               uses neighbor-operation;
             }
             list link-scope-lsas {
-              when "../../../../../org-openroadm-routing:type = 'ospfv3'" {
+              when "../../../../../org-openroadm-routing:type = 'org-openroadm-ospf:ospfv3'" {
                 description
                   "Link scope LSA only exists in OSPFv3.";
               }

@@ -1,18 +1,19 @@
 module org-openroadm-prot-otn-linear-aps {
+  yang-version 1.1;
   namespace "http://org/openroadm/prot/otn-linear-aps";
   prefix org-openroadm-prot-otn-linear-aps;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-state-types {
     prefix org-openroadm-common-state-types;
-    revision-date 2019-11-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -62,6 +63,10 @@ module org-openroadm-prot-otn-linear-aps {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

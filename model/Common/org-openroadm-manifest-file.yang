@@ -1,16 +1,17 @@
 
 module org-openroadm-manifest-file {
+  yang-version 1.1;
   namespace "http://org/openroadm/manifest-file";
   prefix org-openroadm-manifest-file;
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
 
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -60,6 +61,10 @@ module org-openroadm-manifest-file {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -458,7 +463,7 @@ module org-openroadm-manifest-file {
     description
       "down-file-command";
     container download-file {
-      when "../command = 'download-file'";
+      when "../command = 'org-openroadm-manifest-file:download-file'";
       description
         "Transfer a file from the SFTP server to the device.
          format: download-file remote-filename local-file-path [timeout]
@@ -501,7 +506,7 @@ module org-openroadm-manifest-file {
     description
       "upload-file-command";
     container upload-file {
-      when "../command = 'upload-file'";
+      when "../command = 'org-openroadm-manifest-file:upload-file'";
       description
         "Transfer a file from the device to the SFTP server.
          format: upload-file remote-filename local-file-path [timeout]
@@ -544,7 +549,7 @@ module org-openroadm-manifest-file {
     description
       "delete-file-command";
     container delete-file {
-      when "../command = 'delete-file'";
+      when "../command = 'org-openroadm-manifest-file:delete-file'";
       must "is-async = 'false'" {
         error-message "delete-file is only supported as sync command";
       }
@@ -575,7 +580,7 @@ module org-openroadm-manifest-file {
     description
       "sw-stage-command";
     container sw-stage {
-      when "../command = 'sw-stage'";
+      when "../command = 'org-openroadm-manifest-file:sw-stage'";
       description
         "Stage a file in the device.  The details of what a device does during
          the staging operation is vendor specific.  However, the vendor may
@@ -620,7 +625,7 @@ module org-openroadm-manifest-file {
     description
       "sw-activate-command";
     container sw-activate {
-      when "../command = 'sw-activate'";
+      when "../command = 'org-openroadm-manifest-file:sw-activate'";
       must "is-async = 'true'" {
         error-message "sw-activate is only supported as async command";
       }
@@ -719,7 +724,7 @@ module org-openroadm-manifest-file {
     description
       "cancel-validation-timer-command";
     container cancel-validation-timer {
-      when "../command = 'cancel-validation-timer'";
+      when "../command = 'org-openroadm-manifest-file:cancel-validation-timer'";
       description
         "Command to automatically cancel the validation timer after wait-time.
          Accept will be set to True if this command is used.
@@ -746,7 +751,7 @@ module org-openroadm-manifest-file {
     description
       "db-backup-command";
     container db-backup {
-      when "../command = 'db-backup'";
+      when "../command = 'org-openroadm-manifest-file:db-backup'";
       description
         "Perform a database backup on the device.
 
@@ -775,7 +780,7 @@ module org-openroadm-manifest-file {
     description
       "db-restore-command";
     container db-restore {
-      when "../command = 'db-restore'";
+      when "../command = 'org-openroadm-manifest-file:db-restore'";
       description
         "Perform a database restore on the device.
 
@@ -814,7 +819,7 @@ module org-openroadm-manifest-file {
     description
       "cancel-rollback-timer-command";
     container cancel-rollback-timer {
-      when "../command = 'cancel-rollback-timer'";
+      when "../command = 'org-openroadm-manifest-file:cancel-rollback-timer'";
       description
         "Command to automatically cancel the rollback timer after wait-time.
          Accept will be set to True if this command is used.
@@ -839,7 +844,7 @@ module org-openroadm-manifest-file {
     description
       "db-activate-command";
     container db-activate {
-      when "../command = 'db-activate'";
+      when "../command = 'org-openroadm-manifest-file:db-activate'";
       must "is-async = 'true'" {
         error-message "db-activate is only supported as async command";
       }

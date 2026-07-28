@@ -1,4 +1,5 @@
 module org-openroadm-interfaces {
+  yang-version 1.1;
   namespace "http://org/openroadm/interfaces";
   prefix openROADM-if;
 
@@ -50,6 +51,10 @@ module org-openroadm-interfaces {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2022-09-30 {
     description
       "Version 12.0";

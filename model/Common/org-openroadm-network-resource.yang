@@ -1,10 +1,11 @@
 module org-openroadm-network-resource {
+  yang-version 1.1;
   namespace "http://org/openroadm/network-resource";
   prefix org-openroadm-network-resource;
 
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -40,6 +41,10 @@ module org-openroadm-network-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2025-12-12 {
     description
       "Version 18.1.0";

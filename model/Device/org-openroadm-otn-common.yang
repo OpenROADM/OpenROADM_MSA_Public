@@ -1,18 +1,19 @@
 module org-openroadm-otn-common {
+  yang-version 1.1;
   namespace "http://org/openroadm/otn-common";
   prefix org-openroadm-otn-common;
 
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2026-03-27;
+    revision-date 2026-09-25;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2024-12-13;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-attributes {
     prefix org-openroadm-common-attributes;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -62,6 +63,10 @@ module org-openroadm-otn-common {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-03-27 {
     description
       "Version 19.0.0";
