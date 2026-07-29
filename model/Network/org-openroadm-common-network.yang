@@ -203,6 +203,7 @@ module org-openroadm-common-network {
   }
 
   augment "/nd:networks/nd:network" {
+    status deprecated;
     description
       "Introduce new network type for the Open ROADM common network";
     uses org-openroadm-network-types:SRLG-list;
@@ -346,6 +347,7 @@ module org-openroadm-common-network {
     }
     uses org-openroadm-network-types:link-concatenation;
     uses org-openroadm-network-types:future-SRLGs {
+      status deprecated;
       augment "future-SRLGs" {
         leaf-list SRLG-Id {
           type leafref {

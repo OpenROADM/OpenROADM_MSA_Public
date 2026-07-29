@@ -2138,6 +2138,7 @@ container optical-module-appsel-table {
   }
 
   rpc service-srlg-get {
+    status deprecated;
     input {
       leaf service-name {
         type string;

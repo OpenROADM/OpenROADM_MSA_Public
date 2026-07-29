@@ -269,6 +269,26 @@ module org-openroadm-link {
           description
             "Total PMD";
         }
+        leaf type {
+          default "fiber";
+          type enumeration {
+            enum fiber {
+              value 0;
+              description
+                "Represents span as fiber";
+            }
+            enum bypass {
+              value 1;
+              description
+                "Indicates type as a bypass site representation with associated clli";
+            }
+          }
+        }
+        leaf clli {
+          type string;
+          description
+            "Common Language Location Identifier of the bypass site";
+        }
         leaf cd {
           type org-openroadm-common-link-types:fiber-cd;
           description
@@ -293,6 +313,7 @@ module org-openroadm-link {
       }
     }
     uses org-openroadm-network-types:future-SRLGs {
+      status deprecated;
       augment "future-SRLGs" {
         leaf-list SRLG-Id {
           type leafref {

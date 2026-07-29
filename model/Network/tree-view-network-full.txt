@@ -440,6 +440,8 @@ module: ietf-network
         |  |  |  |  +--rw topo:SRLG-length?                   decimal64
         |  |  |  |  +--rw topo:fiber-type?                    org-openroadm-common-types:fiber-type
         |  |  |  |  +--rw topo:pmd?                           org-openroadm-common-link-types:fiber-pmd
+        |  |  |  |  +--rw topo:type?                          enumeration
+        |  |  |  |  +--rw topo:clli?                          string
         |  |  |  |  +--rw topo:cd?                            org-openroadm-common-link-types:fiber-cd
         |  |  |  |  +--rw topo:cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
         |  |  |  |  +--rw topo:cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
@@ -488,6 +490,8 @@ module: ietf-network
         |  |                    |  +--rw topo:SRLG-length?                   decimal64
         |  |                    |  +--rw topo:fiber-type?                    org-openroadm-common-types:fiber-type
         |  |                    |  +--rw topo:pmd?                           org-openroadm-common-link-types:fiber-pmd
+        |  |                    |  +--rw topo:type?                          enumeration
+        |  |                    |  +--rw topo:clli?                          string
         |  |                    |  +--rw topo:cd?                            org-openroadm-common-link-types:fiber-cd
         |  |                    |  +--rw topo:cd-slope?                      org-openroadm-common-link-types:fiber-cd-slope
         |  |                    |  +--rw topo:cd-measuring-wavelength?       org-openroadm-common-link-types:fiber-cd-measuring-wavelength
