@@ -326,7 +326,7 @@ module: org-openroadm-network-topology
                    |  +--rw ila
                    |     +--rw amp-type                         org-openroadm-common-amplifier-types:amplifier-types
                    |     +--rw amp-gain-range?                  org-openroadm-common-amplifier-types:amplifier-gain-range
-                   |     +--rw gain                             org-openroadm-common-link-types:ratio-dB
+                   |     +--rw gain?                            org-openroadm-common-link-types:ratio-dB
                    |     +--rw initially-planned-gain?          org-openroadm-common-link-types:ratio-dB
                    |     +--rw tilt?                            org-openroadm-common-link-types:ratio-dB
                    |     +--rw initially-planned-tilt?          org-openroadm-common-link-types:ratio-dB
