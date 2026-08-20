@@ -201,18 +201,21 @@ module org-openroadm-resource {
 
   grouping mc-ttp-attributes {
     description
-      "Media channel termination point. Models bandwidth allocation in physical media. Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
+      "Media channel termination point. Models bandwidth allocation in physical media.
+       Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
     leaf min-freq {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution.
+         eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
     leaf max-freq {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution.
+         eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
   }
 
@@ -223,13 +226,15 @@ module org-openroadm-resource {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Center Frequency in THz.  This is not constrained by mc-capabilities.  It must fit (when combined with width) inside any containing media channel.";
+        "Center Frequency in THz.  This is not constrained by mc-capabilities.
+         It must fit (when combined with width) inside any containing media channel.";
     }
     leaf width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       config true;
       description
-        "Frequency width in GHz.  This is not constrained by mc-capabilities.  It must fit (when combined with frequency) inside any containing media channel.";
+        "Frequency width in GHz.  This is not constrained by mc-capabilities.
+         It must fit (when combined with frequency) inside any containing media channel.";
     }
   }
 
@@ -283,6 +288,109 @@ module org-openroadm-resource {
       description
         "minimum output-power";
     }
+  }
+
+  grouping partial-path-computation-outputs {
+    description
+      "Parameters resulting of a partial path computation, where intermediate results are provided for a sub-service,
+       in the scope of cross-domain service creation where an End-to-End service is built from several sub-services";
+    leaf estimated-osnr-contribution {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated OSNR for the path associated with a sub-service";
+    }
+    leaf estimated-gsnr-contribution {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated Generalized SNR (including non linear impairments) for the path associated with a sub-service";
+    }
+    leaf target-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "target output-power at WSS-NNI port";
+    }
+    leaf max-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "potential maximum output-power at WSS-NNI port";
+    }
+    leaf min-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "potential minimum output-power at WSS-NNI port";
+    }
+    leaf target-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "target input-power expected at WSS-NNI port";
+    }
+    leaf max-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "maximum input-power expected at WSS-NNI port";
+    }
+    leaf min-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "minimum input-power expected at WSS-NNI port";
+    }
+    leaf cumulative-pdl {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Maximum polarization dependent gain/loss introduced on the path";
+    }
+    leaf cumulative-pmd {
+      type org-openroadm-common-link-types:time-ps;
+      description
+        "Maximum polarisation mode dispersion introduced on the path";
+    }
+    leaf cumulative-cd {
+      type org-openroadm-common-link-types:time-ps;
+      description
+        "Cummulative chromatic dispersion introduced on the path";
+    }
+    leaf cumulative-latency {
+      type uint32;
+      units "microseconds";
+      description
+        "Cummulative latency introduced on the path expressed in microseconds";
+    }
+  }
+
+  grouping service-create-provisioning-outputs {
+    description
+      "In the scope of cross-domain service creation; parameters provided after a service create has been exercised,
+       (2nd step after initial temp-service-create has been successfully exercised). Grouping used to add required
+       parameters in the notification service-rpc-result";
+     leaf set-output-power {
+       type org-openroadm-common-link-types:power-dBm;
+       description
+         "Power set at the output of WSS-NNI port";
+     }
+     leaf measured-input-power {
+       type org-openroadm-common-link-types:power-dBm;
+       description
+         "Power measured at the input of WSS-NNI port";
+     }
+     leaf map-name {
+       type string;
+       description
+          "Identifier of the map. For C-band, recommend map-name = 'cband'";
+     }
+     leaf effective-bits {
+       type uint16;
+       description
+         "Number of effective bits in the frequency bitmap.  Note the freq-map bitmap will be padded with 0
+          for byte alignment.";
+     }
+     leaf path-spectrum-occupation {
+       type binary;
+       description
+         "Frequency bitmap. Provides spectrum occupation on the path of the sub-service to ease
+          conflict resolution in case selected central-frequency is not compatible with other sub-services.
+          Bit to 1 indicates that the corresponding spectrum is available and and bit set to 0
+          indicates the corresponding spectrum is unavailable (used or unsupported).";
+     }
   }
 
   grouping och-attributes {

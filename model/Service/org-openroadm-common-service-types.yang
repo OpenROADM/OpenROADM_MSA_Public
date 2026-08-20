@@ -392,6 +392,12 @@ module org-openroadm-common-service-types {
       enum rebalance-optical-power-bi-link {
          value 30;
       }
+      enum nni-port-power-control {
+         value 31;
+      }
+      enum sub-service-request-cancel {
+         value 32;
+      }
     }
     description
       "rpc-actions include all the rpc methods";
@@ -484,6 +490,38 @@ module org-openroadm-common-service-types {
     }
   }
 
+  typedef sub-service-type {
+    type enumeration {
+      enum UNI-NNI {
+        value 1;
+        description "Access service from UNI-to-NNI or NNI-to-UNI interfaces, considering services are bi-directional
+          (no differentiation based on direction).";
+      }
+      enum NNI-NNI {
+        value 2;
+        description "Transit service from NNI-to-NNI interfaces.";
+      }
+    }
+  }
+
+  typedef extended-state {
+    type union {
+      type org-openroadm-common-state-types:state;
+      type enumeration {
+        enum upstream-degraded {
+          value 3;
+          description "Used for operational-state of a sub-service to reflect a degradation/failure that occurred
+            on a contiguous sub-service of lower index, and that could affect the sub-service itself.";
+        }
+        enum downstream-degraded {
+          value 4;
+          description "Used for operational-state of a sub-service to reflect a degradation/failure that occurred
+            on a contiguous sub-service of higher index, and that could affect the sub-service itself.";
+        }
+      }
+    }
+  }
+
   typedef service-notification-types {
     type enumeration {
       enum service-create-result {
@@ -516,6 +554,9 @@ module org-openroadm-common-service-types {
       enum end-terminal-activation-status {
           value 10;
       }
+      enum successful-sub-service-path-computation {
+          value 11;
+      }
     }
   }
 
@@ -528,6 +569,20 @@ module org-openroadm-common-service-types {
          value 2;
        }
      }
+  }
+
+  typedef end-to-end-service-creation-failure {
+    type enumeration {
+       enum path-computation-failed {
+         value 1;
+       }
+       enum power-range-misalignment {
+         value 2;
+       }
+       enum ols-sub-service-creation-failure {
+         value 3;
+       }
+    }
   }
 
   typedef connection-type {
@@ -1633,7 +1688,8 @@ module org-openroadm-common-service-types {
           leaf version-number {
             type uint64;
             description
-              "common-id of the service that may be routed disjointly to the considered service in versioned-service-list";
+              "common-id of the service that may be routed disjointly to the considered service in
+               versioned-service-list";
           }
         }
       }
@@ -2242,7 +2298,8 @@ module org-openroadm-common-service-types {
 
   grouping loss-coefficient-range-key {
     description
-      "Loss coefficient range definition with minimum and maximum loss coefficient as direct leafs for use as list keys";
+      "Loss coefficient range definition with minimum and maximum loss coefficient as direct leafs for use as
+       list keys";
     leaf min-loss-coefficient {
       type org-openroadm-common-link-types:signal-loss-dB-per-km;
     }
