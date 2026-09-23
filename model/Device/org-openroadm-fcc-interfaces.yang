@@ -119,10 +119,9 @@ module org-openroadm-fcc-interfaces {
   grouping fcc-interfaces {
     container fcc {
       description
-        "FCC (FlexO communication channel).
-         FlexO-x(e) interface is modeled on OTSi Group interface.";
+        "FCC (FlexO communication channel) with OTSi as the supporting interface.";
       reference
-        "G.709.1 Amd4 draft 2023-03 and OTN based mapping FlexO-x (G.709 2022-11)";
+        "G.709.1 Amd1 2024-08 section 9.3.3.4 and 9.2.6";
       leaf fcc-channel-type {
         type enumeration {
           enum fcc0 {
