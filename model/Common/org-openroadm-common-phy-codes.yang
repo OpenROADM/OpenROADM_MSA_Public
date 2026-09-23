@@ -326,6 +326,21 @@ module org-openroadm-common-phy-codes {
     base client-phy-code-identity;
   }
 
+  identity ethernet-1.6TBASE-DR8 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-DR8-2 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-KR8 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-CR8 {
+    base client-phy-code-identity;
+  }
   // Common names not defined in IEEE 802.3
 
   identity ethernet-1000BASE-EX {
