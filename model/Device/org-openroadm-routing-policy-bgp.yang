@@ -372,8 +372,8 @@ module org-openroadm-routing-policy-bgp {
 
       type string {
         pattern 'route\-target:'
-              + '(4[0-2][0-9][0-4][0-9][0-6][0-7][0-2][0-9][0-6]|'
-              + '[1-3][0-9]{9}|[1-9]([0-9]{1,7})?[0-9]|[0-9])'
+              + '(4[0-2][0-9][0-4][0-9][0-6][0-7][0-2][0-9][0-5]|'
+              + '[1-3][0-9]{9}|[1-9]([0-9]{1,7})?[0-9]|[0-9]):'
               + '(6[0-5][0-5][0-3][0-5]|[1-5][0-9]{4}|'
               + '[1-9][0-9]{1,4}|[0-9])';
         /*
@@ -396,7 +396,7 @@ module org-openroadm-routing-policy-bgp {
         /*
          * description
          *   "Type 0x01, Sub-Type 0x03: Route-Origin
-         *    route-target:(ASN):(local-admin)
+         *    route-origin:(ASN):(local-admin)
          *    2 octets global administrator and 4 octets local
          *    administrator.";
          * reference
@@ -414,8 +414,8 @@ module org-openroadm-routing-policy-bgp {
               + '[1-9][0-9]{1,4}|[0-9])';
         /*
          * description
-         *   "Type 0x01, Sub-Type 0x03: Route-Target
-         *    route-target:(IPv4):(local-admin)
+         *   "Type 0x01, Sub-Type 0x03: Route-Origin
+         *    route-origin:(IPv4):(local-admin)
          *    4 octets IP address global administrator and 2 octets
          *    local administrator.";
          * reference
@@ -426,8 +426,8 @@ module org-openroadm-routing-policy-bgp {
 
       type string {
         pattern 'route\-origin:'
-              + '(4[0-2][0-9][0-4][0-9][0-6][0-7][0-2][0-9][0-6]|'
-              + '[1-3][0-9]{9}|[1-9]([0-9]{1,7})?[0-9]|[0-9])'
+              + '(4[0-2][0-9][0-4][0-9][0-6][0-7][0-2][0-9][0-5]|'
+              + '[1-3][0-9]{9}|[1-9]([0-9]{1,7})?[0-9]|[0-9]):'
               + '(6[0-5][0-5][0-3][0-5]|[1-5][0-9]{4}|'
               + '[1-9][0-9]{1,4}|[0-9])';
         /*
