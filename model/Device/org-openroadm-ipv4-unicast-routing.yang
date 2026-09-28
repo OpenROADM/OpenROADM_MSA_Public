@@ -204,7 +204,7 @@ module org-openroadm-ipv4-unicast-routing {
           description
             "Configuration of next-hop.";
           uses org-openroadm-routing:next-hop-content {
-            augment "next-hop-options" {
+            augment "next-hop-options/simple-next-hop" {
               description
                 "Add next-hop address case.";
               leaf next-hop-address {

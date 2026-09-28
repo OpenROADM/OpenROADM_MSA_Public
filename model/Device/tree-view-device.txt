@@ -1443,10 +1443,9 @@ module: org-openroadm-device
      |     |     |  |        +--rw (org-openroadm-ipv4-unicast-routing:next-hop-options)
      |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:simple-next-hop)
      |     |     |  |           |  +--rw org-openroadm-ipv4-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
+     |     |     |  |           |  +--rw org-openroadm-ipv4-unicast-routing:next-hop-address?     inet:ipv4-address
      |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:special-next-hop)
-     |     |     |  |           |  +--rw org-openroadm-ipv4-unicast-routing:special-next-hop?     enumeration
-     |     |     |  |           +--:(org-openroadm-ipv4-unicast-routing:next-hop-address)
-     |     |     |  |              +--rw org-openroadm-ipv4-unicast-routing:next-hop-address?     inet:ipv4-address
+     |     |     |  |              +--rw org-openroadm-ipv4-unicast-routing:special-next-hop?     enumeration
      |     |     |  +--rw org-openroadm-ipv6-unicast-routing:ipv6
      |     |     |     +--rw org-openroadm-ipv6-unicast-routing:route* [destination-prefix]
      |     |     |        +--rw org-openroadm-ipv6-unicast-routing:destination-prefix    inet:ipv6-prefix
@@ -1455,10 +1454,9 @@ module: org-openroadm-device
      |     |     |           +--rw (org-openroadm-ipv6-unicast-routing:next-hop-options)
      |     |     |              +--:(org-openroadm-ipv6-unicast-routing:simple-next-hop)
      |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:outgoing-interface?   -> /org-openroadm-device:org-openroadm-device/org-openroadm-routing:routing/routing-instance/interfaces/interface
+     |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:next-hop-address?     inet:ipv6-address
      |     |     |              +--:(org-openroadm-ipv6-unicast-routing:special-next-hop)
-     |     |     |              |  +--rw org-openroadm-ipv6-unicast-routing:special-next-hop?     enumeration
-     |     |     |              +--:(org-openroadm-ipv6-unicast-routing:next-hop-address)
-     |     |     |                 +--rw org-openroadm-ipv6-unicast-routing:next-hop-address?     inet:ipv6-address
+     |     |     |                 +--rw org-openroadm-ipv6-unicast-routing:special-next-hop?     enumeration
      |     |     +--rw rt-bgp:bgp
      |     |     |  +--rw rt-bgp:global
      |     |     |  |  +--rw rt-bgp:as            inet:as-number
