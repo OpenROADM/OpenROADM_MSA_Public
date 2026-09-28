@@ -604,7 +604,6 @@ module org-openroadm-routing-policy-bgp {
                  attribute.";
             }
           }
-          default ext-community;
           description
             "Extended communities may be matched by the ext-community
              RIB attribute, or the ext-community-raw RIB attribute.

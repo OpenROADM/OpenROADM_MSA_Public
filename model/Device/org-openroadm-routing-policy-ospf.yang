@@ -115,7 +115,6 @@ module org-openroadm-routing-policy-ospf {
               "Set the external type 2 metric";
           }
         }
-        default "type-2-metric";
         description
           "Specify the type of metric which is to be set by the policy";
       }

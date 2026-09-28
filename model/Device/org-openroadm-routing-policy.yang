@@ -239,7 +239,6 @@ module org-openroadm-routing-policy {
              member of the defined set.";
         }
       }
-      default "any";
       description
         "Optional parameter that governs the behavior of the
          match operation.";
@@ -263,7 +262,6 @@ module org-openroadm-routing-policy {
              any member of the defined set.";
         }
       }
-      default "any";
       description
         "Optional parameter that governs the behavior of the
          match operation.  This leaf only supports
