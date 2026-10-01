@@ -1769,10 +1769,17 @@ module org-openroadm-device {
         description
           "List of ports associated with the SRG subgroup.
           If all ports of the circuit-pack belong to the SRG subgroup then the port-name leaf-list can be omitted.";
-        uses port-name {
+        uses circuit-pack-name {
           refine "circuit-pack-name" {
             mandatory true;
           }
+        }
+        leaf-list port-list {
+          type leafref {
+            path "/org-openroadm-device:org-openroadm-device/org-openroadm-device:circuit-packs[org-openroadm-device:circuit-pack-name=current()/../circuit-pack-name]/org-openroadm-device:ports/org-openroadm-device:port-name";
+          }
+          description
+            "port list";
         }
       }
       uses mc-capabilities-grp;
