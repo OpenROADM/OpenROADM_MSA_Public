@@ -1,4 +1,5 @@
 module org-openroadm-otn-common-types {
+  yang-version 1.1;
   namespace "http://org/openroadm/otn-common-types";
   prefix org-openroadm-otn-common-types;
 
@@ -49,6 +50,15 @@ module org-openroadm-otn-common-types {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0; This is revision statement is not present in the public released version
+      of the MSA. Equipments using 17.1.0 in production made these changes locally";
+  }
   revision 2024-12-13 {
     description
       "Version 16.1";

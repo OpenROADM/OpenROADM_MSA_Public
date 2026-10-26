@@ -1,18 +1,19 @@
 module org-openroadm-routing-constraints {
+  yang-version 1.1;
   namespace "http://org/openroadm/routing/constraints";
   prefix org-openroadm-routing-constraints;
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
-    revision-date 2025-12-12;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -48,6 +49,10 @@ module org-openroadm-routing-constraints {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2025-12-12 {
     description
       "Version 18.1.0";

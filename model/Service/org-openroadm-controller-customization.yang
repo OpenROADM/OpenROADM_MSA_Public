@@ -5,19 +5,19 @@ module org-openroadm-controller-customization {
 
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -53,6 +53,10 @@ module org-openroadm-controller-customization {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -350,6 +354,13 @@ module org-openroadm-controller-customization {
         description
           "All the services that pass-through the link (terminate on neither end)
           are allowed and regenerator locations are considered as pass-through";
+      }
+      enum slotwidth-service-rate {
+        value 3;
+        description
+          "Only services with a slot-width and service-rate equal to the defined values are allowed
+           to use the link, whereas services with a slot-width and service-rate higher/lower
+           than the defined values are forbidden to use the link";
       }
     }
   }
@@ -731,6 +742,19 @@ module org-openroadm-controller-customization {
             type restriction-scope;
             default "all";
           }
+          list slot-width-service-rate-restriction {
+            when "../link-restriction-type = 'slotwidth-service-rate'";
+            description
+              "Service rate and slot width threshold to apply when the link-restriction-type is set to
+               slotwidth-service-rate.";
+            key "index";
+            leaf index {
+              type uint16;
+              description
+                "Identifier for each element of tuple (service-rate, slot-width)";
+            }
+            uses sw-service-rate-restriction;
+          }
         }
       }
       container supporting-service-restriction {
@@ -751,6 +775,19 @@ module org-openroadm-controller-customization {
               Default scope is set to all RPCs";
             type restriction-scope;
             default "all";
+          }
+          list slot-width-service-rate-restriction {
+            when "../supporting-service-restriction-type = 'slotwidth-service-rate'";
+            description
+              "Service rate and slot width threshold to apply when the supporting-service-restriction-type is set to
+               slotwidth-service-rate.";
+            key "index";
+            leaf index {
+              type uint16;
+              description
+                "Identifier for each element of tuple (service-rate, slot-width)";
+            }
+            uses sw-service-rate-restriction;
           }
         }
       }
@@ -931,4 +968,26 @@ module org-openroadm-controller-customization {
       }
     }
   }
+
+  grouping sw-service-rate-restriction {
+    description
+      "Defines a bandwidth and service-rate restriction pair used in the context of link-restriction/supporting-service-restriction
+      with slotwidth-service-rate type";
+    leaf slot-width-restriction {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "This restriction applies when the link-restriction-type is set to
+        slotwidth-service-rate. Services with a slot-width equal to the value will be
+        restricted to use the link.";
+    }
+    leaf service-rate-restriction {
+      type uint16;
+      units "Gbps";
+      description
+        "Service-rate restriction to apply when the link-restriction-type is set to
+        slotwidth-service-rate. Services with a service-rate equal to the value will be
+        restricted to use the link";
+    }
+  }
+
 }

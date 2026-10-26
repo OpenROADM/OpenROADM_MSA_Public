@@ -1,4 +1,5 @@
 module org-openroadm-key-chain {
+  yang-version 1.1;
   namespace "http://org/openroadm/key-chain";
   prefix org-openroadm-key-chain;
 
@@ -31,6 +32,10 @@ module org-openroadm-key-chain {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1, added explicit namespaces to must/when statements";
+  }
   revision 2019-11-29 {
     description
       "Version 6.1.0";
@@ -61,7 +66,7 @@ module org-openroadm-key-chain {
 
   typedef key-chain-ref {
     type leafref {
-      path "/org-openroadm-key-chain:key-chains/key-chain-list/org-openroadm-key-chain:name";
+      path "/org-openroadm-key-chain:key-chains/org-openroadm-key-chain:key-chain-list/org-openroadm-key-chain:name";
     }
     description
       "This type is used by data models that need to reference

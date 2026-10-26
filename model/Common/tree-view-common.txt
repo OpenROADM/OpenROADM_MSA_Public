@@ -25,6 +25,8 @@ module: org-openroadm-alarm
         |  |     |  +--ro srg-number                uint16
         |  |     +--:(degree)
         |  |     |  +--ro degree-number             uint16
+        |  |     +--:(fxc)
+        |  |     |  +--ro fxc-number                uint16
         |  |     +--:(service)
         |  |     |  +--ro service-name              string
         |  |     +--:(interface)
@@ -114,6 +116,8 @@ module: org-openroadm-alarm
        |  |     |  +--ro srg-number                uint16
        |  |     +--:(degree)
        |  |     |  +--ro degree-number             uint16
+       |  |     +--:(fxc)
+       |  |     |  +--ro fxc-number                uint16
        |  |     +--:(service)
        |  |     |  +--ro service-name              string
        |  |     +--:(interface)
@@ -394,6 +398,8 @@ module: org-openroadm-pm
     |  |  |     |  +---w srg-number                uint16
     |  |  |     +--:(degree)
     |  |  |     |  +---w degree-number             uint16
+    |  |  |     +--:(fxc)
+    |  |  |     |  +---w fxc-number                uint16
     |  |  |     +--:(service)
     |  |  |     |  +---w service-name              string
     |  |  |     +--:(interface)

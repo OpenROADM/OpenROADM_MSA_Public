@@ -1,4 +1,5 @@
 module org-openroadm-routing-policy {
+  yang-version 1.1;
   namespace "http://org/openroadm/routing-policy";
   prefix rt-pol;
 
@@ -12,7 +13,7 @@ module org-openroadm-routing-policy {
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -39,6 +40,10 @@ module org-openroadm-routing-policy {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -234,7 +239,6 @@ module org-openroadm-routing-policy {
              member of the defined set.";
         }
       }
-      default "any";
       description
         "Optional parameter that governs the behavior of the
          match operation.";
@@ -258,7 +262,6 @@ module org-openroadm-routing-policy {
              any member of the defined set.";
         }
       }
-      default "any";
       description
         "Optional parameter that governs the behavior of the
          match operation.  This leaf only supports

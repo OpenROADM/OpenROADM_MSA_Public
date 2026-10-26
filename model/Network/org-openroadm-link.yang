@@ -9,31 +9,35 @@ module org-openroadm-link {
   }
   import org-openroadm-equipment-states-types {
     prefix org-openroadm-equipment-states-types;
-    revision-date 2019-11-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-amplifier {
     prefix org-openroadm-amplifier;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
+  }
+  import org-openroadm-common-state-types {
+    prefix org-openroadm-common-state-types;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -70,6 +74,10 @@ module org-openroadm-link {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -265,6 +273,26 @@ module org-openroadm-link {
           description
             "Total PMD";
         }
+        leaf type {
+          default "fiber";
+          type enumeration {
+            enum fiber {
+              value 0;
+              description
+                "Represents span as fiber";
+            }
+            enum bypass {
+              value 1;
+              description
+                "Indicates type as a bypass site representation with associated clli";
+            }
+          }
+        }
+        leaf clli {
+          type string;
+          description
+            "Common Language Location Identifier of the bypass site";
+        }
         leaf cd {
           type org-openroadm-common-link-types:fiber-cd;
           description
@@ -289,6 +317,7 @@ module org-openroadm-link {
       }
     }
     uses org-openroadm-network-types:future-SRLGs {
+      status deprecated;
       augment "future-SRLGs" {
         leaf-list SRLG-Id {
           type leafref {
@@ -370,7 +399,7 @@ module org-openroadm-link {
                 type org-openroadm-equipment-states-types:admin-states;
               }
               leaf operational-state {
-                type org-openroadm-equipment-states-types:states;
+                type org-openroadm-common-state-types:state;
               }
             }
           }

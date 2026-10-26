@@ -13,39 +13,43 @@ module org-openroadm-network-topology {
   }
   import org-openroadm-network-types {
     prefix org-openroadm-network-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-srg {
     prefix srg;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-degree {
     prefix dgr;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-xponder {
     prefix xpdr;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-external-pluggable {
     prefix plg;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-link {
     prefix link;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-network {
     prefix cnet;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
-    revision-date 2025-12-12;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-topology-types {
     prefix org-openroadm-network-topology-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
+  }
+  import org-openroadm-fxc {
+    prefix fxc;
+    revision-date 2026-07-21;
   }
 
   organization
@@ -81,6 +85,10 @@ module org-openroadm-network-topology {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -236,11 +244,11 @@ module org-openroadm-network-topology {
             (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology and
             (../cnet:node-type = 'DEGREE' or ../cnet:node-type = 'SRG' or ../cnet:node-type = 'TPDR' or ../cnet:node-type = 'SWITCH' or
              ../cnet:node-type = 'REGEN' or ../cnet:node-type = 'REGEN-UNI' or ../cnet:node-type = 'EXT-PLUGGABLE' or
-             ../cnet:node-type = 'MUXPDR'))" {
+             ../cnet:node-type = 'MUXPDR' or ../cnet:node-type = 'FXC'))" {
         error-message "Invalid node type for openroadm-topology";
         description
           "The valid node types in the ROADM topology are 'SRG', 'DEGREE',
-           'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE' and 'MUXPDR'";
+           'TPDR', 'SWITCH', 'REGEN', 'REGEN-UNI', 'EXT-PLUGGABLE', 'MUXPDR' and 'FXC'";
       }
     }
   }
@@ -270,6 +278,10 @@ module org-openroadm-network-topology {
       must "/nd:networks/nd:network/nd:node/cnet:node-type != 'EXT-PLUGGABLE' or (../../cnet:node-type = 'EXT-PLUGGABLE' and ../cnet:tp-type = 'EXT-PLUGGABLE-TP')" {
         error-message "Invalid TP for node type 'EXT-PLUGGABLE'";
       }
+      must "/nd:networks/nd:network/nd:node/cnet:node-type != 'FXC' or (../../cnet:node-type = 'FXC' and
+            (../cnet:tp-type = 'FXC-RX-FXP' or ../cnet:tp-type = 'FXC-TX-FXP' or ../cnet:tp-type = 'FXC-TXRX-FXP'))" {
+        error-message "Invalid TP for node type 'FXC'";
+      }
     }
   }
 
@@ -279,12 +291,13 @@ module org-openroadm-network-topology {
             (/nd:networks/nd:network/nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology and
             (../cnet:link-type = 'ROADM-TO-ROADM' or ../cnet:link-type = 'ADD-LINK' or ../cnet:link-type = 'DROP-LINK' or
              ../cnet:link-type = 'EXPRESS-LINK' or ../cnet:link-type = 'XPONDER-INPUT' or ../cnet:link-type = 'XPONDER-OUTPUT' or
-             ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT' or ../cnet:link-type = 'TURNBACK-LINK'))" {
+             ../cnet:link-type = 'REGEN-INPUT' or ../cnet:link-type = 'REGEN-OUTPUT' or ../cnet:link-type = 'TURNBACK-LINK' or
+             ../cnet:link-type = 'FXC-TO-ROADM' or ../cnet:link-type = 'ROADM-TO-FXC' or ../cnet:link-type = 'FXC-TO-FXC'))" {
         error-message "Invalid link type for openroadm-topology";
         description
           "The valid link types in the ROADM topology are 'ROADM-TO-ROADM', 'ADD-LINK',
            'DROP-LINK', 'EXPRESS-LINK', 'XPONDER-INPUT', 'XPONDER-OUTPUT', 'REGEN-INPUT',
-           'REGEN-OUTPUT', 'TURNBACK-LINK'";
+           'REGEN-OUTPUT', 'TURNBACK-LINK', 'FXC-TO-ROADM', 'ROADM-TO-FXC', 'FXC-TO-FXC'";
       }
     }
   }
@@ -328,6 +341,12 @@ module org-openroadm-network-topology {
       description
         "Topology-related attributes for Xponder nodes";
       uses xpdr:xpdr-topo-node-attributes;
+    }
+    container fxc-attributes {
+      when "../cnet:node-type = 'FXC'";
+      description
+       "Topology-related attributes for fxc nodes";
+       uses fxc:fxc-topo-node-attributes;
     }
   }
 
@@ -416,15 +435,17 @@ module org-openroadm-network-topology {
   augment "/nd:networks/nd:network/nwt:link" {
     when '../nd:network-types/cnet:openroadm-common-network/topo:openroadm-topology';
     description
-      "This augmentation defines ROADM link types in the ROADM topology";
+      "This augmentation defines ROADM, FXC link types in the ROADM topology";
     leaf amplified {
-      when "../cnet:link-type = 'ROADM-TO-ROADM'";
+      when "../cnet:link-type = 'ROADM-TO-ROADM' or
+            ../cnet:link-type = 'ROADM-TO-FXC' or ../cnet:link-type = 'FXC-TO-ROADM' or ../cnet:link-type = 'FXC-TO-FXC'";
       type boolean;
       description
-        "defines whether an ROADM-TO-ROADM Link includes line amplifiers or not";
+        "defines whether an ROADM-TO-ROADM, ROADM-TO-FXC, FXC-TO-ROADM, FXC-TO-FXC Link includes line amplifiers or not";
     }
     container OMS-attributes {
-      when "../cnet:link-type = 'ROADM-TO-ROADM'";
+      when "../cnet:link-type = 'ROADM-TO-ROADM' or
+            ../cnet:link-type = 'ROADM-TO-FXC' or ../cnet:link-type = 'FXC-TO-ROADM' or ../cnet:link-type = 'FXC-TO-FXC'";
       description
         "";
       container span {

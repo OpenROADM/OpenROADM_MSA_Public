@@ -9,19 +9,19 @@ module org-openroadm-network-types {
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-port-types {
     prefix org-openroadm-port-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -55,6 +55,10 @@ module org-openroadm-network-types {
      ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
      POSSIBILITY OF SUCH DAMAGE.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -235,6 +239,9 @@ module org-openroadm-network-types {
       enum ILA {
         value 18;
       }
+      enum FXC{
+        value 19;
+      }
     }
   }
 
@@ -297,6 +304,15 @@ module org-openroadm-network-types {
       enum DEGREE-TX-PP {
         value 19;
       }
+      enum FXC-RX-FXP {
+        value 20;
+      }
+      enum FXC-TX-FXP {
+        value 21;
+      }
+      enum FXC-TXRX-FXP {
+        value 22;
+      }
     }
   }
 
@@ -346,6 +362,15 @@ module org-openroadm-network-types {
         value 13;
         description
           "A stack link that connects one xponder network port and another xponder client port";
+      }
+      enum FXC-TO-ROADM {
+        value 14;
+      }
+      enum ROADM-TO-FXC {
+        value 15;
+      }
+      enum FXC-TO-FXC {
+        value 16;
       }
     }
   }

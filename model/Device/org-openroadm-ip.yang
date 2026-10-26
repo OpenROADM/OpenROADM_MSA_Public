@@ -1,10 +1,11 @@
 module org-openroadm-ip {
+  yang-version 1.1;
   namespace "http://org/openroadm/ip";
   prefix org-openroadm-ip;
 
   import org-openroadm-device {
     prefix org-openroadm-device;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import ietf-inet-types {
     prefix inet;
@@ -39,6 +40,10 @@ module org-openroadm-ip {
      Section 4.c of the IETF Trust's Legal Provisions Relating
      to IETF Documents (http://trustee.ietf.org/license-info).";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";

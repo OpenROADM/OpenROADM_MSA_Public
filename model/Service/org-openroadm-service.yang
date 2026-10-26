@@ -9,51 +9,55 @@ module org-openroadm-service {
   }
   import org-openroadm-routing-constraints {
     prefix org-openroadm-routing-constraints;
-    revision-date 2025-12-12;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-types {
     prefix org-openroadm-common-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
+  }
+  import org-openroadm-equipment-states-types {
+    prefix org-openroadm-equipment-states-types;
+    revision-date 2026-09-25;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2026-03-27;
+    revision-date 2026-09-25;
   }
   import org-openroadm-resource {
     prefix org-openroadm-resource;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-service-types {
     prefix org-openroadm-common-service-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-controller-customization {
     prefix org-openroadm-controller-customization;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-topology {
     prefix org-openroadm-topology;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-operational-mode-catalog {
     prefix org-openroadm-operational-mode-catalog;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-network-resource {
     prefix org-openroadm-network-resource;
-    revision-date 2025-12-12;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -89,6 +93,10 @@ module org-openroadm-service {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -517,6 +525,123 @@ module org-openroadm-service {
     }
   }
 
+  grouping transceiver-provisioning-parameters {
+    leaf central-frequency {
+      type org-openroadm-common-optical-channel-types:frequency-THz;
+      description
+        "Sub-service central frequency";
+    }
+    leaf width {
+      type org-openroadm-common-optical-channel-types:frequency-GHz;
+      description
+        "Sub service total width (Shall be a multiple of 6.25GHz slot width), providing spectrum occupation
+         of the sub-service";
+    }
+    leaf operational-mode {
+      type string;
+      description
+        "Operational mode of the transceiver associated with the sub-service";
+    }
+    leaf media-interface-id {
+      type org-openroadm-common-pluggable-types:media-id-type;
+      description
+        "Media interface IDs of the transceiver associated with the sub-service, as defined in the
+         SNIA SFF-8024 document";
+    }
+    leaf associated-oui {
+      type org-openroadm-common-types:oui-type;
+      description
+        "IEEE Organizationally Unique Identifier (OUI)";
+    }
+  }
+
+  grouping paired-services-group {
+    list paired-service {
+      key "sub-service-index";
+      description
+        "This lists all paired-services associated with an End-to-End service. These paired services are
+         potentially handled and provisioned through different controller instances.";
+      leaf sub-service-index {
+        type uint16;
+        description
+          "Sub-service index allows identifying the order of the sub-service in the sequence of
+           services that compose the the End to End service";
+      }
+      leaf sub-service-name {
+        type string;
+        description
+          "The sub-service name";
+      }
+      leaf sub-service-uuid {
+        type yang:uuid;
+        description
+          "Provides a unique identifier of the sub-service";
+      }
+      leaf sub-service-type {
+        type org-openroadm-common-service-types:sub-service-type;
+        description
+          "The sub-service type which defines whether it is an access sub-service (UNI-NNI) or a transit
+           sub-service (NNI-NNI)";
+      }
+      container path-optical-characteristics {
+        description
+          "Provides the characteristics of the path associated with a sub-service, following a path computation.
+           An End-to-End view can be consolidated considering the optical charateristics of the different paths
+           for each sub-service that compose the End-to-End service.
+           The path represents a portion of the full path associated with the End-to-End service.
+           As such, parameters are defined as optional, as their relevance depends on the context.
+           This includes parameters required for the provisioning and resource reservation, as well as
+           parameters corresponding to the impairments associated with the optical section.";
+         uses transceiver-provisioning-parameters;
+         leaf administrative-state {
+           type org-openroadm-equipment-states-types:admin-states;
+         }
+         leaf operational-state {
+           type org-openroadm-common-service-types:extended-state;
+         }
+         container atoz-direction {
+           description
+             "Describes impairments associated with the path of the sub-service, as well as
+              expected power range at the input of the WSS-NNI port and potential power range
+              at the output of the WSS-NNI port for A to Z direction.";
+           uses org-openroadm-resource:partial-path-computation-outputs;
+         }
+         container ztoa-direction {
+           description
+             "Describes impairments associated with the path of the sub-service, as well as
+              expected power range at the input of the WSS-NNI port and potential power range
+              at the output of the WSS-NNI port for Z to A direction.";
+              uses org-openroadm-resource:partial-path-computation-outputs;
+         }
+      }
+    }
+  }
+
+  grouping sub-service-main-parameters {
+    leaf e2e-service-uuid {
+      type yang:uuid;
+      description
+        "Provides a unique identifier of the End-toEnd service";
+    }
+    leaf sub-service-index {
+      type uint16;
+        description
+         "Sub-service index allows identifying the order of the sub-service in the sequence of
+         services that compose the the End to End service";
+    }
+    leaf sub-service-uuid {
+      type yang:uuid;
+      description
+        "Provides a unique identifier of the sub-service";
+    }
+    leaf sub-service-type {
+      type org-openroadm-common-service-types:sub-service-type;
+      description
+        "The sub-service type which defines whether it is an access sub-service (UNI-NNI) or a transit
+         sub-service (NNI-NNI)";
+    }
+  }
+
   rpc service-create {
     description
       "Whether this request passed initial validation and was accepted for processing. Once the request
@@ -548,6 +673,28 @@ module org-openroadm-service {
       leaf connection-type {
         type org-openroadm-common-service-types:connection-type;
         mandatory true;
+      }
+      leaf multi-domain-composite-service {
+        type boolean;
+        description
+          "Used in the scope of cross-domain service creation to create a sub-service";
+      }
+      container multi-domain-composite-service-info {
+        when "../multi-domain-composite-service = 'true'" {
+        description
+          "In the scope of cross-domain service creation, multi-domain-composite-service set to true triggers
+           the container that gathers main sub-service information";
+        }
+        uses sub-service-main-parameters;
+      }
+      container paired-services {
+        when "../multi-domain-composite-service = 'true'" {
+        description
+          "Describes a group of paired services in the context of cross-domain service creation, where one end to end
+           service is built from several sub-services, each of them being associated with one domain. All sub-services
+           belongs to the the same protocol layer.";
+        }
+        uses paired-services-group;
       }
       uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
@@ -981,6 +1128,19 @@ module org-openroadm-service {
         type org-openroadm-common-service-types:connection-type;
         mandatory true;
       }
+      leaf multi-domain-composite-service {
+        type boolean;
+        description
+          "Used in the scope of cross-domain service creation to create a sub-service";
+      }
+      container multi-domain-composite-service-info {
+        when "../multi-domain-composite-service = 'true'" {
+        description
+          "In the scope of cross-domain service creation, multi-domain-composite-service set to true triggers
+           the container that gathers main sub-service information";
+        }
+        uses sub-service-main-parameters;
+      }
       uses org-openroadm-common-service-types:resource-status;
       container service-a-end {
         uses org-openroadm-common-service-types:service-endpoint;
@@ -1312,9 +1472,9 @@ module org-openroadm-service {
             leaf version-number {
               type uint8;
               description
-                "If the service-reconfigure is successful, version-number(s) for the service echoes the version-number(s)
-                provided in the input. If the service-reconfigure is not successful,
-                the output includes the version-number(s) of the service prior to the RPC request";
+                "If the service-reconfigure is successful, version-number(s) for the service echoes the
+                 version-number(s) provided in the input. If the service-reconfigure is not successful,
+                 the output includes the version-number(s) of the service prior to the RPC request";
             }
       }
       uses org-openroadm-common-service-types:response-parameters;
@@ -1834,6 +1994,168 @@ module org-openroadm-service {
     }
   }
 
+  rpc nni-port-power-control {
+    description
+      "This rpc is used in the scope of Cross-domain service creation, to forward to the RNC, information on
+       expected power settings from/to remote WSS NNI Port.
+       It includes expected input-power levels to remote WSS and output-power range/capabilities of remote WSS.
+       Output shall provide information to higher level controller, on the capability of the local WSS to adjust
+       output-power levels in the expected range, and to accept input-power levels supported by the remote WSS.";
+    input {
+      leaf sub-service-name {
+        type string;
+        description
+          "Name of the sub-service to be created by the RNC in the second step of sub-service
+          creation. Identifies the access/transit sub-service to be created in the ROADM network.";
+      }
+      leaf common-id {
+        type string;
+        description
+            "Identifier used by the RNC in the first step of sub-service creation
+            relying on temp-service-create rpc. Identifies the temporary service for which
+            resources have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the sub-service used by the RNC during the sub-service creation";
+      }
+      uses sub-service-main-parameters;
+      uses org-openroadm-common-service-types:sdnc-request-header;
+      leaf max-input-power-capability-from-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "The maximum input power to local WSS that remote WSS can provide";
+      }
+      leaf min-input-power-capability-from-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "The minimum input power to local WSS that remote WSS can provide";
+      }
+      leaf measured-input-power-to-local-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "The input power to local WSS as measured by remote WSS";
+      }
+      leaf max-admissible-output-power-to-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "maximum output-power tolerable on remote WSS";
+      }
+      leaf min-admissible-output-power-to-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "minimum output-power tolerable on remote WSS";
+      }
+      leaf target-output-power-to-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "Expected optimum output-power to remote WSS";
+      }
+      leaf measured-output-power-to-remote-wss {
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "Output-power as measured by remote WSS. This parameters might be filled only after the power
+           has been set by RNC (The RPC is used in different steps of the power control loop).";
+      }
+    }
+    output {
+      leaf input-power-out-of-admissible-range {
+          type boolean;
+          description
+              "Shall be set to true if output-power capabilities of remote WSS is out of the tolerable
+              input-power range of local WSS-NNI port";
+      }
+      leaf input-power-adjustment-needed {
+        when "../input-power-out-of-admissible-range = 'false'" {
+          description
+            "Only needed if a correction can be applied ";
+        }
+        type boolean;
+        description
+          "Shall be set to true if output-power capabilities of remote WSS fits with the tolerable input-power
+           range of local WSS-NNI port, but the power is currently set to a value that must be adjusted";
+      }
+      leaf max-admissible-input-power {
+        when "../input-power-adjustment-needed = 'true'" {
+          description
+            "Only needed if a correction shall be applied ";
+        }
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "maximum input-power tolerated by local WSS";
+      }
+      leaf min-admissible-input-power {
+        when "../input-power-adjustment-needed = 'true'" {
+          description
+            "Only needed if a correction shall be applied ";
+        }
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "minimum input-power tolerated by local WSS";
+      }
+      leaf target-input-power {
+        when "../input-power-adjustment-needed = 'true'" {
+          description
+            "Only needed if a correction shall be applied ";
+        }
+        type org-openroadm-common-link-types:power-dBm;
+        description
+          "Expected optimum input-power to local WSS";
+      }
+      leaf output-power-out-of-admissible-range {
+          type boolean;
+          description
+              "Shall be set to true if required output-power is out of its admissible
+              range of local WSS, which should terminate the process";
+      }
+      leaf nni-port-measured-output-power {
+          type org-openroadm-common-link-types:power-dBm;
+          description
+            "output-power that has been measured by local WSS";
+      }
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
+  rpc sub-service-request-cancel {
+    description
+      "This rpc is used to abort sub-service creation, if the conditions required to set-up the End-to-End
+       service can not be met by one of the involved controller, or a higher layer controller.
+       When the rpc is invoked, any resource temporary reserved for the second step of sub-service creation
+       shall be released : this rpc cancels sub-service path rendering.";
+    input {
+      leaf sub-service-name {
+        type string;
+        description
+          "Name of the sub-service to be created by the RNC in the second step of sub-service
+          creation. Identifies the access/transit sub-service to be created in the ROADM network.";
+      }
+      leaf common-id {
+        type string;
+        description
+            "Identifier used by the RNC in the first step of sub-service creation
+            relying on temp-service-create rpc. Identifies the temporary service for which
+            resources have been reserved after a successful path computation";
+      }
+      leaf version-number {
+        type uint8;
+        description
+          "version-number for the sub-service used by the RNC during the sub-service creation";
+      }
+      uses sub-service-main-parameters;
+      leaf failure-type {
+        type org-openroadm-common-service-types:end-to-end-service-creation-failure;
+        description
+          "Type of failure that occurred during End-to-End service creation";
+      }
+      uses org-openroadm-common-service-types:sdnc-request-header;
+    }
+    output {
+      uses org-openroadm-common-service-types:configuration-response-common;
+    }
+  }
+
   rpc network-re-optimization {
     input {
       leaf service-name {
@@ -2134,6 +2456,7 @@ container optical-module-appsel-table {
   }
 
   rpc service-srlg-get {
+    status deprecated;
     input {
       leaf service-name {
         type string;
@@ -2198,10 +2521,10 @@ container optical-module-appsel-table {
         by the OpenROADM MSA";
     }
     container path-computation-result {
-      when "../notification-type = 'path-computation-result'" {
+      when "../notification-type = 'successful-path-computation-resource-reserved'" {
         description
-          "an optical-tunnel service triggers the leaf providing
-           information on the operationnal mode selected by the pce";
+          "a successful path computation triggers the container that gathers information
+           on path computation results";
       }
       container aToZ {
         description
@@ -2216,6 +2539,35 @@ container optical-module-appsel-table {
           such as rx-estimated-osnr and rx-estimated-gsnr are the values on the A-side";
         uses org-openroadm-resource:common-och-otsi-attributes;
         uses org-openroadm-resource:path-computation-outputs;
+      }
+    }
+    container multi-domain-composite-service-info {
+      when "../notification-type = 'successful-sub-service-path-computation'" {
+        description
+          "In the scope of cross-domain service creation, a successful partial path computation triggers
+           the container that gathers main sub-service information";
+      }
+      uses sub-service-main-parameters;
+    }
+    container sub-service-path-computation-result {
+      when "../notification-type = 'successful-sub-service-path-computation'" {
+        description
+          "In the scope of cross-domain service creation, a successful partial path computation triggers
+           the container that gathers information on path computation results";
+      }
+      container aToZ {
+        description
+          "Describes the settings and the performances for the A to Z path";
+        uses transceiver-provisioning-parameters;
+        uses org-openroadm-resource:service-create-provisioning-outputs;
+        uses org-openroadm-resource:partial-path-computation-outputs;
+      }
+      container zToA {
+        description
+          "Describes the settings and the performances for the Z to A path";
+        uses transceiver-provisioning-parameters;
+        uses org-openroadm-resource:service-create-provisioning-outputs;
+        uses org-openroadm-resource:partial-path-computation-outputs;
       }
     }
   }
@@ -2534,6 +2886,62 @@ container optical-module-appsel-table {
             uses org-openroadm-common-service-types:equipment-info;
           }
         }
+      }
+      uses org-openroadm-common-service-types:intermediate-site-container;
+      list supporting-service-hierarchy {
+        key "service-identifier";
+        uses org-openroadm-common-service-types:service-hierarchy;
+        description
+          "This lists all the supporting services and their respective hierarchy, includes the
+          proposed one";
+      }
+      uses org-openroadm-common-service-types:existing-service-grouping {
+        refine "existing-service-attributes/reusable-existing-resources" {
+          default "all";
+        }
+      }
+    }
+  }
+  container multi-domain-composite-service-list {
+    description
+      "List of multi-domain-composite-services. Can only be created, deleted, modified, etc. using special RPCs.
+       Will only contain one service with a given name. Does not contain historical (deleted or rather
+       those passed their end time) or draft services. If two services exist with the same name
+       (with non-lapping start-end times for example), this table will contain the current one. If
+       only planned services exist for the name, the one with the earliest start time will be present
+      ";
+    list services {
+      key "service-name";
+      leaf version-number {
+        type uint8;
+        description
+          "version number for the given service name";
+      }
+      uses org-openroadm-common-service-types:service {
+        augment "service-a-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+        augment "service-z-end" {
+          list equipment-required {
+            key "equipment-identifier";
+            description
+              "List of required equipment, including equipment type, state and
+              quantity";
+            uses org-openroadm-common-service-types:equipment-info;
+          }
+        }
+      }
+      container multi-domain-composite-service-info {
+        uses sub-service-main-parameters;
+      }
+      container paired-services {
+        uses paired-services-group;
       }
       uses org-openroadm-common-service-types:intermediate-site-container;
       list supporting-service-hierarchy {

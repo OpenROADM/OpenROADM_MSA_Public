@@ -1,18 +1,19 @@
 module org-openroadm-common-attributes {
+  yang-version 1.1;
   namespace "http://org/openroadm/common-attributes";
   prefix org-openroadm-common-attributes;
 
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2024-12-13;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -48,9 +49,18 @@ module org-openroadm-common-attributes {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
+  }
+  revision 2025-05-30 {
+    description
+      "Version 17.1.0; This is revision statement is not present in the public released version
+      of the MSA. Equipments using 17.1.0 in production made these changes locally";
   }
   revision 2024-12-13 {
     description

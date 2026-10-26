@@ -6,7 +6,7 @@ module org-openroadm-ltp-template {
 
   import org-openroadm-common-node-types {
     prefix org-openroadm-common-node-types;
-    revision-date 2021-05-28;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -56,6 +56,10 @@ module org-openroadm-ltp-template {
      Section 4.e of the Trust Legal Provisions and are provided without warranty as
      described in the Simplified BSD License.";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0";
+  }
   revision 2025-03-28 {
     description
       "Version 17.0";

@@ -1,4 +1,5 @@
 module org-openroadm-common-phy-codes {
+  yang-version 1.1;
   namespace "http://org/openroadm/common-phy-codes";
   prefix org-openroadm-common-phy-codes;
 
@@ -35,6 +36,10 @@ module org-openroadm-common-phy-codes {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1";
+  }
   revision 2025-05-30 {
     description
       "Version 17.1.0";
@@ -321,6 +326,21 @@ module org-openroadm-common-phy-codes {
     base client-phy-code-identity;
   }
 
+  identity ethernet-1.6TBASE-DR8 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-DR8-2 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-KR8 {
+    base client-phy-code-identity;
+  }
+
+  identity ethernet-1.6TBASE-CR8 {
+    base client-phy-code-identity;
+  }
   // Common names not defined in IEEE 802.3
 
   identity ethernet-1000BASE-EX {

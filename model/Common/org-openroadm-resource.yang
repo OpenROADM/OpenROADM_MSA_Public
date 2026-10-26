@@ -1,30 +1,31 @@
 module org-openroadm-resource {
+  yang-version 1.1;
   namespace "http://org/openroadm/resource";
   prefix org-openroadm-resource;
 
   import org-openroadm-interfaces {
     prefix org-openroadm-interfaces;
-    revision-date 2022-09-30;
+    revision-date 2026-09-25;
   }
   import org-openroadm-otn-common-types {
     prefix org-openroadm-otn-common-types;
-    revision-date 2024-12-13;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-optical-channel-types {
     prefix org-openroadm-common-optical-channel-types;
-    revision-date 2025-03-28;
+    revision-date 2026-09-25;
   }
   import org-openroadm-resource-types {
     prefix org-openroadm-resource-types;
-    revision-date 2026-03-27;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-link-types {
     prefix org-openroadm-common-link-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
   import org-openroadm-common-pluggable-types {
     prefix org-openroadm-common-pluggable-types;
-    revision-date 2026-05-29;
+    revision-date 2026-09-25;
   }
 
   organization
@@ -60,6 +61,10 @@ module org-openroadm-resource {
       ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE";
 
+  revision 2026-09-25 {
+    description
+      "Version 20.0.0, update to Yang 1.1, added explicit namespaces to must/when statements";
+  }
   revision 2026-05-29 {
     description
       "Version 19.1.0";
@@ -196,18 +201,21 @@ module org-openroadm-resource {
 
   grouping mc-ttp-attributes {
     description
-      "Media channel termination point. Models bandwidth allocation in physical media. Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
+      "Media channel termination point. Models bandwidth allocation in physical media.
+       Network media channels may be provisioned in the spectrum characterized by the frequency limits.";
     leaf min-freq {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+        "Minimum Frequency in THz. Granularity is hardware dependent, based on pixel resolution.
+         eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
     leaf max-freq {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution. eg. ITU 12.5GHz frequency slots. Range covers C+L";
+        "Maximum Frequency in THz. Granularity is hardware dependent, based on pixel resolution.
+         eg. ITU 12.5GHz frequency slots. Range covers C+L";
     }
   }
 
@@ -218,13 +226,15 @@ module org-openroadm-resource {
       type org-openroadm-common-optical-channel-types:frequency-THz;
       config true;
       description
-        "Center Frequency in THz.  This is not constrained by mc-capabilities.  It must fit (when combined with width) inside any containing media channel.";
+        "Center Frequency in THz.  This is not constrained by mc-capabilities.
+         It must fit (when combined with width) inside any containing media channel.";
     }
     leaf width {
       type org-openroadm-common-optical-channel-types:frequency-GHz;
       config true;
       description
-        "Frequency width in GHz.  This is not constrained by mc-capabilities.  It must fit (when combined with frequency) inside any containing media channel.";
+        "Frequency width in GHz.  This is not constrained by mc-capabilities.
+         It must fit (when combined with frequency) inside any containing media channel.";
     }
   }
 
@@ -278,6 +288,109 @@ module org-openroadm-resource {
       description
         "minimum output-power";
     }
+  }
+
+  grouping partial-path-computation-outputs {
+    description
+      "Parameters resulting of a partial path computation, where intermediate results are provided for a sub-service,
+       in the scope of cross-domain service creation where an End-to-End service is built from several sub-services";
+    leaf estimated-osnr-contribution {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated OSNR for the path associated with a sub-service";
+    }
+    leaf estimated-gsnr-contribution {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "estimated Generalized SNR (including non linear impairments) for the path associated with a sub-service";
+    }
+    leaf target-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "target output-power at WSS-NNI port";
+    }
+    leaf max-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "potential maximum output-power at WSS-NNI port";
+    }
+    leaf min-output-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "potential minimum output-power at WSS-NNI port";
+    }
+    leaf target-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "target input-power expected at WSS-NNI port";
+    }
+    leaf max-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "maximum input-power expected at WSS-NNI port";
+    }
+    leaf min-input-power {
+      type org-openroadm-common-link-types:power-dBm;
+      description
+        "minimum input-power expected at WSS-NNI port";
+    }
+    leaf cumulative-pdl {
+      type org-openroadm-common-link-types:ratio-dB;
+      description
+        "Maximum polarization dependent gain/loss introduced on the path";
+    }
+    leaf cumulative-pmd {
+      type org-openroadm-common-link-types:time-ps;
+      description
+        "Maximum polarisation mode dispersion introduced on the path";
+    }
+    leaf cumulative-cd {
+      type org-openroadm-common-link-types:time-ps;
+      description
+        "Cummulative chromatic dispersion introduced on the path";
+    }
+    leaf cumulative-latency {
+      type uint32;
+      units "microseconds";
+      description
+        "Cummulative latency introduced on the path expressed in microseconds";
+    }
+  }
+
+  grouping service-create-provisioning-outputs {
+    description
+      "In the scope of cross-domain service creation; parameters provided after a service create has been exercised,
+       (2nd step after initial temp-service-create has been successfully exercised). Grouping used to add required
+       parameters in the notification service-rpc-result";
+     leaf set-output-power {
+       type org-openroadm-common-link-types:power-dBm;
+       description
+         "Power set at the output of WSS-NNI port";
+     }
+     leaf measured-input-power {
+       type org-openroadm-common-link-types:power-dBm;
+       description
+         "Power measured at the input of WSS-NNI port";
+     }
+     leaf map-name {
+       type string;
+       description
+          "Identifier of the map. For C-band, recommend map-name = 'cband'";
+     }
+     leaf effective-bits {
+       type uint16;
+       description
+         "Number of effective bits in the frequency bitmap.  Note the freq-map bitmap will be padded with 0
+          for byte alignment.";
+     }
+     leaf path-spectrum-occupation {
+       type binary;
+       description
+         "Frequency bitmap. Provides spectrum occupation on the path of the sub-service to ease
+          conflict resolution in case selected central-frequency is not compatible with other sub-services.
+          Bit to 1 indicates that the corresponding spectrum is available and and bit set to 0
+          indicates the corresponding spectrum is unavailable (used or unsupported).";
+     }
   }
 
   grouping och-attributes {
@@ -464,51 +577,51 @@ module org-openroadm-resource {
         "The type of the interface.";
     }
     container ethernet {
-      when "../type = 'ethernetCsmacd'";
+      when "../type = 'org-openroadm-interfaces:ethernetCsmacd'";
       description
         "Ethernet Interfaces";
       uses eth-attributes;
     }
     container mc-ttp {
-      when "../type = 'mediaChannelTrailTerminationPoint'";
+      when "../type = 'org-openroadm-interfaces:mediaChannelTrailTerminationPoint'";
       description
         "Media Channel Trail Termination Point (MC-TTP)";
       uses mc-ttp-attributes;
     }
     container nmc-ctp {
-      when "../type = 'networkMediaChannelConnectionTerminationPoint'";
+      when "../type = 'org-openroadm-interfaces:networkMediaChannelConnectionTerminationPoint'";
       description
         "Network Media Channel Connection Termination Point (NMC-CTP)";
       uses nmc-ctp-attributes;
     }
     container och {
-      when "../type = 'opticalChannel'";
+      when "../type = 'org-openroadm-interfaces:opticalChannel'";
       description
         "Optical Channel (OCh):
          Models the optical channel interfaces for an Optical White Box.";
       uses och-attributes;
     }
     container odu {
-      when "../type = 'otnOdu'";
+      when "../type = 'org-openroadm-interfaces:otnOdu'";
       presence "Attribute Nodes for Optical Data Unit (ODU)";
       description
         "Optical Channel Data Unit (ODU)";
       uses odu-attributes;
     }
     container otu {
-      when "../type = 'otnOtu'";
+      when "../type = 'org-openroadm-interfaces:otnOtu'";
       description
         "Optical Channel Transport Unit (OTU)";
       uses otu-attributes;
     }
     container otsi {
-      when "../type = 'otsi'";
+      when "../type = 'org-openroadm-interfaces:otsi'";
       description
         "OTSI";
       uses otsi-attributes;
     }
     container otsi-group {
-      when "../type = 'otsi-group'";
+      when "../type = 'org-openroadm-interfaces:otsi-group'";
       description
         "OTSI-Group";
       uses otsi-group-attributes;
@@ -562,6 +675,13 @@ module org-openroadm-resource {
         case degree {
           uses org-openroadm-resource-types:degree-number {
             refine "degree-number" {
+              mandatory true;
+            }
+          }
+        }
+        case fxc {
+          uses org-openroadm-resource-types:fxc-number {
+            refine "fxc-number" {
               mandatory true;
             }
           }
